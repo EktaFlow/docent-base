@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AcronymsPage } from '../pages/acronyms/acronyms';
+import { DefinitionsPage } from '../pages/definitions/definitions';
 
 @NgModule({
   declarations: [
     MyApp,
 	HomePage,
-	AcronymsPage
+	AcronymsPage,
+	DefinitionsPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { AcronymsPage } from '../pages/acronyms/acronyms';
   entryComponents: [
     MyApp,
     HomePage,
-	AcronymsPage
+	AcronymsPage,
+	DefinitionsPage
   ],
   providers: [
     StatusBar,
