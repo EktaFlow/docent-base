@@ -12,6 +12,7 @@ import { HomePage } from '../pages/home/home';
 import { Page_2Page } from '../pages/page-2/page-2';
 import { AcronymsPage } from '../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../pages/definitions/definitions';
+import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,13 @@ import { DefinitionsPage } from '../pages/definitions/definitions';
     Page_2Page,
 		HomePage,
 		AcronymsPage,
-		DefinitionsPage
+		DefinitionsPage,
+		HelpmenuComponent
   ],
   imports: [
     BrowserModule,
 	IonicModule.forRoot(MyApp),
-	HttpClientModule
+	HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,7 +34,8 @@ import { DefinitionsPage } from '../pages/definitions/definitions';
     HomePage,
     Page_2Page,
 		AcronymsPage,
-		DefinitionsPage
+		DefinitionsPage,
+		HelpmenuComponent
   ],
   providers: [
     StatusBar,
