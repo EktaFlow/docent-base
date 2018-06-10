@@ -11,13 +11,15 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Page_2Page } from '../pages/page-2/page-2';
 import { AcronymsPage } from '../pages/acronyms/acronyms';
+import { DefinitionsPage } from '../pages/definitions/definitions';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
     Page_2Page,
-  	AcronymsPage
+		HomePage,
+		AcronymsPage,
+		DefinitionsPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { AcronymsPage } from '../pages/acronyms/acronyms';
     MyApp,
     HomePage,
     Page_2Page,
-		AcronymsPage
+		AcronymsPage,
+		DefinitionsPage
   ],
   providers: [
     StatusBar,
