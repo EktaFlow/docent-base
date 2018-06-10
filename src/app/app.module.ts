@@ -11,25 +11,28 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AcronymsPage } from '../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../pages/definitions/definitions';
+import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 
 @NgModule({
   declarations: [
     MyApp,
 	HomePage,
 	AcronymsPage,
-	DefinitionsPage
+	DefinitionsPage,
+	HelpmenuComponent
   ],
   imports: [
     BrowserModule,
 	IonicModule.forRoot(MyApp),
-	HttpClientModule
+	HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
 	AcronymsPage,
-	DefinitionsPage
+	DefinitionsPage,
+	HelpmenuComponent
   ],
   providers: [
     StatusBar,
