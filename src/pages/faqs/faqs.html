@@ -1,9 +1,3 @@
-<!--
-  Generated template for the FaqsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -16,7 +10,12 @@
 <ion-content padding>
 
 	<contacts-dropdown [contacts]="feedbackContacts">
+  </contacts-dropdown>
 
-</contacts-dropdown>
+	
+  <div id="faq-questions-container" *ngFor="let faq of faqInfoStandalone">
+    <faq-dropdown [faq]="faq">
+    </faq-dropdown>
+  </div>
 
 </ion-content>

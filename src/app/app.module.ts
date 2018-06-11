@@ -20,6 +20,7 @@ import { FaqsPage } from '../pages/faqs/faqs';
 // components
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
+import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { ContactsDropdownComponent } from '../components/contacts-dropdown/conta
         DefinitionsPage,
         FaqsPage,
         HelpmenuComponent,
-        ContactsDropdownComponent
+        ContactsDropdownComponent,
+        FaqDropdownComponent 
     ],
     imports: [
         BrowserModule,
@@ -46,7 +48,8 @@ import { ContactsDropdownComponent } from '../components/contacts-dropdown/conta
         DefinitionsPage,
         FaqsPage,
         HelpmenuComponent,
-        ContactsDropdownComponent
+        ContactsDropdownComponent,
+        FaqDropdownComponent 
     ],
     providers: [
         StatusBar,

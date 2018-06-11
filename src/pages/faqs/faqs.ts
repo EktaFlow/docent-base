@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 import { ContactsDropdownComponent } from '../../components/contacts-dropdown/contacts-dropdown';
+import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown';
 
 @IonicPage()
 @Component({

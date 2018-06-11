@@ -1,0 +1,10 @@
+<div>	
+  <div (click)="toggleFaq()" id="faq-question-header" style="border:1px solid black">
+    <span *ngIf="!faqOpen">Triangle Down</span>
+    <span *ngIf="faqOpen">Triangle Up</span>
+    <h2>{{ faq.help_title }}</h2>
+  </div>
+  <div *ngIf="faqOpen">
+    <p>{{ faq.help_text }}</p>
+  </div>
+</div>
