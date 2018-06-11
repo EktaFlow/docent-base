@@ -1,3 +1,30 @@
 contacts-dropdown {
 
 }
+
+.feedback-dropdown-container {
+  margin-bottom: 30px;
+}
+
+.feedback-dropdown-header {
+  display: flex;
+	align-items: center;
+}
+
+.arrow-down {
+  width: 0;
+	height: 0;
+  border-left:  10px solid transparent;
+  border-right: 10px solid transparent;
+	border-top:   10px solid darkblue;
+	margin-right: 6px;
+}
+
+.arrow-up {
+  width: 0;
+	height: 0;
+  border-left:   10px solid transparent;
+  border-right:  10px solid transparent;
+	border-bottom: 10px solid darkblue;
+	margin-right:  6px;
+}

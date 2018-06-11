@@ -1,8 +1,8 @@
-<div>	
-  <div (click)="toggleFaq()" id="faq-question-header" style="border:1px solid black">
-    <span *ngIf="!faqOpen">Triangle Down</span>
-    <span *ngIf="faqOpen">Triangle Up</span>
-    <h2>{{ faq.help_title }}</h2>
+<div class="faq-question-container">	
+  <div (click)="toggleFaq()" class="faq-question-header" >
+		<div *ngIf="!faqOpen" class="arrow-down"></div>
+		<div *ngIf="faqOpen" class="arrow-up"></div>
+		<div class="faq-question-title">{{ faq.help_title }}</div>
   </div>
   <div *ngIf="faqOpen">
     <p>{{ faq.help_text }}</p>
