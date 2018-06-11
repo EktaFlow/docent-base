@@ -1,0 +1,17 @@
+<div>
+		<div id="feedback-dropdown-container">
+			<span *ngIf="!feedbackOpen">Triangle Down</span>
+			<span *ngIf="feedbackOpen">Triangle Up</span>
+			<h2 (click)="toggleFeedback()">Feedback</h2>
+		</div>
+		<div *ngIf="feedbackOpen" id="feedback-dropdown-content">
+			<div *ngFor="let contact of contacts" >
+					<p>{{contact.name}}</p>
+					<p>{{contact.organization}}</p>
+					<p>{{contact.email}}</p>
+			</div>
+		</div>
+
+<!-- Dynamic grid 2 or 3 contacts across? --> 
+
+</div>
