@@ -1,4 +1,5 @@
-.toolbar-class{
+ion-scroll { white-space: nowrap; }
+.toolbar{
     toolbar-background: dark;
     ion-toolbar{
         color:light;
@@ -7,4 +8,25 @@
         margin-left: 10px;
         margin-top: 10px
     }
+}
+.buttons{
+    display: flex;
+    ion-icon{
+        font-size: 30px;
+    }
+}
+.container-toolbar{
+    display: flex;
+    justify-content: space-between;
+    img{
+        padding: 5px;
+    }
+}
+.container-tbbuttons{
+    
+}
+
+.members{
+    display: flex;
+    justify-content: space-evenly;
 }

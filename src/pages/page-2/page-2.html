@@ -1,0 +1,34 @@
+<!--
+  Generated template for the Page_2Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>page_2</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--
+    ## Stuff that kind of works
+    <button icon-only (click)="pageSelect($event)">
+      <ion-icon name="subway"></ion-icon>
+    </button>
+  -->
+  <ion-item>
+  <ion-label>Choose One</ion-label>
+  <ion-select [(ngModel)]="choice" interface="popover">
+    <ion-option value="yes">Yes</ion-option>
+    <ion-option value="no">No</ion-option>
+    <ion-option value="na">N/A</ion-option>
+  </ion-select>
+  </ion-item>
+  <p *ngIf="choice == 'yes'">TestYes</p>
+  <p *ngIf="choice == 'no'">TestNo</p>
+  <p *ngIf="choice == 'na'">TestNA</p>
+</ion-content>
