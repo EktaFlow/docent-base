@@ -1,41 +1,87 @@
-
 <div class="toolbar-class">
   <div>
     <ion-header>
       <ion-navbar color = "dark">
-        <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
-        <button ion-button color="dark" right>
-            Assesment
-        </button>
-        <button ion-button color="dark">
-            Help
-        </button>
+        <div class = "container-toolbar">
+          <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
+          <div class = "container-tbbuttons">
+            <button ion-button color="dark">
+                Assesment
+            </button>
+            <button ion-button color="dark">
+                Help
+            </button>
+          </div>
+        </div>
       </ion-navbar>
     </ion-header>
   </div>
 </div>
-<ion-content>
-  <p>Test</p>
-  <p>Test</p>
+<ion-content padding>
+  <br>
+  <br>
   <h1>Start New Assessment</h1>
   <font color="grey">Use this option to start a new assessment</font>
   <br><br>
   <h6>Team Members</h6>
   <form>
-    <input placeholder="Member Name">
-    <input placeholder="Member Role">
-    <ion-item>
-    <ion-label>Member Name</ion-label>
-    <ion-input type="text" name="title"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Member Role</ion-label>
-      <ion-textarea  name="description"></ion-textarea>
+    <div class="members">
+      <ion-item>
+        <ion-input type="text" name="memName" placeholder = "Member Name"></ion-input>
+        <ion-input type="text" name="memRole" placeholder = "Member Role"></ion-input>
       </ion-item>
+      <div class = "buttons">
+        <button (click)="removeMember()">
+          <ion-icon name="add-circle" color = "secondary"></ion-icon>
+        </button>
+        <button (click)="addMember()">
+          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+        </button>
+      </div>
+    </div>
   </form>
   <h6>Scope</h6>
-  <p>
-    <textarea name="scope_text" placeholder="Enter Scope Here"></textarea>
-  </p>
-
+    <ion-item>
+      <ion-textarea  name="scope" placeholder = "Enter Scope Here"></ion-textarea>
+    </ion-item>
+  <h6>Location</h6>
+  <ion-item>
+    <ion-input  name="location" placeholder = "Enter Location"></ion-input>
+  </ion-item>
+  <h6>Target MRL</h6>
+  <ion-item>
+    <ion-label>Select One</ion-label>
+    <ion-select>
+      <ion-option>1</ion-option>
+      <ion-option>2</ion-option>
+      <ion-option>3</ion-option>
+      <ion-option>4</ion-option>
+      <ion-option>5</ion-option>
+      <ion-option>6</ion-option>
+      <ion-option>7</ion-option>
+      <ion-option>8</ion-option>
+      <ion-option>9</ion-option>
+      <ion-option>10</ion-option>
+    </ion-select>
+  </ion-item>
+  <h6>Level Switching</h6>
+  <ion-item>
+      <ion-select placeholder ="Select One">
+        <ion-option>On</ion-option>
+        <ion-option>Off</ion-option>
+      </ion-select>
+  </ion-item>
+  <h6>Date to Achieve Target MRL</h6>
+  <ion-item>
+    <ion-input  name="dateAchieve" placeholder = "mm/dd/yyyy"></ion-input>
+  </ion-item>
+  <h6>Deskbook Version</h6>
+  <ion-item>
+    <ion-select  name="version" placeholder = "2017">
+      <ion-option>2017</ion-option>
+    </ion-select>
+  </ion-item>
+  <button style="font-size: 30px;" (click)="page_2()">
+      Next <ion-icon name="arrow-dropright" style="font-size: 30px"></ion-icon>
+  </button>
 </ion-content>
