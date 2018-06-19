@@ -14,7 +14,13 @@ $input-border:#dcdcdc;
     background-color:$input-backgroud;
     border-color: $input-border;
 }
-
+%down-arrow{
+    background-position: right 50%;
+    background-repeat: no-repeat;
+    background-image:url('../../assets/imgs/if_icon-arrow-down.png');
+    padding: .5em;
+    padding-right: 1.5em;
+}
 
 .toolbar{
     ion-toolbar{
@@ -77,6 +83,7 @@ $input-border:#dcdcdc;
     textarea{
         @extend %input-style;
         height:80%;
+        resize:none;
     }
     textarea:focus { 
         outline:none;
@@ -108,7 +115,9 @@ $input-border:#dcdcdc;
     justify-content: space-between;
     select{
         @extend %input-style;
+        @extend %down-arrow;
         width:100%;
+        -webkit-appearance: none;
     }
 }
 .bottom{
@@ -118,7 +127,8 @@ $input-border:#dcdcdc;
         @extend %input-style;
         width:100%;
         margin-left: 0px;
-        height: 40%;
+        margin-top:0px;
+        height: 45%;
     }
     input:focus { 
         outline:none;
@@ -127,13 +137,29 @@ $input-border:#dcdcdc;
     }
     select{
         @extend %input-style;
-        padding:0px;
-        height: 40%;
+        @extend %down-arrow;
+        height:45%;
         width:100%;
-        line-height: normal;
+        -webkit-appearance: none;
     }
 }
-.button-bottom{
+.thread-start{
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.choose-threads{
+    display:flex;
+    p{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+}
+
+.existing-assessment{
+    p {
+        word-break: break-all;
+        white-space: normal;
+    }
+    display:flex;
+    justify-content: space-around;
 }
