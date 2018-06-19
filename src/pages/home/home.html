@@ -1,3 +1,5 @@
+<title>Docent</title>
+
 <div class="toolbar-class">
   <div>
     <ion-header>
@@ -25,63 +27,82 @@
   <br><br>
   <h6>Team Members</h6>
   <form>
+    <div class="member-list">
+      <li *ngFor = "let member of members">
+        <pre>{{member.name}}:              {{member.role}}</pre>
+      </li>
+    </div>
     <div class="members">
-      <ion-item>
-        <ion-input type="text" name="memName" placeholder = "Member Name"></ion-input>
-        <ion-input type="text" name="memRole" placeholder = "Member Role"></ion-input>
-      </ion-item>
-      <div class = "buttons">
-        <button (click)="removeMember()">
-          <ion-icon name="add-circle" color = "secondary"></ion-icon>
-        </button>
-        <button (click)="addMember()">
-          <ion-icon name="remove-circle" color = "danger"></ion-icon>
-        </button>
+      <div style="width:48%">
+      <input type="text" name="memName" placeholder = "Member Name" #memName>
+      </div>
+      <div class="member-role-button" style="width:48%">
+        <input type="text" name="memRole" placeholder = "Member Role" #memRole>
+        <div class = "buttons">
+            <button (click)="removeMember()">
+                <ion-icon name="remove-circle" color = "danger"></ion-icon>
+            </button>
+        </div>
       </div>
     </div>
+    <div class = "buttons">
+      <button (click)="addMember(memName.value,memRole.value)">
+          <ion-icon name="add-circle" color = "secondary"></ion-icon>
+      </button>
+    </div>
   </form>
-  <h6>Scope</h6>
-    <ion-item>
-      <ion-textarea  name="scope" placeholder = "Enter Scope Here"></ion-textarea>
-    </ion-item>
-  <h6>Location</h6>
-  <ion-item>
-    <ion-input  name="location" placeholder = "Enter Location"></ion-input>
-  </ion-item>
-  <h6>Target MRL</h6>
-  <ion-item>
-    <ion-label>Select One</ion-label>
-    <ion-select>
-      <ion-option>1</ion-option>
-      <ion-option>2</ion-option>
-      <ion-option>3</ion-option>
-      <ion-option>4</ion-option>
-      <ion-option>5</ion-option>
-      <ion-option>6</ion-option>
-      <ion-option>7</ion-option>
-      <ion-option>8</ion-option>
-      <ion-option>9</ion-option>
-      <ion-option>10</ion-option>
-    </ion-select>
-  </ion-item>
-  <h6>Level Switching</h6>
-  <ion-item>
-      <ion-select placeholder ="Select One">
-        <ion-option>On</ion-option>
-        <ion-option>Off</ion-option>
-      </ion-select>
-  </ion-item>
-  <h6>Date to Achieve Target MRL</h6>
-  <ion-item>
-    <ion-input  name="dateAchieve" placeholder = "mm/dd/yyyy"></ion-input>
-  </ion-item>
-  <h6>Deskbook Version</h6>
-  <ion-item>
-    <ion-select  name="version" placeholder = "2017">
-      <ion-option>2017</ion-option>
-    </ion-select>
-  </ion-item>
-  <button style="font-size: 30px;" (click)="page_2()">
-      Next <ion-icon name="arrow-dropright" style="font-size: 30px"></ion-icon>
-  </button>
+  <div class = "mid-first-page">
+    <div class="scope">
+      <h6>Scope</h6>
+      <textarea name="scope" placeholder = "Enter Scope Here"></textarea>
+    </div>
+    <div class ="target-level-date">
+      <div class = "target-level">
+        <div style = "width:45%;">
+          <h6>Target MRL</h6>
+          <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <div style = "width:45%;">
+          <h6>Level Switching</h6>
+          <select>
+            <option>On</option>
+            <option>Off</option>
+          </select>
+        </div>
+      </div>
+      <h6>Date to Achieve Target MRL</h6>
+      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy">
+    </div>
+  </div>
+  <div class = "bottom">
+    <div style="width:48%;">
+      <h6>Location</h6>
+      <ion-input name="location" placeholder = "Enter Location"></ion-input>
+    </div>
+    <div style="width:48%;">
+      <h6>Deskbook Version</h6>
+      <select name="version">
+        <option>2017</option>
+      </select>
+    </div>
+  </div>
+  <!--
+    Add choose thread
+  -->
+  <div class ="button-bottom">
+    <button ion-button color ="buttonBlue" (click)="page_2()">
+      Start
+    </button>
+  </div>
 </ion-content>

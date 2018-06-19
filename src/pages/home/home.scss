@@ -1,6 +1,22 @@
 ion-scroll { white-space: nowrap; }
+$input-backgroud:#fbfbfb;
+$input-border:#dcdcdc;
+%input-style{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    line-height: 1.42857;
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color:$input-backgroud;
+    border-color: $input-border;
+}
+
+
 .toolbar{
-    toolbar-background: dark;
     ion-toolbar{
         color:light;
     }
@@ -22,11 +38,102 @@ ion-scroll { white-space: nowrap; }
         padding: 5px;
     }
 }
-.container-tbbuttons{
-    
+.member-list{
+    display:flex;
+    flex-direction: column;
+    list-style-type: none;
 }
 
 .members{
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-between;
+    input{
+        @extend %input-style;
+    }
+    input:focus { 
+        outline:none;
+        border-color:#9ecaed;
+        box-shadow:0 0 10px #9ecaed;
+    }
+}
+
+.member-role-button{
+    display:flex;
+    input{
+        width: 100%;
+    }
+}
+
+.mid-first-page{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 15px 0;
+}
+
+.scope{
+    width: 48%;
+    textarea{
+        @extend %input-style;
+        height:80%;
+    }
+    textarea:focus { 
+        outline:none;
+        border-color:#9ecaed;
+        box-shadow:0 0 10px #9ecaed;
+    }
+}
+
+.target-level-date{
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    input{
+        @extend %input-style;
+        width:100%;
+        height: 30%;
+    }
+    input:focus { 
+        outline:none;
+        border-color:#9ecaed;
+        box-shadow:0 0 10px #9ecaed;
+    }
+}
+.target-level{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    select{
+        @extend %input-style;
+        width:100%;
+    }
+}
+.bottom{
+    display: flex;
+    justify-content: space-between;
+    input{
+        @extend %input-style;
+        width:100%;
+        margin-left: 0px;
+        height: 40%;
+    }
+    input:focus { 
+        outline:none;
+        border-color:#9ecaed;
+        box-shadow:0 0 10px #9ecaed;
+    }
+    select{
+        @extend %input-style;
+        padding:0px;
+        height: 40%;
+        width:100%;
+        line-height: normal;
+    }
+}
+.button-bottom{
+    display: flex;
+    flex-direction: row-reverse;
 }
