@@ -22,14 +22,22 @@ $input-border:#dcdcdc;
     padding-right: 1.5em;
 }
 
-.toolbar{
-    ion-toolbar{
-        color:light;
+.toolbar-class{
+    header{
+        color:#000;
     }
     img{
         margin-left: 10px;
         margin-top: 10px
     }
+    hr {
+        height: 1px !important;
+        width: 98% !important;
+        background:grey!important;
+        display: block !important;
+        font-size: 2em !important;
+        visibility: visible !important;
+      }
 }
 .buttons{
     display: flex;

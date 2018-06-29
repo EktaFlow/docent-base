@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { PopoverComponent } from '../../components/popover/popover';
 
 /**
  * Generated class for the Page_2Page page.
@@ -14,14 +15,24 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
   templateUrl: 'page-2.html',
 })
 export class Page_2Page {
-
+  targetMRL = null;
   slectorResponse = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl:PopoverController) {
+    this.targetMRL = navParams.get('data');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Page_2Page');
   }
 
+  pageSelect(event){
+    let popover = this.popoverCtrl.create(PopoverComponent);
+    popover.present({
+      ev: event
+     });
+  }
+  back(){
+    this.navCtrl.pop();
+  }
 }

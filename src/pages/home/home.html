@@ -3,7 +3,7 @@
 <div class="toolbar-class">
   <div>
     <ion-header>
-      <ion-navbar color = "dark">
+      <ion-navbar color ="dark" style="height:100px;">
         <div class = "container-toolbar">
           <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
           <div class = "container-tbbuttons">
@@ -15,11 +15,15 @@
             </button>
           </div>
         </div>
+        <hr>
       </ion-navbar>
     </ion-header>
   </div>
 </div>
 <ion-content padding>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
   <h1>Start New Assessment</h1>
@@ -60,7 +64,7 @@
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL</h6>
-          <select>
+          <select #targetMRL>
             <option value="" disabled selected>Select One...</option>
             <option>1</option>
             <option>2</option>
@@ -116,7 +120,7 @@
       </button>
     </div>
     <div>
-      <button ion-button color ="buttonBlue" (click)="page_2()">
+      <button ion-button color ="buttonBlue" (click)="page_2(targetMRL)">
         Start
       </button>
     </div>
