@@ -86,6 +86,7 @@ page-page-2 {
             justify-content:space-between;
             width:48%;
             height: 100%;
+            list-style-type: none;
         }
         input{
             @extend %input-style;
@@ -121,5 +122,11 @@ page-page-2 {
             border-color:#9ecaed;
             box-shadow:0 0 10px #9ecaed;
         }
+    }
+    .risk{
+        display: flex;
+        justify-content: flex-start;
+        width: 25%;
+        margin:20px;
     }
 }

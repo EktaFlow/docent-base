@@ -81,25 +81,34 @@
     <h3><b>ACTION PLAN</b></h3>
     <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">      
       <button >
-        <label style="color:#32db64;font-size:16px;"><b>Add Action Person</b></label>
+        <label style="color:#32db64;font-size:16px;" (click)="addPerson(who.value)"><b>Add Action Person</b></label>
         <ion-icon name="add-circle" color = "secondary"></ion-icon>
       </button>
       <button>
-        <label style="color:#f53d3d;font-size:16px;"><b>Remove</b></label>
+        <label style="color:#f53d3d;font-size:16px;" (click)="removePerson()"><b>Remove</b></label>
         <ion-icon name="remove-circle" color = "danger"></ion-icon>
       </button>
     </div>
     <br>
     <br>
     <div class="who-when">
-      <div style="display:flex; flex-direction:column">      
+      <div style="display:flex; flex-direction:column">   
+        <li *ngFor = "let persons of actionPerson">
+          <pre>{{persons}}</pre>
+        </li>
         <h6>Who</h6>
-        <input style="width: 200%;">
+        <input style="width: 200%;" #who>
       </div>
       <div style="display:flex; flex-direction:column">
         <h6>When</h6>
         <input type="date" style="height:100%;">
       </div>
+    </div>
+    <h6>Risk</h6>
+    <div class="risk">
+      Technical<input type="checkbox"> 
+      Cost<input type="checkbox"> 
+      Schedule<input type="checkbox"> 
     </div>
     <h6>What</h6>
     <textarea placeholder="What needs to be done to meet this objective?"></textarea>

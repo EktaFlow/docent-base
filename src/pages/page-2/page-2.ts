@@ -15,15 +15,23 @@ import { PopoverComponent } from '../../components/popover/popover';
   templateUrl: 'page-2.html',
 })
 export class Page_2Page {
-  targetMRL = null;
   slectorResponse = true;
+  actionPerson=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl:PopoverController) {
-    this.targetMRL = navParams.get('data');
+    let targetMRL = navParams.get('data');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Page_2Page');
+  }
+
+  addPerson(personIn){
+    this.actionPerson.push(personIn);
+  }
+
+  removePerson(){
+    this.actionPerson.pop();
   }
 
   pageSelect(event){
