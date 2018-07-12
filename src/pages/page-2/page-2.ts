@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { PopoverComponent } from '../../components/popover/popover';
+import { ReviewPage } from '../review/review';
+import { Page_3Page } from '../page-3/page-3';
 
 /**
  * Generated class for the Page_2Page page.
@@ -27,6 +29,7 @@ export class Page_2Page {
   }
 
   addPerson(personIn){
+    console.log(personIn)
     this.actionPerson.push(personIn);
   }
 
@@ -42,5 +45,8 @@ export class Page_2Page {
   }
   back(){
     this.navCtrl.pop();
+  }
+  next(){
+    this.navCtrl.push(Page_3Page);
   }
 }

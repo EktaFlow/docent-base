@@ -5,6 +5,7 @@ import { Page_2Page } from '../page-2/page-2';
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
+import { QuestionsPage } from '../questions/questions';
 
 @Component({
   selector: 'page-home',
@@ -36,8 +37,14 @@ export class HomePage {
   removeMember(){
     this.members.pop()
   }
+
+  targetMRLSelect(val){
+    console.log(val)
+  }
+
   page_2(targetMRL){
-    this.navCtrl.push(Page_2Page,{
+    console.log(targetMRL);
+    this.navCtrl.push(QuestionsPage,{
       data: targetMRL
     });
   }
