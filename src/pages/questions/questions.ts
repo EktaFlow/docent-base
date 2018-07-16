@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as Survey from 'survey-angular';
-import targetMRL1 from "json!../../assets/json/targetMRL1.json";
+//import targetMRL1 from "json!../../assets/json/targetMRL1.json";
 
 
 /**
@@ -20,6 +20,8 @@ import targetMRL1 from "json!../../assets/json/targetMRL1.json";
 export class QuestionsPage {
 
   survey = {
+    "showNavigationButtons":false,
+    "showQuestionNumbers":"off",
     "pages":[
       {
         "name":"Technology Maturity",
@@ -100,16 +102,20 @@ export class QuestionsPage {
   }  
   
   public value;
+  public mainTitle;
+  public subTitle;
 
   surveyJS = new Survey.Model( this.survey );
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {   
-    this.surveyJS.showQuestionNumbers = 'off';
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
+    this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
   }
 
-  test(){
+  surveyChange(){
     this.value = this.surveyJS.getValue(this.survey.pages[this.surveyJS.currentPageNo].elements[0].name);
-    console.log(this.value);
+    this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
+    this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
   }
 
   surveyValueChanged = function (sender, options) {

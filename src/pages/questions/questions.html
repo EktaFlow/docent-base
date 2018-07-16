@@ -21,7 +21,7 @@
           </div>
           <hr>
           <div class="subheader">
-            <div><p>Technology Maturity / Technology Maturity</p></div>
+            <div><p>{{this.mainTitle}} / {{this.subTitle}}</p></div>
             <div style="margin-right:20px">
               <p>Target MRL: {{targetMRL}}| Target Date: Date</p>
               <p><u>Show Assessment Scope</u></p>
@@ -35,8 +35,14 @@
 
 <ion-content padding>
   <br><br><br><br><br><br><br><br><br><br>
-  <div id='surveyElement' class = "questions" (change)="test()">
+  <div class = "nav">
+    <div id='surveyElement' class = "questions" (change)="surveyChange()">
 
+    </div>
+    <div style="margin-top:10px;">
+        <button ion-button color="buttonBlue" (click) = "this.surveyJS.prevPage()"><ion-icon name="arrow-dropleft"></ion-icon>Previous</button>
+        <button ion-button color="buttonBlue" (click) = "this.surveyJS.nextPage()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
+    </div>
   </div>
 
   <div *ngIf="this.value == 'Yes'" class = "yes">
