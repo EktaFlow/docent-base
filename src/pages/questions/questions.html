@@ -39,9 +39,14 @@
     <div id='surveyElement' class = "questions" (change)="surveyChange()">
 
     </div>
-    <div style="margin-top:10px;">
+    <div style="margin-top:10px;display:flex;">
         <button ion-button color="buttonBlue" (click) = "this.surveyJS.prevPage()"><ion-icon name="arrow-dropleft"></ion-icon>Previous</button>
-        <button ion-button color="buttonBlue" (click) = "this.surveyJS.nextPage()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
+        <div *ngIf="this.nextButton == 'Complete'">
+            <button ion-button color="buttonBlue" (click) = "complete()">Complete<ion-icon name="arrow-dropright"></ion-icon></button>
+        </div>
+        <div *ngIf="this.nextButton != 'Complete'">
+            <button ion-button color="buttonBlue" (click) = "this.surveyJS.nextPage()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
+        </div>
     </div>
   </div>
 

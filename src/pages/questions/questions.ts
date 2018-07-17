@@ -104,6 +104,7 @@ export class QuestionsPage {
   public value;
   public mainTitle;
   public subTitle;
+  public nextButton;
 
   surveyJS = new Survey.Model( this.survey );
 
@@ -112,17 +113,21 @@ export class QuestionsPage {
     this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
   }
 
-  surveyChange(){
-    this.value = this.surveyJS.getValue(this.survey.pages[this.surveyJS.currentPageNo].elements[0].name);
-    this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
-    this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
+  complete(){
+    var resultAsString = JSON.stringify(this.surveyJS.data);
+    alert(resultAsString);
   }
 
-  surveyValueChanged = function (sender, options) {
-    console.log("hek")
-    var el = (<HTMLInputElement>document.getElementById(options.name));
-    if (el) {
-        el.value = options.value;
+  surveyChange(){
+    console.log(this.surveyJS.currentPageNo);
+    this.value = this.surveyJS.getValue(this.survey.pages[this.surveyJS.currentPageNo].elements[0].name);
+    this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name;
+    this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name;
+    if(this.survey.pages.length-1 == this.surveyJS.currentPageNo){
+      this.nextButton = "Complete";
+    }
+    else{
+      this.nextButton = null;
     }
   }
 
@@ -130,8 +135,8 @@ export class QuestionsPage {
     console.log('ionViewDidLoad QuestionsPage');
   }
 
-  sendDataToServer(survey) {
-    var resultAsString = JSON.stringify(survey.data);
+  sendDataToServer() {
+    var resultAsString = JSON.stringify(this.surveyJS.data);
     alert(resultAsString); //send Ajax request to your web server.
   }
 
