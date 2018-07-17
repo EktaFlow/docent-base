@@ -98,6 +98,7 @@ $input-border:#dcdcdc;
         width:48%;
         height: 100%;
         list-style-type: none;
+        margin-left: -10px;
     }
     input{
         @extend %input-style;

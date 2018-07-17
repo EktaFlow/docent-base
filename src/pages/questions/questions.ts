@@ -106,11 +106,21 @@ export class QuestionsPage {
   public subTitle;
   public nextButton;
 
+  actionPerson = [];
+
   surveyJS = new Survey.Model( this.survey );
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
     this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
+  }
+
+  addPerson(who){
+    this.actionPerson.push(who);
+  }
+
+  removePerson(){
+    this.actionPerson.pop();
   }
 
   complete(){
