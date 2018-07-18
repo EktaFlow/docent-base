@@ -5,6 +5,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { PopoverComponent } from '../components/popover/popover';
 
+// Apollo
+import { HttpClientModule } from "@angular/common/http";
+import { ApolloModule, Apollo } from "apollo-angular";
+import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+
 // solo functions
 import 'rxjs/add/operator/map'
 
@@ -23,7 +29,7 @@ import { QuestionsPage } from '../pages/questions/questions';
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
 import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
-
+import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
 
 
 @NgModule({
@@ -39,11 +45,16 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
     ReviewPage,
     HelpmenuComponent,
     ContactsDropdownComponent,
-    FaqDropdownComponent
+		FaqDropdownComponent,
+		AssessmentslistComponent
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+		IonicModule.forRoot(MyApp),
+		HttpClientModule,
+		HttpLinkModule,
+		ApolloModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +69,8 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
     ReviewPage,
     HelpmenuComponent,
     ContactsDropdownComponent,
-    FaqDropdownComponent
+		FaqDropdownComponent,
+		AssessmentslistComponent
   ],
   providers: [
     StatusBar,
@@ -66,4 +78,11 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+constructor(apollo: Apollo, httpLink: HttpLink) {
+	apollo.create({
+	link: httpLink.create({uri: "http://localhost:4000"}),
+	cache: new InMemoryCache()
+})
+}
+}

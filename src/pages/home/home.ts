@@ -1,27 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
+import {Subscription} from "rxjs";
 
 import { Page_2Page } from '../page-2/page-2';
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
+import { AssessmentslistComponent } from "../../components/assessmentslist/assessmentslist";
 import { QuestionsPage } from '../questions/questions';
+
+import { Apollo } from "apollo-angular";
+import gql from "graphql-tag";
+
+var assessmentQuery = gql`
+query{
+assessments {
+scope
+	}
+	}
+`
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 
 })
-export class HomePage {
+export class HomePage implements OnInit{
 
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
-
+	loading: boolean;
+	assessments: any;
   members = [];
+	private querySubscription: Subscription;
 
-  constructor(public navCtrl: NavController,public popOver: PopoverController) {
+	constructor(public navCtrl: NavController,
+						  public popOver: PopoverController,
+						  private apollo: Apollo) {
 
   }
+
+	ngOnInit() {
+	this.querySubscription = this.apollo.watchQuery<any>({
+		query: assessmentQuery
+		})
+		 .valueChanges
+		 .subscribe(({data, loading}) => {
+		 this.loading = loading;
+		 this.assessments = data.assessments
+		 });
+	}
+
+
+	showAssessmentsList(myEvent) {
+	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
+	console.log(this.assessments);
+		popoverClick.present({
+			ev: myEvent
+		});
+	}
 
   showPopover(myEvent) {
     var popoverClick = this.popOver.create(HelpmenuComponent, {}, {cssClass: 'help-menu'});
