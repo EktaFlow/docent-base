@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-a
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { PopoverComponent } from '../components/popover/popover';
+import { FormsModule } from "@angular/forms";
 
 // Apollo
 import { HttpClientModule } from "@angular/common/http";
@@ -30,6 +31,7 @@ import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
 import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
+import { ThreadsListComponent } from "../components/threads-list/threads-list";
 
 
 @NgModule({
@@ -46,15 +48,16 @@ import { AssessmentslistComponent } from "../components/assessmentslist/assessme
     HelpmenuComponent,
     ContactsDropdownComponent,
 		FaqDropdownComponent,
-		AssessmentslistComponent
+		AssessmentslistComponent,
+		ThreadsListComponent 
   ],
   imports: [
     BrowserModule,
 		IonicModule.forRoot(MyApp),
 		HttpClientModule,
 		HttpLinkModule,
-		ApolloModule
-
+		ApolloModule,
+		FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,7 +73,8 @@ import { AssessmentslistComponent } from "../components/assessmentslist/assessme
     HelpmenuComponent,
     ContactsDropdownComponent,
 		FaqDropdownComponent,
-		AssessmentslistComponent
+		AssessmentslistComponent,
+		ThreadsListComponent 
   ],
   providers: [
     StatusBar,

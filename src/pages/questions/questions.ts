@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as Survey from 'survey-angular';
+
+import { Apollo } from "apollo-angular";
+import gql from "graphql-tag";
 //import targetMRL1 from "json!../../assets/json/targetMRL1.json";
 
-
-/**
- * Generated class for the QuestionsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+var assessmentQuery = gql`
+`
 
 @IonicPage()
 @Component({
@@ -17,8 +15,11 @@ import * as Survey from 'survey-angular';
   templateUrl: 'questions.html',
 })
 
+
 export class QuestionsPage {
 
+	assessmentId: any;
+	assessmentSubscription: any;
   survey = {
     "showNavigationButtons":false,
     "showQuestionNumbers":"off",
@@ -107,9 +108,12 @@ export class QuestionsPage {
 
   surveyJS = new Survey.Model( this.survey );
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
     this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
+
+		console.log(navParams.data.data);
+		this.assessmentId = navParams.data.data;
   }
 
   surveyChange(){
@@ -135,8 +139,21 @@ export class QuestionsPage {
     alert(resultAsString); //send Ajax request to your web server.
   }
 
+	getAssessment() {
+		
+}
+
   ngOnInit() {
-    this.surveyJS.onComplete.add(this.sendDataToServer);
+		this.assessmentSubscription = this.apollo.watchQuery<any>({
+			query: assessmentQuery
+		})
+			.valueChanges
+			.subscribe(({data, loading}) => console.log(data))
+
+    this.surveyJS.onComplete.add(this.sendDataToServer);{
+			query: assessmentQuery
+		}
     Survey.SurveyNG.render("surveyElement", {model:this.surveyJS});
   }
 }
+
