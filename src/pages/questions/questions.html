@@ -41,17 +41,17 @@
     </div>
     <div style="margin-top:10px;">
         <button ion-button color="buttonBlue" (click) = "this.surveyJS.prevPage()"><ion-icon name="arrow-dropleft"></ion-icon>Previous</button>
-        <button ion-button color="buttonBlue" (click) = "this.surveyJS.nextPage()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
+        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
     </div>
   </div>
 
   <div *ngIf="this.value == 'Yes'" class = "yes">
       <h6>Objective Evidence</h6>
-      <textarea placeholder="Enter objective evidence here..."></textarea>
+      <textarea [(ngModel)]="yesVals.objectiveEvidence" placeholder="Enter objective evidence here..."></textarea>
       <h6>Assumptions</h6>
-      <textarea placeholder="Enter any ssumptions here..."></textarea>
+      <textarea [(ngModel)]="yesVals.assumptionsYes" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea placeholder="Enter notes here..."></textarea>
+      <textarea [(ngModel)]="yesVals.notesYes" placeholder="Enter notes here..."></textarea>
       <div style="width:50%;margin:10px 0px 0px 0px;">
         <button ion-button color="dark">Attatch File</button>
       </div>
@@ -79,27 +79,27 @@
             <pre>{{persons}}</pre>
           </li>
           <h6>Who</h6>
-          <input style="width: 200%;" #who>
+          <input [(ngModel)]="noVals.who" name="who" style="width: 200%;" #who>
         </div>
         <div style="display:flex; flex-direction:column">
           <h6>When</h6>
-          <input type="date" style="height:100%;">
+          <input [(ngModel)]="noVals.when" name= "when" type="date" >
         </div>
       </div>
       <h6>Risk</h6>
       <div class="risk">
-        Technical<input type="checkbox"> 
-        Cost<input type="checkbox"> 
-        Schedule<input type="checkbox"> 
+        Technical<input [(ngModel)]="noVals.technical" type="checkbox"> 
+        Cost<input [(ngModel)]="noVals.cost" type="checkbox"> 
+        Schedule<input [(ngModel)]="noVals.schedule" type="checkbox"> 
       </div>
       <h6>What</h6>
-      <textarea placeholder="What needs to be done to meet this objective?"></textarea>
+      <textarea [(ngModel)]="noVals.what" placeholder="What needs to be done to meet this objective?"></textarea>
       <h6>Reason</h6>
-      <textarea placeholder="Reason that criteria is not met..."></textarea>
+      <textarea [(ngModel)]="noVals.reason" placeholder="Reason that criteria is not met..."></textarea>
       <h6>Assumptions</h6>
-      <textarea placeholder="Enter any assumptions here..."></textarea>
+      <textarea [(ngModel)]="noVals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea placeholder="Enter notes here..."></textarea>
+      <textarea [(ngModel)]="noVals.notesNo" placeholder="Enter notes here..."></textarea>
       <div style="width:50%;margin:10px 0px 0px 0px;">
           <button ion-button color="dark">Attatch File</button>
       </div>
@@ -109,12 +109,12 @@
   
     <div *ngIf="value == 'N/A'" class = "na">
       <h6>Documentation</h6>
-      <textarea placeholder="Document why this question is not applicable..."></textarea>
+      <textarea [(ngModel)]="naVals.documentation" placeholder="Document why this question is not applicable..."></textarea>
       <hr>
       <h6>Assumptions</h6>
-      <textarea placeholder="Enter any assumptions here..."></textarea>
+      <textarea [(ngModel)]="naVals.assumptionsNA" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea placeholder="Enter notes here..."></textarea>
+      <textarea [(ngModel)]="naVals.notesNA" placeholder="Enter notes here..."></textarea>
       <div style="width:50%; margin:10px 0px 0px 0px;">
         <button ion-button color="dark">Attatch File</button>
       </div>

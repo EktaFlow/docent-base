@@ -137,7 +137,7 @@ event.preventDefault();
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
 		 this.loading = loading;
-		 this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+		 //		 this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
 	}
 
