@@ -3,6 +3,7 @@ import { NavController, PopoverController } from 'ionic-angular';
 
 import { QuestionsPage } from '../questions/questions';
 import { RegisterPage } from "../register/register";
+import { LoginPage }    from "../login/login";
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
@@ -17,6 +18,8 @@ export class HomePage {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
 	registerPage = RegisterPage;
+	loginPage    = LoginPage;
+
   members = [];
 
   constructor(public navCtrl: NavController,
@@ -46,6 +49,7 @@ export class HomePage {
 	// Navs
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
+	loginNav() { this.navCtrl.push( this.loginPage ); }
 
   page_2(targetMRL){
     console.log(targetMRL);
