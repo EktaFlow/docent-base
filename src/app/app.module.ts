@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 // solo functions
 import 'rxjs/add/operator/map'
 
-// pages 
+// pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { Page_2Page } from '../pages/page-2/page-2';
 import { AcronymsPage } from '../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../pages/definitions/definitions';
 import { FaqsPage } from '../pages/faqs/faqs';
+import { ReviewPage } from '../pages/review/review';
+import { QuestionsPage } from '../pages/questions/questions';
+
 
 // components
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
@@ -26,8 +28,9 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
     declarations: [
         MyApp,
         HomePage,
-        Page_2Page,
         AcronymsPage,
+        QuestionsPage,
+        ReviewPage,
         DefinitionsPage,
         FaqsPage,
         HelpmenuComponent,
@@ -43,10 +46,11 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
     entryComponents: [
         MyApp,
         HomePage,
-        Page_2Page,
         AcronymsPage,
         DefinitionsPage,
         FaqsPage,
+        QuestionsPage, 
+        ReviewPage, 
         HelpmenuComponent,
         ContactsDropdownComponent,
         FaqDropdownComponent 
