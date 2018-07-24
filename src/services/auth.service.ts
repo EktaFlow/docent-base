@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
+import {tap} from "rxjs/operators";
 
 @Injectable() 
 
@@ -16,8 +17,24 @@ export class AuthService {
 	}
 
 	login(userCreds) {
-	console.log("fire in service");
-	console.log(userCreds);
+	console.log("fire")
 		return this.http.post(this.loginUrl, userCreds)
+		.pipe( tap( data => this.setSession(data), 
+		            error => console.log(error)
+		          )
+		)
+	}
+
+	logout() {
+		localStorage.removeItem("docent-token");
+	}
+
+	private setSession(isAuthed) {
+		console.log(isAuthed);
+		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
+	}
+
+	public isLoggedIn() {
+		!!localStorage.getItem("docent-token");
 	}
 }

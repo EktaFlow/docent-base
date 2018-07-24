@@ -9,6 +9,8 @@ import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
 
+import { AuthService } from "../../services/auth.service";
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -23,7 +25,8 @@ export class HomePage {
   members = [];
 
   constructor(public navCtrl: NavController,
-              public popOver: PopoverController) {}
+							public popOver: PopoverController,
+							private auth: AuthService) {}
 
 	showPopover(myEvent) {
 	var popoverClick = this.popOver.create(HelpmenuComponent, {}, {cssClass: 'help-menu'});
@@ -50,6 +53,7 @@ export class HomePage {
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
+	logout() { this.auth.logout()}
 
   page_2(targetMRL){
     console.log(targetMRL);
