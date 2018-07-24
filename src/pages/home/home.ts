@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 
 import { QuestionsPage } from '../questions/questions';
+import { RegisterPage } from "../register/register";
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
@@ -15,7 +16,9 @@ import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
 export class HomePage {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
+	registerPage = RegisterPage;
   members = [];
+
   constructor(public navCtrl: NavController,
               public popOver: PopoverController) {}
 
@@ -25,6 +28,8 @@ export class HomePage {
 			ev: myEvent
 		});
 	}	
+
+
   
   addMember(nameIn:string,roleIn:string){
     var newMember = {name: nameIn, role: roleIn};
@@ -37,6 +42,10 @@ export class HomePage {
   targetMRLSelect(val){
     console.log(val)
   }
+
+	// Navs
+
+	registerNav() { this.navCtrl.push( this.registerPage ); }
 
   page_2(targetMRL){
     console.log(targetMRL);

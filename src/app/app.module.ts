@@ -17,6 +17,7 @@ import { DefinitionsPage } from '../pages/definitions/definitions';
 import { FaqsPage } from '../pages/faqs/faqs';
 import { ReviewPage } from '../pages/review/review';
 import { QuestionsPage } from '../pages/questions/questions';
+import { RegisterPage } from "../pages/register/register";
 
 
 // components
@@ -33,6 +34,7 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
         ReviewPage,
         DefinitionsPage,
         FaqsPage,
+				RegisterPage,
         HelpmenuComponent,
         ContactsDropdownComponent,
         FaqDropdownComponent 
@@ -51,6 +53,7 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
         FaqsPage,
         QuestionsPage, 
         ReviewPage, 
+				RegisterPage,
         HelpmenuComponent,
         ContactsDropdownComponent,
         FaqDropdownComponent 
