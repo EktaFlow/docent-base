@@ -40,7 +40,8 @@
     "surveyjs-editor": "^1.0.32",
     "sw-toolbox": "3.6.0",
     "tslint": "^5.0.0",
-    "zone.js": "~0.8.26"
+    "uuid": "^3.3.2",
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@angular/cli": "^6.0.8",

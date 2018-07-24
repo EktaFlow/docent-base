@@ -44,7 +44,6 @@ export class QuestionsPage {
 	private noVals  = {};
 	private naVals  = {};
 	private yesVals = {}; 
-
 	assessmentId: any;
 	assessmentSubscription: any;
   public value;
@@ -53,7 +52,6 @@ export class QuestionsPage {
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
-
 	private questionIds: []; 
 	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
 
@@ -113,12 +111,6 @@ export class QuestionsPage {
 		this.resetSelect();
 		// update the questionId!!
 	}
-
-  sendDataToServer(survey) {
-		console.log("data would be sent now");
-    var resultAsString = JSON.stringify(survey.data);
-    alert(resultAsString); //send Ajax request to your web server.
-  }
 
 	loadQuestion(array)	 {
 		var notAnswered = array.filter(a => !a.answered)

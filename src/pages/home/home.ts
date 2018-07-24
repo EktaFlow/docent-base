@@ -3,13 +3,17 @@ import { NavController, PopoverController } from 'ionic-angular';
 import {Subscription} from "rxjs";
 import { NgForm } from "@angular/forms";
 
-import { Page_2Page } from '../page-2/page-2';
+import { QuestionsPage } from '../questions/questions';
+import { RegisterPage } from "../register/register";
+import { LoginPage }    from "../login/login";
+
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
 import { AssessmentslistComponent } from "../../components/assessmentslist/assessmentslist";
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
+import { AuthService } from "../../services/auth.service";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -65,13 +69,15 @@ var createAssessmentMutation = gql`
   templateUrl: 'home.html',
 
 })
-export class HomePage implements OnInit{
-
+export class HomePage {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
+	registerPage = RegisterPage;
+	loginPage    = LoginPage;
 	loading: boolean;
 	allThreads: any;
 	assessments: any;
+
   members = [];
 	ionicForm = {};
 	threadsSelected = [];
@@ -79,11 +85,17 @@ export class HomePage implements OnInit{
 
 	private querySubscription: Subscription;
 
-	constructor(public navCtrl: NavController,
-						  public popOver: PopoverController,
-						  private apollo: Apollo) {
+  constructor(public navCtrl: NavController,
+							public popOver: PopoverController,
+							private apollo: Apollo,
+							private auth: AuthService) {}
 
-  }
+	showPopover(myEvent) {
+	var popoverClick = this.popOver.create(HelpmenuComponent, {}, {cssClass: 'help-menu'});
+		popoverClick.present({
+			ev: myEvent
+		});
+	}	
 
 	// use form?? 
 	createAssessment(event) {
@@ -179,8 +191,14 @@ export class HomePage implements OnInit{
     console.log(val)
   }
 
-  page_2(id){
-    console.log(id);
+	// Navs
+
+	registerNav() { this.navCtrl.push( this.registerPage ); }
+	loginNav() { this.navCtrl.push( this.loginPage ); }
+	logout() { this.auth.logout()}
+
+  page_2(targetMRL){
+    console.log(targetMRL);
     this.navCtrl.push(QuestionsPage,{
 			data: id 
     });

@@ -2,10 +2,13 @@
 # this will save a huge amount of space
 node_modules
 www
+plugins
+platforms
 
 # caching dirs
 .temp
 .sass-cache
+www
 
 # editor temp files
 *.swp

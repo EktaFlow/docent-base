@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<form>
+      <h6>Name</h6>
+      <input  type="text" name="name" placeholder = "Name" [(ngModel)]="user.name">
+
+
+      <h6>Email</h6>
+      <input  type="email" name="email" placeholder = "Email" [(ngModel)]="user.email">
+
+      <h6>Password</h6>
+      <input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
+
+      <h6>re-type Password</h6>
+      <input  type="password" name="passwd2" placeholder = "Password" [(ngModel)]="user.passwd2">
+
+			<button (click)="submitRegistration($event)">Register</button>
+	</form>
+
+</ion-content>

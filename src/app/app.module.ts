@@ -1,10 +1,11 @@
+// libs
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { PopoverComponent } from '../components/popover/popover';
 import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 
 // Apollo
 import { HttpClientModule } from "@angular/common/http";
@@ -18,13 +19,17 @@ import 'rxjs/add/operator/map'
 // pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { Page_2Page } from '../pages/page-2/page-2';
-import { Page_3Page } from '../pages/page-3/page-3';
 import { AcronymsPage } from '../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../pages/definitions/definitions';
 import { FaqsPage } from '../pages/faqs/faqs';
 import { ReviewPage } from '../pages/review/review';
 import { QuestionsPage } from '../pages/questions/questions';
+import { RegisterPage } from "../pages/register/register";
+import { LoginPage }    from "../pages/login/login";
+
+import { AuthService } from "../services/auth.service";
+import { httpInterceptorsProviders } from "../services/interceptors";
+
 
 // components
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
@@ -32,19 +37,21 @@ import { ContactsDropdownComponent } from '../components/contacts-dropdown/conta
 import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
-
+import { PopoverComponent } from '../components/popover/popover';
+<<<<<<< HEAD
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    Page_2Page,
-    Page_3Page,
     QuestionsPage,
     AcronymsPage,
     DefinitionsPage,
     FaqsPage,
+		AcronymsPage,
     ReviewPage,
+		RegisterPage,
+		LoginPage,
     HelpmenuComponent,
     ContactsDropdownComponent,
 		FaqDropdownComponent,
@@ -63,13 +70,14 @@ import { ThreadsListComponent } from "../components/threads-list/threads-list";
   entryComponents: [
     MyApp,
     HomePage,
-    Page_2Page,
-    Page_3Page,
     QuestionsPage,
     AcronymsPage,
     DefinitionsPage,
     FaqsPage,
+		AcronymsPage,
     ReviewPage,
+		RegisterPage,
+		LoginPage,
     HelpmenuComponent,
     ContactsDropdownComponent,
 		FaqDropdownComponent,
@@ -78,6 +86,8 @@ import { ThreadsListComponent } from "../components/threads-list/threads-list";
   ],
   providers: [
     StatusBar,
+		AuthService,
+		httpInterceptorsProviders,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
