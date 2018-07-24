@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 
 import { QuestionsPage } from '../questions/questions';
+import { RegisterPage } from "../register/register";
+import { LoginPage }    from "../login/login";
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
+
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'page-home',
@@ -15,9 +19,14 @@ import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
 export class HomePage {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
+	registerPage = RegisterPage;
+	loginPage    = LoginPage;
+
   members = [];
+
   constructor(public navCtrl: NavController,
-              public popOver: PopoverController) {}
+							public popOver: PopoverController,
+							private auth: AuthService) {}
 
 	showPopover(myEvent) {
 	var popoverClick = this.popOver.create(HelpmenuComponent, {}, {cssClass: 'help-menu'});
@@ -25,6 +34,8 @@ export class HomePage {
 			ev: myEvent
 		});
 	}	
+
+
   
   addMember(nameIn:string,roleIn:string){
     var newMember = {name: nameIn, role: roleIn};
@@ -37,6 +48,12 @@ export class HomePage {
   targetMRLSelect(val){
     console.log(val)
   }
+
+	// Navs
+
+	registerNav() { this.navCtrl.push( this.registerPage ); }
+	loginNav() { this.navCtrl.push( this.loginPage ); }
+	logout() { this.auth.logout()}
 
   page_2(targetMRL){
     console.log(targetMRL);

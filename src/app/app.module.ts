@@ -17,6 +17,11 @@ import { DefinitionsPage } from '../pages/definitions/definitions';
 import { FaqsPage } from '../pages/faqs/faqs';
 import { ReviewPage } from '../pages/review/review';
 import { QuestionsPage } from '../pages/questions/questions';
+import { RegisterPage } from "../pages/register/register";
+import { LoginPage }    from "../pages/login/login";
+
+import { AuthService } from "../services/auth.service";
+import { httpInterceptorsProviders } from "../services/interceptors";
 
 
 // components
@@ -33,6 +38,8 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
         ReviewPage,
         DefinitionsPage,
         FaqsPage,
+				RegisterPage,
+				LoginPage,
         HelpmenuComponent,
         ContactsDropdownComponent,
         FaqDropdownComponent 
@@ -51,12 +58,16 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
         FaqsPage,
         QuestionsPage, 
         ReviewPage, 
+				RegisterPage,
+				LoginPage,
         HelpmenuComponent,
         ContactsDropdownComponent,
         FaqDropdownComponent 
     ],
     providers: [
         StatusBar,
+				AuthService,
+				httpInterceptorsProviders,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
