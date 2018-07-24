@@ -1,6 +1,7 @@
 # customary not to include node_modules directory
 # this will save a huge amount of space
 node_modules
+www
 
 # caching dirs
 .temp

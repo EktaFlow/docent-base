@@ -54,8 +54,8 @@ export class QuestionsPage {
 	public survey: any;
 	public surveyJS: any;
 
-	private questionId: any = this.questionIds[this.surrveyJS.currentPageNo]
 	private questionIds: []; 
+	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
@@ -64,17 +64,16 @@ export class QuestionsPage {
 		this.assessmentId = navParams.data.data;
   }
 
-
-
   surveyChange(){
-		console.log
-		// TODO - refactor these for clarity.
+		console.log("hmm?");
 		// values needs to stay here because it's tied to the conditional rendering.
-    this.value = this.surveyJS.getValue(this.survey.pages[this.surveyJS.currentPageNo].elements[0].name);
-		console.log(this.value);
     // if undefined, skipped
-    this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
-    this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
+		if (this.surveyJS) {
+			var {pages, currentPageNo} = this.surveyJS;
+
+			this.mainTitle = pages[currentPageNo].name
+			this.subTitle = pages[currentPageNo].elements[0].name
+		}
   }
 
 	resetSelect() {
@@ -87,15 +86,14 @@ export class QuestionsPage {
 	}
 
 	updateAssessment(values) {
-			
-			this.apollo.mutate({
+		this.apollo.mutate({
 			mutation: updateAssessmentQuery,
 			variables: {
-				_id: this.assessmentId,
+				_id:				this.assessmentId,
 				questionId: Number(this.questionId),
-				updates: values
+				updates:		values
 			}
-			}).subscribe(data => console.log(data));
+		}).subscribe(data => console.log(data));
 	}
 	
 	getQuestionId() {
@@ -128,52 +126,65 @@ export class QuestionsPage {
 		return sorted
 	}
 
+  // this function takes questions as assessment sub-documents and formats them
+	// to be in the surveyJs format.
+	mapToSurveyJS(questions) {
+		return questions.map( question => {
+			return {
+				name: question.threadName,
+				elements: [{
+					type: "dropdown",
+					name: question.subThreadName,
+					title: question.questionText,
+					choices: [
+						"Yes",
+						"No",
+						"N/A"
+					]
+				}]
+			};
+		});
+	}
+
+	filterByMRL(assessment) {
+		return assessment.questions.filter(question => {
+			return question.mrLevel == assessment.targetMRL;
+		})	
+	}
+
+	createSurvey(assessment) {
+		var filteredQuestions = this.filterByMRL(assessment);
+		var current           = this.loadQuestion(filteredQuestions);
+		this.current = current;
+		var pages             = this.mapToSurveyJS(current);
+
+		return {
+				showNavigationButtons: false,
+				showQuestionNumbers: "off",
+				pages 	
+		};
+	}
+
+	// What data do we actually need to store in instance vars?
   ngOnInit() {
-		console.log(this.assessmentId);
 		this.assessmentSubscription = this.apollo.watchQuery<any>({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId}
 		})
 			.valueChanges
-			.subscribe(({data, loading}) =>{  
-				this.filtered = data.assessment.questions.filter(a => a.mrLevel == data.assessment.targetMRL)
-				var current = this.loadQuestion(this.filtered);
-			var pages = current.map(q => {
-					return ({
-						name: q.threadName,
-						elements: [{
-							type: "dropdown",
-							name: "subthread name",
-							title: q.questionText,
-							choices: [
-								"Yes",
-								"No",
-								"N/A"
-							]
-						}]
-					});
-				})
-			console.log(pages);
-  var survey = {
-    "showNavigationButtons":false,
-    "showQuestionNumbers":"off",
-    "pages": pages 
-		}  
-				this.survey = survey;
+			.subscribe( ({data, loading}) => {  
+				var survey = this.createSurvey(data.assessment);
   			this.surveyJS = new Survey.Model( survey );
-  			Survey.SurveyNG.render("surveyElement", {model:this.surveyJS});
-		// TODO - refactor for clarity.
-    this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
-    this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
-		var { currentPageNo } = this.surveyJS;
-		console.log(currentPageNo);
-		this.questionIds = current.map(a => a.questionId);
-		this.questionId = current[currentPageNo].questionId;
+  			Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
+				// TODO clean this////////////////////////////////
+				var { currentPageNo, pages } = this.surveyJS;
+				this.mainTitle = pages[currentPageNo].name
+				this.subTitle = pages[currentPageNo].elements[0].name
+				// this.questionIds = current.map(a => a.questionId);
+				this.questionId = this.current[currentPageNo].questionId;
+				//////////// clean up above //////////////
 		})
 
-    //this.surveyJS.onComplete.add(this.sendDataToServer);{
-		//	query: assessmentQuery
-		//}
   }
 }
 

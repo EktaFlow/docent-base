@@ -21,13 +21,11 @@ scope
 	}
 	}
 `
-
 var threadsQuery = gql`
 query {
 	allThreadNames
 }
 `
-
 var oneAssessment = gql`
 query assessment($id: Int!){
 	assessment(id: $id) {
@@ -38,7 +36,6 @@ questions {
 
 }
 `
-
 var createAssessmentMutation = gql`
  mutation createAssessment(                                                                         
      $threads:     [Int],                                                                           
@@ -88,41 +85,40 @@ export class HomePage implements OnInit{
 
   }
 
-	createAssessment(form: NgForm, event) {
-console.log(event);
-event.preventDefault();
-	var { value } = form;
-	console.log(value);
-	this.apollo.mutate({
-			mutation:		createAssessmentMutation, 
-			variables:	{
-				id:								1,
-				threads:					[1,2,3,4],
-				location:					"asdasdad",
-				targetMRL:				2,
-				levelSwitching:		false,
-				deskBookVersion:	"2017",
-				scope:						"aaa",
-				targetDate:			"10/18/2019"	
-/*
-				threads:					this.threadsSelected,
-				location:					value.location,
-				targetMRL:				value.targetMRL,
-				levelSwitching:		value.levelSwitching,
-				deskBookVersion:	value.version,
-				scope:						value.scope,
-				targetDate:				value.dateAchieve
-*/
-			}
-	})
-	.subscribe(({data, loading}) => {
-			console.log(data.createAssessment._id);
-			this.page_2(data.createAssessment._id);
-});
+	// use form?? 
+	createAssessment(event) {
+		event.preventDefault();
+		//var { value } = form;
+		this.apollo.mutate({
+				mutation:		createAssessmentMutation, 
+				variables:	{
+					id:								1,
+					threads:					[1,2,3,4],
+					location:					"asdasdad",
+					targetMRL:				2,
+					levelSwitching:		false,
+					deskBookVersion:	"2017",
+					scope:						"aaa",
+					targetDate:			"10/18/2019"	
+	/*
+					threads:					this.threadsSelected,
+					location:					value.location,
+					targetMRL:				value.targetMRL,
+					levelSwitching:		value.levelSwitching,
+					deskBookVersion:	value.version,
+					scope:						value.scope,
+					targetDate:				value.dateAchieve
+	*/
+				}
+		})
+			.subscribe(({data, loading}) => {
+			console.log("we here");
+					console.log(data.createAssessment._id);
+					this.page_2(data.createAssessment._id);
+			});
 	}
 
 	ngOnInit() {
-	//	this.test();
 	this.querySubscription = this.apollo.watchQuery<any>({
 		query: assessmentQuery
 		})
@@ -160,16 +156,9 @@ event.preventDefault();
 
 	showThreads(myEvent) {
 		myEvent.preventDefault();
-		console.log("huh");
 		
-		let myEmitter = new EventEmitter< any >();
-				myEmitter.subscribe(
-				v=> { 
-				console.log(v);
-				this.threadsSelected.push(v.index); 
-				console.log(this.threadsSelected);}
-											);
-
+		let myEmitter = new EventEmitter<any>();
+		myEmitter.subscribe( v =>  this.threadsSelected.push(v.index));
 
 		var popoverClick = this.popOver.create(ThreadsListComponent, {allThreads: this.allThreads, emitter: myEmitter});
       popoverClick.present({
@@ -181,6 +170,7 @@ event.preventDefault();
     var newMember = {name: nameIn, role: roleIn};
     this.members.push(newMember);
   }
+
   removeMember(){
     this.members.pop()
   }

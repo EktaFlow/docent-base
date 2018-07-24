@@ -14,21 +14,17 @@ import { NavParams,ViewController } from 'ionic-angular';
 })
 export class ThreadsListComponent {
 
-  text: string;
 	threads: any;
 	chosen = [];
 	emitter: any;
 
   constructor(public navParams: NavParams, public viewController:  ViewController) {
-    console.log('Hello ThreadsListComponent Component');
-    this.text = 'Hello World';
 		this.threads = this.navParams.get("allThreads");
 		this.emitter = this.navParams.data.emitter;
   }
 
 	dismiss(item) {
-		chosen.push(item);
-		//this.viewController.dismiss(data);		
+		this.chosen.push(item);
 	}
 
 	emit(item) {

@@ -10,7 +10,7 @@
             <button ion-button color="dark">
                 Assessment
             </button>
-            <button ion-button color="dark" (click)="showPopover($event)">
+            <button ion-button color="dark">
                 Help
             </button>
           </div>
@@ -55,17 +55,16 @@
       </button>
     </div>
   </form>
-	<form #assessmentForm="ngForm" (submit)="createAssessment(assessmentForm, $event)" class="assessment-form">
   <div class = "mid-first-page">
     <div class="scope">
       <h6>Scope</h6>
-      <textarea name="scope" placeholder = "Enter Scope Here" ngModel></textarea>
+      <textarea name="scope" placeholder = "Enter Scope Here"></textarea>
     </div>
     <div class ="target-level-date">
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL</h6>
-          <select name="targetMRL" (change)="targetMRLSelect(value);"  ngModel>
+          <select name="targetMRL" (change)="targetMRLSelect(value);">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
             <option value = "2">2</option>
@@ -86,7 +85,7 @@
               <img src="../../assets/imgs/qmark.png" width="15" height="15">
             </button>
           </div>
-          <select name="levelSwitching" ngModel>
+          <select>
             <option value="" disabled selected>Select One...</option>
             <option>On</option>
             <option>Off</option>
@@ -94,26 +93,25 @@
         </div>
       </div>
       <h6>Date to Achieve Target MRL</h6>
-      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy" ngModel>
+      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy">
     </div>
-		<button type="submit">Test</button>
   </div>
   <div class = "bottom">
     <div style="width:48%;height:100%;">
       <h6>Location</h6>
-      <ion-input name="location" placeholder = "Enter Location" ngModel></ion-input>
+      <ion-input name="location" placeholder = "Enter Location"></ion-input>
     </div>
     <div style="width:48%;">
       <h6>Deskbook Version</h6>
-      <select name="version" ngModel>
+      <select name="version">
         <option value="" disabled selected>Select One...</option>
-        <option ngValue="2017">2017</option>
+        <option>2017</option>
       </select>
     </div>
   </div>
   <div class = "thread-start">
     <div class = "choose-threads">
-      <button (click)="showThreads($event)">
+      <button>
         <img src="../../assets/imgs/if_icon-arrow-down.png" width="15" height="15">
       </button>
       <p><b>Choose Threads</b></p>
@@ -122,12 +120,11 @@
       </button>
     </div>
     <div>
-      <button ion-button color ="buttonBlue" >
+      <button ion-button color ="buttonBlue" (click)="createAssessment($event)">
         Start
       </button>
     </div>
   </div>
-	</form>
   <br><br>
   <hr>
   <br>
@@ -143,7 +140,7 @@
       <button ion-button color ="buttonBlue">
         Help Importing
       </button>
-      <button ion-button color ="buttonBlue" (click)="showAssessmentsList($event)">
+      <button ion-button color ="buttonBlue">
         Open Assessment
       </button>
     </div>
