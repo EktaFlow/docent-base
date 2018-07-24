@@ -1,10 +1,13 @@
 # customary not to include node_modules directory
 # this will save a huge amount of space
 node_modules
+plugins
+platforms
 
 # caching dirs
 .temp
 .sass-cache
+www
 
 # editor temp files
 *.swp
