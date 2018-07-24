@@ -21,6 +21,7 @@ import { RegisterPage } from "../pages/register/register";
 import { LoginPage }    from "../pages/login/login";
 
 import { AuthService } from "../services/auth.service";
+import { httpInterceptorsProviders } from "../services/interceptors";
 
 
 // components
@@ -66,6 +67,7 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
     providers: [
         StatusBar,
 				AuthService,
+				httpInterceptorsProviders,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
