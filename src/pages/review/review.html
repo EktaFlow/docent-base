@@ -23,7 +23,7 @@
         <div class="subheader">
           <div><p>Review</p></div>
           <div style="margin-right:20px">
-            <p>Target MRL: {{targetMRL}}| Target Date: Date</p>
+            <p>Target MRL: {{targetMRL}} | Target Date: {{date}}</p>
             <p><u>Show Assessment Scope</u></p>
           </div>
         </div>
@@ -39,19 +39,35 @@
   <div class = "page-one-info">
     <p>
       <b>Target MRL: </b>{{targetMRL}}<br/><br>
-      <b>Target Date: </b> {{targetDate}}<br/><br>
+      <b>Target Date: </b> {{date}}<br/><br>
       <b>Location: </b>{{location}}<br/><br>
       <b>Team Members: </b>{{team}}<br/><br>
     </p>
     <hr>
   </div>
-  <div class = "page-two-info">
-    <!--
-      TODO: Need to make this an if section for the most part, and pass appropriate data
-      Also, if skipped, show
-    -->
-    <p>
-      
-    </p>
+  <div class = "survey-info">
+    <li *ngFor = "let question of questions">
+      <div ngIf = "this.answer == 'N/A'">
+        <p><b>N/A</b></p>
+        {{question.title}}
+        {{question.assumptions}}
+        {{question.notes}}
+        <hr>
+      </div>
+      <div ngIf = "this.answer == 'No'">
+        <p><b>No</b></p>
+        {{question.title}}
+      <!--
+        TODO: Attatchements
+      -->
+        <hr>
+      </div>
+      <div ngIf = "this.answer == 'Yes'">
+        <p><b>Yes</b></p>
+        {{question.evidence}}
+        <hr>
+      </div>
+
+    </li>
   </div>
 </ion-content>

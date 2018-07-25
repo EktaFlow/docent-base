@@ -14,12 +14,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'review.html',
 })
 export class ReviewPage {
+  
+  targetMRL: any;
+  date: any;
+  location: any;
+  team: any;
+  survey: any;
+  surveyResults: any;
+  reviewResults = [];
+  response;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.targetMRL = navParams.get('mrl');
+    this.date = navParams.get('date');
+    this.location = navParams.get('location');
+    this.survey = navParams.get('survey');
+    this.surveyResults = navParams.get('surveyResults');
+    this.response = navParams.get('response');
+    // This will initialize the JSON object used to create the view. Skipped questions are NOT stored
+    // in SurveyJS, so this will combat that.
+    for(var i =0; i < this.survey.pages.length; i+=1){
+      if(!this.surveyResults[this.survey.pages[i].elements[0].name]){
+        this.surveyResults[this.survey.pages[i].elements[0].name] = "skipped";
+      }
+    }
+    // The key value pairs are put in an array so we can use ngFor
+    for(let key in this.surveyResults){
+      console.log(key + " " + this.surveyResults[key])
+      this.reviewResults.push({key: this.surveyResults[key]});
+    }
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ReviewPage');
-  }
-
 }

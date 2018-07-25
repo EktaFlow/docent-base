@@ -23,7 +23,7 @@
           <div class="subheader">
             <div><p>{{this.mainTitle}} / {{this.subTitle}}</p></div>
             <div style="margin-right:20px">
-              <p>Target MRL: {{targetMRL}}| Target Date: Date</p>
+              <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
               <p><u>Show Assessment Scope</u></p>
             </div>
           </div>
@@ -35,102 +35,94 @@
 
 <ion-content padding>
   <br><br><br><br><br><br><br><br><br><br>
+  <button (click)="review()">Review</button>
   <div class = "nav">
     <div id='surveyElement' class = "questions" (change)="surveyChange()">
 
     </div>
     <div style="margin-top:10px;display:flex;">
-        <button ion-button color="buttonBlue" (click) = "this.surveyJS.prevPage()"><ion-icon name="arrow-dropleft"></ion-icon>Previous</button>
+        <button ion-button color="buttonBlue" (click) = "prev()"><ion-icon name="arrow-dropleft"></ion-icon>Previous</button>
         <div *ngIf="this.nextButton == 'Complete'">
             <button ion-button color="buttonBlue" (click) = "complete()">Complete<ion-icon name="arrow-dropright"></ion-icon></button>
         </div>
         <div *ngIf="this.nextButton != 'Complete'">
-            <button ion-button color="buttonBlue" (click) = "this.surveyJS.nextPage()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
+            <button ion-button color="buttonBlue" (click) = "next()">Next/Skip<ion-icon name="arrow-dropright"></ion-icon></button>
         </div>
     </div>
   </div>
 
   <div *ngIf="this.value == 'Yes'" class = "yes">
-      <h6>Objective Evidence</h6>
-      <textarea placeholder="Enter objective evidence here..."></textarea>
-      <h6>Assumptions</h6>
-      <textarea placeholder="Enter any ssumptions here..."></textarea>
-      <h6>Notes</h6>
-      <textarea placeholder="Enter notes here..."></textarea>
-      <div style="width:50%;margin:10px 0px 0px 0px;">
-        <button ion-button color="dark">Attatch File</button>
+    <h6>Objective Evidence</h6>
+    <textarea placeholder="Enter objective evidence here..." (change)="log('Evidence',evidence.value)" #evidence></textarea>
+  </div>
+  
+  
+  
+  <div *ngIf="value == 'No'" class = "no">
+    <h3><b>ACTION PLAN</b></h3>
+    <form>
+      <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;">      
+        <button (click)="addPerson(who.value)">
+          <label style="color:#32db64;font-size:16px;cursor:pointer;" ><b>Add Action Person</b></label>
+          <ion-icon name="add-circle" color = "secondary"></ion-icon>
+        </button>
+        <button (click)="removePerson()">
+          <label style="color:#f53d3d;font-size:16px;cursor:pointer;" ><b>Remove</b></label>
+          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+        </button>
       </div>
-    </div>
-  
-  
-  
-    <div *ngIf="value == 'No'" class = "no">
-      <h3><b>ACTION PLAN</b></h3>
-      <form>
-        <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;">      
-          <button (click)="addPerson(who.value)">
-            <label style="color:#32db64;font-size:16px;cursor:pointer;" ><b>Add Action Person</b></label>
-            <ion-icon name="add-circle" color = "secondary"></ion-icon>
-          </button>
-          <button (click)="removePerson()">
-            <label style="color:#f53d3d;font-size:16px;cursor:pointer;" ><b>Remove</b></label>
-            <ion-icon name="remove-circle" color = "danger"></ion-icon>
-          </button>
+      <br>
+      <br>
+      <div class="who-when">
+        <div style="display:flex; flex-direction:column">   
+          <li *ngFor = "let persons of actionPerson">
+            <pre>{{persons}}</pre>
+          </li>
+          <h6>Who</h6>
+          <input style="width: 200%; margin:0px 0px 0px 10px" (change)="log('Who',who.value)" #who>
         </div>
-        <br>
-        <br>
-        <div class="who-when">
-          <div style="display:flex; flex-direction:column">   
-            <li *ngFor = "let persons of actionPerson">
-              <pre>{{persons}}</pre>
-            </li>
-            <h6>Who</h6>
-            <input style="width: 200%; margin:0px 0px 0px 10px" #who>
-          </div>
-          <div style="display:flex; flex-direction:column;justify-content:space-between;flex-grow:0;">
-            <li *ngFor = "let persons of actionPerson">
-              <pre style="visibility:hidden;">{{persons}}</pre>
-            </li>
-            <h6>When</h6>
-            <input type="date" style ="margin:0px 0px 0px 10px;">
-          </div>
-        </div>
-      </form>
-      <div style="margin-top:10px;">
-        <h6>Risk</h6>
-        <div class="risk">
-          Technical<input type="checkbox"> 
-          Cost<input type="checkbox"> 
-          Schedule<input type="checkbox"> 
-        </div>
-        <h6>What</h6>
-        <textarea placeholder="What needs to be done to meet this objective?"></textarea>
-        <h6>Reason</h6>
-        <textarea placeholder="Reason that criteria is not met..."></textarea>
-        <h6>Assumptions</h6>
-        <textarea placeholder="Enter any assumptions here..."></textarea>
-        <h6>Notes</h6>
-        <textarea placeholder="Enter notes here..."></textarea>
-        <div style="width:50%;margin:10px 0px 0px 0px;">
-            <button ion-button color="dark">Attatch File</button>
+        <div style="display:flex; flex-direction:column;justify-content:space-between;flex-grow:0;">
+          <li *ngFor = "let persons of actionPerson">
+            <pre style="visibility:hidden;">{{persons}}</pre>
+          </li>
+          <h6>When</h6>
+          <input type="date" style ="margin:0px 0px 0px 10px;" (change)="log('When',when.value)" #when>
         </div>
       </div>
-    </div>
-  
-    <br><br>
-  
-    <div *ngIf="value == 'N/A'" class = "na">
-      <h6>Documentation</h6>
-      <textarea placeholder="Document why this question is not applicable..."></textarea>
-      <hr>
-      <h6>Assumptions</h6>
-      <textarea placeholder="Enter any assumptions here..."></textarea>
-      <h6>Notes</h6>
-      <textarea placeholder="Enter notes here..."></textarea>
-      <div style="width:50%; margin:10px 0px 0px 0px;">
-        <button ion-button color="dark">Attatch File</button>
+    </form>
+    <div style="margin-top:10px;">
+      <h6>Risk</h6>
+      <div class="risk">
+        Technical<input type="checkbox"> 
+        Cost<input type="checkbox"> 
+        Schedule<input type="checkbox"> 
       </div>
+      <h6>What</h6>
+      <textarea placeholder="What needs to be done to meet this objective?" (change)="log('What',what.value)" #what></textarea>
+      <h6>Reason</h6>
+      <textarea placeholder="Reason that criteria is not met..." (change)="log('Reason',reason.value)" #reason></textarea>
     </div>
+  </div>
+
+  
+  <div *ngIf="value == 'N/A'" class = "na">
+    <h6>Documentation</h6>
+    <textarea placeholder="Document why this question is not applicable..." (change)="log('Documentation',documentation.value)" #documentation></textarea>
+    <hr>
+  </div>
+  
+  <br>
+  <hr>
+
+  <div class = "default">
+    <h6>Assumptions</h6>
+    <textarea placeholder="Enter any assumptions here..." (change)="log('Assumptions',assumptions.value)" #assumptions></textarea>
+    <h6>Notes</h6>
+    <textarea placeholder="Enter notes here..." (change)="log('Notes',notes.value)" #notes></textarea>
+    <div style="width:50%; margin:10px 0px 0px 0px;">
+      <button ion-button color="dark">Attatch File</button>
+    </div>
+  </div>
 
 
 </ion-content>
