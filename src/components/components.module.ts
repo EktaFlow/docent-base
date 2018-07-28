@@ -1,24 +1,22 @@
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-import { PopoverComponent } from './popover/popover';
 import { AssessmentslistComponent } from './assessmentslist/assessmentslist';
 import { ThreadsListComponent } from './threads-list/threads-list';
 import { HelpmenuComponent } from './helpmenu/helpmenu';
 import { ContactsDropdownComponent } from './contacts-dropdown/contacts-dropdown';
 import { FaqDropdownComponent } from './faq-dropdown/faq-dropdown';
 @NgModule({
-	declarations: [PopoverComponent,
+	declarations: [
     AssessmentslistComponent,
     ThreadsListComponent,
-		HelpMenuComponent,
+		HelpmenuComponent,
 		ContactsDropdownComponent,
 		FaqDropdownComponent
     ],
 	imports: [],
-	exports: [PopoverComponent,
+	exports: [
     AssessmentslistComponent,
     ThreadsListComponent,
-		HelpMenuComponent,
+		HelpmenuComponent,
 		ContactsDropdownComponent,
 		FaqDropdownComponent
     ]

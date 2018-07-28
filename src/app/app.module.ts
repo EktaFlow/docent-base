@@ -8,7 +8,6 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 
 // Apollo
-import { HttpClientModule } from "@angular/common/http";
 import { ApolloModule, Apollo } from "apollo-angular";
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -37,8 +36,6 @@ import { ContactsDropdownComponent } from '../components/contacts-dropdown/conta
 import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
-import { PopoverComponent } from '../components/popover/popover';
-<<<<<<< HEAD
 
 @NgModule({
   declarations: [

@@ -11,7 +11,6 @@ import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
 import { AssessmentslistComponent } from "../../components/assessmentslist/assessmentslist";
-import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
 import { AuthService } from "../../services/auth.service";
 
@@ -197,10 +196,9 @@ export class HomePage {
 	loginNav() { this.navCtrl.push( this.loginPage ); }
 	logout() { this.auth.logout()}
 
-  page_2(targetMRL){
-    console.log(targetMRL);
+  page_2(_id){
     this.navCtrl.push(QuestionsPage,{
-			data: id 
+			data: _id 
     });
   }
 }

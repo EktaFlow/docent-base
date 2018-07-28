@@ -12,7 +12,7 @@ query assessment($_id: String)
 	questions{
 		questionId
     threadName
-    subThread
+    subThreadName
     mrLevel
 		questionId
 		questionText
@@ -159,6 +159,8 @@ export class QuestionsPage {
 
 	// What data do we actually need to store in instance vars?
   ngOnInit() {
+		console.log(assessmentQuery)
+		console.log(this.assessmentId)
 		this.assessmentSubscription = this.apollo.watchQuery<any>({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId}
