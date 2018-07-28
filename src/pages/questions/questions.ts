@@ -212,18 +212,6 @@ export class QuestionsPage {
     this.surveyJS.prevPage()
   }
 
-  review(){
-    console.log(JSON.stringify(this.answers))
-    this.navCtrl.push(ReviewPage,{
-      mrl: this.targetMRL,
-      date: this.date,
-      location: this.location,
-      survey: this.survey,
-      surveyResults: this.surveyJS.data,
-      response: this.answers
-    });
-  }
-
   sendDataToServer() {
     var resultAsString = JSON.stringify(this.surveyJS.data);
     alert(resultAsString); //send Ajax request to your web server.

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 
 import { QuestionsPage } from '../questions/questions';
+import { ReviewPage } from '../review/review';
+import { DashboardPage } from '../dashboard/dashboard';
 
 @Component({
   selector: 'page-home',
@@ -24,14 +26,19 @@ export class HomePage {
     this.members.pop()
   }
 
-  targetMRLSelect(val){
-    console.log(val)
+  questions(date,val,loc){
+    this.navCtrl.push(QuestionsPage,{
+      mrl: val,
+      date: date,
+      location: loc
+    });
+  }
+  
+  review(){
+    this.navCtrl.push(ReviewPage);
   }
 
-  page_2(targetMRL){
-    console.log(targetMRL);
-    this.navCtrl.push(QuestionsPage,{
-      data: targetMRL
-    });
+  dashboard(){
+    this.navCtrl.push(DashboardPage);
   }
 }

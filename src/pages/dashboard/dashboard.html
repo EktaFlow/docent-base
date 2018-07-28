@@ -1,0 +1,75 @@
+<!--
+  Generated template for the DashboardPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<div class="toolbar-class">
+  <div>
+    <ion-header>
+      <ion-navbar color ="dark" hideBackButton="true">
+        <div class = "container-toolbar">
+          <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
+          <div class = "container-tbbuttons">
+            <button ion-button color="dark">
+                Assessment
+            </button>
+            <button ion-button color="dark">
+                Help
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div class="subheader">
+          <div style="margin-right:20px;color:white;">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
+            <p><u>Show Assessment Scope</u></p>
+          </div>
+        </div>
+      </ion-navbar>
+    </ion-header>
+  </div>
+</div>
+
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br><br>
+  <div class="top">
+      <p>Completion Date</p>
+      <p>10</p>
+      <p>9</p>
+      <p>8</p>
+      <p>7</p>
+      <p>6</p>
+      <p>5</p>
+      <p>4</p>
+      <p>3</p>
+      <p>2</p>
+      <p>1</p>
+  </div>
+  <br><br><br>
+  <div *ngFor = "let question of questionSet">   
+    <hr>
+      <p><b>{{question.header}}</b></p>
+    <hr>
+    <div *ngFor = "let answer of question.questions" class="questions">
+      <div class="header">
+        <p class = "subtitle">{{answer.subheader}}</p>
+      </div>
+      <div *ngFor ="let response of answer.answers" class="answers">
+        <div *ngIf = "response == true" class = "yes">
+          <img src="../../assets/imgs/check-mark-256.png">
+        </div>
+        <div *ngIf = "response == false" class = "no">
+          <img src="../../assets/imgs/x-mark-256.ico">
+        </div>
+        <div *ngIf = "response == null" class = "na">
+          <img src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden;">
+        </div>
+      </div>
+      <div class = "date">
+        <p>Date</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

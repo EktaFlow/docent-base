@@ -1,0 +1,78 @@
+page-dashboard {
+    .toolbar-class{
+        header{
+            color:#000;
+        }
+        img{
+            margin-left: 10px;
+            margin-top: 10px
+        }
+        hr {
+            height: 1px !important;
+            width: 98% !important;
+            background:grey!important;
+            display: block !important;
+            font-size: 2em !important;
+            visibility: visible !important;
+            }
+    }
+    .subheader{
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        margin-left:13px;
+        flex-direction: row-reverse;
+    }
+    .top{
+        font-weight: bold;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        width: 68%;
+        float: right;
+    }
+    .questions{
+        display: flex;
+        justify-content: space-between;
+    }
+    .subtitle{
+    }
+    .answers{
+        flex-basis: 5%;
+    }
+    .yes{
+        background-color: limegreen;
+        color:limegreen;
+        border-radius:1px;
+        display:flex;
+        height:30px;
+        width: 30px;
+    }
+    .no{
+        background-color: #df3737;
+        color:#df3737;
+        border-radius:1px;
+        height:30px;
+        width: 30px;
+        display: flex;
+        align-content: center;
+    }
+    .na{
+        background-color: lightgrey;
+        color:lightgrey;
+        border-radius:1px;
+        height:30px;
+        width: 30px;
+    }
+    .date{
+        flex-basis: 5%;
+    }
+    .container{
+        display: flex;
+        flex-direction: row;
+        width:100%;
+    }
+    .header{
+        flex-basis: 30%;
+    }
+}

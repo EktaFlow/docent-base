@@ -12,6 +12,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ReviewPage } from '../pages/review/review';
 import { QuestionsPage } from '../pages/questions/questions';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 
 // components
 
@@ -22,7 +23,8 @@ import { QuestionsPage } from '../pages/questions/questions';
     MyApp,
     HomePage,
     QuestionsPage,
-    ReviewPage
+    ReviewPage,
+    DashboardPage
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { QuestionsPage } from '../pages/questions/questions';
     HomePage,
     QuestionsPage,
     ReviewPage,
+    DashboardPage,
   ],
   providers: [
     StatusBar,

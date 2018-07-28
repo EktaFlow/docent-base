@@ -47,27 +47,41 @@
   </div>
   <div class = "survey-info">
     <li *ngFor = "let question of questions">
-      <div ngIf = "this.answer == 'N/A'">
-        <p><b>N/A</b></p>
-        {{question.title}}
-        {{question.assumptions}}
-        {{question.notes}}
+      <div *ngIf = "question.answer == 'N/A'" class = "na">
+        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+        <p class = "box"><b>N/A</b></p>
+        <p>
+          <b>Attatchements:</b> {{question.attatchements}}
+        </p>
         <hr>
       </div>
-      <div ngIf = "this.answer == 'No'">
-        <p><b>No</b></p>
-        {{question.title}}
-      <!--
-        TODO: Attatchements
-      -->
+      <div *ngIf = "question.answer == 'No'" class = "no">
+        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+        <p class = "box"><b>No</b></p>
+        <p>
+          <b>Attatchements:</b> {{question.attatchements}}
+        </p>
         <hr>
       </div>
-      <div ngIf = "this.answer == 'Yes'">
-        <p><b>Yes</b></p>
-        {{question.evidence}}
+      <div *ngIf = "question.answer == 'Yes'" class = "yes">
+        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+        <p class = "box"><b>Yes</b></p>
+        <p>
+          <b>Evidence:</b> {{question.evidence}}
+        </p>
         <hr>
       </div>
 
+      <div *ngIf = "question.answer == 'skipped'" class = "skipped">
+        <p style="color:#0000EE;cursor: pointer;">{{question.question}}</p>
+        <p class="box"><b>Skipped</b></p>
+        <p>
+          <b>Assumptions:</b> {{question.assumptions}}<br><br>
+          <b>Notes:</b> {{question.notes}}<br><br>
+          <b>Attatchements:</b> {{question.attatchements}}
+        </p>
+        <hr>
+      </div>
     </li>
   </div>
 </ion-content>

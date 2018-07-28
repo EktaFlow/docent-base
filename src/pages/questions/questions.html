@@ -5,37 +5,36 @@
   Ionic pages and navigation.
 -->
 <div class="toolbar-class">
-    <div>
-      <ion-header>
-        <ion-navbar color ="dark" hideBackButton="true">
-          <div class = "container-toolbar">
-            <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
-            <div class = "container-tbbuttons">
-              <button ion-button color="dark">
-                  Assessment
-              </button>
-              <button ion-button color="dark">
-                  Help
-              </button>
-            </div>
+  <div>
+    <ion-header>
+      <ion-navbar color ="dark" hideBackButton="true">
+        <div class = "container-toolbar">
+          <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
+          <div class = "container-tbbuttons">
+            <button ion-button color="dark">
+                Assessment
+            </button>
+            <button ion-button color="dark">
+                Help
+            </button>
           </div>
-          <hr>
-          <div class="subheader">
-            <div><p>{{this.mainTitle}} / {{this.subTitle}}</p></div>
-            <div style="margin-right:20px">
-              <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
-              <p><u>Show Assessment Scope</u></p>
-            </div>
+        </div>
+        <hr>
+        <div class="subheader">
+          <div><p>{{this.mainTitle}} / {{this.subTitle}}</p></div>
+          <div style="margin-right:20px">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
+            <p><u>Show Assessment Scope</u></p>
           </div>
-        </ion-navbar>
-      </ion-header>
-    </div>
+        </div>
+      </ion-navbar>
+    </ion-header>
   </div>
+</div>
 
 
 <ion-content padding>
   <br><br><br><br><br><br><br><br><br><br>
-  <button (click)="review()">Review</button>
   <div class = "nav">
     <div id='surveyElement' class = "questions" (change)="surveyChange()">
 
