@@ -27,6 +27,7 @@ import { RegisterPage } from "../pages/register/register";
 import { LoginPage }    from "../pages/login/login";
 
 import { AuthService } from "../services/auth.service";
+import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
 
 
@@ -87,6 +88,7 @@ import { FileUploadPopoverComponent } from "../components/file-upload-popover/fi
   providers: [
     StatusBar,
 		AuthService,
+		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams,ViewController } from 'ionic-angular';
+import {UploadService } from "../../services/upload";
 
 /**
  * Generated class for the FileUploadPopoverComponent component.
@@ -15,9 +16,14 @@ export class FileUploadPopoverComponent {
 
 	questionId: string;
 	
-	constructor( public navParams: NavParams) {
+	constructor( public upload: UploadService, public navParams: NavParams) {
 		this.questionId = this.navParams.get("questionId");
 		console.log(this.questionId);
   }
+
+	uploadFile(event) {
+		var file = document.getElementById("asdf").files[0];
+		this.upload.uploadFile(file);
+	}
 
 }
