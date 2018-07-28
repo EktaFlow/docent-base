@@ -36,6 +36,7 @@ import { ContactsDropdownComponent } from '../components/contacts-dropdown/conta
 import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
+import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ThreadsListComponent } from "../components/threads-list/threads-list";
     ContactsDropdownComponent,
 		FaqDropdownComponent,
 		AssessmentslistComponent,
-		ThreadsListComponent 
+		ThreadsListComponent,
+		FileUploadPopoverComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { ThreadsListComponent } from "../components/threads-list/threads-list";
     ContactsDropdownComponent,
 		FaqDropdownComponent,
 		AssessmentslistComponent,
-		ThreadsListComponent 
+		ThreadsListComponent,
+		FileUploadPopoverComponent
   ],
   providers: [
     StatusBar,

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import * as Survey from 'survey-angular';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+
+import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
 var assessmentQuery = gql`
 query assessment($_id: String) 
@@ -56,11 +58,17 @@ export class QuestionsPage {
 	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, 
+							private popoverController: PopoverController, private apollo: Apollo) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY? 
 		this.assessmentId = navParams.data.data;
   }
+
+	showFileUpload(event) {
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, { questionId: this.questionId});
+		fileUploadPopover.present({ ev: event });
+	}
 
   surveyChange(){
 		console.log("hmm?");
@@ -68,6 +76,8 @@ export class QuestionsPage {
     // if undefined, skipped
 		if (this.surveyJS) {
 			var {pages, currentPageNo} = this.surveyJS;
+			// TODO - clean this up below
+			this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
 
 			this.mainTitle = pages[currentPageNo].name
 			this.subTitle = pages[currentPageNo].elements[0].name
@@ -176,6 +186,7 @@ export class QuestionsPage {
 				this.subTitle = pages[currentPageNo].elements[0].name
 				// this.questionIds = current.map(a => a.questionId);
 				this.questionId = this.current[currentPageNo].questionId;
+				console.log(this.current[currentPageNo]);
 				//////////// clean up above //////////////
 		})
 
