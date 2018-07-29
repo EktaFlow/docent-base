@@ -30,42 +30,34 @@ export class UploadService {
 	constructor(private apollo: Apollo) {}
 
 	uploadFile(file, assessmentId, questionId) {
+		const blobUri = `https://${this.accountName}.blob.core.windows.net`;
+		const blobService = upload.createBlobServiceWithSas(blobUri, this.sas); 
 
-	const blobUri = `https://${this.accountName}.blob.core.windows.net`;
-	const blobService = upload.createBlobServiceWithSas(blobUri, this.sas); 
-
-	blobService.createBlockBlobFromBrowserFile('test', 
-                                                file.name, 
-                                                file, 
-                                                (error, result) => {
-                                                    if(error) {
-                                                        console.error(error);
-                                                    } else {
-                                                        console.log('Upload is successful');
-																												var url = this.generateUrl(file.name); 
-																												this.createGQL(url, assessmentId, Number(questionId), file.name);
-                                                    }
-                                                });
-	
+		blobService.createBlockBlobFromBrowserFile('test', file.name, file, 
+			function handleCreateBlob(error, result) {
+				 if (error) {	console.error(error); }
+				 else {
+						var url = this.generateUrl(file.name); 
+						this.createGQL(url, assessmentId, Number(questionId), file.name);
+				 }
+		});
+		return {name: file.name, questionId: questionId, url: this.generateUrl(file.name)}; 
 	}
 
 	generateUrl(name) {
-	return `https://${this.accountName}.blob.core.windows.net/test/${name}`
+		return `https://${this.accountName}.blob.core.windows.net/test/${name}`
 	}
 
 	createGQL(url, assessmentId, questionId, name) {
-	console.log(assessmentId);
-	this.apollo.mutate({
-	mutation: createFileMutation,
-	variables: {
-	url,
-		assessmentId,
-		questionId,
-		name
+		this.apollo.mutate({
+			mutation: createFileMutation,
+			variables: {
+				url,
+				assessmentId,
+				questionId,
+				name
+			}
+		}).subscribe(a => null);
 	}
-}).subscribe(a => console.log(a));
-	}
-
-
 
 }

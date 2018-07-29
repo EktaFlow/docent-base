@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import * as Survey from 'survey-angular';
 
@@ -19,7 +19,10 @@ query assessment($_id: String)
 		questionId
 		questionText
   }
-  targetMRL
+	targetMRL
+	files {
+		url
+	}
 }
 }
 `
@@ -56,6 +59,8 @@ export class QuestionsPage {
 	public surveyJS: any;
 	//private questionIds: []; 
 	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
+	files = [];
+	private current;
 
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, 
@@ -66,12 +71,17 @@ export class QuestionsPage {
   }
 
 	showFileUpload(event) {
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, { questionId: this.questionId, assessmentId: this.assessmentId });
+	let myEmitter = new EventEmitter<any>();
+		myEmitter.subscribe( v =>  {
+		this.files.push(v);
+		console.log(this.files);
+})
+
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
 		fileUploadPopover.present({ ev: event });
 	}
 
   surveyChange(){
-		console.log("hmm?");
 		// values needs to stay here because it's tied to the conditional rendering.
     // if undefined, skipped
 		if (this.surveyJS) {
@@ -105,7 +115,6 @@ export class QuestionsPage {
 	}
 	
 	getQuestionId() {
-		console.log(this.surveyJS.currentPageNo);
 	}
 
 	setValues() {
@@ -115,11 +124,11 @@ export class QuestionsPage {
 }
 
 	handleNextPageClick() {
-		console.log(this.questionIds);
 		this.setValues();
 		this.surveyJS.nextPage();
 		this.resetSelect();
-		// update the questionId!!
+		var { currentPageNo, pages } = this.surveyJS;
+		this.questionId = this.current[currentPageNo + 1].questionId;
 	}
 
 	loadQuestion(array)	 {
@@ -169,8 +178,6 @@ export class QuestionsPage {
 
 	// What data do we actually need to store in instance vars?
   ngOnInit() {
-		console.log(assessmentQuery)
-		console.log(this.assessmentId)
 		this.assessmentSubscription = this.apollo.watchQuery<any>({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId}
@@ -178,6 +185,7 @@ export class QuestionsPage {
 			.valueChanges
 			.subscribe( ({data, loading}) => {  
 				var survey = this.createSurvey(data.assessment);
+				// this.files = data.assessment.files;
   			this.surveyJS = new Survey.Model( survey );
   			Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
 				// TODO clean this////////////////////////////////
@@ -186,7 +194,7 @@ export class QuestionsPage {
 				this.subTitle = pages[currentPageNo].elements[0].name
 				// this.questionIds = current.map(a => a.questionId);
 				this.questionId = this.current[currentPageNo].questionId;
-				console.log(this.current[currentPageNo]);
+				console.log(this.questionId);
 				//////////// clean up above //////////////
 		})
 

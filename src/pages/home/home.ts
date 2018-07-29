@@ -115,7 +115,7 @@ export class HomePage {
 	*/
 				}
 		})
-			.subscribe(({data, loading}) => {
+			.subscribe(({data}) => {
 			console.log("we here");
 					console.log(data.createAssessment._id);
 					this.page_2(data.createAssessment._id);
