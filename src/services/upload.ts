@@ -34,14 +34,14 @@ export class UploadService {
 		const blobService = upload.createBlobServiceWithSas(blobUri, this.sas); 
 
 		blobService.createBlockBlobFromBrowserFile('test', file.name, file, 
-			function handleCreateBlob(error, result) {
+		(error, result) => {
 				 if (error) {	console.error(error); }
 				 else {
-						var url = this.generateUrl(file.name); 
+						var url = this.generateUrl(file.name);
 						this.createGQL(url, assessmentId, Number(questionId), file.name);
 				 }
 		});
-		return {name: file.name, questionId: questionId, url: this.generateUrl(file.name)}; 
+		return {name: file.name, questionId: questionId, url: this.generateUrl(file.name)};
 	}
 
 	generateUrl(name) {

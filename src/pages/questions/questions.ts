@@ -96,9 +96,9 @@ export class QuestionsPage {
 
 	resetSelect() {
 		setTimeout( () => {
-			document.querySelector(".sv_q_dropdown_control")
-							.firstChild
-							.selected = true; 
+			var control: any = document.querySelector(".sv_q_dropdown_control")
+																 .firstChild
+			control.selected = true; 
 			this.value = undefined;
 		}, 200);
 	}

@@ -26,7 +26,8 @@ export class FileUploadPopoverComponent {
 	async uploadFile(event) {
 		var { assessmentId, questionId } = this;
 
-		var file = document.getElementById("asdf").files[0];
+		// boooooooooooooooooooo typescript
+		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
 		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
 
 		this.emitter.emit(uploadedFile);
