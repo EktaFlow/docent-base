@@ -54,7 +54,7 @@ export class QuestionsPage {
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
-	private questionIds: []; 
+	//private questionIds: []; 
 	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
 
 
@@ -66,7 +66,7 @@ export class QuestionsPage {
   }
 
 	showFileUpload(event) {
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, { questionId: this.questionId});
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, { questionId: this.questionId, assessmentId: this.assessmentId });
 		fileUploadPopover.present({ ev: event });
 	}
 

@@ -89,13 +89,6 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService) {}
 
-	showPopover(myEvent) {
-	var popoverClick = this.popOver.create(HelpmenuComponent, {}, {cssClass: 'help-menu'});
-		popoverClick.present({
-			ev: myEvent
-		});
-	}	
-
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
