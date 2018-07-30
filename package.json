@@ -39,6 +39,7 @@
     "survey-angular": "^1.0.32",
     "surveyjs-editor": "^1.0.32",
     "sw-toolbox": "3.6.0",
+    "symbol-observable": "^1.2.0",
     "tslint": "^5.0.0",
     "uuid": "^3.3.2",
     "zone.js": "0.8.26"
