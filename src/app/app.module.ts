@@ -13,7 +13,10 @@ import { HomePage } from '../pages/home/home';
 import { ReviewPage } from '../pages/review/review';
 import { QuestionsPage } from '../pages/questions/questions';
 import { DashboardPage } from '../pages/dashboard/dashboard';
-
+import { NavigatePage } from '../pages/navigate/navigate';
+import { NotapplicablePage } from '../pages/notapplicable/notapplicable';
+import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions';
+import { ActionitemsPage } from '../pages/actionitems/actionitems';
 // components
 
 
@@ -24,7 +27,11 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
     HomePage,
     QuestionsPage,
     ReviewPage,
-    DashboardPage
+    DashboardPage,
+    NavigatePage,
+    NotapplicablePage,
+    SkippedquestionsPage,
+    ActionitemsPage
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,10 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
     QuestionsPage,
     ReviewPage,
     DashboardPage,
+    NavigatePage,
+    NotapplicablePage,
+    SkippedquestionsPage,
+    ActionitemsPage
   ],
   providers: [
     StatusBar,

@@ -27972,6 +27972,37 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+page-actionitems .toolbar-class header {
+  color: #000;
+}
+
+page-actionitems .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-actionitems .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-actionitems .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+}
+
 page-dashboard .toolbar-class header {
   color: #000;
 }
@@ -28373,6 +28404,91 @@ ion-scroll {
   white-space: normal;
 }
 
+page-navigate .toolbar-class header {
+  color: #000;
+}
+
+page-navigate .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-navigate .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-navigate .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+}
+
+page-navigate .downArrow {
+  height: 14;
+  width: 14;
+  cursor: pointer;
+}
+
+page-navigate .mrl {
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+page-navigate .subtitle {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+page-notapplicable .toolbar-class header {
+  color: #000;
+}
+
+page-notapplicable .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-notapplicable .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-notapplicable .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+}
+
+page-notapplicable .questions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 page-questions .members input, .members page-questions input, page-questions .scope textarea, .scope page-questions textarea, page-questions .target-level-date input, .target-level-date page-questions input, page-questions .target-level select, .target-level page-questions select, page-questions .bottom input, .bottom page-questions input, page-questions .bottom select, .bottom page-questions select, page-questions .nav select, page-questions .choose-one select, page-questions .yes textarea, page-questions .no input, page-questions .no textarea, page-questions .na textarea, page-questions .questions input, page-questions .default textarea {
   width: 100%;
   height: 100%;
@@ -28705,4 +28821,42 @@ page-review .skipped .box {
   border-radius: 3px;
   width: 7%;
   text-align: center;
+}
+
+page-skippedquestions .toolbar-class header {
+  color: #000;
+}
+
+page-skippedquestions .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-skippedquestions .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-skippedquestions .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+}
+
+page-skippedquestions .questions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }

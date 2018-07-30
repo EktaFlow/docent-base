@@ -4,6 +4,10 @@ import { NavController, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from '../questions/questions';
 import { ReviewPage } from '../review/review';
 import { DashboardPage } from '../dashboard/dashboard';
+import { NavigatePage } from '../navigate/navigate';
+import { NotapplicablePage } from '../notapplicable/notapplicable';
+import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
+import { ActionitemsPage } from '../actionitems/actionitems';
 
 @Component({
   selector: 'page-home',
@@ -40,5 +44,21 @@ export class HomePage {
 
   dashboard(){
     this.navCtrl.push(DashboardPage);
+  }
+
+  navigate(){
+    this.navCtrl.push(NavigatePage)
+  }
+
+  na(){
+    this.navCtrl.push(NotapplicablePage);
+  }
+
+  skipped(){
+    this.navCtrl.push(SkippedquestionsPage);
+  }
+
+  action(){
+    this.navCtrl.push(ActionitemsPage);
   }
 }
