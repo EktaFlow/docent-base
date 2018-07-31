@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import { ViewsComponent } from '../../components/views/views';
+import { TopbarComponent } from "../../components/topbar/topbar";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -50,7 +50,7 @@ export class SkippedquestionsPage {
 			.subscribe(data => { 
 			this.skipped = (<any>data.data).assessment.questions.filter(a => a.skipped)
 
-					var subThreadNames: any = skippedQuestions.map(s => s.subThreadName);
+					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);
 			});
 	}
@@ -59,12 +59,5 @@ export class SkippedquestionsPage {
 	filterBySubThread(subThread) {
 		return this.skipped.filter(s => s.subThreadName == subThread);
 	}
-
-  presentViewsPop(event){
-    let popover = this.popOver.create(ViewsComponent);
-    popover.present({
-      ev: event
-    });
-  }
 
 }

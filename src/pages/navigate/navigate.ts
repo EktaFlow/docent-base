@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import { ViewsComponent } from '../../components/views/views';
+import { TopbarComponent } from "../../components/topbar/topbar";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -171,10 +171,4 @@ export class NavigatePage {
     }
   }
 
-  presentViewsPop(event){
-    let popover = this.popOver.create(ViewsComponent);
-    popover.present({
-      ev: event
-    });
-  }
 }

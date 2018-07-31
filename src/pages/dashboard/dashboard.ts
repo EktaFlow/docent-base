@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { ViewsComponent } from '../../components/views/views';
+import { TopbarComponent } from "../../components/topbar/topbar";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -80,6 +81,7 @@ export class DashboardPage {
 						var questionSet = questions.filter(s => s.mrLevel == f)
 						// if there are no questions, the section is marked as blank
 						if (questionSet.length == 0) { sectionValue = "blank";}
+
 						// if every answer is yes, complete the section 
 						if (!questionSet.length == 0 && questionSet.every(a => a.currentAnswer == "Yes") ) {sectionValue = true}
 						questionSet.forEach(a => {
