@@ -6,12 +6,16 @@
   <button ion-button color="dark">
     Open
   </button>
+	<ng-container *ngIf="assessmentId">
+	<!-- We're auto-saving on updates now.
   <button ion-button color="dark">
     Continue
   </button>
+	 Can leave this for when/if we output to a desktop format.
   <button ion-button color="dark">
     Save
   </button>
+	-->
   <hr>
   <button (click)="handleDashboard()" ion-button color="dark">
     Dashboard
@@ -32,4 +36,5 @@
   <button (click)="handleNa()" ion-button color="dark">
     N/A Questions
   </button>
+	</ng-container>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController, NavParams } from 'ionic-angular'
+import { ViewController, NavController, NavParams, PopoverController } from 'ionic-angular'
 
 import { HomePage } from '../../pages/home/home';
 import { ReviewPage } from '../../pages/review/review';
@@ -8,6 +8,8 @@ import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
+
+import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
 
 @Component({
   selector: 'views',
@@ -20,9 +22,10 @@ export class ViewsComponent {
   dashboardPage = DashboardPage;
   navigatePage = NavigatePage;
   actionitemsPage = ActionitemsPage;
+	assessments: any;
 	assessmentId: any;
   
-  constructor( public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor( public navCtrl: NavController, public popOver: PopoverController, public navParams: NavParams, public viewCtrl: ViewController) {
 		this.assessmentId = navParams.data.assessmentId;
   }
 
@@ -42,6 +45,14 @@ export class ViewsComponent {
     close() {
     this.viewCtrl.dismiss();
     }
+
+	showAssessmentsList(myEvent) {
+	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
+	console.log(this.assessments);
+		popoverClick.present({
+			ev: myEvent
+		});
+	}
 
 }
 

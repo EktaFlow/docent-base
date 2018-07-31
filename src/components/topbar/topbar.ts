@@ -4,6 +4,7 @@ import { ViewsComponent } from "../views/views";
 import { RegisterPage } from "../../pages/register/register";
 import { LoginPage }    from "../../pages/login/login";
 import { AuthService } from "../../services/auth.service";
+import { HelpmenuComponent } from "../helpmenu/helpmenu";
 
 @Component({
   selector: 'topbar',
@@ -31,6 +32,11 @@ constructor( public popOver: PopoverController,
       ev: event
     });
   }
+
+	showHelp(event) {
+		this.popOver.create(HelpmenuComponent, {assessmenId: this.assessmentId})
+		            .present({ev: event});
+	}
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
