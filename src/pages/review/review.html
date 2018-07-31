@@ -11,7 +11,7 @@
         <div class = "container-toolbar">
           <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
           <div class = "container-tbbuttons">
-            <button ion-button color="dark">
+            <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
             <button ion-button color="dark" (click)="showPopover($event)">
@@ -23,7 +23,7 @@
         <div class="subheader">
           <div><p>Review</p></div>
           <div style="margin-right:20px">
-            <p>Target MRL: {{targetMRL}}| Target Date: Date</p>
+            <p>Target MRL: {{targetMRL}} | Target Date: {{date}}</p>
             <p><u>Show Assessment Scope</u></p>
           </div>
         </div>
@@ -39,19 +39,49 @@
   <div class = "page-one-info">
     <p>
       <b>Target MRL: </b>{{targetMRL}}<br/><br>
-      <b>Target Date: </b> {{targetDate}}<br/><br>
+      <b>Target Date: </b> {{date}}<br/><br>
       <b>Location: </b>{{location}}<br/><br>
       <b>Team Members: </b>{{team}}<br/><br>
     </p>
     <hr>
   </div>
-  <div class = "page-two-info">
-    <!--
-      TODO: Need to make this an if section for the most part, and pass appropriate data
-      Also, if skipped, show
-    -->
-    <p>
-      
-    </p>
+  <div class = "survey-info">
+    <li *ngFor = "let question of questions">
+      <div *ngIf = "question.answer == 'N/A'" class = "na">
+        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+        <p class = "box"><b>N/A</b></p>
+        <p>
+          <b>Attatchements:</b> {{question.attatchements}}
+        </p>
+        <hr>
+      </div>
+      <div *ngIf = "question.answer == 'No'" class = "no">
+        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+        <p class = "box"><b>No</b></p>
+        <p>
+          <b>Attatchements:</b> {{question.attatchements}}
+        </p>
+        <hr>
+      </div>
+      <div *ngIf = "question.answer == 'Yes'" class = "yes">
+        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+        <p class = "box"><b>Yes</b></p>
+        <p>
+          <b>Evidence:</b> {{question.evidence}}
+        </p>
+        <hr>
+      </div>
+
+      <div *ngIf = "question.answer == 'skipped'" class = "skipped">
+        <p style="color:#0000EE;cursor: pointer;">{{question.question}}</p>
+        <p class="box"><b>Skipped</b></p>
+        <p>
+          <b>Assumptions:</b> {{question.assumptions}}<br><br>
+          <b>Notes:</b> {{question.notes}}<br><br>
+          <b>Attatchements:</b> {{question.attatchements}}
+        </p>
+        <hr>
+      </div>
+    </li>
   </div>
 </ion-content>

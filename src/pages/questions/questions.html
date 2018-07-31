@@ -1,36 +1,30 @@
-<!--
-  Generated template for the QuestionsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <div class="toolbar-class">
-    <div>
-      <ion-header>
-        <ion-navbar color ="dark" hideBackButton="true">
-          <div class = "container-toolbar">
-            <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
-            <div class = "container-tbbuttons">
-              <button ion-button color="dark">
-                  Assessment
-              </button>
-              <button ion-button color="dark">
-                  Help
-              </button>
-            </div>
+  <div>
+    <ion-header>
+      <ion-navbar color ="dark" hideBackButton="true">
+        <div class = "container-toolbar">
+          <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
+          <div class = "container-tbbuttons">
+            <button ion-button (click)="presentViewsPop($event)" color="dark">
+                Assessment
+            </button>
+            <button ion-button color="dark">
+                Help
+            </button>
           </div>
-          <hr>
-          <div class="subheader">
-            <div><p>{{this.mainTitle}} / {{this.subTitle}}</p></div>
-            <div style="margin-right:20px">
-              <p>Target MRL: {{targetMRL}}| Target Date: Date</p>
-              <p><u>Show Assessment Scope</u></p>
-            </div>
+        </div>
+        <hr>
+        <div class="subheader">
+          <div><p>{{this.mainTitle}} / {{this.subTitle}}</p></div>
+          <div style="margin-right:20px">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
+            <p><u>Show Assessment Scope</u></p>
           </div>
-        </ion-navbar>
-      </ion-header>
-    </div>
+        </div>
+      </ion-navbar>
+    </ion-header>
   </div>
+</div>
 
 
 <ion-content padding>
@@ -104,8 +98,14 @@
           <button (click)="showFileUpload($event)" ion-button color="dark">Attatch File</button>
       </div>
     </div>
+  </div>
+
   
-    <br><br>
+  <div *ngIf="value == 'N/A'" class = "na">
+    <h6>Documentation</h6>
+    <textarea placeholder="Document why this question is not applicable..." (change)="log('Documentation',documentation.value)" #documentation></textarea>
+    <hr>
+  </div>
   
     <div *ngIf="value == 'N/A'" class = "na">
       <h6>Documentation</h6>
@@ -119,6 +119,7 @@
         <button (click)="showFileUpload($event)" ion-button color="dark">Attatch File</button>
       </div>
     </div>
+  </div>
 
 		<div>
 			<div *ngFor="let file of files">

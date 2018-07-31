@@ -25,19 +25,25 @@ import { ReviewPage } from '../pages/review/review';
 import { QuestionsPage } from '../pages/questions/questions';
 import { RegisterPage } from "../pages/register/register";
 import { LoginPage }    from "../pages/login/login";
-
-import { AuthService } from "../services/auth.service";
-import { UploadService } from "../services/upload";
-import { httpInterceptorsProviders } from "../services/interceptors";
-
+import { DashboardPage } from '../pages/dashboard/dashboard';
+import { NavigatePage } from '../pages/navigate/navigate';
+import { NotapplicablePage } from '../pages/notapplicable/notapplicable';
+import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions';
+import { ActionitemsPage } from '../pages/actionitems/actionitems';
 
 // components
+import { ViewsComponent } from '../components/views/views';
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
 import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
 import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
+
+// services 
+import { AuthService } from "../services/auth.service";
+import { UploadService } from "../services/upload";
+import { httpInterceptorsProviders } from "../services/interceptors";
 
 @NgModule({
   declarations: [
@@ -57,6 +63,13 @@ import { FileUploadPopoverComponent } from "../components/file-upload-popover/fi
 		AssessmentslistComponent,
 		ThreadsListComponent,
 		FileUploadPopoverComponent
+    ReviewPage,
+    DashboardPage,
+    NavigatePage,
+    NotapplicablePage,
+    SkippedquestionsPage,
+    ActionitemsPage,
+    ViewsComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +97,12 @@ import { FileUploadPopoverComponent } from "../components/file-upload-popover/fi
 		AssessmentslistComponent,
 		ThreadsListComponent,
 		FileUploadPopoverComponent
+    DashboardPage,
+    NavigatePage,
+    NotapplicablePage,
+    SkippedquestionsPage,
+    ActionitemsPage,
+    ViewsComponent
   ],
   providers: [
     StatusBar,

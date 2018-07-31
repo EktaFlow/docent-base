@@ -1,0 +1,47 @@
+<!--
+  Generated template for the NotapplicablePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<div class="toolbar-class">
+  <div>
+    <ion-header>
+      <ion-navbar color ="dark" hideBackButton="true">
+        <div class = "container-toolbar">
+          <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
+          <div class = "container-tbbuttons">
+            <button ion-button (click)="presentViewsPop($event)" color="dark">
+                Assessment
+            </button>
+            <button ion-button color="dark">
+                Help
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div class="subheader">
+          <div><p>Questions Marked Not Applicable</p></div>
+          <div style="margin-right:20px">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
+            <p><u>Show Assessment Scope</u></p>
+          </div>
+        </div>
+      </ion-navbar>
+    </ion-header>
+  </div>
+</div>
+
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br><br>
+  <div *ngFor="let segment of schema">
+    <hr>
+    {{segment.header}}
+    <hr>
+    <div *ngFor="let question of segment.questions" class="questions">
+      <p style="width: 20%;">Level {{segment.mrl}}</p>
+      <p style="cursor:pointer; color:blue;">{{question}}</p>
+    </div>
+  </div>
+</ion-content>

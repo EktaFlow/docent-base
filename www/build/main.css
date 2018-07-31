@@ -27972,92 +27972,178 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
-.feedback-dropdown-container {
-  margin-bottom: 30px;
-}
-
-.feedback-dropdown-header {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.arrow-down {
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid darkblue;
-  margin-right: 6px;
-}
-
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid darkblue;
-  margin-right: 6px;
-}
-
-.faq-question-title {
-  color: darkblue;
-  font-family: Arial;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.faq-question-container {
-  margin-bottom: 15px;
-}
-
-.faq-question-header {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.arrow-down {
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid darkblue;
-  margin-right: 6px;
-}
-
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid darkblue;
-  margin-right: 6px;
-}
-
-helpmenu {
+views {
   top: 60px;
+}
+
+page-actionitems .toolbar-class header {
+  color: #000;
+}
+
+page-actionitems .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-actionitems .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-actionitems .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+}
+
+page-dashboard .toolbar-class header {
+  color: #000;
+}
+
+page-dashboard .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-dashboard .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-dashboard .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+page-dashboard .top {
+  font-weight: bold;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 68%;
+  float: right;
+}
+
+page-dashboard .questions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+page-dashboard .answers {
+  -webkit-flex-basis: 5%;
+  -ms-flex-preferred-size: 5%;
+  flex-basis: 5%;
+}
+
+page-dashboard .yes {
+  background-color: limegreen;
+  color: limegreen;
+  border-radius: 1px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 30px;
+  width: 30px;
+}
+
+page-dashboard .no {
+  background-color: #df3737;
+  color: #df3737;
+  border-radius: 1px;
+  height: 30px;
+  width: 30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+page-dashboard .na {
+  background-color: lightgrey;
+  color: lightgrey;
+  border-radius: 1px;
+  height: 30px;
+  width: 30px;
+}
+
+page-dashboard .date {
+  -webkit-flex-basis: 5%;
+  -ms-flex-preferred-size: 5%;
+  flex-basis: 5%;
+}
+
+page-dashboard .container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 100%;
+}
+
+page-dashboard .header {
+  -webkit-flex-basis: 30%;
+  -ms-flex-preferred-size: 30%;
+  flex-basis: 30%;
 }
 
 ion-scroll {
   white-space: nowrap;
 }
 
-.members input, .scope textarea, .target-level-date input, .target-level select, .bottom input, .bottom select, page-page-2 .choose-one select, page-page-2 .yes textarea, page-page-2 .no input, page-page-2 .no textarea, page-page-2 .na textarea, page-questions .nav select, page-questions .choose-one select, page-questions .yes textarea, page-questions .no input, page-questions .no textarea, page-questions .na textarea, page-questions .questions input {
+.members input, .scope textarea, .target-level-date input, .target-level select, .bottom input, .bottom select, page-questions .nav select, page-questions .choose-one select, page-questions .yes textarea, page-questions .no input, page-questions .no textarea, page-questions .na textarea, page-questions .questions input, page-questions .default textarea {
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -28072,7 +28158,7 @@ ion-scroll {
   border-color: #dcdcdc;
 }
 
-.target-level select, .bottom select, page-page-2 .choose-one select, page-questions .nav select, page-questions .choose-one select {
+.target-level select, .bottom select, page-questions .nav select, page-questions .choose-one select {
   background-position: right 50%;
   background-repeat: no-repeat;
   background-image: url("../../assets/imgs/if_icon-arrow-down.png");
@@ -28322,43 +28408,16 @@ ion-scroll {
   white-space: normal;
 }
 
-page-page-2 .members input, .members page-page-2 input, page-page-2 .scope textarea, .scope page-page-2 textarea, page-page-2 .target-level-date input, .target-level-date page-page-2 input, page-page-2 .target-level select, .target-level page-page-2 select, page-page-2 .bottom input, .bottom page-page-2 input, page-page-2 .bottom select, .bottom page-page-2 select, page-page-2 .choose-one select, page-page-2 .yes textarea, page-page-2 .no input, page-page-2 .no textarea, page-page-2 .na textarea, page-page-2 page-questions .nav select, page-questions .nav page-page-2 select, page-questions .choose-one page-page-2 select, page-questions .yes page-page-2 textarea, page-questions .no page-page-2 input, page-questions .no page-page-2 textarea, page-questions .na page-page-2 textarea, page-page-2 page-questions .questions input, page-questions .questions page-page-2 input {
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  line-height: 1.42857;
-  font-size: 14px;
-  padding: 6px 12px;
-  background-color: #fbfbfb;
-  border-color: #dcdcdc;
-}
-
-page-page-2 .target-level select, .target-level page-page-2 select, page-page-2 .bottom select, .bottom page-page-2 select, page-page-2 .choose-one select, page-page-2 page-questions .nav select, page-questions .nav page-page-2 select, page-questions .choose-one page-page-2 select {
-  background-position: right 50%;
-  background-repeat: no-repeat;
-  background-image: url("../../assets/imgs/if_icon-arrow-down.png");
-  padding: .5em;
-  padding-right: 1.5em;
-}
-
-page-page-2 .toolbar-class header {
+page-navigate .toolbar-class header {
   color: #000;
 }
 
-page-page-2 .toolbar-class img {
+page-navigate .toolbar-class img {
   margin-left: 10px;
   margin-top: 10px;
 }
 
-page-page-2 .toolbar-class p {
-  visibility: visible !important;
-}
-
-page-page-2 .toolbar-class hr {
+page-navigate .toolbar-class hr {
   height: 1px !important;
   width: 98% !important;
   background: grey !important;
@@ -28367,7 +28426,7 @@ page-page-2 .toolbar-class hr {
   visibility: visible !important;
 }
 
-page-page-2 .subheader {
+page-navigate .subheader {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -28380,180 +28439,32 @@ page-page-2 .subheader {
   margin-left: 13px;
 }
 
-page-page-2 .choose-one {
-  width: 48%;
-  padding: 10px 0px 30px 0px;
+page-navigate .downArrow {
+  height: 14;
+  width: 14;
+  cursor: pointer;
 }
 
-page-page-2 .choose-one select {
-  -webkit-appearance: none;
+page-navigate .mrl {
+  margin-left: 40px;
+  margin-top: 10px;
 }
 
-page-page-2 .yes {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 100%;
+page-navigate .subtitle {
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
-page-page-2 .yes textarea {
-  resize: none;
-  width: 48%;
-}
-
-page-page-2 .yes textarea:focus {
-  outline: none;
-  border-color: #9ecaed;
-  -webkit-box-shadow: 0 0 10px #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
-}
-
-page-page-2 .no {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 100%;
-}
-
-page-page-2 .no ion-icon {
-  font-size: 20px;
-}
-
-page-page-2 .no .who-when {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  width: 48%;
-  height: 100%;
-  list-style-type: none;
-}
-
-page-page-2 .no input {
-  width: 100%;
-  height: 100%;
-}
-
-page-page-2 .no textarea {
-  resize: none;
-  width: 48%;
-}
-
-page-page-2 .no textarea:focus {
-  outline: none;
-  border-color: #9ecaed;
-  -webkit-box-shadow: 0 0 10px #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
-}
-
-page-page-2 .no .up-btn {
-  width: 10%;
-}
-
-page-page-2 .na {
-  height: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: space-evenly;
-  -webkit-justify-content: space-evenly;
-  -ms-flex-pack: space-evenly;
-  justify-content: space-evenly;
-}
-
-page-page-2 .na textarea {
-  resize: none;
-  width: 48%;
-}
-
-page-page-2 .na textarea:focus {
-  outline: none;
-  border-color: #9ecaed;
-  -webkit-box-shadow: 0 0 10px #9ecaed;
-  box-shadow: 0 0 10px #9ecaed;
-}
-
-page-page-2 .risk {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 25%;
-  margin: 20px;
-}
-
-page-page-3 .members input, .members page-page-3 input, page-page-3 .scope textarea, .scope page-page-3 textarea, page-page-3 .target-level-date input, .target-level-date page-page-3 input, page-page-3 .target-level select, .target-level page-page-3 select, page-page-3 .bottom input, .bottom page-page-3 input, page-page-3 .bottom select, .bottom page-page-3 select, page-page-3 page-page-2 .choose-one select, page-page-2 .choose-one page-page-3 select, page-page-3 page-page-2 .yes textarea, page-page-2 .yes page-page-3 textarea, page-page-3 page-page-2 .no input, page-page-2 .no page-page-3 input, page-page-3 page-page-2 .no textarea, page-page-2 .no page-page-3 textarea, page-page-3 page-page-2 .na textarea, page-page-2 .na page-page-3 textarea, page-page-3 page-questions .nav select, page-questions .nav page-page-3 select, page-page-3 page-questions .choose-one select, page-questions .choose-one page-page-3 select, page-page-3 page-questions .yes textarea, page-questions .yes page-page-3 textarea, page-page-3 page-questions .no input, page-questions .no page-page-3 input, page-page-3 page-questions .no textarea, page-questions .no page-page-3 textarea, page-page-3 page-questions .na textarea, page-questions .na page-page-3 textarea, page-page-3 page-questions .questions input, page-questions .questions page-page-3 input {
-  width: 100%;
-  height: 100%;
-  display: inline-block;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  line-height: 1.42857;
-  font-size: 14px;
-  padding: 6px 12px;
-  background-color: #fbfbfb;
-  border-color: #dcdcdc;
-}
-
-page-page-3 .target-level select, .target-level page-page-3 select, page-page-3 .bottom select, .bottom page-page-3 select, page-page-3 page-page-2 .choose-one select, page-page-2 .choose-one page-page-3 select, page-page-3 page-questions .nav select, page-questions .nav page-page-3 select, page-page-3 page-questions .choose-one select, page-questions .choose-one page-page-3 select {
-  background-position: right 50%;
-  background-repeat: no-repeat;
-  background-image: url("../../assets/imgs/if_icon-arrow-down.png");
-  padding: .5em;
-  padding-right: 1.5em;
-}
-
-page-page-3 .toolbar-class header {
+page-notapplicable .toolbar-class header {
   color: #000;
 }
 
-page-page-3 .toolbar-class img {
+page-notapplicable .toolbar-class img {
   margin-left: 10px;
   margin-top: 10px;
 }
 
-page-page-3 .toolbar-class p {
-  visibility: visible !important;
-}
-
-page-page-3 .toolbar-class hr {
+page-notapplicable .toolbar-class hr {
   height: 1px !important;
   width: 98% !important;
   background: grey !important;
@@ -28562,7 +28473,7 @@ page-page-3 .toolbar-class hr {
   visibility: visible !important;
 }
 
-page-page-3 .subheader {
+page-notapplicable .subheader {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -28575,7 +28486,14 @@ page-page-3 .subheader {
   margin-left: 13px;
 }
 
-page-questions .members input, .members page-questions input, page-questions .scope textarea, .scope page-questions textarea, page-questions .target-level-date input, .target-level-date page-questions input, page-questions .target-level select, .target-level page-questions select, page-questions .bottom input, .bottom page-questions input, page-questions .bottom select, .bottom page-questions select, page-page-2 .choose-one page-questions select, page-page-2 .yes page-questions textarea, page-page-2 .no page-questions input, page-page-2 .no page-questions textarea, page-page-2 .na page-questions textarea, page-questions .nav select, page-questions .choose-one select, page-questions .yes textarea, page-questions .no input, page-questions .no textarea, page-questions .na textarea, page-questions .questions input {
+page-notapplicable .questions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+page-questions .members input, .members page-questions input, page-questions .scope textarea, .scope page-questions textarea, page-questions .target-level-date input, .target-level-date page-questions input, page-questions .target-level select, .target-level page-questions select, page-questions .bottom input, .bottom page-questions input, page-questions .bottom select, .bottom page-questions select, page-questions .nav select, page-questions .choose-one select, page-questions .yes textarea, page-questions .no input, page-questions .no textarea, page-questions .na textarea, page-questions .questions input, page-questions .default textarea {
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -28590,7 +28508,7 @@ page-questions .members input, .members page-questions input, page-questions .sc
   border-color: #dcdcdc;
 }
 
-page-questions .target-level select, .target-level page-questions select, page-questions .bottom select, .bottom page-questions select, page-page-2 .choose-one page-questions select, page-questions .nav select, page-questions .choose-one select {
+page-questions .target-level select, .target-level page-questions select, page-questions .bottom select, .bottom page-questions select, page-questions .nav select, page-questions .choose-one select {
   background-position: right 50%;
   background-repeat: no-repeat;
   background-image: url("../../assets/imgs/if_icon-arrow-down.png");
@@ -28673,7 +28591,7 @@ page-questions .yes {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 100%;
+  height: 20%;
 }
 
 page-questions .yes textarea {
@@ -28702,7 +28620,7 @@ page-questions .no {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 100%;
+  height: 70%;
 }
 
 page-questions .no ion-icon {
@@ -28726,6 +28644,7 @@ page-questions .no .who-when {
   width: 48%;
   height: 100%;
   list-style-type: none;
+  margin-left: -10px;
 }
 
 page-questions .no input {
@@ -28735,6 +28654,7 @@ page-questions .no input {
 
 page-questions .no textarea {
   resize: none;
+  height: 100%;
   width: 48%;
 }
 
@@ -28750,7 +28670,7 @@ page-questions .no .up-btn {
 }
 
 page-questions .na {
-  height: 100%;
+  height: 30%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -28791,7 +28711,16 @@ page-questions .questions input {
   margin: 10px 0px 0px 0px;
 }
 
-page-review .members input, .members page-review input, page-review .scope textarea, .scope page-review textarea, page-review .target-level-date input, .target-level-date page-review input, page-review .target-level select, .target-level page-review select, page-review .bottom input, .bottom page-review input, page-review .bottom select, .bottom page-review select, page-review page-page-2 .choose-one select, page-page-2 .choose-one page-review select, page-review page-page-2 .yes textarea, page-page-2 .yes page-review textarea, page-review page-page-2 .no input, page-page-2 .no page-review input, page-review page-page-2 .no textarea, page-page-2 .no page-review textarea, page-review page-page-2 .na textarea, page-page-2 .na page-review textarea, page-review page-questions .nav select, page-questions .nav page-review select, page-review page-questions .choose-one select, page-questions .choose-one page-review select, page-review page-questions .yes textarea, page-questions .yes page-review textarea, page-review page-questions .no input, page-questions .no page-review input, page-review page-questions .no textarea, page-questions .no page-review textarea, page-review page-questions .na textarea, page-questions .na page-review textarea, page-review page-questions .questions input, page-questions .questions page-review input {
+page-questions .default {
+  height: 20%;
+  width: 48%;
+}
+
+page-questions .default textarea {
+  resize: none;
+}
+
+page-review .members input, .members page-review input, page-review .scope textarea, .scope page-review textarea, page-review .target-level-date input, .target-level-date page-review input, page-review .target-level select, .target-level page-review select, page-review .bottom input, .bottom page-review input, page-review .bottom select, .bottom page-review select, page-review page-questions .nav select, page-questions .nav page-review select, page-review page-questions .choose-one select, page-questions .choose-one page-review select, page-review page-questions .yes textarea, page-questions .yes page-review textarea, page-review page-questions .no input, page-questions .no page-review input, page-review page-questions .no textarea, page-questions .no page-review textarea, page-review page-questions .na textarea, page-questions .na page-review textarea, page-review page-questions .questions input, page-questions .questions page-review input, page-review page-questions .default textarea, page-questions .default page-review textarea {
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -28806,7 +28735,7 @@ page-review .members input, .members page-review input, page-review .scope texta
   border-color: #dcdcdc;
 }
 
-page-review .target-level select, .target-level page-review select, page-review .bottom select, .bottom page-review select, page-review page-page-2 .choose-one select, page-page-2 .choose-one page-review select, page-review page-questions .nav select, page-questions .nav page-review select, page-review page-questions .choose-one select, page-questions .choose-one page-review select {
+page-review .target-level select, .target-level page-review select, page-review .bottom select, .bottom page-review select, page-review page-questions .nav select, page-questions .nav page-review select, page-review page-questions .choose-one select, page-questions .choose-one page-review select {
   background-position: right 50%;
   background-repeat: no-repeat;
   background-image: url("../../assets/imgs/if_icon-arrow-down.png");
@@ -28814,12 +28743,12 @@ page-review .target-level select, .target-level page-review select, page-review 
   padding-right: 1.5em;
 }
 
-page-review .page-one-info, page-review .page-two-info {
+page-review .page-one-info, page-review .survey-info {
   font-size: 18px;
   margin: 100px 0px 0px 100px;
 }
 
-page-review .page-one-info hr, page-review .page-two-info hr {
+page-review .page-one-info hr, page-review .survey-info hr {
   margin-right: 100px;
 }
 
@@ -28856,4 +28785,82 @@ page-review .subheader {
   justify-content: space-between;
   color: white;
   margin-left: 13px;
+}
+
+page-review .survey-info {
+  margin-top: 0px;
+}
+
+page-review .survey-info li {
+  list-style-type: none;
+}
+
+page-review .yes .box {
+  background-color: green;
+  color: white;
+  border-radius: 3px;
+  width: 5%;
+  text-align: center;
+}
+
+page-review .no .box {
+  background-color: red;
+  color: white;
+  border-radius: 3px;
+  width: 5%;
+  text-align: center;
+}
+
+page-review .na .box {
+  background-color: darkgrey;
+  color: white;
+  border-radius: 3px;
+  width: 5%;
+  text-align: center;
+}
+
+page-review .skipped .box {
+  background-color: lightgrey;
+  color: white;
+  border-radius: 3px;
+  width: 7%;
+  text-align: center;
+}
+
+page-skippedquestions .toolbar-class header {
+  color: #000;
+}
+
+page-skippedquestions .toolbar-class img {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-skippedquestions .toolbar-class hr {
+  height: 1px !important;
+  width: 98% !important;
+  background: grey !important;
+  display: block !important;
+  font-size: 2em !important;
+  visibility: visible !important;
+}
+
+page-skippedquestions .subheader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  color: white;
+  margin-left: 13px;
+}
+
+page-skippedquestions .questions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }

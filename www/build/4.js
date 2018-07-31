@@ -1,14 +1,14 @@
 webpackJsonp([4],{
 
-/***/ 290:
+/***/ 281:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FaqsPageModule", function() { return FaqsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavigatePageModule", function() { return NavigatePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__faqs__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__navigate__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var FaqsPageModule = /** @class */ (function () {
-    function FaqsPageModule() {
+var NavigatePageModule = /** @class */ (function () {
+    function NavigatePageModule() {
     }
-    FaqsPageModule = __decorate([
+    NavigatePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__faqs__["a" /* FaqsPage */],
+                __WEBPACK_IMPORTED_MODULE_2__navigate__["a" /* NavigatePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__faqs__["a" /* FaqsPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__navigate__["a" /* NavigatePage */]),
             ],
         })
-    ], FaqsPageModule);
-    return FaqsPageModule;
+    ], NavigatePageModule);
+    return NavigatePageModule;
 }());
 
-//# sourceMappingURL=faqs.module.js.map
+//# sourceMappingURL=navigate.module.js.map
 
 /***/ })
 

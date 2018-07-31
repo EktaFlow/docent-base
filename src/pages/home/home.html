@@ -16,7 +16,7 @@
             <button ion-button (click)="registerNav()" color="dark">
                 Register 
             </button>
-            <button ion-button color="dark">
+            <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
             <button ion-button color="dark">
@@ -73,7 +73,7 @@
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL</h6>
-          <select name="targetMRL" (change)="targetMRLSelect(value);">
+          <select name="targetMRL" #value>
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
             <option value = "2">2</option>
@@ -102,13 +102,13 @@
         </div>
       </div>
       <h6>Date to Achieve Target MRL</h6>
-      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy">
+      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy" #date>
     </div>
   </div>
   <div class = "bottom">
     <div style="width:48%;height:100%;">
       <h6>Location</h6>
-      <ion-input name="location" placeholder = "Enter Location"></ion-input>
+      <ion-input name="location" placeholder = "Enter Location" #location></ion-input>
     </div>
     <div style="width:48%;">
       <h6>Deskbook Version</h6>
@@ -154,4 +154,5 @@
       </button>
     </div>
   </div>
+<<<<<<< HEAD
 </ion-content>

@@ -6,6 +6,15 @@ import { NgForm } from "@angular/forms";
 import { QuestionsPage } from '../questions/questions';
 import { RegisterPage } from "../register/register";
 import { LoginPage }    from "../login/login";
+import { ReviewPage } from '../review/review';
+import { DashboardPage } from '../dashboard/dashboard';
+import { NavigatePage } from '../navigate/navigate';
+import { NotapplicablePage } from '../notapplicable/notapplicable';
+import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
+import { ActionitemsPage } from '../actionitems/actionitems';
+
+import { ViewsComponent } from '../../components/views/views';
+
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
@@ -179,11 +188,13 @@ export class HomePage {
     this.members.pop()
   }
 
-  targetMRLSelect(val){
-    console.log(val)
+  questions(date,val,loc){
+    this.navCtrl.push(QuestionsPage,{
+      mrl: val,
+      date: date,
+      location: loc
+    });
   }
-
-	// Navs
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
@@ -191,7 +202,12 @@ export class HomePage {
 
   page_2(_id){
     this.navCtrl.push(QuestionsPage,{
-			data: _id 
+		data: _id });}
+
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
     });
   }
 }

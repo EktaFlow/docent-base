@@ -1,6 +1,9 @@
 import { Component, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import * as Survey from 'survey-angular';
+import { ReviewPage } from '../review/review';
+import { ViewsComponent } from '../../components/views/views';
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -74,7 +77,6 @@ export class QuestionsPage {
 	public test;
 	public questionAnswered: any;
 
-
 	constructor(public navCtrl: NavController, public navParams: NavParams, 
 							private popoverController: PopoverController, private apollo: Apollo) {
 
@@ -88,6 +90,7 @@ export class QuestionsPage {
 		this.files.push(v);
 })
 
+<<<<<<< HEAD
 	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
 		fileUploadPopover.present({ ev: event });
 	}
@@ -126,8 +129,6 @@ export class QuestionsPage {
 			
 			console.log(this.yesVals);
 			}
-
-
 			, 200)
 		}
 
@@ -294,6 +295,13 @@ async	handlePreviousPageClick() {
 				//////////// clean up above //////////////
 		})
 
+  }
+
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
+    });
   }
 }
 
