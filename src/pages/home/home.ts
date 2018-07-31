@@ -86,9 +86,11 @@ export class HomePage {
 	allThreads: any;
 	assessments: any;
 
+	assForm: any = {};
+
   members = [];
 	ionicForm = {};
-	threadsSelected = [];
+	threadsSelected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	location: any;
 
 	private querySubscription: Subscription;
@@ -101,28 +103,24 @@ export class HomePage {
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
-		//var { value } = form;
+		var values = this.assForm;
+		values.threads = this.threadsSelected;
+		console.log(values);
+
 		this.apollo.mutate({
 				mutation:		createAssessmentMutation, 
 				variables:	{
-					id:								1,
-					threads:					[1,2,3,4],
-					location:					"asdasdad",
-					targetMRL:				2,
-					levelSwitching:		false,
-					deskBookVersion:	"2017",
-					scope:						"aaa",
-					targetDate:			"10/18/2019",
-					name: "test assessment"
-	/*
-					threads:					this.threadsSelected,
-					location:					value.location,
-					targetMRL:				value.targetMRL,
-					levelSwitching:		value.levelSwitching,
-					deskBookVersion:	value.version,
-					scope:						value.scope,
-					targetDate:				value.dateAchieve
-	*/
+				threads:				values.threads,
+				location: values.location,
+				targetMRL:				values.targetMRL, 
+				name: values.name,
+				//		levelSwitching:		false,
+				//		deskBookVersion:	"2017",
+				scope: values.scope,
+				targetDate: values.targetDate,
+				//		targetDate:			"10/18/2019",
+				location: values.location
+
 				}
 		})
 			.subscribe(({data}) => {
@@ -147,8 +145,8 @@ export class HomePage {
 		})
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
-		 this.loading = loading;
-		 //		 this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+				console.log(data);
+				this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
 	}
 
@@ -173,12 +171,22 @@ export class HomePage {
 		myEvent.preventDefault();
 		
 		let myEmitter = new EventEmitter<any>();
-		myEmitter.subscribe( v =>  this.threadsSelected.push(v.index));
+		myEmitter.subscribe( v =>  this.toggleThread(v.index));
 
-		var popoverClick = this.popOver.create(ThreadsListComponent, {allThreads: this.allThreads, emitter: myEmitter});
+		var popoverClick = this.popOver.create(ThreadsListComponent, {allThreads: this.allThreads, emitter: myEmitter, threadsSelected: this.threadsSelected});
       popoverClick.present({
         ev: myEvent
       });
+	}
+
+	toggleThread(thread) {
+		var {threadsSelected} = this;
+		threadsSelected.includes(thread) ? 
+		threadsSelected = threadsSelected.filter(a => a !== thread) :
+		threadsSelected.push(thread)
+
+		threadsSelected.sort((a,b) => a-b);
+		console.log(threadsSelected);
 	}
 
   addMember(nameIn:string,roleIn:string){

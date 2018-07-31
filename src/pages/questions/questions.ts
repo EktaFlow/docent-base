@@ -16,6 +16,8 @@ query assessment($_id: String)
 {
  assessment(_id: $_id)  {
 	questions{
+	  currentAnswer
+    skipped
 		questionId
     threadName
     subThreadName
@@ -206,8 +208,8 @@ async	handlePreviousPageClick() {
 	}
 
 	loadQuestion(array)	 {
-		var notAnswered = array.filter(a => !a.answered)
-		var sorted = array.sort((a,b) => a.questionId - b.questionId)	
+		var notAnswered = array.filter(a => !a.currentAnswer )
+		var sorted = notAnswered.sort((a,b) => a.questionId - b.questionId)	
 		return sorted
 	}
 
@@ -258,14 +260,15 @@ async	handlePreviousPageClick() {
 		})
 			.valueChanges
 			.subscribe( ({data, loading}) => {  
+			console.log(data);
 				var survey = this.createSurvey(data.assessment);
 				// this.files = data.assessment.files;
   			this.surveyJS = new Survey.Model( survey );
   			Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
 				// TODO clean this////////////////////////////////
 				var { currentPageNo, pages } = this.surveyJS;
-				this.mainTitle = pages[currentPageNo].name
-				this.subTitle = pages[currentPageNo].elements[0].name
+				pages[currentPageNo] ? this.mainTitle = pages[currentPageNo].name : null
+				pages[currentPageNo] ? this.subTitle = pages[currentPageNo].elements[0].name : console.log(pages)
 				// this.questionIds = current.map(a => a.questionId);
 				this.questionId = this.current[currentPageNo].questionId;
 				//////////// clean up above //////////////

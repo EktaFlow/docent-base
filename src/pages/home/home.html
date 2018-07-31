@@ -13,7 +13,7 @@
   <br><br>
   <h6>Assessment Name</h6>
 	<div class="topmost">
-      <input type="text" name="assessmentName" placeholder = "Assessment Name" #assName>
+      <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
   <h6>Team Members</h6>
   <form>
@@ -44,13 +44,13 @@
   <div class = "mid-first-page">
     <div class="scope">
       <h6>Scope</h6>
-      <textarea name="scope" placeholder = "Enter Scope Here"></textarea>
+      <textarea name="scope" placeholder = "Enter Scope Here" [(ngModel)]="assForm.scope"></textarea>
     </div>
     <div class ="target-level-date">
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL</h6>
-          <select name="targetMRL" #value>
+          <select name="targetMRL" [(ngModel)]="assForm.targetMRL">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
             <option value = "2">2</option>
@@ -71,7 +71,7 @@
               <img src="../../assets/imgs/qmark.png" width="15" height="15">
             </button>
           </div>
-          <select>
+          <select [(ngModel)]="assForm.levelSwitching">
             <option value="" disabled selected>Select One...</option>
             <option>On</option>
             <option>Off</option>
@@ -79,17 +79,17 @@
         </div>
       </div>
       <h6>Date to Achieve Target MRL</h6>
-      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy" #date>
+      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy" [(ngModel)]="assForm.targetDate">
     </div>
   </div>
   <div class = "bottom">
     <div style="width:48%;height:100%;">
       <h6>Location</h6>
-      <ion-input name="location" placeholder = "Enter Location" #location></ion-input>
+      <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
     <div style="width:48%;">
       <h6>Deskbook Version</h6>
-      <select name="version">
+      <select name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
         <option>2017</option>
       </select>
@@ -97,7 +97,7 @@
   </div>
   <div class = "thread-start">
     <div class = "choose-threads">
-      <button>
+      <button (click)="showThreads($event)">
         <img src="../../assets/imgs/if_icon-arrow-down.png" width="15" height="15">
       </button>
       <p><b>Choose Threads</b></p>
