@@ -30,22 +30,6 @@ export class ActionitemsPage {
 	no: any;
 	assessmentId: any;
 
-  schema = [
-    {
-      header:"Cost & Funding",
-      subheader:"Production Cost Knowledge (Cost modeling)",
-      mrl:"3",
-      question:"Have initial cost targets and risks been identified?",
-      reason:"This",
-      action:"is",
-      assumptions:"an",
-      notes:"example",
-      risks:"of",
-      teamMembers:"the",
-      attatchments:"schema"
-    }
-  ];
-
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
 							 public navParams: NavParams, 
@@ -65,8 +49,6 @@ export class ActionitemsPage {
 			}).valueChanges
 			.subscribe(data => { 
 					this.no= (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "No");
-					var subThreadNames: any = this.no.map(s => s.subThreadName);
-					this.subThreads = subThreadNames.filter(this.unique);
 					console.log(this.no);
 			});
 	}

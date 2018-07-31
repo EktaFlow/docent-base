@@ -38,12 +38,6 @@ export class SkippedquestionsPage {
 		console.log(this.assessmentId);
   }
 
-	/*
-	unique(item, index, array) {
-	    return array.indexOf(item) == index;
-			}
-*/
-
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
