@@ -53,11 +53,4 @@ export class ActionitemsPage {
 			});
 	}
 
-  presentViewsPop(event){
-    let popover = this.popOver.create(ViewsComponent);
-    popover.present({
-      ev: event
-    });
-  }
-
 }

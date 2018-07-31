@@ -83,7 +83,7 @@ export class DashboardPage {
 						if (questionSet.length == 0) { sectionValue = "blank";}
 
 						// if every answer is yes, complete the section 
-						if (!questionSet.length == 0 && questionSet.every(a => a.currentAnswer == "Yes") ) {sectionValue = true}
+						if (questionSet.length > 0 && questionSet.every(a => a.currentAnswer == "Yes") ) {sectionValue = true}
 						questionSet.forEach(a => {
 						  // if any answer is no, fail the section.
 							if (a.currentAnswer == "No") sectionValue = false

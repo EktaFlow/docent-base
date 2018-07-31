@@ -82,7 +82,7 @@ var createAssessmentMutation = gql`
 
 })
 export class HomePage {
-	backEnd: true;
+	backEnd: any = true;
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
 	loading: boolean;
@@ -93,7 +93,7 @@ export class HomePage {
 
   members = [];
 	ionicForm = {};
-	threadsSelected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	location: any;
 
 	private querySubscription: Subscription;
@@ -103,11 +103,14 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService) {
 
-							fetch(BackUrl)
-								.then(a => console.log("connected"))
-								.catch(e => this.backEnd = false );
+							console.log("we construct");
 	}
 
+		async checkBack() {
+							await fetch(BackUrl)
+								.then(a => console.log("connected"))
+								.catch(e => { this.backEnd = false; console.log("nope"); });
+								}
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
@@ -135,8 +138,10 @@ export class HomePage {
 		}
 	}
 
-	ngOnInit() {
+	async ngOnInit() {
+	await this.checkBack();
 	if (this.backEnd) {
+	console.log("we init");
 	this.querySubscription = this.apollo.watchQuery<any>({
 		query: assessmentQuery
 		})

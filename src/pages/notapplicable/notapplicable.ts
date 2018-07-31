@@ -67,7 +67,7 @@ export class NotapplicablePage {
 			}).valueChanges
 			.subscribe(data => { 
 			console.log(data);
-			var naQuestions: any = data.data.assessment.questions.filter(a => a.currentAnswer == "N/A")
+			var naQuestions = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "N/A")
 					this.na= naQuestions;
 					console.log(naQuestions);
 
@@ -80,10 +80,4 @@ export class NotapplicablePage {
 		return this.na.filter(s => s.subThreadName == subThread);
 	}
 
-  presentViewsPop(event){
-    let popover = this.popOver.create(ViewsComponent);
-    popover.present({
-      ev: event
-    });
-  }
 }
