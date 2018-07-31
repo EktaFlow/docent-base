@@ -25,6 +25,8 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
+import { BackUrl } from "../../services/constants";
+
 var assessmentQuery = gql`
 query{
 assessments {
@@ -80,6 +82,7 @@ var createAssessmentMutation = gql`
 
 })
 export class HomePage {
+	backEnd: true;
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
 	loading: boolean;
@@ -98,14 +101,19 @@ export class HomePage {
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
 							private apollo: Apollo,
-							private auth: AuthService) {}
+							private auth: AuthService) {
+
+							fetch(BackUrl)
+								.then(a => console.log("connected"))
+								.catch(e => this.backEnd = false );
+	}
 
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
+		if (this.backEnd) {
 		var values = this.assForm;
 		values.threads = this.threadsSelected;
-		console.log(values);
 
 		this.apollo.mutate({
 				mutation:		createAssessmentMutation, 
@@ -118,26 +126,23 @@ export class HomePage {
 				//		deskBookVersion:	"2017",
 				scope: values.scope,
 				targetDate: values.targetDate,
-				//		targetDate:			"10/18/2019",
-				location: values.location
 
 				}
 		})
 			.subscribe(({data}) => {
-			console.log("we here");
-					console.log(data.createAssessment._id);
 					this.page_2(data.createAssessment._id);
 			});
+		}
 	}
 
 	ngOnInit() {
+	if (this.backEnd) {
 	this.querySubscription = this.apollo.watchQuery<any>({
 		query: assessmentQuery
 		})
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
 		 this.loading = loading;
-		 console.log(data);
 		 this.assessments = data.assessments
 		 });
 	this.querySubscription = this.apollo.watchQuery<any>({
@@ -145,16 +150,14 @@ export class HomePage {
 		})
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
-				console.log(data);
 				this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
+	}
 	}
 
 
 	showAssessmentsList(myEvent) {
 	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
-	console.log(this.assessments);
-	console.log(this.threadsSelected);
 		popoverClick.present({
 			ev: myEvent
 		});
@@ -186,7 +189,6 @@ export class HomePage {
 		threadsSelected.push(thread)
 
 		threadsSelected.sort((a,b) => a-b);
-		console.log(threadsSelected);
 	}
 
   addMember(nameIn:string,roleIn:string){
