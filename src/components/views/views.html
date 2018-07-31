@@ -16,7 +16,7 @@
   <button [navPush]="dashboardPage" ion-button color="dark">
     Dashboard
   </button>
-  <button [navPush]="navigatePage" ion-button color="dark">
+  <button (click)="handleNavigate()" ion-button color="dark">
     Navigate
   </button>
   <button (click)="handleReview()" ion-button color="dark">

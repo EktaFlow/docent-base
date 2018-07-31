@@ -34,8 +34,9 @@ export class ViewsComponent {
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 		}
 
-		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId})
-		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId})
+		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
+		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
+		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
 
     close() {
     this.viewCtrl.dismiss();
