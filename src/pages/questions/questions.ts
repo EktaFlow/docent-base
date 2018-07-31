@@ -103,6 +103,7 @@ export class QuestionsPage {
 			var {pages, currentPageNo} = this.surveyJS;
 			// TODO - clean this up below
 			this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
+			console.log(this.value);
 		setTimeout( () => {
 			var uselessStaticTyping = (<HTMLInputElement>document.querySelector("sv_q_dropdown_control"));
 			var asdf;
@@ -150,6 +151,8 @@ export class QuestionsPage {
 	}
 
 	updateAssessment(values) {
+
+	  if (!values) { values = {skipped: true}}
 		values.currentAnswer = this.value;
 
 		var ok = {};
@@ -182,9 +185,10 @@ export class QuestionsPage {
 	}
 	
 	setValues() {
-	this.value == "Yes" ? this.updateAssessment(this.yesVals) : null
+	this.value == "Yes" ? this.updateAssessment(this.yesVals) : null;
 	this.value == "No"  ? this.updateAssessment(this.noVals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.naVals)  : null;
+	!this.value ? this.updateAssessment(null) : null; 
 }
 
 	getQuestion(questionId) {

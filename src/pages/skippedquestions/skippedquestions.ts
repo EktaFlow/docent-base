@@ -25,24 +25,6 @@ query assessment($_id: String) {
 })
 export class SkippedquestionsPage {
 
-  schema = [
-    {
-      header:"Technology Maturity",
-      mrl:4,
-      questions:[
-        "Is the Technology Readiness at TRL 4 or greater?"
-      ]
-    },
-    {
-      header:"Technology & Industrial Base",
-      mrl:4,
-      questions:[
-        "Have industrial base capabilities and gpas/risks been identified for key technologies, components, and/or key processes?",
-        "Have pertinenet Manufacturing Sciene (MS) and Advanced Manufacturing Technology requirements been identified?"
-      ]
-    }
-  ];
-
 	skipped: any;
 	assessmentId: any;
 	subThreads: any;
@@ -52,6 +34,15 @@ export class SkippedquestionsPage {
 		console.log(this.assessmentId);
   }
 
+	/*
+	unique(item, index, array) {
+	    return array.indexOf(item) == index;
+			}
+*/
+
+  // helper function to pull unique values from array.
+	unique = (item, index, array) => array.indexOf(item) == index
+
 	ngOnInit() {
 		this.apollo.watchQuery({
 			query: assessmentQuery,
@@ -59,18 +50,17 @@ export class SkippedquestionsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-					console.log(data) 
-					var ok = data.data.assessment.questions.filter(a => a.skipped)
-					this.skipped = ok;
-					var cool = []
-					this.skipped.forEach(s => cool.push(s.subThreadName))
-					cool = [... new Set(cool)];
-					this.subThreads = cool;
-					console.log(cool);
+					var skippedQuestions: any = data.data.assessment.questions.filter(a => a.skipped)
+					this.skipped = skippedQuestions;
 
-					       
+					var subThreadNames = skippedQuestions.map(s => s.subThreadName);
+					this.subThreads = subThreadNames.filter(this.unique);
+			});
+	}
 
-});
+	// AKA - you can't make me use a `PIPE`
+	filterBySubThread(subThread) {
+		return this.skipped.filter(s => s.subThreadName == subThread);
 	}
 
   presentViewsPop(event){
