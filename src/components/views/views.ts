@@ -34,6 +34,8 @@ export class ViewsComponent {
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 		}
 
+		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId})
+
     close() {
     this.viewCtrl.dismiss();
     }

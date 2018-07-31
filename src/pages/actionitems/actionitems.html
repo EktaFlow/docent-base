@@ -36,11 +36,11 @@
 <ion-content padding>
   <br><br><br><br><br><br><br><br><br><br>
   <hr>
-  <div *ngFor="let question of schema">
+  <div *ngFor="let question of no">
     <p>
-      <b>{{question.header}}</b> / {{question.subheader}} / {{question.mrl}}
+      <b>{{question.threadName}}</b> / {{question.subThreadName}} / MR Level: {{question.mrLevel}}
     </p>
-    <p style="color:darkslateblue"><b>{{question.question}}</b></p>
+    <p style="color:darkslateblue"><b>{{question.questionText}}</b></p>
     <div style="display:flex;">
       <div style="width:40%">
         <p>
@@ -49,11 +49,11 @@
         </p>
         <p>
           <b>Action:</b><br>
-          {{question.action}}
+          {{question.what}}
         </p>
         <p>
           <b>Assumptions:</b><br>
-          {{question.assumptios}}
+          {{question.assumptionsNo}}
         </p>
       </div>
       <div style="width:40%;">
@@ -72,7 +72,7 @@
       </div>
     </div>
     <p><b>Notes:</b></p>
-    {{question.notes}}
+    {{question.notesNo}}
     <hr>
   </div>
 </ion-content>

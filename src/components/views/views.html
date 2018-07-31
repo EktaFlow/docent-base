@@ -23,7 +23,7 @@
     Review
   </button>
   <hr>
-  <button [navPush]="actionitemsPage" ion-button color="dark">
+  <button (click)="handleActions()" ion-button color="dark">
     Action Items
   </button>
   <button (click)="handleSkipped()"  ion-button color="dark">
