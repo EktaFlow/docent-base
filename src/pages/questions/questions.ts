@@ -36,6 +36,16 @@ mutation updateAssessment($_id: String!, $questionId: Int, $updates: QuestionUpd
 	}
 `
 
+var questionQuery = gql`
+query question($questionId: Int, $assessmentId: String) {
+	question(questionId: $questionId, assessmentId: $assessmentId) {
+		currentAnswer
+		questionText
+		threadName
+	}
+}
+`
+
 @IonicPage()
 @Component({
   selector: 'page-questions',
@@ -61,6 +71,8 @@ export class QuestionsPage {
 	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
 	files = [];
 	private current;
+	public test;
+	public questionAnswered: any;
 
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, 
@@ -74,7 +86,6 @@ export class QuestionsPage {
 	let myEmitter = new EventEmitter<any>();
 		myEmitter.subscribe( v =>  {
 		this.files.push(v);
-		console.log(this.files);
 })
 
 	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
@@ -82,12 +93,43 @@ export class QuestionsPage {
 	}
 
   surveyChange(){
+	console.log("we fire");	
 		// values needs to stay here because it's tied to the conditional rendering.
     // if undefined, skipped
 		if (this.surveyJS) {
 			var {pages, currentPageNo} = this.surveyJS;
 			// TODO - clean this up below
 			this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
+		setTimeout( () => {
+			var control: any = document.querySelector(".sv_q_dropdown_control").value;
+			this.value = control;
+		}, 200);
+		this.checkNextQuestion(currentPageNo);
+
+		if (!this.questionAnswered) {
+		setTimeout( () => { 
+			var ok = document.querySelectorAll(".question-input");
+			for (let i = 0; i < ok.length; i += 1) {
+				ok[i].value = "";
+			}
+		}, 200);
+		} else {
+		setTimeout( () => {
+			var cool = this.checkLocalQuestion(currentPageNo)
+			var {assumptionsYes, currentAnswer, notesYes, objectiveEvidence } = cool;
+			this.yesVals = {
+			assumptionsYes,
+			currentAnswer,
+			notesYes,
+			objectiveEvidence
+			} 
+			
+			console.log(this.yesVals);
+			}
+
+
+			, 200)
+		}
 
 			this.mainTitle = pages[currentPageNo].name
 			this.subTitle = pages[currentPageNo].elements[0].name
@@ -104,6 +146,27 @@ export class QuestionsPage {
 	}
 
 	updateAssessment(values) {
+		values.currentAnswer = this.value;
+
+		var ok = {};
+		var sweet = this.current;
+		var {pages, currentPageNo} = this.surveyJS;
+
+		for (let obj in sweet[currentPageNo]) {
+			ok[obj] = sweet[currentPageNo][obj]
+		}
+
+		for (let xx in values) {
+			ok[xx] = values[xx]
+		}
+
+		//ok is the updated object.
+
+		sweet[currentPageNo] = ok
+		console.log(sweet);
+
+		this.current = sweet;
+
 		this.apollo.mutate({
 			mutation: updateAssessmentQuery,
 			variables: {
@@ -114,21 +177,55 @@ export class QuestionsPage {
 		}).subscribe(data => console.log(data));
 	}
 	
-	getQuestionId() {
-	}
-
 	setValues() {
 	this.value == "Yes" ? this.updateAssessment(this.yesVals) : null
 	this.value == "No"  ? this.updateAssessment(this.noVals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.naVals)  : null;
 }
 
-	handleNextPageClick() {
+	getQuestion(questionId) {
+		console.log("fire");
+		this.apollo.watchQuery({
+		query: questionQuery,
+		fetchPolicy: "network-only",
+		variables: {
+			assessmentId: this.assessmentId,
+			questionId
+		}
+		}).valueChanges
+		  .subscribe(a => this.test = a);
+
+	}
+
+	checkLocalQuestion(id) {
+		return this.current[id];
+	}
+
+	async handleNextPageClick() {
+
 		this.setValues();
-		this.surveyJS.nextPage();
-		this.resetSelect();
+		await this.surveyJS.nextPage();
 		var { currentPageNo, pages } = this.surveyJS;
-		this.questionId = this.current[currentPageNo + 1].questionId;
+		// resets the select bar.
+		this.checkNextQuestion(currentPageNo);
+		//		this.resetSelect();
+		this.questionId = this.current[currentPageNo].questionId;
+	}
+
+	checkNextQuestion(index) {
+		this.current[index].currentAnswer ? this.questionAnswered = true : this.questionAnswered = false
+	}
+
+	getInputsFromLocal() {
+		
+	}
+
+async	handlePreviousPageClick() {
+		await this.surveyJS.prevPage();
+		var { currentPageNo, pages } = this.surveyJS;
+		this.questionId = this.current[currentPageNo].questionId;
+		this.checkNextQuestion(currentPageNo);
+		// this.resetSelect();
 	}
 
 	loadQuestion(array)	 {
@@ -194,7 +291,6 @@ export class QuestionsPage {
 				this.subTitle = pages[currentPageNo].elements[0].name
 				// this.questionIds = current.map(a => a.questionId);
 				this.questionId = this.current[currentPageNo].questionId;
-				console.log(this.questionId);
 				//////////// clean up above //////////////
 		})
 
