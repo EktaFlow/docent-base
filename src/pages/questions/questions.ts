@@ -90,7 +90,6 @@ export class QuestionsPage {
 		this.files.push(v);
 })
 
-<<<<<<< HEAD
 	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
 		fileUploadPopover.present({ ev: event });
 	}
@@ -104,7 +103,8 @@ export class QuestionsPage {
 			// TODO - clean this up below
 			this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
 		setTimeout( () => {
-			var control: any = document.querySelector(".sv_q_dropdown_control").value;
+			var uselessStaticTyping = (<HTMLInputElement>document.querySelector("sv_q_dropdown_control"));
+			var control = uselessStaticTyping.value;
 			this.value = control;
 		}, 200);
 		this.checkNextQuestion(currentPageNo);
@@ -113,7 +113,8 @@ export class QuestionsPage {
 		setTimeout( () => { 
 			var ok = document.querySelectorAll(".question-input");
 			for (let i = 0; i < ok.length; i += 1) {
-				ok[i].value = "";
+				var annoyingStaticTyping = (<HTMLInputElement>ok[i]);
+				annoyingStaticTyping.value = "";
 			}
 		}, 200);
 		} else {
@@ -298,7 +299,7 @@ async	handlePreviousPageClick() {
   }
 
   presentViewsPop(event){
-    let popover = this.popOver.create(ViewsComponent);
+    let popover = this.popoverController.create(ViewsComponent);
     popover.present({
       ev: event
     });

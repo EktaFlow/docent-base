@@ -1,4 +1,35 @@
-<!-- Generated template for the ViewsComponent component -->
-<div>
-  {{text}}
+<div style="display:flex;flex-direction:column;background-color:black">
+		
+  <button [navPush]="homePage" ion-button color="dark">
+    Home	
+  </button>
+  <button ion-button color="dark">
+    Open
+  </button>
+  <button ion-button color="dark">
+    Continue
+  </button>
+  <button ion-button color="dark">
+    Save
+  </button>
+  <hr>
+  <button [navPush]="dashboardPage" ion-button color="dark">
+    Dashboard
+  </button>
+  <button [navPush]="navigatePage" ion-button color="dark">
+    Navigate
+  </button>
+  <button [navPush]="reviewPage" ion-button color="dark">
+    Review
+  </button>
+  <hr>
+  <button [navPush]="actionitemsPage" ion-button color="dark">
+    Action Items
+  </button>
+  <button [navPush]="skippedquestionsPage" ion-button color="dark">
+    Skipped Questions
+  </button>
+  <button [navPush]="notapplicablePage" ion-button color="dark">
+    N/A Questions
+  </button>
 </div>

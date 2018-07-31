@@ -62,7 +62,7 @@ import { httpInterceptorsProviders } from "../services/interceptors";
 		FaqDropdownComponent,
 		AssessmentslistComponent,
 		ThreadsListComponent,
-		FileUploadPopoverComponent
+		FileUploadPopoverComponent,
     ReviewPage,
     DashboardPage,
     NavigatePage,
@@ -96,7 +96,7 @@ import { httpInterceptorsProviders } from "../services/interceptors";
 		FaqDropdownComponent,
 		AssessmentslistComponent,
 		ThreadsListComponent,
-		FileUploadPopoverComponent
+		FileUploadPopoverComponent,
     DashboardPage,
     NavigatePage,
     NotapplicablePage,
