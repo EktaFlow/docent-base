@@ -2,12 +2,21 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { ViewsComponent } from '../../components/views/views';
 
-/**
- * Generated class for the SkippedquestionsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Apollo } from "apollo-angular";
+import gql from "graphql-tag";
+
+var assessmentQuery = gql`
+query assessment($_id: String) {
+	assessment(_id: $_id) {
+	questions {
+		mrLevel
+		questionText
+		subThreadName
+		skipped
+	}
+	}
+}
+`
 
 @IonicPage()
 @Component({
@@ -34,8 +43,35 @@ export class SkippedquestionsPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
+	skipped: any;
+	assessmentId: any;
+	subThreads: any;
+
+  constructor(private apollo: Apollo, public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
+		this.assessmentId = navParams.data.assessmentId;
+		console.log(this.assessmentId);
   }
+
+	ngOnInit() {
+		this.apollo.watchQuery({
+			query: assessmentQuery,
+			variables: {_id: this.assessmentId},
+			fetchPolicy: "network-only"
+			}).valueChanges
+			.subscribe(data => { 
+					console.log(data) 
+					var ok = data.data.assessment.questions.filter(a => a.skipped)
+					this.skipped = ok;
+					var cool = []
+					this.skipped.forEach(s => cool.push(s.subThreadName))
+					cool = [... new Set(cool)];
+					this.subThreads = cool;
+					console.log(cool);
+
+					       
+
+});
+	}
 
   presentViewsPop(event){
     let popover = this.popOver.create(ViewsComponent);

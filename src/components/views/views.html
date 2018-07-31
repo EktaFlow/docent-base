@@ -26,7 +26,7 @@
   <button [navPush]="actionitemsPage" ion-button color="dark">
     Action Items
   </button>
-  <button [navPush]="skippedquestionsPage" ion-button color="dark">
+  <button (click)="handleSkipped()"  ion-button color="dark">
     Skipped Questions
   </button>
   <button [navPush]="notapplicablePage" ion-button color="dark">

@@ -44,4 +44,11 @@
       <p style="cursor:pointer; color:blue;">{{question}}</p>
     </div>
   </div>
+  <div *ngFor="let question of skipped">
+    <hr>
+		aaaa
+    <hr>
+		<p style="width: 20%;">Level {{question.mrLevel}}</p>
+      <p style="cursor:pointer; color:blue;">{{question.questionText}}</p>
+  </div>
 </ion-content>

@@ -8,6 +8,7 @@ import { ViewsComponent } from '../../components/views/views';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
+import { TopbarComponent } from "../../components/topbar/topbar";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
 var assessmentQuery = gql`
@@ -104,8 +105,9 @@ export class QuestionsPage {
 			this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
 		setTimeout( () => {
 			var uselessStaticTyping = (<HTMLInputElement>document.querySelector("sv_q_dropdown_control"));
-			var control = uselessStaticTyping.value;
-			this.value = control;
+			var asdf;
+			uselessStaticTyping ? asdf = uselessStaticTyping.value : null 
+			this.value = asdf;
 		}, 200);
 		this.checkNextQuestion(currentPageNo);
 
