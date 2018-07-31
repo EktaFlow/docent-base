@@ -39,6 +39,7 @@ import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
 import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
 import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
+import { TopbarComponent } from "../components/topbar/topbar";
 
 // services 
 import { AuthService } from "../services/auth.service";
@@ -69,7 +70,8 @@ import { httpInterceptorsProviders } from "../services/interceptors";
     NotapplicablePage,
     SkippedquestionsPage,
     ActionitemsPage,
-    ViewsComponent
+		ViewsComponent,
+		TopbarComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import { httpInterceptorsProviders } from "../services/interceptors";
     NotapplicablePage,
     SkippedquestionsPage,
     ActionitemsPage,
-    ViewsComponent
+    ViewsComponent,
+		TopbarComponent
   ],
   providers: [
     StatusBar,

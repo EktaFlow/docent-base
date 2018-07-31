@@ -1,0 +1,30 @@
+topbar {
+
+.toolbar-class{
+    header{
+        color:#000;
+    }
+    img{
+        margin-left: 10px;
+        margin-top: 10px
+    }
+    hr {
+        height: 1px !important;
+        width: 98% !important;
+        background:grey!important;
+        display: block !important;
+        font-size: 2em !important;
+        visibility: visible !important;
+      }
+}
+
+.container-toolbar{
+    display: flex;
+    justify-content: space-between;
+    img{
+        padding: 5px;
+    }
+}
+
+
+}
