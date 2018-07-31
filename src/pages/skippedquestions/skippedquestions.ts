@@ -29,7 +29,11 @@ export class SkippedquestionsPage {
 	assessmentId: any;
 	subThreads: any;
 
-  constructor(private apollo: Apollo, public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
+	constructor( private apollo: Apollo, 
+							 public navCtrl: NavController, 
+							 public navParams: NavParams, 
+							 public popOver: PopoverController) {
+
 		this.assessmentId = navParams.data.assessmentId;
 		console.log(this.assessmentId);
   }
@@ -50,10 +54,9 @@ export class SkippedquestionsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-					var skippedQuestions: any = data.data.assessment.questions.filter(a => a.skipped)
-					this.skipped = skippedQuestions;
+			this.skipped =<any>(data.data).assessment.questions.filter(a => a.skipped)
 
-					var subThreadNames = skippedQuestions.map(s => s.subThreadName);
+					var subThreadNames: any = skippedQuestions.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);
 			});
 	}

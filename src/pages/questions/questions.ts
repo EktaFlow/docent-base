@@ -71,7 +71,6 @@ export class QuestionsPage {
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
-	//private questionIds: []; 
 	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
 	files = [];
 	private current;
@@ -102,40 +101,9 @@ export class QuestionsPage {
 		if (this.surveyJS) {
 			var {pages, currentPageNo} = this.surveyJS;
 			// TODO - clean this up below
-			this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
-			console.log(this.value);
-		setTimeout( () => {
-			var uselessStaticTyping = (<HTMLInputElement>document.querySelector("sv_q_dropdown_control"));
-			var asdf;
-			uselessStaticTyping ? asdf = uselessStaticTyping.value : null 
-			this.value = asdf;
-		}, 200);
-		this.checkNextQuestion(currentPageNo);
-
-		if (!this.questionAnswered) {
-		setTimeout( () => { 
-			var ok = document.querySelectorAll(".question-input");
-			for (let i = 0; i < ok.length; i += 1) {
-				var annoyingStaticTyping = (<HTMLInputElement>ok[i]);
-				annoyingStaticTyping.value = "";
-			}
-		}, 200);
-		} else {
-		setTimeout( () => {
-			var cool = this.checkLocalQuestion(currentPageNo)
-			var {assumptionsYes, currentAnswer, notesYes, objectiveEvidence } = cool;
-			this.yesVals = {
-			assumptionsYes,
-			currentAnswer,
-			notesYes,
-			objectiveEvidence
-			} 
-			
-			console.log(this.yesVals);
-			}
-			, 200)
-		}
-
+			// this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
+			this.checkNextQuestion(currentPageNo);
+			this.value = pages[currentPageNo].propertyHash.elements["0"].value;
 			this.mainTitle = pages[currentPageNo].name
 			this.subTitle = pages[currentPageNo].elements[0].name
 		}
@@ -185,6 +153,7 @@ export class QuestionsPage {
 	}
 	
 	setValues() {
+	console.log("set values fires");
 	this.value == "Yes" ? this.updateAssessment(this.yesVals) : null;
 	this.value == "No"  ? this.updateAssessment(this.noVals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.naVals)  : null;

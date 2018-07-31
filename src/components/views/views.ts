@@ -19,8 +19,6 @@ export class ViewsComponent {
   reviewPage = ReviewPage;
   dashboardPage = DashboardPage;
   navigatePage = NavigatePage;
-  notapplicablePage = NotapplicablePage;
-  skippedquestionsPage = SkippedquestionsPage;
   actionitemsPage = ActionitemsPage;
 	assessmentId: any;
   
@@ -30,6 +28,10 @@ export class ViewsComponent {
 
 		handleSkipped() {
 			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId})
+		}
+
+		handleNa() {
+			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 		}
 
     close() {

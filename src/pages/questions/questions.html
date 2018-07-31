@@ -103,13 +103,6 @@
       </div>
 		 </div>
 
-  
-  <div *ngIf="value == 'N/A'" class = "na">
-    <h6>Documentation</h6>
-    <textarea placeholder="Document why this question is not applicable..." (change)="log('Documentation',documentation.value)" #documentation></textarea>
-    <hr>
-  </div>
-  
     <div *ngIf="value == 'N/A'" class = "na">
       <h6>Documentation</h6>
       <textarea class="question-input" [(ngModel)]="naVals.documentation" placeholder="Document why this question is not applicable..."></textarea>
