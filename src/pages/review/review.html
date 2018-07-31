@@ -39,32 +39,32 @@
   <div class = "page-one-info">
     <p>
       <b>Target MRL: </b>{{targetMRL}}<br/><br>
-      <b>Target Date: </b> {{date}}<br/><br>
+      <b>Target Date: </b> {{targetDate}}<br/><br>
       <b>Location: </b>{{location}}<br/><br>
       <b>Team Members: </b>{{team}}<br/><br>
     </p>
     <hr>
   </div>
   <div class = "survey-info">
-    <li *ngFor = "let question of questions">
-      <div *ngIf = "question.answer == 'N/A'" class = "na">
-        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+    <li *ngFor = "let question of allQuestions">
+      <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
+        <p style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>N/A</b></p>
         <p>
           <b>Attatchements:</b> {{question.attatchements}}
         </p>
         <hr>
       </div>
-      <div *ngIf = "question.answer == 'No'" class = "no">
-        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+      <div *ngIf = "question.currentAnswer == 'No'" class = "no">
+        <p style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>No</b></p>
         <p>
           <b>Attatchements:</b> {{question.attatchements}}
         </p>
         <hr>
       </div>
-      <div *ngIf = "question.answer == 'Yes'" class = "yes">
-        <p style="color:blue;cursor: pointer;">{{question.question}}</p>
+      <div *ngIf = "question.currentAnswer == 'Yes'" class = "yes">
+        <p style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>Yes</b></p>
         <p>
           <b>Evidence:</b> {{question.evidence}}
@@ -72,8 +72,8 @@
         <hr>
       </div>
 
-      <div *ngIf = "question.answer == 'skipped'" class = "skipped">
-        <p style="color:#0000EE;cursor: pointer;">{{question.question}}</p>
+      <div *ngIf = "question.skipped" class = "skipped">
+        <p style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
         <p class="box"><b>Skipped</b></p>
         <p>
           <b>Assumptions:</b> {{question.assumptions}}<br><br>

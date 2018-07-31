@@ -35,6 +35,7 @@ export class ViewsComponent {
 		}
 
 		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId})
+		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId})
 
     close() {
     this.viewCtrl.dismiss();
