@@ -9,6 +9,9 @@ import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../actionitems/actionitems';
 
+import { ViewsComponent } from '../../components/views/views';
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -37,28 +40,11 @@ export class HomePage {
       location: loc
     });
   }
-  
-  review(){
-    this.navCtrl.push(ReviewPage);
-  }
 
-  dashboard(){
-    this.navCtrl.push(DashboardPage);
-  }
-
-  navigate(){
-    this.navCtrl.push(NavigatePage)
-  }
-
-  na(){
-    this.navCtrl.push(NotapplicablePage);
-  }
-
-  skipped(){
-    this.navCtrl.push(SkippedquestionsPage);
-  }
-
-  action(){
-    this.navCtrl.push(ActionitemsPage);
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { ViewsComponent } from '../../components/views/views';
 
 /**
  * Generated class for the ReviewPage page.
@@ -46,7 +47,7 @@ export class ReviewPage {
     },
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
     // OLD CODE IS OLD
     /*
     this.targetMRL = navParams.get('mrl');
@@ -71,6 +72,13 @@ export class ReviewPage {
       console.log(key + " " + this.surveyResults[key])
       this.reviewResults.push({key: this.surveyResults[key]});
     }*/
-    // END OLD CODE
+    // END OLD CODe
+    
+  }
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
+    });
   }
 }

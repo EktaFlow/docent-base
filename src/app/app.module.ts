@@ -18,7 +18,7 @@ import { NotapplicablePage } from '../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../pages/actionitems/actionitems';
 // components
-
+import { ViewsComponent } from '../components/views/views';
 
 
 @NgModule({
@@ -31,7 +31,8 @@ import { ActionitemsPage } from '../pages/actionitems/actionitems';
     NavigatePage,
     NotapplicablePage,
     SkippedquestionsPage,
-    ActionitemsPage
+    ActionitemsPage,
+    ViewsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,8 @@ import { ActionitemsPage } from '../pages/actionitems/actionitems';
     NavigatePage,
     NotapplicablePage,
     SkippedquestionsPage,
-    ActionitemsPage
+    ActionitemsPage,
+    ViewsComponent
   ],
   providers: [
     StatusBar,

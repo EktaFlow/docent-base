@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import * as Survey from 'survey-angular';
 import { ReviewPage } from '../review/review';
+import { ViewsComponent } from '../../components/views/views';
+
 //import targetMRL1 from "json../../assets/json/targetMRL1.json";
 
 
@@ -134,7 +136,7 @@ export class QuestionsPage {
 
   surveyJS = new Survey.Model( this.survey );
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
     this.mainTitle = this.survey.pages[this.surveyJS.currentPageNo].name
     this.subTitle = this.survey.pages[this.surveyJS.currentPageNo].elements[0].name
     this.targetMRL = navParams.get('mrl');
@@ -220,5 +222,12 @@ export class QuestionsPage {
   ngOnInit() {
     this.surveyJS.onComplete.add(this.sendDataToServer);
     Survey.SurveyNG.render("surveyElement", {model:this.surveyJS});
+  }
+
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
+    });
   }
 }

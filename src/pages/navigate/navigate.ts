@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Question } from 'survey-angular';
+import { ViewsComponent } from '../../components/views/views';
 
 /**
  * Generated class for the NavigatePage page.
@@ -83,7 +84,7 @@ export class NavigatePage {
   subState: any = [this.schema.length];
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
     this.state.fill(false);
     this.create();
   }
@@ -104,7 +105,10 @@ export class NavigatePage {
     }
   }
 
-  getQuestion(){
-
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
+    });
   }
 }

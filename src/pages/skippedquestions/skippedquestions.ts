@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { ViewsComponent } from '../../components/views/views';
 
 /**
  * Generated class for the SkippedquestionsPage page.
@@ -33,11 +34,14 @@ export class SkippedquestionsPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popOver: PopoverController) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SkippedquestionsPage');
+  presentViewsPop(event){
+    let popover = this.popOver.create(ViewsComponent);
+    popover.present({
+      ev: event
+    });
   }
 
 }

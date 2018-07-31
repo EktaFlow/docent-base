@@ -27972,6 +27972,10 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+views {
+  top: 60px;
+}
+
 page-actionitems .toolbar-class header {
   color: #000;
 }
