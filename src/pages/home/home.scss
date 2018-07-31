@@ -129,6 +129,12 @@ $input-border:#dcdcdc;
         -webkit-appearance: none;
     }
 }
+.topmost {
+	input {
+    @extend %input-style;
+		width: 48%;
+	}
+	}
 .bottom{
     display: flex;
     justify-content: space-between;

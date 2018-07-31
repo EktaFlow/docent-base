@@ -29,6 +29,7 @@ var assessmentQuery = gql`
 query{
 assessments {
 	_id
+	name
 	}
 	}
 `
@@ -55,7 +56,8 @@ var createAssessmentMutation = gql`
      $id:          Int,                                                                             
      $scope:       String,                                                                          
      $targetDate:  Date,
-     $deskbookVersion: String                                                                           
+		 $deskbookVersion: String,
+     $name: String																																					
    ) {                                                                                              
      createAssessment(                                                                              
        threads:    $threads,                                                                        
@@ -64,7 +66,8 @@ var createAssessmentMutation = gql`
        id:         $id,                                                                             
        scope:      $scope,                                                                          
        targetDate: $targetDate, 
-       deskbookVersion: $deskbookVersion                                                                   
+       deskbookVersion: $deskbookVersion,
+			 name: $name
      ) {                                                                                                                                                                           
           _id                                                          
                                                                                                
@@ -109,7 +112,8 @@ export class HomePage {
 					levelSwitching:		false,
 					deskBookVersion:	"2017",
 					scope:						"aaa",
-					targetDate:			"10/18/2019"	
+					targetDate:			"10/18/2019",
+					name: "test assessment"
 	/*
 					threads:					this.threadsSelected,
 					location:					value.location,

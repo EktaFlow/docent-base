@@ -1,37 +1,7 @@
 <title>Docent</title>
 
 <topbar></topbar>
-<!--
-<div class="toolbar-class">
-  <div>
-    <ion-header>
-      <ion-navbar color ="dark" style="height:100px;">
-        <div class = "container-toolbar">
-          <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
-          <div class = "container-tbbuttons">
-            <button ion-button (click)="logout()" color="dark">
-								Logout
-            </button>
-            <button ion-button (click)="loginNav()" color="dark">
-								Login 
-            </button>
-            <button ion-button (click)="registerNav()" color="dark">
-                Register 
-            </button>
-            <button ion-button (click)="presentViewsPop($event)" color="dark">
-                Assessment
-            </button>
-            <button ion-button color="dark">
-                Help
-            </button>
-          </div>
-        </div>
-        <hr>
-      </ion-navbar>
-    </ion-header>
-  </div>
-</div>
--->
+
 <ion-content padding>
   <br>
   <br>
@@ -41,6 +11,10 @@
   <h1>Start New Assessment</h1>
   <font color="grey">Use this option to start a new assessment</font>
   <br><br>
+  <h6>Assessment Name</h6>
+	<div class="topmost">
+      <input type="text" name="assessmentName" placeholder = "Assessment Name" #assName>
+	</div>
   <h6>Team Members</h6>
   <form>
     <div class="member-list">
