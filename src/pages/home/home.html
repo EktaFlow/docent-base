@@ -1,5 +1,7 @@
 <title>Docent</title>
 
+<topbar></topbar>
+<!--
 <div class="toolbar-class">
   <div>
     <ion-header>
@@ -29,6 +31,7 @@
     </ion-header>
   </div>
 </div>
+-->
 <ion-content padding>
   <br>
   <br>
@@ -149,7 +152,7 @@
       <button ion-button color ="buttonBlue">
         Help Importing
       </button>
-      <button ion-button color ="buttonBlue">
+      <button (click)="showAssessmentsList($event)" ion-button color ="buttonBlue">
         Open Assessment
       </button>
     </div>

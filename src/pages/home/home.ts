@@ -13,8 +13,6 @@ import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../actionitems/actionitems';
 
-import { ViewsComponent } from '../../components/views/views';
-
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
@@ -22,6 +20,7 @@ import { HelpmenuComponent } from '../../components/helpmenu/helpmenu';
 import { AssessmentslistComponent } from "../../components/assessmentslist/assessmentslist";
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
 import { AuthService } from "../../services/auth.service";
+import { TopbarComponent } from "../../components/topbar/topbar";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -29,7 +28,7 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query{
 assessments {
-scope
+	_id
 	}
 	}
 `
@@ -80,8 +79,6 @@ var createAssessmentMutation = gql`
 export class HomePage {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
-	registerPage = RegisterPage;
-	loginPage    = LoginPage;
 	loading: boolean;
 	allThreads: any;
 	assessments: any;
@@ -138,6 +135,7 @@ export class HomePage {
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
 		 this.loading = loading;
+		 console.log(data);
 		 this.assessments = data.assessments
 		 });
 	this.querySubscription = this.apollo.watchQuery<any>({
@@ -196,18 +194,7 @@ export class HomePage {
     });
   }
 
-	registerNav() { this.navCtrl.push( this.registerPage ); }
-	loginNav() { this.navCtrl.push( this.loginPage ); }
-	logout() { this.auth.logout()}
-
   page_2(_id){
     this.navCtrl.push(QuestionsPage,{
 		data: _id });}
-
-  presentViewsPop(event){
-    let popover = this.popOver.create(ViewsComponent);
-    popover.present({
-      ev: event
-    });
-  }
 }

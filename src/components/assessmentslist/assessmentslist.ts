@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
-import { NavParams } from "ionic-angular"
+import { NavParams, NavController } from "ionic-angular"
+import { QuestionsPage } from "../../pages/questions/questions";
 
-/**
- * Generated class for the AssessmentslistComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'assessmentslist',
   templateUrl: 'assessmentslist.html'
 })
 export class AssessmentslistComponent {
 
+	questionsPage: QuestionsPage; 
   text: string;
 	assessments: any;
 
-  constructor(public navParams:NavParams) {
-    console.log('Hello AssessmentslistComponent Component');
-    this.text = 'Hello World';
+  constructor(public navParams:NavParams, public navController: NavController) {
 		this.assessments = this.navParams.get("assessments");
   }
+
+	loadAssessment(id) {
+		this.navController.push(QuestionsPage, {data: id})
+	}
 
 }
