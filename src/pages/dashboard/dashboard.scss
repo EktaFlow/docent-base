@@ -57,6 +57,16 @@ page-dashboard {
         display: flex;
         align-content: center;
     }
+    .blank{
+				background: transparent;
+        color:#df3737;
+        border-radius:1px;
+				border: 2px solid lightgrey;
+        height:30px;
+        width: 30px;
+        display: flex;
+        align-content: center;
+    }
     .na{
         background-color: lightgrey;
         color:lightgrey;

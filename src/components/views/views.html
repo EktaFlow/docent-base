@@ -13,7 +13,7 @@
     Save
   </button>
   <hr>
-  <button [navPush]="dashboardPage" ion-button color="dark">
+  <button (click)="handleDashboard()" ion-button color="dark">
     Dashboard
   </button>
   <button (click)="handleNavigate()" ion-button color="dark">

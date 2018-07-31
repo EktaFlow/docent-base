@@ -63,6 +63,9 @@
         <div *ngIf = "response == false" class = "no">
           <img src="../../assets/imgs/x-mark-256.ico">
         </div>
+        <div *ngIf = "response == 'blank'" class = "blank">
+          <img src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden">
+        </div>
         <div *ngIf = "response == null" class = "na">
           <img src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden;">
         </div>
