@@ -176,6 +176,8 @@ export class HomePage {
 	}
 
 
+	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
+	// TODO:  abstract general popover logic<01-08-18, mpf> //
 	showAssessmentsList(myEvent) {
 	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
 		popoverClick.present({

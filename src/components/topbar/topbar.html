@@ -1,7 +1,7 @@
 <div class="toolbar-class">
   <div>
     <ion-header>
-      <ion-navbar color ="dark" style="height:100px;">
+      <ion-navbar color ="dark" hideBackButton="true">
         <div class = "container-toolbar">
           <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
           <div class = "container-tbbuttons">
@@ -17,12 +17,20 @@
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
-            <button (click)="showHelp($event)" ion-button color="dark">
+            <button ion-button color="dark">
                 Help
             </button>
           </div>
         </div>
         <hr>
+				<!-- TODO: use an ngif for if there is an assessmentId -->	
+				<div *ngIf="assessmentId" class="subheader">
+          <div *ngIf="mainTitle"><p>{{this.mainTitle}} | {{this.subTitle}}</p></div>
+          <div style="margin-right:20px">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
+            <p><u>Show Assessment Scope</u></p>
+          </div>
+        </div>
       </ion-navbar>
     </ion-header>
   </div>
