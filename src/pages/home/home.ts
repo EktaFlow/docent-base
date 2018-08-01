@@ -103,7 +103,6 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService) {
 
-							console.log("we construct");
 	}
 
 		async checkBack() {
@@ -111,10 +110,26 @@ export class HomePage {
 								.then(a => console.log("connected"))
 								.catch(e => { this.backEnd = false; console.log("nope"); });
 								}
+
+	validateAssessment() {
+		var fields = [
+			"name",
+			"targetMRL",
+      "scope",
+      "location",
+			"targetDate",
+		];	
+
+		return fields.every(field => this.assForm[field])
+	}
+
+
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
-		if (this.backEnd) {
+		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
+		!this.validateAssessment() ? alert("you must enter all fields") : null
+		if (this.backEnd && this.validateAssessment()) {
 		var values = this.assForm;
 		values.threads = this.threadsSelected;
 
@@ -125,8 +140,8 @@ export class HomePage {
 				location: values.location,
 				targetMRL:				values.targetMRL, 
 				name: values.name,
-				//		levelSwitching:		false,
-				//		deskBookVersion:	"2017",
+//				levelSwitching:		values.levelSwitching,
+				deskBookVersion:	"2017",
 				scope: values.scope,
 				targetDate: values.targetDate,
 
