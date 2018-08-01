@@ -1,0 +1,42 @@
+page-navigate {
+    .toolbar-class{
+        header{
+            color:#000;
+        }
+        img{
+            margin-left: 10px;
+            margin-top: 10px
+        }
+        hr {
+            height: 1px !important;
+            width: 98% !important;
+            background:grey!important;
+            display: block !important;
+            font-size: 2em !important;
+            visibility: visible !important;
+            }
+    }
+    .subheader{
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        margin-left:13px;
+        //flex-direction: row-reverse;
+    }
+    .downArrow{
+        height:14;
+        width:14;
+        cursor: pointer;
+    }
+    .question{
+
+    }
+    .mrl{
+        margin-left:40px;
+        margin-top:10px;
+    }
+    .subtitle{
+        margin-left:20px;
+        margin-top:10px;
+    }
+}

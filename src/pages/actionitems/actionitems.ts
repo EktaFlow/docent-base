@@ -8,9 +8,6 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
-	targetMRL
-	targetDate
-	location
 	questions {
 		mrLevel
 		questionText	
@@ -25,21 +22,13 @@ query assessment($_id: String) {
 
 @IonicPage()
 @Component({
-  selector: 'page-review',
-  templateUrl: 'review.html',
+  selector: 'page-actionitems',
+  templateUrl: 'actionitems.html',
 })
-export class ReviewPage {
-  
+export class ActionitemsPage {
+
+	no: any;
 	assessmentId: any;
-	allQuestions: any;
-  targetMRL: any;
-  targetDate: any;
-  location: any;
-  team: any;
-  survey: any;
-  surveyResults: any;
-  reviewResults = [];
-  response;
 
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
@@ -59,14 +48,8 @@ export class ReviewPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-					var assessment = (<any>data.data).assessment;
-					this.allQuestions = assessment.questions;
-					this.targetMRL = assessment.targetMRL;
-					this.targetDate = assessment.targetDate;
-					this.location = assessment.location;
-					console.log(this.allQuestions);
-
-				
+					this.no= (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "No");
+					console.log(this.no);
 			});
 	}
 

@@ -1,0 +1,46 @@
+<topbar [assessmentId]="assessmentId">
+</topbar>
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br><br>
+  <hr>
+  <div *ngFor="let question of no">
+    <p>
+      <b>{{question.threadName}}</b> / {{question.subThreadName}} / MR Level: {{question.mrLevel}}
+    </p>
+    <p style="color:darkslateblue"><b>{{question.questionText}}</b></p>
+    <div style="display:flex;">
+      <div style="width:40%">
+        <p>
+          <b>Reason:</b><br>
+          {{question.reason}}
+        </p>
+        <p>
+          <b>Action:</b><br>
+          {{question.what}}
+        </p>
+        <p>
+          <b>Assumptions:</b><br>
+          {{question.assumptionsNo}}
+        </p>
+      </div>
+      <div style="width:40%;">
+        <p>
+            <b>Risks:</b><br>
+            {{question.risks}}
+          </p>
+          <p>
+            <b>Team Members:</b><br>
+            {{question.teamMembers}}
+          </p>
+          <p>
+            <b>Attatchments:</b><br>
+            {{question.attatchments}}
+          </p>
+      </div>
+    </div>
+    <p><b>Notes:</b></p>
+    {{question.notesNo}}
+    <hr>
+  </div>
+</ion-content>

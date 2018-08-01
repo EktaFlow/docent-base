@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import { TopbarComponent } from '../../components/topbar/topbar';
+import { TopbarComponent } from "../../components/topbar/topbar";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -8,16 +8,11 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
-	targetMRL
-	targetDate
-	location
 	questions {
 		mrLevel
-		questionText	
-		threadName
+		questionText
 		subThreadName
-		currentAnswer
-		notesNo
+		skipped
 	}
 	}
 }
@@ -25,21 +20,14 @@ query assessment($_id: String) {
 
 @IonicPage()
 @Component({
-  selector: 'page-review',
-  templateUrl: 'review.html',
+  selector: 'page-skippedquestions',
+  templateUrl: 'skippedquestions.html',
 })
-export class ReviewPage {
-  
+export class SkippedquestionsPage {
+
+	skipped: any;
 	assessmentId: any;
-	allQuestions: any;
-  targetMRL: any;
-  targetDate: any;
-  location: any;
-  team: any;
-  survey: any;
-  surveyResults: any;
-  reviewResults = [];
-  response;
+	subThreads: any;
 
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
@@ -50,6 +38,7 @@ export class ReviewPage {
 		console.log(this.assessmentId);
   }
 
+  // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
 	ngOnInit() {
@@ -59,15 +48,16 @@ export class ReviewPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-					var assessment = (<any>data.data).assessment;
-					this.allQuestions = assessment.questions;
-					this.targetMRL = assessment.targetMRL;
-					this.targetDate = assessment.targetDate;
-					this.location = assessment.location;
-					console.log(this.allQuestions);
+			this.skipped = (<any>data.data).assessment.questions.filter(a => a.skipped)
 
-				
+					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
+					this.subThreads = subThreadNames.filter(this.unique);
 			});
+	}
+
+	// AKA - you can't make me use a `PIPE`
+	filterBySubThread(subThread) {
+		return this.skipped.filter(s => s.subThreadName == subThread);
 	}
 
 }

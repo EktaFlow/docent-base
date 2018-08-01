@@ -1,0 +1,16 @@
+<topbar [assessmentId]="assessmentId">
+</topbar>
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br><br>
+
+  <div *ngFor="let subThread of subThreads">
+    <hr>
+		{{subThread}}
+    <hr>
+		<div *ngFor="let q of filterBySubThread(subThread)" class="questions">
+		<p style="width: 20%;">Level {{q.mrLevel}}</p>
+      <p style="cursor:pointer; color:blue;">{{q.questionText}}</p>
+			</div>
+  </div>
+</ion-content>

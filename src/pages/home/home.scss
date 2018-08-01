@@ -1,3 +1,4 @@
+
 ion-scroll { white-space: nowrap; }
 $input-backgroud:#fbfbfb;
 $input-border:#dcdcdc;
@@ -128,6 +129,12 @@ $input-border:#dcdcdc;
         -webkit-appearance: none;
     }
 }
+.topmost {
+	input {
+    @extend %input-style;
+		width: 48%;
+	}
+	}
 .bottom{
     display: flex;
     justify-content: space-between;
@@ -170,4 +177,9 @@ $input-border:#dcdcdc;
     }
     display:flex;
     justify-content: space-around;
+}
+
+.assessment-form{
+	display: flex;
+	width: 100%;
 }

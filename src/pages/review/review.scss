@@ -57,7 +57,47 @@ page-review {
     .page-one-info{
         @extend %page-info;
     }
-    .page-two-info{
+    .survey-info{
         @extend %page-info;
+        margin-top:0px;
+        li{
+            list-style-type: none;
+        }
+    }
+    .yes{
+        .box{
+            background-color:green;
+            color:white;
+            border-radius:3px;
+            width:5%;
+            text-align: center;
+        }
+    }
+    .no{
+        .box{
+            background-color:red;
+            color:white;
+            border-radius:3px;
+            width:5%;
+            text-align: center;
+        }
+    }
+    .na{
+        .box{
+            background-color:darkgrey;
+            color:white;
+            border-radius:3px;
+            width:5%;
+            text-align: center;
+        }
+    }
+    .skipped{
+        .box{
+            background-color:lightgrey;
+            color:white;
+            border-radius:3px;
+            width:7%;
+            text-align: center;
+        }
     }
 }
