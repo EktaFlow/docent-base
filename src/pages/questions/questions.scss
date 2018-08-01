@@ -71,7 +71,7 @@ $input-border:#dcdcdc;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 20%;
+    height: 100%;
     textarea{
         @extend %input-style;
         resize:none;
@@ -87,7 +87,7 @@ $input-border:#dcdcdc;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 70%;
+    height: 80%;
     ion-icon{
         font-size:20px;
     }
@@ -121,7 +121,7 @@ $input-border:#dcdcdc;
     }
 }
 .na{
-    height: 30%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -138,8 +138,12 @@ $input-border:#dcdcdc;
 }
 .risk{
     display: flex;
+		align-items: center;
     width: 25%;
     margin:20px;
+		.label {
+			text-align: right;
+		}
 } 
 .questions{
     input{
