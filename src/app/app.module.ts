@@ -46,6 +46,9 @@ import { AuthService } from "../services/auth.service";
 import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
 
+import { BackUrl } from  "../services/constants";
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -119,7 +122,7 @@ import { httpInterceptorsProviders } from "../services/interceptors";
 export class AppModule {
 constructor(apollo: Apollo, httpLink: HttpLink) {
 	apollo.create({
-	link: httpLink.create({uri: "http://localhost:4000"}),
+	link: httpLink.create({uri: BackUrl}),
 	cache: new InMemoryCache()
 })
 }
