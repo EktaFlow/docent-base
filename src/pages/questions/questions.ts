@@ -26,6 +26,8 @@ query assessment($_id: String)
 		questionText
   }
 	targetMRL
+	currentMRL
+	levelSwitching
 	files {
 		url
 	}
@@ -79,6 +81,10 @@ export class QuestionsPage {
 	public test;
 	public questionAnswered: any;
 
+	// properties of the current assessment that we're using for different functions
+	public currentMRL: any;
+	public levelSwitching: any;
+
 	constructor(public navCtrl: NavController, public navParams: NavParams, 
 							private popoverController: PopoverController, private apollo: Apollo) {
 
@@ -122,6 +128,7 @@ export class QuestionsPage {
 
 	updateAssessment(values) {
 
+
 	  if (!values) { values = {skipped: true}}
 		values.currentAnswer = this.value;
 
@@ -157,10 +164,19 @@ export class QuestionsPage {
 	setValues() {
 	console.log("set values fires");
 	this.value == "Yes" ? this.updateAssessment(this.yesVals) : null;
-	this.value == "No"  ? this.updateAssessment(this.noVals)  : null;
+	this.value == "No"  ? this.handleNo(this.noVals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.naVals)  : null;
 	!this.value ? this.updateAssessment(null) : null; 
 }
+
+	// no has its own handler, because a no can require a change in the overall assessment 
+	// mrLevel.
+	handleNo(values) {
+		this.levelSwitching ? values.currentMRL = this.currentMRL - 1 : null
+		// move the targetMRL level down
+		// access the current targetMRL
+		this.updateAssessment(values);
+	}
 
 	getQuestion(questionId) {
 		console.log("fire");
@@ -262,6 +278,8 @@ async	handlePreviousPageClick() {
 			.subscribe( ({data, loading}) => {  
 			console.log(data);
 				var survey = this.createSurvey(data.assessment);
+				this.currentMRL = data.assessment.currentMRL;
+				this.levelSwitching = data.assessment.levelSwitching;
 				// this.files = data.assessment.files;
   			this.surveyJS = new Survey.Model( survey );
   			Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });

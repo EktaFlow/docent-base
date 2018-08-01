@@ -1,3 +1,3 @@
-// export const DocentStorageAccount =  pass as env
-// export const SAS                  =  pass as env
-export const BackUrl              = "http://localhost:4000"
+export const DocentStorageAccount =  "docenttest"
+export const SAS                  = "se=2027-07-16&sp=rwdlac&sv=2018-03-28&ss=b&srt=sco&sig=UiZ6F8r0GkXPakmafXlqfV/tlhNA0Ae79tCzxdiYbYg%3D" 
+export const BackUrl              =  "http://localhost:4000"

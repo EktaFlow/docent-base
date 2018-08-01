@@ -13,10 +13,13 @@ import { HelpmenuComponent } from "../helpmenu/helpmenu";
 
 export class TopbarComponent {
 
-	@Input()
-	public assessmentId: any;
 	public loginPage		= LoginPage;
 	public registerPage = RegisterPage;
+	@Input() public assessmentId: any;
+	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
+	@Input() private mainTitle: any;
+	@Input() private subTitle: any;
+
 
 constructor( public popOver: PopoverController,
 						 public auth: AuthService,
