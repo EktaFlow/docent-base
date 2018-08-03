@@ -10,6 +10,7 @@
   <br>
   <h1>Start New Assessment</h1>
   <font color="grey">Use this option to start a new assessment</font>
+  <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
   <h6>Assessment Name</h6>
 	<div class="topmost">
@@ -69,8 +70,8 @@
         <div style = "width:45%;">
           <div style="display: flex;">
             <h6>Level Switching</h6>
-            <button style="margin-top:-10px;">
-              <img src="../../assets/imgs/qmark.png" width="15" height="15">
+            <button style="margin-top:-10px; background:white;">
+              <img style="background: white;"src="../../assets/imgs/qmark.png" width="15" height="15">
             </button>
           </div>
           <select [(ngModel)]="assForm.levelSwitching">
@@ -99,11 +100,11 @@
   </div>
   <div class = "thread-start">
     <div class = "choose-threads">
-      <button (click)="showThreads($event)">
+      <button style="background: white;"(click)="showThreads($event)">
         <img src="../../assets/imgs/if_icon-arrow-down.png" width="15" height="15">
       </button>
       <p><b>Choose Threads</b></p>
-      <button>
+      <button style="background: white;">
         <img src="../../assets/imgs/qmark.png" width="15" height="15">
       </button>
     </div>

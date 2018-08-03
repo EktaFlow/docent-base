@@ -23,6 +23,12 @@ $input-border:#dcdcdc;
     padding-right: 1.5em;
 }
 
+%selected-input{
+    outline:none;
+    border-color:#9ecaed;
+    box-shadow:0 0 10px #9ecaed;
+}
+
 .toolbar-class{
     header{
         color:#000;
@@ -85,6 +91,9 @@ $input-border:#dcdcdc;
     display: flex;
     justify-content: space-between;
     margin: 10px 0 15px 0;
+		select:focus {
+			@extend %selected-input;
+		}
 }
 
 .scope{
@@ -134,7 +143,11 @@ $input-border:#dcdcdc;
     @extend %input-style;
 		width: 48%;
 	}
+	input:focus {
+		@extend %selected-input;
 	}
+}
+
 .bottom{
     display: flex;
     justify-content: space-between;
@@ -157,6 +170,9 @@ $input-border:#dcdcdc;
         width:100%;
         -webkit-appearance: none;
     }
+		select:focus {
+			@extend %selected-input;
+		}
 }
 .thread-start{
     display: flex;
