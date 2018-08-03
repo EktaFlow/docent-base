@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+
 import { TopbarComponent } from '../../components/topbar/topbar';
+
+import { QuestionsPage } from "../questions/questions";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -12,6 +15,7 @@ query assessment($_id: String) {
 	targetDate
 	location
 	questions {
+		questionId
 		mrLevel
 		questionText	
 		threadName
@@ -50,7 +54,15 @@ export class ReviewPage {
 		console.log(this.assessmentId);
   }
 
-	unique = (item, index, array) => array.indexOf(item) == index
+
+	goToQuestion(questionId) {
+		this.navCtrl.push(QuestionsPage, {
+			data:				this.assessmentId,
+			questionId: questionId
+		})
+	}
+
+	// unique = (item, index, array) => array.indexOf(item) == index
 
 	ngOnInit() {
 		this.apollo.watchQuery({
@@ -65,8 +77,6 @@ export class ReviewPage {
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
 					console.log(this.allQuestions);
-
-				
 			});
 	}
 

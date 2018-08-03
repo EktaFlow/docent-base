@@ -16,7 +16,8 @@
   <div class = "survey-info">
     <li *ngFor = "let question of allQuestions">
       <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
-        <p style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+				<!-- TODO: These question Text p tags can be re-used <01-08-18, mpf> -->
+        <p (click)="goToQuestion(question.questionId)"style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>N/A</b></p>
         <p>
           <b>Attatchements:</b> {{question.attatchements}}
@@ -24,7 +25,7 @@
         <hr>
       </div>
       <div *ngIf = "question.currentAnswer == 'No'" class = "no">
-        <p style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>No</b></p>
         <p>
           <b>Attatchements:</b> {{question.attatchements}}
@@ -32,7 +33,7 @@
         <hr>
       </div>
       <div *ngIf = "question.currentAnswer == 'Yes'" class = "yes">
-        <p style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>Yes</b></p>
         <p>
           <b>Evidence:</b> {{question.evidence}}
@@ -41,7 +42,7 @@
       </div>
 
       <div *ngIf = "question.skipped" class = "skipped">
-        <p style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
+        <p (click)="goToQuestion(question.questionId)" style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
         <p class="box"><b>Skipped</b></p>
         <p>
           <b>Assumptions:</b> {{question.assumptions}}<br><br>

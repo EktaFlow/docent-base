@@ -4,7 +4,6 @@ import * as Survey from 'survey-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 
-
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -24,6 +23,21 @@ query assessment($_id: String)
     mrLevel
 		questionId
 		questionText
+		objectiveEvidence
+		assumptionsYes
+		notesYes
+		who
+		when
+		technical
+		cost
+		schedule
+		what
+	reason
+		assumptionsNo
+		notesNo
+		documentation
+		assumptionsNA
+		notesNA
   }
 	targetMRL
 	currentMRL
@@ -63,10 +77,9 @@ query question($questionId: Int, $assessmentId: String) {
 
 export class QuestionsPage {
 
-	/// Objects which will hold the different vars for the follow-up questions
-	private noVals  = {};
-	private naVals  = {};
-	private yesVals = {}; 
+	/// Object to hold the different vars for the follow-up questions
+	private vals = {};
+
 	assessmentId: any;
 	assessmentSubscription: any;
   public value;
@@ -80,6 +93,7 @@ export class QuestionsPage {
 	private current;
 	public test;
 	public questionAnswered: any;
+	private referringQuestionId: any;
 
 	// properties of the current assessment that we're using for different functions
 	public currentMRL: any;
@@ -89,7 +103,10 @@ export class QuestionsPage {
 							private popoverController: PopoverController, private apollo: Apollo) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY? 
+		this.referringQuestionId = navParams.data.questionId;
 		this.assessmentId = navParams.data.data;
+		var surveyJSRoot = document.getElementById("surveyElement");
+		surveyJSRoot ? surveyJSRoot.remove() : null;
   }
 
 	showFileUpload(event) {
@@ -103,7 +120,6 @@ export class QuestionsPage {
 	}
 
   surveyChange(){
-	console.log("we fire");	
 		// values needs to stay here because it's tied to the conditional rendering.
     // if undefined, skipped
 		if (this.surveyJS) {
@@ -128,6 +144,7 @@ export class QuestionsPage {
 
 	updateAssessment(values) {
 
+		var values = Object.assign({}, values)
 
 	  if (!values) { values = {skipped: true}}
 		values.currentAnswer = this.value;
@@ -147,9 +164,12 @@ export class QuestionsPage {
 		//ok is the updated object.
 
 		sweet[currentPageNo] = ok
-		console.log(sweet);
 
 		this.current = sweet;
+
+		console.log(this.assessmentId);
+		console.log(Number(this.questionId));
+		console.log(values);
 
 		this.apollo.mutate({
 			mutation: updateAssessmentQuery,
@@ -162,10 +182,9 @@ export class QuestionsPage {
 	}
 	
 	setValues() {
-	console.log("set values fires");
-	this.value == "Yes" ? this.updateAssessment(this.yesVals) : null;
-	this.value == "No"  ? this.handleNo(this.noVals)  : null;
-	this.value == "N/A" ? this.updateAssessment(this.naVals)  : null;
+	this.value == "Yes" ? this.updateAssessment(this.vals) : null;
+	this.value == "No"  ? this.handleNo(this.vals)  : null;
+	this.value == "N/A" ? this.updateAssessment(this.vals)  : null;
 	!this.value ? this.updateAssessment(null) : null; 
 }
 
@@ -179,7 +198,6 @@ export class QuestionsPage {
 	}
 
 	getQuestion(questionId) {
-		console.log("fire");
 		this.apollo.watchQuery({
 		query: questionQuery,
 		fetchPolicy: "network-only",
@@ -188,12 +206,8 @@ export class QuestionsPage {
 			questionId
 		}
 		}).valueChanges
-		  .subscribe(a => this.test = a);
+		  .subscribe(a => console.log(a));
 
-	}
-
-	checkLocalQuestion(id) {
-		return this.current[id];
 	}
 
 	async handleNextPageClick() {
@@ -211,10 +225,6 @@ export class QuestionsPage {
 		this.current[index].currentAnswer ? this.questionAnswered = true : this.questionAnswered = false
 	}
 
-	getInputsFromLocal() {
-		
-	}
-
 async	handlePreviousPageClick() {
 		await this.surveyJS.prevPage();
 		var { currentPageNo, pages } = this.surveyJS;
@@ -223,14 +233,41 @@ async	handlePreviousPageClick() {
 		// this.resetSelect();
 	}
 
+	moveQuestionToFront(questionSet, referringQuestionId) {
+		var frontQuestion = questionSet.filter(q => q.questionId == referringQuestionId);	
+		var removedFront  = questionSet.filter(q => q.questionId != referringQuestionId);
+		
+		return frontQuestion.concat(removedFront);
+	}
+
+	// Any rules to order the questions in certain ways goes in this function.
+	orderQuestions(questionSet) {
+		var sorted = questionSet.sort((a,b) => a.questionId - b.questionId)	
+		if ( this.referringQuestionId ) {
+			sorted = this.moveQuestionToFront(questionSet, this.referringQuestionId);
+		}	
+
+		return sorted;
+	}
+
 	loadQuestion(array)	 {
-		var notAnswered = array.filter(a => !a.currentAnswer )
-		var sorted = notAnswered.sort((a,b) => a.questionId - b.questionId)	
-		return sorted
+	  // TODO - separate out the filters, single function.
+		var defaultFilter = a => !a.currentAnswer
+		var referringQuestionFilter = a => !a.currentAnswer || a.questionId == this.referringQuestionId
+		//////
+
+		var ordered = this.orderQuestions(array);
+		var filtered;
+		this.referringQuestionId ? 
+			filtered = ordered.filter(referringQuestionFilter) :
+			filtered = ordered.filter(defaultFilter)
+		return filtered;
 	}
 
   // this function takes questions as assessment sub-documents and formats them
 	// to be in the surveyJs format.
+	// this is the format that survey JS is expecting, so we don't mess with the
+	// structure.
 	mapToSurveyJS(questions) {
 		return questions.map( question => {
 			return {
@@ -255,12 +292,13 @@ async	handlePreviousPageClick() {
 		})	
 	}
 
-	createSurvey(assessment) {
+	formatSurvey(assessment) {
 		var filteredQuestions = this.filterByMRL(assessment);
 		var current           = this.loadQuestion(filteredQuestions);
 		this.current = current;
 		var pages             = this.mapToSurveyJS(current);
 
+		// other surveyJS options, if we need them at some point, can be passed in here.
 		return {
 				showNavigationButtons: false,
 				showQuestionNumbers: "off",
@@ -268,31 +306,75 @@ async	handlePreviousPageClick() {
 		};
 	}
 
+	// this function requires this.surveyJS && this.current to be set.. 
+	setInstanceVariables(assessment) {
+		var { currentPageNo, pages } = this.surveyJS;
+
+		this.currentMRL = assessment.currentMRL
+		this.levelSwitching = assessment.levelSwitching	
+		// this.files = data.assessment.files;
+
+		// TODO:  There's a better way to get these values from the assessment object <01-08-18, mpf> 
+		this.questionId = this.current[currentPageNo].questionId;
+		pages[currentPageNo] ? this.mainTitle = pages[currentPageNo].name : null
+		pages[currentPageNo] ? this.subTitle = pages[currentPageNo].elements[0].name : console.log(pages)
+	}
+
+	// this function takes an assessment, formats it to comply w/ surveyJS, creates the survey JS object, renders that to the page
+	createSurveyJS(assessment) {
+		var survey = this.formatSurvey(assessment);
+		this.surveyJS = new Survey.Model( survey );
+  	Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
+	}
+
 	// What data do we actually need to store in instance vars?
   ngOnInit() {
 		this.assessmentSubscription = this.apollo.watchQuery<any>({
 			query: assessmentQuery,
+			fetchPolicy: "network-only",
 			variables: {_id: this.assessmentId}
 		})
 			.valueChanges
 			.subscribe( ({data, loading}) => {  
-			console.log(data);
-				var survey = this.createSurvey(data.assessment);
-				this.currentMRL = data.assessment.currentMRL;
-				this.levelSwitching = data.assessment.levelSwitching;
-				// this.files = data.assessment.files;
-  			this.surveyJS = new Survey.Model( survey );
-  			Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
-				// TODO clean this////////////////////////////////
-				var { currentPageNo, pages } = this.surveyJS;
-				pages[currentPageNo] ? this.mainTitle = pages[currentPageNo].name : null
-				pages[currentPageNo] ? this.subTitle = pages[currentPageNo].elements[0].name : console.log(pages)
-				// this.questionIds = current.map(a => a.questionId);
-				this.questionId = this.current[currentPageNo].questionId;
-				//////////// clean up above //////////////
+				var {assessment} = data;
+
+				this.createSurveyJS(assessment);
+				this.setInstanceVariables(assessment);
+				this.referringQuestionId ? this.setExistingValues() : null
 		})
 
   }
+
+	setExistingValues() {
+		var question = this.current.filter(a => a.questionId == this.referringQuestionId)[0];
+		this.vals = this.filterQuestionVals(question);
+	}
+
+	filterQuestionVals(question) {
+		// better way to do this.
+		var filteredQuestions = {};
+		var questionVals = [
+			"objectiveEvidence",
+			"assumptionsYes",
+			"notesYes",
+			"who",
+			"when",
+			"technical",
+			"cost",
+			"schedule",
+			"what",
+			"reason",
+			"assumptionsNo",
+			"notesNo",
+			"documentation",
+			"assumptionsNA",
+			"notesNA"
+		];
+
+		questionVals.forEach(val => filteredQuestions[val] = question[val]);
+		console.log(filteredQuestions);
+		return filteredQuestions;
+	}
 
   presentViewsPop(event){
     let popover = this.popoverController.create(ViewsComponent);
