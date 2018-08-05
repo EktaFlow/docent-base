@@ -22,6 +22,13 @@ query assessment($_id: String) {
 		subThreadName
 		currentAnswer
 		notesNo
+		skipped
+		objectiveEvidence
+	}
+	files {
+		name
+		questionId
+		url
 	}
 	}
 }
@@ -44,6 +51,7 @@ export class ReviewPage {
   surveyResults: any;
   reviewResults = [];
   response;
+	files;
 
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
@@ -51,7 +59,6 @@ export class ReviewPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
   }
 
 
@@ -63,6 +70,10 @@ export class ReviewPage {
 	}
 
 	// unique = (item, index, array) => array.indexOf(item) == index
+
+	openFile(url) {
+		window.open(url, "new_window");
+	}
 
 	ngOnInit() {
 		this.apollo.watchQuery({
@@ -76,7 +87,7 @@ export class ReviewPage {
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
-					console.log(this.allQuestions);
+					this.files = assessment.files;
 			});
 	}
 
