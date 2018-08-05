@@ -25,10 +25,15 @@
         <hr>
 				<!-- TODO: use an ngif for if there is an assessmentId -->	
 				<div *ngIf="assessmentId" class="subheader">
-          <div *ngIf="mainTitle"><p>{{this.mainTitle}} | {{this.subTitle}}</p></div>
+          <div *ngIf="mainTitle">
+						<p>{{this.mainTitle}} | {{this.subTitle}}</p>
+						<ng-container *ngIf="scopeSelected">
+							<p>Assessment Scope: {{ scope }}</p>
+						</ng-container>
+					</div>
           <div style="margin-right:20px">
-            <p>Target MRL: {{targetMRL}}| Target Date: {{date}}</p>
-            <p><u>Show Assessment Scope</u></p>
+            <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
+            <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
           </div>
         </div>
       </ion-navbar>

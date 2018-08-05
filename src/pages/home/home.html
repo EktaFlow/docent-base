@@ -70,9 +70,11 @@
         <div style = "width:45%;">
           <div style="display: flex;">
             <h6>Level Switching</h6>
-            <button style="margin-top:-10px; background:white;">
-              <img style="background: white;"src="../../assets/imgs/qmark.png" width="15" height="15">
-            </button>
+      <button class="tooltip" style="background: white;">
+				<!-- TODO: pull this text out of html -->
+  			<span class="tooltiptext left">When on Docent will present questions above and below your selected level. This is to find the ceiling or floor of your MRL, if you pass or fail a level. When off, you will only see questions at your target level</span>
+        <img src="../../assets/imgs/qmark.png" width="15" height="15">
+      </button>
           </div>
           <select [(ngModel)]="assForm.levelSwitching">
             <option value="" disabled selected>Select One...</option>
@@ -104,7 +106,9 @@
         <img src="../../assets/imgs/if_icon-arrow-down.png" width="15" height="15">
       </button>
       <p><b>Choose Threads</b></p>
-      <button style="background: white;">
+      <button class="tooltip" style="background: white;">
+				<!-- TODO: pull this text out of html -->
+  			<span class="tooltiptext right">Choose to include or exclude specific threads in the MRA. If a thread is unselected you will not be presented with any questions from that thread. Typically, all threads are left selected</span>
         <img src="../../assets/imgs/qmark.png" width="15" height="15">
       </button>
     </div>
