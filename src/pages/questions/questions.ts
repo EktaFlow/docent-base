@@ -88,7 +88,7 @@ export class QuestionsPage {
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
-	private questionId: any; //= this.questionIds[this.surrveyJS.currentPageNo]
+	private questionId: any; 
 	files = [];
 	private current;
 	public test;
@@ -144,10 +144,14 @@ export class QuestionsPage {
 
 	updateAssessment(values) {
 
-		var values = Object.assign({}, values)
+	// var values = Object.assign({}, values)
 
-	  if (!values) { values = {skipped: true}}
-		values.currentAnswer = this.value;
+		// check for skipped;
+		if ( this.value ) { values.currentAnswer = this.value  }
+		else {
+			var values = {};
+			values.currentAnswer = "skipped"
+		}
 
 		var ok = {};
 		var sweet = this.current;
@@ -348,6 +352,9 @@ async	handlePreviousPageClick() {
 	setExistingValues() {
 		var question = this.current.filter(a => a.questionId == this.referringQuestionId)[0];
 		this.vals = this.filterQuestionVals(question);
+		var test = this.filterQuestionVals(question).currentAnswer;
+		document.querySelector(".sv_q_dropdown_control").value = test
+		this.value = test;
 	}
 
 	filterQuestionVals(question) {
@@ -368,7 +375,8 @@ async	handlePreviousPageClick() {
 			"notesNo",
 			"documentation",
 			"assumptionsNA",
-			"notesNA"
+			"notesNA",
+			"currentAnswer"
 		];
 
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
