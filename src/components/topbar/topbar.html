@@ -5,19 +5,21 @@
         <div class = "container-toolbar">
           <img src="../../assets/imgs/docent-logo-f-n-l-1.jpg">
           <div class = "container-tbbuttons">
+						<!--
             <button ion-button (click)="logout()" color="dark">
 								Logout
             </button>
-            <button ion-button (click)="loginNav()" color="dark">
+						-->
+            <button class="grayed" ion-button (click)="loginNav()" color="dark">
 								Login 
             </button>
-            <button ion-button (click)="registerNav()" color="dark">
+            <button class="grayed"ion-button (click)="registerNav()" color="dark">
                 Register 
             </button>
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
-            <button ion-button color="dark">
+            <button (click)="showHelp($event)"ion-button color="dark">
                 Help
             </button>
           </div>

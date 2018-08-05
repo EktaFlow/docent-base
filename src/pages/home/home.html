@@ -9,7 +9,7 @@
   <br>
   <br>
   <h1>Start New Assessment</h1>
-  <font color="grey">Use this option to start a new assessment</font>
+	<font color="grey">Use this option to start a new assessment</font><br />
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
   <h6>Assessment Name</h6>
@@ -76,10 +76,9 @@
         <img src="../../assets/imgs/qmark.png" width="15" height="15">
       </button>
           </div>
-          <select [(ngModel)]="assForm.levelSwitching">
-            <option value="" disabled selected>Select One...</option>
-            <option>On</option>
-            <option>Off</option>
+          <select id="level-switching-select"[(ngModel)]="assForm.levelSwitching">
+            <option value="true">On</option>
+            <option value="" selected="selected">Off</option>
           </select>
         </div>
       </div>
@@ -94,9 +93,9 @@
     </div>
     <div style="width:48%;">
       <h6>Deskbook Version</h6>
-      <select name="version" [(ngModel)]="assForm.deskBookVersion">
+      <select id="deskbook-select"name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
-        <option>2017</option>
+        <option value="2017">2017</option>
       </select>
     </div>
   </div>

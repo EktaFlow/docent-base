@@ -74,12 +74,12 @@ constructor( public popOver: PopoverController,
   }
 
 	showHelp(event) {
-		this.popOver.create(HelpmenuComponent, {assessmenId: this.assessmentId})
+		this.popOver.create(HelpmenuComponent, {assessmentId: this.assessmentId})
 		            .present({ev: event});
 	}
 
-	registerNav() { this.navCtrl.push( this.registerPage ); }
-	loginNav() { this.navCtrl.push( this.loginPage ); }
+	registerNav() { alert("Coming soon")}//{ this.navCtrl.push( this.registerPage ); }
+	loginNav() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
 	logout() { this.auth.logout()}
 
 }
