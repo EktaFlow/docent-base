@@ -89,7 +89,7 @@ export class HomePage {
 	allThreads: any;
 	assessments: any;
 
-	assForm: any = {};
+	assForm: any = {deskbookVersion: "2017", levelSwitching: false};
 
   members = [];
 	ionicForm = {};
@@ -126,12 +126,14 @@ export class HomePage {
 
 	// use form?? 
 	createAssessment(event) {
+		console.log(this.assForm);
 		event.preventDefault();
 		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
 		!this.validateAssessment() ? alert("you must enter all fields") : null
 		if (this.backEnd && this.validateAssessment()) {
 		var values = this.assForm;
 		values.threads = this.threadsSelected;
+		console.log(values);
 
 		this.apollo.mutate({
 				mutation:		createAssessmentMutation, 
@@ -140,8 +142,8 @@ export class HomePage {
 				location: values.location,
 				targetMRL:				values.targetMRL, 
 				name: values.name,
-//				levelSwitching:		values.levelSwitching,
-				deskBookVersion:	"2017",
+				levelSwitching:		!!values.levelSwitching,
+				deskBookVersion:	values.deskBookVersion,
 				scope: values.scope,
 				targetDate: values.targetDate,
 
@@ -156,7 +158,11 @@ export class HomePage {
 	async ngOnInit() {
 	await this.checkBack();
 	if (this.backEnd) {
-	console.log("we init");
+
+	// setting defaults, ionic is weird with this.
+	document.getElementById("level-switching-select").value = "";
+	document.getElementById("deskbook-select").value = "2017";
+
 	this.querySubscription = this.apollo.watchQuery<any>({
 		query: assessmentQuery
 		})

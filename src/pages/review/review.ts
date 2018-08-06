@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+
 import { TopbarComponent } from '../../components/topbar/topbar';
+
+import { QuestionsPage } from "../questions/questions";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -12,12 +15,20 @@ query assessment($_id: String) {
 	targetDate
 	location
 	questions {
+		questionId
 		mrLevel
 		questionText	
 		threadName
 		subThreadName
 		currentAnswer
 		notesNo
+		skipped
+		objectiveEvidence
+	}
+	files {
+		name
+		questionId
+		url
 	}
 	}
 }
@@ -40,6 +51,7 @@ export class ReviewPage {
   surveyResults: any;
   reviewResults = [];
   response;
+	files;
 
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
@@ -47,10 +59,21 @@ export class ReviewPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
   }
 
-	unique = (item, index, array) => array.indexOf(item) == index
+
+	goToQuestion(questionId) {
+		this.navCtrl.push(QuestionsPage, {
+			data:				this.assessmentId,
+			questionId: questionId
+		})
+	}
+
+	// unique = (item, index, array) => array.indexOf(item) == index
+
+	openFile(url) {
+		window.open(url, "new_window");
+	}
 
 	ngOnInit() {
 		this.apollo.watchQuery({
@@ -64,9 +87,7 @@ export class ReviewPage {
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
-					console.log(this.allQuestions);
-
-				
+					this.files = assessment.files;
 			});
 	}
 

@@ -15,6 +15,61 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.help-menu {
-	top: 50px;
+
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 240px;
+    background-color: #000;
+    color: #fff;
+    text-align: justify;
+    padding: 10px;
+    border-radius: 6px;
+		&.left {
+			right: 40%;
+			margin-right: -60px;
+		}
+		&.right {
+     left: 50%;
+     margin-left: -60px;
+		}
+
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+
+
+/* callup arrow, 
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+		&.right {
+    left: 25%;
+		}
+		&.left {
+		right: 25%;
+		}
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+*/
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

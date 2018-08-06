@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 
+import { QuestionsPage } from '../questions/questions';
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -13,6 +15,7 @@ query assessment($_id: String) {
 		threadName
 		questionText
 		subThreadName
+		questionId
 	}
 	}
 }
@@ -29,80 +32,15 @@ export class NavigatePage {
 
 	allQuestions: any;
 	assessmentId: any;
+ 	schema: any; 
 
-  schema =[
-    {
-      header:"Technology Maturity",
-      subheader:[
-        {
-          subheader:"Technology Maturity",
-          questions:[
-            {
-              mrl:"MRL 1",
-              questionSet:[
-                "Is the Technology Readiness at TRL 1 or greater?",
-              ]
-            },
-            {
-              mrl:"MRL 2",
-              questionSet:[
-                "Is the Technology Readiness at TRL 2 or greater?",
-              ]
-            },
-            {
-              mrl:"MRL 3",
-              questionSet:[
-                "Is the Technology Readiness at TRL 3 or greater?",
-              ]
-            }
-          ]
-        }
-      ],
-    },
-    {
-      header:"Technology & Industrial Base",
-      subheader:[
-        {
-          subheader:"Industrial Base",
-          questions:[
-            {
-              mrl:"MRL 3",
-              questionSet:[
-                "Test Question One",
-                "Two",
-                "Three"
-              ]
-            }
-          ]
-        },
-        {
-          subheader:"Manufacturing Technology Developement",
-          questions:[
-            {
-              mrl:"MRL 2",
-              questionSet:[
-                "Have new manufacturing concepts and potential solutions been identified?"
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ];
-
-  state: any = [this.schema.length]
-  subState: any = [this.schema.length];
-  
-
-	constructor( private apollo: Apollo, 
-							 public navCtrl: NavController, 
-							 public navParams: NavParams, 
-							 public popOver: PopoverController) {
+	constructor( private apollo: 			 Apollo, 
+							 public navCtrl: 			 NavController, 
+							 public navParams: 		 NavParams, 
+							 public popOver: 			 PopoverController,
+							 ) {
 
 		this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
-    this.state.fill(false);
-    this.create();
   }
 
   // helper function to pull unique values from array.
@@ -117,6 +55,9 @@ export class NavigatePage {
 			.subscribe(data => { 
 					this.allQuestions = (<any>data.data).assessment.questions;
 					this.schema = this.createSchemaObject(this.allQuestions);
+					console.log(this.schema);
+    			//this.state.fill(false);
+//    			this.create();
 			});
 	}
 
@@ -142,7 +83,7 @@ export class NavigatePage {
 					var mrLevels = this.filterByProperty(questions, "mrLevel");
 					var a = mrLevels.map(f => {
 						var questionSet = questions.filter(s => s.mrLevel == f)
-						   .map(a => a.questionText)
+						   .map(a => ({ text: a.questionText, questionId: a.questionId }))
 							 return {mrl: f, questionSet: questionSet}
 					})
 				return {subheader: sName, questions: a};
@@ -155,13 +96,23 @@ export class NavigatePage {
 	}
 
 
-  changeState(index){
-    this.state[index] = !this.state[index];
+  changeState(segment){
+		segment.cool = !segment.cool
+    // this.state[index] = !this.state[index];
   }
-  changeSubState(index,subIndex){
-    this.subState[index][subIndex] = !this.subState[index][subIndex];
+  changeSubState(sub){
+		sub.sweet = !sub.cool
+//    this.subState[index][subIndex] = !this.subState[index][subIndex];
   }
+	
+	navToQuestion(questionId) {
+		this.navCtrl.push(QuestionsPage, {
+			data: 			this.assessmentId,
+			questionId: questionId
+		});
+	}
 
+	/*
   create(){
     // Method to create states for sub headers
     for(var i=0; i<this.schema.length; i+=1){
@@ -170,5 +121,6 @@ export class NavigatePage {
       this.subState[i] = new Array(this.schema[i].subheader.length);
     }
   }
+  */
 
 }

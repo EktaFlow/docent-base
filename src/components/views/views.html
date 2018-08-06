@@ -1,8 +1,13 @@
 <div style="display:flex;flex-direction:column;background-color:black">
 		
-  <button [navPush]="homePage" ion-button color="dark">
-    Home	
-  </button>
+	<ng-container *ngIf="assessmentId">
+		<button [navPush]="homePage" ion-button color="dark">
+			Home	
+		</button>
+		<button (click)="handleContinue()"ion-button color="dark">
+			Continue Assessment
+		</button>
+	</ng-container >
   <button ion-button color="dark">
     Open
   </button>

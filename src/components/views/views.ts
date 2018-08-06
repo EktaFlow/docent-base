@@ -8,6 +8,7 @@ import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
+import { QuestionsPage } from "../../pages/questions/questions";
 
 import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
 
@@ -36,6 +37,8 @@ export class ViewsComponent {
 		handleNa() {
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 		}
+
+		handleContinue = () => this.navCtrl.push(QuestionsPage, { data: this.assessmentId});
 
 		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
 		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
