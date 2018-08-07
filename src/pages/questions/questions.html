@@ -13,6 +13,12 @@
         <button ion-button color="buttonBlue" (click) = "handleNextPageClick()">Next/Skip</button>
     </div>
   </div>
+  <div *ngIf="this.value == undefined" class = "yes">
+      <h6>Assumptions</h6>
+      <textarea class="question-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
+      <h6>Notes</h6>
+      <textarea class="question-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
+    </div>
 
   <div *ngIf="this.value == 'Yes'" class = "yes">
       <h6>Objective Evidence</h6>
@@ -99,6 +105,8 @@
         <button (click)="showFileUpload($event)" ion-button color="dark">Attatch File</button>
       </div>
     </div>
+	
+
 
 <div style="margin-top:20px" *ngIf="files.length > 0"class="displayFiles">
 	<h6>Attachments</h6>
