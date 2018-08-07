@@ -36,6 +36,7 @@ export class TopbarComponent {
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
+	@Input() private questionLevel: any;
 
 
 constructor( public popOver: PopoverController,

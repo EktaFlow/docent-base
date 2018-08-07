@@ -28,7 +28,7 @@
 				<!-- TODO: use an ngif for if there is an assessmentId -->	
 				<div *ngIf="assessmentId" class="subheader">
           <div *ngIf="mainTitle">
-						<p>{{this.mainTitle}} | {{this.subTitle}}</p>
+						<p>{{this.mainTitle}} | {{this.subTitle}}  Question MR Level: {{questionLevel}}</p>
 						<ng-container *ngIf="scopeSelected">
 							<p>Assessment Scope: {{ scope }}</p>
 						</ng-container>

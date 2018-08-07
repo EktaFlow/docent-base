@@ -80,6 +80,7 @@ export class QuestionsPage {
 
 	assessmentId: any;
 	assessmentSubscription: any;
+	threadComplete = false;
   public value;
   public mainTitle;
   public subTitle;
@@ -94,6 +95,8 @@ export class QuestionsPage {
 	public questionAnswered: any;
 	private referringQuestionId: any;
 	private lastQuestion;
+	private targetMRL;
+	public questionLevel;
 
 	// properties of the current assessment that we're using for different functions
 	public currentMRL: any;
@@ -129,6 +132,7 @@ export class QuestionsPage {
 			this.value = pages[currentPageNo].propertyHash.elements["0"].value;
 			this.mainTitle = pages[currentPageNo].name
 			this.subTitle = pages[currentPageNo].elements[0].name
+			this.questionLevel = this.current[currentPageNo].mrLevel;
 		}
   }
 
@@ -148,7 +152,7 @@ export class QuestionsPage {
 		// check for skipped;
 		if ( this.value ) { values.currentAnswer = this.value  }
 		else {
-			var values = {};
+			values = {};
 			values.currentAnswer = "skipped"
 		}
 
@@ -181,27 +185,21 @@ export class QuestionsPage {
 	}
 	
 	setValues() {
+	this.value ? this.updateAssessment(this.vals) : this.updateAssessment(null)
+	/*
 	this.value == "Yes" ? this.updateAssessment(this.vals) : null;
-	this.value == "No"  ? this.handleNo(this.vals)  : null;
+	this.value == "No"  ? this.updateAssessment(this.vals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.vals)  : null;
 	!this.value ? this.updateAssessment(null) : null; 
+	*/
 }
 
-	// no has its own handler, because a no can require a change in the overall assessment 
-	// mrLevel.
-	handleNo(values) {
-		this.levelSwitching ? values.currentMRL = this.currentMRL - 1 : null
-		// move the targetMRL level down
-		// access the current targetMRL
-		this.updateAssessment(values);
-	}
-
 	async handleNextPageClick() {
+		this.threadComplete = false;
 		this.setValues();
 		var { currentPageNo, pages } = this.surveyJS;
 
 		var currentQuestion = this.current[currentPageNo];
-		console.log(currentPageNo);
 		// last question logic///////////////
 		//// removed alert for now //////////
 		if (this.lastQuestion) {
@@ -216,7 +214,7 @@ export class QuestionsPage {
 		}
 
 		////check if end of subthread////
-		if (this.currentMRL == this.targetMRL) this.surveyJS.nextPage();
+		if (this.currentMRL == this.targetMRL || !this.threadComplete ) this.surveyJS.nextPage();
 		//		if (this.currentMRL > this.targetMRL) this.currentMRL = this.targetMRL
 		this.questionId = this.current[currentPageNo].questionId;
 	}
@@ -227,30 +225,51 @@ export class QuestionsPage {
 		console.log(subthread);
 
 		if (subthread.every(q => q.currentAnswer == "Yes" || q.currentAnswer == "N/A")) {
+			this.threadComplete = true;
 			this.handlePassedSubThread(question.subThreadName);
 		} else  
 
 		// every question answered and one answer or more is a no.
-		if (subthread.some(q => q.currentAnswer == "No") && subthread.every(q => q.currentAsnwer)) {
-			this.handleFailedSubThread();
+		if (subthread.some(q => q.currentAnswer == "No") && subthread.every(q => q.currentAnswer)) {
+			this.threadComplete = true;
+			this.handleFailedSubThread(question.subThreadName);
 			} else {
-				consol
 			}
 
 	}
 
+	handleFailedSubThread(subThreadName) {
+		alert('subthread failed');
+		var lowerLevel = this.allQuestions.filter( q => {
+			return q.mrLevel == this.currentMRL - 1 &&
+			       q.subThreadName == subThreadName
+		})
+
+		console.log(lowerLevel);
+
+		if ( lowerLevel.length > 0 ) {
+			this.currentMRL -= 1;
+			this.addSubThreadToFront(lowerLevel)
+		}
+
+	}
+
 	handlePassedSubThread(subThreadName) {
-
-
-
 		// render a new survey with the next level of that subthread at the front.
 		var nextLevel = this.allQuestions.filter( q => {
 			return q.mrLevel == this.targetMRL + 1 &&
 			       q.subThreadName == subThreadName
 		})
 
-		this.currentMRL = this.targetMRL + 1;
-		this.addSubThreadToFront(nextLevel);
+		if (this.currentMRL == this.targetMRL) {
+			this.currentMRL = this.targetMRL + 1;
+			this.addSubThreadToFront(nextLevel);
+		}
+		else {
+			this.currentMRL = this.targetMRL;
+		}
+
+		
 	}
 
 	addSubThreadToFront(questionSet) {
@@ -259,6 +278,7 @@ export class QuestionsPage {
 		var unanswered = this.current.filter( a=> !a.currentAnswer);
 		var all1 = questionSet.concat(unanswered).concat(answered);
 		this.current = all1;
+		console.log(all1);
 		var pages             = this.mapToSurveyJS(all1);
 
 		// other surveyJS options, if we need them at some point, can be passed in here.
@@ -290,7 +310,7 @@ async	handlePreviousPageClick() {
 	// Any rules to order the questions in certain ways goes in this function.
 	orderQuestions(questionSet) {
 	// at this point questions are either skipped, or undefined.
-	var sorted = questionSet.sort((a,b) => a.currentAnswer - a.currentAnswer == "skipped" )
+	var sorted = questionSet.sort((a,b) => Number(!!a.currentAnswer) - Number(!!(a.currentAnswer == "skipped")) )
 													.sort((a,b) => a.questionId - b.questionId)	
 		if ( this.referringQuestionId ) {
 			sorted = this.moveQuestionToFront(questionSet, this.referringQuestionId);
@@ -353,6 +373,10 @@ async	handlePreviousPageClick() {
 		};
 	}
 
+	getQuestionLevel(questionId) {
+		return this.allQuestions.filter( q => q.questionId == questionId)[0].mrLevel
+	}
+
 	// this function requires this.surveyJS && this.current to be set.. 
 	setInstanceVariables(assessment) {
 		var { currentPageNo, pages } = this.surveyJS;
@@ -397,9 +421,10 @@ async	handlePreviousPageClick() {
 
 	setExistingValues() {
 		var question = this.current.filter(a => a.questionId == this.referringQuestionId)[0];
+		this.questionLevel = this.getQuestionLevel(question.questionId);
 		this.vals = this.filterQuestionVals(question);
-		var test = this.filterQuestionVals(question).currentAnswer;
-		document.querySelector(".sv_q_dropdown_control").value = test
+		var test = (<any>this.filterQuestionVals(question)).currentAnswer;
+		(<HTMLInputElement>document.querySelector(".sv_q_dropdown_control")).value = test
 		this.value = test;
 	}
 
