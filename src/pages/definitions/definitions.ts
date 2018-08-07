@@ -15,10 +15,13 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'definitions.html',
 })
 export class DefinitionsPage {
+        mainTitle: String;
 
-constructor(public navCtrl: NavController, 
+        constructor(public navCtrl: NavController, 
 			public navParams: NavParams,
-			public http: HttpClient) {}
+			public http: HttpClient) {
+            this.mainTitle = "definitions";
+        }
 
 	private definitions: any = [];
 
@@ -33,4 +36,7 @@ constructor(public navCtrl: NavController,
 	this.getDefinitions();
   }
 
+  ngOnInit() {
+    this.mainTitle = "definitions";
+  }
 }

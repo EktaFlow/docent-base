@@ -82,9 +82,9 @@ export class QuestionsPage {
 
 	assessmentId: any;
 	assessmentSubscription: any;
-  public value;
-  public mainTitle;
-  public subTitle;
+        public value;
+        public mainTitle;
+        public subTitle;
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
