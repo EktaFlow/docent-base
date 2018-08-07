@@ -26,6 +26,8 @@ query assessment($_id: String)
 		objectiveEvidence
 		assumptionsYes
 		notesYes
+		notesSkipped
+		assumptionsSkipped
 		who
 		when
 		technical
@@ -132,7 +134,7 @@ export class QuestionsPage {
 			var {pages, currentPageNo} = this.surveyJS;
 			// TODO - clean this up below
 			// this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
-			this.checkNextQuestion(currentPageNo);
+			//this.checkNextQuestion(currentPageNo);
 			this.value = pages[currentPageNo].propertyHash.elements["0"].value;
 			this.mainTitle = pages[currentPageNo].name
 			this.subTitle = pages[currentPageNo].elements[0].name
@@ -155,8 +157,6 @@ export class QuestionsPage {
 		// check for skipped;
 		if ( this.value ) { values.currentAnswer = this.value  }
 		else {
-			//var values = {};
-                        var values: any;
 			values.currentAnswer = "skipped"
 		}
 
@@ -193,10 +193,12 @@ export class QuestionsPage {
 	}
 	
 	setValues() {
+	// TODO 
+	// this now is the same for all answers.
 	this.value == "Yes" ? this.updateAssessment(this.vals) : null;
 	this.value == "No"  ? this.handleNo(this.vals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.vals)  : null;
-	!this.value ? this.updateAssessment(null) : null; 
+	!this.value ? this.updateAssessment(this.vals) : null; 
 }
 
 	// no has its own handler, because a no can require a change in the overall assessment 
@@ -227,20 +229,22 @@ export class QuestionsPage {
 		await this.surveyJS.nextPage();
 		var { currentPageNo, pages } = this.surveyJS;
 		// resets the select bar.
-		this.checkNextQuestion(currentPageNo);
-		//		this.resetSelect();
+		//		this.checkNextQuestion(currentPageNo);
+		this.resetSelect();
 		this.questionId = this.current[currentPageNo].questionId;
 	}
 
+	/*
 	checkNextQuestion(index) {
 		this.current[index].currentAnswer ? this.questionAnswered = true : this.questionAnswered = false
 	}
+*/
 
 async	handlePreviousPageClick() {
 		await this.surveyJS.prevPage();
 		var { currentPageNo, pages } = this.surveyJS;
 		this.questionId = this.current[currentPageNo].questionId;
-		this.checkNextQuestion(currentPageNo);
+		//this.checkNextQuestion(currentPageNo);
 		// this.resetSelect();
 	}
 
@@ -372,6 +376,8 @@ async	handlePreviousPageClick() {
 			"objectiveEvidence",
 			"assumptionsYes",
 			"notesYes",
+			"notesSkipped",
+			"assumptionsSkipped",
 			"who",
 			"when",
 			"technical",

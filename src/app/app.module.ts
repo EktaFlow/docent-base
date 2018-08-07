@@ -32,6 +32,7 @@ import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions
 import { ActionitemsPage } from '../pages/actionitems/actionitems';
 
 // components
+import { ImportComponent } from "../components/import/import";
 import { ViewsComponent } from '../components/views/views';
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
 import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
@@ -74,6 +75,7 @@ import { BackUrl } from  "../services/constants";
     SkippedquestionsPage,
     ActionitemsPage,
 		ViewsComponent,
+		ImportComponent,
 		TopbarComponent
   ],
   imports: [
@@ -108,6 +110,7 @@ import { BackUrl } from  "../services/constants";
     SkippedquestionsPage,
     ActionitemsPage,
     ViewsComponent,
+		ImportComponent,
 		TopbarComponent
   ],
   providers: [
