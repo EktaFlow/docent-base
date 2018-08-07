@@ -240,9 +240,10 @@ export class HomePage {
   }
 
   page_2(_id){
-    this.navCtrl.push(QuestionsPage,{
-		data: _id });}
-			
-helpButtonClick() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
+    this.navCtrl.push(QuestionsPage,{ data: _id } );
+  }
+
+    helpButtonClick() { alert("Coming soon"); } 
+
 }
 
