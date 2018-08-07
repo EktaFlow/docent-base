@@ -32,6 +32,7 @@ query{
 assessments {
 	_id
 	name
+	targetMRL
 	}
 	}
 `
@@ -190,9 +191,7 @@ export class HomePage {
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 	showAssessmentsList(myEvent) {
 	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
-		popoverClick.present({
-			ev: myEvent
-		});
+		popoverClick.present();
 	}
 
   showPopover(myEvent) {
@@ -243,6 +242,7 @@ export class HomePage {
   page_2(_id){
     this.navCtrl.push(QuestionsPage,{
 		data: _id });}
+			
+helpButtonClick() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
 }
 
-helpButtonClick() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
