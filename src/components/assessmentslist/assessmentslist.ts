@@ -16,6 +16,21 @@ export class AssessmentslistComponent {
 		this.assessments = this.navParams.get("assessments");
   }
 
+	ngOnInit() {
+		console.log("this has an on-init function");
+		var styling = `
+		padding: 30px;
+    min-height: 400px;
+		width: 800px;
+		`
+
+		var test = document.getElementsByClassName("popover-content")
+
+		var	newVar = test[test.length - 1] as HTMLElement;
+				newVar.style.cssText = styling;
+
+	}
+
 	loadAssessment(id) {
 		this.navController.push(QuestionsPage, {data: id})
 	}

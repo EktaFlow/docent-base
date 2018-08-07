@@ -12,10 +12,15 @@ import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown
   templateUrl: 'faqs.html',
 })
 export class FaqsPage {
+        mainTitle: String;
 
     constructor( public navCtrl:   NavController,
 	               public navParams: NavParams,
-	               public http:      HttpClient ) {}
+	               public http:      HttpClient ) 
+    {
+
+            this.mainTitle = "frequently asked questions";
+    }
 
     private faqInfoStandalone: any;   
 		private faqInfoWeb:        any;
@@ -46,6 +51,11 @@ export class FaqsPage {
     ionViewDidLoad() {
 				this.getFaqInfo();
         this.getFeedbackContacts();
+    }
+
+
+    ngOnInit() {
+        this.mainTitle = "frequently asked questions";
     }
 
 }

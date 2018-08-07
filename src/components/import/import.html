@@ -1,0 +1,22 @@
+<div >
+	<h2>Choose an Assessment File to Import</h2>
+	<form>
+<div style="display: flex; flex-direction: column">
+<ng-container *ngIf="!file">
+<label ion-button color="buttonBlue" for="qwerty" class="custom-file-upload">
+    Select File
+</label>
+</ng-container>
+<ng-container *ngIf="file">
+<label ion-button color="buttonBlue" for="qwerty" class="custom-file-upload">
+    Select Different File
+</label>
+</ng-container>
+	<input id="qwerty" type="file" (change)="test($event)" placeholder="Choose File">
+	<button *ngIf="file" ion-button color="buttonBlue"(click)="uploadFile($event)" type="submit">Upload</button>
+	<div id="inputTextToSave">
+
+	</div>
+</div>
+	</form>
+</div>

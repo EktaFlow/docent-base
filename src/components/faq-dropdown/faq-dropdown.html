@@ -2,9 +2,12 @@
   <div (click)="toggleFaq()" class="faq-question-header" >
 		<div *ngIf="!faqOpen" class="arrow-down"></div>
 		<div *ngIf="faqOpen" class="arrow-up"></div>
-		<div class="faq-question-title">{{ faq.help_title }}</div>
+		<div class="faq-question-title"><font size="5">{{ faq.help_title }}</font></div>
   </div>
   <div *ngIf="faqOpen">
+    <font size="4">
     <p>{{ faq.help_text }}</p>
+    </font>
+    <br/><br/>
   </div>
 </div>

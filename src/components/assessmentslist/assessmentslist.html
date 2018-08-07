@@ -1,3 +1,16 @@
-<div *ngFor="let ass of assessments">
-	<h1 (click)="loadAssessment(ass._id)">{{ass.name}}</h1>
+<div>
+<h1>Select a previously created assessment</h1>
 </div>
+<table>
+	<thead>
+		<td><h2>Assessment Title</h2></td>
+		<td><h2>Target MRL</h2></td>
+	</thead>
+	<tbody>
+	<tr *ngFor="let ass of assessments">
+		<td (click)="loadAssessment(ass._id)"><h3>{{ass.name}}</h3></td>
+		<td (click)="loadAssessment(ass._id)"><h3>{{ass.targetMRL}}</h3></td>
+		<hr />
+	</tr>
+	<tbody>
+</table>

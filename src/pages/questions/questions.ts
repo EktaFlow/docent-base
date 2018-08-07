@@ -24,6 +24,8 @@ query assessment($_id: String)
 		objectiveEvidence
 		assumptionsYes
 		notesYes
+		notesSkipped
+		assumptionsSkipped
 		who
 		when
 		technical
@@ -80,7 +82,7 @@ export class QuestionsPage {
 
 	assessmentId: any;
 	assessmentSubscription: any;
-	threadComplete = false;
+
   public value;
   public mainTitle;
   public subTitle;
@@ -118,8 +120,14 @@ export class QuestionsPage {
 		this.files.push(v);
 })
 
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
-		fileUploadPopover.present({ ev: event });
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, 
+			{
+				emitter: myEmitter, 
+				questionId: this.questionId, 
+				assessmentId: this.assessmentId 
+			}, 
+			{	cssClass: "upload-popover"});
+		fileUploadPopover.present();
 	}
 
   surveyChange(){
@@ -152,7 +160,6 @@ export class QuestionsPage {
 		// check for skipped;
 		if ( this.value ) { values.currentAnswer = this.value  }
 		else {
-			values = {};
 			values.currentAnswer = "skipped"
 		}
 
@@ -185,13 +192,17 @@ export class QuestionsPage {
 	}
 	
 	setValues() {
+
 	this.value ? this.updateAssessment(this.vals) : this.updateAssessment(null)
 	/*
+	// TODO 
+	// this now is the same for all answers.
 	this.value == "Yes" ? this.updateAssessment(this.vals) : null;
 	this.value == "No"  ? this.updateAssessment(this.vals)  : null;
 	this.value == "N/A" ? this.updateAssessment(this.vals)  : null;
 	!this.value ? this.updateAssessment(null) : null; 
 	*/
+
 }
 
 	async handleNextPageClick() {
@@ -291,8 +302,8 @@ export class QuestionsPage {
 		this.surveyJS = new Survey.Model( ok );
   	Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
 
-	}
 
+	}
 
 async	handlePreviousPageClick() {
 		await this.surveyJS.prevPage();
@@ -423,8 +434,10 @@ async	handlePreviousPageClick() {
 		var question = this.current.filter(a => a.questionId == this.referringQuestionId)[0];
 		this.questionLevel = this.getQuestionLevel(question.questionId);
 		this.vals = this.filterQuestionVals(question);
+
 		var test = (<any>this.filterQuestionVals(question)).currentAnswer;
 		(<HTMLInputElement>document.querySelector(".sv_q_dropdown_control")).value = test
+
 		this.value = test;
 	}
 
@@ -435,6 +448,8 @@ async	handlePreviousPageClick() {
 			"objectiveEvidence",
 			"assumptionsYes",
 			"notesYes",
+			"notesSkipped",
+			"assumptionsSkipped",
 			"who",
 			"when",
 			"technical",
@@ -451,7 +466,10 @@ async	handlePreviousPageClick() {
 		];
 
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
-		return filteredQuestions;
+
+		console.log(filteredQuestions);
+		return <any>filteredQuestions;
+
 	}
 
   presentViewsPop(event){

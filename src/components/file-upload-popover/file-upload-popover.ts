@@ -12,6 +12,7 @@ export class FileUploadPopoverComponent {
 	questionId:		string;
 	assessmentId: string;
 	emitter:			any;
+	file:         any;
 	
 	constructor(	public upload: UploadService, 
 								public navParams: NavParams) {
@@ -22,6 +23,33 @@ export class FileUploadPopoverComponent {
 		this.assessmentId = navParams.get("assessmentId");
 		this.emitter			= navParams.data.emitter;
   }
+
+	test(e) {
+		var file = e.target.files[0];
+
+		var fileObject = {
+			size: file.size,
+			name: file.name, 
+			lastModified: file.lastModifiedDate
+		}
+
+		this.file = fileObject;
+	}
+
+	ngOnInit() {
+		console.log("this has an on-init function");
+		var styling = `
+		padding: 30px;
+    height: 400px;
+		width: 800px;
+		`
+
+		var test = document.getElementsByClassName("popover-content")
+
+    var newVar = test[test.length - 1] as HTMLElement;
+
+				newVar.style.cssText = styling
+	}
 
 	async uploadFile(event) {
 		var { assessmentId, questionId } = this;

@@ -1,5 +1,6 @@
 <div class="toolbar-class">
   <div>
+    <h1>{{this.mainTitle}}</h1>
     <ion-header>
       <ion-navbar color ="dark" hideBackButton="true">
         <div class = "container-toolbar">
@@ -25,18 +26,23 @@
           </div>
         </div>
         <hr>
-				<!-- TODO: use an ngif for if there is an assessmentId -->	
-				<div *ngIf="assessmentId" class="subheader">
-          <div *ngIf="mainTitle">
-						<p>{{this.mainTitle}} | {{this.subTitle}}  Question MR Level: {{questionLevel}}</p>
-						<ng-container *ngIf="scopeSelected">
-							<p>Assessment Scope: {{ scope }}</p>
-						</ng-container>
-					</div>
-          <div style="margin-right:20px">
-            <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
-            <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
-          </div>
+        <!-- TODO: use an ngif for if there is an assessmentId -->	
+        <div *ngIf="mainTitle">
+                <p>
+	        <h1><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
+        </div>
+
+	<div *ngIf="assessmentId" class="subheader">
+            <div *ngIf="mainTitle">
+	        <p>{{this.mainTitle}} | {{this.subTitle}}</p>
+		<ng-container *ngIf="scopeSelected">
+		    <p>Assessment Scope: {{ scope }}</p>
+		</ng-container>
+	    </div>
+            <div style="margin-right:20px">
+                <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
+                <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
+            </div>
         </div>
       </ion-navbar>
     </ion-header>
