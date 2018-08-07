@@ -82,9 +82,9 @@ export class QuestionsPage {
 
 	assessmentId: any;
 	assessmentSubscription: any;
-  public value;
-  public mainTitle;
-  public subTitle;
+        public value;
+        public mainTitle;
+        public subTitle;
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
@@ -115,8 +115,14 @@ export class QuestionsPage {
 		this.files.push(v);
 })
 
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
-		fileUploadPopover.present({ ev: event });
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, 
+			{
+				emitter: myEmitter, 
+				questionId: this.questionId, 
+				assessmentId: this.assessmentId 
+			}, 
+			{	cssClass: "upload-popover"});
+		fileUploadPopover.present();
 	}
 
   surveyChange(){
@@ -149,7 +155,8 @@ export class QuestionsPage {
 		// check for skipped;
 		if ( this.value ) { values.currentAnswer = this.value  }
 		else {
-			var values = {};
+			//var values = {};
+                        var values: any;
 			values.currentAnswer = "skipped"
 		}
 
@@ -353,7 +360,8 @@ async	handlePreviousPageClick() {
 		var question = this.current.filter(a => a.questionId == this.referringQuestionId)[0];
 		this.vals = this.filterQuestionVals(question);
 		var test = this.filterQuestionVals(question).currentAnswer;
-		document.querySelector(".sv_q_dropdown_control").value = test
+		var tmp = <HTMLInputElement>document.querySelector(".sv_q_dropdown_control");
+                tmp.value = test;
 		this.value = test;
 	}
 
@@ -381,7 +389,7 @@ async	handlePreviousPageClick() {
 
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 		console.log(filteredQuestions);
-		return filteredQuestions;
+		return <any>filteredQuestions;
 	}
 
   presentViewsPop(event){

@@ -15,10 +15,14 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: 'acronyms.html',
 })
 export class AcronymsPage {
+        mainTitle: String;
 
-constructor(public navCtrl: NavController, 
+    constructor(public navCtrl: NavController, 
 			public navParams: NavParams,
-			public http: HttpClient) {}
+			public http: HttpClient) {
+
+            this.mainTitle = "acronyms";
+    }
 
 	private acronyms: any = {};
 	private acronymsKeys: any = [];
@@ -39,4 +43,7 @@ constructor(public navCtrl: NavController,
 	console.log(this.acronyms);
   }
 
+  ngOnInit() {
+    this.mainTitle = "acronyms";
+  }
 }
