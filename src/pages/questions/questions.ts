@@ -115,8 +115,14 @@ export class QuestionsPage {
 		this.files.push(v);
 })
 
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, {emitter: myEmitter, questionId: this.questionId, assessmentId: this.assessmentId });
-		fileUploadPopover.present({ ev: event });
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, 
+			{
+				emitter: myEmitter, 
+				questionId: this.questionId, 
+				assessmentId: this.assessmentId 
+			}, 
+			{	cssClass: "upload-popover"});
+		fileUploadPopover.present();
 	}
 
   surveyChange(){
