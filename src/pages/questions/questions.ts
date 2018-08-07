@@ -16,8 +16,6 @@ query assessment($_id: String)
  assessment(_id: $_id)  {
 	questions{
 	  currentAnswer
-    skipped
-		questionId
     threadName
     subThreadName
     mrLevel
@@ -92,8 +90,10 @@ export class QuestionsPage {
 	files = [];
 	private current;
 	public test;
+	allQuestions;
 	public questionAnswered: any;
 	private referringQuestionId: any;
+	private lastQuestion;
 
 	// properties of the current assessment that we're using for different functions
 	public currentMRL: any;
@@ -126,7 +126,6 @@ export class QuestionsPage {
 			var {pages, currentPageNo} = this.surveyJS;
 			// TODO - clean this up below
 			// this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
-			this.checkNextQuestion(currentPageNo);
 			this.value = pages[currentPageNo].propertyHash.elements["0"].value;
 			this.mainTitle = pages[currentPageNo].name
 			this.subTitle = pages[currentPageNo].elements[0].name
@@ -171,10 +170,6 @@ export class QuestionsPage {
 
 		this.current = sweet;
 
-		console.log(this.assessmentId);
-		console.log(Number(this.questionId));
-		console.log(values);
-
 		this.apollo.mutate({
 			mutation: updateAssessmentQuery,
 			variables: {
@@ -182,7 +177,7 @@ export class QuestionsPage {
 				questionId: Number(this.questionId),
 				updates:		values
 			}
-		}).subscribe(data => console.log(data));
+		}).subscribe(data => null);
 	}
 	
 	setValues() {
@@ -201,40 +196,88 @@ export class QuestionsPage {
 		this.updateAssessment(values);
 	}
 
-	getQuestion(questionId) {
-		this.apollo.watchQuery({
-		query: questionQuery,
-		fetchPolicy: "network-only",
-		variables: {
-			assessmentId: this.assessmentId,
-			questionId
-		}
-		}).valueChanges
-		  .subscribe(a => console.log(a));
-
-	}
-
 	async handleNextPageClick() {
-
 		this.setValues();
-		await this.surveyJS.nextPage();
 		var { currentPageNo, pages } = this.surveyJS;
-		// resets the select bar.
-		this.checkNextQuestion(currentPageNo);
-		//		this.resetSelect();
+
+		var currentQuestion = this.current[currentPageNo];
+		console.log(currentPageNo);
+		// last question logic///////////////
+		//// removed alert for now //////////
+		if (this.lastQuestion) {
+			this.createSurveyJS(this.current);
+			this.lastQuestion = false;
+		}
+		if (pages.length == currentPageNo + 1 && 1 != currentPageNo) {
+			this.lastQuestion = true;
+		}
+		if (this.levelSwitching) {
+			this.levelSwitchCheck(currentQuestion);
+		}
+
+		////check if end of subthread////
+		if (this.currentMRL == this.targetMRL) this.surveyJS.nextPage();
+		//		if (this.currentMRL > this.targetMRL) this.currentMRL = this.targetMRL
 		this.questionId = this.current[currentPageNo].questionId;
 	}
 
-	checkNextQuestion(index) {
-		this.current[index].currentAnswer ? this.questionAnswered = true : this.questionAnswered = false
+	levelSwitchCheck(question) {
+		var subthread = this.current.filter( q => q.subThreadName == question.subThreadName && q.mrLevel == question.mrLevel );
+
+		console.log(subthread);
+
+		if (subthread.every(q => q.currentAnswer == "Yes" || q.currentAnswer == "N/A")) {
+			this.handlePassedSubThread(question.subThreadName);
+		} else  
+
+		// every question answered and one answer or more is a no.
+		if (subthread.some(q => q.currentAnswer == "No") && subthread.every(q => q.currentAsnwer)) {
+			this.handleFailedSubThread();
+			} else {
+				consol
+			}
+
 	}
+
+	handlePassedSubThread(subThreadName) {
+
+
+
+		// render a new survey with the next level of that subthread at the front.
+		var nextLevel = this.allQuestions.filter( q => {
+			return q.mrLevel == this.targetMRL + 1 &&
+			       q.subThreadName == subThreadName
+		})
+
+		this.currentMRL = this.targetMRL + 1;
+		this.addSubThreadToFront(nextLevel);
+	}
+
+	addSubThreadToFront(questionSet) {
+		
+		var answered = this.current.filter(a => a.currentAnswer); 
+		var unanswered = this.current.filter( a=> !a.currentAnswer);
+		var all1 = questionSet.concat(unanswered).concat(answered);
+		this.current = all1;
+		var pages             = this.mapToSurveyJS(all1);
+
+		// other surveyJS options, if we need them at some point, can be passed in here.
+		var ok = {
+				showNavigationButtons: false,
+				showQuestionNumbers: "off",
+				pages 	
+		};
+
+		this.surveyJS = new Survey.Model( ok );
+  	Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
+
+	}
+
 
 async	handlePreviousPageClick() {
 		await this.surveyJS.prevPage();
 		var { currentPageNo, pages } = this.surveyJS;
 		this.questionId = this.current[currentPageNo].questionId;
-		this.checkNextQuestion(currentPageNo);
-		// this.resetSelect();
 	}
 
 	moveQuestionToFront(questionSet, referringQuestionId) {
@@ -246,7 +289,9 @@ async	handlePreviousPageClick() {
 
 	// Any rules to order the questions in certain ways goes in this function.
 	orderQuestions(questionSet) {
-		var sorted = questionSet.sort((a,b) => a.questionId - b.questionId)	
+	// at this point questions are either skipped, or undefined.
+	var sorted = questionSet.sort((a,b) => a.currentAnswer - a.currentAnswer == "skipped" )
+													.sort((a,b) => a.questionId - b.questionId)	
 		if ( this.referringQuestionId ) {
 			sorted = this.moveQuestionToFront(questionSet, this.referringQuestionId);
 		}	
@@ -256,7 +301,7 @@ async	handlePreviousPageClick() {
 
 	loadQuestion(array)	 {
 	  // TODO - separate out the filters, single function.
-		var defaultFilter = a => !a.currentAnswer
+		var defaultFilter = a => !a.currentAnswer || a.currentAnswer == "skipped"
 		var referringQuestionFilter = a => !a.currentAnswer || a.questionId == this.referringQuestionId
 		//////
 
@@ -290,14 +335,12 @@ async	handlePreviousPageClick() {
 		});
 	}
 
-	filterByMRL(assessment) {
-		return assessment.questions.filter(question => {
-			return question.mrLevel == assessment.targetMRL;
-		})	
+	filterByMRL(questions, mrLevel = this.targetMRL) {
+		return questions.filter(q => q.mrLevel == mrLevel);
 	}
 
-	formatSurvey(assessment) {
-		var filteredQuestions = this.filterByMRL(assessment);
+	formatSurvey(questions) {
+		var filteredQuestions = this.filterByMRL(questions);
 		var current           = this.loadQuestion(filteredQuestions);
 		this.current = current;
 		var pages             = this.mapToSurveyJS(current);
@@ -325,8 +368,8 @@ async	handlePreviousPageClick() {
 	}
 
 	// this function takes an assessment, formats it to comply w/ surveyJS, creates the survey JS object, renders that to the page
-	createSurveyJS(assessment) {
-		var survey = this.formatSurvey(assessment);
+	createSurveyJS(questions) {
+		var survey = this.formatSurvey(questions);
 		this.surveyJS = new Survey.Model( survey );
   	Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
 	}
@@ -341,8 +384,11 @@ async	handlePreviousPageClick() {
 			.valueChanges
 			.subscribe( ({data, loading}) => {  
 				var {assessment} = data;
+				this.allQuestions = data.assessment.questions;
 
-				this.createSurveyJS(assessment);
+				this.targetMRL = assessment.targetMRL;
+
+				this.createSurveyJS(assessment.questions);
 				this.setInstanceVariables(assessment);
 				this.referringQuestionId ? this.setExistingValues() : null
 		})
@@ -380,7 +426,6 @@ async	handlePreviousPageClick() {
 		];
 
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
-		console.log(filteredQuestions);
 		return filteredQuestions;
 	}
 
