@@ -5,13 +5,15 @@
 			<div *ngIf="feedbackOpen" class="arrow-up"></div>
 			<h2 (click)="toggleFeedback()">Feedback</h2>
 		</div>
-		<div *ngIf="feedbackOpen" id="feedback-dropdown-content">
+		<div *ngIf="feedbackOpen" id="feedback-dropdown-content" class="feedback-dropdown-content">
 			<ion-grid>
 				<ion-row>
 					<ion-col col-4 *ngFor="let contact of contacts">
-						<p>{{contact.name}}</p>
+                                            <font size="4">
+						<p><b>{{contact.name}}</b></p>
 						<p>{{contact.organization}}</p>
 						<p>{{contact.email}}</p>
+                                            </font>
 				  </ion-col>
 				</ion-row>
       </ion-grid>

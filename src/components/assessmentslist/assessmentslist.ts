@@ -25,8 +25,10 @@ export class AssessmentslistComponent {
 		`
 
 		var test = document.getElementsByClassName("popover-content")
-		var newVar = <any>test[test.length - 1];
-				newVar.style.cssText = styling
+
+		var	newVar = test[test.length - 1] as HTMLElement;
+				newVar.style.cssText = styling;
+
 	}
 
 	loadAssessment(id) {
