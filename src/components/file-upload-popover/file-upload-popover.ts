@@ -45,7 +45,9 @@ export class FileUploadPopoverComponent {
 		`
 
 		var test = document.getElementsByClassName("popover-content")
-		var newVar = test[test.length - 1] as HTMLElement;
+
+    var newVar = test[test.length - 1] as HTMLElement;
+
 				newVar.style.cssText = styling
 	}
 
