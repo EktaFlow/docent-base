@@ -160,8 +160,12 @@ export class HomePage {
 	if (this.backEnd) {
 
 	// setting defaults, ionic is weird with this.
-	document.getElementById("level-switching-select").value = "";
-	document.getElementById("deskbook-select").value = "2017";
+	//document.getElementById("level-switching-select").value = "";
+        //have to cast to HTMLInputElement which contains value prop
+        var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
+        tmp.value = "";
+        tmp = <HTMLInputElement>document.getElementById("deskbook-select");
+	tmp.value = "2017";
 
 	this.querySubscription = this.apollo.watchQuery<any>({
 		query: assessmentQuery
@@ -240,3 +244,5 @@ export class HomePage {
     this.navCtrl.push(QuestionsPage,{
 		data: _id });}
 }
+
+helpButtonClick() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
