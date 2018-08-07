@@ -61,6 +61,7 @@ var createAssessmentMutation = gql`
      $targetDate:  Date,
 		 $deskbookVersion: String,
      $name: String																																					
+		 $levelSwitching: Boolean
    ) {                                                                                              
      createAssessment(                                                                              
        threads:    $threads,                                                                        
@@ -71,6 +72,7 @@ var createAssessmentMutation = gql`
        targetDate: $targetDate, 
        deskbookVersion: $deskbookVersion,
 			 name: $name
+			 levelSwitching: $levelSwitching
      ) {                                                                                                                                                                           
           _id                                                          
                                                                                                
@@ -127,14 +129,13 @@ export class HomePage {
 
 	// use form?? 
 	createAssessment(event) {
-		console.log(this.assForm);
 		event.preventDefault();
 		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
 		!this.validateAssessment() ? alert("you must enter all fields") : null
 		if (this.backEnd && this.validateAssessment()) {
 		var values = this.assForm;
 		values.threads = this.threadsSelected;
-		console.log(values);
+
 
 		this.apollo.mutate({
 				mutation:		createAssessmentMutation, 
