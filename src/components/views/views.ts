@@ -10,6 +10,7 @@ import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquesti
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { saveAs } from "file-saver/FileSaver";
+import { ImportComponent } from "../import/import";
 
 
 import { Apollo } from "apollo-angular";
@@ -39,7 +40,7 @@ query assessment($_id: String)
 		cost
 		schedule
 		what
-	reason
+		reason
 		assumptionsNo
 		notesNo
 		documentation
@@ -50,6 +51,7 @@ query assessment($_id: String)
 	currentMRL
 	levelSwitching
 	name
+	threads
 	files {
 		url
 	}
@@ -95,10 +97,14 @@ export class ViewsComponent {
 			})
 		}
 
+		handleImport() {
+			this.launchImportPopover();
+		}
+
 		handleSkipped() {
 			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId})
 		}
-		handleNa() {
+		handleNa()	{
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 		}
 		handleContinue = () => this.navCtrl.push(QuestionsPage, { data: this.assessmentId});
@@ -110,6 +116,12 @@ export class ViewsComponent {
     close() {
     this.viewCtrl.dismiss();
     }
+
+		launchImportPopover() {
+			console.log("hi");
+			this.popOver.create(ImportComponent)
+			            .present();
+		}
 
 	showAssessmentsList(myEvent) {
 	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	

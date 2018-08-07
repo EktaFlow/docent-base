@@ -11,9 +11,9 @@
 			Save
 		</button>
 	</ng-container >
-  <button ion-button color="dark">
-    Open
-  </button>
+	<button (click)="handleImport()" ion-button color="dark">
+		Import Assessment
+	</button>
 	<ng-container *ngIf="assessmentId">
 	<!-- We're auto-saving on updates now.
   <button ion-button color="dark">

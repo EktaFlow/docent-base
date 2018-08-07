@@ -7,6 +7,7 @@ import { ContactsDropdownComponent } from './contacts-dropdown/contacts-dropdown
 import { FaqDropdownComponent } from './faq-dropdown/faq-dropdown';
 import { FileUploadPopoverComponent } from './file-upload-popover/file-upload-popover';
 import { TopbarComponent } from './topbar/topbar';
+import { ImportComponent } from './import/import';
 @NgModule({
 	declarations: [
 		ViewsComponent,
@@ -16,7 +17,8 @@ import { TopbarComponent } from './topbar/topbar';
 		ContactsDropdownComponent,
 		FaqDropdownComponent,
     FileUploadPopoverComponent,
-    TopbarComponent
+    TopbarComponent,
+    ImportComponent
     ],
 	imports: [],
 	exports: [
@@ -27,7 +29,8 @@ import { TopbarComponent } from './topbar/topbar';
 		ContactsDropdownComponent,
 		FaqDropdownComponent,
     FileUploadPopoverComponent,
-    TopbarComponent
+    TopbarComponent,
+    ImportComponent
     ]
 })
 
