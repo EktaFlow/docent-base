@@ -1,6 +1,7 @@
 <title>Docent</title>
 
-<topbar></topbar>
+<!--<topbar [mainTitle]   = "mainTitle"></topbar>-->
+<topbar></topbar> 
 
 <ion-content padding>
   <br>
@@ -13,7 +14,7 @@
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
   <h6>Assessment Name</h6>
-	<div class="topmost">
+	<div class="topmost" style="z-index: 100;">
       <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 <!-- Save for auth

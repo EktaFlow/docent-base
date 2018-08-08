@@ -159,4 +159,12 @@ $input-border:#dcdcdc;
         resize: none;        
     }
 }
+  .qspacer {
+    font-size: 0; 
+    height: 250px;
+    line-height: 0;
+    border: 0px;
+    /* testing only */
+    /* border: 1px solid red; */
+  }
 }

@@ -85,6 +85,7 @@ var createAssessmentMutation = gql`
 
 })
 export class HomePage {
+  public mainTitle;
 	backEnd: any = true;
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
@@ -105,7 +106,7 @@ export class HomePage {
 							public popOver: PopoverController,
 							private apollo: Apollo,
 							private auth: AuthService) {
-
+	    this.mainTitle = "Start";
 	}
 
 		async checkBack() {

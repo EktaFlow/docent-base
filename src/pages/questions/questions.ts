@@ -103,6 +103,7 @@ export class QuestionsPage {
 	// properties of the current assessment that we're using for different functions
 	public currentMRL: any;
 	public levelSwitching: any;
+        public threadComplete: any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, 
 							private popoverController: PopoverController, private apollo: Apollo) {

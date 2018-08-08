@@ -1,6 +1,9 @@
 topbar {
 
-.toolbar-class{
+  .docent-header {
+  }
+
+  .toolbar-class{
     header{
         color:#000;
     }
@@ -9,26 +12,37 @@ topbar {
         margin-top: 10px
     }
     hr {
-        height: 1px !important;
+        height: 0px !important;
         width: 98% !important;
         background:grey!important;
         display: block !important;
         font-size: 2em !important;
         visibility: visible !important;
       }
-}
+  }
 
-.container-toolbar{
+  .container-toolbar{
     display: flex;
     justify-content: space-between;
     img{
         padding: 5px;
     }
-}
+  }
 
-.grayed {
+  .grayed {
 	color: gray;
-}
+  }
 
+  .toolbar-logo { 
+    width: auto; 
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .spacer {
+    font-size: 0; 
+    height: 100px;
+    line-height: 0;
+  }
 
 }
