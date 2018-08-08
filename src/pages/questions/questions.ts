@@ -86,7 +86,6 @@ export class QuestionsPage {
   public value;
   public mainTitle;
   public subTitle;
-  threadComplete: any;
 	public filtered: any;
 	public survey: any;
 	public surveyJS: any;
