@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
 import { FaqsPage } from './faqs';
 
@@ -8,6 +9,8 @@ import { FaqsPage } from './faqs';
   ],
   imports: [
     IonicPageModule.forChild(FaqsPage),
+    CommonModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FaqsPageModule {}

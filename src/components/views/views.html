@@ -1,48 +1,51 @@
 <div style="display:flex;flex-direction:column;background-color:black">
-		
-	<ng-container *ngIf="assessmentId">
-		<button [navPush]="homePage" ion-button color="dark">
-			Home	
-		</button>
+
+  <ng-container *ngIf="assessmentId">
+    <button (click)="goToHome()" ion-button color="dark">
+  			Home
+  	</button>
 		<button (click)="handleContinue()" ion-button color="dark">
 			Continue Assessment
 		</button>
 		<button (click)="handleSave()" ion-button color="dark">
 			Save
 		</button>
-	</ng-container >
-	<button (click)="handleImport()" ion-button color="dark">
-		Import Assessment
-	</button>
-	<ng-container *ngIf="assessmentId">
-	<!-- We're auto-saving on updates now.
-  <button ion-button color="dark">
-    Continue
-  </button>
-	 Can leave this for when/if we output to a desktop format.
-  <button ion-button color="dark">
-    Save
-  </button>
-	-->
-  <hr>
-  <button (click)="handleDashboard()" ion-button color="dark">
-    Dashboard
-  </button>
-  <button (click)="handleNavigate()" ion-button color="dark">
-    Navigate
-  </button>
-  <button (click)="handleReview()" ion-button color="dark">
-    Review
-  </button>
-  <hr>
-  <button (click)="handleActions()" ion-button color="dark">
-    Action Items
-  </button>
-  <button (click)="handleSkipped()"  ion-button color="dark">
-    Skipped Questions
-  </button>
-  <button (click)="handleNa()" ion-button color="dark">
-    N/A Questions
-  </button>
-	</ng-container>
+  </ng-container >
+
+  	<button (click)="handleImport()" ion-button color="dark">
+  		Import Assessment
+  	</button>
+
+  <ng-container *ngIf="assessmentId">
+  	<!-- We're auto-saving on updates now.
+    <button ion-button color="dark">
+      Continue
+    </button>
+  	 Can leave this for when/if we output to a desktop format.
+    <button ion-button color="dark">
+      Save
+    </button>
+  	-->
+    <hr>
+    <button (click)="handleDashboard()" ion-button color="dark">
+      Dashboard
+    </button>
+    <button (click)="handleNavigate()" ion-button color="dark">
+      Navigate
+    </button>
+    <button (click)="handleReview()" ion-button color="dark">
+      Review
+    </button>
+    <hr>
+    <button (click)="handleActions()" ion-button color="dark">
+      Action Items
+    </button>
+    <button (click)="handleSkipped()"  ion-button color="dark">
+      Skipped Questions
+    </button>
+    <button (click)="handleNa()" ion-button color="dark">
+      N/A Questions
+    </button>
+  </ng-container>
+
 </div>

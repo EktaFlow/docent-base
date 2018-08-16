@@ -19,7 +19,7 @@ import gql from "graphql-tag";
 import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
 
 var assessmentQuery = gql`
-query assessment($_id: String) 
+query assessment($_id: String)
 {
  assessment(_id: $_id)  {
 	questions{
@@ -72,11 +72,11 @@ export class ViewsComponent {
   actionitemsPage = ActionitemsPage;
 	assessments: any;
 	assessmentId: any;
-  
-	constructor(  public navCtrl: NavController, 
-								public popOver: PopoverController, 
-								public navParams: NavParams, 
-								public viewCtrl: ViewController, 
+
+	constructor(  public navCtrl: NavController,
+								public popOver: PopoverController,
+								public navParams: NavParams,
+								public viewCtrl: ViewController,
 								private apollo: Apollo ) {
 		this.assessmentId = navParams.data.assessmentId;
   }
@@ -91,10 +91,14 @@ export class ViewsComponent {
 			.valueChanges
 			.subscribe( ({data, loading}) => {
 				var title = data.assessment.name;
-				title ? null : title = "untitled"	
-				var assessment = JSON.stringify(data);	
+				title ? null : title = "untitled"
+				var assessment = JSON.stringify(data);
 				saveAs(new Blob([assessment], { type: "text/plain" }), title + ".mra")
 			})
+		}
+
+		goToHome(){
+			this.navCtrl.push(HomePage)
 		}
 
 		handleImport() {
@@ -124,7 +128,7 @@ export class ViewsComponent {
 		}
 
 	showAssessmentsList(myEvent) {
-	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
+	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});
 	console.log(this.assessments);
 		popoverClick.present({
 			ev: myEvent
@@ -132,4 +136,3 @@ export class ViewsComponent {
 	}
 
 }
-

@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -32,17 +33,19 @@ import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions
 import { ActionitemsPage } from '../pages/actionitems/actionitems';
 
 // components
-import { ImportComponent } from "../components/import/import";
-import { ViewsComponent } from '../components/views/views';
-import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
-import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
-import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
-import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
-import { ThreadsListComponent } from "../components/threads-list/threads-list";
-import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
-import { TopbarComponent } from "../components/topbar/topbar";
+// import { ImportComponent } from "../components/import/import";
+// import { ViewsComponent } from '../components/views/views';
+// import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
+// import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
+// import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
+// import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
+// import { ThreadsListComponent } from "../components/threads-list/threads-list";
+// import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
+// import { TopbarComponent } from "../components/topbar/topbar";
 
-// services 
+import { ComponentsModule } from '../components/components.module';
+
+// services
 import { AuthService } from "../services/auth.service";
 import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
@@ -52,39 +55,41 @@ import { BackUrl } from  "../services/constants";
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    QuestionsPage,
-    AcronymsPage,
-    DefinitionsPage,
-    FaqsPage,
-		AcronymsPage,
-    ReviewPage,
-		RegisterPage,
-		LoginPage,
-    HelpmenuComponent,
-    ContactsDropdownComponent,
-		FaqDropdownComponent,
-		AssessmentslistComponent,
-		ThreadsListComponent,
-		FileUploadPopoverComponent,
-    ReviewPage,
-    DashboardPage,
-    NavigatePage,
-    NotapplicablePage,
-    SkippedquestionsPage,
-    ActionitemsPage,
-		ViewsComponent,
-		ImportComponent,
-		TopbarComponent
+    MyApp
+    // HomePage,
+    // QuestionsPage,
+    // AcronymsPage,
+    // DefinitionsPage,
+    // FaqsPage,
+		// AcronymsPage,
+    // ReviewPage,
+		// RegisterPage,
+		// LoginPage,
+    // ReviewPage,
+    // DashboardPage,
+    // NavigatePage,
+    // NotapplicablePage,
+    // SkippedquestionsPage,
+    // ActionitemsPage,
+    // HelpmenuComponent,
+    // ContactsDropdownComponent,
+		// FaqDropdownComponent,
+		// AssessmentslistComponent,
+		// ThreadsListComponent,
+		// FileUploadPopoverComponent,
+		// ViewsComponent,
+		// ImportComponent,
+		// TopbarComponent
   ],
   imports: [
     BrowserModule,
 		IonicModule.forRoot(MyApp),
 		HttpClientModule,
+    HttpModule,
 		HttpLinkModule,
 		ApolloModule,
-		FormsModule
+		FormsModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -98,20 +103,21 @@ import { BackUrl } from  "../services/constants";
     ReviewPage,
 		RegisterPage,
 		LoginPage,
-    HelpmenuComponent,
-    ContactsDropdownComponent,
-		FaqDropdownComponent,
-		AssessmentslistComponent,
-		ThreadsListComponent,
-		FileUploadPopoverComponent,
     DashboardPage,
     NavigatePage,
     NotapplicablePage,
     SkippedquestionsPage,
-    ActionitemsPage,
-    ViewsComponent,
-		ImportComponent,
-		TopbarComponent
+    ActionitemsPage
+    // ViewsComponent,
+		// ImportComponent,
+		// TopbarComponent,
+    // HelpmenuComponent,
+    // ContactsDropdownComponent,
+		// FaqDropdownComponent,
+		// AssessmentslistComponent,
+		// ThreadsListComponent,
+		// FileUploadPopoverComponent,
+
   ],
   providers: [
     StatusBar,
@@ -119,6 +125,8 @@ import { BackUrl } from  "../services/constants";
 		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,
+    HttpClientModule,
+    HttpModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

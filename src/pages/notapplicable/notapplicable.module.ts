@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
 import { NotapplicablePage } from './notapplicable';
 
@@ -8,6 +9,9 @@ import { NotapplicablePage } from './notapplicable';
   ],
   imports: [
     IonicPageModule.forChild(NotapplicablePage),
+    CommonModule
+
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class NotapplicablePageModule {}
