@@ -79,7 +79,7 @@ constructor( public popOver: PopoverController,
 		            .present({ev: event});
 	}
 
-	registerNav() { alert("Coming soon")}//{ this.navCtrl.push( this.registerPage ); }
+	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
 	logout() { this.auth.logout()}
 
