@@ -1,3 +1,5 @@
+Mobile Setup:
+
 Once the App is set up (from the docent github setup steps)
 
 1. run  ``` ionic cordova platform add ios ```
@@ -23,4 +25,4 @@ Extra
   a. In Safari > Preferences > Advanced, at the bottom of the window check the box for 'Show Developer menu in menu bar'
   b. When the app is running, go to Safari and in the menu develop on the menu bar, you are looking for your computer's name.
   c. If you hover over that it should show the docent-v1 app with localhost and index.html as subtitles to it.
-  d. Click on that and you will get a window with debugging tools. When I saw the error, the one time, it came up there. 
+  d. Click on that and you will get a window with debugging tools. When I saw the error, the one time, it came up there.
