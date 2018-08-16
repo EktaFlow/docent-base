@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
 import { NavigatePage } from './navigate';
 
@@ -8,6 +9,8 @@ import { NavigatePage } from './navigate';
   ],
   imports: [
     IonicPageModule.forChild(NavigatePage),
+    CommonModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class NavigatePageModule {}
