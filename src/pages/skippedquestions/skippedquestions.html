@@ -4,9 +4,13 @@
 <ion-content padding>
   <br><br><br><br><br><br><br><br><br><br>
 
+	<div *ngIf="skipped && skipped.length == 0">
+		<p>You have no skipped questions</p>
+	</div>
+
   <div *ngFor="let subThread of subThreads">
     <hr>
-		{{subThread}}
+			{{subThread}}
     <hr>
 		<div *ngFor="let q of filterBySubThread(subThread)" class="questions">
 		<p style="width: 20%;">Level {{q.mrLevel}}</p>

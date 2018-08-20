@@ -1,3 +1,5 @@
+// TODO: make the schema a much simpler data structure.
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
@@ -101,7 +103,7 @@ export class NavigatePage {
     // this.state[index] = !this.state[index];
   }
   changeSubState(sub){
-		sub.sweet = !sub.cool
+		sub.sweet = !sub.sweet
 //    this.subState[index][subIndex] = !this.subState[index][subIndex];
   }
 	
