@@ -124,7 +124,7 @@ export class QuestionsPage {
 	async handleNextPageClick() {
 		this.setValues();
 		// move to the new question
-		this.levelSwitching ? this.handleLevelSwitching() : this.nextQuestion()
+		this.levelSwitching ? this.handleLevelSwitching() : this.nextQuestion(1)
 
 		// reset the values to the new ones.
 		this.vals = this.currentQuestion;
@@ -140,17 +140,13 @@ export class QuestionsPage {
 		this.updateAssessment(this.vals)
 	}
 
+	// refactor this down
 	async updateAssessment(values) {
 
 		var values = Object.assign({}, values)
 		values = this.filterQuestionVals(values);
-
 		var a = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
 		var old = this.allQuestions.map( q => Object.assign({}, q));
-
-		// in the allQuestions array we want to replace the current object @ position x
-		// and replace it with the updated information.
-
 		var newer = old[this.currentQuestion.questionId - 1];
 
 		for (let a in values) {
@@ -172,13 +168,17 @@ export class QuestionsPage {
 	}
 
 	nextQuestion(way) {
-	  !way ? way = 1 : null
 		var { questionId } = this.currentQuestion;	
 
-		var place = this.surveyQuestions.indexOf(questionId) + way;
-		var newQuestion = this.surveyQuestions[place];
-
-		this.currentQuestion = this.getQuestion(newQuestion);
+		if (!this.surveyQuestions.includes(this.currentQuestion.questionId)) {
+			alert("what is the order when a rando question gets added in?");
+			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
+		} 
+		else {
+			var place = this.surveyQuestions.indexOf(questionId) + way;
+			var newQuestion = this.surveyQuestions[place];
+			this.currentQuestion = this.getQuestion(newQuestion);
+		}
 	}
 
 	handleLevelSwitching() {
@@ -249,13 +249,10 @@ export class QuestionsPage {
 		});
 	}
 
-	// this function requires this.surveyJS && this.current to be set.. 
 	setInstanceVariables(assessment) {
 		this.levelSwitching = assessment.levelSwitching	
-		// this.files = data.assessment.files;
 
 	}
-
 
 	setSurveyQuestions() {
 		var { targetMRL,
@@ -290,12 +287,20 @@ export class QuestionsPage {
   }
 
 	determineCurrentQuestion() {
-		var noAnswer = this.surveyQuestions.find( qId => {
-				return this.getQuestion(qId).currentAnswer == null
+		var { referringQuestionId, 
+					currentQuestion,
+          getQuestion } = this;
+
+		if (referringQuestionId ) {
+			currentQuestion = getQuestion(referringQuestionId);
+		}
+		else {
+			var noAnswer = this.surveyQuestions.find( qId => {
+				return getQuestion(qId).currentAnswer == null
 			})
 
-		this.currentQuestion = this.getQuestion(noAnswer);
-
+			currentQuestion = getQuestion(noAnswer);
+		}
 	}
 
 	filterQuestionVals(question) {
