@@ -83,25 +83,14 @@ export class QuestionsPage {
 	assessmentId: any;
 	assessmentSubscription: any;
 
-  public mainTitle;
-  public subTitle;
-	public filtered: any;
-	public survey: any;
 	private questionId: any; 
 	files = [];
-	private current;
-	public test;
 	private allQuestions;
 	private referringQuestionId: any;
-	private lastQuestion;
 	private targetMRL;
-	public questionLevel;
 	private currentQuestion = {};
 	private surveyQuestions;
-
-	// properties of the current assessment that we're using for different functions
-	public currentMRL: any;
-	public levelSwitching: any;
+	private levelSwitching: any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, 
 							private popoverController: PopoverController, private apollo: Apollo) {
@@ -111,6 +100,11 @@ export class QuestionsPage {
 		this.assessmentId = navParams.data.data;
   }
 
+  /////////////////////////// useful functions ///////////////////////
+	// return a question by its questionId
+	getQuestion = (id) => this.allQuestions[id - 1]
+
+	/////////////////////////// popover creator(s) /////////////////////
 	showFileUpload(event) {
 	let myEmitter = new EventEmitter<any>();
 			myEmitter.subscribe( v =>  {
@@ -128,7 +122,6 @@ export class QuestionsPage {
 	}
 
 	async handleNextPageClick() {
-		// set the new vals
 		this.setValues();
 		// move to the new question
 		this.levelSwitching ? this.handleLevelSwitching() : this.nextQuestion()
@@ -190,17 +183,15 @@ export class QuestionsPage {
 
 	handleLevelSwitching() {
 				if ( !this.endOfThread() ) {
-					console.log("not end of thread");
 					this.nextQuestion(1);
 				}
 				// make sure this encompasses all non-switching scenarios.
 				else if ( this.threadPassed() ) {
-					console.log("end of thread, but passed")
+					// launch some type of thread passed UI change.
 					this.nextQuestion(1);
         } 
 				else {
 					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
-					console.log("end of thread, with failure");
 					this.launchLevelSwitchModal();
 				}
 	}
@@ -221,35 +212,18 @@ export class QuestionsPage {
 
 	launchLevelSwitchModal() {
 		this.addLowerMRL();
-		// launch the popover.	
-
-	  // popover;
-    // you answered no to: questions...	
-
-		// presenting questions from lower mrl.
-
-		// if (this is the lowest level available for this subThread).
-		// 
-
-		// what would you like to do?
-		// see if i meet mrlevel (lower)? for this subthread?
-		// continue on
-
-		// remember this choice for all failures.
 	}
 
 	addLowerMRL() {
-	  // this will always be based on currentQuestion, so no need to keep a separate var
-		// get the qids for qs of the same subthread at the nextlowest MRL.
     var nextLowest = this.allQuestions
                        .filter(q => q.subThreadName == this.currentQuestion.subThreadName)		
 											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
 											 .map(q => q.questionId);
 
-											 var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a.questionId - b.questionId)
-											 this.surveyQuestions = newSurvey;
+ 	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a.questionId - b.questionId)
+	  this.surveyQuestions = newSurvey;
 
-											 this.currentQuestion = this.getQuestion(nextLowest[0]);
+	  this.currentQuestion = this.getQuestion(nextLowest[0]);
 	}
 
 
@@ -280,12 +254,8 @@ export class QuestionsPage {
 		this.levelSwitching = assessment.levelSwitching	
 		// this.files = data.assessment.files;
 
-		// TODO:  There's a better way to get these values from the assessment object <01-08-18, mpf> 
 	}
 
-	getQuestion(id) {
-		return this.allQuestions[id - 1];
-	}
 
 	setSurveyQuestions() {
 		var { targetMRL,
@@ -298,7 +268,7 @@ export class QuestionsPage {
 	// What data do we actually need to store in instance vars?
   ngOnInit() {
 	// if we don't already have a loaded assessment.
-		this.assessmentSubscription = this.apollo.watchQuery<any>({
+		this.apollo.watchQuery<any>({
 			query: assessmentQuery,
 			fetchPolicy: "network-only",
 			variables: {_id: this.assessmentId}
@@ -310,9 +280,7 @@ export class QuestionsPage {
 				this.targetMRL = assessment.targetMRL;
 				this.surveyQuestions = this.setSurveyQuestions()
 				// add if no currentQuestionId
-				var currentQuestionId = this.surveyQuestions[0];
-				this.currentQuestion = this.getQuestion(currentQuestionId);
-				// this.vals = this.currentQuestion;
+				this.determineCurrentQuestion()
 				this.vals = this.filterQuestionVals(this.currentQuestion);
 
 				this.setInstanceVariables(assessment);
@@ -320,6 +288,15 @@ export class QuestionsPage {
 		})
 
   }
+
+	determineCurrentQuestion() {
+		var noAnswer = this.surveyQuestions.find( qId => {
+				return this.getQuestion(qId).currentAnswer == null
+			})
+
+		this.currentQuestion = this.getQuestion(noAnswer);
+
+	}
 
 	filterQuestionVals(question) {
 		// better way to do this.
