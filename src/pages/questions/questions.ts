@@ -1,6 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import * as Survey from 'survey-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 
@@ -88,12 +87,14 @@ export class QuestionsPage {
 	private allQuestions;
 	private referringQuestionId: any;
 	private targetMRL;
-	private currentQuestion = {};
+	private currentQuestion: any = {};
 	private surveyQuestions;
 	private levelSwitching: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, 
-							private popoverController: PopoverController, private apollo: Apollo) {
+	constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+							private popoverController: PopoverController, 
+							private apollo: Apollo ) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY? 
 		this.referringQuestionId = navParams.data.questionId;
@@ -103,6 +104,16 @@ export class QuestionsPage {
   /////////////////////////// useful functions ///////////////////////
 	// return a question by its questionId
 	getQuestion = (id) => this.allQuestions[id - 1]
+
+	allSubthreadQuestions(question = this.currentQuestion) {
+		return this.allQuestions
+		           .filter(q => q.subThreadName == question.subThreadName)
+	}
+
+	allSubthreadLevelQuestions(question = this.currentQuestion) {
+		return this.allSubthreadLevelQuestions()
+		           .filter(q => q.mrLevel == question.mrLevel );
+	}
 
 	/////////////////////////// popover creator(s) /////////////////////
 	showFileUpload(event) {
@@ -175,20 +186,33 @@ export class QuestionsPage {
 			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
 		} 
 		else {
+			console.log(this.surveyQuestions);
 			var place = this.surveyQuestions.indexOf(questionId) + way;
 			var newQuestion = this.surveyQuestions[place];
 			this.currentQuestion = this.getQuestion(newQuestion);
 		}
 	}
 
+	nextUnansweredQuestion() {
+			// the humble while loop
+			var place = 0;
+			while (this.currentQuestion.currentAnswer) {
+				place += 1;
+				this.currentQuestion = this.getQuestion(this.surveyQuestions[place]);
+			}
+	}
+
 	handleLevelSwitching() {
-				if ( !this.endOfThread() ) {
+				if ( !this.threadAnswered()) {
+					console.log("not end of thread");
 					this.nextQuestion(1);
 				}
 				// make sure this encompasses all non-switching scenarios.
 				else if ( this.threadPassed() ) {
+					console.log("threadpassed");
+					this.nextUnansweredQuestion();
 					// launch some type of thread passed UI change.
-					this.nextQuestion(1);
+					//this.nextQuestion(1);
         } 
 				else {
 					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
@@ -196,7 +220,14 @@ export class QuestionsPage {
 				}
 	}
 
-	endOfThread = () =>  this.currentQuestion.subThreadName != this.checkNextQuestion().subThreadName
+	// Does every question within the currentQuestion's subthread and MRL have an answer? 
+	threadAnswered() {
+		var {mrLevel, subThreadName} = this.currentQuestion;
+		
+		return this.allQuestions.filter(q => q.mrLevel == mrLevel && q.subThreadName == subThreadName)
+		                 .every(q => ["Yes", "No", "N/A"].includes(q.currentAnswer))
+
+	}
 	
 	checkNextQuestion() {
 		var ok = this.surveyQuestions.indexOf(this.currentQuestion.questionId);
@@ -204,6 +235,7 @@ export class QuestionsPage {
 		return this.getQuestion(next);
 	}
 
+	// the only way to 'fail' a subthread is to have a no answer. 
 	threadPassed() {
 		return !this.allQuestions.filter(q => q.subThreadName == this.currentQuestion.subThreadName)
 					        .filter(q => q.mrLevel == this.currentQuestion.mrLevel)
@@ -220,7 +252,7 @@ export class QuestionsPage {
 											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
 											 .map(q => q.questionId);
 
- 	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a.questionId - b.questionId)
+ 	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a - b)
 	  this.surveyQuestions = newSurvey;
 
 	  this.currentQuestion = this.getQuestion(nextLowest[0]);
@@ -251,7 +283,6 @@ export class QuestionsPage {
 
 	setInstanceVariables(assessment) {
 		this.levelSwitching = assessment.levelSwitching	
-
 	}
 
 	setSurveyQuestions() {
@@ -299,7 +330,7 @@ export class QuestionsPage {
 				return getQuestion(qId).currentAnswer == null
 			})
 
-			currentQuestion = getQuestion(noAnswer);
+			this.currentQuestion = getQuestion(noAnswer);
 		}
 	}
 
@@ -330,7 +361,6 @@ export class QuestionsPage {
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 
 		return <any>filteredQuestions;
-
 	}
 
 }
