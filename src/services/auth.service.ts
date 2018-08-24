@@ -14,7 +14,6 @@ constructor(private http: HttpClient) {}
 	loginUrl    = AuthUrl + "login";
 
 	registerUser(user) {
-		console.log(this.http);
 		return this.http.post(this.registerUrl, user)
 	}
 
@@ -26,7 +25,7 @@ constructor(private http: HttpClient) {}
 		)
 	}
 
-	logout() {
+	public logout() {
 		localStorage.removeItem("docent-token");
 	}
 
@@ -35,7 +34,5 @@ constructor(private http: HttpClient) {}
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
 	}
 
-	public isLoggedIn() {
-		!!localStorage.getItem("docent-token");
-	}
+	public isLoggedIn = () => !!localStorage.getItem("docent-token") 
 }
