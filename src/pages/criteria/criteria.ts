@@ -78,26 +78,25 @@ export class CriteriaPage {
 	var threadNames = questionsArray.map(a => a.threadName)
 					  											 .filter(this.unique);
 
-	var subThreadNames = threadNames.map( a => {
-		var allSubheaders = questionsArray.filter(b => b.threadName == a)
-		var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
-				.map(sName => {
-					var questions = questionsArray.filter(m => m.subThreadName == sName);
-					var mrLevels = this.filterByProperty(questions, "mrLevel");
-					var a = mrLevels.map(f => {
-						var questionSet = questions.filter(s => s.mrLevel == f)
-						   .map(a => ({ text: a.questionText, questionId: a.questionId, criteriaText: a.criteriaText }))
-							 return {mrl: f, questionSet: questionSet}
-					})
-				return {subheader: sName, questions: a};
-				});
+	 var subThreadNames = threadNames.map( a => {
+     var allSubheaders = questionsArray.filter(b => b.threadName == a)
+     var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
+         .map(sName => {
+           var questions = questionsArray.filter(m => m.subThreadName == sName);
+           var mrLevels = this.filterByProperty(questions, "mrLevel");
+           var a = mrLevels.map(f => {
+             var criteriaSet = questions.filter(s => s.mrLevel == f)
+                .map(a => ({ text: a.criteriaText }))
+                return {mrl: f, criteriaSet: criteriaSet}
+           })
+         return {subheader: sName, questions: a};
+         });
 
 
-		return {header: a, subheader: subThreadNames};
-	})
-		return subThreadNames
-		
-	}
+     return {header: a, subheader: subThreadNames};
+   })
+     return subThreadNames
+   }
 
 
   changeState(segment){
