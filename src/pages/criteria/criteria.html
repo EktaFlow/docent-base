@@ -1,0 +1,29 @@
+<topbar [assessmentId]="assessmentId">
+</topbar>
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br><br>
+  <hr>
+  <div *ngFor="let segment of schema">
+    <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
+    {{segment.header}}
+    <div *ngIf="segment.cool">
+      <div *ngFor="let sub of segment.subheader">
+        <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
+        {{sub.subheader}}
+        <div *ngIf="sub.sweet">
+          <div *ngFor="let question of sub.questions" class="mrl">
+            <b>{{question.mrl}}</b>
+            <!-- <div *ngFor="let title of question.questionSet" class="question"> -->
+              <!-- <p>{{title.text}}</p> -->
+              <p>{{question.questionSet.criteriaText}}</p>
+
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+  </div>
+
+</ion-content>
