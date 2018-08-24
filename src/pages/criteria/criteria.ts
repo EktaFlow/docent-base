@@ -96,6 +96,7 @@ export class CriteriaPage {
 		return {header: a, subheader: subThreadNames};
 	})
 		return subThreadNames
+		
 	}
 
 
