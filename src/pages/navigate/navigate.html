@@ -13,9 +13,9 @@
         {{sub.subheader}}
         <div *ngIf="sub.sweet">
           <div *ngFor="let question of sub.questions" class="mrl">
-            <b>{{question.mrl}}</b>
+            <b>MR Level {{question.mrl}}:</b>
             <div *ngFor="let title of question.questionSet" class="question">
-              <p style="color:blue;cursor: pointer;" (click)="navToQuestion(title.questionId)">{{title.text}}</p>
+              <p class="navigate-links"  (click)="navToQuestion(title.questionId)">{{title.text}}</p>
             </div>
           </div>
         </div>

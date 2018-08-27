@@ -228,7 +228,7 @@ export class QuestionsPage {
 		var {mrLevel, subThreadName} = this.currentQuestion;
 
 		return this.allQuestions.filter(q => q.mrLevel == mrLevel && q.subThreadName == subThreadName)
-		                 .every(q => ["Yes", "No", "N/A"].includes(q.currentAnswer))
+		                 .every(q => (<any>["Yes", "No", "N/A"]).includes(q.currentAnswer))
 
 
 	}
@@ -314,7 +314,7 @@ export class QuestionsPage {
 				// add if no currentQuestionId
 				this.determineCurrentQuestion()
 				this.vals = this.filterQuestionVals(this.currentQuestion);
-				
+
 
 				this.setInstanceVariables(assessment);
 				console.log(this.currentQuestion);
@@ -372,5 +372,6 @@ export class QuestionsPage {
 	public onHelpClicked(){
 		this.helpClicked = !this.helpClicked;
 	}
+
 
 }
