@@ -314,7 +314,7 @@ export class QuestionsPage {
 				// add if no currentQuestionId
 				this.determineCurrentQuestion()
 				this.vals = this.filterQuestionVals(this.currentQuestion);
-				
+
 
 				this.setInstanceVariables(assessment);
 				console.log(this.currentQuestion);
@@ -327,6 +327,7 @@ export class QuestionsPage {
 		var { referringQuestionId,
 					currentQuestion,
           getQuestion } = this;
+
 
 		if (referringQuestionId ) {
 			currentQuestion = getQuestion(referringQuestionId);
@@ -367,6 +368,7 @@ export class QuestionsPage {
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 
 		return <any>filteredQuestions;
+    
 	}
 
 	public onHelpClicked(){
