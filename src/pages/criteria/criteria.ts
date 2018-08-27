@@ -37,6 +37,7 @@ export class CriteriaPage {
 	assessmentId: any;
  	schema: any;
 
+
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
@@ -75,10 +76,10 @@ export class CriteriaPage {
 	}
 
 	createSchemaObject(questionsArray) {
-	var threadNames = questionsArray.map(a => a.threadName)
+		var threadNames = questionsArray.map(a => a.threadName)
 					  											 .filter(this.unique);
 
-	 var subThreadNames = threadNames.map( a => {
+		var subThreadNames = threadNames.map( a => {
      var allSubheaders = questionsArray.filter(b => b.threadName == a)
      var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
          .map(sName => {
@@ -108,22 +109,6 @@ export class CriteriaPage {
 //    this.subState[index][subIndex] = !this.subState[index][subIndex];
   }
 
-	// navToQuestion(questionId) {
-	// 	this.navCtrl.push(QuestionsPage, {
-	// 		data: 			this.assessmentId,
-	// 		questionId: questionId
-	// 	});
-	// }
 
-	/*
-  create(){
-    // Method to create states for sub headers
-    for(var i=0; i<this.schema.length; i+=1){
-      var newArr: any = [this.schema[i].subheader.length];
-      newArr.fill(false);
-      this.subState[i] = new Array(this.schema[i].subheader.length);
-    }
-  }
-  */
 
 }
