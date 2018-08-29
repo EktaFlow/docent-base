@@ -2,22 +2,22 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
 import {tap} from "rxjs/operators";
 
+import { AuthUrl } from "./constants";
+
 @Injectable() 
 
 export class AuthService {
 
-	constructor(private http: HttpClient) {}
+constructor(private http: HttpClient) {}
 
-	registerUrl = `http://localhost:4002/register`;
-	loginUrl    = `http://localhost:4002/login`;
+	registerUrl = AuthUrl + "register";
+	loginUrl    = AuthUrl + "login";
 
 	registerUser(user) {
-	console.log(this.http);
 		return this.http.post(this.registerUrl, user)
 	}
 
 	login(userCreds) {
-	console.log("fire")
 		return this.http.post(this.loginUrl, userCreds)
 		.pipe( tap( data => this.setSession(data), 
 		            error => console.log(error)
@@ -25,7 +25,7 @@ export class AuthService {
 		)
 	}
 
-	logout() {
+	public logout() {
 		localStorage.removeItem("docent-token");
 	}
 
@@ -34,7 +34,5 @@ export class AuthService {
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
 	}
 
-	public isLoggedIn() {
-		!!localStorage.getItem("docent-token");
-	}
+	public isLoggedIn = () => !!localStorage.getItem("docent-token") 
 }
