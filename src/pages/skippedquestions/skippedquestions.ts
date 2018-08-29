@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 
+import { QuestionsPage } from "../questions/questions";
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -12,7 +14,8 @@ query assessment($_id: String) {
 		mrLevel
 		questionText
 		subThreadName
-		skipped
+		questionId
+		currentAnswer
 	}
 	}
 }
@@ -40,6 +43,14 @@ export class SkippedquestionsPage {
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
+
+	goToQuestion(questionId) {
+		this.navCtrl.push(QuestionsPage, {
+			data:				this.assessmentId,
+			questionId: questionId
+		})
+	}
+
 	ngOnInit() {
 		this.apollo.watchQuery({
 			query: assessmentQuery,
@@ -47,7 +58,7 @@ export class SkippedquestionsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-					this.skipped = (<any>data.data).assessment.questions.filter(a => a.skipped)
+					this.skipped = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "skipped");
 
 					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);

@@ -49,6 +49,7 @@ constructor( public popOver: PopoverController,
 	}
 
 	toggleScopeSelected() {
+		console.log("fire!");
 		this.scopeSelected = !this.scopeSelected;
 	}
 
@@ -64,6 +65,8 @@ constructor( public popOver: PopoverController,
 				this.scope		  = data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
+
+				console.log(this.scope);
 			}); 
 	}
 

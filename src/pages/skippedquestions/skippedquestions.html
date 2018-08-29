@@ -14,7 +14,8 @@
     <hr>
 		<div *ngFor="let q of filterBySubThread(subThread)" class="questions">
 		<p style="width: 20%;">Level {{q.mrLevel}}</p>
-      <p style="cursor:pointer; color:blue;">{{q.questionText}}</p>
+
+       <p (click)="goToQuestion(q.questionId)" style="color:blue;cursor: pointer;">{{q.questionText}}</p>
 			</div>
   </div>
 </ion-content>
