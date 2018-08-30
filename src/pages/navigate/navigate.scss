@@ -39,4 +39,11 @@ page-navigate {
         margin-left:20px;
         margin-top:10px;
     }
+    .navigate-links {
+      color: blue;
+      cursor: pointer;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
+    }
 }

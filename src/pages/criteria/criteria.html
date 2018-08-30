@@ -13,13 +13,8 @@
         {{sub.subheader}}
         <div *ngIf="sub.sweet">
           <div *ngFor="let question of sub.questions" class="mrl">
-            <b style="padding-top: 5px;">MR Level {{question.mrl}}</b>
-            <!-- <div *ngFor="let title of question.questionSet" class="question"> -->
-              <!-- <p>{{title.text}}</p> -->
-              <!-- <b>{{question.questionSet[0].questionText}}</b> -->
+            <b>MR Level {{question.mrl}}:</b>
               <p>{{question.criteriaSet[0].text}}</p>
-
-            <!-- </div> -->
           </div>
         </div>
       </div>
