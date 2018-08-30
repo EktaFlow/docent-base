@@ -9,6 +9,7 @@ import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { QuestionsPage } from "../../pages/questions/questions";
+import { CriteriaPage } from "../../pages/criteria/criteria";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
 
@@ -19,7 +20,7 @@ import gql from "graphql-tag";
 import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
 
 var assessmentQuery = gql`
-query assessment($_id: String) 
+query assessment($_id: String)
 {
  assessment(_id: $_id)  {
 	questions{
@@ -46,6 +47,8 @@ query assessment($_id: String)
 		documentation
 		assumptionsNA
 		notesNA
+    helpText
+    criteriaText
   }
 	targetMRL
 	currentMRL
@@ -70,13 +73,14 @@ export class ViewsComponent {
   dashboardPage = DashboardPage;
   navigatePage = NavigatePage;
   actionitemsPage = ActionitemsPage;
+	criteriaPage = CriteriaPage;
 	assessments: any;
 	assessmentId: any;
-  
-	constructor(  public navCtrl: NavController, 
-								public popOver: PopoverController, 
-								public navParams: NavParams, 
-								public viewCtrl: ViewController, 
+
+	constructor(  public navCtrl: NavController,
+								public popOver: PopoverController,
+								public navParams: NavParams,
+								public viewCtrl: ViewController,
 								private apollo: Apollo ) {
 		this.assessmentId = navParams.data.assessmentId;
   }
@@ -91,8 +95,8 @@ export class ViewsComponent {
 			.valueChanges
 			.subscribe( ({data, loading}) => {
 				var title = data.assessment.name;
-				title ? null : title = "untitled"	
-				var assessment = JSON.stringify(data);	
+				title ? null : title = "untitled"
+				var assessment = JSON.stringify(data);
 				saveAs(new Blob([assessment], { type: "text/plain" }), title + ".mra")
 			})
 		}
@@ -112,6 +116,8 @@ export class ViewsComponent {
 		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
 		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
 		handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
+		handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
+    
 
     close() {
     this.viewCtrl.dismiss();
@@ -124,7 +130,7 @@ export class ViewsComponent {
 		}
 
 	showAssessmentsList(myEvent) {
-	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
+	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});
 	console.log(this.assessments);
 		popoverClick.present({
 			ev: myEvent
@@ -132,4 +138,3 @@ export class ViewsComponent {
 	}
 
 }
-
