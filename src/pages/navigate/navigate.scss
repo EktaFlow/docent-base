@@ -40,10 +40,10 @@ page-navigate {
         margin-top:10px;
     }
     .navigate-links {
-      color: black;
+      color: blue;
       cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
+      // &:hover {
+      //   text-decoration: underline;
+      // }
     }
 }
