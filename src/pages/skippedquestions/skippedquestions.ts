@@ -35,7 +35,6 @@ export class SkippedquestionsPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
   }
 
   // helper function to pull unique values from array.
@@ -48,7 +47,7 @@ export class SkippedquestionsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-			this.skipped = (<any>data.data).assessment.questions.filter(a => a.skipped)
+					this.skipped = (<any>data.data).assessment.questions.filter(a => a.skipped)
 
 					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);

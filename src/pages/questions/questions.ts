@@ -1,6 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import * as Survey from 'survey-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 
@@ -11,7 +10,7 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
 var assessmentQuery = gql`
-query assessment($_id: String) 
+query assessment($_id: String)
 {
  assessment(_id: $_id)  {
 	questions{
@@ -32,12 +31,13 @@ query assessment($_id: String)
 		cost
 		schedule
 		what
-	reason
+		reason
 		assumptionsNo
 		notesNo
 		documentation
 		assumptionsNA
 		notesNA
+		helpText
   }
 	targetMRL
 	currentMRL
@@ -83,272 +83,190 @@ export class QuestionsPage {
 	assessmentId: any;
 	assessmentSubscription: any;
 
-  public value;
-  public mainTitle;
-  public subTitle;
-	public filtered: any;
-	public survey: any;
-	public surveyJS: any;
-	private questionId: any; 
+	public helpClicked: boolean = false;
+
+	private questionId: any;
 	files = [];
-	private current;
-	public test;
-	allQuestions;
-	public questionAnswered: any;
+	private allQuestions;
 	private referringQuestionId: any;
-	private lastQuestion;
 	private targetMRL;
-	public questionLevel;
+	private currentQuestion: any = {};
+	private surveyQuestions;
+	private levelSwitching: any;
 
-	// properties of the current assessment that we're using for different functions
-	public currentMRL: any;
-	public levelSwitching: any;
-        public threadComplete: any;
+	constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+							private popoverController: PopoverController,
+							private apollo: Apollo ) {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, 
-							private popoverController: PopoverController, private apollo: Apollo) {
-
-		// QUESTION - SAVE THIS IN LOCAL MEMORY? 
+		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
 		this.assessmentId = navParams.data.data;
-		var surveyJSRoot = document.getElementById("surveyElement");
-		surveyJSRoot ? surveyJSRoot.remove() : null;
   }
 
+  /////////////////////////// useful functions ///////////////////////
+	// return a question by its questionId
+	getQuestion = (id) => this.allQuestions[id - 1]
+
+	allSubthreadQuestions(question = this.currentQuestion) {
+		return this.allQuestions
+		           .filter(q => q.subThreadName == question.subThreadName)
+	}
+
+	allSubthreadLevelQuestions(question = this.currentQuestion) {
+		return this.allSubthreadLevelQuestions()
+		           .filter(q => q.mrLevel == question.mrLevel );
+	}
+
+	/////////////////////////// popover creator(s) /////////////////////
 	showFileUpload(event) {
 	let myEmitter = new EventEmitter<any>();
-		myEmitter.subscribe( v =>  {
-		this.files.push(v);
-})
+			myEmitter.subscribe( v =>  {
+				this.files.push(v);
+			});
 
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent, 
+	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent,
 			{
-				emitter: myEmitter, 
-				questionId: this.questionId, 
-				assessmentId: this.assessmentId 
-			}, 
+				emitter: myEmitter,
+				questionId: this.questionId,
+				assessmentId: this.assessmentId
+			},
 			{	cssClass: "upload-popover"});
 		fileUploadPopover.present();
 	}
 
-  surveyChange(){
-		// values needs to stay here because it's tied to the conditional rendering.
-    // if undefined, skipped
-		if (this.surveyJS) {
-			var {pages, currentPageNo} = this.surveyJS;
-			// TODO - clean this up below
-			// this.value = this.surveyJS.getValue(pages[currentPageNo].elements[0].name)
-			this.value = pages[currentPageNo].propertyHash.elements["0"].value;
-			this.mainTitle = pages[currentPageNo].name
-			this.subTitle = pages[currentPageNo].elements[0].name
-			this.questionLevel = this.current[currentPageNo].mrLevel;
-		}
-  }
+	async handleNextPageClick() {
+		this.setValues();
+		// move to the new question
+		this.levelSwitching ? this.handleLevelSwitching() : this.nextQuestion(1)
 
-	resetSelect() {
-		setTimeout( () => {
-			var control: any = document.querySelector(".sv_q_dropdown_control")
-																 .firstChild
-			control.selected = true; 
-			this.value = undefined;
-		}, 200);
+		// reset the values to the new ones.
+		this.vals = this.currentQuestion;
 	}
 
-	updateAssessment(values) {
+	async	handlePreviousPageClick() {
+		this.setValues();
+		this.nextQuestion(-1);
+		this.vals = this.currentQuestion;
+	}
 
-	// var values = Object.assign({}, values)
+	setValues() {
+		this.updateAssessment(this.vals)
+	}
 
-		// check for skipped;
-		if ( this.value ) { values.currentAnswer = this.value  }
-		else {
-			values.currentAnswer = "skipped"
+	// refactor this down
+	async updateAssessment(values) {
+
+		var values = Object.assign({}, values)
+		values = this.filterQuestionVals(values);
+		var a = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
+		var old = this.allQuestions.map( q => Object.assign({}, q));
+		var newer = old[this.currentQuestion.questionId - 1];
+
+		for (let a in values) {
+			newer[a] = values[a];
 		}
 
-		var ok = {};
-		var sweet = this.current;
-		var {pages, currentPageNo} = this.surveyJS;
+		var temp = JSON.parse(JSON.stringify(this.allQuestions));
+		temp.splice(this.currentQuestion.questionId - 1, 1, newer);
+		this.allQuestions = temp;
 
-		for (let obj in sweet[currentPageNo]) {
-			ok[obj] = sweet[currentPageNo][obj]
-		}
-
-		for (let xx in values) {
-			ok[xx] = values[xx]
-		}
-
-		//ok is the updated object.
-
-		sweet[currentPageNo] = ok
-
-		this.current = sweet;
-
-		this.apollo.mutate({
+		await this.apollo.mutate({
 			mutation: updateAssessmentQuery,
 			variables: {
 				_id:				this.assessmentId,
-				questionId: Number(this.questionId),
+				questionId: Number(this.currentQuestion.questionId),
 				updates:		values
 			}
 		}).subscribe(data => null);
 	}
-	
-	setValues() {
 
-	this.value ? this.updateAssessment(this.vals) : this.updateAssessment(null)
-	/*
-	// TODO 
-	// this now is the same for all answers.
-	this.value == "Yes" ? this.updateAssessment(this.vals) : null;
-	this.value == "No"  ? this.updateAssessment(this.vals)  : null;
-	this.value == "N/A" ? this.updateAssessment(this.vals)  : null;
-	!this.value ? this.updateAssessment(null) : null; 
-	*/
+	nextQuestion(way) {
+		var { questionId } = this.currentQuestion;
 
-}
-
-	async handleNextPageClick() {
-		this.threadComplete = false;
-		this.setValues();
-		var { currentPageNo, pages } = this.surveyJS;
-
-		var currentQuestion = this.current[currentPageNo];
-		// last question logic///////////////
-		//// removed alert for now //////////
-		if (this.lastQuestion) {
-			this.createSurveyJS(this.current);
-			this.lastQuestion = false;
-		}
-		if (pages.length == currentPageNo + 1 && 1 != currentPageNo) {
-			this.lastQuestion = true;
-		}
-		if (this.levelSwitching) {
-			this.levelSwitchCheck(currentQuestion);
-		}
-
-		////check if end of subthread////
-		if (this.currentMRL == this.targetMRL || !this.threadComplete ) this.surveyJS.nextPage();
-		//		if (this.currentMRL > this.targetMRL) this.currentMRL = this.targetMRL
-		this.questionId = this.current[currentPageNo].questionId;
-	}
-
-	levelSwitchCheck(question) {
-		var subthread = this.current.filter( q => q.subThreadName == question.subThreadName && q.mrLevel == question.mrLevel );
-
-		console.log(subthread);
-
-		if (subthread.every(q => q.currentAnswer == "Yes" || q.currentAnswer == "N/A")) {
-			this.threadComplete = true;
-			this.handlePassedSubThread(question.subThreadName);
-		} else  
-
-		// every question answered and one answer or more is a no.
-		if (subthread.some(q => q.currentAnswer == "No") && subthread.every(q => q.currentAnswer)) {
-			this.threadComplete = true;
-			this.handleFailedSubThread(question.subThreadName);
-			} else {
-			}
-
-	}
-
-	handleFailedSubThread(subThreadName) {
-		alert('subthread failed');
-		var lowerLevel = this.allQuestions.filter( q => {
-			return q.mrLevel == this.currentMRL - 1 &&
-			       q.subThreadName == subThreadName
-		})
-
-		console.log(lowerLevel);
-
-		if ( lowerLevel.length > 0 ) {
-			this.currentMRL -= 1;
-			this.addSubThreadToFront(lowerLevel)
-		}
-
-	}
-
-	handlePassedSubThread(subThreadName) {
-		// render a new survey with the next level of that subthread at the front.
-		var nextLevel = this.allQuestions.filter( q => {
-			return q.mrLevel == this.targetMRL + 1 &&
-			       q.subThreadName == subThreadName
-		})
-
-		if (this.currentMRL == this.targetMRL) {
-			this.currentMRL = this.targetMRL + 1;
-			this.addSubThreadToFront(nextLevel);
+		if (!this.surveyQuestions.includes(this.currentQuestion.questionId)) {
+			alert("what is the order when a rando question gets added in?");
+			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
 		}
 		else {
-			this.currentMRL = this.targetMRL;
+			console.log(this.surveyQuestions);
+			var place = this.surveyQuestions.indexOf(questionId) + way;
+			var newQuestion = this.surveyQuestions[place];
+			this.currentQuestion = this.getQuestion(newQuestion);
 		}
-
-		
 	}
 
-	addSubThreadToFront(questionSet) {
-		
-		var answered = this.current.filter(a => a.currentAnswer); 
-		var unanswered = this.current.filter( a=> !a.currentAnswer);
-		var all1 = questionSet.concat(unanswered).concat(answered);
-		this.current = all1;
-		console.log(all1);
-		var pages             = this.mapToSurveyJS(all1);
+	nextUnansweredQuestion() {
+			// the humble while loop
+			var place = 0;
+			while (this.currentQuestion.currentAnswer) {
+				place += 1;
+				this.currentQuestion = this.getQuestion(this.surveyQuestions[place]);
+			}
+	}
 
-		// other surveyJS options, if we need them at some point, can be passed in here.
-		var ok = {
-				showNavigationButtons: false,
-				showQuestionNumbers: "off",
-				pages 	
-		};
+	handleLevelSwitching() {
+				if ( !this.threadAnswered()) {
+					console.log("not end of thread");
+					this.nextQuestion(1);
+				}
+				// make sure this encompasses all non-switching scenarios.
+				else if ( this.threadPassed() ) {
+					console.log("threadpassed");
+					this.nextUnansweredQuestion();
+					// launch some type of thread passed UI change.
+					//this.nextQuestion(1);
+        }
+				else {
+					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
+					this.launchLevelSwitchModal();
+				}
+	}
 
-		this.surveyJS = new Survey.Model( ok );
-  	Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
+	// Does every question within the currentQuestion's subthread and MRL have an answer?
+	threadAnswered() {
+		var {mrLevel, subThreadName} = this.currentQuestion;
+
+		return this.allQuestions.filter(q => q.mrLevel == mrLevel && q.subThreadName == subThreadName)
+		                 .every(q => ["Yes", "No", "N/A"].includes(q.currentAnswer))
 
 
 	}
 
-async	handlePreviousPageClick() {
-		await this.surveyJS.prevPage();
-		var { currentPageNo, pages } = this.surveyJS;
-		this.questionId = this.current[currentPageNo].questionId;
+	checkNextQuestion() {
+		var ok = this.surveyQuestions.indexOf(this.currentQuestion.questionId);
+		var next = this.surveyQuestions[ok + 1]
+		return this.getQuestion(next);
 	}
 
-	moveQuestionToFront(questionSet, referringQuestionId) {
-		var frontQuestion = questionSet.filter(q => q.questionId == referringQuestionId);	
-		var removedFront  = questionSet.filter(q => q.questionId != referringQuestionId);
-		
-		return frontQuestion.concat(removedFront);
+	// the only way to 'fail' a subthread is to have a no answer.
+	threadPassed() {
+		return !this.allQuestions.filter(q => q.subThreadName == this.currentQuestion.subThreadName)
+					        .filter(q => q.mrLevel == this.currentQuestion.mrLevel)
+									.some( q => q.currentAnswer == "No")
 	}
 
-	// Any rules to order the questions in certain ways goes in this function.
-	orderQuestions(questionSet) {
-	// at this point questions are either skipped, or undefined.
-	var sorted = questionSet.sort((a,b) => Number(!!a.currentAnswer) - Number(!!(a.currentAnswer == "skipped")) )
-													.sort((a,b) => a.questionId - b.questionId)	
-		if ( this.referringQuestionId ) {
-			sorted = this.moveQuestionToFront(questionSet, this.referringQuestionId);
-		}	
-
-		return sorted;
+	launchLevelSwitchModal() {
+		this.addLowerMRL();
 	}
 
-	loadQuestion(array)	 {
-	  // TODO - separate out the filters, single function.
-		var defaultFilter = a => !a.currentAnswer || a.currentAnswer == "skipped"
-		var referringQuestionFilter = a => !a.currentAnswer || a.questionId == this.referringQuestionId
-		//////
+	addLowerMRL() {
+    var nextLowest = this.allQuestions
+                       .filter(q => q.subThreadName == this.currentQuestion.subThreadName)
+											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
+											 .map(q => q.questionId);
 
-		var ordered = this.orderQuestions(array);
-		var filtered;
-		this.referringQuestionId ? 
-			filtered = ordered.filter(referringQuestionFilter) :
-			filtered = ordered.filter(defaultFilter)
-		return filtered;
+ 	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a - b)
+	  this.surveyQuestions = newSurvey;
+
+	  this.currentQuestion = this.getQuestion(nextLowest[0]);
 	}
 
-  // this function takes questions as assessment sub-documents and formats them
-	// to be in the surveyJs format.
-	// this is the format that survey JS is expecting, so we don't mess with the
-	// structure.
+
+	// this function takes an arr of questions as assessment sub-documents
+	// and formats them to be in the surveyJs format.
+	// this is the format that survey JS is expecting, so we don't
+	// mess with the structure.
 	mapToSurveyJS(questions) {
 		return questions.map( question => {
 			return {
@@ -367,79 +285,60 @@ async	handlePreviousPageClick() {
 		});
 	}
 
-	filterByMRL(questions, mrLevel = this.targetMRL) {
-		return questions.filter(q => q.mrLevel == mrLevel);
-	}
-
-	formatSurvey(questions) {
-		var filteredQuestions = this.filterByMRL(questions);
-		var current           = this.loadQuestion(filteredQuestions);
-		this.current = current;
-		var pages             = this.mapToSurveyJS(current);
-
-		// other surveyJS options, if we need them at some point, can be passed in here.
-		return {
-				showNavigationButtons: false,
-				showQuestionNumbers: "off",
-				pages 	
-		};
-	}
-
-	getQuestionLevel(questionId) {
-		return this.allQuestions.filter( q => q.questionId == questionId)[0].mrLevel
-	}
-
-	// this function requires this.surveyJS && this.current to be set.. 
 	setInstanceVariables(assessment) {
-		var { currentPageNo, pages } = this.surveyJS;
-
-		this.currentMRL = assessment.currentMRL
-		this.levelSwitching = assessment.levelSwitching	
-		// this.files = data.assessment.files;
-
-		// TODO:  There's a better way to get these values from the assessment object <01-08-18, mpf> 
-		this.questionId = this.current[currentPageNo].questionId;
-		pages[currentPageNo] ? this.mainTitle = pages[currentPageNo].name : null
-		pages[currentPageNo] ? this.subTitle = pages[currentPageNo].elements[0].name : console.log(pages)
+		this.levelSwitching = assessment.levelSwitching
 	}
 
-	// this function takes an assessment, formats it to comply w/ surveyJS, creates the survey JS object, renders that to the page
-	createSurveyJS(questions) {
-		var survey = this.formatSurvey(questions);
-		this.surveyJS = new Survey.Model( survey );
-  	Survey.SurveyNG.render("surveyElement", { model: this.surveyJS });
+	setSurveyQuestions() {
+		var { targetMRL,
+					allQuestions } = this;
+
+    return allQuestions.filter( q => q.mrLevel == targetMRL )
+		                   .map( q => q.questionId);
 	}
 
 	// What data do we actually need to store in instance vars?
   ngOnInit() {
-		this.assessmentSubscription = this.apollo.watchQuery<any>({
+	// if we don't already have a loaded assessment.
+		this.apollo.watchQuery<any>({
 			query: assessmentQuery,
 			fetchPolicy: "network-only",
 			variables: {_id: this.assessmentId}
 		})
 			.valueChanges
-			.subscribe( ({data, loading}) => {  
+			.subscribe( ({data, loading}) => {
 				var {assessment} = data;
-				this.allQuestions = data.assessment.questions;
-
+				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
+				this.surveyQuestions = this.setSurveyQuestions()
+				// add if no currentQuestionId
+				this.determineCurrentQuestion()
+				this.vals = this.filterQuestionVals(this.currentQuestion);
 
-				this.createSurveyJS(assessment.questions);
+
 				this.setInstanceVariables(assessment);
-				this.referringQuestionId ? this.setExistingValues() : null
+				console.log(this.currentQuestion);
+				console.log(this.allQuestions);
 		})
 
   }
 
-	setExistingValues() {
-		var question = this.current.filter(a => a.questionId == this.referringQuestionId)[0];
-		this.questionLevel = this.getQuestionLevel(question.questionId);
-		this.vals = this.filterQuestionVals(question);
+	determineCurrentQuestion() {
+		var { referringQuestionId,
+					currentQuestion,
+          getQuestion } = this;
 
-		var test = (<any>this.filterQuestionVals(question)).currentAnswer;
-		(<HTMLInputElement>document.querySelector(".sv_q_dropdown_control")).value = test
 
-		this.value = test;
+		if (referringQuestionId ) {
+			currentQuestion = getQuestion(referringQuestionId);
+		}
+		else {
+			var noAnswer = this.surveyQuestions.find( qId => {
+				return getQuestion(qId).currentAnswer == null
+			})
+
+			this.currentQuestion = getQuestion(noAnswer);
+		}
 	}
 
 	filterQuestionVals(question) {
@@ -468,16 +367,12 @@ async	handlePreviousPageClick() {
 
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 
-		console.log(filteredQuestions);
 		return <any>filteredQuestions;
-
+    
 	}
 
-  presentViewsPop(event){
-    let popover = this.popoverController.create(ViewsComponent);
-    popover.present({
-      ev: event
-    });
-  }
-}
+	public onHelpClicked(){
+		this.helpClicked = !this.helpClicked;
+	}
 
+}

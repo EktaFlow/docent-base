@@ -26,17 +26,17 @@
         <p class = "subtitle">{{answer.subheader}}</p>
       </div>
       <div *ngFor ="let response of answer.answers" class="answers">
-        <div *ngIf = "response == true" class = "yes">
-          <img src="../../assets/imgs/check-mark-256.png">
+        <div *ngIf = "response == true" class = "yes dashbox">
+          <img class="dashpic" src="../../assets/imgs/check-mark-256.png">
         </div>
-        <div *ngIf = "response == false" class = "no">
-          <img src="../../assets/imgs/x-mark-256.ico">
+        <div *ngIf = "response == false" class = "no dashbox">
+          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico">
         </div>
-        <div *ngIf = "response == 'blank'" class = "blank">
-          <img src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden">
+        <div *ngIf = "response == 'blank'" class = "blank dashbox">
+          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden">
         </div>
-        <div *ngIf = "response == null" class = "na">
-          <img src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden;">
+        <div *ngIf = "response == null" class = "na dashbox">
+          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden;">
         </div>
       </div>
       <div class = "date">
