@@ -202,7 +202,7 @@ export class QuestionsPage {
 	///// any modification of the inputs needed to be used in the assessment
 	///// update function
 	setValues() {
-		var values = Object.assign({}, this.vals)
+		var values: any = Object.assign({}, this.vals)
 		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
 		values = this.filterQuestionVals(values);
 
