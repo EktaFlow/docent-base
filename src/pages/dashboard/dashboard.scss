@@ -85,4 +85,13 @@ page-dashboard {
     .header{
         flex-basis: 30%;
     }
+		.dashbox {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.dashpic {
+			height: 17px;
+		}
 }
+
