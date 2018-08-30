@@ -127,11 +127,15 @@ export class HomePage {
 		return fields.every(field => this.assForm[field])
 	}
 
+	handleUnloggedUser() {
+		alert("You must be a registered Docent user to begin an assessment");
+	}
 
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
 		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
+		if ( !this.auth.isLoggedIn() ) { this.handleUnloggedUser(); return; } 
 		!this.validateAssessment() ? alert("you must enter all fields") : null
 		if (this.backEnd && this.validateAssessment()) {
 		var values = this.assForm;
@@ -159,6 +163,8 @@ export class HomePage {
 	}
 
 	async ngOnInit() {
+	console.log(this.auth.isLoggedIn());
+
 	await this.checkBack();
 	if (this.backEnd) {
 
