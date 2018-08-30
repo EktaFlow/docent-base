@@ -5,6 +5,7 @@ import { NavController } from 'ionic-angular';
 import { AcronymsPage } from '../../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../../pages/definitions/definitions';
 import { FaqsPage } from '../../pages/faqs/faqs';
+import { CriteriaPage } from '../../pages/criteria/criteria';
 
 /**
  * Generated class for the HelpmenuComponent component.
@@ -21,6 +22,7 @@ export class HelpmenuComponent {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
 	faqsPage = FaqsPage;
+  criteriaPage = CriteriaPage;
 
   constructor( public navCtrl: NavController,
 			   public viewCtrl: ViewController) {

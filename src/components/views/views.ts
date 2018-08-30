@@ -9,7 +9,6 @@ import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { QuestionsPage } from "../../pages/questions/questions";
-import { CriteriaPage } from "../../pages/criteria/criteria";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
 
@@ -73,7 +72,6 @@ export class ViewsComponent {
   dashboardPage = DashboardPage;
   navigatePage = NavigatePage;
   actionitemsPage = ActionitemsPage;
-	criteriaPage = CriteriaPage;
 	assessments: any;
 	assessmentId: any;
 
@@ -116,8 +114,8 @@ export class ViewsComponent {
 		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
 		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
 		handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-		handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
-    
+
+
 
     close() {
     this.viewCtrl.dismiss();
