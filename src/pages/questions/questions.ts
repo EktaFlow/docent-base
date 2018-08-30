@@ -10,7 +10,7 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
 var assessmentQuery = gql`
-query assessment($_id: String) 
+query assessment($_id: String)
 {
  assessment(_id: $_id)  {
 	questions{
@@ -37,6 +37,7 @@ query assessment($_id: String)
 		documentation
 		assumptionsNA
 		notesNA
+		helpText
   }
 	targetMRL
 	currentMRL
@@ -77,6 +78,7 @@ export class QuestionsPage {
 
 	private vals = {};
 	assessmentId: any;
+	public helpClicked: boolean = false;
 	private questionId: any; 
 	files = [];
 	private allQuestions;
@@ -91,7 +93,7 @@ export class QuestionsPage {
 							private popoverController: PopoverController, 
 							private apollo:            Apollo ) {
 
-		// QUESTION - SAVE THIS IN LOCAL MEMORY? 
+		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
 		this.assessmentId = navParams.data.data;
   }
@@ -146,7 +148,6 @@ export class QuestionsPage {
     return allQuestions.filter( q => q.mrLevel == targetMRL )
 		                   .map( q => q.questionId);
 	}
-
 
 	determineCurrentQuestion() {
 		var { referringQuestionId, 
@@ -233,13 +234,14 @@ export class QuestionsPage {
 		}).subscribe(data => null);
 	}
 
+
 	moveCurrentQuestion(way) {
 		var { questionId } = this.currentQuestion;	
 
 		if (!this.surveyQuestions.includes(this.currentQuestion.questionId)) {
 			alert("what is the order when a rando question gets added in?");
 			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
-		} 
+		}
 		else {
 			var place = this.surveyQuestions.indexOf(questionId) + way;
 			var newQuestion = this.surveyQuestions[place];
@@ -281,14 +283,16 @@ export class QuestionsPage {
 
 	// FUNCTIONS to handle the different branches on level-switching 
 	// Does every question within the currentQuestion's subthread and MRL have an answer? 
+
 	threadAnswered() {
 		var {mrLevel, subThreadName} = this.currentQuestion;
-		
+
 		return this.allQuestions.filter(q => q.mrLevel == mrLevel && q.subThreadName == subThreadName)
-		                 .every(q => ["Yes", "No", "N/A"].includes(q.currentAnswer))
+		                 .every(q => (<any>["Yes", "No", "N/A"]).includes(q.currentAnswer))
+
 
 	}
-	
+  
 	// the only way to 'fail' a subthread is to have a no answer. 
 	threadPassed() {
 		return !this.allQuestions.filter(q => q.subThreadName == this.currentQuestion.subThreadName)
@@ -321,7 +325,7 @@ export class QuestionsPage {
 
 	addLowerMRL() {
     var nextLowest = this.allQuestions
-                       .filter(q => q.subThreadName == this.currentQuestion.subThreadName)		
+                       .filter(q => q.subThreadName == this.currentQuestion.subThreadName)
 											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
 											 .map(q => q.questionId);
 
@@ -334,9 +338,9 @@ export class QuestionsPage {
 	///////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////
 
-	// this function takes an arr of questions as assessment sub-documents 
+	// this function takes an arr of questions as assessment sub-documents
 	// and formats them to be in the surveyJs format.
-	// this is the format that survey JS is expecting, so we don't 
+	// this is the format that survey JS is expecting, so we don't
 	// mess with the structure.
 	mapToSurveyJS(questions) {
 		return questions.map( question => {
@@ -355,7 +359,6 @@ export class QuestionsPage {
 			};
 		});
 	}
-
 
 	filterQuestionVals(question) {
 		// better way to do this.
@@ -384,7 +387,11 @@ export class QuestionsPage {
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 
 		return <any>filteredQuestions;
+    
+	}
+
+	public onHelpClicked(){
+		this.helpClicked = !this.helpClicked;
 	}
 
 }
-
