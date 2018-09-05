@@ -12,10 +12,10 @@
             </button>
 						-->
             <button class="grayed" ion-button (click)="loginNav()" color="dark">
-								Login 
+								Login
             </button>
             <button class="grayed"ion-button (click)="registerNav()" color="dark">
-                Register 
+                Register
             </button>
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
@@ -26,7 +26,7 @@
           </div>
         </div>
         <hr>
-        <!-- TODO: use an ngif for if there is an assessmentId -->	
+        <!-- TODO: use an ngif for if there is an assessmentId -->
         <div *ngIf="mainTitle">
                 <p>
 	        <h1><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
@@ -34,7 +34,7 @@
 
 	<div *ngIf="assessmentId" class="subheader">
             <div *ngIf="mainTitle">
-	        <p>{{this.mainTitle}} | {{this.subTitle}}</p>
+	        <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span>{{this.subTitle}}</span></p>
 		<ng-container *ngIf="scopeSelected">
 		    <p>Assessment Scope: {{ scope }}</p>
 		</ng-container>

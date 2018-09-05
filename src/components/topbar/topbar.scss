@@ -33,16 +33,26 @@ topbar {
 	color: gray;
   }
 
-  .toolbar-logo { 
-    width: auto; 
+  .toolbar-logo {
+    width: auto;
     height: 100%;
     cursor: pointer;
   }
 
   .spacer {
-    font-size: 0; 
+    font-size: 0;
     height: 100px;
     line-height: 0;
+  }
+
+  .subheader {
+    div {
+      p {
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
 }

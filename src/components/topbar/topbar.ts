@@ -3,6 +3,7 @@ import { PopoverController, NavController } from "ionic-angular";
 import { ViewsComponent } from "../views/views";
 import { RegisterPage } from "../../pages/register/register";
 import { LoginPage }    from "../../pages/login/login";
+import {NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
 
@@ -64,7 +65,7 @@ constructor( public popOver: PopoverController,
 				this.scope		  = data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
-			}); 
+			});
 	}
 
   presentViewsPop(event){
@@ -82,5 +83,8 @@ constructor( public popOver: PopoverController,
 	registerNav() { alert("Coming soon")}//{ this.navCtrl.push( this.registerPage ); }
 	loginNav() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
 	logout() { this.auth.logout()}
+
+	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+
 
 }
