@@ -1,4 +1,4 @@
-page-navigate {
+page-criteria {
     .toolbar-class{
         header{
             color:#000;
@@ -40,10 +40,10 @@ page-navigate {
         margin-top:10px;
     }
     .navigate-links {
-      color: blue;
+      color: black;
       cursor: pointer;
-      // &:hover {
-      //   text-decoration: underline;
-      // }
+      &:hover {
+        text-decoration: underline;
+      }
     }
 }

@@ -1,14 +1,14 @@
 <div style="display:flex;flex-direction:column;background-color:black">
-		
+
 	<ng-container *ngIf="assessmentId">
 		<button [navPush]="homePage" ion-button color="dark">
-			Home	
+			Home
 		</button>
 		<button (click)="handleContinue()" ion-button color="dark">
 			Continue Assessment
 		</button>
 		<button (click)="handleSave()" ion-button color="dark">
-			Save
+			Export
 		</button>
 	</ng-container >
 	<button (click)="handleImport()" ion-button color="dark">
@@ -34,6 +34,7 @@
   <button (click)="handleReview()" ion-button color="dark">
     Review
   </button>
+	
   <hr>
   <button (click)="handleActions()" ion-button color="dark">
     Action Items

@@ -30,6 +30,7 @@ import { NavigatePage } from '../pages/navigate/navigate';
 import { NotapplicablePage } from '../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../pages/actionitems/actionitems';
+import { CriteriaPage } from '../pages/criteria/criteria';
 
 // components
 import { ImportComponent } from "../components/import/import";
@@ -42,7 +43,7 @@ import { ThreadsListComponent } from "../components/threads-list/threads-list";
 import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
 import { TopbarComponent } from "../components/topbar/topbar";
 
-// services 
+// services
 import { AuthService } from "../services/auth.service";
 import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
@@ -74,6 +75,7 @@ import { BackUrl } from  "../services/constants";
     NotapplicablePage,
     SkippedquestionsPage,
     ActionitemsPage,
+    CriteriaPage,
 		ViewsComponent,
 		ImportComponent,
 		TopbarComponent
@@ -108,6 +110,7 @@ import { BackUrl } from  "../services/constants";
     NavigatePage,
     NotapplicablePage,
     SkippedquestionsPage,
+    CriteriaPage,
     ActionitemsPage,
     ViewsComponent,
 		ImportComponent,

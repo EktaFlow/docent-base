@@ -1,29 +1,54 @@
-<ion-header>
 
-  <ion-navbar>
-    <ion-title>register</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+	<topbar></topbar>
 <ion-content padding>
+	<!-- TODO: Fix this. -->
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<div class="container">
+				<h1>Register as a Docent User</h1>
 
-	<form>
-      <h6>Name</h6>
-      <input  type="text" name="name" placeholder = "Name" [(ngModel)]="user.name">
+				<div class="error" *ngIf="errors.length > 0">
+					<h3>Ooops, Registration Errors</h3>
+					<p *ngFor="let error of errors">
+						{{error}} 
+					</p>
+				</div>
 
+				<div style="display:flex; flex-direction:column">
+					<div class="row">
+						<div class="cell">
+							<h6>Name</h6>
+							<input  type="text" name="name" placeholder = "Name" [(ngModel)]="user.name">
+						</div>
+						
+						<div class="cell">
+							<h6>Email</h6>
+							<input  type="email" name="email" placeholder = "Email" [(ngModel)]="user.email">
+						</div>
+					</div>
 
-      <h6>Email</h6>
-      <input  type="email" name="email" placeholder = "Email" [(ngModel)]="user.email">
+					<div class="row">
+						<div class="cell">
+							<h6>Password</h6>
+							<input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
+						</div>
 
-      <h6>Password</h6>
-      <input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
+						<div class="cell">
+							<h6>Retype Password</h6>
+							<input  type="password" name="passwd2" placeholder = "Password" [(ngModel)]="user.passwd2">
+						</div>
+					</div>
+				</div>
 
-      <h6>re-type Password</h6>
-      <input  type="password" name="passwd2" placeholder = "Password" [(ngModel)]="user.passwd2">
-
-			<button (click)="submitRegistration($event)">Register</button>
-	</form>
-
+				<button ion-button color="buttonBlue" (click)="submitRegistration()">Register</button>
+			</div>
 </ion-content>

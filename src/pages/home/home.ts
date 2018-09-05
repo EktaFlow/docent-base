@@ -28,8 +28,8 @@ import gql from "graphql-tag";
 import { BackUrl } from "../../services/constants";
 
 var assessmentQuery = gql`
-query{
-assessments {
+query assessments($userId: String){
+assessments(userId: $userId) {
 	_id
 	name
 	targetMRL
@@ -55,16 +55,18 @@ var createAssessmentMutation = gql`
  mutation createAssessment(                                                                         
      $threads:     [Int],                                                                           
      $location:    String,                                                                          
-    $targetMRL:   Int,                                                                             
+     $targetMRL:   Int,                                                                             
      $id:          Int,                                                                             
      $scope:       String,                                                                          
      $targetDate:  Date,
 		 $deskbookVersion: String,
      $name: String																																					
 		 $levelSwitching: Boolean
+		 $userId: String
    ) {                                                                                              
      createAssessment(                                                                              
        threads:    $threads,                                                                        
+       userId:     $userId,
        location:   $location,                                                                       
        targetMRL:  $targetMRL,                                                                      
        id:         $id,                                                                             
@@ -99,6 +101,7 @@ export class HomePage {
 	ionicForm = {};
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	location: any;
+	private currentUser: any;
 
 	private querySubscription: Subscription;
 
@@ -127,11 +130,15 @@ export class HomePage {
 		return fields.every(field => this.assForm[field])
 	}
 
+	handleUnloggedUser() {
+		alert("You must be a registered Docent user to begin an assessment");
+	}
 
 	// use form?? 
 	createAssessment(event) {
 		event.preventDefault();
 		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
+		if ( !this.auth.isLoggedIn() ) { this.handleUnloggedUser(); return; } 
 		!this.validateAssessment() ? alert("you must enter all fields") : null
 		if (this.backEnd && this.validateAssessment()) {
 		var values = this.assForm;
@@ -149,7 +156,7 @@ export class HomePage {
 				deskBookVersion:	values.deskBookVersion,
 				scope: values.scope,
 				targetDate: values.targetDate,
-
+				userId: JSON.parse(this.currentUser).userId
 				}
 		})
 			.subscribe(({data}) => {
@@ -159,6 +166,12 @@ export class HomePage {
 	}
 
 	async ngOnInit() {
+	console.log(this.auth.isLoggedIn());
+	if (this.auth.isLoggedIn()) {
+		this.currentUser = localStorage.getItem("docent-token");
+		console.log(this.currentUser);
+	}
+
 	await this.checkBack();
 	if (this.backEnd) {
 
@@ -170,8 +183,15 @@ export class HomePage {
         tmp = <HTMLInputElement>document.getElementById("deskbook-select");
 	tmp.value = "2017";
 
+	if (this.currentUser) {
+	var userId = JSON.parse(this.currentUser).userId;
+	console.log(userId);
+
 	this.querySubscription = this.apollo.watchQuery<any>({
-		query: assessmentQuery
+		query: assessmentQuery,
+		variables: {
+			userId
+		}
 		})
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
@@ -185,6 +205,7 @@ export class HomePage {
 		 .subscribe(({data, loading}) => {
 				this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
+	} 
 	}
 	}
 

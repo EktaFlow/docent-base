@@ -8,7 +8,7 @@
     <p>
       <b>{{question.threadName}}</b> / {{question.subThreadName}} / MR Level: {{question.mrLevel}}
     </p>
-    <p style="color:darkslateblue"><b>{{question.questionText}}</b></p>
+    <p (click)="navToQuestion(question.questionId)" style="color:darkslateblue"><b>{{question.questionText}}</b></p>
     <div style="display:flex;">
       <div style="width:40%">
         <p>
@@ -27,7 +27,7 @@
       <div style="width:40%;">
         <p>
             <b>Risks:</b><br>
-            {{question.risks}}
+						{{displayRisks(question)}}
           </p>
           <p>
             <b>Team Members:</b><br>
@@ -35,7 +35,9 @@
           </p>
           <p>
             <b>Attatchments:</b><br>
-            {{question.attatchments}}
+						<ng-container *ngFor="let attachment of getAttachments(question)">
+							<a href={{attachment.url}}>{{attachment.name}}</a><br />
+						</ng-container>
           </p>
       </div>
     </div>
