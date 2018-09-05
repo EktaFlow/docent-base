@@ -46,4 +46,45 @@ page-navigate {
       //   text-decoration: underline;
       // }
     }
+
+    .filter-toolbar {
+        list-style-type: none;
+        height: 70px;
+        // background-color: blue;
+        position: fixed;
+        top: 150px;
+        left: 0;
+        width: 98%;
+        z-index: 9999;
+        padding-left: 20px;
+        padding-top: 15px;
+
+        button {
+            display: inline-block;
+            width: 20%;
+        }
+
+        .filter-list {
+            width: 60%;
+            list-style-type: none;
+            display: inline-block;
+
+            p {
+                display: inline;
+            }
+            li {
+                display: inline;
+                padding: 6px;
+
+                input {
+                    // margin: 6px;
+                }
+            }
+
+            .filter-it {
+                border: 1px solid black;
+            }
+
+        }
+    }
 }

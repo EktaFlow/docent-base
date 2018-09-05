@@ -2,6 +2,30 @@
 </topbar>
 
 <ion-content padding>
+<div class="filter-toolbar">
+  <button ion-button (click)="expandAllThreads()">Expand All</button>
+  <ul class="filter-list">
+    <p>Filter MR Level: </p>
+    <li>1 <input type="checkbox"></li>
+    <li>2 <input type="checkbox"></li>
+    <li>3 <input type="checkbox"></li>
+    <li>4 <input type="checkbox"></li>
+    <li>5 <input type="checkbox"></li>
+    <li>6 <input type="checkbox"></li>
+    <li>7 <input type="checkbox"></li>
+    <li>8 <input type="checkbox"></li>
+    <li>9 <input type="checkbox"></li>
+    <li>10 <input type="checkbox"></li>
+    <!-- <p class="filter-it">Filter</p> -->
+  </ul>
+</div>
+</ion-content>
+
+
+<ion-content padding>
+    <br><br>
+    <!-- <br><br><br><br><br> -->
+      <!-- <br><br><br><br><br><br><br><br><br><br> -->
   <br><br><br><br><br><br><br><br><br><br>
   <hr>
   <div *ngFor="let segment of schema">
