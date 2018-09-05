@@ -34,5 +34,9 @@ constructor(private http: HttpClient) {}
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
 	}
 
-	public isLoggedIn = () => !!localStorage.getItem("docent-token") 
+	public isLoggedIn = () => {
+		var hasToken = localStorage.getItem("docent-token");
+
+		return hasToken && !hasToken.includes("false")
+	}
 }

@@ -10,15 +10,25 @@ import { AuthService } from "../../services/auth.service";
 export class LoginPage {
 
 	user: any = {};
+	private errors: any = [];
 
 	constructor( public navCtrl: NavController, 
 	             public navParams: NavParams, 
 	             private auth: AuthService ) {}
 
 	submitLogin(event)  {
-		event.preventDefault();
+	//event.preventDefault();
 		this.auth.login(this.user)
 				.subscribe(a => console.log(a));
+	}
+
+	validateInput() {
+		var { user } = this;
+
+		if (!user.email) this.errors.push("No email provided");
+		if (!user.passwd) this.errors.push("No password provided");
+
+		return this.errors == false;
 	}
 
 }

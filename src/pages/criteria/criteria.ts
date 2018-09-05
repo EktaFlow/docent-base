@@ -44,19 +44,21 @@ export class CriteriaPage {
 							 public popOver: 			 PopoverController,
 							 ) {
 
-		this.assessmentId = navParams.data.assessmentId;
+		this.assessmentId = "5b88586ff86fdd149d6f8b2e";
   }
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
 	ngOnInit() {
+		console.log(this.assessmentId);
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
+					console.log(data);
 					this.allQuestions = (<any>data.data).assessment.questions;
 					this.schema = this.createSchemaObject(this.allQuestions);
 					console.log(this.schema);

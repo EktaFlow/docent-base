@@ -1,19 +1,18 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+	<topbar></topbar>
 <ion-content padding>
+	<!-- TODO: Fix this. -->
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+	<!-- 
 	<form>	
       <h6>Email</h6>
       <input  type="email" name="email" placeholder = "Email" [(ngModel)]="user.email">
@@ -23,4 +22,45 @@
 
 			<button (click)="submitLogin($event)">Login</button>
 	</form>
+	 -->
+			<div class="container">
+				<h1>Login to Docent</h1>
+
+				<div class="error" *ngIf="errors.length > 0">
+					<h3>Ooops, Login Errors</h3>
+					<p *ngFor="let error of errors">
+						{{error}} 
+					</p>
+				</div>
+
+				<div style="display:flex; flex-direction:column">
+					<div class="row">
+						<div class="cell">
+							<h6>Email</h6>
+							<input  type="email" name="emaial" placeholder = "Email" [(ngModel)]="user.email">
+						</div>
+						
+						<div class="cell">
+							<h6>Password</h6>
+							<input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
+						</div>
+					</div>
+
+					<!--
+					<div class="row">
+						<div class="cell">
+							<h6>Password</h6>
+							<input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
+						</div>
+
+						<div class="cell">
+							<h6>Retype Password</h6>
+							<input  type="password" name="passwd2" placeholder = "Password" [(ngModel)]="user.passwd2">
+						</div>
+					</div>
+					-->
+				</div>
+
+				<button ion-button color="buttonBlue" (click)="submitLogin()">Login</button>
+			</div>
 </ion-content>
