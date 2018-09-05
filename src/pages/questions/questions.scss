@@ -167,7 +167,7 @@ $input-border:#dcdcdc;
     /* testing only */
     /* border: 1px solid red; */
   }
-}
+
 
 .helpTextDiv {
     display: flex;
@@ -179,4 +179,44 @@ $input-border:#dcdcdc;
     p {
         padding: 10px;
     }
+
+  }
+
+  .nav-q-buttons {
+    // display: flex;
+    // margin: 0;
+    position: fixed;
+    right: 10px;
+    top: 220px;
+  }
+
+  .nav-previous-qs {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      width: 300px;
+      height: 250px;
+      background-color: #DCDCDC;
+      border-radius: 5px;
+      text-align: center;
+      padding-top: 10px;
+
+      p {
+    background-color: #B4B4B4;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 10px 0 10px 10px;
+    margin: 0;
+
+  }
+
+h6 {
+  color: #494949
+}
+
+a {
+color: black;
+
+}
+  }
 }
