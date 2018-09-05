@@ -368,7 +368,7 @@ export class QuestionsPage {
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 
 		return <any>filteredQuestions;
-    
+
 	}
 
 	public onHelpClicked(){

@@ -8,6 +8,7 @@ import { FaqDropdownComponent } from './faq-dropdown/faq-dropdown';
 import { FileUploadPopoverComponent } from './file-upload-popover/file-upload-popover';
 import { TopbarComponent } from './topbar/topbar';
 import { ImportComponent } from './import/import';
+import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
 @NgModule({
 	declarations: [
 		ViewsComponent,
@@ -18,7 +19,8 @@ import { ImportComponent } from './import/import';
 		FaqDropdownComponent,
     FileUploadPopoverComponent,
     TopbarComponent,
-    ImportComponent
+    ImportComponent,
+    SubthreadPopupComponent
     ],
 	imports: [],
 	exports: [
@@ -30,7 +32,8 @@ import { ImportComponent } from './import/import';
 		FaqDropdownComponent,
     FileUploadPopoverComponent,
     TopbarComponent,
-    ImportComponent
+    ImportComponent,
+    SubthreadPopupComponent
     ]
 })
 

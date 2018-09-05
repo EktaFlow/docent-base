@@ -6,6 +6,8 @@ import { LoginPage }    from "../../pages/login/login";
 import {NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
+import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -38,6 +40,7 @@ export class TopbarComponent {
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
 	@Input() private questionLevel: any;
+	public popUpButtonClicked: any;
 
 
 constructor( public popOver: PopoverController,
@@ -85,6 +88,10 @@ constructor( public popOver: PopoverController,
 	logout() { this.auth.logout()}
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+
+	popUpOpen() {
+		this.popUpButtonClicked = !this.popUpButtonClicked;
+	}
 
 
 }

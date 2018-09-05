@@ -34,7 +34,7 @@
 
 	<div *ngIf="assessmentId" class="subheader">
             <div *ngIf="mainTitle">
-	        <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span>{{this.subTitle}}</span></p>
+	        <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span (click)="popUpOpen()">{{this.subTitle}}</span></p>
 		<ng-container *ngIf="scopeSelected">
 		    <p>Assessment Scope: {{ scope }}</p>
 		</ng-container>
@@ -46,5 +46,9 @@
         </div>
       </ion-navbar>
     </ion-header>
+  </div>
+
+  <div *ngIf="popUpButtonClicked">
+    <subthread-popup></subthread-popup>
   </div>
 </div>
