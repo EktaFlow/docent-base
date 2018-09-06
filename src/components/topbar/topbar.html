@@ -35,6 +35,7 @@
 	<div *ngIf="assessmentId" class="subheader">
             <div *ngIf="mainTitle">
 	        <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span (click)="popUpOpen()">{{this.subTitle}}</span></p>
+          <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}}</p>
 		<ng-container *ngIf="scopeSelected">
 		    <p>Assessment Scope: {{ scope }}</p>
 		</ng-container>

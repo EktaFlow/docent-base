@@ -90,9 +90,13 @@ export class QuestionsPage {
 	private allQuestions;
 	private referringQuestionId: any;
 	private targetMRL;
+	private currentTargetMRL: any;
 	private currentQuestion: any = {};
 	private surveyQuestions;
 	private levelSwitching: any;
+	currentQSet: any;
+	currentQSetAmt: any;
+	currentQPos: any;
 
 	constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -310,6 +314,7 @@ export class QuestionsPage {
 				var {assessment} = data;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
+				this.currentTargetMRL = assessment.targetMRL;
 				this.surveyQuestions = this.setSurveyQuestions()
 				// add if no currentQuestionId
 				this.determineCurrentQuestion()
@@ -319,7 +324,10 @@ export class QuestionsPage {
 				this.setInstanceVariables(assessment);
 				console.log(this.currentQuestion);
 				console.log(this.allQuestions);
+				this.findAmtOfQs();
 		})
+
+
 
   }
 
@@ -374,6 +382,17 @@ export class QuestionsPage {
 	public onHelpClicked(){
 		this.helpClicked = !this.helpClicked;
 	}
+
+  public findAmtOfQs(){
+		console.log(this.currentQuestion.targetMRL);
+		this.currentQSet = this.allQuestions.filter(
+          question => question.mrLevel == this.currentTargetMRL);
+					console.log(this.currentQSet);
+		this.currentQSetAmt = this.currentQSet.length;
+		this.currentQPos = this.currentQSet.findIndex( q => q.questionId === this.currentQuestion.questionId );
+		this.currentQSetAmt += 1;
+		this.currentQPos += 1;
+  }
 
 
 }

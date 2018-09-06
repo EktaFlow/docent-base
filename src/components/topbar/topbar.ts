@@ -40,6 +40,8 @@ export class TopbarComponent {
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
 	@Input() private questionLevel: any;
+	@Input() private currentQPos: any;
+	@Input() private currentQSetAmt: any;
 	public popUpButtonClicked: any;
 
 
