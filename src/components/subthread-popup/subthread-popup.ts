@@ -14,6 +14,7 @@ query assessment($_id: String!) {
       questionId
 			mrLevel
     }
+		targetMRL
 	}
 }
 `
@@ -54,7 +55,11 @@ export class SubthreadPopupComponent {
 	 		.subscribe( ({data, loading}) => {
 	 			console.log(data);
 	 			this.targetMRL  = data.assessment.targetMRL;
-				this.questions = data.assessment.questions;
+				this.questions = data.assessment.questions
+				.filter(question => question.subThreadName == this.subTitle);
+				console.log(this.questions);
+				console.log(this.subTitle);
+
 	 		});
 	 }
 

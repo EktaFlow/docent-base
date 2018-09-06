@@ -146,12 +146,14 @@ export class QuestionsPage {
 
 		// reset the values to the new ones.
 		this.vals = this.currentQuestion;
+		this.findAmtOfQs();
 	}
 
 	async	handlePreviousPageClick() {
 		this.setValues();
 		this.nextQuestion(-1);
 		this.vals = this.currentQuestion;
+		this.findAmtOfQs();
 	}
 
 	setValues() {
@@ -193,7 +195,7 @@ export class QuestionsPage {
 			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
 		}
 		else {
-			console.log(this.surveyQuestions);
+			// console.log(this.surveyQuestions);
 			var place = this.surveyQuestions.indexOf(questionId) + way;
 			var newQuestion = this.surveyQuestions[place];
 			this.currentQuestion = this.getQuestion(newQuestion);

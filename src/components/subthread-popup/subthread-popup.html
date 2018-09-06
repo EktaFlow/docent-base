@@ -7,7 +7,7 @@
   <p><a href="#">4. question</a></p> -->
 
 <div *ngFor="let question of questions">
-  <div *ngIf="question.subThreadName == this.subTitle && question.mrLevel == targetMRL">
+  <div *ngIf="question.mrLevel == this.targetMRL">
     <p (click)="navToQuestion(question.questionId)">{{question.questionText}}</p>
   </div>
 </div>

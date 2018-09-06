@@ -16,7 +16,7 @@
 		</div>
 
 
-    <button *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()" style="display:flex;">Need Help?</button>
+    <button class="help-button"*ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Need Help?</button>
     <div *ngIf="helpClicked" class="helpTextDiv">
       <!-- <p>help text</p> -->
       <p style="width: 80%;" [innerHTML]="currentQuestion.helpText"></p>

@@ -168,11 +168,15 @@ $input-border:#dcdcdc;
     /* border: 1px solid red; */
   }
 
+.helpButton{
+    display: flex;
+    width: 50%;
+}
 
 .helpTextDiv {
     display: flex;
     background-color: #DCDCDC;
-    width: 80%;
+    width: 50%;
     height: auto;
     margin: 3px;
 
