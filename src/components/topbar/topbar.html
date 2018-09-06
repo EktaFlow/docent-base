@@ -49,6 +49,7 @@
   </div>
 
   <div *ngIf="popUpButtonClicked">
-    <subthread-popup></subthread-popup>
+    <subthread-popup [assessmentId] = "assessmentId"
+                                  [subTitle] = "this.subTitle"></subthread-popup>
   </div>
 </div>
