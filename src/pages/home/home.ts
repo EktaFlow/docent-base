@@ -102,6 +102,7 @@ export class HomePage {
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	location: any;
 	private currentUser: any;
+	private boolean: showRegister = false;
 
 	private querySubscription: Subscription;
 
@@ -212,6 +213,9 @@ export class HomePage {
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
+
+	showRegisterForm = () => this.showRegister = true;
+
 	showAssessmentsList(myEvent) {
 	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
 		popoverClick.present();

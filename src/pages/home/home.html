@@ -1,8 +1,23 @@
 <title>Docent</title>
 
+<ng-container *ngIf="auth.isLoggedIn()">
 <topbar></topbar> 
+</ng-container>
+
 
 <ion-content padding>
+<ng-container *ngIf="!auth.isLoggedIn()">
+	<login></login>
+
+	<h4>Not registered?</h4>
+	<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
+</ng-container>
+
+<ng-container *ngIf="showRegister">
+	<register></register>
+</ng-container>
+
+<ng-container *ngIf="auth.isLoggedIn()">
   <br>
   <br>
   <br>
@@ -141,4 +156,5 @@
 			</ng-container>
     </div>
   </div>
+</ng-container>
 </ion-content>

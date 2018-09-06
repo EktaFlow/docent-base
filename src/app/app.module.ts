@@ -42,6 +42,8 @@ import { AssessmentslistComponent } from "../components/assessmentslist/assessme
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
 import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
 import { TopbarComponent } from "../components/topbar/topbar";
+import { LoginComponent } from "../components/login/login";
+import { RegisterComponent } from "../components/register/register";
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -49,7 +51,6 @@ import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
 
 import { BackUrl } from  "../services/constants";
-
 
 @NgModule({
   declarations: [
@@ -78,7 +79,9 @@ import { BackUrl } from  "../services/constants";
     CriteriaPage,
 		ViewsComponent,
 		ImportComponent,
-		TopbarComponent
+		TopbarComponent,
+		LoginComponent,
+		RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +117,9 @@ import { BackUrl } from  "../services/constants";
     ActionitemsPage,
     ViewsComponent,
 		ImportComponent,
-		TopbarComponent
+		TopbarComponent,
+		LoginComponent,
+		RegisterComponent
   ],
   providers: [
     StatusBar,
