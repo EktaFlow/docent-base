@@ -122,7 +122,7 @@ expandAllThreads() {
 	}
 
 fitlerTheList() {
-
+	console.log(this.filterList);
 }
 	/*
   create(){
