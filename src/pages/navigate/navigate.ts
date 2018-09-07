@@ -36,7 +36,7 @@ export class NavigatePage {
 	assessmentId: any;
  	schema: any;
 	showAll: any = false;
-	filterList: any;
+	filterList: any = {};
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
