@@ -106,13 +106,14 @@ export class NavigatePage {
 	filterTheList() {
 
 		var filtered = this.schema.map((thread) => {
-			thread.subheader.map((subthread) => {
+			return thread.subheader.map((subthread) => {
 				return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
 			});
 			return thread;
 		});
 
 		console.log(filtered);
+		// this.filteredSchema = filtered;
 	}
 
 expandAllThreads() {
