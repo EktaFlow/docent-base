@@ -5,6 +5,7 @@ import { RegisterPage } from "../../pages/register/register";
 import { LoginPage }    from "../../pages/login/login";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
+import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -28,6 +29,7 @@ export class TopbarComponent {
 
 	public loginPage		= LoginPage;
 	public registerPage = RegisterPage;
+	public userDashPage = UserDashboardPage;
 	public scope: any;
 	public targetMRL: any;
 	public targetDate: any;
@@ -69,7 +71,7 @@ constructor( public popOver: PopoverController,
 				this.targetDate = data.assessment.targetDate;
 
 				console.log(this.scope);
-			}); 
+			});
 	}
 
   presentViewsPop(event){
@@ -86,6 +88,7 @@ constructor( public popOver: PopoverController,
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
-	logout() { this.auth.logout()}
+	logout() { this.auth.logout(); }
+	handleUserDash() { this.navCtrl.push(this.userDashPage); }
 
 }

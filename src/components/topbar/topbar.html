@@ -11,12 +11,13 @@
             </button>
 						<ng-container *ngIf="!auth.isLoggedIn()">
             <button  ion-button (click)="loginNav()" color="dark">
-								Login 
+								Login
             </button>
             <button ion-button (click)="registerNav()" color="dark">
-                Register 
+                Register
             </button>
 						</ng-container>
+            <button (click)="handleUserDash()" color="dark" ion-button>User Dash</button>
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
@@ -26,7 +27,7 @@
           </div>
         </div>
         <hr>
-        <!-- TODO: use an ngif for if there is an assessmentId -->	
+        <!-- TODO: use an ngif for if there is an assessmentId -->
         <div *ngIf="mainTitle">
                 <p>
 	        <h1><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>

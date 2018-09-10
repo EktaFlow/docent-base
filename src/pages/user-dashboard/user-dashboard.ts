@@ -18,10 +18,23 @@ import { AuthService } from "../../services/auth.service";
 export class UserDashboardPage {
 
   constructor(public navCtrl: NavController,
-                    public navParams: NavParams,
-                    private auth: AuthService) {}
+                    public navParams: NavParams) {}
+                    //private auth: AuthService
 
-//need to access user's 
+  public fakeUser = {};
+
+  fakeUser.name = "Jane Doe";
+  fakeUser.email = "janedoe@docent.co";
+  fakeUser.organization = "Docent";
+
+
+  // ngOnInit() {
+  //
+  // }
+
+
+
+//need to access user's
 
 
 }
