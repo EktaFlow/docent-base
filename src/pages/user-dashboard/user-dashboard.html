@@ -1,31 +1,58 @@
+<topbar></topbar>
+
 <ion-content>
   <div class="first-bar">
     <!-- user's name -->
-    <h1>Jane Doe</h1>
+    <h1>{{fakeUser.name}}</h1>
 
     <div class="info">
       <!-- email -->
-      <p>janedoe@docent.com</p>
+      <p>email: {{fakeUser.email}}</p>
       <!-- organization -->
-      <p>docent</p>
-      <p><a href="#">Settings</a></p>
+      <p>organization: {{fakeUser.organization}}</p>
+      <p ion-button small>Settings</p>
     </div>
   </div>
 
-  <div class="user-assesses">
-    <h3>My Assessments</h3>
-    <div>
-      <p>Name</p>
-      <p>Level</p>
-      <p>Target Date</p>
-      <p>Scope</p>
-      <p>Location</p>
-      <p>Level Switching?</p>
+  <div class="assessments user-assessments">
+    <div class="box-title">
+      <h3>My Assessments</h3>
     </div>
-    <div>
-      <button>Open</button>
-      <button>Dashboard</button>
-      <button>Action Items</button>
+    <div class="an-assessment">
+      <div class="details">
+        <p>Name:</p>
+        <p>Level:</p>
+        <p>Target Date:</p>
+        <p>Scope:</p>
+        <p>Location:</p>
+        <p>Level Switching?:</p>
+      </div>
+      <div class="assNav">
+        <button>Open</button>
+        <button>Dashboard</button>
+        <button>Action Items</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="assessments shared-assessments">
+    <div class="box-title">
+      <h3>Shared Assessments</h3>
+    </div>
+    <div class="an-assessment">
+      <div class="details">
+        <p>Name:</p>
+        <p>Level:</p>
+        <p>Target Date:</p>
+        <p>Scope:</p>
+        <p>Location:</p>
+        <p>Level Switching?:</p>
+      </div>
+      <div class="assNav">
+        <button>Open</button>
+        <button>Dashboard</button>
+        <button>Action Items</button>
+      </div>
     </div>
   </div>
 

@@ -31,6 +31,7 @@ import { NotapplicablePage } from '../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../pages/actionitems/actionitems';
 import { CriteriaPage } from '../pages/criteria/criteria';
+import { UserDashboardPage } from '../pages/user-dashboard/user-dashboard';
 
 // components
 import { ImportComponent } from "../components/import/import";
@@ -76,6 +77,7 @@ import { BackUrl } from  "../services/constants";
     SkippedquestionsPage,
     ActionitemsPage,
     CriteriaPage,
+    UserDashboardPage,
 		ViewsComponent,
 		ImportComponent,
 		TopbarComponent
@@ -112,6 +114,7 @@ import { BackUrl } from  "../services/constants";
     SkippedquestionsPage,
     CriteriaPage,
     ActionitemsPage,
+    UserDashboardPage,
     ViewsComponent,
 		ImportComponent,
 		TopbarComponent

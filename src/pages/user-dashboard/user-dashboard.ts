@@ -21,11 +21,15 @@ export class UserDashboardPage {
                     public navParams: NavParams) {}
                     //private auth: AuthService
 
-  public fakeUser = {};
+  public fakeUser: any = {
+    name: "Jane Doe",
+    email: "janedoe@docent.co",
+    organization: "Docent"
+  };
 
-  fakeUser.name = "Jane Doe";
-  fakeUser.email = "janedoe@docent.co";
-  fakeUser.organization = "Docent";
+
+
+
 
 
   // ngOnInit() {
