@@ -136,11 +136,9 @@ export class HomePage {
 
 	// use form?? 
 	createAssessment(event) {
+	console.log("fire");
 		event.preventDefault();
 		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
-		if ( !this.auth.isLoggedIn() ) { this.handleUnloggedUser(); return; } 
-		!this.validateAssessment() ? alert("you must enter all fields") : null
-		if (this.backEnd && this.validateAssessment()) {
 		var values = this.assForm;
 		values.threads = this.threadsSelected;
 
@@ -149,31 +147,22 @@ export class HomePage {
 				mutation:		createAssessmentMutation, 
 				variables:	{
 				threads:				values.threads,
-				location: values.location,
-				targetMRL:				values.targetMRL, 
-				name: values.name,
-				levelSwitching:		!!values.levelSwitching,
-				deskBookVersion:	values.deskBookVersion,
-				scope: values.scope,
-				targetDate: values.targetDate,
-				userId: JSON.parse(this.currentUser).userId
+				location: "cool",
+				targetMRL:				6,
+				name: "cool",
+				levelSwitching:		false,
+				deskBookVersion:	"2017",
+				scope: "aaaaaaaaaaaaa",
+				// targetDate: new Date,
+				userId: "dev"
 				}
 		})
 			.subscribe(({data}) => {
 					this.page_2(data.createAssessment._id);
 			});
-		}
 	}
 
 	async ngOnInit() {
-	console.log(this.auth.isLoggedIn());
-	if (this.auth.isLoggedIn()) {
-		this.currentUser = localStorage.getItem("docent-token");
-		console.log(this.currentUser);
-	}
-
-	await this.checkBack();
-	if (this.backEnd) {
 
 	// setting defaults, ionic is weird with this.
 	//document.getElementById("level-switching-select").value = "";
@@ -206,7 +195,6 @@ export class HomePage {
 				this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
 	} 
-	}
 	}
 
 
