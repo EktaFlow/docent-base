@@ -37,6 +37,7 @@ export class NavigatePage {
  	schema: any;
 	showAll: any = false;
 	filterList: any = {};
+	filteredSchema: any;
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
@@ -59,6 +60,9 @@ export class NavigatePage {
 			.subscribe(data => {
 					this.allQuestions = (<any>data.data).assessment.questions;
 					this.schema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.createSchemaObject(this.allQuestions);
+					// filterTheList();
+
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
@@ -99,10 +103,20 @@ export class NavigatePage {
 		return subThreadNames
 	}
 
+	filterTheList() {
+
+		var filtered = this.schema.map((thread) => {
+			thread.subheader.map((subthread) => {
+				return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
+			});
+			return thread;
+		});
+
+		console.log(filtered);
+	}
+
 expandAllThreads() {
-	console.log("hellooo");
 	this.showAll = !this.showAll;
-	console.log(this.showAll);
 }
 
   changeState(segment){
@@ -121,9 +135,7 @@ expandAllThreads() {
 		});
 	}
 
-fitlerTheList() {
-	console.log(this.filterList);
-}
+
 	/*
   create(){
     // Method to create states for sub headers
