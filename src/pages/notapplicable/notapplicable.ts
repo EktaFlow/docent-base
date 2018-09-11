@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from '../../components/topbar/topbar';
 
+import { QuestionsPage } from '../questions/questions';
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -13,6 +15,7 @@ query assessment($_id: String) {
 		questionText
 		subThreadName
 		currentAnswer
+		questionId
 	}
 	}
 }
@@ -28,24 +31,6 @@ export class NotapplicablePage {
 	na: any;
 	assessmentId: any;
 	subThreads: any;
-
-  schema = [
-    {
-      header:"Technology Maturity",
-      mrl:4,
-      questions:[
-        "Is the Technology Readiness at TRL 4 or greater?"
-      ]
-    },
-    {
-      header:"Technology & Industrial Base",
-      mrl:4,
-      questions:[
-        "Have industrial base capabilities and gpas/risks been identified for key technologies, components, and/or key processes?",
-        "Have pertinenet Manufacturing Sciene (MS) and Advanced Manufacturing Technology requirements been identified?"
-      ]
-    }
-  ];
 
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
@@ -66,7 +51,6 @@ export class NotapplicablePage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => { 
-			console.log(data);
 			var naQuestions = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "N/A")
 					this.na= naQuestions;
 					console.log(naQuestions);
@@ -78,6 +62,16 @@ export class NotapplicablePage {
 
 	filterBySubThread(subThread) {
 		return this.na.filter(s => s.subThreadName == subThread);
+	}
+
+
+	navToQuestion(questionId) {
+		console.log(questionId);
+		console.log("firrrrrrrrrrrrrrrre");
+		this.navCtrl.push(QuestionsPage, {
+			data: 			this.assessmentId,
+			questionId: questionId
+		});
 	}
 
 }

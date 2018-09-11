@@ -7,7 +7,8 @@
     "lib": [
       "dom",
       "es2015",
-			"esnext.asynciterable"
+			"esnext.asynciterable",
+			"es2017"
     ],
     "module": "es2015",
     "moduleResolution": "node",

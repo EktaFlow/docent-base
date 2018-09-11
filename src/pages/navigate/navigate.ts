@@ -34,11 +34,14 @@ export class NavigatePage {
 
 	allQuestions: any;
 	assessmentId: any;
- 	schema: any; 
+ 	schema: any;
+	showAll: any = false;
+	filterList: any = {};
+	filteredSchema: any;
 
-	constructor( private apollo: 			 Apollo, 
-							 public navCtrl: 			 NavController, 
-							 public navParams: 		 NavParams, 
+	constructor( private apollo: 			 Apollo,
+							 public navCtrl: 			 NavController,
+							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
 							 ) {
 
@@ -54,9 +57,12 @@ export class NavigatePage {
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
-			.subscribe(data => { 
+			.subscribe(data => {
 					this.allQuestions = (<any>data.data).assessment.questions;
 					this.schema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.createSchemaObject(this.allQuestions);
+					// filterTheList();
+
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
@@ -70,13 +76,13 @@ export class NavigatePage {
 	}
 
 	filterByProperty(array, itemProperty) {
-		return Array.from(new Set(array.map(item => item[itemProperty]))); 
+		return Array.from(new Set(array.map(item => item[itemProperty])));
 	}
 
 	createSchemaObject(questionsArray) {
 	var threadNames = questionsArray.map(a => a.threadName)
-					  											 .filter(this.unique);	
-		
+					  											 .filter(this.unique);
+
 	var subThreadNames = threadNames.map( a => {
 		var allSubheaders = questionsArray.filter(b => b.threadName == a)
 		var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
@@ -97,22 +103,39 @@ export class NavigatePage {
 		return subThreadNames
 	}
 
+	filterTheList() {
+
+		var filtered = this.schema.map((thread) => {
+			return thread.subheader.map((subthread) => {
+				return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
+			});
+			return thread;
+		});
+
+		console.log(filtered);
+		// this.filteredSchema = filtered;
+	}
+
+expandAllThreads() {
+	this.showAll = !this.showAll;
+}
 
   changeState(segment){
-		segment.cool = !segment.cool
+		segment.cool = !segment.cool;
     // this.state[index] = !this.state[index];
   }
   changeSubState(sub){
-		sub.sweet = !sub.sweet
+		sub.sweet = !sub.sweet;
 //    this.subState[index][subIndex] = !this.subState[index][subIndex];
   }
-	
+
 	navToQuestion(questionId) {
 		this.navCtrl.push(QuestionsPage, {
 			data: 			this.assessmentId,
 			questionId: questionId
 		});
 	}
+
 
 	/*
   create(){

@@ -35,6 +35,7 @@ export class TopbarComponent {
 	public targetMRL: any;
 	public targetDate: any;
 	public scopeSelected: any;
+	public loggedIn: boolean = false;
 	@Input() public assessmentId: any;
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
 	@Input() private mainTitle: any;
@@ -52,9 +53,11 @@ constructor( public popOver: PopoverController,
 
 	ngOnInit() {
 		this.assessmentId ? this.getAssessmentData() : null;
+		this.loggedIn = this.auth.isLoggedIn();
 	}
 
 	toggleScopeSelected() {
+		console.log("fire!");
 		this.scopeSelected = !this.scopeSelected;
 	}
 
@@ -70,6 +73,8 @@ constructor( public popOver: PopoverController,
 				this.scope		  = data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
+
+				console.log(this.scope);
 			});
 	}
 
@@ -85,8 +90,8 @@ constructor( public popOver: PopoverController,
 		            .present({ev: event});
 	}
 
-	registerNav() { alert("Coming soon")}//{ this.navCtrl.push( this.registerPage ); }
-	loginNav() { alert("Coming soon")} //{ this.navCtrl.push( this.loginPage ); }
+	registerNav() { this.navCtrl.push( this.registerPage ); }
+	loginNav() { this.navCtrl.push( this.loginPage ); }
 	logout() { this.auth.logout()}
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});

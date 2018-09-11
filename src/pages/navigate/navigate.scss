@@ -51,7 +51,7 @@ page-navigate {
         list-style-type: none;
         height: 70px;
         // background-color: blue;
-        position: fixed;
+        position: absolute;
         top: 150px;
         left: 0;
         width: 98%;
@@ -79,10 +79,17 @@ page-navigate {
                 input {
                     // margin: 6px;
                 }
+                select {
+                  display: inline;
+                  border: 3px solid gray;
+
+                }
             }
 
+
+
             .filter-it {
-                border: 1px solid black;
+
             }
 
         }

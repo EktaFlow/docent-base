@@ -6,36 +6,51 @@
   <button ion-button (click)="expandAllThreads()">Expand All</button>
   <ul class="filter-list">
     <p>Filter MR Level: </p>
-    <li>1 <input type="checkbox"></li>
-    <li>2 <input type="checkbox"></li>
-    <li>3 <input type="checkbox"></li>
-    <li>4 <input type="checkbox"></li>
-    <li>5 <input type="checkbox"></li>
-    <li>6 <input type="checkbox"></li>
-    <li>7 <input type="checkbox"></li>
-    <li>8 <input type="checkbox"></li>
-    <li>9 <input type="checkbox"></li>
-    <li>10 <input type="checkbox"></li>
-    <!-- <p class="filter-it">Filter</p> -->
+    <!-- <li>1 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="1"></li>
+    <li>2 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="2"></li>
+    <li>3 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="3"></li>
+    <li>4 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="4"></li>
+    <li>5 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="5"></li>
+    <li>6 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="6"></li>
+    <li>7 <input type="checkbox" name="mrl" [(ngModel)]="filterList.targetMRL"  value="7"></li>
+    <li>8 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="8"></li>
+    <li>9 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="9"></li>
+    <li>10 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="10"></li> -->
+
+    <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
+      <option value="" disabled selected>Select One...</option>
+      <option value = "1">1</option>
+      <option value = "2">2</option>
+      <option value = "3">3</option>
+      <option value = "4">4</option>
+      <option value = "5">5</option>
+      <option value = "6">6</option>
+      <option value = "7">7</option>
+      <option value = "8">8</option>
+      <option value = "9">9</option>
+      <option value = "10">10</option>
+    </select>
+    <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
   </ul>
 </div>
-</ion-content>
+<!-- </ion-content>
 
 
-<ion-content padding>
+<ion-content padding> -->
     <br><br>
     <!-- <br><br><br><br><br> -->
       <!-- <br><br><br><br><br><br><br><br><br><br> -->
   <br><br><br><br><br><br><br><br><br><br>
   <hr>
-  <div *ngFor="let segment of schema">
+
+  <div *ngFor="let segment of filteredSchema">
     <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
     {{segment.header}}
-    <div *ngIf="segment.cool">
+    <div *ngIf="segment.cool || showAll">
       <div *ngFor="let sub of segment.subheader">
         <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
         {{sub.subheader}}
-        <div *ngIf="sub.sweet">
+        <div *ngIf="sub.sweet || showAll">
           <div *ngFor="let question of sub.questions" class="mrl">
             <b>MR Level {{question.mrl}}:</b>
             <div *ngFor="let title of question.questionSet" class="question">

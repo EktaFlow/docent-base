@@ -74,17 +74,11 @@ query question($questionId: Int, $assessmentId: String) {
   templateUrl: 'questions.html',
 })
 
-
 export class QuestionsPage {
 
-	/// Object to hold the different vars for the follow-up questions
 	private vals = {};
-
 	assessmentId: any;
-	assessmentSubscription: any;
-
 	public helpClicked: boolean = false;
-
 	private questionId: any;
 	files = [];
 	private allQuestions;
@@ -98,10 +92,10 @@ export class QuestionsPage {
 	currentQSetAmt: any;
 	currentQPos: any;
 
-	constructor(public navCtrl: NavController,
-              public navParams: NavParams,
+	constructor(public navCtrl:            NavController,
+              public navParams:          NavParams,
 							private popoverController: PopoverController,
-							private apollo: Apollo ) {
+							private apollo:            Apollo ) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
@@ -114,57 +108,116 @@ export class QuestionsPage {
 
 	allSubthreadQuestions(question = this.currentQuestion) {
 		return this.allQuestions
-		           .filter(q => q.subThreadName == question.subThreadName)
+		           .filter(q => q.subThreadName == question.subThreadName);
 	}
 
 	allSubthreadLevelQuestions(question = this.currentQuestion) {
-		return this.allSubthreadLevelQuestions()
+		return this.allQuestions
+		           .filter(q => q.subThreadName == question.subThreadName)
 		           .filter(q => q.mrLevel == question.mrLevel );
 	}
+	/////////////////////////////////////////////////////////////////////
+	// INIT && related function
+  ngOnInit() {
+	// if we don't already have a loaded assessment.
+		this.apollo.watchQuery<any>({
+			query: assessmentQuery,
+			fetchPolicy: "network-only",
+			variables: {_id: this.assessmentId}
+		})
+			.valueChanges
+			.subscribe( ({data, loading}) => {
+				var {assessment} = data;
+				this.allQuestions = assessment.questions;
+				this.targetMRL = assessment.targetMRL;
+				this.surveyQuestions = this.setSurveyQuestions()
+				// add if no currentQuestionId
+				this.determineCurrentQuestion()
+				this.vals = this.filterQuestionVals(this.currentQuestion);
 
+				this.setInstanceVariables(assessment);
+
+		})
+
+  }
+
+	setInstanceVariables(assessment) {
+		this.levelSwitching = assessment.levelSwitching
+	}
+
+	setSurveyQuestions() {
+		var { targetMRL,
+					allQuestions } = this;
+
+    return allQuestions.filter( q => q.mrLevel == targetMRL )
+		                   .map( q => q.questionId);
+	}
+
+	determineCurrentQuestion() {
+		var { referringQuestionId,
+					currentQuestion,
+          getQuestion } = this;
+
+		if (referringQuestionId ) {
+			this.currentQuestion = getQuestion(referringQuestionId);
+		}
+		else {
+			var noAnswer = this.surveyQuestions.find( qId => {
+				return getQuestion(qId).currentAnswer == null
+			})
+			this.currentQuestion = getQuestion(noAnswer);
+		}
+	}
+
+	////////////////// CLICK HANDLERS //////////////////////////////////
 	/////////////////////////// popover creator(s) /////////////////////
-	showFileUpload(event) {
-	let myEmitter = new EventEmitter<any>();
-			myEmitter.subscribe( v =>  {
+	showFileUpload() {
+			let myEmitter = new EventEmitter<any>();
+				myEmitter.subscribe( v =>  {
 				this.files.push(v);
 			});
 
-	var fileUploadPopover = this.popoverController.create(FileUploadPopoverComponent,
-			{
-				emitter: myEmitter,
-				questionId: this.questionId,
-				assessmentId: this.assessmentId
-			},
-			{	cssClass: "upload-popover"});
-		fileUploadPopover.present();
+			this.popoverController
+				.create(FileUploadPopoverComponent,
+					{
+						emitter: myEmitter,
+						questionId: this.questionId,
+						assessmentId: this.assessmentId
+					},
+					{	cssClass: "upload-popover"})
+				.present();
 	}
 
+	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
 		this.setValues();
-		// move to the new question
-		this.levelSwitching ? this.handleLevelSwitching() : this.nextQuestion(1)
-
-		// reset the values to the new ones.
+		this.levelSwitching ? this.handleLevelSwitching() : this.moveCurrentQuestion(1)
 		this.vals = this.currentQuestion;
 		this.findAmtOfQs();
 	}
 
 	async	handlePreviousPageClick() {
 		this.setValues();
-		this.nextQuestion(-1);
+		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
 		this.findAmtOfQs();
 	}
 
+	/////////////////////////////////////////////////////////////////////////
+	///////////// FUNCTIONS DEALING WITH VALUE SETTING /////////////////////
+
+	///// any modification of the inputs needed to be used in the assessment
+	///// update function
 	setValues() {
-		this.updateAssessment(this.vals)
+		var values: any = Object.assign({}, this.vals)
+		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
+		values = this.filterQuestionVals(values);
+
+		this.updateAssessment(values)
 	}
 
 	// refactor this down
 	async updateAssessment(values) {
-
-		var values = Object.assign({}, values)
-		values = this.filterQuestionVals(values);
 		var a = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
 		var old = this.allQuestions.map( q => Object.assign({}, q));
 		var newer = old[this.currentQuestion.questionId - 1];
@@ -187,7 +240,8 @@ export class QuestionsPage {
 		}).subscribe(data => null);
 	}
 
-	nextQuestion(way) {
+
+	moveCurrentQuestion(way) {
 		var { questionId } = this.currentQuestion;
 
 		if (!this.surveyQuestions.includes(this.currentQuestion.questionId)) {
@@ -195,7 +249,6 @@ export class QuestionsPage {
 			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
 		}
 		else {
-			// console.log(this.surveyQuestions);
 			var place = this.surveyQuestions.indexOf(questionId) + way;
 			var newQuestion = this.surveyQuestions[place];
 			this.currentQuestion = this.getQuestion(newQuestion);
@@ -209,27 +262,34 @@ export class QuestionsPage {
 				place += 1;
 				this.currentQuestion = this.getQuestion(this.surveyQuestions[place]);
 			}
+			// if all questions are answered?
 	}
+
+	////////////////////////////////
+	////////// LEVEL SWITCHING ONLY functions
+	///////////////////////////////
 
 	handleLevelSwitching() {
 				if ( !this.threadAnswered()) {
-					console.log("not end of thread");
-					this.nextQuestion(1);
+					this.moveCurrentQuestion(1);
 				}
 				// make sure this encompasses all non-switching scenarios.
 				else if ( this.threadPassed() ) {
-					console.log("threadpassed");
 					this.nextUnansweredQuestion();
-					// launch some type of thread passed UI change.
-					//this.nextQuestion(1);
+					// launch some type of thread passed UI change??
         }
+				else if ( this.hasFloorLevel() ) {
+					this.moveCurrentQuestion(1);
+				}
 				else {
 					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
 					this.launchLevelSwitchModal();
 				}
 	}
 
+	// FUNCTIONS to handle the different branches on level-switching
 	// Does every question within the currentQuestion's subthread and MRL have an answer?
+
 	threadAnswered() {
 		var {mrLevel, subThreadName} = this.currentQuestion;
 
@@ -239,17 +299,30 @@ export class QuestionsPage {
 
 	}
 
-	checkNextQuestion() {
-		var ok = this.surveyQuestions.indexOf(this.currentQuestion.questionId);
-		var next = this.surveyQuestions[ok + 1]
-		return this.getQuestion(next);
-	}
-
 	// the only way to 'fail' a subthread is to have a no answer.
 	threadPassed() {
 		return !this.allQuestions.filter(q => q.subThreadName == this.currentQuestion.subThreadName)
 					        .filter(q => q.mrLevel == this.currentQuestion.mrLevel)
 									.some( q => q.currentAnswer == "No")
+	}
+
+	// If a subthread is complete at a lower level, we've found the floor, so no need to bounce
+	// user back again.
+	// this needs some more testin
+	hasFloorLevel() {
+	  // start with current Question;
+		var {currentQuestion} = this;
+		var currentSubthread = this.allSubthreadQuestions();
+		var floor = false;
+
+		currentSubthread.forEach(q => {
+			var level = this.allSubthreadLevelQuestions(q)
+			console.log(level);
+			level.every(ques => ["Yes", "Skipped", "skipped", "N/A"].includes(ques.currentAnswer) ) ? floor = true : null
+		});
+
+		console.log(floor);
+		return floor;
 	}
 
 	launchLevelSwitchModal() {
@@ -268,6 +341,8 @@ export class QuestionsPage {
 	  this.currentQuestion = this.getQuestion(nextLowest[0]);
 	}
 
+	///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
 
 	// this function takes an arr of questions as assessment sub-documents
 	// and formats them to be in the surveyJs format.
@@ -289,66 +364,6 @@ export class QuestionsPage {
 				}]
 			};
 		});
-	}
-
-	setInstanceVariables(assessment) {
-		this.levelSwitching = assessment.levelSwitching
-	}
-
-	setSurveyQuestions() {
-		var { targetMRL,
-					allQuestions } = this;
-
-    return allQuestions.filter( q => q.mrLevel == targetMRL )
-		                   .map( q => q.questionId);
-	}
-
-	// What data do we actually need to store in instance vars?
-  ngOnInit() {
-	// if we don't already have a loaded assessment.
-		this.apollo.watchQuery<any>({
-			query: assessmentQuery,
-			fetchPolicy: "network-only",
-			variables: {_id: this.assessmentId}
-		})
-			.valueChanges
-			.subscribe( ({data, loading}) => {
-				var {assessment} = data;
-				this.allQuestions = assessment.questions;
-				this.targetMRL = assessment.targetMRL;
-				this.currentTargetMRL = assessment.targetMRL;
-				this.surveyQuestions = this.setSurveyQuestions()
-				// add if no currentQuestionId
-				this.determineCurrentQuestion()
-				this.vals = this.filterQuestionVals(this.currentQuestion);
-
-
-				this.setInstanceVariables(assessment);
-				console.log(this.currentQuestion);
-				console.log(this.allQuestions);
-				this.findAmtOfQs();
-		})
-
-
-
-  }
-
-	determineCurrentQuestion() {
-		var { referringQuestionId,
-					currentQuestion,
-          getQuestion } = this;
-
-
-		if (referringQuestionId ) {
-			currentQuestion = getQuestion(referringQuestionId);
-		}
-		else {
-			var noAnswer = this.surveyQuestions.find( qId => {
-				return getQuestion(qId).currentAnswer == null
-			})
-
-			this.currentQuestion = getQuestion(noAnswer);
-		}
 	}
 
 	filterQuestionVals(question) {

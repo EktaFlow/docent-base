@@ -1,6 +1,5 @@
 <title>Docent</title>
 
-<!--<topbar [mainTitle]   = "mainTitle"></topbar>-->
 <topbar></topbar> 
 
 <ion-content padding>
@@ -10,6 +9,7 @@
   <br>
   <br>
   <h1>Start New Assessment</h1>
+	<font *ngIf="!auth.isLoggedIn()"color="red">You must be a registered Docent User to begin an assessment</font><br />
 	<font color="grey">Use this option to start a new assessment</font><br />
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
@@ -17,6 +17,7 @@
 	<div class="topmost" style="z-index: 100;">
       <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
+
 <!-- Save for auth
   <h6>Team Members</h6>
   <form>
@@ -130,12 +131,14 @@
       </p>
     </div>
     <div>
+			<ng-container *ngIf="auth.isLoggedIn()">
       <button ion-button class="grayed" ion-button (click)="helpButtonClick()" color="buttonBlue">
         Help Importing
       </button>
       <button (click)="showAssessmentsList($event)" ion-button color ="buttonBlue">
         Open Assessment
       </button>
+			</ng-container>
     </div>
   </div>
 </ion-content>

@@ -5,9 +5,7 @@
 		<div class="faq-question-title"><font size="5">{{ faq.help_title }}</font></div>
   </div>
   <div *ngIf="faqOpen">
-    <font size="4">
-    <p>{{ faq.help_text }}</p>
-    </font>
+			<div style="width: 80%;"[innerHTML]="faq.help_text"></div>
     <br/><br/>
   </div>
 </div>

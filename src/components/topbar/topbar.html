@@ -6,17 +6,17 @@
         <div class = "container-toolbar">
           <img class="toolbar-logo" src="/assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
           <div class = "container-tbbuttons">
-						<!--
-            <button ion-button (click)="logout()" color="dark">
+            <button *ngIf="auth.isLoggedIn()" ion-button (click)="logout()" color="dark">
 								Logout
             </button>
-						-->
-            <button class="grayed" ion-button (click)="loginNav()" color="dark">
+						<ng-container *ngIf="!auth.isLoggedIn()">
+            <button  ion-button (click)="loginNav()" color="dark">
 								Login
             </button>
-            <button class="grayed"ion-button (click)="registerNav()" color="dark">
+            <button ion-button (click)="registerNav()" color="dark">
                 Register
             </button>
+						</ng-container>
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
@@ -33,12 +33,21 @@
         </div>
 
 	<div *ngIf="assessmentId" class="subheader">
+<<<<<<< HEAD
             <div *ngIf="mainTitle">
 	        <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span (click)="popUpOpen()">{{this.subTitle}}</span></p>
           <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}}</p>
 		<ng-container *ngIf="scopeSelected">
+=======
+			<div >
+			<ng-container *ngIf="mainTitle">
+	        <p>{{this.mainTitle}} | {{this.subTitle}}</p>
+					<p>Question Level: {{questionLevel}} </p>
+			</ng-container>
+			<ng-container *ngIf="scopeSelected">
+>>>>>>> update-nav-page
 		    <p>Assessment Scope: {{ scope }}</p>
-		</ng-container>
+			</ng-container>
 	    </div>
             <div style="margin-right:20px">
                 <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
