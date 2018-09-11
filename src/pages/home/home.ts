@@ -52,34 +52,34 @@ questions {
 }
 `
 var createAssessmentMutation = gql`
- mutation createAssessment(                                                                         
-     $threads:     [Int],                                                                           
-     $location:    String,                                                                          
-     $targetMRL:   Int,                                                                             
-     $id:          Int,                                                                             
-     $scope:       String,                                                                          
+ mutation createAssessment(
+     $threads:     [Int],
+     $location:    String,
+     $targetMRL:   Int,
+     $id:          Int,
+     $scope:       String,
      $targetDate:  Date,
 		 $deskbookVersion: String,
-     $name: String																																					
+     $name: String
 		 $levelSwitching: Boolean
 		 $userId: String
-   ) {                                                                                              
-     createAssessment(                                                                              
-       threads:    $threads,                                                                        
+   ) {
+     createAssessment(
+       threads:    $threads,
        userId:     $userId,
-       location:   $location,                                                                       
-       targetMRL:  $targetMRL,                                                                      
-       id:         $id,                                                                             
-       scope:      $scope,                                                                          
-       targetDate: $targetDate, 
+       location:   $location,
+       targetMRL:  $targetMRL,
+       id:         $id,
+       scope:      $scope,
+       targetDate: $targetDate,
        deskbookVersion: $deskbookVersion,
 			 name: $name
 			 levelSwitching: $levelSwitching
-     ) {                                                                                                                                                                           
-          _id                                                          
-                                                                                               
-       }                                                                                            
-     } 
+     ) {
+          _id
+
+       }
+     }
 `
 @Component({
   selector: 'page-home',
@@ -125,7 +125,7 @@ export class HomePage {
       "scope",
       "location",
 			"targetDate",
-		];	
+		];
 
 		return fields.every(field => this.assForm[field])
 	}
@@ -134,7 +134,7 @@ export class HomePage {
 		alert("You must be a registered Docent user to begin an assessment");
 	}
 
-	// use form?? 
+	// use form??
 	createAssessment(event) {
 	console.log("fire");
 		event.preventDefault();
@@ -144,7 +144,7 @@ export class HomePage {
 
 
 		this.apollo.mutate({
-				mutation:		createAssessmentMutation, 
+				mutation:		createAssessmentMutation,
 				variables:	{
 				threads:				values.threads,
 				location: "cool",
@@ -172,9 +172,11 @@ export class HomePage {
         tmp = <HTMLInputElement>document.getElementById("deskbook-select");
 	tmp.value = "2017";
 
-	if (this.currentUser) {
-	var userId = JSON.parse(this.currentUser).userId;
-	console.log(userId);
+	// if (this.currentUser) {
+	// var userId = JSON.parse(this.currentUser).userId;
+
+	var userId = "dev";
+	// console.log(userId);
 
 	this.querySubscription = this.apollo.watchQuery<any>({
 		query: assessmentQuery,
@@ -188,20 +190,22 @@ export class HomePage {
 		 this.assessments = data.assessments
 		 });
 	this.querySubscription = this.apollo.watchQuery<any>({
-		query: threadsQuery 
+		query: threadsQuery
 		})
 		 .valueChanges
 		 .subscribe(({data, loading}) => {
+       console.log("READY");
 				this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
-	} 
+
+	// }
 	}
 
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 	showAssessmentsList(myEvent) {
-	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});	
+	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});
 		popoverClick.present();
 	}
 
@@ -210,11 +214,11 @@ export class HomePage {
       popoverClick.present({
         ev: myEvent
       });
-    }	
+    }
 
 	showThreads(myEvent) {
 		myEvent.preventDefault();
-		
+
 		let myEmitter = new EventEmitter<any>();
 		myEmitter.subscribe( v =>  this.toggleThread(v.index));
 
@@ -226,7 +230,7 @@ export class HomePage {
 
 	toggleThread(thread) {
 		var {threadsSelected} = this;
-		threadsSelected.includes(thread) ? 
+		threadsSelected.includes(thread) ?
 		threadsSelected = threadsSelected.filter(a => a !== thread) :
 		threadsSelected.push(thread)
 
@@ -254,7 +258,6 @@ export class HomePage {
     this.navCtrl.push(QuestionsPage,{ data: _id } );
   }
 
-    helpButtonClick() { alert("Coming soon"); } 
+    helpButtonClick() { alert("Coming soon"); }
 
 }
-
