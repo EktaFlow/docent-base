@@ -7,6 +7,7 @@ import {NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
 import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
+import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 
 
 import { Apollo } from "apollo-angular";
@@ -31,6 +32,7 @@ export class TopbarComponent {
 
 	public loginPage		= LoginPage;
 	public registerPage = RegisterPage;
+	public userDashPage = UserDashboardPage;
 	public scope: any;
 	public targetMRL: any;
 	public targetDate: any;
@@ -92,7 +94,8 @@ constructor( public popOver: PopoverController,
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
-	logout() { this.auth.logout()}
+	logout() { this.auth.logout(); }
+	handleUserDash() { this.navCtrl.push(this.userDashPage); }
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
 

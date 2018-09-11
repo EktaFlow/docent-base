@@ -1,0 +1,86 @@
+page-user-dashboard {
+  .first-bar {
+    width: 98%;
+    background-color: #b4b4b4;
+    // margin-top: 100px;
+    padding: 20px 20px 5px 20px;
+    margin: 90px auto 0 auto;
+    display: flex;
+
+
+
+    h1 {
+      display: inline-block;
+      width: 20%;
+      color: white;
+
+
+    }
+    .info {
+      display: inline-block;
+      width: 70%;
+      color: white;
+
+
+
+      p {
+        display: inline-block;
+        width: 25%;
+
+
+      }
+
+
+    }
+  }
+
+  .assessments {
+    width: 40%;
+    background-color: #dcdcdc;
+    // display: flex;
+    margin: 50px 20px 20px 50px;
+    display: inline-block;
+    min-height: 300px;
+
+    .box-title {
+      width: 100%;
+      display: block;
+      padding: 5px;
+      h3 {
+        text-align: center;
+        text-decoration: underline;
+      }
+    }
+
+
+    .an-assessment {
+      display: block;
+      width: 100%;
+      background-color: #b4b4b4;
+      border-top: 1px solid white;
+      border-bottom: 1px solid white;
+
+      .details {
+        width: 40%;
+        display: inline-block;
+        padding: 10px;
+      }
+
+      .assNav {
+        width: 40%;
+        display: inline-block;
+        float: right;
+        padding-left: 40px;
+        float: right;
+
+
+        button {
+          display: block;
+          margin: 5px;
+          font-size: 16px;
+
+        }
+      }
+    }
+  }
+}
