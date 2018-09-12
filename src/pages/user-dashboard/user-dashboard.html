@@ -7,54 +7,68 @@
 
     <div class="info">
       <!-- email -->
-      <p>email: {{fakeUser.email}}</p>
+      <p><b>email:</b> {{fakeUser.email}}</p> |
       <!-- organization -->
-      <p>organization: {{fakeUser.organization}}</p>
-      <p ion-button small>Settings</p>
+      <p><b>organization:</b> {{fakeUser.organization}}</p>
+    </div>
+    <div class="buttons">
+      <button ion-button small>Settings</button>
+      <button ion-button small (click)="redirectToCreate()">Start New Assessment</button>
     </div>
   </div>
 
-  <div class="assessments user-assessments">
-    <div class="box-title">
-      <h3>My Assessments</h3>
+  <div *ngIf="!this.assessments">
+    <div class="no-assessments">
+      <p>You don't have any assessments yet! Click here to start your first assessment</p>
     </div>
-    <div class="an-assessment" *ngFor="let assessment of assessments">
-      <div class="details">
-        <p>Name: {{assessment.name}}</p>
-        <p>MRLevel:  {{assessment.targetMRL}}</p>
-        <p>Target Date: {{assessment.targetDate}}</p>
-        <p>Scope: {{assessment.scope}}</p>
-        <p>Location: {{assessment.location}}</p>
-        <p>Level Switching?: {{assessment.levelSwitching}}</p>
+  </div>
+
+  <div *ngIf="this.assessments">
+    <div class="assessments user-assessments">
+      <div class="box-title">
+        <h3>My Assessments</h3>
       </div>
-      <div class="assNav">
-        <button>Open</button>
-        <button>Dashboard</button>
-        <button>Action Items</button>
+      <div class="an-assessment" *ngFor="let assessment of assessments">
+        <div class="details">
+          <p>Name: {{assessment.name}}</p>
+          <p>MRLevel:  {{assessment.targetMRL}}</p>
+          <p>Target Date: {{assessment.targetDate}}</p>
+          <p>Scope: {{assessment.scope}}</p>
+          <p>Location: {{assessment.location}}</p>
+          <p>Level Switching?: {{assessment.levelSwitching}}</p>
+        </div>
+        <div class="assNav">
+          <button>Open</button>
+          <button>Dashboard</button>
+          <button>Action Items</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="assessments shared-assessments">
+      <div class="box-title">
+        <h3>Shared Assessments</h3>
+      </div>
+      <div class="an-assessment">
+        <div class="details">
+          <p>Name:</p>
+          <p>Level:</p>
+          <p>Target Date:</p>
+          <p>Scope:</p>
+          <p>Location:</p>
+          <p>Level Switching?:</p>
+          <p>Team Members:</p>
+        </div>
+        <div class="assNav">
+          <button>Open</button>
+          <button>Dashboard</button>
+          <button>Action Items</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="assessments shared-assessments">
-    <div class="box-title">
-      <h3>Shared Assessments</h3>
-    </div>
-    <div class="an-assessment">
-      <div class="details">
-        <p>Name:</p>
-        <p>Level:</p>
-        <p>Target Date:</p>
-        <p>Scope:</p>
-        <p>Location:</p>
-        <p>Level Switching?:</p>
-        <p>Team Members:</p>
-      </div>
-      <div class="assNav">
-        <button>Open</button>
-        <button>Dashboard</button>
-        <button>Action Items</button>
-      </div>
-    </div>
-  </div>
+
+
 
 </ion-content>

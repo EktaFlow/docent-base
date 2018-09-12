@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
+import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
 var assessmentQuery = gql`
-query assessment($userId: String) {
-	assessment(userId: $userId) {
+query assessments($userId: String) {
+	assessments(userId: $userId) {
 	   scope
      targetMRL
      targetDate
@@ -15,7 +16,6 @@ query assessment($userId: String) {
      deskbookVersion
      location
      name
-
 	}
 }
 `
@@ -38,6 +38,7 @@ export class UserDashboardPage {
   assessments: any;
   loading: boolean;
   private querySubscription: Subscription;
+  homePage: any = HomePage;
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
@@ -46,20 +47,26 @@ export class UserDashboardPage {
 
   async ngOnInit() {
     var userId = this.fakeUser.id;
-    console.log(this.fakeUser.id);
+    console.log(userId);
+		console.log(this.apollo);
     this.querySubscription = this.apollo.watchQuery<any>({
       query: assessmentQuery,
       variables: {
-        userId
+        userId: "dev"
       }
     })
     .valueChanges
     .subscribe(({data, loading}) => {
       this.loading = loading;
       this.assessments = data.assessments;
+      console.log(this.assessments);
     });
 
+
+
   }
+
+	redirectToCreate(){	this.navCtrl.push(this.homePage);	}
 
 
 

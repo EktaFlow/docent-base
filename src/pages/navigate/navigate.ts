@@ -103,18 +103,18 @@ export class NavigatePage {
 		return subThreadNames
 	}
 
-	filterTheList() {
+	// filterTheList() {
+	//
+	// 	var filtered = this.schema.map((thread) => {
+	// 		return thread.subheader.map((subthread) => {
+	// 			return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
+	// 		});
+	// 		return thread;
+	// 	});
 
-		var filtered = this.schema.map((thread) => {
-			return thread.subheader.map((subthread) => {
-				return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
-			});
-			return thread;
-		});
-
-		console.log(filtered);
+		// console.log(filtered);
 		// this.filteredSchema = filtered;
-	}
+	// }
 
 expandAllThreads() {
 	this.showAll = !this.showAll;

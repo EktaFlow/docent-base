@@ -6,17 +6,6 @@
   <button ion-button (click)="expandAllThreads()">Expand All</button>
   <ul class="filter-list">
     <p>Filter MR Level: </p>
-    <!-- <li>1 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="1"></li>
-    <li>2 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="2"></li>
-    <li>3 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="3"></li>
-    <li>4 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="4"></li>
-    <li>5 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="5"></li>
-    <li>6 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="6"></li>
-    <li>7 <input type="checkbox" name="mrl" [(ngModel)]="filterList.targetMRL"  value="7"></li>
-    <li>8 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="8"></li>
-    <li>9 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="9"></li>
-    <li>10 <input type="checkbox" name="mrl"  [(ngModel)]="filterList.targetMRL" value="10"></li> -->
-
     <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
       <option value="" disabled selected>Select One...</option>
       <option value = "1">1</option>
@@ -30,7 +19,9 @@
       <option value = "9">9</option>
       <option value = "10">10</option>
     </select>
-    <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
+    <!-- <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button> -->
+    <button class="filter-it" ion-button small>Filter</button>
+
   </ul>
 </div>
 <!-- </ion-content>

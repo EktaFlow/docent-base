@@ -33,31 +33,30 @@
 	        <h1><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
         </div>
 
-	<div *ngIf="assessmentId" class="subheader">
-<<<<<<< HEAD
-            <div *ngIf="mainTitle">
-	        <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span (click)="popUpOpen()">{{this.subTitle}}</span></p>
-          <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}}</p>
-		<ng-container *ngIf="scopeSelected">
-=======
-			<div >
-			<ng-container *ngIf="mainTitle">
-	        <p>{{this.mainTitle}} | {{this.subTitle}}</p>
-					<p>Question Level: {{questionLevel}} </p>
-			</ng-container>
-			<ng-container *ngIf="scopeSelected">
->>>>>>> update-nav-page
-		    <p>Assessment Scope: {{ scope }}</p>
-			</ng-container>
-	    </div>
-            <div style="margin-right:20px">
+      	<div *ngIf="assessmentId" class="subheader">
+          <div *ngIf="mainTitle">
+            <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span (click)="popUpOpen()">{{this.subTitle}}</span></p>
+            <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}}</p>
+      		  <ng-container *ngIf="scopeSelected">
+              <div >
+      			    <ng-container *ngIf="mainTitle">
+      	          <p>{{this.mainTitle}} | {{this.subTitle}}</p>
+      					  <p>Question Level: {{questionLevel}} </p>
+      			    </ng-container>
+      			    <ng-container *ngIf="scopeSelected">
+      		        <p>Assessment Scope: {{ scope }}</p>
+      			    </ng-container>
+      	      </div>
+              <div style="margin-right:20px">
                 <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
                 <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
-            </div>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </ion-navbar>
     </ion-header>
-  </div>
+
 
   <div *ngIf="popUpButtonClicked">
     <subthread-popup [assessmentId] = "assessmentId"
