@@ -18,17 +18,17 @@
       <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 
-<!-- Save for auth
+<!-- Save for auth -->
   <h6>Team Members</h6>
   <form>
     <div class="member-list">
       <li *ngFor = "let member of members">
-        <pre>{{member.name}}:              {{member.role}}</pre>
+        <pre>- {{member.email}}:              {{member.role}}</pre>
       </li>
     </div>
     <div class="members">
       <div style="width:48%">
-      <input type="text" name="memName" placeholder = "Member Name" #memName>
+      <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
       </div>
       <div class="member-role-button" style="width:48%">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole>
@@ -40,11 +40,11 @@
       </div>
     </div>
     <div class = "buttons">
-      <button (click)="addMember(memName.value,memRole.value)">
+      <button (click)="addMember(memEmail.value,memRole.value)">
           <ion-icon name="add-circle" color = "secondary"></ion-icon>
       </button>
     </div>
-  </form> -->
+  </form>
 
   <div class = "mid-first-page">
     <div class="scope">
@@ -131,14 +131,14 @@
       </p>
     </div>
     <div>
-			<ng-container *ngIf="auth.isLoggedIn()">
+			<!-- <ng-container *ngIf="auth.isLoggedIn()"> -->
       <button ion-button class="grayed" ion-button (click)="helpButtonClick()" color="buttonBlue">
         Help Importing
       </button>
       <button (click)="showAssessmentsList($event)" ion-button color ="buttonBlue">
         Open Assessment
       </button>
-			</ng-container>
+			<!-- </ng-container> -->
     </div>
   </div>
 </ion-content>

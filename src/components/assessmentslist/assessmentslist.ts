@@ -8,9 +8,10 @@ import { QuestionsPage } from "../../pages/questions/questions";
 })
 export class AssessmentslistComponent {
 
-	questionsPage: QuestionsPage; 
+	questionsPage: QuestionsPage;
   text: string;
 	assessments: any;
+  formData: any = {};
 
   constructor(public navParams:NavParams, public navController: NavController) {
 		this.assessments = this.navParams.get("assessments");
