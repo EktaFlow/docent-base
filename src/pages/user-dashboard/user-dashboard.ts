@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
+import { TopbarComponent } from "../../components/topbar/topbar";
+
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
