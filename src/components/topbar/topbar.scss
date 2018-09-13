@@ -46,13 +46,32 @@ topbar {
   }
 
   .subheader {
+    position: relative;
     div {
       p {
         span {
           text-decoration: underline;
         }
       }
+
+      .targets-scope {
+        position: absolute;
+        bottom: 0;
+        right: 20px;
+      }
+
+      ng-container {
+        .scope-show {
+          position: absolute;
+          bottom: 0;
+          right: 100px;
+        }
+      }
+
+
     }
+
+
   }
 
 }

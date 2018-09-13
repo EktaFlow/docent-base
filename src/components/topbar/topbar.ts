@@ -56,6 +56,7 @@ constructor( public popOver: PopoverController,
 	ngOnInit() {
 		this.assessmentId ? this.getAssessmentData() : null;
 		this.loggedIn = this.auth.isLoggedIn();
+
 	}
 
 	toggleScopeSelected() {
