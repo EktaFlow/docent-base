@@ -12,7 +12,7 @@
       <p><b>organization:</b> {{fakeUser.organization}}</p>
     </div>
     <div class="buttons">
-      <button ion-button small>Settings</button>
+      <button ion-button small (click)="handleSettings()">Settings</button>
       <button ion-button small (click)="redirectToCreate()">Start New Assessment</button>
     </div>
   </div>

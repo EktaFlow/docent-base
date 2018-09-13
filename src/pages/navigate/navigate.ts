@@ -38,6 +38,7 @@ export class NavigatePage {
 	showAll: any = false;
 	filterList: any = {};
 	filteredSchema: any;
+	expandAllFromQs: any = false;
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
@@ -46,6 +47,7 @@ export class NavigatePage {
 							 ) {
 
 		this.assessmentId = navParams.data.assessmentId;
+		this.expandAllFromQs = navParams.data.expandAllFromQs;
   }
 
   // helper function to pull unique values from array.
@@ -67,6 +69,10 @@ export class NavigatePage {
     			//this.state.fill(false);
 //    			this.create();
 			});
+
+			if (this.expandAllFromQs) {
+				this.expandAllThreads();
+			}
 	}
 
 	filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
