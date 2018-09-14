@@ -54,9 +54,9 @@
             <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
           </div>
 
-          <ng-container *ngIf="scopeSelected" class="scope-show">
+          <div *ngIf="scopeSelected" class="scope-show">
       		  <p>Assessment Scope: {{ scope }}</p>
-      		</ng-container>
+      		</div>
         </div>
       </ion-navbar>
     </ion-header>
