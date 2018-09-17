@@ -9,6 +9,9 @@ import { FileUploadPopoverComponent } from './file-upload-popover/file-upload-po
 import { TopbarComponent } from './topbar/topbar';
 import { ImportComponent } from './import/import';
 import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
+import { LoginComponent } from './login/login';
+import { RegisterComponent } from './register/register';
+
 @NgModule({
 	declarations: [
 		ViewsComponent,
@@ -21,6 +24,8 @@ import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
     TopbarComponent,
     ImportComponent,
     SubthreadPopupComponent
+    LoginComponent,
+    RegisterComponent
     ],
 	imports: [],
 	exports: [
@@ -34,6 +39,8 @@ import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
     TopbarComponent,
     ImportComponent,
     SubthreadPopupComponent
+    LoginComponent,
+    RegisterComponent
     ]
 })
 

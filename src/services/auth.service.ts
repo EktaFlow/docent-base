@@ -39,9 +39,18 @@ constructor(private http: HttpClient) {}
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
 	}
 
+	public unverified = () => {
+		var hasToken = localStorage.getItem("docent-token");
+		if (hasToken) {
+			return !JSON.parse(hasToken).user.verified
+		}
+
+	}
+
 	public isLoggedIn = () => {
 		var hasToken = localStorage.getItem("docent-token");
-
-		return hasToken && !hasToken.includes("false")
+		if (hasToken) {
+			return JSON.parse(hasToken).user.verified
+		}
 	}
 }
