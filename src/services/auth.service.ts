@@ -29,6 +29,11 @@ constructor(private http: HttpClient) {}
 		localStorage.removeItem("docent-token");
 	}
 
+	public currentUser() {
+		var ok = JSON.parse(localStorage.getItem("docent-token")).user
+		return ok
+	}
+
 	private setSession(isAuthed) {
 		console.log(isAuthed);
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))

@@ -49,15 +49,14 @@
       <div class="box-title">
         <h3>Shared Assessments</h3>
       </div>
-      <div class="an-assessment">
+      <div class="an-assessment" *ngFor="let assessment of sharedAssessments">
         <div class="details">
-          <p>Name:</p>
-          <p>Level:</p>
-          <p>Target Date:</p>
-          <p>Scope:</p>
-          <p>Location:</p>
-          <p>Level Switching?:</p>
-          <p>Team Members:</p>
+          <p>Name: {{assessment.name}}</p>
+          <p>MRLevel:  {{assessment.targetMRL}}</p>
+          <p>Target Date: {{assessment.targetDate}}</p>
+          <p>Scope: {{assessment.scope}}</p>
+          <p>Location: {{assessment.location}}</p>
+          <p>Level Switching?: {{assessment.levelSwitching}}</p>
         </div>
         <div class="assNav">
           <button>Open</button>
