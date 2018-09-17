@@ -27,6 +27,16 @@
           </div>
         </div>
         <hr>
+
+        <!-- <div *ngIf="mainTitle">
+          <ng-container *ngIf="scopeSelected" class="scope-show">
+            <p>Assessment Scope: {{ scope }}</p>
+          </ng-container>
+        <div class="targets-scope">
+          <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
+          <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
+        </div>
+        </div> -->
         <!-- TODO: use an ngif for if there is an assessmentId -->
         <div *ngIf="mainTitle">
                 <p>
@@ -35,24 +45,18 @@
 
       	<div *ngIf="assessmentId" class="subheader">
           <div *ngIf="mainTitle">
-            <p><span (click)="goToNavExpand()">{{this.mainTitle}}</span> | <span (click)="popUpOpen()">{{this.subTitle}}</span></p>
+            <p><span (click)="goToNavExpand()" title="This takes you to the navigate page showing all questions">Thread: {{this.mainTitle}}</span> | <span (click)="popUpOpen()" title="This opens a pop up with all questions in the subthread">SubThread: {{this.subTitle}}</span></p>
             <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}}</p>
-      		  <ng-container *ngIf="scopeSelected">
-              <div >
-      			    <ng-container *ngIf="mainTitle">
-      	          <p>{{this.mainTitle}} | {{this.subTitle}}</p>
-      					  <p>Question Level: {{questionLevel}} </p>
-      			    </ng-container>
-      			    <ng-container *ngIf="scopeSelected">
-      		        <p>Assessment Scope: {{ scope }}</p>
-      			    </ng-container>
-      	      </div>
-              <div style="margin-right:20px">
-                <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
-                <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
-              </div>
-            </ng-container>
           </div>
+
+          <div class="targets-scope">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
+            <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
+          </div>
+
+          <div *ngIf="scopeSelected" class="scope-show">
+      		  <p>Assessment Scope: {{ scope }}</p>
+      		</div>
         </div>
       </ion-navbar>
     </ion-header>

@@ -130,14 +130,18 @@ export class QuestionsPage {
 				var {assessment} = data;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
+				this.currentTargetMRL = assessment.targetMRL;
 				this.surveyQuestions = this.setSurveyQuestions()
 				// add if no currentQuestionId
 				this.determineCurrentQuestion()
 				this.vals = this.filterQuestionVals(this.currentQuestion);
-
 				this.setInstanceVariables(assessment);
+				this.findAmtOfQs();
+
 
 		})
+
+
 
   }
 
@@ -401,14 +405,14 @@ export class QuestionsPage {
 	}
 
   public findAmtOfQs(){
-		console.log(this.currentQuestion.targetMRL);
+
 		this.currentQSet = this.allQuestions.filter(
           question => question.mrLevel == this.currentTargetMRL);
-					console.log(this.currentQSet);
 		this.currentQSetAmt = this.currentQSet.length;
 		this.currentQPos = this.currentQSet.findIndex( q => q.questionId === this.currentQuestion.questionId );
 		this.currentQSetAmt += 1;
 		this.currentQPos += 1;
+
   }
 
 

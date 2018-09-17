@@ -56,6 +56,9 @@ constructor( public popOver: PopoverController,
 	ngOnInit() {
 		this.assessmentId ? this.getAssessmentData() : null;
 		this.loggedIn = this.auth.isLoggedIn();
+
+		console.log(this.assessmentId);
+
 	}
 
 	toggleScopeSelected() {
@@ -97,7 +100,7 @@ constructor( public popOver: PopoverController,
 	logout() { this.auth.logout(); }
 	handleUserDash() { this.navCtrl.push(this.userDashPage); }
 
-	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true});
 
 	popUpOpen() {
 		this.popUpButtonClicked = !this.popUpButtonClicked;

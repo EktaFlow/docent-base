@@ -49,6 +49,7 @@ $input-border:#dcdcdc;
 }
 .nav{
     display: flex;
+    width: 45%;
     justify-content: space-between;
     select{
         margin-bottom: 10px;
@@ -169,14 +170,20 @@ $input-border:#dcdcdc;
   }
 
 .helpButton{
-    display: flex;
-    width: 50%;
+    // display: flex;
+    width: 98%;
+    // min-width: 100px;
+    // max-width: 300px;
+}
+
+.q-answer {
+    width: 98%;
 }
 
 .helpTextDiv {
-    display: flex;
+    // display: flex;
     background-color: #DCDCDC;
-    width: 50%;
+    width: 98%;
     height: auto;
     margin: 3px;
 
@@ -215,7 +222,7 @@ $input-border:#dcdcdc;
   }
 
 h6 {
-  color: #494949
+  color: #494949;
 }
 
 a {

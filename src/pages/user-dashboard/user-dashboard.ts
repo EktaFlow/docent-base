@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
+import { TopbarComponent } from "../../components/topbar/topbar";
+import { SettingsPage } from "../settings/settings";
+
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
@@ -56,7 +59,9 @@ export class UserDashboardPage {
   loading: boolean;
   private querySubscription: Subscription;
   homePage: any = HomePage;
+  settingsPage: any = SettingsPage;
 	private sharedAssessmentIds = [];
+
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
@@ -117,6 +122,7 @@ export class UserDashboardPage {
 
 
 	redirectToCreate(){	this.navCtrl.push(this.homePage);	}
+  handleSettings(){ this.navCtrl.push(this.settingsPage);}
 
 
 

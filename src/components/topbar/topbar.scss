@@ -46,13 +46,31 @@ topbar {
   }
 
   .subheader {
+    position: relative;
+    min-height: 80px;
     div {
       p {
         span {
           text-decoration: underline;
         }
       }
-    }
-  }
+      }
 
-}
+      .scope-show {
+        position: absolute;
+        bottom: 0px;
+        right: 200px;
+      }
+
+        .targets-scope {
+          position: absolute;
+          bottom: 0;
+          right: 20px;
+        }
+
+    }
+
+
+
+
+  }

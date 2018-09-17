@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
+import { UserDashPage } from "../user-dashboard/user-dashboard";
 
 @IonicPage()
 @Component({
@@ -12,14 +13,16 @@ export class LoginPage {
 	user: any = {};
 	private errors: any = [];
 
-	constructor( public navCtrl: NavController, 
-	             public navParams: NavParams, 
+	constructor( public navCtrl: NavController,
+	             public navParams: NavParams,
 	             private auth: AuthService ) {}
 
 	submitLogin(event)  {
 	//event.preventDefault();
 		this.auth.login(this.user)
 				.subscribe(a => console.log(a));
+
+    this.navCtrl.push(UserDashPage);
 	}
 
 	validateInput() {

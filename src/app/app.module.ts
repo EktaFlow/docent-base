@@ -32,6 +32,7 @@ import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions
 import { ActionitemsPage } from '../pages/actionitems/actionitems';
 import { CriteriaPage } from '../pages/criteria/criteria';
 import { UserDashboardPage } from '../pages/user-dashboard/user-dashboard';
+import { SettingsPage } from '../pages/settings/settings';
 
 // components
 import { ImportComponent } from "../components/import/import";
@@ -79,6 +80,7 @@ import { BackUrl } from  "../services/constants";
     ActionitemsPage,
     CriteriaPage,
     UserDashboardPage,
+    SettingsPage,
 		ViewsComponent,
 		ImportComponent,
 		TopbarComponent,
@@ -117,6 +119,7 @@ import { BackUrl } from  "../services/constants";
     CriteriaPage,
     ActionitemsPage,
     UserDashboardPage,
+    SettingsPage,
     ViewsComponent,
 		ImportComponent,
 		TopbarComponent,
