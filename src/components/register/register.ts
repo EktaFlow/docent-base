@@ -9,6 +9,7 @@ export class RegisterComponent {
 
 	private user = {};
 	private errors: any = [];
+	private submitted: boolean = false;
 
   constructor( private auth: AuthService) {}
 
@@ -18,12 +19,18 @@ export class RegisterComponent {
 		if ( isValid ) {
 				this.errors = [];
 				this.auth.registerUser(this.user)
-								 .subscribe( user => null );
+				.subscribe( user => { 
+					if (user.response == "dupe") {
+						this.errors.push("that email is already in use")	
+					}
+					else { this.submitted = true; }
+				} );
 		}
 	}
 
 	validateInput() {
 		var { user } = this;
+		this.errors = [];
 		
 		this.checkPresence(user); 
 		this.checkPasswords(user);

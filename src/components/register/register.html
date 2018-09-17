@@ -11,7 +11,11 @@
 			<br />
 			<br />
 			<br />
-			<div class="container">
+			<div *ngIf="submitted">
+				<p>Your information has been submitted. Please check your email to confirm your registration</p>
+
+			</div>
+			<div *ngIf="!submitted" class="container">
 				<h1>Register as a Docent User</h1>
 
 				<div class="error" *ngIf="errors.length > 0">

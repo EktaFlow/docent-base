@@ -7,6 +7,9 @@
 
 <ion-content padding>
 <ng-container *ngIf="!auth.isLoggedIn()">
+	<ng-container *ngIf="auth.unverified()">
+	You must verify your Docent registration via email before logging on.
+	</ng-container>
 	<login></login>
 
 	<h4>Not registered?</h4>
@@ -28,7 +31,7 @@
 	<font color="grey">Use this option to start a new assessment</font><br />
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
-  <h6>Assessment Name</h6>
+			<h6 class="assessment-name">Assessment Name</h6>
 	<div class="topmost" style="z-index: 100;">
       <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
@@ -104,11 +107,11 @@
     </div>
   </div>
   <div class = "bottom">
-    <div style="width:48%;height:100%;">
+		<div> 
       <h6>Location</h6>
       <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
-    <div style="width:48%;">
+    <div>
       <h6>Deskbook Version</h6>
       <select id="deskbook-select"name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>

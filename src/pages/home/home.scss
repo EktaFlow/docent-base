@@ -87,6 +87,7 @@ $input-border:#dcdcdc;
     }
 }
 
+
 .mid-first-page{
     display: flex;
     justify-content: space-between;
@@ -148,9 +149,13 @@ $input-border:#dcdcdc;
 	}
 }
 
+
 .bottom{
     display: flex;
     justify-content: space-between;
+		div {
+			width: 48%;
+		}
     input{
         @extend %input-style;
         width:100%;
@@ -173,6 +178,32 @@ $input-border:#dcdcdc;
 		select:focus {
 			@extend %selected-input;
 		}
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	.assessment-name {
+		margin-left: 5%;
+	}
+	.target-level {
+		margin-top: 2%;
+		align-items: flex-end;
+	}
+	.topmost {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		input {
+			width: 90%;
+		}
+	}
+	.mid-first-page, .bottom {
+		flex-direction: column;
+		align-items: center;
+		div {
+			width: 90%;
+		}
+	}
 }
 .thread-start{
     display: flex;

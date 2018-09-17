@@ -4,7 +4,6 @@ import {Subscription} from "rxjs";
 import { NgForm } from "@angular/forms";
 
 import { QuestionsPage } from '../questions/questions';
-import { RegisterPage } from "../register/register";
 import { LoginPage }    from "../login/login";
 import { ReviewPage } from '../review/review';
 import { DashboardPage } from '../dashboard/dashboard';
@@ -12,7 +11,6 @@ import { NavigatePage } from '../navigate/navigate';
 import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../actionitems/actionitems';
-
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
@@ -180,9 +178,9 @@ export class HomePage {
 	//document.getElementById("level-switching-select").value = "";
         //have to cast to HTMLInputElement which contains value prop
         var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
-        tmp.value = "";
+        tmp ? tmp.value = "" : null
         tmp = <HTMLInputElement>document.getElementById("deskbook-select");
-	tmp.value = "2017";
+	tmp ? tmp.value = "2017" : null;
 
 	if (this.currentUser) {
 	var userId = JSON.parse(this.currentUser).userId;
