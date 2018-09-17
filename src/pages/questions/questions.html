@@ -16,13 +16,13 @@
 		</div>
 
 
-    <button class="help-button"*ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Need Help?</button>
+    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
     <div *ngIf="helpClicked" class="helpTextDiv">
       <!-- <p>help text</p> -->
-      <p style="width: 80%;" [innerHTML]="currentQuestion.helpText"></p>
+      <p [innerHTML]="currentQuestion.helpText"></p>
     </div>
 
-		<div>
+		<div class="q-answer">
 		<select [(ngModel)]="vals.currentAnswer" >
 			<option value="skipped">Select Answer</option>
 			<option value="Yes">Yes</option>

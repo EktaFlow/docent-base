@@ -48,13 +48,24 @@ page-user-dashboard {
     }
   }
 
+  .assessment-boxes {
+    width: 98%;
+    position: absolute;
+    top: 250px;
+    left: 40px;
+    vertical-align: top;
+  }
+
+
+
   .assessments {
     width: 40%;
+    vertical-align: top;
     background-color: #dcdcdc;
     // display: flex;
-    margin: 50px 20px 20px 50px;
+    margin: 0px 20px 0px 50px;
     display: inline-block;
-    min-height: 300px;
+    min-height: 250px;
 
     .box-title {
       width: 100%;
@@ -97,4 +108,7 @@ page-user-dashboard {
       }
     }
   }
+  // .user-assessments {
+  //   margin-top: -30px;
+  // }
 }
