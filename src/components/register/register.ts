@@ -20,7 +20,7 @@ export class RegisterComponent {
 				this.errors = [];
 				this.auth.registerUser(this.user)
 				.subscribe( user => { 
-					if (user.response == "dupe") {
+				if ((<any>user).response == "dupe") {
 						this.errors.push("that email is already in use")	
 					}
 					else { this.submitted = true; }

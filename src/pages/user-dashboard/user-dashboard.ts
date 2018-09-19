@@ -89,8 +89,10 @@ export class UserDashboardPage {
   }
 
 	async getSharedAssessments() {
-		var user = this.auth.currentUser();
-		await fetch(AuthUrl + "shared", {
+		var user;
+		if (this.auth.currentUser()) { 
+		 user = this.auth.currentUser();
+			await fetch(AuthUrl + "shared", {
 			method: "POST",
 			body: JSON.stringify({email: user.email}),
 			headers: {
@@ -101,6 +103,7 @@ export class UserDashboardPage {
 			.then(a => a.json())
 			.then(a => this.sharedAssessmentIds = a )
 			.catch(e => console.log(e));
+		}
 	}
 
 	pullSharedAssessments() {

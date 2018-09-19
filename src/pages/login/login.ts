@@ -22,7 +22,7 @@ export class LoginPage {
 		this.auth.login(this.user)
 				.subscribe(a => console.log(a));
 
-    this.navCtrl.push(UserDashPage);
+    this.navCtrl.push(UserDashboardPage);
 	}
 
 	validateInput() {

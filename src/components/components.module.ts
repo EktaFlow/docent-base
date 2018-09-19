@@ -23,7 +23,7 @@ import { RegisterComponent } from './register/register';
     FileUploadPopoverComponent,
     TopbarComponent,
     ImportComponent,
-    SubthreadPopupComponent
+    SubthreadPopupComponent,
     LoginComponent,
     RegisterComponent
     ],
@@ -38,7 +38,7 @@ import { RegisterComponent } from './register/register';
     FileUploadPopoverComponent,
     TopbarComponent,
     ImportComponent,
-    SubthreadPopupComponent
+    SubthreadPopupComponent,
     LoginComponent,
     RegisterComponent
     ]

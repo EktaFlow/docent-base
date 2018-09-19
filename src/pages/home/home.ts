@@ -104,7 +104,7 @@ export class HomePage {
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	location: any;
 	private currentUser: any;
-	private boolean: showRegister = false;
+	private showRegister: boolean = false;
 
 
 	private querySubscription: Subscription;

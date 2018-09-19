@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
-import {tap} from "rxjs/operators";
+import { tap } from "rxjs/operators";
 
 import { AuthUrl } from "./constants";
 
@@ -30,7 +30,8 @@ constructor(private http: HttpClient) {}
 	}
 
 	public currentUser() {
-		var ok = JSON.parse(localStorage.getItem("docent-token")).user
+		var ok = JSON.parse(localStorage.getItem("docent-token"))
+		ok ? ok = ok.user : null
 		return ok
 	}
 
@@ -41,7 +42,8 @@ constructor(private http: HttpClient) {}
 
 	public unverified = () => {
 		var hasToken = localStorage.getItem("docent-token");
-		if (hasToken) {
+		console.log(JSON.parse(hasToken));
+		if (hasToken && JSON.parse(hasToken).user) {
 			return !JSON.parse(hasToken).user.verified
 		}
 
@@ -49,7 +51,7 @@ constructor(private http: HttpClient) {}
 
 	public isLoggedIn = () => {
 		var hasToken = localStorage.getItem("docent-token");
-		if (hasToken) {
+		if (hasToken && JSON.parse(hasToken).user) {
 			return JSON.parse(hasToken).user.verified
 		}
 	}
