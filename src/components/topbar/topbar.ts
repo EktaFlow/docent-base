@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController, NavController } from "ionic-angular";
 import { ViewsComponent } from "../views/views";
+import { HomePage } from "../../pages/home/home";
 import { RegisterPage } from "../../pages/register/register";
 import { LoginPage }    from "../../pages/login/login";
 import {NavigatePage} from "../../pages/navigate/navigate";
@@ -97,7 +98,11 @@ constructor( public popOver: PopoverController,
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
-	logout() { this.auth.logout(); }
+	handleLogout() { 
+		this.auth.logout(); 
+		this.navCtrl.setRoot(HomePage);
+		this.navCtrl.popToRoot();
+	}
 	handleUserDash() { this.navCtrl.push(this.userDashPage); }
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true});
