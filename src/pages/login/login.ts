@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
-import { UserDashPage } from "../user-dashboard/user-dashboard";
+import { UserDashboardPage } from "../user-dashboard/user-dashboard";
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class LoginPage {
 		this.auth.login(this.user)
 				.subscribe(a => console.log(a));
 
-    this.navCtrl.push(UserDashPage);
+    this.navCtrl.push(UserDashboardPage);
 	}
 
 	validateInput() {

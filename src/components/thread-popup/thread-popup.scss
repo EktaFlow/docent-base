@@ -1,0 +1,37 @@
+thread-popup {
+
+    .popupbox {
+      width: 300px;
+      height: auto;
+
+      // position: absolute;
+
+      box-shadow: 0px 3px 8px -2px rgba(0,0,0,0.75);
+      border-radius: 5px;
+      z-index: 20000;
+      // top: 50%;
+      // left: 50%;
+      // transform: translate(-50%, -50%);
+      background-color: #DCDCDC;
+      // border: 2px solid black;
+      padding: 10px;
+
+      a {
+        color: black;
+
+      }
+
+      p {
+        background-color: #B4B4B4;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+        padding: 10px 0 10px 10px;
+        margin: 0;
+
+      }
+
+    h6 {
+      color: #494949
+    }
+    }
+  }

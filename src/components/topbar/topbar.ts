@@ -45,7 +45,7 @@ export class TopbarComponent {
 	@Input() private questionLevel: any;
 	@Input() private currentQPos: any;
 	@Input() private currentQSetAmt: any;
-	public popUpButtonClicked: any;
+	// public popUpButtonClicked: any;
 
 
 constructor( public popOver: PopoverController,
@@ -102,8 +102,18 @@ constructor( public popOver: PopoverController,
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true});
 
-	popUpOpen() {
-		this.popUpButtonClicked = !this.popUpButtonClicked;
+	// popUpOpen() {
+	// 	this.popUpButtonClicked = !this.popUpButtonClicked;
+	// }
+
+	presentSubThreadPop(event){
+		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId, subTitle: this.subTitle}, {cssClass: 'subthread-popup'})
+    .present({ev: event});
+  }
+
+	presentThreadPop(event){
+		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId})
+		.present({ev: event});
 	}
 
 

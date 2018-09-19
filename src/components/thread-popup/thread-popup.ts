@@ -19,17 +19,11 @@ query assessment($_id: String!) {
 }
 `
 
-/**
- * Generated class for the SubthreadPopupComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
-  selector: 'subthread-popup',
-  templateUrl: 'subthread-popup.html'
+  selector: 'thread-popup',
+  templateUrl: 'thread-popup.html'
 })
-export class SubthreadPopupComponent {
+export class ThreadPopupComponent {
 
 	public targetMRL: any;
 	public questions: any;
@@ -54,7 +48,12 @@ export class SubthreadPopupComponent {
 		var test = document.getElementsByClassName("popover-content")
 
 		var	newVar = test[test.length - 1] as HTMLElement;
-				newVar.style.cssText = styling;
+		newVar.style.cssText = styling;
+
+		//i need to create an object that is like the ugly object in navigate to get the thread names and subthread names and their linkage
+
+
+
 	 }
 
 	 getAssessmentData() {
@@ -67,13 +66,20 @@ export class SubthreadPopupComponent {
 	 		.subscribe( ({data, loading}) => {
 	 			console.log(data);
 	 			this.targetMRL  = data.assessment.targetMRL;
-				this.questions = data.assessment.questions
-				.filter(question => question.subThreadName == this.subTitle);
+				this.questions = data.assessment.questions;
 				console.log(this.questions);
 				console.log(this.subTitle);
 
 	 		});
 	 }
+
+	 // createThreadsObject() {
+		//  var
+	 // }
+
+
+
+
 
   navToQuestion(questionId) {
 		this.navCtrl.push(QuestionsPage, {
@@ -81,5 +87,4 @@ export class SubthreadPopupComponent {
 			questionId: questionId
 		});
 	}
-
 }

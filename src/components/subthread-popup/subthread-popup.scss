@@ -1,16 +1,22 @@
+
 subthread-popup {
+
+    // width: 500px !important;
+    // height: 400px;
+
+
   .popupbox {
     width: 300px;
     height: auto;
 
-    position: absolute;
+    // position: absolute;
 
     box-shadow: 0px 3px 8px -2px rgba(0,0,0,0.75);
     border-radius: 5px;
-    z-index: 999;
-    top: 40%;
-    left: 40%;
-    transform: translate(-50%, -50%);
+    z-index: 20000;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     background-color: #DCDCDC;
     // border: 2px solid black;
     padding: 10px;

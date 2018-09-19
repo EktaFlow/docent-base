@@ -12,12 +12,14 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
+	targetMRL
 	questions {
 		mrLevel
 		threadName
 		questionText
 		subThreadName
 		questionId
+		currentAnswer
 	}
 	}
 }
@@ -39,6 +41,7 @@ export class NavigatePage {
 	filterList: any = {};
 	filteredSchema: any;
 	expandAllFromQs: any = false;
+	targetLevel: any;
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
@@ -61,10 +64,12 @@ export class NavigatePage {
 			}).valueChanges
 			.subscribe(data => {
 					this.allQuestions = (<any>data.data).assessment.questions;
+					this.targetLevel = (<any>data.data).assessment.targetMRL;
 					this.schema = this.createSchemaObject(this.allQuestions);
 					this.filteredSchema = this.createSchemaObject(this.allQuestions);
 					// filterTheList();
 
+					console.log(this.allQuestions);
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
@@ -86,6 +91,7 @@ export class NavigatePage {
 	}
 
 	createSchemaObject(questionsArray) {
+		console.log("im in heree")
 	var threadNames = questionsArray.map(a => a.threadName)
 					  											 .filter(this.unique);
 
@@ -97,7 +103,7 @@ export class NavigatePage {
 					var mrLevels = this.filterByProperty(questions, "mrLevel");
 					var a = mrLevels.map(f => {
 						var questionSet = questions.filter(s => s.mrLevel == f)
-						   .map(a => ({ text: a.questionText, questionId: a.questionId }))
+						   .map(a => ({ text: a.questionText, questionId: a.questionId, questionStatus: this.findQStatus(a.currentAnswer, a.mrLevel) }));
 							 return {mrl: f, questionSet: questionSet}
 					})
 				return {subheader: sName, questions: a};
@@ -109,18 +115,23 @@ export class NavigatePage {
 		return subThreadNames
 	}
 
-	// filterTheList() {
-	//
-	// 	var filtered = this.schema.map((thread) => {
-	// 		return thread.subheader.map((subthread) => {
-	// 			return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
-	// 		});
-	// 		return thread;
-	// 	});
+	filterTheList() {
+		// var filtered = this.schema.map((thread) => {
+		// 	return thread.subheader.map((subthread) => {
+		// 		return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
+		// 	});
+		// 	return thread;
+		// });
+		console.log("in filterthelist")
+		console.log(this.filterList.filterMRL);
 
+		var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
+		this.filteredSchema = this.createSchemaObject(filteredQuestions);
+		console.log(this.filteredSchema);
+		console.log("post")
 		// console.log(filtered);
 		// this.filteredSchema = filtered;
-	// }
+	}
 
 expandAllThreads() {
 	this.showAll = !this.showAll;
@@ -140,6 +151,20 @@ expandAllThreads() {
 			data: 			this.assessmentId,
 			questionId: questionId
 		});
+	}
+
+	findQStatus(currentAnswer, mrLevel){
+		if (currentAnswer == "Yes") {
+			return "Correct"
+		} else if (currentAnswer == "No") {
+			return "Incorrect"
+		} else if (currentAnswer == "N/A") {
+			return "N/A"
+		} else if (mrLevel == this.targetLevel){
+				return "Unanswered"
+		} else {
+			return null
+		}
 	}
 
 
