@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular'
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
 import { AcronymsPage } from '../../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../../pages/definitions/definitions';
@@ -22,14 +22,20 @@ export class HelpmenuComponent {
   acronymsPage = AcronymsPage;
   definitionsPage = DefinitionsPage;
 	faqsPage = FaqsPage;
-  criteriaPage = CriteriaPage;
+  public assessmentId: any;
+
 
   constructor( public navCtrl: NavController,
+      public navParams: 		 NavParams,
 			   public viewCtrl: ViewController) {
-  }
+           this.assessmentId = navParams.data.assessmentId;
+
+          }
 
   close() {
 	this.viewCtrl.dismiss();
   }
+
+  handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
 
 }

@@ -42,6 +42,7 @@ export class NavigatePage {
 	filteredSchema: any;
 	expandAllFromQs: any = false;
 	targetLevel: any;
+	mrlArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
@@ -125,9 +126,15 @@ export class NavigatePage {
 		console.log("in filterthelist")
 		console.log(this.filterList.filterMRL);
 
-		var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
-		this.filteredSchema = this.createSchemaObject(filteredQuestions);
-		console.log(this.filteredSchema);
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
+			this.filteredSchema = this.createSchemaObject(filteredQuestions);
+			console.log(this.filteredSchema);
+		} else {
+			this.filteredSchema = this.createSchemaObject(this.allQuestions);
+		}
+
+
 		console.log("post")
 		// console.log(filtered);
 		// this.filteredSchema = filtered;
@@ -166,6 +173,8 @@ expandAllThreads() {
 			return null
 		}
 	}
+
+
 
 
 	/*

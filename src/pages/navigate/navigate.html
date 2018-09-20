@@ -4,10 +4,11 @@
 <ion-content padding>
 <div class="filter-toolbar">
   <button ion-button (click)="expandAllThreads()">Expand All</button>
-  <ul class="filter-list">
+  <div class="filter-list">
     <p>Filter MR Level: </p>
     <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
       <option value="" disabled selected>Select One...</option>
+      <option value="0">All</option>
       <option value = "1">1</option>
       <option value = "2">2</option>
       <option value = "3">3</option>
@@ -20,14 +21,10 @@
       <option value = "10">10</option>
     </select>
     <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
-    <!-- <button class="filter-it" ion-button small>Filter</button> -->
 
-  </ul>
+  </div>
 </div>
-<!-- </ion-content>
 
-
-<ion-content padding> -->
     <br><br>
     <!-- <br><br><br><br><br> -->
       <!-- <br><br><br><br><br><br><br><br><br><br> -->

@@ -8,6 +8,7 @@ import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
 import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
+import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 
 
 import { Apollo } from "apollo-angular";

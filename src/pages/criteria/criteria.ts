@@ -36,6 +36,11 @@ export class CriteriaPage {
 	allQuestions: any;
 	assessmentId: any;
  	schema: any;
+	filterList: any = {};
+	filteredSchema: any;
+	showAll: any;
+
+
 
 
 	constructor( private apollo: 			 Apollo,
@@ -44,7 +49,8 @@ export class CriteriaPage {
 							 public popOver: 			 PopoverController,
 							 ) {
 
-		this.assessmentId = "5b88586ff86fdd149d6f8b2e";
+		 this.assessmentId = navParams.data.assessmentId;
+
   }
 
   // helper function to pull unique values from array.
@@ -61,6 +67,7 @@ export class CriteriaPage {
 					console.log(data);
 					this.allQuestions = (<any>data.data).assessment.questions;
 					this.schema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.createSchemaObject(this.allQuestions);
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
@@ -111,6 +118,26 @@ export class CriteriaPage {
 //    this.subState[index][subIndex] = !this.subState[index][subIndex];
   }
 
+	filterTheList() {
+		// var filtered = this.schema.map((thread) => {
+		// 	return thread.subheader.map((subthread) => {
+		// 		return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
+		// 	});
+		// 	return thread;
+		// });
+		console.log("in filterthelist")
+		console.log(this.filterList.filterMRL);
 
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
+			this.filteredSchema = this.createSchemaObject(filteredQuestions);
+			console.log(this.filteredSchema);
+		} else {
+			this.filteredSchema = this.createSchemaObject(this.allQuestions);
+		}
 
+	}
+	expandAllThreads() {
+		this.showAll = !this.showAll;
+	}
 }
