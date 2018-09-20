@@ -1,4 +1,4 @@
-#Docent front-end ionic application
+# Docent front-end ionic application
 
 **Quick Instructions:**
 1. Install dependencies:
