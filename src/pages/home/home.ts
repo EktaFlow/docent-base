@@ -4,7 +4,6 @@ import {Subscription} from "rxjs";
 import { NgForm } from "@angular/forms";
 
 import { QuestionsPage } from '../questions/questions';
-import { RegisterPage } from "../register/register";
 import { LoginPage }    from "../login/login";
 import { ReviewPage } from '../review/review';
 import { DashboardPage } from '../dashboard/dashboard';
@@ -12,7 +11,6 @@ import { NavigatePage } from '../navigate/navigate';
 import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../actionitems/actionitems';
-
 
 import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
@@ -63,6 +61,7 @@ var createAssessmentMutation = gql`
      $name: String
 		 $levelSwitching: Boolean
 		 $userId: String
+		 $teamMembers: [String]
    ) {
      createAssessment(
        threads:    $threads,
@@ -74,6 +73,7 @@ var createAssessmentMutation = gql`
        targetDate: $targetDate,
        deskbookVersion: $deskbookVersion,
 			 name: $name,
+			 teamMembers: $teamMembers,
 			 levelSwitching: $levelSwitching
      ) {
           _id
@@ -104,6 +104,7 @@ export class HomePage {
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	location: any;
 	private currentUser: any;
+	private showRegister: boolean = false;
 
 
 	private querySubscription: Subscription;
@@ -137,6 +138,7 @@ export class HomePage {
 		alert("You must be a registered Docent user to begin an assessment");
 	}
 
+
 	// use form??
 	createAssessment(event) {
 	console.log("fire");
@@ -144,27 +146,56 @@ export class HomePage {
 		// TODO: make this into a real function with a front end modal <01-08-18, mpf> //
 		var values = this.assForm;
 		values.threads = this.threadsSelected;
-    var fakeTeamMember = {email: "cool@cool.net", role: "it's cool"}
+    var fakeTeamMember = { email: "cool@cool.net", role: "it's cool"}
 
+		console.log(this.assForm.teamMembers);
+		var teamMembers = this.assForm.teamMembers.map(a => a.email)
+		console.log(teamMembers);
 
 		this.apollo.mutate({
 				mutation:		createAssessmentMutation,
 				variables:	{
-				threads:				values.threads,
-				location: "cool",
-				targetMRL:				6,
-				name: "cool",
-				levelSwitching:		false,
-				deskBookVersion:	"2017",
-				scope: "aaaaaaaaaaaaa",
-        // teamMembers: [fakeTeamMember],
-				// targetDate: new Date,
-				userId: "dev"
+					threads:					values.threads,
+					location:					"cool",
+					targetMRL:				6,
+					name:							"cool",
+					levelSwitching:		false,
+					deskBookVersion:	"2017",
+					scope:						"aaaaaaaaaaaaa",
+					teamMembers,
+					// targetDate: new Date,
+					userId: "dev"
 				}
 		})
 			.subscribe(({data}) => {
-					this.page_2(data.createAssessment._id);
+					var assessmentId = data.createAssessment._id;
+					this.sendEmailsToTeamMembers(assessmentId);
+					this.page_2(assessmentId);
 			});
+	}
+
+	async sendEmailsToTeamMembers(assessmentId) {
+		console.log("sending");
+		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
+		console.log(teamMembers);
+
+		// move this to constants when we decide it's home.
+		var url = "http://localhost:4002/share";
+
+		// this makes sense in auth b/c we probably do want some user checking here, right?
+		fetch(url, {
+			method: "POST",
+			headers: {
+	      'Accept': 'application/json',
+	      'Content-Type': 'application/json'
+				},
+			body: JSON.stringify({
+				recipients: teamMembers,
+				assessmentId
+			})
+		})
+		.then(a => console.log("okok"))
+		.catch(e => console.error(e));
 	}
 
 	async ngOnInit() {
@@ -173,9 +204,9 @@ export class HomePage {
 	//document.getElementById("level-switching-select").value = "";
         //have to cast to HTMLInputElement which contains value prop
         var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
-        tmp.value = "";
+        tmp ? tmp.value = "" : null
         tmp = <HTMLInputElement>document.getElementById("deskbook-select");
-	tmp.value = "2017";
+	tmp ? tmp.value = "2017" : null;
 
 	// if (this.currentUser) {
 	// var userId = JSON.parse(this.currentUser).userId;
@@ -209,6 +240,9 @@ export class HomePage {
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
+
+	showRegisterForm = () => this.showRegister = true;
+
 	showAssessmentsList(myEvent) {
 	var popoverClick = this.popOver.create(AssessmentslistComponent, {assessments: this.assessments});
 		popoverClick.present();
@@ -252,7 +286,6 @@ export class HomePage {
   removeMember(){
     this.members.pop();
     this.assForm.teamMembers.pop();
-
   }
 
   questions(date,val,loc){

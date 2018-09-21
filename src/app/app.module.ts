@@ -47,6 +47,8 @@ import { FileUploadPopoverComponent } from "../components/file-upload-popover/fi
 import { TopbarComponent } from "../components/topbar/topbar";
 import { SubthreadPopupComponent } from "../components/subthread-popup/subthread-popup";
 import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
+import { LoginComponent } from "../components/login/login";
+import { RegisterComponent } from "../components/register/register";
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -54,7 +56,6 @@ import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
 
 import { BackUrl } from  "../services/constants";
-
 
 @NgModule({
   declarations: [
@@ -88,6 +89,8 @@ import { BackUrl } from  "../services/constants";
 		TopbarComponent,
     SubthreadPopupComponent,
     ThreadPopupComponent
+		LoginComponent,
+		RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -128,6 +131,8 @@ import { BackUrl } from  "../services/constants";
 		TopbarComponent,
     SubthreadPopupComponent,
     ThreadPopupComponent
+		LoginComponent,
+		RegisterComponent
   ],
   providers: [
     StatusBar,

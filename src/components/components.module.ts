@@ -10,6 +10,9 @@ import { TopbarComponent } from './topbar/topbar';
 import { ImportComponent } from './import/import';
 import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
 import { ThreadPopupComponent } from './thread-popup/thread-popup';
+import { LoginComponent } from './login/login';
+import { RegisterComponent } from './register/register';
+
 @NgModule({
 	declarations: [
 		ViewsComponent,
@@ -23,6 +26,8 @@ import { ThreadPopupComponent } from './thread-popup/thread-popup';
     ImportComponent,
     SubthreadPopupComponent,
     ThreadPopupComponent
+    LoginComponent,
+    RegisterComponent
     ],
 	imports: [],
 	exports: [
@@ -37,6 +42,8 @@ import { ThreadPopupComponent } from './thread-popup/thread-popup';
     ImportComponent,
     SubthreadPopupComponent,
     ThreadPopupComponent
+    LoginComponent,
+    RegisterComponent
     ]
 })
 
