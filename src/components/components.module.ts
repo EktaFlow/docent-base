@@ -25,7 +25,7 @@ import { RegisterComponent } from './register/register';
     TopbarComponent,
     ImportComponent,
     SubthreadPopupComponent,
-    ThreadPopupComponent
+    ThreadPopupComponent,
     LoginComponent,
     RegisterComponent
     ],
@@ -41,7 +41,7 @@ import { RegisterComponent } from './register/register';
     TopbarComponent,
     ImportComponent,
     SubthreadPopupComponent,
-    ThreadPopupComponent
+    ThreadPopupComponent,
     LoginComponent,
     RegisterComponent
     ]

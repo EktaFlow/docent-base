@@ -88,7 +88,7 @@ import { BackUrl } from  "../services/constants";
 		ImportComponent,
 		TopbarComponent,
     SubthreadPopupComponent,
-    ThreadPopupComponent
+    ThreadPopupComponent,
 		LoginComponent,
 		RegisterComponent
   ],
@@ -130,7 +130,7 @@ import { BackUrl } from  "../services/constants";
 		ImportComponent,
 		TopbarComponent,
     SubthreadPopupComponent,
-    ThreadPopupComponent
+    ThreadPopupComponent,
 		LoginComponent,
 		RegisterComponent
   ],
