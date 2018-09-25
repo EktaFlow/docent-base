@@ -3,13 +3,8 @@
 
 <ion-content padding>
 <div class="filter-toolbar">
-  <div *ngIf="!showAll">
-    <button ion-button (click)="expandAllThreads()">Expand All</button>
-  </div>
-  <div *ngIf="showAll">
-    <button ion-button (click)="expandAllThreads()">Close All</button>
-  </div>
-
+  <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
+  <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
   <div class="filter-list">
     <p>Filter MR Level: </p>
     <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
@@ -48,7 +43,7 @@
           <div *ngFor="let question of sub.questions" class="mrl">
             <b>MR Level {{question.mrl}}:</b>
             <div *ngFor="let title of question.questionSet" class="question">
-              <p class="navigate-links"  (click)="navToQuestion(title.questionId)">{{title.text}} <span *ngIf="title.questionStatus"> <p ion-button small color="primary">{{title.questionStatus}}</p></span></p>
+              <p class="navigate-links"  (click)="navToQuestion(title.questionId)"> <span *ngIf="title.questionStatus"> <p ion-button small color="primary">{{title.questionStatus}}</p></span> {{title.text}}</p>
             </div>
           </div>
         </div>

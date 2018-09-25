@@ -3,7 +3,8 @@
 
 <ion-content padding>
   <div class="filter-toolbar">
-    <button ion-button (click)="expandAllThreads()">Expand All</button>
+      <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
+      <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
     <div class="filter-list">
       <p>Filter MR Level: </p>
       <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
