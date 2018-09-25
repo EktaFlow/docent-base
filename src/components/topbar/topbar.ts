@@ -59,7 +59,7 @@ constructor( public popOver: PopoverController,
 		this.assessmentId ? this.getAssessmentData() : null;
 		this.loggedIn = this.auth.isLoggedIn();
 
-		console.log(this.assessmentId);
+		// console.log(this.assessmentId);
 
 	}
 
@@ -99,8 +99,8 @@ constructor( public popOver: PopoverController,
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
-	handleLogout() { 
-		this.auth.logout(); 
+	handleLogout() {
+		this.auth.logout();
 		this.navCtrl.setRoot(HomePage);
 		this.navCtrl.popToRoot();
 	}
@@ -118,7 +118,7 @@ constructor( public popOver: PopoverController,
   }
 
 	presentThreadPop(event){
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId})
+		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId}, {cssClass: 'thread-popup'})
 		.present({ev: event});
 	}
 

@@ -1,21 +1,13 @@
 <div class="popupbox">
   <h4>Navigate around the assessment.</h4>
-  <h6>Threads:</h6>
-  <p><a href="#">Technology Maturity</a></p>
-  <p><a href="#">Technology Readiness</a></p>
-  <!-- <p><a href="#">3. question</a></p>
-  <p><a href="#">4. question</a></p> -->
 
-<!-- <div *ngFor="let question of questions">
-  <div *ngIf="question.mrLevel == this.targetMRL">
-    <p (click)="navToQuestion(question.questionId)">{{question.questionText}}</p>
+<div *ngFor="let thread of schema">
+  <p class="header" (click)="changeState(thread)">{{thread.header}}</p>
+  <div *ngIf="thread.open">
+    <div *ngFor="let subthread of thread.subheader">
+      <p class="subheader" (click)="navToQuestionFromSchema(subthread.questions)">{{subthread.subheader}}</p>
+    </div>
   </div>
-</div> -->
-
-<!-- <div>
-  <div>
-    <p></p>
-  </div>
-</div> -->
+</div>
 
 </div>

@@ -9,6 +9,7 @@ var assessmentQuery = gql`
 query assessment($_id: String!) {
 	assessment(_id: $_id) {
 		questions{
+			threadName
       subThreadName
       questionText
       questionId
@@ -30,6 +31,7 @@ export class ThreadPopupComponent {
 	public currentQuestions: any;
 	public assessmentId: any;
 	private subTitle: any;
+	private schema: any;
 	// @Input() public assessmentId: any;
 	// @Input() private subTitle: any;
 
@@ -64,18 +66,71 @@ export class ThreadPopupComponent {
 	 		}
 	 	}).valueChanges
 	 		.subscribe( ({data, loading}) => {
-	 			console.log(data);
+	 			// console.log(data);
 	 			this.targetMRL  = data.assessment.targetMRL;
 				this.questions = data.assessment.questions;
 				console.log(this.questions);
-				console.log(this.subTitle);
+				// console.log(this.subTitle);
+				this.schema = this.createThreadsObject(this.questions);
+				// this.schema = this.myFunction(this.questions);
+
+				console.log(this.schema);
 
 	 		});
 	 }
 
-	 // createThreadsObject() {
-		//  var
-	 // }
+	 myFunction(questions) {
+		 console.log(questions);
+	 }
+
+	 unique = (item, index, array) => array.indexOf(item) == index
+
+	 filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
+	 filterByValue(array) {
+ 		return Array.from(new Set(array));
+ 	}
+
+ 	filterByProperty(array, itemProperty) {
+ 		return Array.from(new Set(array.map(item => item[itemProperty])));
+ 	}
+
+
+	 createThreadsObject(questionsArray) {
+		 console.log(questionsArray);
+		 var threadNames = questionsArray.map(a => a.threadName)
+	 					  											 .filter(this.unique);
+	 		var subThreadNames = threadNames.map( a => {
+	 		var allSubheaders = questionsArray.filter(b => b.threadName == a)
+	 		var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
+	 				.map(sName => {
+	 					var questions = questionsArray.filter(m => m.subThreadName == sName);
+	 					var mrLevels = this.filterByProperty(questions, "mrLevel");
+	 					var a = mrLevels.map(f => {
+	 						var questionSet = questions.filter(s => s.mrLevel == f)
+	 						   .map(a => ({ questionId: a.questionId }));
+	 							 return {mrl: f, questionSet: questionSet}
+	 					})
+	 				return {subheader: sName, questions: a};
+	 				});
+
+
+	 		return {header: a, subheader: subThreadNames};
+	 	})
+	 		return subThreadNames
+	 }
+
+	 changeState(thread){
+ 		thread.open = !thread.open;
+     // this.state[index] = !this.state[index];
+   }
+
+	 navToQuestionFromSchema(questionsArray){
+		 console.log("hello");
+		 console.log(this.targetMRL);
+		 var correctQsByMRL = questionsArray.filter(q => q.mrl == this.targetMRL);
+		 console.log(correctQsByMRL);
+		 this.navToQuestion(correctQsByMRL[0].questionSet[0].questionId);
+	 }
 
 
 
