@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 import {Subscription} from "rxjs";
 import { NgForm } from "@angular/forms";
+import { HttpClient } from '@angular/common/http';
+
 
 import { QuestionsPage } from '../questions/questions';
 import { LoginPage }    from "../login/login";
@@ -96,6 +98,7 @@ export class HomePage {
 	loading: boolean;
 	allThreads: any;
 	assessments: any;
+  schema: any;
 
 	assForm: any = {deskbookVersion: "2017", levelSwitching: false, teamMembers: []};
 
@@ -112,8 +115,17 @@ export class HomePage {
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
 							private apollo: Apollo,
-							private auth: AuthService) {
+							private auth: AuthService,
+              private http: HttpClient) {
 	    this.mainTitle = "Start";
+	}
+
+	getSchema() {
+		this.http.get('assets/json/2016.json')
+					.subscribe( data => {
+						console.log(data);
+						this.schema = data;
+					});
 	}
 
 		async checkBack() {
@@ -163,6 +175,7 @@ export class HomePage {
 					deskBookVersion:	"2017",
 					scope:						"aaaaaaaaaaaaa",
 					teamMembers,
+          // schema
 					// targetDate: new Date,
 					userId: "dev"
 				}
@@ -233,6 +246,8 @@ export class HomePage {
        console.log("READY");
 				this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 		 });
+
+    this.getSchema();
 
 	// }
 	}
