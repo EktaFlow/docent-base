@@ -127,6 +127,7 @@ export class HomePage {
 					.subscribe( data => {
 						console.log(data);
 						this.schema = data;
+            // this.schema = data;
 					});
 	}
 
