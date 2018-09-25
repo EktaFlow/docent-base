@@ -41,7 +41,7 @@
         <div *ngIf="sub.sweet || showAll">
           <div *ngFor="let question of sub.questions" class="mrl">
             <b>MR Level {{question.mrl}}:</b>
-              <p>{{question.criteriaSet[0].text}}</p>
+              <p [innerHTML]="question.criteriaSet[0].text"></p>
           </div>
         </div>
       </div>

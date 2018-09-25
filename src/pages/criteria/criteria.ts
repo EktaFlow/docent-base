@@ -3,6 +3,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { HttpClient } from '@angular/common/http';
+
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -47,11 +49,14 @@ export class CriteriaPage {
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
+							 private http: HttpClient
 							 ) {
 
 		 this.assessmentId = navParams.data.assessmentId;
 
   }
+
+
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
@@ -66,12 +71,20 @@ export class CriteriaPage {
 			.subscribe(data => {
 					console.log(data);
 					this.allQuestions = (<any>data.data).assessment.questions;
-					this.schema = this.createSchemaObject(this.allQuestions);
+					// this.schema = this.createSchemaObject(this.allQuestions);
 					this.filteredSchema = this.createSchemaObject(this.allQuestions);
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
 			});
+	// this.http.get('assets/json/2016.json')
+	// 			.subscribe( data => {
+	// 				console.log(data);
+	// 				this.schema = data;
+	// 				this.filteredSchema = this.createSchemaObject(this.schema);
+	// 				// this.schema = data;
+	// 			});
+
 	}
 
 	filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
@@ -119,12 +132,6 @@ export class CriteriaPage {
   }
 
 	filterTheList() {
-		// var filtered = this.schema.map((thread) => {
-		// 	return thread.subheader.map((subthread) => {
-		// 		return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
-		// 	});
-		// 	return thread;
-		// });
 		console.log("in filterthelist")
 		console.log(this.filterList.filterMRL);
 
