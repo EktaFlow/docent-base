@@ -52,7 +52,7 @@ import { RegisterComponent } from "../components/register/register";
 import { AuthService } from "../services/auth.service";
 import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
-
+import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
 
 @NgModule({
@@ -133,6 +133,7 @@ import { BackUrl } from  "../services/constants";
   providers: [
     StatusBar,
 		AuthService,
+		AssessmentService,
 		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,

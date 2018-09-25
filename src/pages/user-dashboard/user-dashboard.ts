@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
+import { AssessmentService } from "../../services/assessment.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { SettingsPage } from "../settings/settings";
 
@@ -10,20 +11,6 @@ import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
 import { AuthUrl } from "../../services/constants";
-
-var assessmentQuery = gql`
-query assessments($userId: String) {
-	assessments(userId: $userId) {
-	   scope
-     targetMRL
-     targetDate
-     levelSwitching
-     deskbookVersion
-     location
-     name
-	}
-}
-`
 
 var sharedQuery = gql`
 query getShared($assessments: [String]) {
@@ -66,26 +53,19 @@ export class UserDashboardPage {
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
 										private apollo: Apollo,
-										private auth: AuthService) {}
+										private auth: AuthService,
+										private assessmentService: AssessmentService) {}
 
   async ngOnInit() {
 
+		// make this better
 		await this.getSharedAssessments();
 		this.pullSharedAssessments();
-		
+		console.log("hu");
 
-    var userId = this.fakeUser.id;
-    this.querySubscription = this.apollo.watchQuery<any>({
-      query: assessmentQuery,
-      variables: {
-        userId: "dev"
-      }
-    })
-    .valueChanges
-    .subscribe(({data, loading}) => {
-      this.loading = loading;
-      this.assessments = data.assessments;
-    });
+		var observe =  await this.assessmentService.getAssessments()
+		observe.subscribe(({data}) => this.assessments = data.assessments);
+
   }
 
 	async getSharedAssessments() {
@@ -122,14 +102,8 @@ export class UserDashboardPage {
 		
 	}
 
-
-
 	redirectToCreate(){	this.navCtrl.push(this.homePage);	}
   handleSettings(){ this.navCtrl.push(this.settingsPage);}
-
-
-
-//need to access user's
 
 
 }
