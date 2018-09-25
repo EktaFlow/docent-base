@@ -17,11 +17,11 @@ import { HttpClient } from '@angular/common/http';
 export class AcronymsPage {
         mainTitle: String;
 
-    constructor(public navCtrl: NavController, 
+    constructor(public navCtrl: NavController,
 			public navParams: NavParams,
 			public http: HttpClient) {
 
-            this.mainTitle = "acronyms";
+            this.mainTitle = "Acronyms";
     }
 
 	private acronyms: any = {};
@@ -35,7 +35,7 @@ export class AcronymsPage {
 						this.acronymsKeys = Object.keys(data);
 					});
 	}
- 
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AcronymsPage');
@@ -44,6 +44,6 @@ export class AcronymsPage {
   }
 
   ngOnInit() {
-    this.mainTitle = "acronyms";
+    this.mainTitle = "Acronyms";
   }
 }

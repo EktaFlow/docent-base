@@ -19,8 +19,7 @@
 				<ion-card-header>
 					<b>{{definition.term}}</b> <!-- not sure why we have to add <b> here... -->
 				</ion-card-header>
-				<ion-card-content>
-					{{definition.definition}}
+				<ion-card-content [innerHTML]="definition.definition">
 				</ion-card-content>
 			</ion-card>
 		</ion-row>

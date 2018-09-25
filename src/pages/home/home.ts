@@ -64,6 +64,7 @@ var createAssessmentMutation = gql`
 		 $levelSwitching: Boolean
 		 $userId: String
 		 $teamMembers: [String]
+     $schema: String
    ) {
      createAssessment(
        threads:    $threads,
@@ -77,6 +78,7 @@ var createAssessmentMutation = gql`
 			 name: $name,
 			 teamMembers: $teamMembers,
 			 levelSwitching: $levelSwitching
+       schema: $schema
      ) {
           _id
 
@@ -175,7 +177,7 @@ export class HomePage {
 					deskBookVersion:	"2017",
 					scope:						"aaaaaaaaaaaaa",
 					teamMembers,
-          // schema
+          schema: JSON.stringify(this.schema),
 					// targetDate: new Date,
 					userId: "dev"
 				}

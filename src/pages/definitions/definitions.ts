@@ -17,7 +17,7 @@ import { HttpClient } from '@angular/common/http';
 export class DefinitionsPage {
         mainTitle: String;
 
-        constructor(public navCtrl: NavController, 
+        constructor(public navCtrl: NavController,
 			public navParams: NavParams,
 			public http: HttpClient) {
             this.mainTitle = "definitions";
@@ -37,6 +37,6 @@ export class DefinitionsPage {
   }
 
   ngOnInit() {
-    this.mainTitle = "definitions";
+    this.mainTitle = "Definitions";
   }
 }
