@@ -152,15 +152,10 @@ export class UserDashboardPage {
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
   openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
-  handleSettings(){ this.navCtrl.push(SetingsPage);}
+  handleSettings(){ this.navCtrl.push(SettingsPage);}
 
 	handleDeleting(assessmentId){
 		console.log("time to delete")
 	}
-
-
-
-//need to access user's
-
 
 }
