@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { SettingsPage } from "../settings/settings";
+import { QuestionsPage } from "../questions/questions";
+import { DashboardPage } from "../dashboard/dashboard";
+import { ActionItemsPage } from "../actionitems/actionitems";
 
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
@@ -60,8 +63,6 @@ export class UserDashboardPage {
 	sharedAssessments: any = [];
   loading: boolean;
   private querySubscription: Subscription;
-  homePage: any = HomePage;
-  settingsPage: any = SettingsPage;
 	private sharedAssessmentIds = [];
 	expand: any = false;
   currentAssessment: any;
@@ -140,9 +141,11 @@ export class UserDashboardPage {
   }
 
 
-
-	redirectToCreate(){	this.navCtrl.push(this.homePage);	}
-  handleSettings(){ this.navCtrl.push(this.settingsPage);}
+  continueAssessment(assessmentId){ this.navCtrl.push(QuestionsPage, {assessmentId: assessmentId});}
+  openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
+  openActionItems(assessmentId){this.navCtrl.push(ActionItemsPage, {assessmentId: assessmentId});}
+	redirectToCreate(){	this.navCtrl.push(HomePage);	}
+  handleSettings(){ this.navCtrl.push(SetingsPage);}
 
 
 

@@ -164,7 +164,7 @@ expandAllThreads() {
 
 	navToQuestion(questionId) {
 		this.navCtrl.push(QuestionsPage, {
-			data: 			this.assessmentId,
+			assessmentId: 			this.assessmentId,
 			questionId: questionId
 		});
 	}

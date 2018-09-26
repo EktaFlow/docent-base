@@ -99,7 +99,11 @@ export class QuestionsPage {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
-		this.assessmentId = navParams.data.data;
+		if (navParams.data.assessmentId) {
+			this.assessmentId = navParams.data.assessmentId;
+		} else {
+			this.assessmentId = navParams.data.data;
+		}
   }
 
   /////////////////////////// useful functions ///////////////////////
