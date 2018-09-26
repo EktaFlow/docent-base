@@ -106,7 +106,7 @@ constructor( public popOver: PopoverController,
 	}
 	handleUserDash() { this.navCtrl.push(this.userDashPage); }
 
-	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true});
+	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 
 	// popUpOpen() {
 	// 	this.popUpButtonClicked = !this.popUpButtonClicked;

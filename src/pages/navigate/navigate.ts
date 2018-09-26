@@ -43,6 +43,7 @@ export class NavigatePage {
 	expandAllFromQs: any = false;
 	targetLevel: any;
 	mrlArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	autoFilter: false;
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
@@ -52,6 +53,7 @@ export class NavigatePage {
 
 		this.assessmentId = navParams.data.assessmentId;
 		this.expandAllFromQs = navParams.data.expandAllFromQs;
+		this.autoFilter = navParams.data.autoFilter;
   }
 
   // helper function to pull unique values from array.
@@ -74,11 +76,18 @@ export class NavigatePage {
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
+
+					if (this.autoFilter){
+						this.filterList.filterMRL = this.targetLevel;
+						this.filterTheList();
+					}
 			});
 
 			if (this.expandAllFromQs) {
 				this.expandAllThreads();
 			}
+
+
 	}
 
 	filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
