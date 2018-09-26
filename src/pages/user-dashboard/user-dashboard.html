@@ -1,11 +1,5 @@
-<div *ngIf="assessmentId">
-  <topbar [assessmentId]="assessmentId"></topbar>
-</div>
+<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar"></topbar>
 
-<div *ngIf="!assessmentId">
-  <topbar></topbar>
-
-</div>
 
 <ion-content>
   <div class="first-bar">
@@ -56,7 +50,7 @@
             <button (click)="openDashboard(assessment.id)">Dashboard</button>
             <button (click)="openActionItems(assessment.id)">Action Items</button>
             <button>Delete</button>
-            <button>Add Team Members</button>
+            <!-- <button>Add Team Members</button> -->
           </div>
         </div>
       </div>

@@ -14,6 +14,8 @@ import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown
 export class FaqsPage {
         mainTitle: String;
         assessmentId: any;
+        noSecondBar: boolean = false;
+        
 
     constructor( public navCtrl:   NavController,
 	               public navParams: NavParams,

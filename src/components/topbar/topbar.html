@@ -29,12 +29,12 @@
         <hr>
 
         <!-- TODO: use an ngif for if there is an assessmentId -->
-        <div *ngIf="mainTitle && noSecondBar == true">
+        <div *ngIf="mainTitle">
                 <p>
 	        <h1><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
         </div>
 
-      	<div *ngIf="assessmentId" class="subheader">
+      	<div *ngIf="assessmentId && noSecondBar != false" class="subheader">
           <div *ngIf="mainTitle">
             <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread">SubThread: {{this.subTitle}}</span></p>
             <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}} <span><p (click)="goToNavExpand()">Show All Questions</p></span></p>

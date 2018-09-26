@@ -5,7 +5,7 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
-import { ActionItemsPage } from "../actionitems/actionitems";
+import { ActionitemsPage } from "../actionitems/actionitems";
 
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
@@ -65,13 +65,18 @@ export class UserDashboardPage {
   private querySubscription: Subscription;
 	private sharedAssessmentIds = [];
 	expand: any = false;
-  currentAssessment: any;
+  currentAssessment: any = null;
+	noSecondBar: boolean = false;
+	assessmentId: any;
 
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
 										private apollo: Apollo,
-										private auth: AuthService) {}
+										private auth: AuthService) {
+                      this.assessmentId = navParams.data.assessmentId;
+
+                    }
 
   async ngOnInit() {
 
@@ -94,6 +99,8 @@ export class UserDashboardPage {
       console.log(data.assessments);
     });
   }
+
+
 
 	async getSharedAssessments() {
 		var user;
@@ -143,7 +150,7 @@ export class UserDashboardPage {
 
   continueAssessment(assessmentId){ this.navCtrl.push(QuestionsPage, {assessmentId: assessmentId});}
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
-  openActionItems(assessmentId){this.navCtrl.push(ActionItemsPage, {assessmentId: assessmentId});}
+  openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
   handleSettings(){ this.navCtrl.push(SetingsPage);}
 

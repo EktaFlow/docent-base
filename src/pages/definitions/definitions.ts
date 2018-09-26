@@ -17,6 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class DefinitionsPage {
         mainTitle: String;
         assessmentId: any;
+        noSecondBar: boolean = false;
+
 
       constructor(public navCtrl: NavController,
 			public navParams: NavParams,

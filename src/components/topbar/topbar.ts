@@ -47,7 +47,7 @@ export class TopbarComponent {
 	@Input() private questionLevel: any;
 	@Input() private currentQPos: any;
 	@Input() private currentQSetAmt: any;
-	@Input() private noSecondBar: any;
+	@Input() public noSecondBar: any;
 	// public popUpButtonClicked: any;
 
 
