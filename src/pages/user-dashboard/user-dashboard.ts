@@ -154,6 +154,10 @@ export class UserDashboardPage {
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
   handleSettings(){ this.navCtrl.push(SetingsPage);}
 
+	handleDeleting(assessmentId){
+		console.log("time to delete")
+	}
+
 
 
 //need to access user's

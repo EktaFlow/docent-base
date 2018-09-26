@@ -31,6 +31,9 @@
         <h3><b>My Assessments</b></h3>
       </div>
       <div *ngIf="this.assessments">
+        <div class="accordion-tab metrics">
+          <p>You currently have {{assessments.length}} assessments</p>
+        </div>
       <div  *ngFor="let assessment of assessments">
         <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
           <b>Assessment:</b> {{assessment.name}}
@@ -49,7 +52,7 @@
             <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
             <button (click)="openDashboard(assessment.id)">Dashboard</button>
             <button (click)="openActionItems(assessment.id)">Action Items</button>
-            <button>Delete</button>
+            <button (click)="handleDeleting(assessment.id)">Delete</button>
             <!-- <button>Add Team Members</button> -->
           </div>
         </div>
@@ -62,6 +65,9 @@
         <h3><b>Assessments Shared With Me</b></h3>
       </div>
       <div *ngIf="this.assessments">
+        <div class="accordion-tab metrics">
+          <p>You currently have {{sharedAssessments.length}} assessments</p>
+        </div>
       <div  class="an-assessment" *ngFor="let assessment of sharedAssessments">
         <div class="accordion-tab" (click)="expandAssessment($event)">
           <b>Assessment: </b>{{assessment.name}}
