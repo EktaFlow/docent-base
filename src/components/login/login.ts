@@ -17,7 +17,7 @@ export class LoginComponent {
 
 	submitLogin()  {
 		this.auth.login(this.user)
-							.subscribe( user =>   user.jwt ? this.navCtrl.push(UserDashboardPage) : this.incorrectCredentials())
+		.subscribe( user =>   (<any>user).jwt ? this.navCtrl.push(UserDashboardPage) : this.incorrectCredentials())
 	}
 
 	incorrectCredentials() {

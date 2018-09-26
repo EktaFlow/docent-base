@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
-import { assessmentQuery } from "./gql.service";
-import gql from "graphql-tag";
+import { assessmentQuery, 
+				 createAssessmentMutation } from "./gql.service";
 
 @Injectable()
 export class AssessmentService {
@@ -29,6 +29,15 @@ constructor( private apollo: Apollo) {}
 			}
 		}).valueChanges
 		*/
+	}
+
+	async createAssessment(variables) {
+	console.log(variables);
+	
+		return await this.apollo.mutate({
+			mutation: createAssessmentMutation,
+			variables 
+		});
 	}
 
 
