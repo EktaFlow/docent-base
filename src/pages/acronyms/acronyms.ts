@@ -16,12 +16,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AcronymsPage {
         mainTitle: String;
+        assessmentId: any;
 
     constructor(public navCtrl: NavController,
 			public navParams: NavParams,
 			public http: HttpClient) {
 
             this.mainTitle = "Acronyms";
+						this.assessmentId = navParams.data.assessmentId;
     }
 
 	private acronyms: any = {};

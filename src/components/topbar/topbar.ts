@@ -47,6 +47,7 @@ export class TopbarComponent {
 	@Input() private questionLevel: any;
 	@Input() private currentQPos: any;
 	@Input() private currentQSetAmt: any;
+	@Input() private noSecondBar: any;
 	// public popUpButtonClicked: any;
 
 
@@ -81,6 +82,7 @@ constructor( public popOver: PopoverController,
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
 
+
 				console.log(this.scope);
 			});
 	}
@@ -104,7 +106,7 @@ constructor( public popOver: PopoverController,
 		this.navCtrl.setRoot(HomePage);
 		this.navCtrl.popToRoot();
 	}
-	handleUserDash() { this.navCtrl.push(this.userDashPage); }
+	handleUserDash() { this.navCtrl.push(UserDashboardPage, {assessmentId: this.assessmentId}); }
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 

@@ -13,6 +13,7 @@ import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown
 })
 export class FaqsPage {
         mainTitle: String;
+        assessmentId: any;
 
     constructor( public navCtrl:   NavController,
 	               public navParams: NavParams,
@@ -20,6 +21,7 @@ export class FaqsPage {
     {
 
             this.mainTitle = "Frequently Asked Questions";
+            this.assessmentId = navParams.data.assessmentId;
     }
 
     private faqInfoStandalone: any;
