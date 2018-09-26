@@ -22,6 +22,8 @@ page-user-dashboard {
 
 
     }
+
+
     .info {
       display: inline-block;
       // width: 70%;
@@ -48,6 +50,18 @@ page-user-dashboard {
     }
   }
 
+.accordion-tab {
+  width: 96.5%;
+  height: 30px;
+  padding: 4px 0;
+  padding-left: 10px;
+  background: white;
+  margin: 6px;
+  vertical-align: middle;
+
+
+}
+
   .assessment-boxes {
     width: 98%;
     position: absolute;
@@ -61,8 +75,9 @@ page-user-dashboard {
   .assessments {
     width: 40%;
     vertical-align: top;
-    background-color: #dcdcdc;
+    background-color: lightgray;
     // display: flex;
+
     margin: 0px 20px 0px 50px;
     display: inline-block;
     min-height: 250px;
@@ -70,20 +85,24 @@ page-user-dashboard {
     .box-title {
       width: 100%;
       display: block;
-      padding: 5px;
+      padding: 2px;
+      background-color: darkslateblue;
       h3 {
         text-align: center;
-        text-decoration: underline;
+        color: white;
+
+        // text-decoration: underline;
       }
     }
 
 
     .an-assessment {
       display: block;
-      width: 100%;
-      background-color: #b4b4b4;
-      border-top: 1px solid white;
-      border-bottom: 1px solid white;
+      width: 96.5%;
+      margin: 6px;
+      background-color: white;
+      // border-top: 1px solid white;
+      // border-bottom: 1px solid white;
 
       .details {
         width: 40%;
@@ -95,14 +114,15 @@ page-user-dashboard {
         width: 40%;
         display: inline-block;
         float: right;
-        padding-left: 40px;
-        float: right;
+        padding-left: 30px;
 
 
         button {
           display: block;
           margin: 5px;
           font-size: 16px;
+          background-color: darkslateblue;
+          color: white;
 
         }
       }

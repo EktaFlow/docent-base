@@ -8,6 +8,7 @@ import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+import * as $ from 'jquery'
 
 import { AuthUrl } from "../../services/constants";
 
@@ -21,6 +22,7 @@ query assessments($userId: String) {
      deskbookVersion
      location
      name
+     id
 	}
 }
 `
@@ -61,6 +63,8 @@ export class UserDashboardPage {
   homePage: any = HomePage;
   settingsPage: any = SettingsPage;
 	private sharedAssessmentIds = [];
+	expand: any = false;
+  currentAssessment: any;
 
 
   constructor(public navCtrl: NavController,
@@ -72,7 +76,7 @@ export class UserDashboardPage {
 
 		await this.getSharedAssessments();
 		this.pullSharedAssessments();
-		
+
 
     var userId = this.fakeUser.id;
     this.querySubscription = this.apollo.watchQuery<any>({
@@ -85,12 +89,14 @@ export class UserDashboardPage {
     .subscribe(({data, loading}) => {
       this.loading = loading;
       this.assessments = data.assessments;
+      console.log("doing anything in here?");
+      console.log(data.assessments);
     });
   }
 
 	async getSharedAssessments() {
 		var user;
-		if (this.auth.currentUser()) { 
+		if (this.auth.currentUser()) {
 		 user = this.auth.currentUser();
 			await fetch(AuthUrl + "shared", {
 			method: "POST",
@@ -119,8 +125,19 @@ export class UserDashboardPage {
 			this.sharedAssessments = data.getShared;
     });
 
-		
+
 	}
+
+  expandAssessment(assessmentId) {
+    console.log(assessmentId);
+    // this.expand = !this.expand;
+    if (this.currentAssessment == assessmentId) {
+      this.currentAssessment = null;
+    } else {
+      this.currentAssessment = assessmentId;
+    }
+
+  }
 
 
 

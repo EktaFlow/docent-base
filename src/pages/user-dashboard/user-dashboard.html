@@ -23,25 +23,31 @@
     </div>
   </div> -->
 
-  <!-- <div class="assessment-boxes">
+  <div class="assessment-boxes">
     <div class="assessments user-assessments">
       <div class="box-title">
         <h3>My Assessments</h3>
       </div>
       <div *ngIf="this.assessments">
-      <div class="an-assessment" *ngFor="let assessment of assessments">
-        <div class="details">
-          <p>Name: {{assessment.name}}</p>
-          <p>MRLevel:  {{assessment.targetMRL}}</p>
-          <p>Target Date: {{assessment.targetDate}}</p>
-          <p>Scope: {{assessment.scope}}</p>
-          <p>Location: {{assessment.location}}</p>
-          <p>Level Switching?: {{assessment.levelSwitching}}</p>
+      <div  *ngFor="let assessment of assessments">
+        <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+          Assessment: {{assessment.name}}
         </div>
-        <div class="assNav">
-          <button>Open</button>
-          <button>Dashboard</button>
-          <button>Action Items</button>
+        <div *ngIf="currentAssessment == assessment.id" class="an-assessment" >
+          <div class="details">
+            <p>Name: {{assessment.name}}</p>
+            <p>MRLevel:  {{assessment.targetMRL}}</p>
+            <p>Target Date: {{assessment.targetDate}}</p>
+            <p>Scope: {{assessment.scope}}</p>
+            <p>Location: {{assessment.location}}</p>
+            <p>Level Switching?: {{assessment.levelSwitching}}</p>
+            <p>Team Members: </p>
+          </div>
+          <div class="assNav">
+            <button>Open</button>
+            <button>Dashboard</button>
+            <button>Action Items</button>
+          </div>
         </div>
       </div>
       </div>
@@ -53,44 +59,57 @@
       </div>
       <div *ngIf="this.assessments">
       <div  class="an-assessment" *ngFor="let assessment of sharedAssessments">
-        <div class="details">
-          <p>Name: {{assessment.name}}</p>
-          <p>MRLevel:  {{assessment.targetMRL}}</p>
-          <p>Target Date: {{assessment.targetDate}}</p>
-          <p>Scope: {{assessment.scope}}</p>
-          <p>Location: {{assessment.location}}</p>
-          <p>Level Switching?: {{assessment.levelSwitching}}</p>
-          <p>Team Members:</p>
+        <div class="accordion-tab" (click)="expandAssessment($event)">
+          Assessment: {{assessment.name}}
         </div>
-        <div class="assNav">
-          <button>Open</button>
-          <button>Dashboard</button>
-          <button>Action Items</button>
+        <div *ngIf="expand" class="an-assessment">
+          <div class="details">
+            <p>Name: {{assessment.name}}</p>
+            <p>MRLevel:  {{assessment.targetMRL}}</p>
+            <p>Target Date: {{assessment.targetDate}}</p>
+            <p>Scope: {{assessment.scope}}</p>
+            <p>Location: {{assessment.location}}</p>
+            <p>Level Switching?: {{assessment.levelSwitching}}</p>
+            <p>Team Members: </p>
+          </div>
+          <div class="assNav">
+            <button>Open</button>
+            <button>Dashboard</button>
+            <button>Action Items</button>
+          </div>
         </div>
       </div>
       </div>
     </div>
-  </div>  -->
+  </div>
 
- <div class="assessment-boxes">
+  <!-- <div class="assessment-boxes">
     <div class="assessments user-assessments">
       <div class="box-title">
         <h3>My Assessments</h3>
       </div>
-      <div class="an-assessment" >
-        <div class="details">
-          <p>Name: Assessment 1</p>
-          <p>MRLevel:  2</p>
-          <p>Target Date: Oct 1, 2018</p>
-          <p>Scope: Scope</p>
-          <p>Location: Chicago</p>
-          <p>Level Switching?: False</p>
+      <div *ngIf="this.assessments">
+      <div  *ngFor="let assessment of assessments">
+        <div class="accordion-tab" (click)="expandAssessment()">
+          Assessment: {{assessment.name}}
         </div>
-        <div class="assNav">
-          <button>Open</button>
-          <button>Dashboard</button>
-          <button>Action Items</button>
+        <div *ngIf="expand" class="an-assessment">
+          <div class="details">
+            <p>Name: Assessment 1</p>
+            <p>MRLevel:  6</p>
+            <p>Target Date: December 24, 2020</p>
+            <p>Scope: Scope</p>
+            <p>Location: Chicago</p>
+            <p>Level Switching?: No</p>
+            <p>Team Members: Ray, George</p>
+          </div>
+          <div class="assNav">
+            <button>Open</button>
+            <button>Dashboard</button>
+            <button>Action Items</button>
+          </div>
         </div>
+      </div>
       </div>
     </div>
 
@@ -98,24 +117,31 @@
       <div class="box-title">
         <h3>Shared Assessments</h3>
       </div>
-      <div class="an-assessment">
-        <div class="details">
-					<p>Name: cool assessment</p>
-					<p>MRLevel: 6</p>
-					<p>Target Date: Oct 10, 2018</p>
-					<p>Scope: Scope</p>
-					<p>Location: Chicago</p>
-          <p>Level Switching?: False</p>
-          <p>Team Members: Cody: Leader, George: Vice</p>
+      <div *ngIf="this.assessments">
+      <div  class="an-assessment" *ngFor="let assessment of sharedAssessments">
+        <div class="accordion-tab" (click)="expandAssessment()">
+          Assessment: {{assessment.name}}
         </div>
-        <div class="assNav">
-          <button>Open</button>
-          <button>Dashboard</button>
-          <button>Action Items</button>
+        <div *ngIf="expand" class="an-assessment">
+          <div class="details">
+            <p>Name: Assessment 1</p>
+            <p>MRLevel:  6</p>
+            <p>Target Date: December 24, 2020</p>
+            <p>Scope: Scope</p>
+            <p>Location: Chicago</p>
+            <p>Level Switching?: No</p>
+            <p>Team Members: Ray, George</p>
+          </div>
+          <div class="assNav">
+            <button>Open</button>
+            <button>Dashboard</button>
+            <button>Action Items</button>
+          </div>
         </div>
       </div>
+      </div>
     </div>
-  </div>
+  </div> -->
 
 
 </ion-content>
