@@ -15,13 +15,6 @@
 		<h2>{{currentQuestion.questionText}}</h2>
 		</div>
 
-
-    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
-    <div *ngIf="helpClicked" class="helpTextDiv">
-      <!-- <p>help text</p> -->
-      <p [innerHTML]="currentQuestion.helpText"></p>
-    </div>
-
 		<div class="q-answer">
 		<select [(ngModel)]="vals.currentAnswer" >
 			<option value="skipped">Select Answer</option>
@@ -30,6 +23,13 @@
 			<option value="N/A">N/A</option>
 		</select>
 		</div>
+    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
+
+
+    <div *ngIf="helpClicked" class="helpTextDiv">
+      <!-- <p>help text</p> -->
+      <p [innerHTML]="currentQuestion.helpText"></p>
+    </div>
 		</div>
 
     <div class="nav-q-buttons">
