@@ -10,11 +10,16 @@ page-navigate {
         hr {
             height: 1px !important;
             width: 98% !important;
-            background:grey!important;
+            background:grey !important;
             display: block !important;
             font-size: 2em !important;
             visibility: visible !important;
             }
+
+    }
+
+    .status-button {
+        width: 100px;
     }
     .subheader{
         display: flex;
@@ -92,27 +97,3 @@ page-navigate {
 
         }
 }
-
-// div {
-//     width: 70%;
-//     display: inline-block;
-//     .filters {
-//         display: inline-block;
-//         width: 10%;
-//         vertical-align: middle;
-//             label {
-//                 display: inline-block;
-//                 float: left;
-//                 vertical-align: middle;
-//             }
-//
-//              input {
-//                 // margin: 6px;
-//                 vertical-align: middle;
-//                 padding: 6px;
-//                 // margin: 6px;
-//                 display: inline-block;
-//                 float: right;
-//             }
-//     }
-// }

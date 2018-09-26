@@ -183,6 +183,19 @@ expandAllThreads() {
 		}
 	}
 
+	pickColor(status){
+		var status = status.toLowerCase();
+		if (status == "correct"){
+			return "secondary"
+		} else if (status == "incorrect"){
+			return "danger"
+		} else if (status == "n/a"){
+			return "buttonBlue"
+		} else {
+			return "primary"
+		}
+	}
+
 
 
 
