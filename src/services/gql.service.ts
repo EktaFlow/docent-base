@@ -1,3 +1,5 @@
+
+
 import gql from "graphql-tag";
 
 export var assessmentQuery = gql`
@@ -45,4 +47,53 @@ export var createAssessmentMutation = gql`
 
        }
      }
+`
+
+export var questionPageAssessmentQuery = gql`
+query assessment($_id: String)
+{
+ assessment(_id: $_id)  {
+	questions{
+	  currentAnswer
+    threadName
+    subThreadName
+    mrLevel
+		questionId
+		questionText
+		objectiveEvidence
+		assumptionsYes
+		notesYes
+		notesSkipped
+		assumptionsSkipped
+		who
+		when
+		technical
+		cost
+		schedule
+		what
+		reason
+		assumptionsNo
+		notesNo
+		documentation
+		assumptionsNA
+		notesNA
+		helpText
+  }
+	targetMRL
+	currentMRL
+	levelSwitching
+	files {
+		url
+	}
+}
+}
+`
+
+export var updateQuestionMutation = gql`
+mutation updateAssessment($_id: String!, $questionId: Int, $updates: QuestionUpdate) {
+	updateAssessment(_id: $_id, questionId: $questionId, updates: $updates) {
+		scope
+    location
+	}
+	}
 `
