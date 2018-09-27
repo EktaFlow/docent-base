@@ -66,8 +66,10 @@ export class UserDashboardPage {
 		// make this better
 		await this.getSharedAssessments();
 		this.pullSharedAssessments();
+
+		var user = this.auth.currentUser();
     
-		var observe =  await this.assessmentService.getAssessments()
+		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
   }
 
