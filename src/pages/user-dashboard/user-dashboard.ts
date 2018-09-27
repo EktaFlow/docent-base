@@ -7,6 +7,8 @@ import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
+import { AssessmentService } from "../../services/assessment.service";
+
 
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
@@ -122,13 +124,23 @@ export class UserDashboardPage {
     }
   }
 
+
+
   continueAssessment(assessmentId){ this.navCtrl.push(QuestionsPage, {assessmentId: assessmentId});}
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
   openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
   handleSettings(){ this.navCtrl.push(SettingsPage);}
 
-	handleDeleting(assessmentId){
-		console.log("time to delete")
+	async handleDeleting(assessmentId){
+		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
+		observe.subscribe((data => this.removeAssessmentFromPage(assessmentId)) );
+	}
+
+	removeAssessmentFromPage(assessmentId){
+		var newArr = JSON.parse(JSON.stringify(this.assessments));
+		var assessmentIndex = newArr.findIndex(a => a.id == assessmentId);
+		newArr.splice(assessmentIndex, 1);
+		this.assessments = newArr;
 	}
 }

@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
-import { assessmentQuery, 
+import { assessmentQuery,
          createAssessmentMutation,
 				 questionPageAssessmentQuery,
-         updateQuestionMutation  } from "./gql.service";
+         updateQuestionMutation,
+			 	deleteAssessmentMutation  } from "./gql.service";
 
 @Injectable()
 export class AssessmentService {
@@ -34,10 +35,10 @@ constructor( private apollo: Apollo) {}
 	}
 
 	async createAssessment(variables) {
-	
+
 		return await this.apollo.mutate({
 			mutation: createAssessmentMutation,
-			variables 
+			variables
 		});
 	}
 
@@ -63,6 +64,15 @@ constructor( private apollo: Apollo) {}
 			variables: updateInfo
 		})
 	}
+
+  async deleteAssessment(assessmentId){
+    return await this.apollo.mutate<any>({
+      mutation: deleteAssessmentMutation,
+      variables: {
+        _id: assessmentId
+      }
+    })
+  }
 
 
 }

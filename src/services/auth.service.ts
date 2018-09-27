@@ -4,7 +4,7 @@ import { tap } from "rxjs/operators";
 
 import { AuthUrl } from "./constants";
 
-@Injectable() 
+@Injectable()
 
 export class AuthService {
 
@@ -19,7 +19,7 @@ constructor(private http: HttpClient) {}
 
 	login(userCreds) {
 		return this.http.post(this.loginUrl, userCreds)
-		.pipe( tap( data => this.setSession(data), 
+		.pipe( tap( data => this.setSession(data),
 		            error => console.log(error)
 		          )
 		)
@@ -54,5 +54,7 @@ constructor(private http: HttpClient) {}
 		if (hasToken && JSON.parse(hasToken).user) {
 			return JSON.parse(hasToken).user.verified
 		}
+
+		// return true
 	}
 }

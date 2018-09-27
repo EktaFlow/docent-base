@@ -98,3 +98,10 @@ mutation updateAssessment($_id: String!, $questionId: Int, $updates: QuestionUpd
 	}
 	}
 `
+export var deleteAssessmentMutation = gql`
+	mutation deleteAssessment($_id: String!){
+		deleteAssessment(_id: $_id){
+			id
+		}
+	}
+`
