@@ -38,7 +38,7 @@
         <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
           <b>Assessment:</b> {{assessment.name}}
         </div>
-        <div *ngIf="currentAssessment == assessment.id" class="an-assessment" >
+        <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
           <div class="details">
             <p><b>Name: </b>{{assessment.name}}</p>
             <p><b>MRLevel: </b>  {{assessment.targetMRL}}</p>
