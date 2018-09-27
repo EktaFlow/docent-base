@@ -58,19 +58,22 @@ export class UserDashboardPage {
 							private auth: AuthService,
               private assessmentService: AssessmentService ) {
                 this.assessmentId = navParams.data.assessmentId;
+								console.log(this.currentAssessment);
               }
 
 
   async ngOnInit() {
+
 
 		// make this better
 		await this.getSharedAssessments();
 		this.pullSharedAssessments();
 
 		var user = this.auth.currentUser();
-    
+
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
+		console.log(this.currentAssessment);
   }
 
 
@@ -109,6 +112,7 @@ export class UserDashboardPage {
 	}
 
   expandAssessment(assessmentId) {
+		console.log(this.currentAssessment);
     console.log(assessmentId);
     // this.expand = !this.expand;
     if (this.currentAssessment == assessmentId) {

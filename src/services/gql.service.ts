@@ -12,6 +12,7 @@ query assessments($userId: String) {
      deskbookVersion
      location
      name
+		 id
 	}
 }
 `
