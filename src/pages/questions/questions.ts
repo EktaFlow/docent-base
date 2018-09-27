@@ -39,7 +39,7 @@ export class QuestionsPage {
 		this.referringQuestionId = navParams.data.questionId;
     this.assessmentId = navParams.data.assessmentId;
 
-		
+
   }
 
   /////////////////////////// useful functions ///////////////////////
@@ -64,7 +64,7 @@ export class QuestionsPage {
 		                         .getQuestionPageAssessment(this.assessmentId)
 
 			currentAssessment.subscribe( ({data, loading}) => {
-				this.assessment = data.assessment	
+				this.assessment = data.assessment
 				var {assessment} = this;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
@@ -146,6 +146,17 @@ export class QuestionsPage {
 
 		this.updateAssessment(values)
 	}
+
+	// sendUpdateInfo(){
+	// 	var values = getQuestionValues();
+	// 	var updateInfo = {
+	// 		_id: this.assessmentId,
+	// 		questionId: this.currentQuestionId,
+	// 		updates: values
+	// 	}
+	//
+	// 	return updateInfo;
+	// }
 
 	getQuestionValues() {
 		var values: any = Object.assign({}, this.vals)

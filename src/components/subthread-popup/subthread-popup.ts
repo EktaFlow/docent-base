@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from '../../pages/questions/questions';
+import { AssessmentService } from "../../services/assessment.service";
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+
 
 var assessmentQuery = gql`
 query assessment($_id: String!) {
@@ -36,6 +39,7 @@ export class SubthreadPopupComponent {
 	public currentQuestions: any;
 	public assessmentId: any;
 	private subTitle: any;
+	private updateInfo: any;
 	// @Input() public assessmentId: any;
 	// @Input() private subTitle: any;
 
@@ -44,6 +48,7 @@ export class SubthreadPopupComponent {
 							 public navParams: 		 NavParams) {
 								 this.assessmentId = navParams.data.assessmentId;
 								this.subTitle = navParams.data.subTitle;
+								this.updateInfo = navParams.data.updateInfo;
 							 }
 
 	 ngOnInit() {
@@ -75,11 +80,13 @@ export class SubthreadPopupComponent {
 	 		});
 	 }
 
-  navToQuestion(questionId) {
-		this.navCtrl.push(QuestionsPage, {
+  async navToQuestion(questionId) {
+		var update = await this.assessmentService.updateQuestion(this.updateInfo);
+		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
 			data: 			this.assessmentId,
 			questionId: questionId
-		});
+		}));
+		
 	}
 
 }

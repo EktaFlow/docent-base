@@ -112,30 +112,59 @@ constructor( public popOver: PopoverController,
 		this.navCtrl.popToRoot();
 	}
 
-	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
+	async goToNavExpand(){
+		var updateInfo = {
+			updates: this.values,
+			_id:     this.assessmentId,
+			questionId: this.questionId
+		}
 
-	async handleUserDash() { 
+		var update = await this.assessmentService.updateQuestion(updateInfo);
+		update.subscribe(data =>
+			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}));
+
+	}
+
+
+	async handleUserDash() {
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
 		var update = await this.assessmentService.updateQuestion(updateInfo);
-		update.subscribe(data => null);
-		this.navCtrl.push(this.userDashPage);
+		update.subscribe(data => this.navCtrl.push(this.userDashPage));
  	}
 
-	// popUpOpen() {
-	// 	this.popUpButtonClicked = !this.popUpButtonClicked;
+	// async updateQuestion() {
+	// 	var updateInfo = {
+	// 		updates: this.values,
+	// 		_id:     this.assessmentId,
+	// 		questionId: this.questionId
+	// 	}
+	// 	var update = await this.assessmentService.updateQuestion(updateInfo);
+	// 	update.subscribe(data => null);
 	// }
 
+
+
 	presentSubThreadPop(event){
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId, subTitle: this.subTitle}, {cssClass: 'subthread-popup'})
+		var updateInfo = {
+			updates: this.values,
+			_id:     this.assessmentId,
+			questionId: this.questionId
+		}
+		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId, subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
     .present({ev: event});
   }
 
 	presentThreadPop(event){
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId}, {cssClass: 'thread-popup'})
+		var updateInfo = {
+			updates: this.values,
+			_id:     this.assessmentId,
+			questionId: this.questionId
+		}
+		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId, updateInfo: updateInfo}, {cssClass: 'thread-popup'})
 		.present({ev: event});
 	}
 
