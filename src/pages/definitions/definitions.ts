@@ -16,11 +16,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DefinitionsPage {
         mainTitle: String;
+        assessmentId: any;
+        noSecondBar: boolean = false;
 
-        constructor(public navCtrl: NavController, 
+
+      constructor(public navCtrl: NavController,
 			public navParams: NavParams,
 			public http: HttpClient) {
-            this.mainTitle = "definitions";
+            this.assessmentId = navParams.data.assessmentId;
         }
 
 	private definitions: any = [];
@@ -37,6 +40,6 @@ export class DefinitionsPage {
   }
 
   ngOnInit() {
-    this.mainTitle = "definitions";
+    this.mainTitle = "Definitions";
   }
 }

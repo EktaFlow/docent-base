@@ -17,13 +17,6 @@
 		<h2>{{currentQuestion.questionText}}</h2>
 		</div>
 
-
-    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
-    <div *ngIf="helpClicked" class="helpTextDiv">
-      <!-- <p>help text</p> -->
-      <p [innerHTML]="currentQuestion.helpText"></p>
-    </div>
-
 		<div class="q-answer">
 		<select [(ngModel)]="vals.currentAnswer" >
 			<option value="skipped">Select Answer</option>
@@ -32,6 +25,13 @@
 			<option value="N/A">N/A</option>
 		</select>
 		</div>
+    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
+
+
+    <div *ngIf="helpClicked" class="helpTextDiv">
+      <!-- <p>help text</p> -->
+      <p [innerHTML]="currentQuestion.helpText"></p>
+    </div>
 		</div>
 
     <div class="nav-q-buttons">
@@ -39,7 +39,7 @@
         <button ion-button color="buttonBlue" (click) = "handleNextPageClick()">Next/Skip</button>
     </div>
 
-    <div class="nav-previous-qs">
+    <!-- <div class="nav-previous-qs">
       <h4>Navigate back to previous questions</h4>
       <p><a href="#">1. question</a></p>
       <p><a href="#">2. question</a></p>
@@ -47,7 +47,7 @@
       <p><a href="#">4. question</a></p>
       <p><a href="#">5. question</a></p>
 
-    </div>
+    </div> -->
   </div>
   <div *ngIf="vals.currentAnswer == undefined" class = "yes">
       <h6>Assumptions</h6>

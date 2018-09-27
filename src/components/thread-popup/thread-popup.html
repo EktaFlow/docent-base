@@ -1,0 +1,13 @@
+<div class="popupbox">
+  <h4>Navigate around the assessment.</h4>
+
+<div *ngFor="let thread of schema">
+  <p class="header" (click)="changeState(thread)">{{thread.header}}</p>
+  <div *ngIf="thread.open">
+    <div *ngFor="let subthread of thread.subheader">
+      <p class="subheader" (click)="navToQuestionFromSchema(subthread.questions)">{{subthread.subheader}}</p>
+    </div>
+  </div>
+</div>
+
+</div>

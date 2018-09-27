@@ -34,6 +34,7 @@ import { CriteriaPage } from '../pages/criteria/criteria';
 import { UserDashboardPage } from '../pages/user-dashboard/user-dashboard';
 import { SettingsPage } from '../pages/settings/settings';
 
+
 // components
 import { ImportComponent } from "../components/import/import";
 import { ViewsComponent } from '../components/views/views';
@@ -45,6 +46,7 @@ import { ThreadsListComponent } from "../components/threads-list/threads-list";
 import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
 import { TopbarComponent } from "../components/topbar/topbar";
 import { SubthreadPopupComponent } from "../components/subthread-popup/subthread-popup";
+import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
 import { LoginComponent } from "../components/login/login";
 import { RegisterComponent } from "../components/register/register";
 
@@ -86,6 +88,7 @@ import { BackUrl } from  "../services/constants";
 		ImportComponent,
 		TopbarComponent,
     SubthreadPopupComponent,
+    ThreadPopupComponent,
 		LoginComponent,
 		RegisterComponent
   ],
@@ -127,6 +130,7 @@ import { BackUrl } from  "../services/constants";
 		ImportComponent,
 		TopbarComponent,
     SubthreadPopupComponent,
+    ThreadPopupComponent,
 		LoginComponent,
 		RegisterComponent
   ],

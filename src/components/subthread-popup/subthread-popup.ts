@@ -34,15 +34,27 @@ export class SubthreadPopupComponent {
 	public targetMRL: any;
 	public questions: any;
 	public currentQuestions: any;
-	@Input() public assessmentId: any;
-	@Input() private subTitle: any;
+	public assessmentId: any;
+	private subTitle: any;
+	// @Input() public assessmentId: any;
+	// @Input() private subTitle: any;
 
   constructor(private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
-							 public navParams: 		 NavParams) {}
+							 public navParams: 		 NavParams) {
+								 this.assessmentId = navParams.data.assessmentId;
+								this.subTitle = navParams.data.subTitle;
+							 }
 
 	 ngOnInit() {
 	 	this.assessmentId ? this.getAssessmentData() : null;
+		var styling = `
+		width: 300px;
+		`
+		var test = document.getElementsByClassName("popover-content")
+
+		var	newVar = test[test.length - 1] as HTMLElement;
+				newVar.style.cssText = styling;
 	 }
 
 	 getAssessmentData() {

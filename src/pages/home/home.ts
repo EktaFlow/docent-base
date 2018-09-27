@@ -6,7 +6,7 @@
 
 import { Component, EventEmitter } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
-
+import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
 import { AuthService } from "../../services/auth.service";
@@ -21,6 +21,7 @@ query {
 	allThreadNames
 }
 `
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -30,6 +31,7 @@ export class HomePage {
 	loading: boolean;
 	allThreads: any;
 	assessments: any;
+  schema: any;
 	assForm: any = {deskbookVersion: "2017", levelSwitching: false, teamMembers: []};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -39,7 +41,16 @@ export class HomePage {
 							public popOver: PopoverController,
 							private apollo: Apollo,
 							private auth: AuthService,
-							private assessmentService: AssessmentService) {
+              private assessmentService: AssessmentService,
+              private http: HttpClient) {}
+
+	getSchema() {
+		this.http.get('assets/json/2016.json')
+					.subscribe( data => {
+						console.log(data);
+						this.schema = data;
+            // this.schema = data;
+					});
 	}
 
 	validateAssessment() {
@@ -56,7 +67,6 @@ export class HomePage {
 
 	async createAssessment(event) {
 		event.preventDefault();
-
 		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation: 
 		//	console.log(variables);	
@@ -84,9 +94,10 @@ export class HomePage {
 			teamMembers:      formValues.teamMembers.map(a => a.email),
 			userId:						this.auth.currentUser()._id,
 			scope:            formValues.scope,
-			targetDate:       formValues.targetDate
-		};
+			targetDate:       formValues.targetDate,
+      schema:           JSON.stringify(this.schema),
 
+		};
 	}
 
 	async sendEmailsToTeamMembers(assessmentId) {
@@ -126,7 +137,7 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 			 });
-
+    this.getSchema();
 	}
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////

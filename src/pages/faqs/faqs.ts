@@ -13,16 +13,20 @@ import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown
 })
 export class FaqsPage {
         mainTitle: String;
+        assessmentId: any;
+        noSecondBar: boolean = false;
+        
 
     constructor( public navCtrl:   NavController,
 	               public navParams: NavParams,
-	               public http:      HttpClient ) 
+	               public http:      HttpClient )
     {
 
-            this.mainTitle = "frequently asked questions";
+            this.mainTitle = "Frequently Asked Questions";
+            this.assessmentId = navParams.data.assessmentId;
     }
 
-    private faqInfoStandalone: any;   
+    private faqInfoStandalone: any;
 		private faqInfoWeb:        any;
 		private faqInfoIOS:        any;
 		private faqInfoAndroid:    any;
@@ -55,7 +59,7 @@ export class FaqsPage {
 
 
     ngOnInit() {
-        this.mainTitle = "frequently asked questions";
+        this.mainTitle = "Frequently Asked Questions";
     }
 
 }

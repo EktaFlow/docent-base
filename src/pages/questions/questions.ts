@@ -37,7 +37,9 @@ export class QuestionsPage {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
-		this.assessmentId = navParams.data.data;
+    this.assessmentId = navParams.data.assessmentId;
+
+		
   }
 
   /////////////////////////// useful functions ///////////////////////

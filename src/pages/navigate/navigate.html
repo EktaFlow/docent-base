@@ -3,11 +3,13 @@
 
 <ion-content padding>
 <div class="filter-toolbar">
-  <button ion-button (click)="expandAllThreads()">Expand All</button>
-  <ul class="filter-list">
+  <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
+  <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
+  <div class="filter-list">
     <p>Filter MR Level: </p>
     <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
       <option value="" disabled selected>Select One...</option>
+      <option value="0">All</option>
       <option value = "1">1</option>
       <option value = "2">2</option>
       <option value = "3">3</option>
@@ -19,15 +21,11 @@
       <option value = "9">9</option>
       <option value = "10">10</option>
     </select>
-    <!-- <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button> -->
-    <button class="filter-it" ion-button small>Filter</button>
+    <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
 
-  </ul>
+  </div>
 </div>
-<!-- </ion-content>
 
-
-<ion-content padding> -->
     <br><br>
     <!-- <br><br><br><br><br> -->
       <!-- <br><br><br><br><br><br><br><br><br><br> -->
@@ -45,7 +43,7 @@
           <div *ngFor="let question of sub.questions" class="mrl">
             <b>MR Level {{question.mrl}}:</b>
             <div *ngFor="let title of question.questionSet" class="question">
-              <p class="navigate-links"  (click)="navToQuestion(title.questionId)">{{title.text}}</p>
+              <p class="navigate-links"  (click)="navToQuestion(title.questionId)"> <span *ngIf="title.questionStatus"> <p ion-button small color="primary">{{title.questionStatus}}</p></span> {{title.text}}</p>
             </div>
           </div>
         </div>

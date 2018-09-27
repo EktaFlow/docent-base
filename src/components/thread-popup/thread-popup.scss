@@ -1,11 +1,9 @@
 
-subthread-popup {
+thread-popup {
 
     // width: 500px !important;
     // height: 400px;
     // margin-top: 100px;
-
-
 
   .popupbox {
     width: 300px;
@@ -36,20 +34,28 @@ subthread-popup {
 
 
 
-    p {
-      background-color: white;
-      border-top: .5px solid lightgray;
-      border-bottom: .5px solid lightgray;
-      padding: 0;
-      padding: 10px 0 10px 10px;
-      margin: 0;
-      color: darkslateblue;
+    // div{
+      .header, .subheader {
+        background-color: white;
+        border-top: .5px solid lightgray;
+        border-bottom: .5px solid lightgray;
+        padding: 0;
+        padding: 10px 0 10px 10px;
+        margin: 0;
+        color: darkslateblue;
+        font-size: 0.8em;
 
-      &:hover {
-        background-color: #bbb9cc ;
+        &:hover {
+          background-color: #bbb9cc ;
+        }
+
       }
 
-    }
+      .subheader {
+        padding-left: 20px;
+      }
+    // }
+
 
 
 
@@ -57,7 +63,7 @@ subthread-popup {
       color: #494949;
       padding: 3px;
       padding-left: 6px;
-      
+
     }
   }
 }

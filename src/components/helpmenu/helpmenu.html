@@ -6,16 +6,16 @@
 			Criteria
 		</button>
         -->
-		<button [navPush]="criteriaPage" ion-button color="dark">
+		<button (click)="handleCriteria()" ion-button color="dark">
 			Criteria
 		</button>
-		<button [navPush]="definitionsPage" ion-button color="dark">
+		<button (click)="handleDefinitions()" ion-button color="dark">
 			Definitions
 		</button>
-		<button [navPush]="acronymsPage" ion-button color="dark">
+		<button (click)="handleAcronyms" ion-button color="dark">
 			Acronyms
 		</button>
-		<button [navPush]="faqsPage" ion-button color="dark">
+		<button (click)="handleFAQ" ion-button color="dark">
 			FAQs
 		</button>
 </div>

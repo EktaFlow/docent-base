@@ -9,6 +9,7 @@ import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
 import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
+import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -49,9 +50,12 @@ export class TopbarComponent {
 	@Input() private questionLevel: any;
 	@Input() private currentQPos: any;
 	@Input() private currentQSetAmt: any;
+	@Input() public noSecondBar: any;
+	// public popUpButtonClicked: any;
 	@Input() private blank: boolean;
 	@Input() private values: any;
 	public popUpButtonClicked: any;
+
 
 
 constructor( public popOver: PopoverController,
@@ -65,7 +69,7 @@ constructor( public popOver: PopoverController,
 		this.loggedIn = this.auth.isLoggedIn();
 		console.log(this.values);
 
-		console.log(this.assessmentId);
+		// console.log(this.assessmentId);
 
 	}
 
@@ -85,7 +89,6 @@ constructor( public popOver: PopoverController,
 				this.scope		  = data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
-
 			});
 	}
 
@@ -103,11 +106,13 @@ constructor( public popOver: PopoverController,
 
 	registerNav() { this.navCtrl.push( this.registerPage ); }
 	loginNav() { this.navCtrl.push( this.loginPage ); }
-	handleLogout() { 
-		this.auth.logout(); 
+	handleLogout() {
+		this.auth.logout();
 		this.navCtrl.setRoot(HomePage);
 		this.navCtrl.popToRoot();
 	}
+
+	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 
 	async handleUserDash() { 
 		var updateInfo = {
@@ -120,10 +125,18 @@ constructor( public popOver: PopoverController,
 		this.navCtrl.push(this.userDashPage);
  	}
 
-	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true});
+	// popUpOpen() {
+	// 	this.popUpButtonClicked = !this.popUpButtonClicked;
+	// }
 
-	popUpOpen() {
-		this.popUpButtonClicked = !this.popUpButtonClicked;
+	presentSubThreadPop(event){
+		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId, subTitle: this.subTitle}, {cssClass: 'subthread-popup'})
+    .present({ev: event});
+  }
+
+	presentThreadPop(event){
+		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId}, {cssClass: 'thread-popup'})
+		.present({ev: event});
 	}
 
 
