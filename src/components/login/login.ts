@@ -17,8 +17,11 @@ export class LoginComponent {
 
 	submitLogin()  {
 		this.auth.login(this.user)
-				.subscribe(a => console.log(a));
-					this.navCtrl.push(UserDashboardPage);
+		.subscribe( user =>   (<any>user).jwt ? this.navCtrl.push(UserDashboardPage) : this.incorrectCredentials())
+	}
+
+	incorrectCredentials() {
+		this.errors.push("That username password combination is incorrect");
 	}
 
 	validateInput() {

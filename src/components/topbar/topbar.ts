@@ -4,12 +4,14 @@ import { ViewsComponent } from "../views/views";
 import { HomePage } from "../../pages/home/home";
 import { RegisterPage } from "../../pages/register/register";
 import { LoginPage }    from "../../pages/login/login";
-import {NavigatePage} from "../../pages/navigate/navigate";
+import { NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
 import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 import { ThreadPopupComponent} from "../thread-popup/thread-popup";
+
+import { AssessmentService } from "../../services/assessment.service";
 
 
 import { Apollo } from "apollo-angular";
@@ -41,6 +43,7 @@ export class TopbarComponent {
 	public scopeSelected: any;
 	public loggedIn: boolean = false;
 	@Input() public assessmentId: any;
+	@Input() public questionId: number;
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
@@ -49,16 +52,22 @@ export class TopbarComponent {
 	@Input() private currentQSetAmt: any;
 	@Input() public noSecondBar: any;
 	// public popUpButtonClicked: any;
+	@Input() private blank: boolean;
+	@Input() private values: any;
+	public popUpButtonClicked: any;
+
 
 
 constructor( public popOver: PopoverController,
 						 public auth:    AuthService,
 						 public navCtrl: NavController,
-						 private apollo: Apollo ) { }
+						 private apollo: Apollo,
+						 private assessmentService: AssessmentService) { }
 
 	ngOnInit() {
 		this.assessmentId ? this.getAssessmentData() : null;
 		this.loggedIn = this.auth.isLoggedIn();
+		console.log(this.values);
 
 		// console.log(this.assessmentId);
 
@@ -77,13 +86,9 @@ constructor( public popOver: PopoverController,
 			}
 		}).valueChanges
 			.subscribe( ({data, loading}) => {
-				console.log(data);
 				this.scope		  = data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
-
-
-				console.log(this.scope);
 			});
 	}
 
@@ -106,9 +111,19 @@ constructor( public popOver: PopoverController,
 		this.navCtrl.setRoot(HomePage);
 		this.navCtrl.popToRoot();
 	}
-	handleUserDash() { this.navCtrl.push(UserDashboardPage, {assessmentId: this.assessmentId}); }
 
 	goToNavExpand = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
+
+	async handleUserDash() { 
+		var updateInfo = {
+			updates: this.values,
+			_id:     this.assessmentId,
+			questionId: this.questionId
+		}
+		var update = await this.assessmentService.updateQuestion(updateInfo);
+		update.subscribe(data => null);
+		this.navCtrl.push(this.userDashPage);
+ 	}
 
 	// popUpOpen() {
 	// 	this.popUpButtonClicked = !this.popUpButtonClicked;

@@ -11,8 +11,9 @@
 			<br />
 			<br />
 			<br />
-			<div *ngIf="submitted">
-				<p>Your information has been submitted. Please check your email to confirm your registration</p>
+			<div style="display:flex; flex-direction:column"*ngIf="submitted">
+				<h6>Your information has been submitted.</h6>
+				<h6> Please check your email to confirm your registration</h6>
 
 			</div>
 			<div *ngIf="!submitted" class="container">

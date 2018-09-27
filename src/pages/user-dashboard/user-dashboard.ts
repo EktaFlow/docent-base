@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
+import { AssessmentService } from "../../services/assessment.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
@@ -11,24 +12,7 @@ import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import * as $ from 'jquery'
-
 import { AuthUrl } from "../../services/constants";
-
-var assessmentQuery = gql`
-query assessments($userId: String) {
-	assessments(userId: $userId) {
-	   scope
-     targetMRL
-     targetDate
-     levelSwitching
-     deskbookVersion
-     location
-     name
-     id
-	}
-}
-`
 
 var sharedQuery = gql`
 query getShared($assessments: [String]) {
@@ -51,8 +35,6 @@ query getShared($assessments: [String]) {
 })
 export class UserDashboardPage {
 
-
-
   public fakeUser: any = {
     name: "Jane Doe",
     email: "janedoe@docent.co",
@@ -71,33 +53,22 @@ export class UserDashboardPage {
 
 
   constructor(public navCtrl: NavController,
-                    public navParams: NavParams,
-										private apollo: Apollo,
-										private auth: AuthService) {
-                      this.assessmentId = navParams.data.assessmentId;
+              public navParams: NavParams,
+							private apollo: Apollo,
+							private auth: AuthService,
+              private assessmentService: AssessmentService ) {
+                this.assessmentId = navParams.data.assessmentId;
+              }
 
-                    }
 
   async ngOnInit() {
 
+		// make this better
 		await this.getSharedAssessments();
 		this.pullSharedAssessments();
-
-
-    var userId = this.fakeUser.id;
-    this.querySubscription = this.apollo.watchQuery<any>({
-      query: assessmentQuery,
-      variables: {
-        userId: "dev"
-      }
-    })
-    .valueChanges
-    .subscribe(({data, loading}) => {
-      this.loading = loading;
-      this.assessments = data.assessments;
-      console.log("doing anything in here?");
-      console.log(data.assessments);
-    });
+    
+		var observe =  await this.assessmentService.getAssessments()
+		observe.subscribe(({data}) => this.assessments = data.assessments);
   }
 
 
@@ -133,7 +104,6 @@ export class UserDashboardPage {
 			this.sharedAssessments = data.getShared;
     });
 
-
 	}
 
   expandAssessment(assessmentId) {
@@ -144,9 +114,7 @@ export class UserDashboardPage {
     } else {
       this.currentAssessment = assessmentId;
     }
-
   }
-
 
   continueAssessment(assessmentId){ this.navCtrl.push(QuestionsPage, {assessmentId: assessmentId});}
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
@@ -157,5 +125,4 @@ export class UserDashboardPage {
 	handleDeleting(assessmentId){
 		console.log("time to delete")
 	}
-
 }
