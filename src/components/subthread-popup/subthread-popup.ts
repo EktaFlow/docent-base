@@ -45,7 +45,8 @@ export class SubthreadPopupComponent {
 
   constructor(private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
-							 public navParams: 		 NavParams) {
+							 public navParams: 		 NavParams,
+						 	private assessmentService: AssessmentService) {
 								 this.assessmentId = navParams.data.assessmentId;
 								this.subTitle = navParams.data.subTitle;
 								this.updateInfo = navParams.data.updateInfo;
@@ -86,7 +87,7 @@ export class SubthreadPopupComponent {
 			data: 			this.assessmentId,
 			questionId: questionId
 		}));
-		
+
 	}
 
 }

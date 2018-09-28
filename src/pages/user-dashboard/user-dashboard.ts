@@ -52,13 +52,14 @@ export class UserDashboardPage {
   currentAssessment: any = null;
 	noSecondBar: boolean = false;
 	assessmentId: any;
+	user: any;
 
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
 							private apollo: Apollo,
 							private auth: AuthService,
-              private assessmentService: AssessmentService ) {
+              private assessmentService: AssessmentService) {
                 this.assessmentId = navParams.data.assessmentId;
 								console.log(this.currentAssessment);
               }
@@ -130,7 +131,7 @@ export class UserDashboardPage {
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
   openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
-  handleSettings(){ this.navCtrl.push(SettingsPage);}
+  async handleSettings(){ this.navCtrl.push(SettingsPage, {user: this.auth.currentUser());}
 
 	async handleDeleting(assessmentId){
 		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
