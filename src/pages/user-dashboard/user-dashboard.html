@@ -46,7 +46,7 @@
             <p><b>Scope: </b>{{assessment.scope}}</p>
             <p><b>Location: </b> {{assessment.location}}</p>
             <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-            <p><b>Team Members: </b> </p>
+            <p><b>Team Members: {{assessment.teamMembers}}</b> </p>
           </div>
           <div class="assNav">
             <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
@@ -72,7 +72,7 @@
         <div class="accordion-tab" (click)="expandAssessment($event)">
           <b>Assessment: </b>{{assessment.name}}
         </div>
-        <div *ngIf="expand" class="an-assessment">
+        <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
           <div class="details">
             <p><b>Name: </b>{{assessment.name}}</p>
             <p><b>MRLevel:  </b>{{assessment.targetMRL}}</p>
@@ -80,7 +80,7 @@
             <p><b>Scope: </b>{{assessment.scope}}</p>
             <p><b>Location: </b>{{assessment.location}}</p>
             <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-            <p><b>Team Members: </b></p>
+            <p><b>Team Members: {{assessment.teamMembers}}</b></p>
           </div>
           <div class="assNav">
             <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
