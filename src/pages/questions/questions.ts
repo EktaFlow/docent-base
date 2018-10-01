@@ -38,6 +38,7 @@ export class QuestionsPage {
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
     this.assessmentId = navParams.data.assessmentId;
+		console.log(this.assessmentId);
 
 
   }
@@ -64,6 +65,7 @@ export class QuestionsPage {
 		                         .getQuestionPageAssessment(this.assessmentId)
 
 			currentAssessment.subscribe( ({data, loading}) => {
+				console.log(data.assessment);
 				this.assessment = data.assessment
 				var {assessment} = this;
 				this.allQuestions = assessment.questions;

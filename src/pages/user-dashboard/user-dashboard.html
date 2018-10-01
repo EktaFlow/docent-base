@@ -64,10 +64,11 @@
       <div class="box-title">
         <h3><b>Assessments Shared With Me</b></h3>
       </div>
-      <div *ngIf="this.assessments">
+			<div *ngIf="this.sharedAssessments.length >= 1">
         <div class="accordion-tab metrics">
           <p>You currently have {{sharedAssessments.length}} assessments</p>
         </div>
+				<div *ngIf="this.sharedAssessments.length > 0">
       <div  class="an-assessment" *ngFor="let assessment of sharedAssessments">
         <div class="accordion-tab" (click)="expandAssessment($event)">
           <b>Assessment: </b>{{assessment.name}}
@@ -89,6 +90,7 @@
 
           </div>
         </div>
+			</div> <!-- ng if-->
       </div>
       </div>
     </div>

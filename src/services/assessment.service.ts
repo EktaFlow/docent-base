@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
+import { AuthService } from "./auth.service";
 import { assessmentQuery,
          createAssessmentMutation,
 				 questionPageAssessmentQuery,
@@ -11,14 +12,14 @@ export class AssessmentService {
 
 	assessments: any;
 
-constructor( private apollo: Apollo) {}
+constructor( private apollo: Apollo, private auth: AuthService) {}
 
 	async getAssessments(userId) {
 
 		return await this.apollo.watchQuery<any>({
 				query: assessmentQuery,
 					variables: {
-						userId: "dev"
+						userId: this.auth.currentUser()._id
 					}
 			}).valueChanges
 	}

@@ -127,13 +127,15 @@ constructor( public popOver: PopoverController,
 
 
 	async handleUserDash() {
+		if (this.assessmentId && this.values && this.questionId) {
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
 		var update = await this.assessmentService.updateQuestion(updateInfo);
-		update.subscribe(data => this.navCtrl.push(this.userDashPage));
+		update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
+		}
  	}
 
 	// async updateQuestion() {
