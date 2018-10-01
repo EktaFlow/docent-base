@@ -67,7 +67,7 @@ constructor( public popOver: PopoverController,
 	ngOnInit() {
 		this.assessmentId ? this.getAssessmentData() : null;
 		this.loggedIn = this.auth.isLoggedIn();
-		console.log(this.values);
+		// console.log(this.values);
 
 		// console.log(this.assessmentId);
 
