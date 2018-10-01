@@ -1,6 +1,6 @@
 /*
 *   The purpose of the Home Page is (currently) to both diplay the login information
-*		and create a new assessment. 
+*		and create a new assessment.
 *   TODO: mpf - split this into a loginpage and a newassessment page
 */
 
@@ -67,7 +67,8 @@ export class HomePage {
 	async createAssessment(event) {
 		event.preventDefault();
 		var variables = this.formatAssessmentVariables();
-		//  debug what is getting passed into the mutation: 
+		console.log(variables);
+		//  debug what is getting passed into the mutation:
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.subscribe(({data}) => {
 					var assessmentId = data.createAssessment._id;
@@ -82,15 +83,17 @@ export class HomePage {
 
 	formatAssessmentVariables() {
 		var formValues = this.assForm;
+		console.log(formValues.teamMembers);
 		return {
 			threads:          this.threadsSelected,
 			location:         formValues.location,
-			targetMRL:        formValues.targetMRL, 
+			targetMRL:        formValues.targetMRL,
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
 			teamMembers:      formValues.teamMembers.map(a => a.email),
 			userId:						this.auth.currentUser()._id,
+			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
       schema:           JSON.stringify(this.schema),
@@ -159,7 +162,7 @@ export class HomePage {
 		if ( threadsSelected.includes(thread) ) {
 			threadsSelected = threadsSelected.filter(a => a !== thread)
 		}
-		else { threadsSelected.push(thread) } 
+		else { threadsSelected.push(thread) }
 
 		threadsSelected.sort((a,b) => a-b);
 	}
@@ -167,7 +170,9 @@ export class HomePage {
   addMember(emailIn:string,roleIn:string){
     var newMember = {email: emailIn, role: roleIn};
     this.members.push(newMember);
+		console.log(newMember);
     this.assForm.teamMembers.push(newMember);
+		console.log(this.assForm.teamMembers);
   }
 
   removeMember(){
