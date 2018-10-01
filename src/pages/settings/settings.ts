@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
-import {saveAs} from 'file-saver/FileSaver';
+//import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser/'
 // import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
@@ -21,6 +21,7 @@ export class SettingsPage {
   // public popoverController: PopoverController
 
   constructor(public navCtrl: NavController,
+	            private popoverController: PopoverController,
                     public navParams: NavParams,
                     private http: HttpClient,
                     public sanitizer: DomSanitizer,

@@ -47,7 +47,6 @@ export class HomePage {
 	getSchema() {
 		this.http.get('assets/json/2016.json')
 					.subscribe( data => {
-						console.log(data);
 						this.schema = data;
             // this.schema = data;
 					});
@@ -69,7 +68,6 @@ export class HomePage {
 		event.preventDefault();
 		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation: 
-		//	console.log(variables);	
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.subscribe(({data}) => {
 					var assessmentId = data.createAssessment._id;
@@ -96,7 +94,6 @@ export class HomePage {
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
       schema:           JSON.stringify(this.schema),
-
 		};
 	}
 
@@ -179,7 +176,7 @@ export class HomePage {
   }
 
   startAssessment(_id){
-    this.navCtrl.push(QuestionsPage,{ data: _id } );
+    this.navCtrl.push(QuestionsPage,{ assessmentId: _id } );
   }
 
 }
