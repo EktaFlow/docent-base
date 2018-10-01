@@ -4,7 +4,8 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser/'
-import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+// import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+
 
 
 
@@ -17,12 +18,15 @@ import {FileUploadPopoverComponent} from "../../components/file-upload-popover/f
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  // public popoverController: PopoverController
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
                     private http: HttpClient,
-                    public sanitizer: DomSanitizer ) {
+                    public sanitizer: DomSanitizer,
+                   ) {
                       this.user = navParams.data.user;
+                      console.log(navParams.data.user);
 
   }
 
@@ -32,36 +36,36 @@ export class SettingsPage {
 
   goBackToUser(){ this.navCtrl.pop()};
 
-  async saveDownJSON(){
-  		this.http.get('assets/json/2016.json')
-  					.subscribe( data => {
-  						console.log(data);
-              this.generateDownloadJsonUri(data);
-              return this.downloadJsonHref;
-  					});
-  }
+  // async saveDownJSON(){
+  // 		this.http.get('assets/json/2016.json')
+  // 					.subscribe( data => {
+  // 						console.log(data);
+  //             this.generateDownloadJsonUri(data);
+  //             return this.downloadJsonHref;
+  // 					});
+  // }
 
-  generateDownloadJsonUri(json) {
-    var theJSON = JSON.stringify(json);
-    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
-    return this.downloadJsonHref = uri;
-  }
+  // generateDownloadJsonUri(json) {
+  //   var theJSON = JSON.stringify(json);
+  //   var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+  //   return this.downloadJsonHref = uri;
+  // }
 
-  showFileUpload() {
-			let myEmitter = new EventEmitter<any>();
-				myEmitter.subscribe( v =>  {
-				this.files.push(v);
-			});
-
-			this.popoverController
-				.create(FileUploadPopoverComponent,
-					{
-						emitter: myEmitter,
-            userId: this.user.id
-					},
-					{	cssClass: "upload-popover"})
-				.present();
-	}
+  // showFileUpload() {
+	// 		let myEmitter = new EventEmitter<any>();
+	// 			myEmitter.subscribe( v =>  {
+	// 			this.files.push(v);
+	// 		});
+  //
+	// 		this.popoverController
+	// 			.create(FileUploadPopoverComponent,
+	// 				{
+	// 					emitter: myEmitter,
+  //           userId: this.user.id
+	// 				},
+	// 				{	cssClass: "upload-popover"})
+	// 			.present();
+	// }
 
 
 
