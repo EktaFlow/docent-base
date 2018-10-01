@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { UploadService } from "../../services/upload";
+import { AuthService } from "../../services/auth.service";
+import { AuthUrl } from "../../services/constants";
+
 
 @Component({
   selector: 'file-upload-popover',
@@ -13,17 +16,18 @@ export class FileUploadPopoverComponent {
 	assessmentId: string;
 	emitter:			any;
 	file:         any;
-	userId: any;
+	user: any;
 
 	constructor(	public upload: UploadService,
-								public navParams: NavParams) {
+								public navParams: NavParams,
+								public auth: AuthService) {
 
 		var {navParams} = this;
 
 		this.questionId		= navParams.get("questionId");
 		this.assessmentId = navParams.get("assessmentId");
 		this.emitter			= navParams.data.emitter;
-		this.userId = navParams.data.userId;
+	
   }
 
 	test(e) {
@@ -58,12 +62,12 @@ export class FileUploadPopoverComponent {
 
 		// boooooooooooooooooooo typescript
 		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-		if (this.userId){
-			var uploadedFile = await this.upload.uploadFile(file, this.userId);
-		} else {
-			var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
-		}
+		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
 
 		this.emitter.emit(uploadedFile);
 	}
+
+  async uploadJSON(event){
+    var user = this.auth.currentUser();
+  }
 }

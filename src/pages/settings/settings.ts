@@ -8,6 +8,7 @@ import {FileUploadPopoverComponent} from "../../components/file-upload-popover/f
 
 
 
+
 // import { UserDashboardPage } from "../user-dashboard/user-dashboard";
 
 
@@ -21,8 +22,10 @@ export class SettingsPage {
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
                     private http: HttpClient,
-                    public sanitizer: DomSanitizer ) {
+                    public sanitizer: DomSanitizer,
+                  public popoverController: PopoverController ) {
                       this.user = navParams.data.user;
+                      console.log(navParams.data.user);
 
   }
 

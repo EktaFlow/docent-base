@@ -23,7 +23,7 @@ var createFileMutation = gql`
 
 @Injectable()
 export class UploadService {
-	
+
 	accountName: string = DocentStorageAccount;
 	sas:         string = SAS;
 
@@ -31,9 +31,9 @@ export class UploadService {
 
 	uploadFile(file, assessmentId, questionId) {
 		const blobUri = `https://${this.accountName}.blob.core.windows.net`;
-		const blobService = upload.createBlobServiceWithSas(blobUri, this.sas); 
+		const blobService = upload.createBlobServiceWithSas(blobUri, this.sas);
 
-		blobService.createBlockBlobFromBrowserFile('test', file.name, file, 
+		blobService.createBlockBlobFromBrowserFile('test', file.name, file,
 		(error, result) => {
 				 if (error) {	console.error(error); }
 				 else {
@@ -42,6 +42,21 @@ export class UploadService {
 				 }
 		});
 		return {name: file.name, questionId: questionId, url: this.generateUrl(file.name)};
+	}
+
+	uploadJSON(file, userId){
+		// const blobUri = `httsp://${this.accountName}.blob.core.windows.net`
+		// const blobService = upload.createBlobServiceWithSas(blobUri, this.sas);
+		//
+		// blobService.createBlockBlobFromBrowserFile('deskbook', file.name, file
+		// (error, result) => {
+		// 	if (error) {console.error(error);}
+		// 	else {
+		// 		var url = this.generateUrl(file.name);
+		// 		this.createGQLJSON(url, userId, file.name);
+		// 	}
+		// })
+
 	}
 
 	generateUrl(name) {
@@ -58,6 +73,10 @@ export class UploadService {
 				name
 			}
 		}).subscribe(a => null);
+	}
+
+	createGQLJSON(url, userId, name) {
+
 	}
 
 }
