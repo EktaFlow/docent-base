@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { HttpClient } from '@angular/common/http';
-
+import { AssessmentService } from '../../services/assessment.service';
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -42,27 +42,21 @@ export class CriteriaPage {
 	filteredSchema: any;
 	showAll: any;
 
-
-
-
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
-							 private http: HttpClient
+							 private http: HttpClient, 
+               private assessmentService: AssessmentService
 							 ) {
-
-		 this.assessmentId = navParams.data.assessmentId;
-
   }
-
-
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
-	ngOnInit() {
-		console.log(this.assessmentId);
+	async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},

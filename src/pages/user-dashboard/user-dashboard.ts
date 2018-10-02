@@ -116,10 +116,6 @@ export class UserDashboardPage {
 	}
 
   expandAssessment(assessmentId) {
-		console.log(this.assessments);
-		console.log(this.sharedAssessments);
-		console.log(this.currentAssessment);
-    console.log(assessmentId);
     // this.expand = !this.expand;
     if (this.currentAssessment == assessmentId) {
       this.currentAssessment = null;
@@ -131,15 +127,27 @@ export class UserDashboardPage {
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
 
-	continueAssessment(assessmentId){ 
-		this.assessmentService.setCurrentAssessmentId(assessmentId);
+	async continueAssessment(assessmentId) { 
+		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
 		this.navCtrl.push(QuestionsPage);
 	}
-  openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
-  openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
+
+	async openDashboard(assessmentId) {
+		await this.assessmentService.setCurrentAssessmentId(assessmentId);
+
+	  this.navCtrl.push(DashboardPage);
+	}
+
+	async openActionItems(assessmentId) {
+		await this.assessmentService.setCurrentAssessmentId(assessmentId);
+
+     this.navCtrl.push(ActionitemsPage);
+	}
+
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
-  async handleSettings(){ this.navCtrl.push(SettingsPage);}
+
+  handleSettings(){ this.navCtrl.push(SettingsPage);}
 
 	async handleDeleting(assessmentId){
 		var observe =  await this.assessmentService.deleteAssessment(assessmentId);

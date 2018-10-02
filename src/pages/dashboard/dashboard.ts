@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { ViewsComponent } from '../../components/views/views';
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { AssessmentService } from '../../services/assessment.service';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -34,16 +35,15 @@ export class DashboardPage {
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
 							 public navParams: NavParams, 
-							 public popOver: PopoverController) {
-
-		this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
-  }
+							 public popOver: PopoverController,
+               private assessmentService: AssessmentService) {}
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
-	ngOnInit() {
+	async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},

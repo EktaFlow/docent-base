@@ -55,7 +55,7 @@ export class QuestionsPage {
 	/////////////////////////////////////////////////////////////////////
 	// INIT && related function
   async ngOnInit() {
-		this.assessmentId = await this.assessmentService.currentAssessmentId;
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 		
 		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
@@ -82,12 +82,10 @@ export class QuestionsPage {
 	}
 
 	determineCurrentQuestion() {
-		var { referringQuestionId,
-					currentQuestion,
-          getQuestion } = this;
+		var { getQuestion } = this;
 
-		if (referringQuestionId ) {
-			this.currentQuestion = getQuestion(referringQuestionId);
+		if (this.referringQuestionId ) {
+			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
 		else {
 			var noAnswer = this.surveyQuestions.find( qId => {
@@ -118,7 +116,6 @@ export class QuestionsPage {
 
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
-		console.log(this.currentQuestion);
 		this.setValues();
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
@@ -127,6 +124,7 @@ export class QuestionsPage {
 	}
 
 	async	handlePreviousPageClick() {
+		if ( this.currentQPos == 1 ) return null;	
 		this.setValues();
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
@@ -284,6 +282,7 @@ export class QuestionsPage {
 											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
 											 .map(q => q.questionId);
 
+											 // add logic if there is no lower mrLevel
  	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a - b)
 	  this.surveyQuestions = newSurvey;
 
