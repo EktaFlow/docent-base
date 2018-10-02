@@ -66,11 +66,17 @@ export class HomePage {
 
 	async createAssessment(event) {
 		event.preventDefault();
+		if (!this.validateAssessment()) {
+			alert("please fill out all the fields");
+			return null;
+		}
 		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation: 
+		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.subscribe(({data}) => {
 					var assessmentId = data.createAssessment._id;
+					// !assessmentId ? this.handleBackendError() : null 
 					this.sendEmailsToTeamMembers(assessmentId);
 					this.startAssessment(assessmentId);
 		});
@@ -175,8 +181,9 @@ export class HomePage {
     this.assForm.teamMembers.pop();
   }
 
-  startAssessment(_id){
-    this.navCtrl.push(QuestionsPage,{ assessmentId: _id } );
+  async startAssessment(_id){
+		await this.assessmentService.setCurrentAssessmentId(_id);
+    this.navCtrl.push(QuestionsPage);
   }
 
 }

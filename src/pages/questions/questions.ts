@@ -1,5 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavParams, PopoverController } from 'ionic-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
@@ -30,17 +30,12 @@ export class QuestionsPage {
 	currentQSetAmt: any;
 	currentQPos: any;
 
-	constructor(public navCtrl:            NavController,
-              public navParams:          NavParams,
+	constructor(public navParams:          NavParams,
 							private popoverController: PopoverController,
 						  private assessmentService: AssessmentService	) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
-    this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
-
-
   }
 
   /////////////////////////// useful functions ///////////////////////
@@ -60,9 +55,11 @@ export class QuestionsPage {
 	/////////////////////////////////////////////////////////////////////
 	// INIT && related function
   async ngOnInit() {
-	// if we don't already have a loaded assessment.
+		this.assessmentId = await this.assessmentService.currentAssessmentId;
+		
+		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
-		                         .getQuestionPageAssessment(this.assessmentId)
+														 .getQuestionPageAssessment(this.assessmentId)
 
 			currentAssessment.subscribe( ({data, loading}) => {
 				console.log(data.assessment);
@@ -353,13 +350,8 @@ export class QuestionsPage {
 	}
 
   public findAmtOfQs(){
-
-		this.currentQSet = this.allQuestions.filter(
-          question => question.mrLevel == this.currentTargetMRL);
-		this.currentQSetAmt = this.currentQSet.length;
-		this.currentQPos = this.currentQSet.findIndex( q => q.questionId === this.currentQuestion.questionId );
-		this.currentQSetAmt += 1;
-		this.currentQPos += 1;
+		this.currentQSetAmt = this.surveyQuestions.length;
+		this.currentQPos = this.surveyQuestions.indexOf(this.currentQuestion.questionId) + 1;
 
   }
 

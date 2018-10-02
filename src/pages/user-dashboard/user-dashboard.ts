@@ -8,7 +8,6 @@ import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
 
-
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
@@ -36,12 +35,12 @@ query getShared($assessments: [String]) {
 })
 export class UserDashboardPage {
 
-  public fakeUser: any = {
-    name: "Jane Doe",
-    email: "janedoe@docent.co",
-    organization: "Docent",
-    id: "test_dash"
+  public user: any = {
+    name: "",
+    email: "",
+    id: ""
   };
+
   assessments: any;
 	sharedAssessments: any = [];
   loading: boolean;
@@ -51,8 +50,6 @@ export class UserDashboardPage {
   currentAssessment: any = null;
 	noSecondBar: boolean = false;
 	assessmentId: any;
-	user: any;
-
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -60,18 +57,18 @@ export class UserDashboardPage {
 							private auth: AuthService,
               private assessmentService: AssessmentService) {
                 this.assessmentId = navParams.data.assessmentId;
-								console.log(this.currentAssessment);
               }
 
 
   async ngOnInit() {
 
 
-		// make this better
+		// TODO make this better
 		await this.getSharedAssessments();
 		this.pullSharedAssessments();
 
 		var user = this.auth.currentUser();
+		this.user = user;
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
@@ -108,7 +105,8 @@ export class UserDashboardPage {
     })
     .valueChanges
     .subscribe(({data, loading}) => {
-			this.sharedAssessments = data.getShared;
+		  // TODO, make this a better fix else where...
+			data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
     });
 
 	}
@@ -124,9 +122,14 @@ export class UserDashboardPage {
     }
   }
 
+	// the navigation functions from within an assessment, should each set the new global assessment service Id
+	// set Assessment and Navigate
 
+	continueAssessment(assessmentId){ 
+		this.assessmentService.setCurrentAssessmentId(assessmentId);
 
-  continueAssessment(assessmentId){ this.navCtrl.push(QuestionsPage, {assessmentId: assessmentId});}
+		this.navCtrl.push(QuestionsPage);
+	}
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
   openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}

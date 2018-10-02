@@ -1,5 +1,3 @@
-
-
 import gql from "graphql-tag";
 
 export var assessmentQuery = gql`
@@ -106,4 +104,10 @@ export var deleteAssessmentMutation = gql`
 			id
 		}
 	}
+`
+
+export var getThreadsQuery = gql`
+query {
+	allThreadNames
+}
 `

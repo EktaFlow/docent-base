@@ -1,18 +1,36 @@
 import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { AuthService } from "./auth.service";
+import { Storage } from '@ionic/storage';
 import { assessmentQuery,
          createAssessmentMutation,
 				 questionPageAssessmentQuery,
          updateQuestionMutation,
-			 	deleteAssessmentMutation  } from "./gql.service";
+				 deleteAssessmentMutation,
+         getThreadsQuery	 } from "./gql.service";
 
 @Injectable()
 export class AssessmentService {
 
-	assessments: any;
+	assessments:         any;
+	currentAssessmentId: any = this.getCurrentAssessmentId();
+	currentAssessment:   any;
 
-constructor( private apollo: Apollo, private auth: AuthService) {}
+	constructor( private apollo:  Apollo, 
+	             private auth:    AuthService,
+	             private storage: Storage) { }
+
+	getCurrentAssessment() {
+			
+	}
+
+	setCurrentAssessmentId(assessmentId) {
+		this.storage.set('currentAssessmentId', assessmentId);
+	}
+
+	async getCurrentAssessmentId() {
+		return await this.storage.get('currentAssessmentId');
+	}	
 
 	async getAssessments(userId) {
 
@@ -21,7 +39,7 @@ constructor( private apollo: Apollo, private auth: AuthService) {}
 					variables: {
 						userId: this.auth.currentUser()._id
 					}
-			}).valueChanges
+			}).valueChanges;
 	}
 
 	async getSharedAssessments(userId) {
@@ -51,8 +69,7 @@ constructor( private apollo: Apollo, private auth: AuthService) {}
 			variables: {
 				_id: assessmentId
 			}
-		}).valueChanges
-
+		}).valueChanges;
 	}
 
 	// updateInfo has to be an object with the following properties:
@@ -63,7 +80,7 @@ constructor( private apollo: Apollo, private auth: AuthService) {}
 		return await this.apollo.mutate<any>({
 			mutation: updateQuestionMutation,
 			variables: updateInfo
-		})
+		});
 	}
 
   async deleteAssessment(assessmentId){
@@ -72,8 +89,13 @@ constructor( private apollo: Apollo, private auth: AuthService) {}
       variables: {
         _id: assessmentId
       }
-    })
+    });
   }
 
+	async getThreads() {
+		return await this.apollo.watchQuery<any>({
+			query: getThreadsQuery
+    }).valueChanges;
+	}
 
 }

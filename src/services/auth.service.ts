@@ -36,7 +36,6 @@ constructor(private http: HttpClient) {}
 	}
 
 	private setSession(isAuthed) {
-		console.log(isAuthed);
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
 	}
 

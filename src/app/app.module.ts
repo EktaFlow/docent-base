@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -33,7 +34,7 @@ import { ActionitemsPage } from '../pages/actionitems/actionitems';
 import { CriteriaPage } from '../pages/criteria/criteria';
 import { UserDashboardPage } from '../pages/user-dashboard/user-dashboard';
 import { SettingsPage } from '../pages/settings/settings';
-
+import { NewAssessmentPage } from '../pages/new-assessment/new-assessment';
 
 // components
 import { ImportComponent } from "../components/import/import";
@@ -84,6 +85,7 @@ import { BackUrl } from  "../services/constants";
     CriteriaPage,
     UserDashboardPage,
     SettingsPage,
+		NewAssessmentPage,
 		ViewsComponent,
 		ImportComponent,
 		TopbarComponent,
@@ -95,6 +97,7 @@ import { BackUrl } from  "../services/constants";
   imports: [
     BrowserModule,
 		IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
 		HttpClientModule,
 		HttpLinkModule,
 		ApolloModule,
@@ -126,6 +129,7 @@ import { BackUrl } from  "../services/constants";
     ActionitemsPage,
     UserDashboardPage,
     SettingsPage,
+		NewAssessmentPage,
     ViewsComponent,
 		ImportComponent,
 		TopbarComponent,
