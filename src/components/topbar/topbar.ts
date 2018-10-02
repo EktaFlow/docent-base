@@ -67,7 +67,7 @@ constructor( public popOver: PopoverController,
 	ngOnInit() {
 		this.assessmentId ? this.getAssessmentData() : null;
 		this.loggedIn = this.auth.isLoggedIn();
-		console.log(this.values);
+		// console.log(this.values);
 
 		// console.log(this.assessmentId);
 
@@ -128,13 +128,15 @@ constructor( public popOver: PopoverController,
 
 	async handleUserDash() {
 		if (this.assessmentId && this.values && this.questionId) {
-		var updateInfo = {
-			updates: this.values,
-			_id:     this.assessmentId,
-			questionId: this.questionId
-		}
-		var update = await this.assessmentService.updateQuestion(updateInfo);
-		update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
+			var updateInfo = {
+				updates: this.values,
+				_id:     this.assessmentId,
+				questionId: this.questionId
+			}
+			var update = await this.assessmentService.updateQuestion(updateInfo);
+			update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
+		} else {
+			this.navCtrl.push(this.userDashPage);
 		}
  	}
 

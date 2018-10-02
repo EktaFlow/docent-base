@@ -24,6 +24,10 @@ query getShared($assessments: [String]) {
     deskbookVersion
     location
     name
+		id
+		teamMembers
+		userId
+		userEmail
 	}
 }
 `
@@ -56,7 +60,7 @@ export class UserDashboardPage {
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService) {
-                this.assessmentId = navParams.data.assessmentId;
+							//this.assessmentId = navParams.data.assessmentId;
               }
 
 
@@ -72,7 +76,7 @@ export class UserDashboardPage {
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
-		console.log(this.currentAssessment);
+		// console.log(this.currentAssessment);
   }
 
 
@@ -112,6 +116,8 @@ export class UserDashboardPage {
 	}
 
   expandAssessment(assessmentId) {
+		console.log(this.assessments);
+		console.log(this.sharedAssessments);
 		console.log(this.currentAssessment);
     console.log(assessmentId);
     // this.expand = !this.expand;
@@ -133,7 +139,7 @@ export class UserDashboardPage {
   openDashboard(assessmentId){this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});}
   openActionItems(assessmentId){this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});}
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
-	async handleSettings(){ this.navCtrl.push(SettingsPage, {user: this.auth.currentUser()});}
+  async handleSettings(){ this.navCtrl.push(SettingsPage);}
 
 	async handleDeleting(assessmentId){
 		var observe =  await this.assessmentService.deleteAssessment(assessmentId);

@@ -11,6 +11,7 @@ query assessments($userId: String) {
      location
      name
 		 id
+		 teamMembers
 	}
 }
 `
@@ -27,12 +28,14 @@ export var createAssessmentMutation = gql`
      $name: String
 		 $levelSwitching: Boolean
 		 $userId: String
+		 $userEmail: String
 		 $teamMembers: [String]
 		 $schema: String
    ) {
      createAssessment(
        threads:    $threads,
        userId:     $userId,
+			 userEmail: $userEmail,
        location:   $location,
        targetMRL:  $targetMRL,
        id:         $id,
