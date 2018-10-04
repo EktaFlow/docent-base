@@ -12,6 +12,7 @@ import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
 import { ThreadPopupComponent } from './thread-popup/thread-popup';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
+import { JsonUploadPopoverComponent } from './json-upload-popover/json-upload-popover';
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,8 @@ import { RegisterComponent } from './register/register';
     SubthreadPopupComponent,
     ThreadPopupComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    JsonUploadPopoverComponent
     ],
 	imports: [],
 	exports: [
@@ -43,7 +45,8 @@ import { RegisterComponent } from './register/register';
     SubthreadPopupComponent,
     ThreadPopupComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    JsonUploadPopoverComponent
     ]
 })
 

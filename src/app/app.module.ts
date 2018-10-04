@@ -49,6 +49,7 @@ import { SubthreadPopupComponent } from "../components/subthread-popup/subthread
 import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
 import { LoginComponent } from "../components/login/login";
 import { RegisterComponent } from "../components/register/register";
+import { JsonUploadPopoverComponent } from "../components/json-upload-popover/json-upload-popover";
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -90,7 +91,8 @@ import { BackUrl } from  "../services/constants";
     SubthreadPopupComponent,
     ThreadPopupComponent,
 		LoginComponent,
-		RegisterComponent
+		RegisterComponent,
+    JsonUploadPopoverComponent
   ],
   imports: [
     BrowserModule,
@@ -132,7 +134,8 @@ import { BackUrl } from  "../services/constants";
     SubthreadPopupComponent,
     ThreadPopupComponent,
 		LoginComponent,
-		RegisterComponent
+		RegisterComponent,
+    JsonUploadPopoverComponent
   ],
   providers: [
     StatusBar,

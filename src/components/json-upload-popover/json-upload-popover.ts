@@ -6,11 +6,11 @@ import { AuthUrl } from "../../services/constants";
 
 
 @Component({
-  selector: 'file-upload-popover',
-  templateUrl: 'file-upload-popover.html'
+  selector: 'json-upload-popover',
+  templateUrl: 'json-upload-popover.html'
 })
 
-export class FileUploadPopoverComponent {
+export class JsonUploadPopoverComponent {
 
 	questionId:		string;
 	assessmentId: string;
@@ -57,18 +57,18 @@ export class FileUploadPopoverComponent {
 				newVar.style.cssText = styling
 	}
 
-	async uploadFile(event) {
-		var { assessmentId, questionId } = this;
-
-		// boooooooooooooooooooo typescript
-		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
-
-		this.emitter.emit(uploadedFile);
-	}
+	// async uploadFile(event) {
+	// 	var { assessmentId, questionId } = this;
+	//
+	// 	// boooooooooooooooooooo typescript
+	// 	var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
+	// 	var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
+	//
+	// 	this.emitter.emit(uploadedFile);
+	// }
 
   async uploadJSON(event){
     var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-		var uploadedFile = await this.uploadJSON(file);
+		var uploadedFile = await this.upload.uploadJSON(file);
   }
 }
