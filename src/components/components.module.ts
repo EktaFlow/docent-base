@@ -12,10 +12,13 @@ import { SubthreadPopupComponent } from './subthread-popup/subthread-popup';
 import { ThreadPopupComponent } from './thread-popup/thread-popup';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from 'ionic-angular';
 
 @NgModule({
 	declarations: [
-		ViewsComponent,
+	ViewsComponent,
     AssessmentslistComponent,
     ThreadsListComponent,
 		HelpmenuComponent,
@@ -29,9 +32,9 @@ import { RegisterComponent } from './register/register';
     LoginComponent,
     RegisterComponent
     ],
-	imports: [],
+	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
-		ViewsComponent,
+	ViewsComponent,
     AssessmentslistComponent,
     ThreadsListComponent,
 		HelpmenuComponent,

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CriteriaPage } from './criteria';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { CriteriaPage } from './criteria';
   ],
   imports: [
     IonicPageModule.forChild(CriteriaPage),
+		ComponentsModule
   ],
 })
 export class CriteriaPageModule {}

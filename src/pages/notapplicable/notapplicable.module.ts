@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { NotapplicablePage } from './notapplicable';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { NotapplicablePage } from './notapplicable';
   ],
   imports: [
     IonicPageModule.forChild(NotapplicablePage),
+		ComponentsModule
   ],
 })
 export class NotapplicablePageModule {}
