@@ -135,6 +135,7 @@ export class HomePage {
     tmp = <HTMLInputElement>document.getElementById("deskbook-select");
 	  tmp ? tmp.value = "2017" : null;
 
+		if (this.auth.currentUser()) {
 		this.apollo.watchQuery<any>({
 			query: threadsQuery
 			})
@@ -142,6 +143,7 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 			 });
+			 }
     this.getSchema();
 	}
 
