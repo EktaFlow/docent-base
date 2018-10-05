@@ -1,72 +1,10 @@
 import { Component, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavParams, PopoverController } from 'ionic-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
+import { AssessmentService } from "../../services/assessment.service";
 
-import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
-
-import { TopbarComponent } from "../../components/topbar/topbar";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
-
-var assessmentQuery = gql`
-query assessment($_id: String)
-{
- assessment(_id: $_id)  {
-	questions{
-	  currentAnswer
-    threadName
-    subThreadName
-    mrLevel
-		questionId
-		questionText
-		objectiveEvidence
-		assumptionsYes
-		notesYes
-		notesSkipped
-		assumptionsSkipped
-		who
-		when
-		technical
-		cost
-		schedule
-		what
-		reason
-		assumptionsNo
-		notesNo
-		documentation
-		assumptionsNA
-		notesNA
-		helpText
-  }
-	targetMRL
-	currentMRL
-	levelSwitching
-	files {
-		url
-	}
-}
-}
-`
-
-var updateAssessmentQuery = gql`
-mutation updateAssessment($_id: String!, $questionId: Int, $updates: QuestionUpdate) {
-	updateAssessment(_id: $_id, questionId: $questionId, updates: $updates) {
-		scope
-    location
-	}
-	}
-`
-
-var questionQuery = gql`
-query question($questionId: Int, $assessmentId: String) {
-	question(questionId: $questionId, assessmentId: $assessmentId) {
-		currentAnswer
-		questionText
-		threadName
-	}
-}
-`
 
 @IonicPage()
 @Component({
@@ -78,26 +16,28 @@ export class QuestionsPage {
 
 	private vals = {};
 	assessmentId: any;
+	private assessment: any;
 	public helpClicked: boolean = false;
-	private questionId: any; 
+	private questionId: any;
 	files = [];
 	private allQuestions;
 	private referringQuestionId: any;
 	private targetMRL;
+	private currentTargetMRL: any;
 	private currentQuestion: any = {};
 	private surveyQuestions;
-	private levelSwitching: any;
+	currentQSet: any;
+	currentQSetAmt: any;
+	currentQPos: any;
 
-	constructor(public navCtrl:            NavController, 
-              public navParams:          NavParams, 
-							private popoverController: PopoverController, 
-							private apollo:            Apollo ) {
+	constructor(public navParams:          NavParams,
+							private popoverController: PopoverController,
+						  private assessmentService: AssessmentService	) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
-		this.assessmentId = navParams.data.data;
   }
-	
+
   /////////////////////////// useful functions ///////////////////////
 	// return a question by its questionId
 	getQuestion = (id) => this.allQuestions[id - 1]
@@ -113,49 +53,39 @@ export class QuestionsPage {
 		           .filter(q => q.mrLevel == question.mrLevel );
 	}
 	/////////////////////////////////////////////////////////////////////
-	// INIT && related function 
-  ngOnInit() {
-	// if we don't already have a loaded assessment.
-		this.apollo.watchQuery<any>({
-			query: assessmentQuery,
-			fetchPolicy: "network-only",
-			variables: {_id: this.assessmentId}
-		})
-			.valueChanges
-			.subscribe( ({data, loading}) => {  
-				var {assessment} = data;
+	// INIT && related function
+  async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+		
+		// if we don't already have a loaded assessment.
+		var currentAssessment = await this.assessmentService
+														 .getQuestionPageAssessment(this.assessmentId)
+
+			currentAssessment.subscribe( ({data, loading}) => {
+				console.log(data.assessment);
+				this.assessment = data.assessment
+				var {assessment} = this;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
+				this.currentTargetMRL = assessment.targetMRL;
 				this.surveyQuestions = this.setSurveyQuestions()
 				// add if no currentQuestionId
 				this.determineCurrentQuestion()
 				this.vals = this.filterQuestionVals(this.currentQuestion);
-
-				this.setInstanceVariables(assessment);
-
+				this.findAmtOfQs();
 		})
-
   }
 
-	setInstanceVariables(assessment) {
-		this.levelSwitching = assessment.levelSwitching	
-	}
-
 	setSurveyQuestions() {
-		var { targetMRL,
-					allQuestions } = this;
-
-    return allQuestions.filter( q => q.mrLevel == targetMRL )
-		                   .map( q => q.questionId);
+    return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
+							.map( q => q.questionId);
 	}
 
 	determineCurrentQuestion() {
-		var { referringQuestionId, 
-					currentQuestion,
-          getQuestion } = this;
+		var { getQuestion } = this;
 
-		if (referringQuestionId ) {
-			this.currentQuestion = getQuestion(referringQuestionId);
+		if (this.referringQuestionId ) {
+			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
 		else {
 			var noAnswer = this.surveyQuestions.find( qId => {
@@ -174,12 +104,12 @@ export class QuestionsPage {
 			});
 
 			this.popoverController
-				.create(FileUploadPopoverComponent, 
+				.create(FileUploadPopoverComponent,
 					{
-						emitter: myEmitter, 
-						questionId: this.questionId, 
-						assessmentId: this.assessmentId 
-					}, 
+						emitter: myEmitter,
+						questionId: this.questionId,
+						assessmentId: this.assessmentId
+					},
 					{	cssClass: "upload-popover"})
 				.present();
 	}
@@ -187,14 +117,18 @@ export class QuestionsPage {
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
 		this.setValues();
-		this.levelSwitching ? this.handleLevelSwitching() : this.moveCurrentQuestion(1)
+		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
+		else { this.moveCurrentQuestion(1) }
 		this.vals = this.currentQuestion;
+		this.findAmtOfQs();
 	}
 
 	async	handlePreviousPageClick() {
+		if ( this.currentQPos == 1 ) return null;	
 		this.setValues();
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
+		this.findAmtOfQs();
 	}
 
 	/////////////////////////////////////////////////////////////////////////
@@ -208,6 +142,25 @@ export class QuestionsPage {
 		values = this.filterQuestionVals(values);
 
 		this.updateAssessment(values)
+	}
+
+	// sendUpdateInfo(){
+	// 	var values = getQuestionValues();
+	// 	var updateInfo = {
+	// 		_id: this.assessmentId,
+	// 		questionId: this.currentQuestionId,
+	// 		updates: values
+	// 	}
+	//
+	// 	return updateInfo;
+	// }
+
+	getQuestionValues() {
+		var values: any = Object.assign({}, this.vals)
+		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
+		values = this.filterQuestionVals(values);
+
+		return values
 	}
 
 	// refactor this down
@@ -224,19 +177,19 @@ export class QuestionsPage {
 		temp.splice(this.currentQuestion.questionId - 1, 1, newer);
 		this.allQuestions = temp;
 
-		await this.apollo.mutate({
-			mutation: updateAssessmentQuery,
-			variables: {
-				_id:				this.assessmentId,
-				questionId: Number(this.currentQuestion.questionId),
-				updates:		values
-			}
-		}).subscribe(data => null);
+		var updatedInfo = {
+			_id: this.assessmentId,
+			questionId: Number(this.currentQuestion.questionId),
+			updates: values
+		};
+		console.log(updatedInfo);
+		var update = await this.assessmentService.updateQuestion(updatedInfo);
+		update.subscribe(data => null);
 	}
 
 
 	moveCurrentQuestion(way) {
-		var { questionId } = this.currentQuestion;	
+		var { questionId } = this.currentQuestion;
 
 		if (!this.surveyQuestions.includes(this.currentQuestion.questionId)) {
 			alert("what is the order when a rando question gets added in?");
@@ -256,10 +209,10 @@ export class QuestionsPage {
 				place += 1;
 				this.currentQuestion = this.getQuestion(this.surveyQuestions[place]);
 			}
-			// if all questions are answered? 
+			// if all questions are answered?
 	}
 
-	//////////////////////////////// 
+	////////////////////////////////
 	////////// LEVEL SWITCHING ONLY functions
 	///////////////////////////////
 
@@ -270,8 +223,8 @@ export class QuestionsPage {
 				// make sure this encompasses all non-switching scenarios.
 				else if ( this.threadPassed() ) {
 					this.nextUnansweredQuestion();
-					// launch some type of thread passed UI change?? 
-        } 
+					// launch some type of thread passed UI change??
+        }
 				else if ( this.hasFloorLevel() ) {
 					this.moveCurrentQuestion(1);
 				}
@@ -281,8 +234,8 @@ export class QuestionsPage {
 				}
 	}
 
-	// FUNCTIONS to handle the different branches on level-switching 
-	// Does every question within the currentQuestion's subthread and MRL have an answer? 
+	// FUNCTIONS to handle the different branches on level-switching
+	// Does every question within the currentQuestion's subthread and MRL have an answer?
 
 	threadAnswered() {
 		var {mrLevel, subThreadName} = this.currentQuestion;
@@ -292,8 +245,8 @@ export class QuestionsPage {
 
 
 	}
-  
-	// the only way to 'fail' a subthread is to have a no answer. 
+
+	// the only way to 'fail' a subthread is to have a no answer.
 	threadPassed() {
 		return !this.allQuestions.filter(q => q.subThreadName == this.currentQuestion.subThreadName)
 					        .filter(q => q.mrLevel == this.currentQuestion.mrLevel)
@@ -329,6 +282,7 @@ export class QuestionsPage {
 											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
 											 .map(q => q.questionId);
 
+											 // add logic if there is no lower mrLevel
  	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a - b)
 	  this.surveyQuestions = newSurvey;
 
@@ -387,11 +341,18 @@ export class QuestionsPage {
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
 
 		return <any>filteredQuestions;
-    
+
 	}
 
 	public onHelpClicked(){
 		this.helpClicked = !this.helpClicked;
 	}
+
+  public findAmtOfQs(){
+		this.currentQSetAmt = this.surveyQuestions.length;
+		this.currentQPos = this.surveyQuestions.indexOf(this.currentQuestion.questionId) + 1;
+
+  }
+
 
 }

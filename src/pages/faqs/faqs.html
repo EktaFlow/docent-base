@@ -1,7 +1,5 @@
-<title>Docent</title>
 
-<!-- todo, get mainTitle showing in header -->
-<topbar [mainTitle]   = "mainTitle"> </topbar>
+<topbar [mainTitle]= "mainTitle" [assessmentId]="assessmentId" [noSecondBar]="noSecondBar"> </topbar>
 
 <ion-content padding>
 <br/>
@@ -17,7 +15,7 @@
   <contacts-dropdown [contacts]="feedbackContacts">
   </contacts-dropdown>
 
-	
+
   <div id="faq-questions-container" *ngFor="let faq of faqInfoStandalone">
     <faq-dropdown [faq]="faq">
     </faq-dropdown>

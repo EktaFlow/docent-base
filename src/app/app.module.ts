@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -18,21 +19,25 @@ import 'rxjs/add/operator/map'
 // pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AcronymsPage } from '../pages/acronyms/acronyms';
-import { DefinitionsPage } from '../pages/definitions/definitions';
-import { FaqsPage } from '../pages/faqs/faqs';
-import { ReviewPage } from '../pages/review/review';
-import { QuestionsPage } from '../pages/questions/questions';
-import { RegisterPage } from "../pages/register/register";
-import { LoginPage }    from "../pages/login/login";
-import { DashboardPage } from '../pages/dashboard/dashboard';
-import { NavigatePage } from '../pages/navigate/navigate';
-import { NotapplicablePage } from '../pages/notapplicable/notapplicable';
-import { SkippedquestionsPage } from '../pages/skippedquestions/skippedquestions';
-import { ActionitemsPage } from '../pages/actionitems/actionitems';
-import { CriteriaPage } from '../pages/criteria/criteria';
+import { AcronymsPageModule } from '../pages/acronyms/acronyms.module';
+import { DefinitionsPageModule } from '../pages/definitions/definitions.module';
+import { FaqsPageModule } from '../pages/faqs/faqs.module';
+import { ReviewPageModule } from '../pages/review/review.module';
+import { QuestionsPageModule } from '../pages/questions/questions.module';
+import { RegisterPageModule } from "../pages/register/register.module";
+import { LoginPageModule }    from "../pages/login/login.module";
+import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
+import { NavigatePageModule } from '../pages/navigate/navigate.module';
+import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
+import { SkippedquestionsPageModule } from '../pages/skippedquestions/skippedquestions.module';
+import { ActionitemsPageModule } from '../pages/actionitems/actionitems.module';
+import { CriteriaPageModule } from '../pages/criteria/criteria.module';
+import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.module';
+import { SettingsPageModule } from '../pages/settings/settings.module';
+import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
 
 // components
+import { ComponentsModule } from '../components/components.module';
 import { ImportComponent } from "../components/import/import";
 import { ViewsComponent } from '../components/views/views';
 import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
@@ -42,87 +47,122 @@ import { AssessmentslistComponent } from "../components/assessmentslist/assessme
 import { ThreadsListComponent } from "../components/threads-list/threads-list";
 import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
 import { TopbarComponent } from "../components/topbar/topbar";
+import { SubthreadPopupComponent } from "../components/subthread-popup/subthread-popup";
+import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
+import { LoginComponent } from "../components/login/login";
+import { RegisterComponent } from "../components/register/register";
 
 // services
 import { AuthService } from "../services/auth.service";
 import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
-
+import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
-
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    QuestionsPage,
-    AcronymsPage,
-    DefinitionsPage,
-    FaqsPage,
-		AcronymsPage,
-    ReviewPage,
-		RegisterPage,
-		LoginPage,
-    HelpmenuComponent,
-    ContactsDropdownComponent,
-		FaqDropdownComponent,
-		AssessmentslistComponent,
-		ThreadsListComponent,
-		FileUploadPopoverComponent,
-    ReviewPage,
-    DashboardPage,
-    NavigatePage,
-    NotapplicablePage,
-    SkippedquestionsPage,
-    ActionitemsPage,
-    CriteriaPage,
-		ViewsComponent,
-		ImportComponent,
-		TopbarComponent
+		//QuestionsPage,
+		//AcronymsPage,
+		// DefinitionsPage,
+		//FaqsPage,
+		//AcronymsPage,
+		//ReviewPage,
+		//RegisterPage,
+		//LoginPage,
+		//HelpmenuComponent,
+		//ContactsDropdownComponent,
+		//FaqDropdownComponent,
+		//AssessmentslistComponent,
+		//ThreadsListComponent,
+		//FileUploadPopoverComponent,
+		//DashboardPage,
+		//NavigatePage,
+		//NotapplicablePage,
+		//SkippedquestionsPage,
+		//ActionitemsPage,
+		//CriteriaPage,
+		//ViewsComponent,
+		//UserDashboardPage,
+		//SettingsPage,
+		//NewAssessmentPage,
+		//ImportComponent,
+		// TopbarComponent,
+		//SubthreadPopupComponent,
+		//ThreadPopupComponent,
+		//LoginComponent,
+		//RegisterComponent
   ],
   imports: [
     BrowserModule,
 		IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
 		HttpClientModule,
 		HttpLinkModule,
 		ApolloModule,
-		FormsModule
+		FormsModule,
+		AcronymsPageModule,
+		QuestionsPageModule,
+		DefinitionsPageModule,
+		FaqsPageModule,
+		ReviewPageModule,
+		RegisterPageModule,
+		LoginPageModule,
+		DashboardPageModule,
+		NavigatePageModule,
+		NotapplicablePageModule,
+		SkippedquestionsPageModule,
+		ActionitemsPageModule,
+		CriteriaPageModule,
+		UserDashboardPageModule,
+		SettingsPageModule,
+		NewAssessmentPageModule,
+		ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    QuestionsPage,
-    AcronymsPage,
-    DefinitionsPage,
-    FaqsPage,
-		AcronymsPage,
-    ReviewPage,
-		RegisterPage,
-		LoginPage,
-    HelpmenuComponent,
-    ContactsDropdownComponent,
-		FaqDropdownComponent,
-		AssessmentslistComponent,
-		ThreadsListComponent,
-		FileUploadPopoverComponent,
-    DashboardPage,
-    NavigatePage,
-    NotapplicablePage,
-    SkippedquestionsPage,
-    CriteriaPage,
-    ActionitemsPage,
-    ViewsComponent,
-		ImportComponent,
-		TopbarComponent
+		//QuestionsPage,
+		//AcronymsPage,
+		//DefinitionsPage,
+		//FaqsPage,
+		//AcronymsPage,
+		//ReviewPage,
+		//RegisterPage,
+		//LoginPage,
+		//HelpmenuComponent,
+		//ContactsDropdownComponent,
+		//FaqDropdownComponent,
+		//AssessmentslistComponent,
+		//ThreadsListComponent,
+		//FileUploadPopoverComponent,
+		//DashboardPage,
+		//NavigatePage,
+		//NotapplicablePage,
+		//SkippedquestionsPage,
+		//CriteriaPage,
+		//ActionitemsPage,
+		//UserDashboardPage,
+		//SettingsPage,
+		//NewAssessmentPage,
+		//ViewsComponent,
+		//ImportComponent,
+		//TopbarComponent,
+		//SubthreadPopupComponent,
+		//ThreadPopupComponent,
+		//LoginComponent,
+		//RegisterComponent
   ],
   providers: [
     StatusBar,
 		AuthService,
+		AssessmentService,
 		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+		//    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {

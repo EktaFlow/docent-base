@@ -49,7 +49,9 @@ $input-border:#dcdcdc;
 }
 .nav{
     display: flex;
+    width: 45%;
     justify-content: space-between;
+    margin-bottom: 10px;
     select{
         margin-bottom: 10px;
         width:100%;
@@ -167,16 +169,74 @@ $input-border:#dcdcdc;
     /* testing only */
     /* border: 1px solid red; */
   }
+
+.helpButton{
+    // display: flex;
+    width: 70%;
+    // min-width: 100px;
+    // max-width: 300px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.q-answer {
+    width: 98%;
+    margin-bottom: 0px;
+    height: 30px;
 }
 
 .helpTextDiv {
-    display: flex;
-    background-color: #DCDCDC;
-    width: 80%;
+    // display: flex;
+    background-color: #ededed;
+    width: 98%;
     height: auto;
     margin: 3px;
+    // margin-top: 1px;
 
     p {
         padding: 10px;
     }
+    .acronymHere {
+        color: gray;
+    }
+
+  }
+
+  .nav-q-buttons {
+    // display: flex;
+    // margin: 0;
+    position: fixed;
+    right: 10px;
+    top: 240px;
+  }
+
+  .nav-previous-qs {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      width: 300px;
+      height: 250px;
+      background-color: #DCDCDC;
+      border-radius: 5px;
+      text-align: center;
+      padding-top: 10px;
+
+      p {
+    background-color: #B4B4B4;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 10px 0 10px 10px;
+    margin: 0;
+
+  }
+
+h6 {
+  color: #494949;
+}
+
+a {
+color: black;
+
+}
+  }
 }

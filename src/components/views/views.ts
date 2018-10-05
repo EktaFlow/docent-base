@@ -13,6 +13,7 @@ import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
 
 
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -109,11 +110,13 @@ export class ViewsComponent {
 		handleNa()	{
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 		}
-		handleContinue = () => this.navCtrl.push(QuestionsPage, { data: this.assessmentId});
+		handleContinue = () => this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
 		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
 		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
 		handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
+
+    handleNewAssessment() {this.navCtrl.push(this.homePage);}
 
 
 

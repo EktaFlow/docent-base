@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { UploadService } from "../../services/upload";
 
 @Component({
@@ -13,15 +13,19 @@ export class FileUploadPopoverComponent {
 	assessmentId: string;
 	emitter:			any;
 	file:         any;
-	
-	constructor(	public upload: UploadService, 
-								public navParams: NavParams) {
+	userId: any;
+
+	constructor(	public upload: UploadService,
+	              public navParams: NavParams,
+                private viewCtrl: ViewController
+	) {
 
 		var {navParams} = this;
 
 		this.questionId		= navParams.get("questionId");
 		this.assessmentId = navParams.get("assessmentId");
 		this.emitter			= navParams.data.emitter;
+		this.userId = navParams.data.userId;
   }
 
 	test(e) {
@@ -29,7 +33,7 @@ export class FileUploadPopoverComponent {
 
 		var fileObject = {
 			size: file.size,
-			name: file.name, 
+			name: file.name,
 			lastModified: file.lastModifiedDate
 		}
 
@@ -56,8 +60,13 @@ export class FileUploadPopoverComponent {
 
 		// boooooooooooooooooooo typescript
 		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
+		if (this.userId){
+			var uploadedFile = await this.upload.uploadFile(file, this.userId, null);
+		} else {
+			var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
+		}
 
 		this.emitter.emit(uploadedFile);
+		this.viewCtrl.dismiss()
 	}
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from '../../components/topbar/topbar';
+import { AssessmentService } from '../../services/assessment.service';
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -52,15 +53,14 @@ export class ActionitemsPage {
 	constructor( private apollo: Apollo, 
 							 public navCtrl: NavController, 
 							 public navParams: NavParams, 
-							 public popOver: PopoverController) {
-
-		this.assessmentId = navParams.data.assessmentId;
-		console.log(this.assessmentId);
-  }
+							 public popOver: PopoverController,
+               private assessmentService: AssessmentService) {} 
 
 	unique = (item, index, array) => array.indexOf(item) == index
 
-	ngOnInit() {
+	async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},
@@ -87,7 +87,6 @@ export class ActionitemsPage {
 
 	navToQuestion(questionId) {
 		this.navCtrl.push(QuestionsPage, {
-			data: 			this.assessmentId,
 			questionId: questionId
 		});
 	}

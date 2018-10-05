@@ -3,6 +3,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { HttpClient } from '@angular/common/http';
+import { AssessmentService } from '../../services/assessment.service';
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -36,22 +38,25 @@ export class CriteriaPage {
 	allQuestions: any;
 	assessmentId: any;
  	schema: any;
-
+	filterList: any = {};
+	filteredSchema: any;
+	showAll: any;
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
+							 private http: HttpClient, 
+               private assessmentService: AssessmentService
 							 ) {
-
-		this.assessmentId = "5b88586ff86fdd149d6f8b2e";
   }
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
 
-	ngOnInit() {
-		console.log(this.assessmentId);
+	async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},
@@ -60,11 +65,20 @@ export class CriteriaPage {
 			.subscribe(data => {
 					console.log(data);
 					this.allQuestions = (<any>data.data).assessment.questions;
-					this.schema = this.createSchemaObject(this.allQuestions);
+					// this.schema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.createSchemaObject(this.allQuestions);
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
 			});
+	// this.http.get('assets/json/2016.json')
+	// 			.subscribe( data => {
+	// 				console.log(data);
+	// 				this.schema = data;
+	// 				this.filteredSchema = this.createSchemaObject(this.schema);
+	// 				// this.schema = data;
+	// 			});
+
 	}
 
 	filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
@@ -111,6 +125,20 @@ export class CriteriaPage {
 //    this.subState[index][subIndex] = !this.subState[index][subIndex];
   }
 
+	filterTheList() {
+		console.log("in filterthelist")
+		console.log(this.filterList.filterMRL);
 
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
+			this.filteredSchema = this.createSchemaObject(filteredQuestions);
+			console.log(this.filteredSchema);
+		} else {
+			this.filteredSchema = this.createSchemaObject(this.allQuestions);
+		}
 
+	}
+	expandAllThreads() {
+		this.showAll = !this.showAll;
+	}
 }

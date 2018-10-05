@@ -5,18 +5,19 @@
       <ion-navbar color="dark" hideBackButton="true">
         <div class = "container-toolbar">
           <img class="toolbar-logo" src="/assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
-          <div class = "container-tbbuttons">
-            <button *ngIf="auth.isLoggedIn()" ion-button (click)="logout()" color="dark">
+          <div *ngIf="!blank" class = "container-tbbuttons">
+            <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
 								Logout
             </button>
 						<ng-container *ngIf="!auth.isLoggedIn()">
             <button  ion-button (click)="loginNav()" color="dark">
-								Login 
+								Login
             </button>
             <button ion-button (click)="registerNav()" color="dark">
-                Register 
+                Register
             </button>
 						</ng-container>
+            <button (click)="handleUserDash()" color="dark" ion-button>User Dash</button>
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment
             </button>
@@ -26,28 +27,34 @@
           </div>
         </div>
         <hr>
-        <!-- TODO: use an ngif for if there is an assessmentId -->	
+
+        <!-- TODO: use an ngif for if there is an assessmentId -->
         <div *ngIf="mainTitle">
                 <p>
 	        <h1><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
         </div>
 
-	<div *ngIf="assessmentId" class="subheader">
-			<div >
-			<ng-container *ngIf="mainTitle">
-	        <p>{{this.mainTitle}} | {{this.subTitle}}</p>
-					<p>Question Level: {{questionLevel}} </p>
-			</ng-container>
-			<ng-container *ngIf="scopeSelected">
-		    <p>Assessment Scope: {{ scope }}</p>
-			</ng-container>
-	    </div>
-            <div style="margin-right:20px">
-                <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
-                <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
-            </div>
+      	<div *ngIf="assessmentId && noSecondBar != false" class="subheader">
+          <div *ngIf="mainTitle">
+            <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread">SubThread: {{this.subTitle}}</span></p>
+            <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}} <span><p (click)="goToNavExpand()">Show All Questions</p></span></p>
+          </div>
+
+          <div class="targets-scope">
+            <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
+            <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
+          </div>
+
+          <div *ngIf="scopeSelected" class="scope-show">
+      		  <p>Assessment Scope: {{ scope }}</p>
+      		</div>
         </div>
       </ion-navbar>
     </ion-header>
-  </div>
+
+
+  <!-- <div *ngIf="popUpButtonClicked">
+    <subthread-popup [assessmentId] = "assessmentId"
+                                  [subTitle] = "this.subTitle"></subthread-popup>
+  </div> -->
 </div>

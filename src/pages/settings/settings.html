@@ -1,0 +1,18 @@
+<topbar></topbar>
+
+<ion-content>
+
+  <h1>User's Settings:</h1>
+
+  <p>Allow user to change password</p>
+  <p>Customize deskbook versions - Feature Coming Soon</p>
+
+<!-- [href]="saveDownJSON()"  for line below-->
+ <!-- download="2017deskbook.json" -->
+  <a ion-button small color="buttonBlue" disabled >Download 2017 Deskbook</a>
+  <!-- (click)="showFileUpload($event)" -->
+  <button ion-button small color="buttonBlue"  disabled id="asdf">Upload Deskbook Version</button>
+
+  <button ion-button small (click)="goBackToUser()">Go Back To Dashboard</button>
+
+</ion-content>

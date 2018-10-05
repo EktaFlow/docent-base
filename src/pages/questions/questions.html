@@ -1,7 +1,11 @@
 <topbar [assessmentId]= "assessmentId"
         [subTitle]    = "currentQuestion.subThreadName"
-				[mainTitle]   = "currentQuestion.threadName"
-				[questionLevel] = "currentQuestion.mrLevel"> </topbar>
+	[mainTitle]   = "currentQuestion.threadName"
+	[questionLevel] = "currentQuestion.mrLevel"
+  [currentQPos] = "this.currentQPos"
+  [currentQSetAmt] = "this.currentQSetAmt"
+	[values]="getQuestionValues()"
+	[questionId]="currentQuestion.questionId"> </topbar>
 
 
 <ion-content padding>
@@ -13,14 +17,7 @@
 		<h2>{{currentQuestion.questionText}}</h2>
 		</div>
 
-
-    <button *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()" style="display:flex;">Need Help?</button>
-    <div *ngIf="helpClicked" class="helpTextDiv">
-      <!-- <p>help text</p> -->
-      <p style="width: 80%;" [innerHTML]="currentQuestion.helpText"></p>
-    </div>
-
-		<div>
+		<div class="q-answer">
 		<select [(ngModel)]="vals.currentAnswer" >
 			<option value="skipped">Select Answer</option>
 			<option value="Yes">Yes</option>
@@ -28,12 +25,29 @@
 			<option value="N/A">N/A</option>
 		</select>
 		</div>
+    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
+
+
+    <div *ngIf="helpClicked" class="helpTextDiv">
+      <!-- <p>help text</p> -->
+      <p [innerHTML]="currentQuestion.helpText"></p>
+    </div>
 		</div>
 
-    <div style="margin-top:100px;display:flex;">
+    <div class="nav-q-buttons">
         <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()">Previous</button>
         <button ion-button color="buttonBlue" (click) = "handleNextPageClick()">Next/Skip</button>
     </div>
+
+    <!-- <div class="nav-previous-qs">
+      <h4>Navigate back to previous questions</h4>
+      <p><a href="#">1. question</a></p>
+      <p><a href="#">2. question</a></p>
+      <p><a href="#">3. question</a></p>
+      <p><a href="#">4. question</a></p>
+      <p><a href="#">5. question</a></p>
+
+    </div> -->
   </div>
   <div *ngIf="vals.currentAnswer == undefined" class = "yes">
       <h6>Assumptions</h6>
@@ -72,7 +86,7 @@
 				-->
       <br>
       <br>
-      <div class="who-when">
+      <div style="margin-left: 2px;" class="who-when">
         <div style="display:flex; flex-direction:column">
           <li *ngFor = "let persons of actionPerson">
             <pre>{{persons}}</pre>
@@ -111,7 +125,7 @@
       <h6>Notes</h6>
       <textarea class="question-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
       <div style="width:50%;margin:10px 0px 0px 0px;">
-          <button (click)="showFileUpload($event)" ion-button color="dark">Attatch File</button>
+          <button (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
       </div>
 		 </div>
 

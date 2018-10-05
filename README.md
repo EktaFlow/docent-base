@@ -1,4 +1,4 @@
-#Docent front-end ionic application
+# Docent front-end ionic application
 
 **Quick Instructions:**
 1. Install dependencies:
@@ -24,3 +24,4 @@ export const BackUrl              =  "http://localhost:4000"
 5. Build and/or run
 ionic build
 ionic serve
+

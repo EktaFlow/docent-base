@@ -33,16 +33,44 @@ topbar {
 	color: gray;
   }
 
-  .toolbar-logo { 
-    width: auto; 
+  .toolbar-logo {
+    width: auto;
     height: 100%;
     cursor: pointer;
   }
 
   .spacer {
-    font-size: 0; 
+    font-size: 0;
     height: 100px;
     line-height: 0;
   }
 
-}
+  .subheader {
+    position: relative;
+    min-height: 80px;
+    div {
+      p {
+        span {
+          text-decoration: underline;
+        }
+      }
+      }
+
+      .scope-show {
+        position: absolute;
+        bottom: 0px;
+        right: 200px;
+      }
+
+        .targets-scope {
+          position: absolute;
+          bottom: 0;
+          right: 20px;
+        }
+
+    }
+
+
+
+
+  }

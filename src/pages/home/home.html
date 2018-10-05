@@ -1,8 +1,29 @@
 <title>Docent</title>
 
+<topbar [blank]="true"></topbar>
+<ng-container *ngIf="auth.isLoggedIn()">
 <topbar></topbar> 
+</ng-container>
+
 
 <ion-content padding>
+<ng-container *ngIf="!auth.isLoggedIn()">
+	<ng-container *ngIf="auth.unverified()">
+	You must verify your Docent registration via email before logging on.
+	</ng-container>
+	<login></login>
+
+	<div *ngIf="!showRegister" class="register-container">
+	<h4>Not registered?</h4>
+	<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
+	</div>
+</ng-container>
+
+<ng-container *ngIf="showRegister">
+	<register></register>
+</ng-container>
+
+<ng-container *ngIf="auth.isLoggedIn()">
   <br>
   <br>
   <br>
@@ -13,22 +34,22 @@
 	<font color="grey">Use this option to start a new assessment</font><br />
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
-  <h6>Assessment Name</h6>
+			<h6 class="assessment-name">Assessment Name</h6>
 	<div class="topmost" style="z-index: 100;">
       <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 
-<!-- Save for auth
+<!-- Save for auth -->
   <h6>Team Members</h6>
   <form>
     <div class="member-list">
       <li *ngFor = "let member of members">
-        <pre>{{member.name}}:              {{member.role}}</pre>
+        <pre>- {{member.email}}:              {{member.role}}</pre>
       </li>
     </div>
     <div class="members">
       <div style="width:48%">
-      <input type="text" name="memName" placeholder = "Member Name" #memName>
+      <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
       </div>
       <div class="member-role-button" style="width:48%">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole>
@@ -40,12 +61,12 @@
       </div>
     </div>
     <div class = "buttons">
-      <button (click)="addMember(memName.value,memRole.value)">
+      <button (click)="addMember(memEmail.value,memRole.value)">
           <ion-icon name="add-circle" color = "secondary"></ion-icon>
       </button>
     </div>
   </form>
--->
+
   <div class = "mid-first-page">
     <div class="scope">
       <h6>Scope</h6>
@@ -89,15 +110,16 @@
     </div>
   </div>
   <div class = "bottom">
-    <div style="width:48%;height:100%;">
+		<div> 
       <h6>Location</h6>
       <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
-    <div style="width:48%;">
+    <div>
       <h6>Deskbook Version</h6>
       <select id="deskbook-select"name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
         <option value="2017">2017</option>
+        <option value="2017">2016</option>
       </select>
     </div>
   </div>
@@ -119,9 +141,7 @@
       </button>
     </div>
   </div>
-  <br><br>
-  <hr>
-  <br>
+	<!--
   <div class="existing-assessment">
     <div>
       <h1>Continue Existing Assessment</h1>
@@ -131,14 +151,14 @@
       </p>
     </div>
     <div>
-			<ng-container *ngIf="auth.isLoggedIn()">
       <button ion-button class="grayed" ion-button (click)="helpButtonClick()" color="buttonBlue">
         Help Importing
       </button>
       <button (click)="showAssessmentsList($event)" ion-button color ="buttonBlue">
         Open Assessment
       </button>
-			</ng-container>
     </div>
   </div>
+	-->
+</ng-container>
 </ion-content>

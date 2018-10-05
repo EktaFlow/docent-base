@@ -1,20 +1,47 @@
-<topbar [assessmentId]="assessmentId">
+<topbar [assessmentId]="this.assessmentId">
 </topbar>
 
 <ion-content padding>
-  <br><br><br><br><br><br><br><br><br><br>
-  <hr>
-  <div *ngFor="let segment of schema">
+  <div class="filter-toolbar">
+      <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
+      <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
+    <div class="filter-list">
+      <p>Filter MR Level: </p>
+      <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
+        <option value="" disabled selected>Select One...</option>
+        <option value="0">All</option>
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+        <option value = "6">6</option>
+        <option value = "7">7</option>
+        <option value = "8">8</option>
+        <option value = "9">9</option>
+        <option value = "10">10</option>
+      </select>
+      <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
+
+    </div>
+  </div>
+
+      <br><br>
+      <!-- <br><br><br><br><br> -->
+        <!-- <br><br><br><br><br><br><br><br><br><br> -->
+    <br><br><br><br><br><br><br><br><br><br>
+    <hr>
+  <div *ngFor="let segment of filteredSchema">
     <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
     {{segment.header}}
-    <div *ngIf="segment.cool">
+    <div *ngIf="segment.cool || showAll">
       <div *ngFor="let sub of segment.subheader">
         <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
         {{sub.subheader}}
-        <div *ngIf="sub.sweet">
+        <div *ngIf="sub.sweet || showAll">
           <div *ngFor="let question of sub.questions" class="mrl">
             <b>MR Level {{question.mrl}}:</b>
-              <p>{{question.criteriaSet[0].text}}</p>
+              <p [innerHTML]="question.criteriaSet[0].text"></p>
           </div>
         </div>
       </div>

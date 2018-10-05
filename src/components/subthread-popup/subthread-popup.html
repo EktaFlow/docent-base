@@ -1,0 +1,16 @@
+<div class="popupbox">
+  <h4>Navigate Subthread: <small>{{this.subTitle}}</small></h4>
+
+  <h6>Questions:</h6>
+  <!-- <p><a href="#">1. question</a></p>
+  <p><a href="#">2. question</a></p>
+  <p><a href="#">3. question</a></p>
+  <p><a href="#">4. question</a></p> -->
+
+<div *ngFor="let question of questions">
+  <div *ngIf="question.mrLevel == this.targetMRL">
+    <p (click)="navToQuestion(question.questionId)">{{question.questionText}}</p>
+  </div>
+</div>
+
+</div>

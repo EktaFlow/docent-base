@@ -1,7 +1,4 @@
-<title>Docent</title>
-
-<!-- todo, get mainTitle showing in header -->
-<topbar [mainTitle]   = "mainTitle"> </topbar>
+<topbar [mainTitle]= "mainTitle" [assessmentId]="assessmentId" [noSecondBar]="noSecondBar"> </topbar>
 
 <ion-content padding>
 <br/>
@@ -19,8 +16,7 @@
 				<ion-card-header>
 					<b>{{definition.term}}</b> <!-- not sure why we have to add <b> here... -->
 				</ion-card-header>
-				<ion-card-content>
-					{{definition.definition}}
+				<ion-card-content [innerHTML]="definition.definition">
 				</ion-card-content>
 			</ion-card>
 		</ion-row>

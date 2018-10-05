@@ -1,0 +1,52 @@
+login {
+	input {
+		width: 25vw;
+		height: inherit
+	}
+
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.col {
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.row {
+		margin-bottom: 2vh;	
+	}
+
+	.cell {
+		margin-right: 2vh;
+		margin-left:  2vh;
+	}
+
+	h1 {
+		margin-bottom: 3vh;
+	}
+
+	.error {
+		margin-bottom: 1vw;
+		padding: 2vw;
+		background: pink;
+		border-radius: 2vh;
+	}
+
+
+	@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	input {
+		width: 80vw;
+	}
+
+	.cell {
+		margin-top: 2vh;
+	}
+}
+
+
+}
