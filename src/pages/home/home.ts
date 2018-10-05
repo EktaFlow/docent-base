@@ -32,7 +32,8 @@ export class HomePage {
 	allThreads: any;
 	assessments: any;
   schema: any;
-	assForm: any = {deskbookVersion: "2017", levelSwitching: false, teamMembers: []};
+	twentySeventeen: any;
+	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: []};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
@@ -50,6 +51,8 @@ export class HomePage {
 						this.schema = data;
             // this.schema = data;
 					});
+		this.http.get('assets/json/pretty_2017.json')
+		      .subscribe( data => this.twentySeventeen = data )
 	}
 
 	validateAssessment() {
@@ -88,7 +91,7 @@ export class HomePage {
 
 	formatAssessmentVariables() {
 		var formValues = this.assForm;
-		console.log(formValues.teamMembers);
+		formValues.deskBookVersion == "2017" ? this.schema = this.twentySeventeen : null
 		return {
 			threads:          this.threadsSelected,
 			location:         formValues.location,
