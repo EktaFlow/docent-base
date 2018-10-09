@@ -22,16 +22,16 @@
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
     </feature>
-    <feature name="SplashScreen">
-        <param name="ios-package" value="CDVSplashScreen" />
-        <param name="onload" value="true" />
+    <feature name="Keyboard">
+        <param name="ios-package" onload="true" value="CDVIonicKeyboard" />
     </feature>
     <allow-navigation href="http://localhost:8080/*" />
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
-    <feature name="Keyboard">
-        <param name="ios-package" onload="true" value="CDVIonicKeyboard" />
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
     </feature>
     <name>docent-v1</name>
     <description>An awesome Ionic/Cordova app.</description>
