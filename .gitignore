@@ -19,3 +19,8 @@ www
 
  # mac silliness
 *.DS_Store
+
+# Docker and Jenkins
+Dockerfile
+Jenkinsfile
+
