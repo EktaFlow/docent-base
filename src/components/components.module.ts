@@ -47,6 +47,21 @@ import { IonicModule } from 'ionic-angular';
     ThreadPopupComponent,
     LoginComponent,
     RegisterComponent
+	],
+	entryComponents: [
+        ViewsComponent,
+        AssessmentslistComponent,
+        ThreadsListComponent,
+    	HelpmenuComponent,
+    	ContactsDropdownComponent,
+    	FaqDropdownComponent,
+        FileUploadPopoverComponent,
+        TopbarComponent,
+        ImportComponent,
+        SubthreadPopupComponent,
+        ThreadPopupComponent,
+        LoginComponent,
+        RegisterComponent
     ]
 })
 
