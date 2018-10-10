@@ -71,6 +71,51 @@ topbar {
     }
 
 
+    // @media screen and (max-width: 800px){
+    //
+    // }
+
+    @media screen and (max-width: 420px){
+
+
+    .main-title {
+      // font-size: 100%;
+        // font-size: 2rem !important;
+        font-size: 1.5em !important;
+    }
+      .toolbar-class {
+
+        hr {
+          display: none !important;
+        }
+      }
+
+      .container-toolbar {
+        flex-flow: column wrap;
+
+
+      }
+        .toolbar-logo {
+          // width: 100%;
+          width: 50%;
+          height: 50%;
+          // justify-content: space-around;
+        }
+        .container-tbbuttons {
+          // display: flex;
+          display: flex;
+          width: 100%;
+          padding-right: 10px;
+          // justify-content: space-around;
+
+          button {
+              padding: 0;
+              padding: 5px;
+          }
+
+        }
+    }
+
 
 
   }

@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(RegisterPage),
 		ComponentsModule
   ],
+  entryComponents: [
+    RegisterPage
+  ],
+  exports: [
+    RegisterPage
+  ]
 })
 export class RegisterPageModule {}

@@ -36,21 +36,10 @@ import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
 
+
 // components
 import { ComponentsModule } from '../components/components.module';
-import { ImportComponent } from "../components/import/import";
-import { ViewsComponent } from '../components/views/views';
-import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
-import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
-import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
-import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
-import { ThreadsListComponent } from "../components/threads-list/threads-list";
-import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
-import { TopbarComponent } from "../components/topbar/topbar";
-import { SubthreadPopupComponent } from "../components/subthread-popup/subthread-popup";
-import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
-import { LoginComponent } from "../components/login/login";
-import { RegisterComponent } from "../components/register/register";
+
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -62,37 +51,8 @@ import { BackUrl } from  "../services/constants";
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-		//QuestionsPage,
-		//AcronymsPage,
-		// DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		//HelpmenuComponent,
-		//ContactsDropdownComponent,
-		//FaqDropdownComponent,
-		//AssessmentslistComponent,
-		//ThreadsListComponent,
-		//FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//ActionitemsPage,
-		//CriteriaPage,
-		//ViewsComponent,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		//ImportComponent,
-		// TopbarComponent,
-		//SubthreadPopupComponent,
-		//ThreadPopupComponent,
-		//LoginComponent,
-		//RegisterComponent
+    HomePage
+
   ],
   imports: [
     BrowserModule,
@@ -123,37 +83,8 @@ import { BackUrl } from  "../services/constants";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-		//QuestionsPage,
-		//AcronymsPage,
-		//DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		//HelpmenuComponent,
-		//ContactsDropdownComponent,
-		//FaqDropdownComponent,
-		//AssessmentslistComponent,
-		//ThreadsListComponent,
-		//FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//CriteriaPage,
-		//ActionitemsPage,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		//ViewsComponent,
-		//ImportComponent,
-		//TopbarComponent,
-		//SubthreadPopupComponent,
-		//ThreadPopupComponent,
-		//LoginComponent,
-		//RegisterComponent
+    HomePage
+		
   ],
   providers: [
     StatusBar,
@@ -164,6 +95,7 @@ import { BackUrl } from  "../services/constants";
     SplashScreen,
 		//    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
+
 })
 export class AppModule {
 constructor(apollo: Apollo, httpLink: HttpLink) {

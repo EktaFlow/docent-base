@@ -87,23 +87,28 @@
       <br>
       <br>
       <div style="margin-left: 2px;" class="who-when">
-        <div style="display:flex; flex-direction:column">
+        <div style="display:flex; flex-direction:column" class="who">
           <li *ngFor = "let persons of actionPerson">
             <pre>{{persons}}</pre>
           </li>
           <h6>Who</h6>
           <input class="question-input" [(ngModel)]="vals.who" name="who" style="width: 200%;" #who>
         </div>
-        <div style="display:flex; flex-direction:column">
+        <div style="display:flex; flex-direction:column" class='when'>
           <h6>When</h6>
           <input class="question-input" [(ngModel)]="vals.when" name= "when" type="date" >
         </div>
       </div>
-      <h6>Risk</h6>
-			<div>
 
-			</div>
+
+
+      <h6 class="risk-text">Risk</h6>
+
+			<!-- <div>
+
+			</div> -->
       <div class="risk">
+
 				<!--
         Technical<input class="question-input" name="technical" value="technical" [(ngModel)]="noVals.technical" type="checkbox">
         Cost<input class="question-input" [(ngModel)]="noVals.cost" type="checkbox">
@@ -124,7 +129,7 @@
       <textarea class="question-input" [(ngModel)]="vals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
       <textarea class="question-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
-      <div style="width:50%;margin:10px 0px 0px 0px;">
+      <div class="attach" style="width:50%;margin:10px 0px 0px 0px;">
           <button (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
       </div>
 		 </div>
