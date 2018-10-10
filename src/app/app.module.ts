@@ -52,24 +52,7 @@ import { BackUrl } from  "../services/constants";
   declarations: [
     MyApp,
     HomePage
-		//QuestionsPage,
-		//AcronymsPage,
-		// DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//ActionitemsPage,
-		//CriteriaPage,
-		//ViewsComponent,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage
+
   ],
   imports: [
     BrowserModule,
@@ -101,23 +84,7 @@ import { BackUrl } from  "../services/constants";
   entryComponents: [
     MyApp,
     HomePage
-		// QuestionsPage,
-		// AcronymsPage,
-		// DefinitionsPage,
-		// FaqsPage,
-		// AcronymsPage,
-		// ReviewPage,
-		// RegisterPage,
-		// LoginPage,
-		// DashboardPage,
-		// NavigatePage,
-		// NotapplicablePage,
-		// SkippedquestionsPage,
-		// CriteriaPage,
-		// ActionitemsPage,
-		// UserDashboardPage,
-		// SettingsPage,
-		// NewAssessmentPage
+		
   ],
   providers: [
     StatusBar,

@@ -78,8 +78,13 @@ topbar {
     @media screen and (max-width: 420px){
 
 
+    .main-title {
+      // font-size: 100%;
+        // font-size: 2rem !important;
+        font-size: 1.5em !important;
+    }
       .toolbar-class {
-      
+
         hr {
           display: none !important;
         }
