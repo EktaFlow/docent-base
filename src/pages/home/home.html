@@ -2,7 +2,7 @@
 
 <topbar [blank]="true"></topbar>
 <ng-container *ngIf="auth.isLoggedIn()">
-<topbar></topbar> 
+<topbar></topbar>
 </ng-container>
 
 
@@ -96,7 +96,7 @@
       <button class="tooltip" style="background: white;">
 				<!-- TODO: pull this text out of html -->
   			<span class="tooltiptext left">When on Docent will present questions above and below your selected level. This is to find the ceiling or floor of your MRL, if you pass or fail a level. When off, you will only see questions at your target level</span>
-        <img src="../../assets/imgs/qmark.png" width="15" height="15">
+        <img src="assets/imgs/qmark.png" width="15" height="15">
       </button>
           </div>
           <select id="level-switching-select"[(ngModel)]="assForm.levelSwitching">
@@ -110,7 +110,7 @@
     </div>
   </div>
   <div class = "bottom">
-		<div> 
+		<div>
       <h6>Location</h6>
       <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
@@ -126,13 +126,13 @@
   <div class = "thread-start">
     <div class = "choose-threads">
       <button style="background: white;"(click)="showThreads($event)">
-        <img src="../../assets/imgs/if_icon-arrow-down.png" width="15" height="15">
+        <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
       </button>
       <p><b>Choose Threads</b></p>
       <button class="tooltip" style="background: white;">
 				<!-- TODO: pull this text out of html -->
   			<span class="tooltiptext right">Choose to include or exclude specific threads in the MRA. If a thread is unselected you will not be presented with any questions from that thread. Typically, all threads are left selected</span>
-        <img src="../../assets/imgs/qmark.png" width="15" height="15">
+        <img src="assets/imgs/qmark.png" width="15" height="15">
       </button>
     </div>
     <div>
