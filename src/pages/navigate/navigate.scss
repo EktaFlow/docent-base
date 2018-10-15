@@ -96,4 +96,31 @@ page-navigate {
          }
 
         }
+
+        @media screen and (max-width: 420px){
+            ion-content {
+                margin-top: 60px;
+
+                .filter-toolbar {
+
+                    button {
+                        width: 25%;
+                    }
+                    .filter-list {
+                        width: 60%;
+
+                        select {
+                            width: 20%;
+                        }
+
+                        .filter-it {
+                            width: 20%;
+                            font-size: .9em;
+                        }
+                    }
+                }
+
+
+            }
+        }
 }

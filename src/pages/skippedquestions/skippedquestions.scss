@@ -25,4 +25,10 @@ page-skippedquestions {
     .questions{
         display: flex;
     }
+
+    @media screen and (max-width: 420px){
+        ion-content {
+            margin-top: 40px;
+        }
+    }
 }
