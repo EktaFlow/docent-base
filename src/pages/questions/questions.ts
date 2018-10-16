@@ -56,7 +56,7 @@ export class QuestionsPage {
 	// INIT && related function
   async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-		
+
 		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
 														 .getQuestionPageAssessment(this.assessmentId)
@@ -103,8 +103,7 @@ export class QuestionsPage {
 				this.files.push(v);
 			});
 
-			this.popoverController
-				.create(FileUploadPopoverComponent,
+			this.popoverController.create(FileUploadPopoverComponent,
 					{
 						emitter: myEmitter,
 						questionId: this.questionId,
@@ -124,7 +123,7 @@ export class QuestionsPage {
 	}
 
 	async	handlePreviousPageClick() {
-		if ( this.currentQPos == 1 ) return null;	
+		if ( this.currentQPos == 1 ) return null;
 		this.setValues();
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;

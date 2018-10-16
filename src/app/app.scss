@@ -36,7 +36,7 @@ $input-border:#dcdcdc;
 input, textarea{
         @extend %input-style;
     }
-input:focus, textarea:focus { 
+input:focus, textarea:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -78,7 +78,7 @@ input:focus, textarea:focus {
 
 
 
-/* callup arrow, 
+/* callup arrow,
 .tooltip .tooltiptext::after {
     content: "";
     position: absolute;
@@ -99,4 +99,25 @@ input:focus, textarea:focus {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+
+@media screen and (min-width: 430px){
+    .upload-popover .popover-content {
+        padding: 30px;
+        height: 400px;
+        width: 800px !important;
+    }
+}
+
+@media screen and (max-width: 420px){
+    .upload-popover .popover-content {
+        position: absolute;
+        top: 200px;
+        left: 40px !important;
+        // transform: translate(-50%, -50%);
+        padding: 30px;
+        height: 400px;
+        width: 80% !important;
+    }
 }
