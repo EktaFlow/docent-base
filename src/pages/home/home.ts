@@ -9,6 +9,7 @@ import { NavController, PopoverController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
+import { PasswordResetComponent } from '../../components/password-reset/password-reset';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -149,6 +150,11 @@ export class HomePage {
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
+
+    handleResetClick() {
+      this.popOver.create( PasswordResetComponent) 
+                    .present();
+    } 
 
 	showRegisterForm = () => this.showRegister = true;
 

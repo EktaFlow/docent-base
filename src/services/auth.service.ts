@@ -12,6 +12,7 @@ constructor(private http: HttpClient) {}
 
 	registerUrl = AuthUrl + "register";
 	loginUrl    = AuthUrl + "login";
+        resetUrl    = AuthUrl + 'reset';
 
 	registerUser(user) {
 		return this.http.post(this.registerUrl, user)
@@ -34,6 +35,13 @@ constructor(private http: HttpClient) {}
 		ok ? ok = ok.user : null
 		return ok
 	}
+
+        public resetPassword(email) {
+          return this.http.post(this.resetUrl, {email})
+                 .pipe(tap( data => console.log(data),
+                            error => console.log(error)
+                          ));
+        }
 
 	private setSession(isAuthed) {
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))

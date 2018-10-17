@@ -51,6 +51,7 @@ import { SubthreadPopupComponent } from "../components/subthread-popup/subthread
 import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
 import { LoginComponent } from "../components/login/login";
 import { RegisterComponent } from "../components/register/register";
+import { PasswordResetComponent } from '../components/password-reset/password-reset';
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -124,6 +125,7 @@ import { BackUrl } from  "../services/constants";
   entryComponents: [
     MyApp,
     HomePage,
+    PasswordResetComponent
 		//QuestionsPage,
 		//AcronymsPage,
 		//DefinitionsPage,

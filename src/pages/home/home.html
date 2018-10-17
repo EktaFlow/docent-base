@@ -12,6 +12,10 @@
 	You must verify your Docent registration via email before logging on.
 	</ng-container>
 	<login></login>
+        <h4>Forgot Password?</h4>
+        <div>
+            <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset Password</button>
+        </div>
 
 	<div *ngIf="!showRegister" class="register-container">
 	<h4>Not registered?</h4>
