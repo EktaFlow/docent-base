@@ -110,6 +110,12 @@ input:focus, textarea:focus {
     }
 }
 
+.small-popover {
+  width: 300px;
+  height: 400px;
+  padding: 30px;
+}
+
 @media screen and (max-width: 420px){
     .upload-popover .popover-content {
         position: absolute;

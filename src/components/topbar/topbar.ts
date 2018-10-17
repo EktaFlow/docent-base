@@ -158,7 +158,8 @@ constructor( public popOver: PopoverController,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId, subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
+		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
     .present({ev: event});
   }
 
@@ -168,7 +169,8 @@ constructor( public popOver: PopoverController,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId, updateInfo: updateInfo}, {cssClass: 'thread-popup'})
+		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
+			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
 		.present({ev: event});
 	}
 

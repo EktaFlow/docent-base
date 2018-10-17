@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
@@ -7,6 +7,7 @@ import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
+import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
@@ -59,7 +60,8 @@ export class UserDashboardPage {
               public navParams: NavParams,
 							private apollo: Apollo,
 							private auth: AuthService,
-              private assessmentService: AssessmentService) {
+              private assessmentService: AssessmentService,
+							public popOver: PopoverController) {
 							//this.assessmentId = navParams.data.assessmentId;
               }
 
@@ -127,7 +129,7 @@ export class UserDashboardPage {
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
 
-	async continueAssessment(assessmentId) { 
+	async continueAssessment(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
 		this.navCtrl.push(QuestionsPage);
@@ -152,6 +154,11 @@ export class UserDashboardPage {
 	async handleDeleting(assessmentId){
 		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
 		observe.subscribe((data => this.removeAssessmentFromPage(assessmentId)) );
+	}
+
+	presentAddTeamMembersPopOver(assessmentId){
+		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: this.assessmentId}, {cssClass: 'upload-popover'})
+		.present();
 	}
 
 	removeAssessmentFromPage(assessmentId){

@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from 'ionic-angular';
+import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-team-members-pop-over';
 
 @NgModule({
 	declarations: [
@@ -30,7 +31,8 @@ import { IonicModule } from 'ionic-angular';
     SubthreadPopupComponent,
     ThreadPopupComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddTeamMembersPopOverComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -46,7 +48,8 @@ import { IonicModule } from 'ionic-angular';
     SubthreadPopupComponent,
     ThreadPopupComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddTeamMembersPopOverComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -61,7 +64,8 @@ import { IonicModule } from 'ionic-angular';
         SubthreadPopupComponent,
         ThreadPopupComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        AddTeamMembersPopOverComponent
     ]
 })
 
