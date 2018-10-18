@@ -48,14 +48,7 @@ export class UploadService {
 
 	uploadJSON(file){
 		var user = this.auth.currentUser();
-		console.log(file);
-
-		//take file use stringify
-//json as string, user email
-//uploadJSON takes userEmail and jsonString
-		// this.auth.uploadJSON();
-
-
+		this.auth.uploadJSON(file, user.email)
 
 	}
 

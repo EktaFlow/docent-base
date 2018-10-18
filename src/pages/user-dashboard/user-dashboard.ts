@@ -7,7 +7,6 @@ import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
-import { AssessmentService } from "../../services/assessment.service";
 
 
 import { HomePage } from "../home/home";

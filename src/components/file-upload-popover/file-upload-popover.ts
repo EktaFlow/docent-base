@@ -67,8 +67,4 @@ export class FileUploadPopoverComponent {
 		this.emitter.emit(uploadedFile);
 	}
 
-  async uploadJSON(event){
-    var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-		var uploadedFile = await this.uploadJSON(file);
-  }
 }
