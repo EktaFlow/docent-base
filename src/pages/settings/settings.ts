@@ -35,14 +35,14 @@ export class SettingsPage {
 
   goBackToUser(){ this.navCtrl.pop()};
 
-  async saveDownJSON(){
-  		this.http.get('assets/json/2016.json')
-  					.subscribe( data => {
-  						console.log(data);
-              this.generateDownloadJsonUri(data);
-              return this.downloadJsonHref;
-  					});
-  }
+  // async saveDownJSON(){
+  // 		this.http.get('assets/json/2016.json')
+  // 					.subscribe( data => {
+  // 						console.log(data);
+  //             this.generateDownloadJsonUri(data);
+  //             return this.downloadJsonHref;
+  // 					});
+  // }
 
   generateDownloadJsonUri(json) {
     var theJSON = JSON.stringify(json);
@@ -51,9 +51,11 @@ export class SettingsPage {
   }
 
   showFileUpload() {
+
 			let myEmitter = new EventEmitter<any>();
 				myEmitter.subscribe( v =>  {
 				this.files.push(v);
+        console.log(this.files);
 			});
 
 			this.popover
@@ -63,7 +65,11 @@ export class SettingsPage {
 					},
 					{	cssClass: "json-upload-popover"})
 				.present();
+
+        console.log("emitter");
 	}
+
+
 
 
 
