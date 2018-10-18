@@ -146,6 +146,7 @@ export class HomePage {
 			 });
 			 }
     this.getSchema();
+		this.setUpDeskbookArray();
 
 
 	}

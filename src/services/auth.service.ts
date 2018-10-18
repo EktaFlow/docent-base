@@ -7,6 +7,7 @@ import { AuthUrl } from "./constants";
 @Injectable()
 
 export class AuthService {
+	
 
 constructor(private http: HttpClient) {}
 
@@ -57,7 +58,7 @@ constructor(private http: HttpClient) {}
 		// return true
 	}
 
-	private uploadJSON(jsonFile, userEmail){
+	public uploadJSON(jsonFile, userEmail){
 		var jsonRoute = AuthUrl + "uploadJSON"
 		var fileInfo = {
 			file: jsonFile,

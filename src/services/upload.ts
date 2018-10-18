@@ -29,7 +29,12 @@ export class UploadService {
 	accountName: string = DocentStorageAccount;
 	sas:         string = SAS;
 
-	constructor(private apollo: Apollo, private auth: AuthService) {}
+	constructor(private apollo: Apollo,
+											private auth: AuthService) {
+												// console.log(auth);
+											}
+
+
 
 	uploadFile(file, assessmentId, questionId) {
 		const blobUri = `https://${this.accountName}.blob.core.windows.net`;
@@ -47,8 +52,9 @@ export class UploadService {
 	}
 
 	uploadJSON(file){
+		console.log(this);
 		var user = this.auth.currentUser();
-		this.auth.uploadJSON(file, user.email)
+		this.auth.uploadJSON(file, user.email);
 
 	}
 

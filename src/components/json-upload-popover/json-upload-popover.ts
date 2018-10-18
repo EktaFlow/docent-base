@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { UploadService } from "../../services/upload";
-import { AuthService } from "../../services/auth.service";
-import { AuthUrl } from "../../services/constants";
-// import { UploadService } from "../../services/"
+// import { AuthService } from "../../services/auth.service";
+// import { AuthUrl } from "../../services/constants";
 
 
 @Component({
@@ -21,8 +20,7 @@ export class JsonUploadPopoverComponent {
 	finalFile: any;
 
 	constructor(	public upload: UploadService,
-								public navParams: NavParams,
-								public auth: AuthService) {
+								public navParams: NavParams) {
 
 		var {navParams} = this;
 
@@ -76,22 +74,19 @@ export class JsonUploadPopoverComponent {
 		var fileName = this.file.name;
 		var fileReader = new FileReader();
 		fileReader.readAsText(this.file);
-		var coolUpload = this.upload.uploadJSON.bind(this);
-		var coolEmit = this.emitter.emit.bind(this);
-		fileReader.onloadend = async function(){
+		// var coolUpload = this.upload.uploadJSON.bind(this);
+		// var coolEmit = this.emitter.emit.bind(this);
+		fileReader.onloadend = () => {
 
 			console.log(fileReader.result);
-			this.finalFile = {
+			var finalFile = {
 				file: JSON.parse(fileReader.result),
 				fileName: fileName
 			}
-
-			console.log(this.finalFile);
-
-			var uploadedFile = await coolUpload(this.finalFile);
+			console.log(finalFile);
+			console.log(this);
+			this.upload.uploadJSON(finalFile);
 			// coolEmit(uploadedFile);
-
-
 		}
 		// var uploadedFile = await this.upload.uploadJSON(file);
   }

@@ -68,7 +68,7 @@ import { JsonUploadPopoverComponent } from './json-upload-popover/json-upload-po
         ThreadPopupComponent,
         LoginComponent,
         RegisterComponent,
-        AddTeamMembersPopOverComponent
+        AddTeamMembersPopOverComponent,
         JsonUploadPopoverComponent
     ]
 })
