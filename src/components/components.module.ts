@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from 'ionic-angular';
 import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-team-members-pop-over';
+import { JsonUploadPopoverComponent } from './json-upload-popover/json-upload-popover';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-
     ThreadPopupComponent,
     LoginComponent,
     RegisterComponent,
-    AddTeamMembersPopOverComponent
+    AddTeamMembersPopOverComponent,
+    JsonUploadPopoverComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -49,7 +51,8 @@ import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-
     ThreadPopupComponent,
     LoginComponent,
     RegisterComponent,
-    AddTeamMembersPopOverComponent
+    AddTeamMembersPopOverComponent,
+		JsonUploadPopoverComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -66,6 +69,7 @@ import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-
         LoginComponent,
         RegisterComponent,
         AddTeamMembersPopOverComponent
+        JsonUploadPopoverComponent
     ]
 })
 

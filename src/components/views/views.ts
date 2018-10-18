@@ -86,7 +86,7 @@ export class ViewsComponent {
 
 
 		handleSave() {
-	this.apollo.watchQuery<any>({
+	    this.apollo.watchQuery<any>({
 			query: assessmentQuery,
 			fetchPolicy: "network-only",
 			variables: {_id: this.assessmentId}

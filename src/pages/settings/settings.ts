@@ -4,7 +4,7 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser/'
-// import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover";
 
 
 
@@ -25,7 +25,7 @@ export class SettingsPage {
                     public navParams: NavParams,
                     private http: HttpClient,
                     public sanitizer: DomSanitizer,
-                   ) {
+                  public popover: PopoverController ) {
                       this.user = navParams.data.user;
                       console.log(navParams.data.user);
 
@@ -46,27 +46,32 @@ export class SettingsPage {
   // 					});
   // }
 
-  // generateDownloadJsonUri(json) {
-  //   var theJSON = JSON.stringify(json);
-  //   var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
-  //   return this.downloadJsonHref = uri;
-  // }
+  generateDownloadJsonUri(json) {
+    var theJSON = JSON.stringify(json);
+    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    return this.downloadJsonHref = uri;
+  }
 
-  // showFileUpload() {
-	// 		let myEmitter = new EventEmitter<any>();
-	// 			myEmitter.subscribe( v =>  {
-	// 			this.files.push(v);
-	// 		});
-  //
-	// 		this.popoverController
-	// 			.create(FileUploadPopoverComponent,
-	// 				{
-	// 					emitter: myEmitter,
-  //           userId: this.user.id
-	// 				},
-	// 				{	cssClass: "upload-popover"})
-	// 			.present();
-	// }
+  showFileUpload() {
+
+			let myEmitter = new EventEmitter<any>();
+				myEmitter.subscribe( v =>  {
+				this.files.push(v);
+        console.log(this.files);
+			});
+
+			this.popover
+				.create(JsonUploadPopoverComponent,
+					{
+						emitter: myEmitter
+					},
+					{	cssClass: "json-upload-popover"})
+				.present();
+
+        console.log("emitter");
+	}
+
+
 
 
 

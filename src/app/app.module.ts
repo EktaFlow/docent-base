@@ -84,7 +84,7 @@ import { BackUrl } from  "../services/constants";
   entryComponents: [
     MyApp,
     HomePage
-		
+
   ],
   providers: [
     StatusBar,

@@ -3,6 +3,8 @@ import * as upload from "./azure-storage.blob.min";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { DocentStorageAccount, SAS } from "./constants";
+import { AuthService } from "./auth.service";
+
 
 var createFileMutation = gql`
 	mutation addFile( $assessmentId: String
@@ -23,17 +25,17 @@ var createFileMutation = gql`
 
 @Injectable()
 export class UploadService {
-	
+
 	accountName: string = DocentStorageAccount;
 	sas:         string = SAS;
 
-	constructor(private apollo: Apollo) {}
+	constructor(private apollo: Apollo, private auth: AuthService) {}
 
 	uploadFile(file, assessmentId, questionId) {
 		const blobUri = `https://${this.accountName}.blob.core.windows.net`;
-		const blobService = upload.createBlobServiceWithSas(blobUri, this.sas); 
+		const blobService = upload.createBlobServiceWithSas(blobUri, this.sas);
 
-		blobService.createBlockBlobFromBrowserFile('test', file.name, file, 
+		blobService.createBlockBlobFromBrowserFile('test', file.name, file,
 		(error, result) => {
 				 if (error) {	console.error(error); }
 				 else {
@@ -42,6 +44,12 @@ export class UploadService {
 				 }
 		});
 		return {name: file.name, questionId: questionId, url: this.generateUrl(file.name)};
+	}
+
+	uploadJSON(file){
+		var user = this.auth.currentUser();
+		this.auth.uploadJSON(file, user.email)
+
 	}
 
 	generateUrl(name) {
@@ -59,5 +67,9 @@ export class UploadService {
 			}
 		}).subscribe(a => null);
 	}
+
+	// createGQLJSON(url, userId, name) {
+	//
+	// }
 
 }

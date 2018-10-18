@@ -56,4 +56,15 @@ constructor(private http: HttpClient) {}
 
 		// return true
 	}
+
+	private uploadJSON(jsonFile, userEmail){
+		var jsonRoute = AuthUrl + "uploadJSON"
+		var fileInfo = {
+			file: jsonFile,
+			email: userEmail
+		}
+		console.log(fileInfo);
+		console.log(jsonRoute);
+		this.http.post(jsonRoute, fileInfo).subscribe(a => console.log("cool"));
+	}
 }
