@@ -36,6 +36,7 @@ export class HomePage {
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
+	deskbookVersions: any = [];
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -71,12 +72,12 @@ export class HomePage {
 			return null;
 		}
 		var variables = this.formatAssessmentVariables();
-		//  debug what is getting passed into the mutation: 
+		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.subscribe(({data}) => {
 					var assessmentId = data.createAssessment._id;
-					// !assessmentId ? this.handleBackendError() : null 
+					// !assessmentId ? this.handleBackendError() : null
 					this.sendEmailsToTeamMembers(assessmentId);
 					this.startAssessment(assessmentId);
 		});
@@ -145,6 +146,8 @@ export class HomePage {
 			 });
 			 }
     this.getSchema();
+
+
 	}
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
@@ -191,5 +194,11 @@ export class HomePage {
 		await this.assessmentService.setCurrentAssessmentId(_id);
     this.navCtrl.push(QuestionsPage);
   }
+
+	setUpDeskbookArray() {
+		var user = this.auth.currentUser();
+		this.deskbookVersions = ["2017", "2016"];
+		console.log(user.jsonFiles);
+	}
 
 }
