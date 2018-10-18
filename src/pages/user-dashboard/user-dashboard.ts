@@ -60,7 +60,7 @@ export class UserDashboardPage {
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService) {
-							//this.assessmentId = navParams.data.assessmentId;
+							this.assessmentId = navParams.data.assessmentId;
               }
 
 
@@ -127,7 +127,7 @@ export class UserDashboardPage {
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
 
-	async continueAssessment(assessmentId) { 
+	async continueAssessment(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
 		this.navCtrl.push(QuestionsPage);

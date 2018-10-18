@@ -133,6 +133,9 @@ constructor( public popOver: PopoverController,
 				_id:     this.assessmentId,
 				questionId: this.questionId
 			}
+
+			console.log("trouble spot");
+			console.log(this.assessmentId);
 			var update = await this.assessmentService.updateQuestion(updateInfo);
 			update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
 		} else {
