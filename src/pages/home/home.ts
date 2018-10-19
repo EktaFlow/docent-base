@@ -36,7 +36,7 @@ export class HomePage {
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
-	deskbookVersions: any = [];
+	public deskbookVersions: any = ["2017", "2016"];
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -144,10 +144,12 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 			 });
-			 this.setUpDeskbookArray();
+
 
 			 }
     this.getSchema();
+		 this.setUpDeskbookArray();
+		 console.log(this.deskbookVersions)
 
 
 	}
@@ -199,12 +201,12 @@ export class HomePage {
 
 	async setUpDeskbookArray() {
 		var user = await this.auth.currentUser();
-		this.deskbookVersions = ["2017", "2016"];
+		// this.deskbookVersions = ["2017", "2016"];
 		console.log(user.jsonFiles);
-		// for (let file of user.jsonFiles){
-		// 	var file = JSON.parse(file);
-		// 	this.deskbookVersions.push(file.fileName);
-		// }
+		for (let file of user.jsonFiles){
+			var file = JSON.parse(file);
+			this.deskbookVersions.push(file.fileName);
+		}
 		console.log(this.deskbookVersions);
 	}
 
