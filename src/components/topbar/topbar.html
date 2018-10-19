@@ -9,14 +9,6 @@
             <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
 								Logout
             </button>
-						<ng-container *ngIf="!auth.isLoggedIn()">
-            <button  ion-button (click)="loginNav()" color="dark">
-								Login
-            </button>
-            <button ion-button (click)="registerNav()" color="dark">
-                Register
-            </button>
-						</ng-container>
             <button (click)="handleUserDash()" color="dark" ion-button>User Dash</button>
             <button ion-button (click)="presentViewsPop($event)" color="dark">
                 Assessment

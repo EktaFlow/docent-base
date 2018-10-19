@@ -24,8 +24,6 @@ import { DefinitionsPageModule } from '../pages/definitions/definitions.module';
 import { FaqsPageModule } from '../pages/faqs/faqs.module';
 import { ReviewPageModule } from '../pages/review/review.module';
 import { QuestionsPageModule } from '../pages/questions/questions.module';
-import { RegisterPageModule } from "../pages/register/register.module";
-import { LoginPageModule }    from "../pages/login/login.module";
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { NavigatePageModule } from '../pages/navigate/navigate.module';
 import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
@@ -67,8 +65,6 @@ import { BackUrl } from  "../services/constants";
 		DefinitionsPageModule,
 		FaqsPageModule,
 		ReviewPageModule,
-		RegisterPageModule,
-		LoginPageModule,
 		DashboardPageModule,
 		NavigatePageModule,
 		NotapplicablePageModule,
@@ -84,7 +80,7 @@ import { BackUrl } from  "../services/constants";
   entryComponents: [
     MyApp,
     HomePage
-		
+
   ],
   providers: [
     StatusBar,

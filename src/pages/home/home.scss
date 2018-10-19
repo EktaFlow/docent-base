@@ -73,7 +73,7 @@ $input-border:#dcdcdc;
     input{
         @extend %input-style;
     }
-    input:focus { 
+    input:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -104,7 +104,7 @@ $input-border:#dcdcdc;
         height:80%;
         resize:none;
     }
-    textarea:focus { 
+    textarea:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -121,7 +121,7 @@ $input-border:#dcdcdc;
         width:100%;
         height: 30%;
     }
-    input:focus { 
+    input:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -163,7 +163,7 @@ $input-border:#dcdcdc;
         margin-top:0px;
         height: 45%;
     }
-    input:focus { 
+    input:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -179,6 +179,20 @@ $input-border:#dcdcdc;
 			@extend %selected-input;
 		}
 }
+
+.register-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 5vw;
+}
+
+.mobile-register-container {
+    display: none;
+}
+
+
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	.assessment-name {
@@ -204,7 +218,22 @@ $input-border:#dcdcdc;
 			width: 90%;
 		}
 	}
+
+  .register-container {
+    display: none;
+  }
+
+  .mobile-register-container {
+      display: flex;
+      flex-direction: column;
+  	   align-items: flex-start;
+  	    justify-content: flex-start;
+  	    margin-top: 10px;
+        margin-left: 25px;
+  }
 }
+
+
 .thread-start{
     display: flex;
     justify-content: space-between;
@@ -233,12 +262,4 @@ $input-border:#dcdcdc;
 
 .grayed {
 	color: gray;
-}
-
-.register-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-top: 5vw;
 }

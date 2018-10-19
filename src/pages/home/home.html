@@ -2,7 +2,7 @@
 
 <topbar [blank]="true"></topbar>
 <ng-container *ngIf="auth.isLoggedIn()">
-<topbar></topbar> 
+<topbar></topbar>
 </ng-container>
 
 
@@ -11,12 +11,20 @@
 	<ng-container *ngIf="auth.unverified()">
 	You must verify your Docent registration via email before logging on.
 	</ng-container>
-	<login></login>
+  <ng-container *ngIf="!mobileRegister">
+    	<login></login>
+  </ng-container>
+
 
 	<div *ngIf="!showRegister" class="register-container">
-	<h4>Not registered?</h4>
-	<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
+		<h4>Not registered?</h4>
+		<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
 	</div>
+
+	<div *ngIf="!showRegister" class="mobile-register-container" >
+		<h6 (click)="mobileRegisterForm()">sign up</h6>
+	</div>
+
 </ng-container>
 
 <ng-container *ngIf="showRegister">
@@ -110,7 +118,7 @@
     </div>
   </div>
   <div class = "bottom">
-		<div> 
+		<div>
       <h6>Location</h6>
       <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
