@@ -25,137 +25,99 @@
     </div>
   </div> -->
 
-  <div class="assessment-boxes">
-    <div class="assessments user-assessments">
-      <div class="box-title">
-        <h3><b>My Assessments</b></h3>
-      </div>
-      <div *ngIf="this.assessments">
-        <div class="accordion-tab metrics">
-          <p>You currently have {{assessments.length}} assessments</p>
-        </div>
-      <div  *ngFor="let assessment of assessments">
-        <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
-          <b>Assessment:</b> {{assessment.name}}
-        </div>
-        <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
-          <div class="details">
-            <p><b>Name: </b>{{assessment.name}}</p>
-            <p><b>MRLevel: </b>  {{assessment.targetMRL}}</p>
-            <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
-            <p><b>Scope: </b>{{assessment.scope}}</p>
-            <p><b>Location: </b> {{assessment.location}}</p>
-            <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-            <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
-          </div>
-          <div class="assNav">
-            <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
-            <button (click)="openDashboard(assessment.id)">Dashboard</button>
-            <button (click)="openActionItems(assessment.id)">Action Items</button>
-            <button (click)="handleDeleting(assessment.id)">Delete</button>
-            <!-- <button>Add Team Members</button> -->
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
+  <div class="mobile-wrapper">
 
-    <div class="assessments shared-assessments">
-      <div class="box-title">
-        <h3><b>Assessments Shared With Me</b></h3>
-      </div>
-			<div *ngIf="this.sharedAssessments.length >= 1">
-        <div class="accordion-tab metrics">
-          <p>You currently have {{sharedAssessments.length}} assessments</p>
-        </div>
-				<div *ngIf="this.sharedAssessments.length > 0">
-      <div *ngFor="let assessment of sharedAssessments">
-        <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
-          <b>Assessment:</b> {{assessment.name}}
-        </div>
-        <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
-          <div class="details">
-            <p><b>Name: </b>{{assessment.name}}</p>
-            <p><b>MRLevel: </b>  {{assessment.targetMRL}}</p>
-            <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
-            <p><b>Scope: </b>{{assessment.scope}}</p>
-            <p><b>Location: </b> {{assessment.location}}</p>
-            <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-            <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
-            <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
-          </div>
-          <div class="assNav">
-            <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
-            <button (click)="openDashboard(assessment.id)">Dashboard</button>
-            <button (click)="openActionItems(assessment.id)">Action Items</button>
-            <!-- <button>Add Team Members</button> -->
-          </div>
-        </div>
-			</div>
-      </div>
-      </div>
+  <div class="mobile-to-start">
+    <div class="box-title">
+      <h3 (click)="redirectToCreate()"><b>Start New Assessment</b></h3>
     </div>
   </div>
 
-  <!-- <div class="assessment-boxes">
+  <div class="assessment-boxes">
     <div class="assessments user-assessments">
       <div class="box-title">
-        <h3>My Assessments</h3>
+        <h3 (click)="toggleMine()"><b>My Assessments</b></h3>
       </div>
-      <div *ngIf="this.assessments">
-      <div  *ngFor="let assessment of assessments">
-        <div class="accordion-tab" (click)="expandAssessment()">
-          Assessment: {{assessment.name}}
-        </div>
-        <div *ngIf="expand" class="an-assessment">
-          <div class="details">
-            <p>Name: Assessment 1</p>
-            <p>MRLevel:  6</p>
-            <p>Target Date: December 24, 2020</p>
-            <p>Scope: Scope</p>
-            <p>Location: Chicago</p>
-            <p>Level Switching?: No</p>
-            <p>Team Members: Ray, George</p>
+      <div *ngIf="showMine">
+        <div *ngIf="this.assessments">
+          <div class="accordion-tab metrics">
+            <p>You currently have {{assessments.length}} assessments</p>
           </div>
-          <div class="assNav">
-            <button>Open</button>
-            <button>Dashboard</button>
-            <button>Action Items</button>
+        <div  *ngFor="let assessment of assessments">
+          <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+            <b>Assessment:</b> {{assessment.name}}
+          </div>
+          <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
+            <div class="details">
+              <p><b>Name: </b>{{assessment.name}}</p>
+              <p><b>MRLevel: </b>  {{assessment.targetMRL}}</p>
+              <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
+              <p><b>Scope: </b>{{assessment.scope}}</p>
+              <p><b>Location: </b> {{assessment.location}}</p>
+              <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
+              <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+            </div>
+            <div class="assNav">
+              <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
+              <button (click)="openDashboard(assessment.id)">Dashboard</button>
+              <button (click)="openActionItems(assessment.id)">Action Items</button>
+              <button (click)="handleDeleting(assessment.id)">Delete</button>
+              <!-- <button>Add Team Members</button> -->
+            </div>
           </div>
         </div>
+        </div>
       </div>
-      </div>
+
     </div>
 
     <div class="assessments shared-assessments">
       <div class="box-title">
-        <h3>Shared Assessments</h3>
+        <h3 (click)="toggleShared()"><b>Assessments Shared With Me</b></h3>
       </div>
-      <div *ngIf="this.assessments">
-      <div  class="an-assessment" *ngFor="let assessment of sharedAssessments">
-        <div class="accordion-tab" (click)="expandAssessment()">
-          Assessment: {{assessment.name}}
-        </div>
-        <div *ngIf="expand" class="an-assessment">
-          <div class="details">
-            <p>Name: Assessment 1</p>
-            <p>MRLevel:  6</p>
-            <p>Target Date: December 24, 2020</p>
-            <p>Scope: Scope</p>
-            <p>Location: Chicago</p>
-            <p>Level Switching?: No</p>
-            <p>Team Members: Ray, George</p>
+      <div *ngIf="showShared">
+        <div *ngIf="this.sharedAssessments.length >= 1">
+          <div class="accordion-tab metrics">
+            <p>You currently have {{sharedAssessments.length}} assessments</p>
           </div>
-          <div class="assNav">
-            <button>Open</button>
-            <button>Dashboard</button>
-            <button>Action Items</button>
+  				<div *ngIf="this.sharedAssessments.length > 0">
+        <div *ngFor="let assessment of sharedAssessments">
+          <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+            <b>Assessment:</b> {{assessment.name}}
           </div>
+          <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
+            <div class="details">
+              <p><b>Name: </b>{{assessment.name}}</p>
+              <p><b>MRLevel: </b>  {{assessment.targetMRL}}</p>
+              <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
+              <p><b>Scope: </b>{{assessment.scope}}</p>
+              <p><b>Location: </b> {{assessment.location}}</p>
+              <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
+              <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+              <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
+            </div>
+            <div class="assNav">
+              <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
+              <button (click)="openDashboard(assessment.id)">Dashboard</button>
+              <button (click)="openActionItems(assessment.id)">Action Items</button>
+              <!-- <button>Add Team Members</button> -->
+            </div>
+          </div>
+  			</div>
+        </div>
         </div>
       </div>
-      </div>
+
     </div>
-  </div> -->
+  </div>
+
+  <div class="mobile-to-reports">
+    <div class="box-title">
+      <h3><b>View Reports</b></h3>
+    </div>
+  </div>
+
+</div>
 
 
 

@@ -55,6 +55,9 @@ export class UserDashboardPage {
 	noSecondBar: boolean = false;
 	assessmentId: any;
 
+	showMine: boolean = false;
+	showShared: boolean = false;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
 							private apollo: Apollo,
@@ -127,7 +130,7 @@ export class UserDashboardPage {
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
 
-	async continueAssessment(assessmentId) { 
+	async continueAssessment(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
 		this.navCtrl.push(QuestionsPage);
@@ -148,6 +151,9 @@ export class UserDashboardPage {
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
 
   handleSettings(){ this.navCtrl.push(SettingsPage);}
+
+	toggleMine = () => {this.showMine = !this.showMine;}
+	toggleShared = () => {this.showShared = !this.showShared;}
 
 	async handleDeleting(assessmentId){
 		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
