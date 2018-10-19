@@ -69,23 +69,31 @@ $input-border:#dcdcdc;
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    width: 98%;
     justify-content: space-between;
-    input{
-        @extend %input-style;
+
+    .member-inputs {
+        width: 100%;
+        display: inline-block;
+
+        input{
+            @extend %input-style;
+            width: 30%;
+            margin: 0 5px;
+        }
+        input:focus {
+            outline:none;
+            border-color:#9ecaed;
+            box-shadow:0 0 10px #9ecaed;
+        }
+
     }
-    input:focus {
-        outline:none;
-        border-color:#9ecaed;
-        box-shadow:0 0 10px #9ecaed;
-    }
+
 }
 
-.member-role-button{
-    display:flex;
-    input{
-        width: 100%;
-    }
-}
+
+
+
 
 
 .mid-first-page{
@@ -231,6 +239,31 @@ $input-border:#dcdcdc;
   	    margin-top: 10px;
         margin-left: 25px;
   }
+
+  .member-form {
+      margin-left: 15px;
+  }
+
+  .members {
+      width: 100%;
+
+    .member-inputs {
+        input {
+            width: 92%;
+            height: 50%;
+            display: block;
+        }
+    }
+
+  }
+
+  .buttons {
+     button {
+         margin: 2px;
+         margin-top: 5px;
+     }
+  }
+
 }
 
 

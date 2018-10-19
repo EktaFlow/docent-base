@@ -48,27 +48,23 @@
 	</div>
 
 <!-- Save for auth -->
-  <h6>Team Members</h6>
-  <form>
+<h6 style="margin-left:15px;">Team Members</h6>
+  <form class="member-form">
     <div class="member-list">
       <li *ngFor = "let member of members">
-        <pre>- {{member.email}}:              {{member.role}}</pre>
+        <pre>- {{member.email}}:    {{member.role}}</pre>
       </li>
     </div>
     <div class="members">
-      <div style="width:48%">
-      <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
-      </div>
-      <div class="member-role-button" style="width:48%">
+      <div class="member-inputs">
+        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
         <input type="text" name="memRole" placeholder = "Member Role" #memRole>
-        <div class = "buttons">
-            <button (click)="removeMember()">
-                <ion-icon name="remove-circle" color = "danger"></ion-icon>
-            </button>
-        </div>
       </div>
     </div>
     <div class = "buttons">
+      <button (click)="removeMember()">
+          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+      </button>
       <button (click)="addMember(memEmail.value,memRole.value)">
           <ion-icon name="add-circle" color = "secondary"></ion-icon>
       </button>
