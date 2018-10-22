@@ -13,9 +13,11 @@ import { Component } from '@angular/core';
 export class AddTeamMembersPopOverComponent {
 
   constructor() {
-    console.log('Hello AddTeamMembersPopOverComponent Component');
+    
   }
 
-  
+  newMember: any;
+
+
 
 }

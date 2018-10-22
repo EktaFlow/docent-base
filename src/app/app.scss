@@ -108,6 +108,12 @@ input:focus, textarea:focus {
         height: 400px;
         width: 800px !important;
     }
+
+    .team-popover .popover-content {
+      padding: 30px;
+      height: 400px;
+      width: 400px;
+    }
 }
 
 .small-popover {
