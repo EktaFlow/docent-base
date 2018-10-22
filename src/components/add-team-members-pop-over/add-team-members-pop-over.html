@@ -5,6 +5,11 @@
   </div>
   <div>
     <label for="email">Email: </label>
-    <input type="text" name="email" value="">
+    <input type="email" name="email" [(ngModel)]="newMember.email">
+
+    <label for="role">Role: </label>
+    <input type="text" name="role" [(ngModel)]="newMember.role">
+
+    <button (click)="addNewMember()">Add Team Member</button>
   </div>
 </div>

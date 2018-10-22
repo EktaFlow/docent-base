@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+
 
 /**
  * Generated class for the AddTeamMembersPopOverComponent component.
@@ -12,11 +14,20 @@ import { Component } from '@angular/core';
 })
 export class AddTeamMembersPopOverComponent {
 
-  constructor() {
-    
+
+  public newMember: any = {};
+
+  constructor(public navCtrl: NavController, public: navParams: NavParams) {
+    this.assessmentId = navParams.data.assessmentId;
   }
 
-  newMember: any;
+  addNewMember() {
+    //access assessment
+    //add team member to assessment
+    //add assessment on new user's shared assessment array
+    //update assessment on user dash ?
+
+  }
 
 
 

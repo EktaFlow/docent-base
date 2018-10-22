@@ -62,7 +62,7 @@ export class UserDashboardPage {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
 							public popOver: PopoverController) {
-							//this.assessmentId = navParams.data.assessmentId;
+							this.assessmentId = navParams.data.assessmentId;
               }
 
 
@@ -157,7 +157,7 @@ export class UserDashboardPage {
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
-		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: this.assessmentId}, {cssClass: 'team-popover'})
+		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: assessmentId}, {cssClass: 'team-popover'})
 		.present();
 	}
 

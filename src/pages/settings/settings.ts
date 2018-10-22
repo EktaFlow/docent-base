@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from "../../components/topbar/topbar";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
-import {DomSanitizer} from '@angular/platform-browser/'
+import { saveAs } from "file-saver/FileSaver";
 import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover";
 
 
@@ -24,7 +24,6 @@ export class SettingsPage {
 	            private popoverController: PopoverController,
                     public navParams: NavParams,
                     private http: HttpClient,
-                    public sanitizer: DomSanitizer,
                   public popover: PopoverController ) {
                       this.user = navParams.data.user;
                       console.log(navParams.data.user);
@@ -37,20 +36,21 @@ export class SettingsPage {
 
   goBackToUser(){ this.navCtrl.pop()};
 
-  // async saveDownJSON(){
-  // 		this.http.get('assets/json/2016.json')
-  // 					.subscribe( data => {
-  // 						console.log(data);
-  //             this.generateDownloadJsonUri(data);
-  //             return this.downloadJsonHref;
-  // 					});
-  // }
-
-  generateDownloadJsonUri(json) {
-    var theJSON = JSON.stringify(json);
-    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
-    return this.downloadJsonHref = uri;
+  async saveDownJSON(){
+  		this.http.get('assets/json/2016.json')
+  					.subscribe( data => {
+  						console.log(data);
+              //get data and then save down file
+              var json = JSON.stringify(data);
+              saveAs(new Blob([json], { type: "text/plain" }), "2016.json");
+  					});
   }
+
+  // generateDownloadJsonUri(json) {
+  //   var theJSON = JSON.stringify(json);
+  //   var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+  //   return this.downloadJsonHref = uri;
+  // }
 
   showFileUpload() {
 
