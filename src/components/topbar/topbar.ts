@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { PopoverController, NavController } from "ionic-angular";
 import { ViewsComponent } from "../views/views";
 import { HomePage } from "../../pages/home/home";
-import { RegisterPage } from "../../pages/register/register";
-import { LoginPage }    from "../../pages/login/login";
 import { NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
@@ -34,8 +32,6 @@ query assessment($_id: String!) {
 
 export class TopbarComponent {
 
-	public loginPage		= LoginPage;
-	public registerPage = RegisterPage;
 	public userDashPage = UserDashboardPage;
 	public scope: any;
 	public targetMRL: any;
@@ -104,8 +100,8 @@ constructor( public popOver: PopoverController,
 		            .present({ev: event});
 	}
 
-	registerNav() { this.navCtrl.push( this.registerPage ); }
-	loginNav() { this.navCtrl.push( this.loginPage ); }
+	// registerNav() { this.navCtrl.push( this.registerPage ); }
+	// loginNav() { this.navCtrl.push( this.loginPage ); }
 	handleLogout() {
 		this.auth.logout();
 		this.navCtrl.setRoot(HomePage);

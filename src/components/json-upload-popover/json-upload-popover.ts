@@ -70,7 +70,7 @@ export class JsonUploadPopoverComponent {
 
   async uploadJSON(event){
     // var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-    var file = this.file;
+    // var file = this.file;
 		var fileName = this.file.name;
 		var fileReader = new FileReader();
 		fileReader.readAsText(this.file);

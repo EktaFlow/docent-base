@@ -157,7 +157,7 @@ export class UserDashboardPage {
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
-		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: this.assessmentId}, {cssClass: 'upload-popover'})
+		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: this.assessmentId}, {cssClass: 'team-popover'})
 		.present();
 	}
 
