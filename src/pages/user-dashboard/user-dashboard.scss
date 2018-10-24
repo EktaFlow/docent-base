@@ -192,8 +192,9 @@ page-user-dashboard {
 
     .assessment-boxes {
       position: inherit;
-      width: 98%;
+      width: 100%;
       // right: 10px;
+      // margin: 0;
     }
 
     .mobile-wrapper {
@@ -202,7 +203,7 @@ page-user-dashboard {
       align-items: baseline;
       flex-direction: column;
       margin-top: 50px;
-      width: 98%;
+      width: 100%;
 
       // .div {
       //   margin: 10px;
@@ -211,10 +212,10 @@ page-user-dashboard {
 
     .mobile-to-start, .mobile-to-reports {
       display: inherit;
-      width: 98%;
+      width: 100%;
       vertical-align: top;
 
-      margin: 10px;
+      margin: 10px 0;
 
 
 
@@ -237,15 +238,17 @@ page-user-dashboard {
 
     .assessments {
       width: 100%;
-      // margin: 0 10px 0 20px;
-      margin-left: 10px;
-      margin-top: 10px;
-      margin-right: 5px;
-      // margin-right: 0;
-      margin-bottom: 10px;
+      margin: 10px 0;
       min-height: 0;
 
+      .accordion-tab {
+        margin: 4.5px;
+        margin-bottom: 10px;
+      }
+
       .an-assessment{
+        margin: 4.5px;
+        margin-bottom: 10px;
         .assNav{
           width: 55%;
 
