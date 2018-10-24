@@ -29,6 +29,7 @@ export class QuestionsPage {
 	currentQSet: any;
 	currentQSetAmt: any;
 	currentQPos: any;
+  public getAssessmentId = true;
 
 	constructor(public navParams:          NavParams,
 							private popoverController: PopoverController,

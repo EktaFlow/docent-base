@@ -51,7 +51,9 @@ export class TopbarComponent {
 	// public popUpButtonClicked: any;
 	@Input() private blank: boolean;
 	@Input() private values: any;
+	@Input() private getAssessmentId: any;
 	public popUpButtonClicked: any;
+	// getAssessmentIdOnQuestions: boolean = false;
 
 
 
@@ -62,12 +64,14 @@ constructor( public popOver: PopoverController,
 						 private assessmentService: AssessmentService) { }
 
 	async ngOnInit() {
-		this.assessmentId = await this.assessmentService.getCurrentAssessmentId()
-		// this.assessmentId ? this.getAssessmentData() : null;
-		if (this.assessmentId) {
-		console.log("about to run get assessment data")
-			this.getAssessmentData();
+
+
+		if (this.getAssessmentId) {
+			this.assessmentId = await this.assessmentService.getCurrentAssessmentId()
+		} else {
+			this.assessmentId ? this.getAssessmentData() : null;
 		}
+
 		this.loggedIn = this.auth.isLoggedIn();
 		// console.log(this.values);
 
