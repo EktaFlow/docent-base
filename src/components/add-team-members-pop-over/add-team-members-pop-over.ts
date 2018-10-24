@@ -17,8 +17,8 @@ export class AddTeamMembersPopOverComponent {
 
   public newMember: any = {};
 
-  constructor(public navCtrl: NavController, public: navParams: NavParams) {
-    this.assessmentId = navParams.data.assessmentId;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   addNewMember() {

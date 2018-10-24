@@ -122,6 +122,13 @@ input:focus, textarea:focus {
   padding: 30px;
 }
 
+.scope-popover .popover-content{
+  width: 200px;
+  padding: 20px;
+  height: 200px;
+  
+}
+
 @media screen and (max-width: 420px){
     .upload-popover .popover-content {
         position: absolute;

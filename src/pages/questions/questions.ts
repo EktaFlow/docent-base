@@ -56,6 +56,7 @@ export class QuestionsPage {
 	// INIT && related function
   async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+    console.log(this.assessmentId);
 
 		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
