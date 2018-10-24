@@ -31,6 +31,10 @@
             {
               "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"CDVIonicKeyboard\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"UniversalAnalytics\"><param name=\"ios-package\" value=\"UniversalAnalyticsPlugin\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -51,6 +55,9 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-google-analytics": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -87,6 +94,15 @@
       "clobbers": [
         "window.Keyboard"
       ]
+    },
+    {
+      "id": "cordova-plugin-google-analytics.UniversalAnalytics",
+      "file": "plugins/cordova-plugin-google-analytics/www/analytics.js",
+      "pluginId": "cordova-plugin-google-analytics",
+      "clobbers": [
+        "analytics",
+        "ga"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -94,6 +110,7 @@
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-ionic-webview": "1.1.19",
-    "cordova-plugin-ionic-keyboard": "2.0.5"
+    "cordova-plugin-ionic-keyboard": "2.0.5",
+    "cordova-plugin-google-analytics": "1.8.6"
   }
 }

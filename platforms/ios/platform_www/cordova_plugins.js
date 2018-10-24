@@ -31,6 +31,15 @@ module.exports = [
     "clobbers": [
       "window.Keyboard"
     ]
+  },
+  {
+    "id": "cordova-plugin-google-analytics.UniversalAnalytics",
+    "file": "plugins/cordova-plugin-google-analytics/www/analytics.js",
+    "pluginId": "cordova-plugin-google-analytics",
+    "clobbers": [
+      "analytics",
+      "ga"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -40,7 +49,8 @@ module.exports.metadata =
   "cordova-plugin-device": "2.0.2",
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-ionic-webview": "1.1.19",
-  "cordova-plugin-ionic-keyboard": "2.0.5"
+  "cordova-plugin-ionic-keyboard": "2.0.5",
+  "cordova-plugin-google-analytics": "1.8.6"
 };
 // BOTTOM OF METADATA
 });
