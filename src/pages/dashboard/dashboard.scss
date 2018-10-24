@@ -93,5 +93,10 @@ page-dashboard {
 		.dashpic {
 			height: 17px;
 		}
-}
 
+    @media screen and (max-width: 420px){
+          ion-content {
+              margin-top: 40px;
+          }
+      }
+}

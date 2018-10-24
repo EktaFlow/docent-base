@@ -1,4 +1,6 @@
 page-user-dashboard {
+
+
   .first-bar {
     width: 100%;
     background-color: black;
@@ -57,6 +59,8 @@ page-user-dashboard {
     }
   }
 
+
+
 .accordion-tab {
   width: 97.5%;
   height: 40px;
@@ -65,7 +69,6 @@ page-user-dashboard {
   background: white;
   margin: 6px;
   vertical-align: middle;
-
 
 }
 
@@ -83,6 +86,7 @@ page-user-dashboard {
     top: 250px;
     left: 40px;
     vertical-align: top;
+
   }
 
 
@@ -97,6 +101,9 @@ page-user-dashboard {
     display: inline-block;
     min-height: 250px;
 
+
+    }
+
     .box-title {
       width: 100%;
       display: block;
@@ -105,10 +112,10 @@ page-user-dashboard {
       h3 {
         text-align: center;
         color: white;
+      }
 
         // text-decoration: underline;
       }
-    }
 
 
     .an-assessment {
@@ -153,7 +160,16 @@ page-user-dashboard {
         }
       }
     }
+
+
+
+  .mobile-to-start, .mobile-to-reports {
+    display: none;
   }
+
+
+
+
 
   @media screen and (max-width: 800px){
     .assessment-boxes {
@@ -171,23 +187,68 @@ page-user-dashboard {
   }
 
   @media screen and (max-width: 420px){
+
+
+
     .assessment-boxes {
-      position: absolute;
-      left: 0;
+      position: inherit;
+      width: 100%;
       // right: 10px;
+      // margin: 0;
+    }
+
+    .mobile-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      flex-direction: column;
+      margin-top: 50px;
+      width: 100%;
+
+      // .div {
+      //   margin: 10px;
+      // }
+    }
+
+    .mobile-to-start, .mobile-to-reports {
+      display: inherit;
+      width: 100%;
+      vertical-align: top;
+
+      margin: 10px 0;
+
+
 
     }
 
+
+
+    // .small-assessments {
+    //   display: none;
+    // }
+
     .first-bar{
-      margin: 110px auto 0 auto;
+      margin: 100px auto 0 auto;
       border-top: 1px solid gray;
+
+      .buttons {
+        display: none;
+      }
     }
 
     .assessments {
-      margin: 0 10px 0 20px;
-      margin-bottom: 20px;
+      width: 100%;
+      margin: 10px 0;
+      min-height: 0;
+
+      .accordion-tab {
+        margin: 4.5px;
+        margin-bottom: 10px;
+      }
 
       .an-assessment{
+        margin: 4.5px;
+        margin-bottom: 10px;
         .assNav{
           width: 55%;
 

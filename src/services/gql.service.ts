@@ -114,3 +114,11 @@ query {
 	allThreadNames
 }
 `
+
+// export var updateTeamMembersMutation = gql`
+// 	mutation addTeamMember($_id: String, $_teamMembers: ) {
+// 		addTeamMember(_id: $_id, ) {
+// 			teamMembers
+// 		}
+// 	}
+// `

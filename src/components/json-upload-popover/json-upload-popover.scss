@@ -1,19 +1,6 @@
-file-upload-popover{
-
-
-
-
-
-	// .upload-popover{
-	// 	padding: 30px;
-	// 	height: 400px;
-	// 	width: 800px !important;
-	// }
-
-
-
+json-upload-popover {
 	input[type="file"] {
-    display: none;
+    display: inherit;
 	}
 
 	.custom-file-upload {

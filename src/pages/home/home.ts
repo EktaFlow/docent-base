@@ -36,6 +36,8 @@ export class HomePage {
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
+	private mobileRegister: boolean = false;
+	public deskbookVersions: any = ["2017", "2016"];
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -71,12 +73,12 @@ export class HomePage {
 			return null;
 		}
 		var variables = this.formatAssessmentVariables();
-		//  debug what is getting passed into the mutation: 
+		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.subscribe(({data}) => {
 					var assessmentId = data.createAssessment._id;
-					// !assessmentId ? this.handleBackendError() : null 
+					// !assessmentId ? this.handleBackendError() : null
 					this.sendEmailsToTeamMembers(assessmentId);
 					this.startAssessment(assessmentId);
 		});
@@ -143,14 +145,24 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 			 });
+
+
 			 }
     this.getSchema();
+		 this.setUpDeskbookArray();
+		 console.log(this.deskbookVersions)
+
+
 	}
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 
 	showRegisterForm = () => this.showRegister = true;
+	mobileRegisterForm() {
+		this.showRegister = true;
+		this.mobileRegister = true;
+	}
 
 	showThreads(myEvent) {
 		myEvent.preventDefault();
@@ -191,5 +203,18 @@ export class HomePage {
 		await this.assessmentService.setCurrentAssessmentId(_id);
     this.navCtrl.push(QuestionsPage);
   }
+
+	async setUpDeskbookArray() {
+		var user = await this.auth.currentUser();
+		// this.deskbookVersions = ["2017", "2016"];
+		// console.log(user.jsonFiles);
+		// for (let file of user.jsonFiles){
+		// 	var file = JSON.parse(file);
+		// 	this.deskbookVersions.push(file.fileName);
+		// }
+		// console.log(this.deskbookVersions);
+	}
+
+
 
 }

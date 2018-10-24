@@ -32,7 +32,7 @@
       <div *ngIf = "question.currentAnswer == 'No'" class = "no">
         <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>No</b></p>
-          <b>Attachements:</b> 
+          <b>Attachements:</b>
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
@@ -47,7 +47,7 @@
         <p class = "box"><b>Yes</b></p>
         <p>
 				<b>Evidence:</b> {{question.objectiveEvidence}} </p>
-          <b>Attachements:</b> 
+          <b>Attachements:</b>
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
@@ -60,7 +60,7 @@
 
       <div *ngIf = "question.currentAnswer == 'skipped'" class = "skipped">
         <p (click)="goToQuestion(question.questionId)" style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
-        <p class="box"><b>Skipped</b></p>
+        <p class="box"><b>Unanswered</b></p>
         <p>
         </p>
         <hr>

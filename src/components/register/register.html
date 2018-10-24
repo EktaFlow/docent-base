@@ -11,9 +11,11 @@
 			<br />
 			<br />
 			<br />
-			<div style="display:flex; flex-direction:column; align-items:center; justify-content:center;"*ngIf="submitted">
+			<div class="submit-container"*ngIf="submitted">
 				<h6>Your information has been submitted.</h6>
 				<h6> Please check your email to confirm your registration</h6>
+
+				<button ion-button color="buttonBlue" class="email-confirm-login" (click)="goToLogin()">Login Page</button>
 
 			</div>
 			<div *ngIf="!submitted" class="container">
@@ -22,7 +24,7 @@
 				<div class="error" *ngIf="errors.length > 0">
 					<h3>Ooops, Registration Errors</h3>
 					<p *ngFor="let error of errors">
-						{{error}} 
+						{{error}}
 					</p>
 				</div>
 
@@ -32,7 +34,7 @@
 							<h6>Name</h6>
 							<input  type="text" name="name" placeholder = "Name" [(ngModel)]="user.name">
 						</div>
-						
+
 						<div class="cell">
 							<h6>Email</h6>
 							<input  type="email" name="email" placeholder = "Email" [(ngModel)]="user.email">
@@ -53,5 +55,6 @@
 				</div>
 
 				<button ion-button color="buttonBlue" (click)="submitRegistration()">Register</button>
+				<button small ion-button color="buttonBlue" (click)="goToLogin()">Return to Login</button>
 			</div>
 </div>

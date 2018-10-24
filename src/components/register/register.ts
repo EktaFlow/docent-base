@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
+import { HomePage } from "../../pages/home/home";
+import { NavController } from "ionic-angular";
+
 
 @Component({
   selector: 'register',
@@ -11,17 +14,17 @@ export class RegisterComponent {
 	private errors: any = [];
 	private submitted: boolean = false;
 
-  constructor( private auth: AuthService) {}
+  constructor( private auth: AuthService, public navCtrl: NavController) {}
 
 	submitRegistration() {
 		var isValid = this.validateInput();
-		
+
 		if ( isValid ) {
 				this.errors = [];
 				this.auth.registerUser(this.user)
-				.subscribe( user => { 
+				.subscribe( user => {
 					this.submitted = true },
-				 
+
            ( {error} ) => {
         this.errors.push(error.error);
 });
@@ -31,8 +34,8 @@ export class RegisterComponent {
 	validateInput() {
 		var { user } = this;
 		this.errors = [];
-		
-		this.checkPresence(user); 
+
+		this.checkPresence(user);
 		this.checkPasswords(user);
 		this.checkEmail((<any>user).email);
 
@@ -47,9 +50,9 @@ export class RegisterComponent {
 	}
 
 	checkPasswords(input) {
-		if (input.passwd !== input.passwd2) { 
+		if (input.passwd !== input.passwd2) {
 			this.errors.push("Passwords do not match");
-		} 
+		}
 		else { this.checkPasswordRules(input.passwd) }
 	}
 
@@ -61,7 +64,9 @@ export class RegisterComponent {
 		var regEx = /\S+@\S+\.\S+/;
 	  var test = regEx.test(email);
 
-		!test ? this.errors.push("Invalid Email Format") : null 
+		!test ? this.errors.push("Invalid Email Format") : null
 	}
+
+  goToLogin = () => {this.navCtrl.push(HomePage);}
 
 }
