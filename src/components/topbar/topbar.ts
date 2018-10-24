@@ -8,6 +8,7 @@ import { HelpmenuComponent } from "../helpmenu/helpmenu";
 import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 import { ThreadPopupComponent} from "../thread-popup/thread-popup";
+import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -60,18 +61,37 @@ constructor( public popOver: PopoverController,
 						 private apollo: Apollo,
 						 private assessmentService: AssessmentService) { }
 
-	ngOnInit() {
-		this.assessmentId ? this.getAssessmentData() : null;
+	async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId()
+		// this.assessmentId ? this.getAssessmentData() : null;
+		if (this.assessmentId) {
+		console.log("about to run get assessment data")
+			this.getAssessmentData();
+		}
 		this.loggedIn = this.auth.isLoggedIn();
 		// console.log(this.values);
+
+		console.log(this.targetMRL);
 
 		// console.log(this.assessmentId);
 
 	}
 
-	toggleScopeSelected() {
-		console.log("fire!");
-		this.scopeSelected = !this.scopeSelected;
+	toggleScopeSelected(event) {
+		// console.log("fire!");
+		// this.scopeSelected = !this.scopeSelected;
+		let popover = this.popOver.create(AssessmentScopePopoverComponent, {scopeText: this.scope}, {cssClass: 'scope-popover'});
+		console.log(this.scope);
+		popover.present({
+			ev: event
+		})
+	}
+
+	toggleInfo(event) {
+		let popover = this.popOver.create(AssessmentScopePopoverComponent, {scopeText: this.scope, targetMRL: this.targetMRL, targetDate: this.targetDate}, {cssClass: 'scope-popover'});
+		popover.present({
+			ev: event
+		})
 	}
 
 	getAssessmentData() {
@@ -82,7 +102,8 @@ constructor( public popOver: PopoverController,
 			}
 		}).valueChanges
 			.subscribe( ({data, loading}) => {
-				this.scope		  = data.assessment.scope;
+				console.log(data.assessment);
+				this.scope	= data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
 			});
@@ -100,8 +121,8 @@ constructor( public popOver: PopoverController,
 		            .present({ev: event});
 	}
 
-	registerNav() { this.navCtrl.push( this.registerPage ); }
-	loginNav() { this.navCtrl.push( this.loginPage ); }
+	// registerNav() { this.navCtrl.push( this.registerPage ); }
+	// loginNav() { this.navCtrl.push( this.loginPage ); }
 	handleLogout() {
 		this.auth.logout();
 		this.navCtrl.setRoot(HomePage);
@@ -154,7 +175,8 @@ constructor( public popOver: PopoverController,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId, subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
+		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
     .present({ev: event});
   }
 
@@ -164,7 +186,8 @@ constructor( public popOver: PopoverController,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId, updateInfo: updateInfo}, {cssClass: 'thread-popup'})
+		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
+			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
 		.present({ev: event});
 	}
 

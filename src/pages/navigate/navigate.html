@@ -33,12 +33,16 @@
   <hr>
 
   <div *ngFor="let segment of filteredSchema">
-    <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
-    {{segment.header}}
+    <ng-container (click)="changeState(segment)">
+      <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" >
+      {{segment.header}}
+    </ng-container>
     <div *ngIf="segment.cool || showAll">
       <div *ngFor="let sub of segment.subheader">
-        <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
-        {{sub.subheader}}
+        <ng-container (click)="changeSubState(sub)">
+          <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" class="subtitle">
+          {{sub.subheader}}
+        </ng-container>
         <div *ngIf="sub.sweet || showAll">
           <div *ngFor="let question of sub.questions" class="mrl">
             <b>MR Level {{question.mrl}}:</b>

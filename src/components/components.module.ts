@@ -15,6 +15,9 @@ import { RegisterComponent } from './register/register';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from 'ionic-angular';
+import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-team-members-pop-over';
+import { JsonUploadPopoverComponent } from './json-upload-popover/json-upload-popover';
+import { AssessmentScopePopoverComponent } from './assessment-scope-popover/assessment-scope-popover';
 
 @NgModule({
 	declarations: [
@@ -30,7 +33,10 @@ import { IonicModule } from 'ionic-angular';
     SubthreadPopupComponent,
     ThreadPopupComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddTeamMembersPopOverComponent,
+    JsonUploadPopoverComponent,
+    AssessmentScopePopoverComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -46,7 +52,10 @@ import { IonicModule } from 'ionic-angular';
     SubthreadPopupComponent,
     ThreadPopupComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddTeamMembersPopOverComponent,
+		JsonUploadPopoverComponent,
+    AssessmentScopePopoverComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -61,7 +70,10 @@ import { IonicModule } from 'ionic-angular';
         SubthreadPopupComponent,
         ThreadPopupComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        AddTeamMembersPopOverComponent,
+        JsonUploadPopoverComponent,
+				AssessmentScopePopoverComponent
     ]
 })
 

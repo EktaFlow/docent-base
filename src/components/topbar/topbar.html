@@ -29,17 +29,18 @@
       	<div *ngIf="assessmentId && noSecondBar != false" class="subheader">
           <div *ngIf="mainTitle">
             <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread">SubThread: {{this.subTitle}}</span></p>
-            <p>Question {{this.currentQPos}} out of {{this.currentQSetAmt}} <span><p (click)="goToNavExpand()">Show All Questions</p></span></p>
+            <p class="number-info"><span class="q-number">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} | </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">Assessment Info</span>  </p>
+            <p (click)="goToNavExpand()" class="show-all">Show All Questions</p>
           </div>
 
           <div class="targets-scope">
             <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
-            <p (click)="toggleScopeSelected()"><u>Show Assessment Scope</u></p>
+            <p (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
           </div>
 
-          <div *ngIf="scopeSelected" class="scope-show">
+          <!-- <div *ngIf="scopeSelected" class="scope-show">
       		  <p>Assessment Scope: {{ scope }}</p>
-      		</div>
+      		</div> -->
         </div>
       </ion-navbar>
     </ion-header>

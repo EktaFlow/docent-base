@@ -1,11 +1,10 @@
-<topbar [assessmentId]= "assessmentId"
-        [subTitle]    = "currentQuestion.subThreadName"
-	[mainTitle]   = "currentQuestion.threadName"
-	[questionLevel] = "currentQuestion.mrLevel"
-  [currentQPos] = "this.currentQPos"
-  [currentQSetAmt] = "this.currentQSetAmt"
-	[values]="getQuestionValues()"
-	[questionId]="currentQuestion.questionId"> </topbar>
+<topbar [subTitle]    = "currentQuestion.subThreadName"
+    	      [mainTitle]   = "currentQuestion.threadName"
+          	[questionLevel] = "currentQuestion.mrLevel"
+            [currentQPos] = "this.currentQPos"
+            [currentQSetAmt] = "this.currentQSetAmt"
+    	      [values]="getQuestionValues()"
+    	      [questionId]="currentQuestion.questionId"> </topbar>
 
 
 <ion-content padding>

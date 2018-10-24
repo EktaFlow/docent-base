@@ -68,6 +68,14 @@ topbar {
           right: 20px;
         }
 
+        .assessment-info-mobile {
+          display: none;
+        }
+
+        .show-all {
+          text-decoration: underline;
+        }
+
     }
 
 
@@ -114,6 +122,27 @@ topbar {
           }
 
         }
+
+        .subheader {
+          .number-info {
+            display: inline;
+            .q-number {
+              text-decoration: none;
+            }
+          }
+          .targets-scope {
+          display: none;
+
+          }
+
+          .assessment-info-mobile {
+            display: inherit;
+            text-decoration: underline;
+
+          }
+        }
+
+
     }
 
 

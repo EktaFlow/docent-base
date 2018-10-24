@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -89,6 +90,7 @@ import { BackUrl } from  "../services/constants";
 		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,
+		GoogleAnalytics
 		//    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 
