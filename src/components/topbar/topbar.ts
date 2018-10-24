@@ -65,9 +65,12 @@ constructor( public popOver: PopoverController,
 
 	async ngOnInit() {
 
-
+		console.log(this.getAssessmentId);
 		if (this.getAssessmentId) {
-			this.assessmentId = await this.assessmentService.getCurrentAssessmentId()
+			console.log()
+			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+			this.getAssessmentData();
+
 		} else {
 			this.assessmentId ? this.getAssessmentData() : null;
 		}
@@ -97,6 +100,8 @@ constructor( public popOver: PopoverController,
 			ev: event
 		})
 	}
+
+
 
 	getAssessmentData() {
 		this.apollo.watchQuery<any>({
