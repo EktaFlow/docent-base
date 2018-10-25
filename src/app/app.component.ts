@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Keyboard } from '@ionic-native/keyboard';
 import { GoogleAnalytics } from "../application/helpers/GoogleAnalytics";
 
 // import { Keyboard } from '@ionic-native/keyboard';
@@ -19,7 +20,8 @@ export class MyApp {
 	constructor(platform:     Platform,
               statusBar:    StatusBar,
               splashScreen: SplashScreen,
-              auth:         AuthService) {
+              auth:         AuthService,
+              keyboard: Keyboard) {
     platform.ready().then(() => {
 		if (auth.isLoggedIn()) {
 			this.rootPage = UserDashboardPage;
@@ -29,9 +31,9 @@ export class MyApp {
 		}
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      // keyboard.hideKeyboardAccessoryBar(false);
       statusBar.styleDefault();
       splashScreen.hide();
+      keyboard.hideAcc
       GoogleAnalytics.initialize();
 
     });

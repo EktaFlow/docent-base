@@ -29,7 +29,7 @@
       	<div *ngIf="assessmentId && noSecondBar != false" class="subheader">
           <div *ngIf="mainTitle">
             <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread">SubThread: {{this.subTitle}}</span></p>
-            <p class="number-info"><span class="q-number">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} | </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">Assessment Info</span>  </p>
+            <p class="number-info"><span class="q-number">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
             <p (click)="goToNavExpand()" class="show-all">Show All Questions</p>
           </div>
 
