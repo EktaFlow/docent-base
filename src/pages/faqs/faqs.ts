@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 
 import { ContactsDropdownComponent } from '../../components/contacts-dropdown/contacts-dropdown';
@@ -15,7 +17,7 @@ export class FaqsPage {
         mainTitle: String;
         assessmentId: any;
         noSecondBar: boolean = false;
-        
+
 
     constructor( public navCtrl:   NavController,
 	               public navParams: NavParams,
@@ -56,6 +58,11 @@ export class FaqsPage {
 				this.getFaqInfo();
         this.getFeedbackContacts();
     }
+
+    ionViewWillEnter() {
+      GoogleAnalytics.trackPage("faqs");
+    }
+
 
 
     ngOnInit() {

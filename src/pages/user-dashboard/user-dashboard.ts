@@ -8,6 +8,8 @@ import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
@@ -68,6 +70,10 @@ export class UserDashboardPage {
 							this.assessmentId = navParams.data.assessmentId;
               }
 
+
+							ionViewWillEnter() {
+						    GoogleAnalytics.trackPage("user-dashboard");
+						  }
 
   async ngOnInit() {
 

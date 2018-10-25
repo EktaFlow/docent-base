@@ -5,6 +5,8 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
 import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 
 
@@ -33,6 +35,10 @@ export class SettingsPage {
   downloadJsonHref: any;
   files: any;
   user: any;
+
+  ionViewWillEnter() {
+    GoogleAnalytics.trackPage("settings");
+  }
 
   goBackToUser(){ this.navCtrl.pop()};
 

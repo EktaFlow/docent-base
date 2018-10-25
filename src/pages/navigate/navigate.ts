@@ -3,6 +3,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -58,6 +60,10 @@ export class NavigatePage {
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("navigate");
+  }
 
 	ngOnInit() {
 		this.apollo.watchQuery({

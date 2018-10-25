@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { HomePage } from "../../pages/home/home";
 import { NavController } from "ionic-angular";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 
 @Component({
@@ -15,6 +17,10 @@ export class RegisterComponent {
 	private submitted: boolean = false;
 
   constructor( private auth: AuthService, public navCtrl: NavController) {}
+
+	ionViewWillEnter() {
+		GoogleAnalytics.trackView("register");
+	}
 
 	submitRegistration() {
 		var isValid = this.validateInput();

@@ -11,6 +11,8 @@ import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -45,6 +47,10 @@ export class HomePage {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
               private http: HttpClient) {}
+
+							ionViewWillEnter() {
+						    GoogleAnalytics.trackPage("home");
+						  }
 
 	getSchema() {
 		this.http.get('assets/json/2016.json')

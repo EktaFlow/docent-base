@@ -5,6 +5,8 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { HttpClient } from '@angular/common/http';
 import { AssessmentService } from '../../services/assessment.service';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -46,9 +48,13 @@ export class CriteriaPage {
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
-							 private http: HttpClient, 
+							 private http: HttpClient,
                private assessmentService: AssessmentService
 							 ) {
+  }
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("criteria");
   }
 
   // helper function to pull unique values from array.

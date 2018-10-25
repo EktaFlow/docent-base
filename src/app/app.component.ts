@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { GoogleAnalytics } from '@ionic-native/google-analytics';
+import { Keyboard } from '@ionic-native/keyboard';
+import { GoogleAnalytics } from "../application/helpers/GoogleAnalytics";
+
 // import { Keyboard } from '@ionic-native/keyboard';
 
 import { HomePage } from '../pages/home/home';
@@ -19,7 +21,7 @@ export class MyApp {
               statusBar:    StatusBar,
               splashScreen: SplashScreen,
               auth:         AuthService,
-              private ga: GoogleAnalytics) {
+              keyboard: Keyboard) {
     platform.ready().then(() => {
 		if (auth.isLoggedIn()) {
 			this.rootPage = UserDashboardPage;
@@ -27,20 +29,13 @@ export class MyApp {
 		else {
 			this.rootPage = HomePage;
 		}
-
-      this.ga.startTrackerWithId('UA-126482277-2')
-          .then(() => {
-            console.log('Google analytics is ready now');
-            //the component is ready and you can call any method here
-            this.ga.debugMode();
-            this.ga.setAllowIDFACollection(true);
-          })
-          .catch(e => console.log('Error starting GoogleAnalytics', e));
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      // keyboard.hideKeyboardAccessoryBar(false);
       statusBar.styleDefault();
-      splashScreen.hide();
+      splashScreen.hideFormAccessoryBar(false);
+      keyboard.hideAcc
+      GoogleAnalytics.initialize();
+
     });
   }
 }

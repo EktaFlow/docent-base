@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 /**
  * Generated class for the DefinitionsPage page.
@@ -37,6 +39,10 @@ export class DefinitionsPage {
 
   ionViewDidLoad() {
 	this.getDefinitions();
+  }
+
+  ionViewWillEnter() {
+    GoogleAnalytics.trackPage("definitions");
   }
 
   ngOnInit() {
