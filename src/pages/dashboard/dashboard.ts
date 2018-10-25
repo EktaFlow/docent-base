@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { ViewsComponent } from '../../components/views/views';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { AssessmentService } from '../../services/assessment.service';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -32,14 +34,18 @@ export class DashboardPage {
 	assessmentId: any;
   questionSet: any;
 
-	constructor( private apollo: Apollo, 
-							 public navCtrl: NavController, 
-							 public navParams: NavParams, 
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService) {}
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("dashboard");
+  }
 
 	async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -49,7 +55,7 @@ export class DashboardPage {
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
-			.subscribe(data => { 
+			.subscribe(data => {
 					this.allQuestions = (<any>data.data).assessment.questions;
 					this.questionSet  = this.createQuestionSet(this.allQuestions);
 					this.questionSet = this.dearGod();
@@ -64,7 +70,7 @@ export class DashboardPage {
 							var index = b.answers.indexOf(c);
 							for (let i = 0; i < index; i += 1) {
 								b.answers[i] = true
-							}	
+							}
 						}
 				})
 				return b;
@@ -80,13 +86,13 @@ export class DashboardPage {
 	}
 
 	filterByProperty(array, itemProperty) {
-		return Array.from(new Set(array.map(item => item[itemProperty]))); 
+		return Array.from(new Set(array.map(item => item[itemProperty])));
 	}
 
 	createQuestionSet(questionsArray) {
 	var threadNames = questionsArray.map(a => a.threadName)
-					  											 .filter(this.unique);	
-		
+					  											 .filter(this.unique);
+
 	var subThreadNames = threadNames.map( a => {
 		var allSubheaders = questionsArray.filter(b => b.threadName == a)
 		var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
@@ -100,10 +106,10 @@ export class DashboardPage {
 						// if there are no questions, the section is marked as blank
 						if (questionSet.length == 0) { sectionValue = "blank";}
 
-						// if every answer is yes, complete the section 
-						if (questionSet.length > 0 && questionSet.every(a => a.currentAnswer == "Yes") ) { 
+						// if every answer is yes, complete the section
+						if (questionSet.length > 0 && questionSet.every(a => a.currentAnswer == "Yes") ) {
 						sectionValue = true
-						
+
 						}
 						questionSet.forEach(a => {
 						  // if any answer is no, fail the section.

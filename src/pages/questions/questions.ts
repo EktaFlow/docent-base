@@ -3,6 +3,8 @@ import { IonicPage, NavParams, PopoverController } from 'ionic-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
@@ -37,6 +39,10 @@ export class QuestionsPage {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
+  }
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("questions");
   }
 
   /////////////////////////// useful functions ///////////////////////
