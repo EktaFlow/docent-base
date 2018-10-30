@@ -5,11 +5,11 @@
 		<button (click)="handleContinue()" ion-button color="dark">
 			Continue Assessment
 		</button>
-		<button (click)="handleSave()" ion-button color="dark">
+		<button (click)="handleSave()" ion-button color="dark" class="export-import">
 			Export
 		</button>
 	</ng-container >
-	<button (click)="handleImport()" ion-button color="dark">
+	<button (click)="handleImport()" ion-button color="dark" class="export-import">
 		Import Assessment
 	</button>
 	<ng-container *ngIf="assessmentId">
