@@ -17,6 +17,12 @@
                 Help
             </button>
           </div>
+
+          <div *ngIf="!blank" class="container-tbbuttons-mobile">
+            <button ion-button (click)="openMobileNav()" color="dark">
+              <ion-icon name="menu"></ion-icon>
+            </button>
+          </div>
         </div>
         <hr>
 

@@ -78,6 +78,10 @@ topbar {
 
     }
 
+    .container-tbbuttons-mobile {
+      display: none;
+    }
+
 
     // @media screen and (max-width: 800px){
     //
@@ -111,15 +115,29 @@ topbar {
         }
         .container-tbbuttons {
           // display: flex;
-          display: flex;
-          width: 100%;
-          padding-right: 10px;
-          // justify-content: space-around;
+          // display: flex;
+          // width: 100%;
+          // padding-right: 10px;
+          // // justify-content: space-around;
+          //
+          // button {
+          //     padding: 0;
+          //     padding: 5px;
+          // }
 
-          button {
-              padding: 0;
-              padding: 5px;
-          }
+          display: none;
+        }
+
+        .container-tbbuttons-mobile {
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9999;
+            color: white;
+            // width: 30px;
+
+
 
         }
 
@@ -137,7 +155,7 @@ topbar {
 
           .assessment-info-mobile {
             display: inherit;
-            text-decoration: underline;
+            // text-decoration: underline;
 
           }
         }
