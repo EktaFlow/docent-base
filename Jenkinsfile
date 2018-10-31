@@ -55,7 +55,8 @@ podTemplate(label: 'back',
                                 }
                                 stage ('Deploy') {
             container('kubectl') {
-                sh "kubectl set image deployment/dev -n ${kubectlNamespace} ${serviceName}=${containerImagePath}"
+                // omit k8 rollout for now
+                // sh "kubectl set image deployment/dev -n ${kubectlNamespace} ${serviceName}=${containerImagePath}"
             }
                                 }
                         } catch (err) {
