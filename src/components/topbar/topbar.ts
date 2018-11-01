@@ -53,6 +53,7 @@ export class TopbarComponent {
 	@Input() private blank: boolean;
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
+	@Input() public pageName: any;
 	public popUpButtonClicked: any;
 	infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;

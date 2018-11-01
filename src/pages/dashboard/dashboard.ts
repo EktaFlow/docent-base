@@ -4,6 +4,9 @@ import { ViewsComponent } from '../../components/views/views';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ActionitemsPage } from '../actionitems/actionitems';
+import { NotapplicablePage } from '../notapplicable/notapplicable';
+import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 
 
 import { Apollo } from "apollo-angular";
@@ -33,7 +36,8 @@ export class DashboardPage {
 	allQuestions: any;
 	assessmentId: any;
   questionSet: any;
-	subthreadShow: any;
+	showAll: any;
+	pageName: any = "Dashboard";
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -138,4 +142,12 @@ export class DashboardPage {
 	toggleSubThread(thread){
 		thread.show = !thread.show;
 	}
+
+	expandAll(){
+		this.showAll = !this.showAll;
+	}
+
+	handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
+	handleNa = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
+	handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
 }

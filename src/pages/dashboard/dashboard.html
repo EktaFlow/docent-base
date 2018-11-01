@@ -1,9 +1,12 @@
-<topbar [assessmentId]="assessmentId">
-</topbar>
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
 
 <ion-content padding >
 
-  <br><br><br><br><br><br><br><br><br><br>
+  <div class="desktop">
+    <br><br><br><br><br><br><br><br><br><br>
+  </div>
+
   <div class="desktop">
   	<div> <span>subthread passed: </span>
   					<div class="yes dashbox">
@@ -68,14 +71,23 @@
 
   <div class="mobile">
     <div class="mobile-wrapper">
+      <div class="dash-toolbar">
+        <ng-container *ngIf="!showAll">
+          <button (click)="expandAll()" ion-button color="darkSlateBlue">Expand All</button>
+        </ng-container>
+        <ng-container *ngIf="showAll">
+          <button (click)="expandAll()" ion-button color="darkSlateBlue">Close All</button>
+        </ng-container>
+      </div>
       <div *ngFor="let question of questionSet" class="single-thread">
         <h3>{{question.header}}            <span><img src="assets/imgs/if_icon-arrow-down.png" (click)="toggleSubThread(question)" class="downArrow">
         </span></h3>
-        <div *ngIf="question.show">
+        <div *ngIf="question.show || showAll">
           <div *ngFor="let answer of question.questions" class="questions">
             <h6>{{answer.subheader}}</h6>
             <div class="answer-row">
-              <div *ngFor ="let response of answer.answers" class="answers">
+              <div *ngFor ="let response of answer.answers; let i = index" [attr.data-index]="i"  class="answers">
+                <p class="level-num">{{i + 1}}</p>
                 <div *ngIf = "response == true" class = "yes dashbox">
                   <img class="dashpic" src="assets/imgs/check-mark-256.png">
                 </div>
@@ -93,6 +105,14 @@
           </div>
         </div>
       </div>
+
+      <div class="links">
+        <button (click)="handleActionItems()" ion-button color="darkSlateBlue">Action Items</button>
+        <button (click)="handleNa()" ion-button color="darkSlateBlue">Not Applicable</button>
+        <button (click)="handleSkipped()" ion-button color="darkSlateBlue">Skipped Questions</button>
+      </div>
+
+
       <div class="qspacer"></div>
     </div>
   </div>
