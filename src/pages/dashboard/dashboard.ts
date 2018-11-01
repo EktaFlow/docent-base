@@ -33,6 +33,7 @@ export class DashboardPage {
 	allQuestions: any;
 	assessmentId: any;
   questionSet: any;
+	subthreadShow: any;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -133,4 +134,8 @@ export class DashboardPage {
       ev: event
     });
   }
+
+	toggleSubThread(thread){
+		thread.show = !thread.show;
+	}
 }
