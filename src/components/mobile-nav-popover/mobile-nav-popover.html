@@ -36,6 +36,9 @@
   <button (click)="showHelp()" ion-button color="dark">
       Help Menu
   </button>
+  <button (click)="handleSettings()" ion-button color="dark">
+      Settings
+  </button>
   </ng-container>
   <ng-container class="help-links" *ngIf="helpShow">
     <button (click)="handleCriteria()" ion-button color="dark">
@@ -57,9 +60,6 @@
         Back
     </button>
   </ng-container>
-  <button (click)="handleSettings()" ion-button color="dark">
-      Settings
-  </button>
   <button (click)="closeNav()" ion-button color="dark">
       Close
   </button>

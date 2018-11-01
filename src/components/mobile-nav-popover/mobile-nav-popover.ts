@@ -78,6 +78,6 @@ export class MobileNavPopoverComponent {
   handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
   handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
   handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
-  handleSettings = () => this.navCtrl.push(SettingsPage);
+  handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
 
 }

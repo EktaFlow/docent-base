@@ -98,9 +98,14 @@ page-criteria {
 
         @media screen and (max-width: 420px){
               ion-content {
-                  margin-top: 60px;
+                  // margin-top: 60px;
+
+
 
                   .filter-toolbar {
+                      padding-top: 0;
+                      margin-top: 0;
+                      margin-bottom: 30px;
 
                     button {
                         width: 30%;
