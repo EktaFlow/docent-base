@@ -45,6 +45,10 @@ topbar {
     line-height: 0;
   }
 
+  .downArrow{
+      display: none;
+  }
+
   .subheader {
     position: relative;
     min-height: 80px;
@@ -101,6 +105,14 @@ topbar {
           display: none !important;
         }
       }
+
+      // .downArrow{
+      //     color: white;
+      //     background-color: white;
+      //     height:14;
+      //     width:14;
+      //     cursor: pointer;
+      // }
 
       .container-toolbar {
         flex-flow: column wrap;

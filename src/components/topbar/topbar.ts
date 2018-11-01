@@ -54,6 +54,7 @@ export class TopbarComponent {
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
 	public popUpButtonClicked: any;
+	infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
 
 
@@ -207,6 +208,10 @@ constructor( public popOver: PopoverController,
 	openMobileNav(){
 		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId}, {cssClass: 'mobile-nav-pop'})
 		.present();
+	}
+
+	toggleTopbarInfo(){
+		this.infoShow = !this.infoShow;
 	}
 
 
