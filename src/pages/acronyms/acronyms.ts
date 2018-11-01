@@ -20,6 +20,7 @@ export class AcronymsPage {
         mainTitle: String;
         assessmentId: any;
 				noSecondBar: boolean = false;
+        pageName: any = "Acronyms";
 
 
     constructor(public navCtrl: NavController,

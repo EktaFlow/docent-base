@@ -17,6 +17,7 @@ export class FaqsPage {
         mainTitle: String;
         assessmentId: any;
         noSecondBar: boolean = false;
+        pageName: any = "Faqs";
 
 
     constructor( public navCtrl:   NavController,

@@ -43,6 +43,7 @@ export class CriteriaPage {
 	filterList: any = {};
 	filteredSchema: any;
 	showAll: any;
+	pageName: any = "Criteria";
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,

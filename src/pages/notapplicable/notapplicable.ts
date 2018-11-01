@@ -33,6 +33,7 @@ export class NotapplicablePage {
 	na: any;
 	assessmentId: any;
 	subThreads: any;
+	pageName: any = "Not Applicable Questions";
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,

@@ -57,6 +57,7 @@ export class UserDashboardPage {
   currentAssessment: any = null;
 	noSecondBar: boolean = false;
 	assessmentId: any;
+	pageName: any = "User Dashboard";
 
 	showMine: boolean = false;
 	showShared: boolean = false;

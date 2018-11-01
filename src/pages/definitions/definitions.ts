@@ -20,6 +20,7 @@ export class DefinitionsPage {
         mainTitle: String;
         assessmentId: any;
         noSecondBar: boolean = false;
+        pageName: any = "Definitions";
 
 
       constructor(public navCtrl: NavController,

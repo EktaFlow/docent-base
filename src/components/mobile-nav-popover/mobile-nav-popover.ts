@@ -15,6 +15,7 @@ import { AcronymsPage } from '../../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../../pages/definitions/definitions';
 import { FaqsPage } from '../../pages/faqs/faqs';
 import { CriteriaPage } from '../../pages/criteria/criteria';
+import { SettingsPage } from '../../pages/settings/settings';
 
 
 
@@ -77,5 +78,6 @@ export class MobileNavPopoverComponent {
   handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
   handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
   handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
+  handleSettings = () => this.navCtrl.push(SettingsPage);
 
 }

@@ -33,6 +33,7 @@ export class SkippedquestionsPage {
 	skipped: any;
 	assessmentId: any;
 	subThreads: any;
+	pageName: any = "Skipped Questions";
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
