@@ -8,12 +8,20 @@
 		<div *ngIf="feedbackOpen" id="feedback-dropdown-content" class="feedback-dropdown-content">
 			<ion-grid>
 				<ion-row>
-					<ion-col col-4 *ngFor="let contact of contacts">
-                                            <font size="4">
+					<ion-col col-4 *ngFor="let contact of contacts" class="contact desktop">
+            <font size="4">
 						<p><b>{{contact.name}}</b></p>
 						<p>{{contact.organization}}</p>
-						<p>{{contact.email}}</p>
-                                            </font>
+						<p class="email">{{contact.email}}</p>
+            </font>
+				  </ion-col>
+
+					<ion-col col-8 *ngFor="let contact of contacts" class="contact mobile">
+            <font size="4">
+						<p><b>{{contact.name}}</b></p>
+						<p>{{contact.organization}}</p>
+						<p class="email">{{contact.email}}</p>
+            </font>
 				  </ion-col>
 				</ion-row>
       </ion-grid>
