@@ -42,7 +42,7 @@
             <p (click)="goToNavExpand()" class="show-all">Show All Questions</p>
           </div>
 
-          <div class="targets-scope">
+          <div class="targets-scope" *ngIf="noSecondBar">
             <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
             <p (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
           </div>

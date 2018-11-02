@@ -1,7 +1,20 @@
 page-settings {
-  ion-content {
-    width: 98%;
-    margin-top: 100px;
-    margin-left: 30px;
+  // ion-content {
+  //   width: 100%;
+  //   margin-top: 100px;
+  //   margin-left: 30px;
+  // }
+
+  .wrapper {
+      width: 100%;
+      margin-top: 100px;
+      padding: 30px;
+      // margin-left: 30px;
+  }
+
+  @media screen and (max-width: 420px){
+    .desktop {
+      display: none;
+    }
   }
 }

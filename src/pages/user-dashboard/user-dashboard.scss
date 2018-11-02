@@ -167,6 +167,10 @@ page-user-dashboard {
     display: none;
   }
 
+  .mobile {
+    display: none;
+  }
+
 
 
 
@@ -190,6 +194,14 @@ page-user-dashboard {
 
     ion-content {
       margin-top: 100px;
+    }
+
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: inherit;
     }
 
 
