@@ -32,9 +32,12 @@
 
     <div class="assessment-boxes"> <!-- open 4 -->
       <div class="assessments user-assessments"> <!-- open 5 -->
-        <div class="box-title"> <!-- open 6 -->
+        <div class="box-title desktop"> <!-- open 6 -->
+          <h3><b>My Assessments</b></h3>
+        </div>
+        <div class="box-title mobile">
           <h3 (click)="toggleMine()"><b>My Assessments</b></h3>
-        </div> <!-- close 6 -->
+        </div>
         <div *ngIf="showMine"> <!-- open 7 -->
           <div *ngIf="this.assessments"> <!-- open 8 -->
             <div class="accordion-tab metrics"> <!-- open 9 -->
@@ -68,10 +71,14 @@
       </div> <!-- close 5 -->
 
 
-      <div class="assessments shared-assessments"> <!-- open 15 -->
-        <div class="box-title"> <!-- open 16 -->
+      <div class="assessments shared-assessments">
+        <div class="box-title desktop">
+          <h3><b>Assessments Shared With Me</b></h3>
+        </div>
+
+        <div class="box-title mobile"> <!-- open 16 -->
           <h3 (click)="toggleShared()"><b>Assessments Shared With Me</b></h3>
-        </div> <!-- close 16 -->
+        </div>
         <div *ngIf="showShared"> <!-- open 17 -->
           <div *ngIf="this.sharedAssessments.length >= 1"> <!-- open 18 -->
             <div class="accordion-tab metrics"> <!-- open 19 -->

@@ -98,6 +98,10 @@ page-navigate {
 
         }
 
+        .qspacer {
+            display: none;
+        }
+
         @media screen and (max-width: 420px){
             ion-content {
                 margin-top: 0px;
@@ -114,6 +118,8 @@ page-navigate {
 
                         select {
                             width: 20%;
+                            border: .5px solid lightgray;
+
                         }
 
                         .filter-it {
@@ -123,7 +129,16 @@ page-navigate {
                     }
                 }
 
-
+                .qspacer {
+                    display: inherit;
+                    font-size: 0;
+                    height: 250px;
+                    line-height: 0;
+                    border: 0px;
+                    /* testing only */
+                     // border: 1px solid red;
+                     width: 100%;
+              }
             }
         }
 }

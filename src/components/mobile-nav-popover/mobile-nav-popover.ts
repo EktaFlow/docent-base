@@ -35,6 +35,7 @@ export class MobileNavPopoverComponent {
   regularNavShow: boolean = true;
   helpShow: boolean = false;
   assessmentId: any;
+  assessmentShow: boolean = false;
 
 
   constructor(public navCtrl: NavController,
@@ -52,6 +53,17 @@ export class MobileNavPopoverComponent {
 
   closeHelp(){
     this.helpShow = false;
+    this.regularNavShow = true;
+  }
+
+  showAssessment(){
+    this.assessmentShow = true;
+    console.log(this.assessmentShow)
+    this.regularNavShow = false;
+  }
+
+  closeAssessment(){
+    this.assessmentShow = false;
     this.regularNavShow = true;
   }
 

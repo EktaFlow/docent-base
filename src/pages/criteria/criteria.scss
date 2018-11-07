@@ -96,6 +96,10 @@ page-criteria {
               color: gray;
         }
 
+        .qspacer {
+            display: none;
+        }
+
         @media screen and (max-width: 420px){
               ion-content {
                   // margin-top: 60px;
@@ -115,6 +119,7 @@ page-criteria {
 
                         select {
                             width: 15%;
+                            border: .5px solid lightgray;
                         }
 
                         .filter-it {
@@ -123,6 +128,17 @@ page-criteria {
                         }
                     }
                 }
+
+                .qspacer {
+                    display: inherit;
+                    font-size: 0;
+                    height: 250px;
+                    line-height: 0;
+                    border: 0px;
+                    /* testing only */
+                     // border: 1px solid red;
+                     width: 100%;
+                  }
 
               }
           }

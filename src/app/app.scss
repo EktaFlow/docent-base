@@ -101,6 +101,10 @@ input:focus, textarea:focus {
     opacity: 1;
 }
 
+ion-icon {
+  font-size: 1.8em;
+}
+
 
 @media screen and (min-width: 430px){
     .upload-popover .popover-content {
