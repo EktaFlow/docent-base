@@ -18,7 +18,7 @@
 		</div>
 
 		<div class="q-answer">
-		<select [(ngModel)]="vals.currentAnswer" >
+		<select [(ngModel)]="vals.currentAnswer" id="select-answer">
 			<option value="skipped">Select Answer</option>
 			<option value="Yes">Yes</option>
 			<option value="No">No</option>
@@ -51,20 +51,20 @@
   </div>
   <div *ngIf="vals.currentAnswer == undefined" class = "yes">
       <h6>Assumptions</h6>
-      <textarea class="question-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
+      <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea class="question-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
+      <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
     </div>
 
   <div *ngIf="vals.currentAnswer == 'Yes'" class = "yes">
       <h6>Objective Evidence</h6>
-      <textarea id="aaa" class="question-input" [(ngModel)]="vals.objectiveEvidence" placeholder="Enter objective evidence here..."></textarea>
+      <textarea id="aaa objective-evidence-input" class="question-input" [(ngModel)]="vals.objectiveEvidence" placeholder="Enter objective evidence here..."></textarea>
       <h6>Assumptions</h6>
-      <textarea class="question-input" [(ngModel)]="vals.assumptionsYes" placeholder="Enter any assumptions here..."></textarea>
+      <textarea class="question-input" id="yes-assumptions-input" [(ngModel)]="vals.assumptionsYes" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea class="question-input" [(ngModel)]="vals.notesYes" placeholder="Enter notes here..."></textarea>
+      <textarea class="question-input" id="yes-notes-input" [(ngModel)]="vals.notesYes" placeholder="Enter notes here..."></textarea>
       <div style="width:50%;margin:10px 0px 0px 0px;">
-        <button (click)="showFileUpload()" ion-button color="dark">Attatch File</button>
+        <button (click)="showFileUpload()" id="yes-attach-file-button"ion-button color="dark">Attatch File</button>
       </div>
     </div>
 
@@ -92,11 +92,11 @@
             <pre>{{persons}}</pre>
           </li>
           <h6>Who</h6>
-          <input class="question-input" [(ngModel)]="vals.who" name="who" style="width: 200%;" #who>
+          <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" style="width: 200%;" #who>
         </div>
         <div style="display:flex; flex-direction:column" class='when'>
           <h6>When</h6>
-          <input class="question-input" [(ngModel)]="vals.when" name= "when" type="date" >
+          <input class="question-input" id="no-when-input" [(ngModel)]="vals.when" name= "when" type="date" >
         </div>
       </div>
 
@@ -115,35 +115,35 @@
         Schedule<input class="question-input" [(ngModel)]="noVals.schedule" type="checkbox">
 				-->
 				        <ion-label class=""> Technical</ion-label>
-								<ion-checkbox checked="false" [(ngModel)]="vals.technical"></ion-checkbox>
+								<ion-checkbox checked="false" id="no-risk-technical-box" [(ngModel)]="vals.technical"></ion-checkbox>
 				        <ion-label class=""> Cost</ion-label>
-								<ion-checkbox checked="false" [(ngModel)]="vals.cost"></ion-checkbox>
+								<ion-checkbox checked="false" id="no-risk-cost-box" [(ngModel)]="vals.cost"></ion-checkbox>
 				        <ion-label class=""> Schedule</ion-label>
-								<ion-checkbox checked="false" [(ngModel)]="vals.schedule"></ion-checkbox>
+								<ion-checkbox checked="false" id="no-risk-schedule-box" [(ngModel)]="vals.schedule"></ion-checkbox>
       </div>
       <h6>What</h6>
-      <textarea class="question-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
+      <textarea class="question-input" id="no-what-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
       <h6>Reason</h6>
-      <textarea class="question-input" [(ngModel)]="vals.reason" placeholder="Reason that criteria is not met..."></textarea>
+      <textarea class="question-input" id="no-reason-input" [(ngModel)]="vals.reason" placeholder="Reason that criteria is not met..."></textarea>
       <h6>Assumptions</h6>
-      <textarea class="question-input" [(ngModel)]="vals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
+      <textarea class="question-input" id="no-assumptions-input" [(ngModel)]="vals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea class="question-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
+      <textarea class="question-input" id="no-notes-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
       <div class="attach" style="width:50%;margin:10px 0px 0px 0px;">
-          <button (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+          <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
       </div>
 		 </div>
 
     <div *ngIf="vals.currentAnswer == 'N/A'" class = "na">
       <h6>Documentation</h6>
-      <textarea class="question-input" [(ngModel)]="vals.documentation" placeholder="Document why this question is not applicable..."></textarea>
+      <textarea class="question-input" id="na-documentation-input"[(ngModel)]="vals.documentation" placeholder="Document why this question is not applicable..."></textarea>
       <hr>
       <h6>Assumptions</h6>
-      <textarea class="question-input" [(ngModel)]="vals.assumptionsNA" placeholder="Enter any assumptions here..."></textarea>
+      <textarea class="question-input" id="na-assumptions-input"[(ngModel)]="vals.assumptionsNA" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
-      <textarea class="question-input" [(ngModel)]="vals.notesNA" placeholder="Enter notes here..."></textarea>
+      <textarea class="question-input" id="na-notes-input"[(ngModel)]="vals.notesNA" placeholder="Enter notes here..."></textarea>
       <div style="width:50%; margin:10px 0px 0px 0px;">
-        <button (click)="showFileUpload($event)" ion-button color="dark">Attatch File</button>
+        <button id="na-attach-file-button"(click)="showFileUpload($event)" ion-button color="dark">Attatch File</button>
       </div>
     </div>
 

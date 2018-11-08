@@ -1,11 +1,13 @@
 <!-- Generated template for the MobileNavPopoverComponent component -->
 <div>
-  <div>
-    <ion-icon name="arrow-back" (click)="goBack()"></ion-icon>
-    <ion-icon name="close" (click)="closeNav()"></ion-icon>
+  <div class='icons'>
+    <!-- <ng-container *ngIf="true"> -->
+      <ion-icon  name="arrow-dropleft" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
+    <!-- </ng-container> -->
+    <ion-icon name="close-circle-outline" (click)="closeNav()" class="close"></ion-icon>
   </div>
   <ng-container *ngIf="regularNavShow">
-    <button ion-button color="dark">
+    <button ion-button color="dark" disabled>
       User Name
     </button>
     <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
@@ -17,7 +19,7 @@
     <button (click)="handleStartNew()" ion-button color="dark">
         Start New Assessment
     </button>
-    <button (click)="showAssessment()" ion-button color="dark">
+    <button *ngIf="assessmentId" (click)="showAssessment()" ion-button color="dark">
       Assessment
     </button>
     <button (click)="showHelp()" ion-button color="dark">
@@ -26,9 +28,9 @@
     <button (click)="handleSettings()" ion-button color="dark">
         Settings
     </button>
-    <button (click)="closeNav()" ion-button color="dark">
+    <!-- <button (click)="closeNav()" ion-button color="dark">
         Close
-    </button>
+    </button> -->
   </ng-container>
 
   <ng-container *ngIf="assessmentShow && assessmentId" class="assessment-links" >
@@ -53,9 +55,9 @@
       <button (click)="handleNA()" ion-button color="dark">
           N/A Questions
       </button>
-      <button (click)="closeAssessment()" ion-button color="dark">
+      <!-- <button (click)="closeAssessment()" ion-button color="dark">
           Back
-      </button>
+      </button> -->
   </ng-container>
 
   <ng-container class="help-links" *ngIf="helpShow">
@@ -74,9 +76,9 @@
     <button ion-button color="dark">
         MRL Deskbook
     </button>
-    <button (click)="closeHelp()" ion-button color="dark">
+    <!-- <button (click)="closeHelp()" ion-button color="dark">
         Back
-    </button>
+    </button> -->
   </ng-container>
 
 </div>
