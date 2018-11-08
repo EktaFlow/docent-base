@@ -46,6 +46,11 @@ export class MobileNavPopoverComponent {
     this.assessmentId = navParams.data.assessmentId;
   }
 
+  goBack(){
+    if (this.helpShow == true) { this.closeHelp(); }
+    else if (this.assessmentShow == true) { this.closeAssessment();}
+  }
+
   showHelp() {
     this.helpShow = true;
     this.regularNavShow = false;
