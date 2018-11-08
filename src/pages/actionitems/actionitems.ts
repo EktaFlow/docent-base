@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -13,7 +15,7 @@ query assessment($_id: String) {
 	assessment(_id: $_id) {
 	questions {
 		mrLevel
-		questionText	
+		questionText
 		threadName
 		subThreadName
 		currentAnswer
@@ -28,7 +30,7 @@ query assessment($_id: String) {
     notesNo
     technical
 		schedule
-    cost	
+    cost
 	}
 	files {
 		name
@@ -49,14 +51,19 @@ export class ActionitemsPage {
 	no: any;
 	assessmentId: any;
 	private attachments: any;
+	pageName: any = "Action Items";
 
-	constructor( private apollo: Apollo, 
-							 public navCtrl: NavController, 
-							 public navParams: NavParams, 
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
 							 public popOver: PopoverController,
-               private assessmentService: AssessmentService) {} 
+               private assessmentService: AssessmentService) {}
 
 	unique = (item, index, array) => array.indexOf(item) == index
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("actionitems");
+  }
 
 	async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -66,7 +73,7 @@ export class ActionitemsPage {
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
-			.subscribe(data => { 
+			.subscribe(data => {
 					this.no = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "No");
 					this.attachments = (<any>data.data).assessment.files;
 			});
@@ -77,7 +84,7 @@ export class ActionitemsPage {
 				q.technical ? risks.push("Technical") : null
 				q.schedule  ? risks.push("Schedule")	: null
 				q.cost      ? risks.push("Cost")			: null
-					
+
 				return risks.join(", ") || "none";
 	}
 

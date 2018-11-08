@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from '../../components/topbar/topbar';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -31,26 +33,31 @@ export class NotapplicablePage {
 	na: any;
 	assessmentId: any;
 	subThreads: any;
+	pageName: any = "Not Applicable Questions";
 
-	constructor( private apollo: Apollo, 
-							 public navCtrl: NavController, 
-							 public navParams: NavParams, 
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
 		console.log(this.assessmentId);
   }
 
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("notapplicable");
+  }
+
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
-	
+
 	ngOnInit() {
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
-			.subscribe(data => { 
+			.subscribe(data => {
 			var naQuestions = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "N/A")
 					this.na= naQuestions;
 					console.log(naQuestions);

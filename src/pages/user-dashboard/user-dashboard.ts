@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
@@ -7,6 +7,9 @@ import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
+import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
@@ -54,15 +57,24 @@ export class UserDashboardPage {
   currentAssessment: any = null;
 	noSecondBar: boolean = false;
 	assessmentId: any;
+	pageName: any = "User Dashboard";
+
+	showMine: boolean = false;
+	showShared: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
 							private apollo: Apollo,
 							private auth: AuthService,
-              private assessmentService: AssessmentService) {
-							//this.assessmentId = navParams.data.assessmentId;
+              private assessmentService: AssessmentService,
+							public popOver: PopoverController) {
+							this.assessmentId = navParams.data.assessmentId;
               }
 
+
+							ionViewWillEnter() {
+						    GoogleAnalytics.trackPage("user-dashboard");
+						  }
 
   async ngOnInit() {
 
@@ -77,6 +89,11 @@ export class UserDashboardPage {
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
 		// console.log(this.currentAssessment);
+		// console.log(window.screen.width);
+		if (window.screen.width > 440) {
+			this.showMine = true;
+			this.showShared = true;
+		}
   }
 
 
@@ -127,7 +144,7 @@ export class UserDashboardPage {
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
 
-	async continueAssessment(assessmentId) { 
+	async continueAssessment(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
 		this.navCtrl.push(QuestionsPage);
@@ -149,9 +166,17 @@ export class UserDashboardPage {
 
   handleSettings(){ this.navCtrl.push(SettingsPage);}
 
+	toggleMine = () => {this.showMine = !this.showMine;}
+	toggleShared = () => {this.showShared = !this.showShared;}
+
 	async handleDeleting(assessmentId){
 		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
 		observe.subscribe((data => this.removeAssessmentFromPage(assessmentId)) );
+	}
+
+	presentAddTeamMembersPopOver(assessmentId){
+		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: assessmentId}, {cssClass: 'team-popover'})
+		.present();
 	}
 
 	removeAssessmentFromPage(assessmentId){

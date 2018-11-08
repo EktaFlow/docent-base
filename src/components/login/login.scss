@@ -18,7 +18,7 @@ login {
 	}
 
 	.row {
-		margin-bottom: 2vh;	
+		margin-bottom: 2vh;
 	}
 
 	.cell {
@@ -45,6 +45,20 @@ login {
 
 	.cell {
 		margin-top: 2vh;
+	}
+
+	.container {
+		justify-content: flex-start;
+		align-items: flex-start;
+		margin-left: 20px;
+	}
+
+	.cell {
+		margin-left: 0;
+	}
+
+	.login-title {
+		font-size: 1.5em;
 	}
 }
 

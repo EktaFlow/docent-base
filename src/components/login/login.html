@@ -18,7 +18,7 @@
 				<div class="error" *ngIf="errors.length > 0">
 					<h3>Ooops, Login Errors</h3>
 					<p *ngFor="let error of errors">
-						{{error}} 
+						{{error}}
 					</p>
 				</div>
 
@@ -28,7 +28,7 @@
 							<h6>Email</h6>
 							<input  type="email" name="emaial" placeholder = "Email" [(ngModel)]="user.email">
 						</div>
-						
+
 						<div class="cell">
 							<h6>Password</h6>
 							<input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
