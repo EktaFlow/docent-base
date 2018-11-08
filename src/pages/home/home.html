@@ -1,9 +1,9 @@
 <title>Docent</title>
 
 <topbar [blank]="true"></topbar>
-<ng-container *ngIf="auth.isLoggedIn()">
-<topbar></topbar>
-</ng-container>
+	<ng-container *ngIf="auth.isLoggedIn()">
+		<topbar></topbar>
+	</ng-container>
 
 
 <ion-content padding>
@@ -44,7 +44,7 @@
   <br><br>
 			<h6 class="assessment-name">Assessment Name</h6>
 	<div class="topmost" style="z-index: 100;">
-      <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
+      <input type="text" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 
 <!-- Save for auth -->
@@ -74,13 +74,13 @@
   <div class = "mid-first-page">
     <div class="scope">
       <h6>Scope</h6>
-      <textarea name="scope" placeholder = "Enter Scope Here" [(ngModel)]="assForm.scope"></textarea>
+      <textarea name="scope" placeholder = "Enter Scope Here" id="assessment-scope-input"[(ngModel)]="assForm.scope"></textarea>
     </div>
     <div class ="target-level-date">
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL</h6>
-          <select name="targetMRL" [(ngModel)]="assForm.targetMRL">
+          <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
             <option value = "2">2</option>
@@ -105,22 +105,22 @@
           </div>
           <select id="level-switching-select"[(ngModel)]="assForm.levelSwitching">
             <option value="true">On</option>
-            <option value="" selected="selected">Off</option>
+            <option value="false" selected="selected">Off</option>
           </select>
         </div>
       </div>
       <h6>Date to Achieve Target MRL</h6>
-      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy" [(ngModel)]="assForm.targetDate">
+      <input  type="date" name="dateAchieve" id="date-to-achieve-input" placeholder = "mm/dd/yyyy" [(ngModel)]="assForm.targetDate">
     </div>
   </div>
   <div class = "bottom">
 		<div>
       <h6>Location</h6>
-      <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
+      <ion-input name="location" id="location-input" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
     <div>
       <h6>Deskbook Version</h6>
-      <select id="deskbook-select"name="version" [(ngModel)]="assForm.deskBookVersion">
+      <select id="deskbook-select" name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
 				<ng-container *ngFor="let deskbook of deskbookVersions">
         	<option value="{{deskbook}}">{{deskbook}}</option>
@@ -141,7 +141,7 @@
       </button>
     </div>
     <div>
-      <button ion-button color ="buttonBlue" (click)="createAssessment($event)">
+      <button ion-button color ="buttonBlue" id="assessment-start" (click)="createAssessment($event)">
         Start
       </button>
     </div>

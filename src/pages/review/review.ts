@@ -52,6 +52,7 @@ export class ReviewPage {
   survey: any;
   surveyResults: any;
   reviewResults = [];
+	pageName: any = "Review";
   response;
 	files;
 

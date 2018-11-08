@@ -1,4 +1,5 @@
-<topbar [assessmentId]="assessmentId">
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName">
 </topbar>
 
 <ion-content padding>
@@ -7,7 +8,7 @@
   <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
   <div class="filter-list">
     <p>Filter MR Level: </p>
-    <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
+    <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
       <option value="" disabled selected>Select One...</option>
       <option value="0">All</option>
       <option value = "1">1</option>
@@ -51,5 +52,7 @@
     </div>
     <hr>
   </div>
+
+  <div class="qspacer"></div>
 
 </ion-content>

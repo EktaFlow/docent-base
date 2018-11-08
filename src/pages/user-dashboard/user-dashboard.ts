@@ -57,6 +57,7 @@ export class UserDashboardPage {
   currentAssessment: any = null;
 	noSecondBar: boolean = false;
 	assessmentId: any;
+	pageName: any = "User Dashboard";
 
 	showMine: boolean = false;
 	showShared: boolean = false;
@@ -88,7 +89,7 @@ export class UserDashboardPage {
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
 		// console.log(this.currentAssessment);
-		console.log(window.screen.width);
+		// console.log(window.screen.width);
 		if (window.screen.width > 440) {
 			this.showMine = true;
 			this.showShared = true;

@@ -18,6 +18,7 @@ import { IonicModule } from 'ionic-angular';
 import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-team-members-pop-over';
 import { JsonUploadPopoverComponent } from './json-upload-popover/json-upload-popover';
 import { AssessmentScopePopoverComponent } from './assessment-scope-popover/assessment-scope-popover';
+import { MobileNavPopoverComponent } from './mobile-nav-popover/mobile-nav-popover';
 
 @NgModule({
 	declarations: [
@@ -36,7 +37,8 @@ import { AssessmentScopePopoverComponent } from './assessment-scope-popover/asse
     RegisterComponent,
     AddTeamMembersPopOverComponent,
     JsonUploadPopoverComponent,
-    AssessmentScopePopoverComponent
+    AssessmentScopePopoverComponent,
+    MobileNavPopoverComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -55,7 +57,8 @@ import { AssessmentScopePopoverComponent } from './assessment-scope-popover/asse
     RegisterComponent,
     AddTeamMembersPopOverComponent,
 		JsonUploadPopoverComponent,
-    AssessmentScopePopoverComponent
+    AssessmentScopePopoverComponent,
+    MobileNavPopoverComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -73,7 +76,8 @@ import { AssessmentScopePopoverComponent } from './assessment-scope-popover/asse
         RegisterComponent,
         AddTeamMembersPopOverComponent,
         JsonUploadPopoverComponent,
-				AssessmentScopePopoverComponent
+				AssessmentScopePopoverComponent,
+				MobileNavPopoverComponent
     ]
 })
 

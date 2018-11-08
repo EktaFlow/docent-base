@@ -167,6 +167,10 @@ page-user-dashboard {
     display: none;
   }
 
+  .mobile {
+    display: none;
+  }
+
 
 
 
@@ -187,6 +191,18 @@ page-user-dashboard {
   }
 
   @media screen and (max-width: 420px){
+
+    ion-content {
+      margin-top: 100px;
+    }
+
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: inherit;
+    }
 
 
 
@@ -227,13 +243,17 @@ page-user-dashboard {
     //   display: none;
     // }
 
-    .first-bar{
-      margin: 100px auto 0 auto;
-      border-top: 1px solid gray;
+    // .first-bar{
+    //   margin: 60px auto 0 auto;
+    //   border-top: 1px solid gray;
+    //
+    //   .buttons {
+    //     display: none;
+    //   }
+    // }
 
-      .buttons {
-        display: none;
-      }
+    .first-bar {
+      display: none;
     }
 
     .assessments {
@@ -271,6 +291,14 @@ page-user-dashboard {
 
     .details {
       width: 35%;
+    }
+
+    .qspacer {
+        font-size: 0;
+        height: 250px;
+        line-height: 0;
+        border: 0px;
+         width: 100%;
     }
 
 

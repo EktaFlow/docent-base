@@ -51,6 +51,7 @@ export class ActionitemsPage {
 	no: any;
 	assessmentId: any;
 	private attachments: any;
+	pageName: any = "Action Items";
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,

@@ -6,34 +6,45 @@
         <div class = "container-toolbar">
           <img class="toolbar-logo" src="assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
           <div *ngIf="!blank" class = "container-tbbuttons">
-            <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
+            <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark" id="logout-button">
 								Logout
             </button>
-            <button (click)="handleUserDash()" color="dark" ion-button>User Dash</button>
-            <button ion-button (click)="presentViewsPop($event)" color="dark">
+            <button (click)="handleUserDash()" color="dark" ion-button id="user-dash-button">
+              User Dash
+            </button>
+            <button ion-button (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
                 Assessment
             </button>
-            <button (click)="showHelp($event)"ion-button color="dark">
+            <button (click)="showHelp($event)"ion-button color="dark" id="help-open-button">
                 Help
+            </button>
+          </div>
+
+          <div *ngIf="!blank" class="container-tbbuttons-mobile">
+            <button ion-button (click)="openMobileNav()" color="dark">
+              <ion-icon name="menu"></ion-icon>
             </button>
           </div>
         </div>
         <hr>
 
         <!-- TODO: use an ngif for if there is an assessmentId -->
-        <div *ngIf="mainTitle">
-                <p>
-	        <h1 class="main-title"><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
+        <div *ngIf="mainTitle" >
+	        <h1 class="main-title" (click)="toggleTopbarInfo()"><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
         </div>
 
-      	<div *ngIf="assessmentId && noSecondBar != false" class="subheader">
+        <div *ngIf="pageName">
+          <h1 class="page-name" id="page-name">{{pageName}}</h1>
+        </div>
+
+      	<div *ngIf="assessmentId && noSecondBar != false && infoShow && !pageName" class="subheader">
           <div *ngIf="mainTitle">
-            <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread">SubThread: {{this.subTitle}}</span></p>
-            <p class="number-info"><span class="q-number">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
-            <p (click)="goToNavExpand()" class="show-all">Show All Questions</p>
+            <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover">SubThread: {{this.subTitle}}</span></p>
+            <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
+            <p (click)="goToNavExpand()" class="show-all" id="show-all-questions">Show All Questions</p>
           </div>
 
-          <div class="targets-scope">
+          <div class="targets-scope" *ngIf="noSecondBar">
             <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
             <p (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
           </div>

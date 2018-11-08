@@ -35,6 +35,7 @@ export class SettingsPage {
   downloadJsonHref: any;
   files: any;
   user: any;
+  pageName: any = "Settings";
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("settings");
