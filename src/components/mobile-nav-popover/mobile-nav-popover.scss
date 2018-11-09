@@ -3,7 +3,11 @@ mobile-nav-popover {
   button {
     width: 100%;
     display: block;
+  }
 
+  .user-name {
+    text-transform: capitalize;
+    padding-bottom: 0;
   }
 
   .icons {

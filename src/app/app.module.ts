@@ -80,40 +80,6 @@ import { BackUrl } from  "../services/constants";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-/* 
-        This is from the DEV branch.
-    HomePage,
-		//QuestionsPage,
-		//AcronymsPage,
-		//DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		HelpmenuComponent,
-		ContactsDropdownComponent,
-		FaqDropdownComponent,
-		AssessmentslistComponent,
-		ThreadsListComponent,
-		FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//CriteriaPage,
-		//ActionitemsPage,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		ViewsComponent,
-		ImportComponent,
-		TopbarComponent,
-		SubthreadPopupComponent,
-		ThreadPopupComponent,
-		LoginComponent,
-		RegisterComponent
-*/
     HomePage
 
   ],

@@ -36,14 +36,26 @@ export class MobileNavPopoverComponent {
   helpShow: boolean = false;
   assessmentId: any;
   assessmentShow: boolean = false;
+  userName: any;
 
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
                     public viewCtrl: ViewController,
                     public auth: AuthService) {
+<<<<<<< HEAD
     console.log('Hello MobileNavPopoverComponent Component');
     this.assessmentId = navParams.data.assessmentId;
+=======
+    this.assessmentId = navParams.data.assessmentId;
+    this.userName = navParams.data.userName;
+    console.log(this.userName);
+  }
+
+  goBack(){
+    if (this.helpShow == true) { this.closeHelp(); }
+    else if (this.assessmentShow == true) { this.closeAssessment();}
+>>>>>>> ioscompile
   }
 
   showHelp() {
@@ -90,6 +102,10 @@ export class MobileNavPopoverComponent {
   handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
   handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
   handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
+<<<<<<< HEAD
+=======
+  handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+>>>>>>> ioscompile
   handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
 
 }

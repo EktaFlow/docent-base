@@ -1,14 +1,14 @@
 <!-- Generated template for the MobileNavPopoverComponent component -->
 <div>
   <div class='icons'>
-    <!-- <ng-container *ngIf="true"> -->
+    <ng-container *ngIf="assessmentShow || helpShow">
       <ion-icon  name="arrow-dropleft" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
-    <!-- </ng-container> -->
+    </ng-container>
     <ion-icon name="close-circle-outline" (click)="closeNav()" class="close"></ion-icon>
   </div>
   <ng-container *ngIf="regularNavShow">
-    <button ion-button color="dark" disabled>
-      User Name
+    <button ion-button color="dark" disabled class="user-name">
+      {{this.userName}}
     </button>
     <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
         Logout
@@ -67,6 +67,12 @@
     <button (click)="handleDefinitions()" ion-button color="dark">
         Definitions
     </button>
+<<<<<<< HEAD
+=======
+    <button (click)="handleAcronyms()" ion-button color="dark">
+        Acronyms
+    </button>
+>>>>>>> ioscompile
     <button (click)="handleFaqs()" ion-button color="dark">
         FAQs
     </button>

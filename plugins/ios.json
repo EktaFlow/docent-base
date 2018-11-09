@@ -13,12 +13,13 @@
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.ionic.docent-v1"
     },
-    "cordova-plugin-splashscreen": {
+    "cordova-plugin-device": {
       "PACKAGE_NAME": "io.ionic.docent-v1"
     },
     "cordova-plugin-ionic-webview": {
       "PACKAGE_NAME": "io.ionic.docent-v1"
     },
+
     "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "io.ionic.docent-v1"
     },

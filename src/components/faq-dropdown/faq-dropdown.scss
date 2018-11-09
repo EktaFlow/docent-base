@@ -38,18 +38,41 @@ faq-dropdown {
     width: 80%;
   }
 
+  .mobile {
+    display: none;
+  }
+
   @media screen and (max-width: 420px){
+    .mobile {
+      display: block;
+    }
+
+    // .arrow-up {
+    //   position: absolute;
+    //   top: 50%;
+    //   right: 10px;
+    // }
+    //
+    // .arrow-down {
+    //   position: absolute;
+    //   top: 50%;
+    //   right: 10px;
+    // }
+
+
     .faq-question-container {
       background-color: lightgray;
       height: auto;
       padding-bottom: 1px;
+      margin-bottom: 0;
+      margin: 0;
     }
 
       .faq-question-header {
         border: 5px solid lightgray;
         width: 100%;
         background-color: white;
-        padding: 3px;
+        padding: 10px;
         // margin: 10px;
       }
 
@@ -58,13 +81,15 @@ faq-dropdown {
         font-size: 1.3em;
         margin: 3px 5px 3px 5px;
         width: auto;
-        height: auto;
+        height: 100%;
         background-color: white;
       }
 
       .desktop {
         display: none;
       }
+
+
 
 
   }

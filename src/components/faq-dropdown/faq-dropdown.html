@@ -4,12 +4,20 @@
 		<div *ngIf="faqOpen" class="arrow-up"></div>
 		<div class="faq-question-title"><font size="5">{{ faq.help_title }}</font></div>
   </div>
+
+  <!-- <div (click)="toggleFaq()" class="faq-question-header mobile">
+    <div class="faq-question-title"><font size="5">{{ faq.help_title }}</font></div>
+		<div *ngIf="!faqOpen" class="arrow-down"></div>
+		<div *ngIf="faqOpen" class="arrow-up"></div>
+  </div> -->
+
+
   <div *ngIf="faqOpen">
 			<div class="faq-text" [innerHTML]="faq.help_text"></div>
 
-    <ng-container class="desktop">
+    <!-- <ng-container class="desktop">
       <br><br>
-    </ng-container>
+    </ng-container> -->
 
   </div>
 </div>
