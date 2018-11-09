@@ -1,66 +1,120 @@
-<topbar [assessmentId]="assessmentId">
-</topbar>
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
 
-<ion-content padding>
-  <br><br><br><br><br><br><br><br><br><br>
-	<div> <span>subthread passed: </span> 
-					<div class="yes dashbox">
-          <img class="dashpic" src="../../assets/imgs/check-mark-256.png">
-					</div>
-				<span>subthread failed</span>
-					<div class="no dashbox">
-          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico">
-					</div>
-					<span>subthread unanswered</span>
-					<div class="na dashbox">
-          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden;">
-					</div>
-					<span>no subthread at this level</span>
-					<div class="blank dashbox">
-          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden">
-					</div>
+<ion-content padding >
 
-
-	</div>
-  <div class="top">
-      <p>Completion Date</p>
-      <p>10</p>
-      <p>9</p>
-      <p>8</p>
-      <p>7</p>
-      <p>6</p>
-      <p>5</p>
-      <p>4</p>
-      <p>3</p>
-      <p>2</p>
-      <p>1</p>
+  <div class="desktop">
+    <br><br><br><br><br><br><br><br><br><br>
   </div>
-  <br><br><br>
-  <div *ngFor = "let question of questionSet">   
-    <hr>
-      <p><b>{{question.header}}</b></p>
-    <hr>
-    <div *ngFor = "let answer of question.questions" class="questions">
-      <div class="header">
-        <p class = "subtitle">{{answer.subheader}}</p>
-      </div>
-      <div *ngFor ="let response of answer.answers" class="answers">
-        <div *ngIf = "response == true" class = "yes dashbox">
-          <img class="dashpic" src="../../assets/imgs/check-mark-256.png">
+
+  <div class="desktop">
+  	<div> <span>subthread passed: </span>
+  					<div class="yes dashbox">
+            <img class="dashpic" src="assets/imgs/check-mark-256.png">
+  					</div>
+  				<span>subthread failed</span>
+  					<div class="no dashbox">
+            <img class="dashpic" src="assets/imgs/x-mark-256.ico">
+  					</div>
+  					<span>subthread unanswered</span>
+  					<div class="na dashbox">
+            <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden;">
+  					</div>
+  					<span>no subthread at this level</span>
+  					<div class="blank dashbox">
+            <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden">
+  					</div>
+  	</div>
+    <div class="top">
+        <p>Completion Date</p>
+        <p>10</p>
+        <p>9</p>
+        <p>8</p>
+        <p>7</p>
+        <p>6</p>
+        <p>5</p>
+        <p>4</p>
+        <p>3</p>
+        <p>2</p>
+        <p>1</p>
+    </div>
+    <br><br><br>
+    <div *ngFor = "let question of questionSet">
+      <hr>
+        <p><b>{{question.header}}</b></p>
+      <hr>
+      <div *ngFor = "let answer of question.questions" class="questions">
+        <div class="header">
+          <p class = "subtitle">{{answer.subheader}}</p>
         </div>
-        <div *ngIf = "response == false" class = "no dashbox">
-          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico">
+        <div *ngFor ="let response of answer.answers" class="answers">
+          <div *ngIf = "response == true" class = "yes dashbox">
+            <img class="dashpic" src="assets/imgs/check-mark-256.png">
+          </div>
+          <div *ngIf = "response == false" class = "no dashbox">
+            <img class="dashpic" src="assets/imgs/x-mark-256.ico">
+          </div>
+          <div *ngIf = "response == 'blank'" class = "blank dashbox">
+            <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden">
+          </div>
+          <div *ngIf = "response == null" class = "na dashbox">
+            <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden;">
+          </div>
         </div>
-        <div *ngIf = "response == 'blank'" class = "blank dashbox">
-          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden">
+        <div class = "date">
+          <p>Date</p>
         </div>
-        <div *ngIf = "response == null" class = "na dashbox">
-          <img class="dashpic" src="../../assets/imgs/x-mark-256.ico" style="visibility:hidden;">
-        </div>
-      </div>
-      <div class = "date">
-        <p>Date</p>
       </div>
     </div>
+</div>
+
+
+  <div class="mobile">
+    <div class="mobile-wrapper">
+      <div class="dash-toolbar">
+        <ng-container *ngIf="!showAll">
+          <button (click)="expandAll()" ion-button color="darkSlateBlue">Expand All</button>
+        </ng-container>
+        <ng-container *ngIf="showAll">
+          <button (click)="expandAll()" ion-button color="darkSlateBlue">Close All</button>
+        </ng-container>
+      </div>
+      <div *ngFor="let question of questionSet" class="single-thread">
+        <h3>{{question.header}}            <span><img src="assets/imgs/if_icon-arrow-down.png" (click)="toggleSubThread(question)" class="downArrow">
+        </span></h3>
+        <div *ngIf="question.show || showAll">
+          <div *ngFor="let answer of question.questions" class="questions">
+            <h6>{{answer.subheader}}</h6>
+            <div class="answer-row">
+              <div *ngFor ="let response of answer.answers; let i = index" [attr.data-index]="i"  class="answers">
+                <p class="level-num">{{i + 1}}</p>
+                <div *ngIf = "response == true" class = "yes dashbox">
+                  <img class="dashpic" src="assets/imgs/check-mark-256.png">
+                </div>
+                <div *ngIf = "response == false" class = "no dashbox">
+                  <img class="dashpic" src="assets/imgs/x-mark-256.ico">
+                </div>
+                <div *ngIf = "response == 'blank'" class = "blank dashbox">
+                  <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden">
+                </div>
+                <div *ngIf = "response == null" class = "na dashbox">
+                  <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="links">
+        <button (click)="handleActionItems()" ion-button color="darkSlateBlue">Action Items</button>
+        <button (click)="handleNa()" ion-button color="darkSlateBlue">Not Applicable</button>
+        <button (click)="handleSkipped()" ion-button color="darkSlateBlue">Skipped Questions</button>
+      </div>
+
+
+      <div class="qspacer"></div>
+    </div>
   </div>
+
 </ion-content>

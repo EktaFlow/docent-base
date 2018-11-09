@@ -1,4 +1,5 @@
-<topbar [assessmentId]="this.assessmentId">
+<topbar [assessmentId]="this.assessmentId"
+              [pageName]="pageName">
 </topbar>
 
 <ion-content padding>
@@ -32,11 +33,11 @@
     <br><br><br><br><br><br><br><br><br><br>
     <hr>
   <div *ngFor="let segment of filteredSchema">
-    <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
+    <img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
     {{segment.header}}
     <div *ngIf="segment.cool || showAll">
       <div *ngFor="let sub of segment.subheader">
-        <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
+        <img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
         {{sub.subheader}}
         <div *ngIf="sub.sweet || showAll">
           <div *ngFor="let question of sub.questions" class="mrl">
@@ -48,5 +49,7 @@
     </div>
     <hr>
   </div>
+
+  <div class="qspacer"></div>
 
 </ion-content>

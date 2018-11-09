@@ -1,0 +1,87 @@
+<!-- Generated template for the MobileNavPopoverComponent component -->
+<div>
+  <div class='icons'>
+    <ng-container *ngIf="assessmentShow || helpShow">
+      <ion-icon  name="arrow-dropleft" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
+    </ng-container>
+    <ion-icon name="close-circle-outline" (click)="closeNav()" class="close"></ion-icon>
+  </div>
+  <ng-container *ngIf="regularNavShow">
+    <button ion-button color="dark" disabled class="user-name">
+      {{this.userName}}
+    </button>
+    <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
+        Logout
+    </button>
+    <button (click)="handleUserDash()" ion-button color="dark">
+        User Dash
+    </button>
+    <button (click)="handleStartNew()" ion-button color="dark">
+        Start New Assessment
+    </button>
+    <button *ngIf="assessmentId" (click)="showAssessment()" ion-button color="dark">
+      Assessment
+    </button>
+    <button (click)="showHelp()" ion-button color="dark">
+        Help Menu
+    </button>
+    <button (click)="handleSettings()" ion-button color="dark">
+        Settings
+    </button>
+    <!-- <button (click)="closeNav()" ion-button color="dark">
+        Close
+    </button> -->
+  </ng-container>
+
+  <ng-container *ngIf="assessmentShow && assessmentId" class="assessment-links" >
+      <button (click)="handleContinue()" ion-button color="dark">
+          Continue Assessment
+      </button>
+      <button (click)="handleDashboard()" ion-button color="dark">
+          Dashboard
+      </button>
+      <button (click)="handleNavigate()" ion-button color="dark">
+          Navigate
+      </button>
+      <button (click)="handleReview()" ion-button color="dark">
+          Review
+      </button>
+      <button (click)="handleActionItems()" ion-button color="dark">
+          Action Items
+      </button>
+      <button (click)="handleSkipped()" ion-button color="dark">
+          Skipped Questions
+      </button>
+      <button (click)="handleNA()" ion-button color="dark">
+          N/A Questions
+      </button>
+      <!-- <button (click)="closeAssessment()" ion-button color="dark">
+          Back
+      </button> -->
+  </ng-container>
+
+  <ng-container class="help-links" *ngIf="helpShow">
+    <button (click)="handleCriteria()" ion-button color="dark">
+        Criteria
+    </button>
+    <button (click)="handleDefinitions()" ion-button color="dark">
+        Definitions
+    </button>
+    <button (click)="handleAcronyms()" ion-button color="dark">
+        Acronyms
+    </button>
+    <button (click)="handleFaqs()" ion-button color="dark">
+        FAQs
+    </button>
+    <button ion-button color="dark">
+        User Guide
+    </button>
+    <button ion-button color="dark">
+        MRL Deskbook
+    </button>
+    <!-- <button (click)="closeHelp()" ion-button color="dark">
+        Back
+    </button> -->
+  </ng-container>
+
+</div>

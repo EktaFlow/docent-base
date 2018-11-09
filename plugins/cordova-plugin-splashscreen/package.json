@@ -16,12 +16,13 @@
     "fetchSpec": "5.0.2"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz",
   "_shasum": "747e74f56e201cd585bc62d14bca19f6867ff1ed",
   "_spec": "cordova-plugin-splashscreen@5.0.2",
-  "_where": "/Users/mac/Desktop/JavaScript Workspace/docent-v1",
+  "_where": "/Users/dominiquegoncalves/Documents/Code/docent-base",
   "author": {
     "name": "Apache Software Foundation"
   },

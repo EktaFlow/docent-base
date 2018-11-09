@@ -34,7 +34,7 @@
   "cordova-plugin-ionic-keyboard": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-ionic-keyboard@2.0.5"
+      "id": "cordova-plugin-ionic-keyboard@^2.0.5"
     },
     "is_top_level": true,
     "variables": {}

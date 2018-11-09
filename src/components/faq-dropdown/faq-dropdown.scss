@@ -1,38 +1,96 @@
 faq-dropdown {
-  
-}
+  .faq-question-title {
+    color: darkblue;
+  	font-family: Arial;
+  	font-size: 1.2em;
+  	font-weight: bold;
+  }
 
-.faq-question-title {
-  color: darkblue;
-	font-family: Arial;
-	font-size: 1.2em;
-	font-weight: bold;
-}
+  .faq-question-container {
+  	margin-bottom: 15px;
+  }
 
-.faq-question-container {
-	margin-bottom: 15px;
-}
+  .faq-question-header {
+    display: flex;
+  	justify-content: flex-start;
+  	align-items:center;
+  }
 
-.faq-question-header {
-  display: flex;
-	justify-content: flex-start;
-	align-items:center;
-}
+  .arrow-down {
+    width: 0;
+  	height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+  	border-top: 8px solid darkblue;
+  	margin-right: 6px;
+  }
 
-.arrow-down {
-  width: 0;
-	height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-	border-top: 8px solid darkblue;
-	margin-right: 6px;
-}
+  .arrow-up {
+    width: 0;
+  	height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+  	border-bottom: 8px solid darkblue;
+  	margin-right: 6px;
+  }
 
-.arrow-up {
-  width: 0;
-	height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-	border-bottom: 8px solid darkblue;
-	margin-right: 6px;
+  .faq-text {
+    width: 80%;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 420px){
+    .mobile {
+      display: block;
+    }
+
+    // .arrow-up {
+    //   position: absolute;
+    //   top: 50%;
+    //   right: 10px;
+    // }
+    //
+    // .arrow-down {
+    //   position: absolute;
+    //   top: 50%;
+    //   right: 10px;
+    // }
+
+
+    .faq-question-container {
+      background-color: lightgray;
+      height: auto;
+      padding-bottom: 1px;
+      margin-bottom: 0;
+      margin: 0;
+    }
+
+      .faq-question-header {
+        border: 5px solid lightgray;
+        width: 100%;
+        background-color: white;
+        padding: 10px;
+        // margin: 10px;
+      }
+
+      .faq-text {
+        padding: 8px;
+        font-size: 1.3em;
+        margin: 3px 5px 3px 5px;
+        width: auto;
+        height: 100%;
+        background-color: white;
+      }
+
+      .desktop {
+        display: none;
+      }
+
+
+
+
+  }
 }

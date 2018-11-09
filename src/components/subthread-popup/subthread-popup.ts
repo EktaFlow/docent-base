@@ -81,7 +81,7 @@ export class SubthreadPopupComponent {
 	 		});
 	 }
 
-	 // change this to use 2 way binding. eg, rather than reloading the quesitons page, 
+	 // change this to use 2 way binding. eg, rather than reloading the quesitons page,
 	 // stay on the questions page and change the current question variable
   async navToQuestion(questionId) {
 		var update = await this.assessmentService.updateQuestion(this.updateInfo);

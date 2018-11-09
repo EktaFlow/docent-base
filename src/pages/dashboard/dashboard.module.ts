@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(DashboardPage),
 		ComponentsModule
   ],
+  entryComponents: [
+    DashboardPage
+  ],
+  exports: [
+    DashboardPage
+  ]
 })
 export class DashboardPageModule {}

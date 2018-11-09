@@ -22,4 +22,10 @@ page-actionitems {
         color:white;
         margin-left:13px;
     }
+
+    @media screen and (max-width: 420px){
+          ion-content {
+              // margin-top: 10px;
+          }
+      }
 }

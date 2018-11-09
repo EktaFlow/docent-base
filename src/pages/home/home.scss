@@ -69,23 +69,32 @@ $input-border:#dcdcdc;
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    width: 98%;
     justify-content: space-between;
-    input{
-        @extend %input-style;
+
+
+    .member-inputs {
+        width: 100%;
+        display: inline-block;
+
+        input{
+            @extend %input-style;
+            width: 30%;
+            margin: 0 5px;
+        }
+        input:focus {
+            outline:none;
+            border-color:#9ecaed;
+            box-shadow:0 0 10px #9ecaed;
+        }
+
     }
-    input:focus { 
-        outline:none;
-        border-color:#9ecaed;
-        box-shadow:0 0 10px #9ecaed;
-    }
+
 }
 
-.member-role-button{
-    display:flex;
-    input{
-        width: 100%;
-    }
-}
+
+
+
 
 
 .mid-first-page{
@@ -104,7 +113,7 @@ $input-border:#dcdcdc;
         height:80%;
         resize:none;
     }
-    textarea:focus { 
+    textarea:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -121,7 +130,7 @@ $input-border:#dcdcdc;
         width:100%;
         height: 30%;
     }
-    input:focus { 
+    input:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -163,7 +172,7 @@ $input-border:#dcdcdc;
         margin-top:0px;
         height: 45%;
     }
-    input:focus { 
+    input:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
@@ -180,9 +189,23 @@ $input-border:#dcdcdc;
 		}
 }
 
+.register-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 5vw;
+}
+
+.mobile-register-container {
+    display: none;
+}
+
+
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	.assessment-name {
-		margin-left: 5%;
+		margin-left: 15px;
 	}
 	.target-level {
 		margin-top: 2%;
@@ -204,7 +227,52 @@ $input-border:#dcdcdc;
 			width: 90%;
 		}
 	}
+
+  .register-container {
+    display: none;
+  }
+
+  .mobile-register-container {
+      display: flex;
+      flex-direction: column;
+  	   align-items: flex-start;
+  	    justify-content: flex-start;
+  	    margin-top: 10px;
+        margin-left: 25px;
+  }
+
+  .member-form {
+      margin-left: 15px;
+  }
+
+  .members {
+      width: 100%;
+
+    .member-inputs {
+        input {
+            width: 92%;
+            height: 50%;
+            display: block;
+        }
+    }
+
+  }
+
+  .buttons {
+     button {
+         margin: 2px;
+         margin-top: 5px;
+     }
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  
 }
+
+
 .thread-start{
     display: flex;
     justify-content: space-between;
@@ -233,12 +301,4 @@ $input-border:#dcdcdc;
 
 .grayed {
 	color: gray;
-}
-
-.register-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-top: 5vw;
 }
