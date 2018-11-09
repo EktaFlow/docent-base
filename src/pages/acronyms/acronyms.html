@@ -20,7 +20,7 @@
 		<ion-grid>
 			<ion-row *ngFor="let acronym of acronymsKeys; let even = even">
 				<ion-col col-2>
-					<ion-item [color]="even ? 'none' : 'light'">{{ acronym }}	</ion-item>
+					<ion-item [color]="even ? 'none' : 'light'" class="acronym">{{ acronym }}	</ion-item>
 				</ion-col>
 				<ion-col col-10>
 					<ion-item [color]="even ? 'none' : 'light'">{{ acronyms[acronym] }} </ion-item>
