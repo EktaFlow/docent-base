@@ -40,7 +40,8 @@ constructor(private http: HttpClient) {}
           return this.http.post(this.resetUrl, {email})
                  .pipe(tap( data => console.log(data),
                             error => console.log(error)
-                          ));
+                          ))
+                 .subscribe(a => console.log('of course'));
         }
 
 	private setSession(isAuthed) {
