@@ -43,10 +43,7 @@ export class MobileNavPopoverComponent {
                     public navParams: NavParams,
                     public viewCtrl: ViewController,
                     public auth: AuthService) {
-<<<<<<< HEAD
-    console.log('Hello MobileNavPopoverComponent Component');
-    this.assessmentId = navParams.data.assessmentId;
-=======
+
     this.assessmentId = navParams.data.assessmentId;
     this.userName = navParams.data.userName;
     console.log(this.userName);
@@ -55,7 +52,7 @@ export class MobileNavPopoverComponent {
   goBack(){
     if (this.helpShow == true) { this.closeHelp(); }
     else if (this.assessmentShow == true) { this.closeAssessment();}
->>>>>>> ioscompile
+
   }
 
   showHelp() {
