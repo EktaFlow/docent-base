@@ -100,3 +100,15 @@ input:focus, textarea:focus {
     visibility: visible;
     opacity: 1;
 }
+
+.password-reset {
+        background: rgba(0,0,0,0.5);
+        color: pink;
+        height: 100%;
+        width: 100%;
+
+        .popover-content {
+                padding: 20px;
+                width: 40vw;
+        }
+}

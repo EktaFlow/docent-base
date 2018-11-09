@@ -152,7 +152,7 @@ export class HomePage {
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 
     handleResetClick() {
-      this.popOver.create( PasswordResetComponent) 
+      this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'}) 
                     .present();
     } 
 

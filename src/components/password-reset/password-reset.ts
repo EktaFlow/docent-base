@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ToastController } from 'ionic-angular';
+import { ToastController, ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'password-reset',
@@ -10,7 +10,8 @@ export class PasswordResetComponent {
   private emailInput: string = null;
 
   constructor( private auth: AuthService,
-               private toast: ToastController ) {}
+               private toast: ToastController,
+                private viewCtrl: ViewController ) {}
 
   
   handleResetClick() {
@@ -36,6 +37,7 @@ export class PasswordResetComponent {
   resetPassword() {
     this.auth.resetPassword(this.emailInput);
     this.showSuccessToast(this.emailInput);
+    this.viewCtrl.dismiss();
   }
 
   showSuccessToast(email) {
