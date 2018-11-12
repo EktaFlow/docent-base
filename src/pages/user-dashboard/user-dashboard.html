@@ -44,7 +44,7 @@
               <p>You currently have {{assessments.length}} assessments</p>
             </div>
             <div *ngFor="let assessment of assessments">
-              <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+              <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id={{assessment.id}}>
                 <b>Assessment:</b> {{assessment.name}}
               </div>
               <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
