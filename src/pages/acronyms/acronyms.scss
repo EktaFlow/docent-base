@@ -1,3 +1,19 @@
 page-acronyms {
+  .desktop {
 
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 420px){
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: inherit;
+    }
+  }
 }

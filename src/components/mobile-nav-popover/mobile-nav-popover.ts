@@ -11,11 +11,11 @@ import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquesti
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
-import { AcronymsPage } from '../../pages/acronyms/acronyms';
 import { DefinitionsPage } from '../../pages/definitions/definitions';
 import { FaqsPage } from '../../pages/faqs/faqs';
 import { CriteriaPage } from '../../pages/criteria/criteria';
 import { SettingsPage } from '../../pages/settings/settings';
+import { AcronymsPage} from '../../pages/acronyms/acronyms';
 
 
 
@@ -96,5 +96,6 @@ export class MobileNavPopoverComponent {
   handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
   handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
   handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
+  handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }
