@@ -36,6 +36,7 @@ import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
 
 
+
 // components
 import { ComponentsModule } from '../components/components.module';
 
