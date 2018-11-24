@@ -78,6 +78,7 @@ export class HomePage {
 			alert("please fill out all the fields");
 			return null;
 		}
+
 		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);

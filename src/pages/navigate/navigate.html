@@ -2,7 +2,10 @@
               [pageName]="pageName">
 </topbar>
 
-<ion-content padding>
+<ion-content padding class="wrapper">
+
+  <!-- <br><br><br><br><br><br><br><br><br><br> -->
+
 <div class="filter-toolbar">
   <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
   <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
@@ -24,14 +27,16 @@
     </select>
     <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
 
+
+
   </div>
 </div>
 
-    <br><br>
     <!-- <br><br><br><br><br> -->
       <!-- <br><br><br><br><br><br><br><br><br><br> -->
-  <br><br><br><br><br><br><br><br><br><br>
-  <hr>
+  <!-- <hr> -->
+
+  <div class="desktop">
 
   <div *ngFor="let segment of filteredSchema">
       <img src="assets/imgs/if_icon-arrow-down.png" (click)="changeState(segment)" class= "downArrow" >
@@ -51,6 +56,34 @@
       </div>
     </div>
     <hr>
+  </div>
+  </div>
+
+  <div class="mobile">
+    <div *ngFor="let segment of filteredSchema">
+      <div class="thread-name" (click)="changeState(segment)">
+        <h3>{{segment.header}} <span><img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" ></span></h3>
+      </div>
+
+      <div *ngIf="segment.cool || showAll">
+        <div *ngFor="let sub of segment.subheader">
+          <div class="subthread-name" (click)="changeSubState(sub)">
+            <h5>{{sub.subheader}} <span><img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow"></span></h5>
+
+          </div>
+
+          <div *ngIf="sub.sweet || showAll">
+            <div *ngFor="let question of sub.questions" class="mrl">
+              <b>MR Level {{question.mrl}}:</b>
+              <div *ngFor="let title of question.questionSet" class="question">
+                <p class="navigate-links"  (click)="navToQuestion(title.questionId)"> <span *ngIf="title.questionStatus"> <p ion-button small [color]="pickColor(title.questionStatus)" class="status-button">{{title.questionStatus}}</p></span> {{title.text}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <hr> -->
+    </div>
   </div>
 
   <div class="qspacer"></div>
