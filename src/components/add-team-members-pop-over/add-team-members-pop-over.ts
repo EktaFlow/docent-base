@@ -32,14 +32,14 @@ export class AddTeamMembersPopOverComponent {
   addNewMember() {
     //access assessment
     //add team member to assessment
-    this.assessmentService.updateTeamMembers(this.assessmentId, newMember.email);
-		this.sendEmailsToTeamMember();
+    this.assessmentService.updateTeamMembers(this.assessmentId, this.newMember.email);
+		this.sendEmailsToTeamMember(this.assessmentId);
 
 		//not currently auto syncing with page *ajaxing* for now it is fine.....
 
   }
 
-  async sendEmailsToTeamMember() {
+  async sendEmailsToTeamMember(assessmentId) {
 		var teamMember = [this.newMember.email];
 
 		// move this to constants when we decide its home.
@@ -53,7 +53,7 @@ export class AddTeamMembersPopOverComponent {
 				},
 			body: JSON.stringify({
 				recipients: teamMember,
-				this.assessmentId
+				assessmentId
 			})
 		})
 		.then(a => console.log("okok"))

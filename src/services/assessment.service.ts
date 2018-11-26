@@ -7,7 +7,8 @@ import { assessmentQuery,
 				 questionPageAssessmentQuery,
          updateQuestionMutation,
 				 deleteAssessmentMutation,
-         getThreadsQuery	 } from "./gql.service";
+         getThreadsQuery,
+         updateTeamMembersMutation	 } from "./gql.service";
 
 @Injectable()
 export class AssessmentService {
