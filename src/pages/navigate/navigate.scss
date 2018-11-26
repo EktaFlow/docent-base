@@ -1,4 +1,8 @@
 page-navigate {
+
+    .wrapper {
+        margin-top: 120px;
+    }
     .toolbar-class{
         header{
             color:#000;
@@ -57,13 +61,14 @@ page-navigate {
         list-style-type: none;
         height: 70px;
         // background-color: blue;
-        position: absolute;
-        top: 150px;
-        left: 0;
+        // position: absolute;
+        // top: 150px;
+        // left: 0;
         width: 98%;
         z-index: 9999;
         padding-left: 20px;
         padding-top: 15px;
+        border-bottom: .5px solid lightgray;
 
         button {
             display: inline-block;
@@ -102,14 +107,63 @@ page-navigate {
             display: none;
         }
 
-        @media screen and (max-width: 420px){
-            ion-content {
-                margin-top: 0px;
+        .mobile {
+          display: none;
+        }
+
+        @media screen and (max-width: 1024px){
+          .desktop {
+            display: none;
+          }
+
+          .mobile {
+            display: inherit;
+            margin-top: 10px;
+            width: 100%;
+          }
+
+          .thread-name {
+              padding: 15px 0px 10px 5px;
+              border-bottom: .5px solid lightgray;
+              border-top: .5px solid lightgray;
+              width: 100%;
+
+          }
+
+          .subthread-name {
+              padding: 20px 0px 10px 5px;
+              // border-bottom: .5px solid lightgray;
+              background-color: #F3F3F3;
+              width: 100%;
+
+          }
+
+          .downArrow{
+              vertical-align: middle;
+              padding-bottom: 3px;
+              width: 12px;
+              height: 12px;
+          }
+
+          .mrl {
+              margin: 0;
+              padding-left: 5px;
+              padding-top: 10px;
+          }
+
+
+
+            .wrapper {
+                margin-top: 140px;
 
                 .filter-toolbar {
                     padding-top: 0;
                     margin-top: 0;
-                    margin-bottom: 30px;
+                    padding-bottom: 10px;
+                    margin-bottom: 0;
+                    height: auto;
+                    // margin-bottom: 80px;
+                    border: none;
                     button {
                         width: 25%;
                     }
@@ -140,5 +194,11 @@ page-navigate {
                      width: 100%;
               }
             }
+        }
+
+        @media screen and (min-width: 420px) and (max-width: 1024px){
+          .wrapper {
+            margin-top: 160px;
+          }
         }
 }

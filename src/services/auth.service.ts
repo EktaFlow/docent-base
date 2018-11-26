@@ -7,7 +7,7 @@ import { AuthUrl } from "./constants";
 @Injectable()
 
 export class AuthService {
-	
+
 
 constructor(private http: HttpClient) {}
 
@@ -42,7 +42,7 @@ constructor(private http: HttpClient) {}
 
 	public unverified = () => {
 		var hasToken = localStorage.getItem("docent-token");
-		console.log(JSON.parse(hasToken));
+		// console.log(JSON.parse(hasToken));
 		if (hasToken && JSON.parse(hasToken).user) {
 			return !JSON.parse(hasToken).user.verified
 		}

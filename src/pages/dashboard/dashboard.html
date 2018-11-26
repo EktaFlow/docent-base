@@ -78,6 +78,8 @@
         <ng-container *ngIf="showAll">
           <button (click)="expandAll()" ion-button color="darkSlateBlue">Close All</button>
         </ng-container>
+
+        <button (click)="presentLegend($event)" ion-button color="darkSlateBlue">Legend</button>
       </div>
       <div *ngFor="let question of questionSet" class="single-thread">
         <h3>{{question.header}}            <span><img src="assets/imgs/if_icon-arrow-down.png" (click)="toggleSubThread(question)" class="downArrow">
