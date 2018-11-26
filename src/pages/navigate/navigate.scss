@@ -111,7 +111,7 @@ page-navigate {
           display: none;
         }
 
-        @media screen and (max-width: 800px){
+        @media screen and (max-width: 1024px){
           .desktop {
             display: none;
           }
@@ -196,7 +196,7 @@ page-navigate {
             }
         }
 
-        @media screen and (min-width: 420px) and (max-width: 800px){
+        @media screen and (min-width: 420px) and (max-width: 1024px){
           .wrapper {
             margin-top: 160px;
           }
