@@ -265,7 +265,44 @@ $input-border:#dcdcdc;
      }
   }
 
+  .team-members-title {
+      margin-left: 15px;
+  }
+
+  .start-button {
+      margin-top: 20px;
+      margin-right: 15px;
+  }
+
 }
+
+
+@media screen and (min-width: 420px) and (max-width: 800px){
+    .team-members-title {
+        margin-left: 40px;
+    }
+
+    .assessment-name {
+        margin-left: 40px;
+    }
+  .member-form {
+      margin-left: 35px;
+
+      .members {
+          .member-inputs {
+              input {
+                  width: 94%;
+              }
+          }
+      }
+  }
+
+  .start-button {
+      margin-right: 35px;
+  }
+}
+
+
 
 
 .thread-start{

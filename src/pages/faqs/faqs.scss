@@ -1,7 +1,17 @@
 page-faqs {
-  @media screen and (max-width: 420px){
+
+  ion-content {
+    margin-top: 130px;
+  }
+  @media screen and (max-width: 800px){
     .desktop {
       display: none;
+    }
+  }
+
+  @media screen and (min-width: 420px) and (max-width: 800px){
+    ion-content {
+      margin-top: 145px;
     }
   }
 }

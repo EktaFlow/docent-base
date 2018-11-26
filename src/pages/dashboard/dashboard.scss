@@ -177,4 +177,10 @@ page-dashboard {
 
 
       }
+
+      @media screen and (min-width: 420px) and (max-width: 800px){
+        ion-content {
+          margin-top: 160px;
+        }
+      }
 }

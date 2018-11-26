@@ -1,7 +1,16 @@
 page-definitions {
-  @media screen and (max-width: 420px){
+  ion-content {
+    margin-top: 130px;
+  }
+  @media screen and (max-width: 800px){
         ion-content {
-            // margin-top: 40px;
+            margin-top: 120px;
         }
+    }
+
+    @media screen and (min-width: 420px) and (max-width: 800px){
+      ion-content {
+        margin-top: 135px;
+      }
     }
 }

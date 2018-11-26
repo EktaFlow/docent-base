@@ -116,6 +116,7 @@ export class HomePage {
 
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
+		// console.log(teamMembers);
 
 		// move this to constants when we decide it's home.
 		var url = "http://localhost:4002/share";
