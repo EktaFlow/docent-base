@@ -106,7 +106,7 @@ ion-icon {
 }
 
 
-@media screen and (min-width: 430px){
+@media screen and (min-width: 800px){
     .upload-popover .popover-content {
         padding: 30px;
         height: 400px;
@@ -120,7 +120,7 @@ ion-icon {
     }
 }
 
-.small-popover {
+.small-popover .popover-content{
   width: 300px;
   height: 400px;
   padding: 30px;
