@@ -45,6 +45,10 @@ topbar {
     line-height: 0;
   }
 
+  .downArrow{
+      display: none;
+  }
+
   .subheader {
     position: relative;
     min-height: 80px;
@@ -68,8 +72,116 @@ topbar {
           right: 20px;
         }
 
+        .assessment-info-mobile {
+          display: none;
+        }
+
+        .show-all {
+          text-decoration: underline;
+        }
+
     }
 
+    .container-tbbuttons-mobile {
+      display: none;
+    }
+
+    .page-name {
+      color: white;
+      padding-left: 20px;
+      // border-top: 1px solid white;
+    }
+
+
+    // @media screen and (max-width: 800px){
+    //
+    // }
+
+    @media screen and (max-width: 1024px){
+
+
+    .main-title {
+      // font-size: 100%;
+        // font-size: 2rem !important;
+        font-size: 1.5em !important;
+    }
+      .toolbar-class {
+
+        hr {
+          display: none !important;
+        }
+      }
+
+      // .downArrow{
+      //     color: white;
+      //     background-color: white;
+      //     height:14;
+      //     width:14;
+      //     cursor: pointer;
+      // }
+
+      .container-toolbar {
+        flex-flow: column wrap;
+
+
+      }
+        .toolbar-logo {
+          // width: 100%;
+          width: 50%;
+          height: 50%;
+          // justify-content: space-around;
+        }
+        .container-tbbuttons {
+          // display: flex;
+          // display: flex;
+          // width: 100%;
+          // padding-right: 10px;
+          // // justify-content: space-around;
+          //
+          // button {
+          //     padding: 0;
+          //     padding: 5px;
+          // }
+
+          display: none;
+        }
+
+        .container-tbbuttons-mobile {
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9999;
+            color: white;
+            // width: 30px;
+
+
+
+        }
+
+        .subheader {
+          .number-info {
+            display: inline;
+            .q-number {
+              text-decoration: none;
+            }
+          }
+          .targets-scope {
+          display: none;
+
+          }
+
+          .assessment-info-mobile {
+            display: inherit;
+            // text-decoration: underline;
+
+          }
+        }
+
+
+
+
+    }
 
 
 

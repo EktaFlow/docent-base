@@ -4,6 +4,7 @@ node_modules
 www
 plugins
 platforms
+.sourcemaps
 
 # caching dirs
 .temp

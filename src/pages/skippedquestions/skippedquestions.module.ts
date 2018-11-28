@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(SkippedquestionsPage),
 		ComponentsModule
   ],
+  entryComponents: [
+    SkippedquestionsPage
+  ],
+  exports: [
+    SkippedquestionsPage
+  ]
 })
 export class SkippedquestionsPageModule {}

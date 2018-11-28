@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { TopbarComponent } from '../../components/topbar/topbar';
 
@@ -17,7 +19,7 @@ query assessment($_id: String) {
 	questions {
 		questionId
 		mrLevel
-		questionText	
+		questionText
 		threadName
 		subThreadName
 		currentAnswer
@@ -40,7 +42,7 @@ query assessment($_id: String) {
   templateUrl: 'review.html',
 })
 export class ReviewPage {
-  
+
 	assessmentId: any;
 	allQuestions: any;
   targetMRL: any;
@@ -50,15 +52,20 @@ export class ReviewPage {
   survey: any;
   surveyResults: any;
   reviewResults = [];
+	pageName: any = "Review";
   response;
 	files;
 
-	constructor( private apollo: Apollo, 
-							 public navCtrl: NavController, 
-							 public navParams: NavParams, 
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
+  }
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("review");
   }
 
 
@@ -81,7 +88,7 @@ export class ReviewPage {
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
-			.subscribe(data => { 
+			.subscribe(data => {
 					var assessment = (<any>data.data).assessment;
 					this.allQuestions = assessment.questions;
 					this.targetMRL = assessment.targetMRL;

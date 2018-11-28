@@ -3,6 +3,8 @@ import { IonicPage, NavParams, PopoverController } from 'ionic-angular';
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
@@ -29,6 +31,7 @@ export class QuestionsPage {
 	currentQSet: any;
 	currentQSetAmt: any;
 	currentQPos: any;
+  public getAssessmentId = true;
 
 	constructor(public navParams:          NavParams,
 							private popoverController: PopoverController,
@@ -36,6 +39,10 @@ export class QuestionsPage {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
+  }
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("questions");
   }
 
   /////////////////////////// useful functions ///////////////////////
@@ -56,14 +63,16 @@ export class QuestionsPage {
 	// INIT && related function
   async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-		
+    console.log(this.assessmentId);
+
 		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
 														 .getQuestionPageAssessment(this.assessmentId)
 
 			currentAssessment.subscribe( ({data, loading}) => {
 				console.log(data.assessment);
-				this.assessment = data.assessment
+				this.assessment = data.assessment;
+                                this.files = data.assessment.files;
 				var {assessment} = this;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
@@ -103,11 +112,10 @@ export class QuestionsPage {
 				this.files.push(v);
 			});
 
-			this.popoverController
-				.create(FileUploadPopoverComponent,
+			this.popoverController.create(FileUploadPopoverComponent,
 					{
 						emitter: myEmitter,
-						questionId: this.questionId,
+						questionId: this.currentQuestion.questionId,
 						assessmentId: this.assessmentId
 					},
 					{	cssClass: "upload-popover"})
@@ -124,7 +132,7 @@ export class QuestionsPage {
 	}
 
 	async	handlePreviousPageClick() {
-		if ( this.currentQPos == 1 ) return null;	
+		if ( this.currentQPos == 1 ) return null;
 		this.setValues();
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
