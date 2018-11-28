@@ -73,44 +73,30 @@ export class HomePage {
 			return null;
 		}
 
-		var schema = await this.getSchema(this.assForm.deskBookVersion);
+		await this.getSchema(this.assForm.deskBookVersion);
 
-		var variables = this.formatAssessmentVariables(schema);
+		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation:
-		console.log(variables);
+		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
-		// catch(error) { console.log("error!!");}
-		console.log("cool");
-		newAssessment.subscribe({
-			next(data) {
-				console.log(data)
-				var assessmentId = data.data.createAssessment._id;
-				//!assessmentId ? this.handleBackendError() : null
-				this.sendEmailsToTeamMembers(assessmentId);
-				this.startAssessment(assessmentId);
-			},
-			error(err) {
-				console.log(err);
-				alert("Invalid JSON");
-			}
-		})
+		newAssessment.toPromise()
+            .then( d => {
+              var assessmentId = d.data.createAssessment._id;
+              this.sendEmailsToTeamMembers(assessmentId);
+              this.startAssessment(assessmentId);
+            })
+            .catch(e => {
+              alert('invalid JSON');
+            });
 
-		// newAssessment.subscribe(({data}) => {
-		//
-		// 			var assessmentId = data.createAssessment._id;
-		// 			//!assessmentId ? this.handleBackendError() : null
-		// 		this.sendEmailsToTeamMembers(assessmentId);
-		// 		this.startAssessment(assessmentId);
-		// });
 	}
 
 	developmentVariables() {
 		// add this if we want to bring back the quick way to start assessments for dev.
 	}
 
-	formatAssessmentVariables(schema) {
+	formatAssessmentVariables() {
 		var formValues = this.assForm;
-		// console.log(formValues.teamMembers);
 		return {
 			threads:          this.threadsSelected,
 			location:         formValues.location,
@@ -123,14 +109,12 @@ export class HomePage {
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
-      // schema:           this.pickSchema(),
-			schema: 					schema
+			schema: 					JSON.stringify(this.schema)
 		};
 	}
 
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
-		// console.log(teamMembers);
 
 		// move this to constants when we decide it's home.
 		var url = "http://localhost:4002/share";
@@ -172,47 +156,28 @@ export class HomePage {
 			 }
 
 		 this.setUpDeskbookArray();
-		 console.log(this.deskbookVersions)
-
-
 	}
 
+        // uses the default included schemas.
+        // Checks a user to see if they have custom schemas.
 	async getSchema(deskbook) {
 		if (deskbook == '2016' || deskbook == '2017'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
-			await this.http.get(deskbookPath)
-						.subscribe( data => {
-							this.schema = data;
-							console.log(this.schema);
-							return JSON.stringify(this.schema);
-	            // this.schema = data;
-						});
+			var schema = await this.http.get(deskbookPath).toPromise();
+                        this.schema = schema;
 		} else {
 			var user = await this.auth.currentUser();
 			var files = [];
+
 			for (let file of user.jsonFiles){
 				var newFile = JSON.parse(file);
 				files.push(newFile);
 			}
 
 			var deskbookFile = files.filter(f => f.fileName == deskbook);
-			console.log(deskbookFile);
 			this.schema = deskbookFile[0].file;
-			return JSON.stringify(this.schema);
-			// console.log(this.schema);
-
 		}
-
 	}
-
-
-	// async pickSchema() {
-	// 	console.log(this.assForm.deskBookVersion);
-	// 	await this.getSchema(this.assForm.deskBookVersion);
-	//
-	// 	console.log(this.schema);
-	//
-	// }
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
@@ -248,9 +213,7 @@ export class HomePage {
   addMember(emailIn:string,roleIn:string){
     var newMember = {email: emailIn, role: roleIn};
     this.members.push(newMember);
-		console.log(newMember);
     this.assForm.teamMembers.push(newMember);
-		console.log(this.assForm.teamMembers);
   }
 
   removeMember(){
@@ -266,13 +229,10 @@ export class HomePage {
 	async setUpDeskbookArray() {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
-		console.log(user.jsonFiles);
 		for (let file of user.jsonFiles){
 			var newFile = JSON.parse(file);
-			// console.log(file);
 			this.deskbookVersions.push(newFile.fileName);
 		}
-		console.log(this.deskbookVersions);
 	}
 
 

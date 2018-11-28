@@ -99,6 +99,6 @@ export class MobileNavPopoverComponent {
   handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
   handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
-  handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+  // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }
