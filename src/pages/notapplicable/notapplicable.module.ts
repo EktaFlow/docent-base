@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(NotapplicablePage),
 		ComponentsModule
   ],
+  entryComponents: [
+    NotapplicablePage
+  ],
+  exports: [
+    NotapplicablePage
+  ]
 })
 export class NotapplicablePageModule {}

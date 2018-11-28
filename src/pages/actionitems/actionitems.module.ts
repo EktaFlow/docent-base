@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(ActionitemsPage),
 		ComponentsModule
   ],
+  entryComponents: [
+    ActionitemsPage
+  ],
+  exports: [
+    ActionitemsPage
+  ]
 })
 export class ActionitemsPageModule {}

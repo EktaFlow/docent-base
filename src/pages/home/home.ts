@@ -12,6 +12,8 @@ import { ThreadsListComponent } from "../../components/threads-list/threads-list
 import { PasswordResetComponent } from '../../components/password-reset/password-reset';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -37,6 +39,8 @@ export class HomePage {
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
+	private mobileRegister: boolean = false;
+	public deskbookVersions: any = ["2017", "2016"];
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -44,6 +48,10 @@ export class HomePage {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
               private http: HttpClient) {}
+
+							ionViewWillEnter() {
+						    GoogleAnalytics.trackPage("home");
+						  }
 
 	getSchema() {
 		this.http.get('assets/json/2016.json')
@@ -71,13 +79,14 @@ export class HomePage {
 			alert("please fill out all the fields");
 			return null;
 		}
+
 		var variables = this.formatAssessmentVariables();
-		//  debug what is getting passed into the mutation: 
+		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.subscribe(({data}) => {
 					var assessmentId = data.createAssessment._id;
-					// !assessmentId ? this.handleBackendError() : null 
+					// !assessmentId ? this.handleBackendError() : null
 					this.sendEmailsToTeamMembers(assessmentId);
 					this.startAssessment(assessmentId);
 		});
@@ -108,6 +117,7 @@ export class HomePage {
 
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
+		// console.log(teamMembers);
 
 		// move this to constants when we decide it's home.
 		var url = "http://localhost:4002/share";
@@ -144,8 +154,14 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 			 });
+
+
 			 }
     this.getSchema();
+		 this.setUpDeskbookArray();
+		 console.log(this.deskbookVersions)
+
+
 	}
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
@@ -157,6 +173,10 @@ export class HomePage {
     } 
 
 	showRegisterForm = () => this.showRegister = true;
+	mobileRegisterForm() {
+		this.showRegister = true;
+		this.mobileRegister = true;
+	}
 
 	showThreads(myEvent) {
 		myEvent.preventDefault();
@@ -197,5 +217,18 @@ export class HomePage {
 		await this.assessmentService.setCurrentAssessmentId(_id);
     this.navCtrl.push(QuestionsPage);
   }
+
+	async setUpDeskbookArray() {
+		var user = await this.auth.currentUser();
+		// this.deskbookVersions = ["2017", "2016"];
+		// console.log(user.jsonFiles);
+		// for (let file of user.jsonFiles){
+		// 	var file = JSON.parse(file);
+		// 	this.deskbookVersions.push(file.fileName);
+		// }
+		// console.log(this.deskbookVersions);
+	}
+
+
 
 }

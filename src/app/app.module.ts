@@ -4,6 +4,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Keyboard } from '@ionic-native/keyboard'
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -24,8 +25,6 @@ import { DefinitionsPageModule } from '../pages/definitions/definitions.module';
 import { FaqsPageModule } from '../pages/faqs/faqs.module';
 import { ReviewPageModule } from '../pages/review/review.module';
 import { QuestionsPageModule } from '../pages/questions/questions.module';
-import { RegisterPageModule } from "../pages/register/register.module";
-import { LoginPageModule }    from "../pages/login/login.module";
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { NavigatePageModule } from '../pages/navigate/navigate.module';
 import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
@@ -37,22 +36,10 @@ import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
 import { ResetPageModule } from '../pages/reset/reset.module';
 
+
+
 // components
 import { ComponentsModule } from '../components/components.module';
-import { ImportComponent } from "../components/import/import";
-import { ViewsComponent } from '../components/views/views';
-import { HelpmenuComponent } from '../components/helpmenu/helpmenu';
-import { ContactsDropdownComponent } from '../components/contacts-dropdown/contacts-dropdown';
-import { FaqDropdownComponent } from '../components/faq-dropdown/faq-dropdown';
-import { AssessmentslistComponent } from "../components/assessmentslist/assessmentslist";
-import { ThreadsListComponent } from "../components/threads-list/threads-list";
-import { FileUploadPopoverComponent } from "../components/file-upload-popover/file-upload-popover";
-import { TopbarComponent } from "../components/topbar/topbar";
-import { SubthreadPopupComponent } from "../components/subthread-popup/subthread-popup";
-import { ThreadPopupComponent} from "../components/thread-popup/thread-popup";
-import { LoginComponent } from "../components/login/login";
-import { RegisterComponent } from "../components/register/register";
-import { PasswordResetComponent } from '../components/password-reset/password-reset';
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -64,37 +51,8 @@ import { BackUrl } from  "../services/constants";
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-		//QuestionsPage,
-		//AcronymsPage,
-		// DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		//HelpmenuComponent,
-		//ContactsDropdownComponent,
-		//FaqDropdownComponent,
-		//AssessmentslistComponent,
-		//ThreadsListComponent,
-		//FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//ActionitemsPage,
-		//CriteriaPage,
-		//ViewsComponent,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		//ImportComponent,
-		// TopbarComponent,
-		//SubthreadPopupComponent,
-		//ThreadPopupComponent,
-		//LoginComponent,
-		//RegisterComponent
+    HomePage
+
   ],
   imports: [
     BrowserModule,
@@ -109,8 +67,6 @@ import { BackUrl } from  "../services/constants";
 		DefinitionsPageModule,
 		FaqsPageModule,
 		ReviewPageModule,
-		RegisterPageModule,
-		LoginPageModule,
 		DashboardPageModule,
 		NavigatePageModule,
 		NotapplicablePageModule,
@@ -126,8 +82,7 @@ import { BackUrl } from  "../services/constants";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    PasswordResetComponent,
+
 		//QuestionsPage,
 		//AcronymsPage,
 		//DefinitionsPage,
@@ -158,6 +113,7 @@ import { BackUrl } from  "../services/constants";
 		//ThreadPopupComponent,
 		//LoginComponent,
 		//RegisterComponent
+    HomePage
   ],
   providers: [
     StatusBar,
@@ -166,8 +122,10 @@ import { BackUrl } from  "../services/constants";
 		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,
+		Keyboard
 		//    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
+
 })
 export class AppModule {
 constructor(apollo: Apollo, httpLink: HttpLink) {

@@ -8,6 +8,7 @@ import { AuthUrl } from "./constants";
 
 export class AuthService {
 
+
 constructor(private http: HttpClient) {}
 
 	registerUrl = AuthUrl + "register";
@@ -50,7 +51,7 @@ constructor(private http: HttpClient) {}
 
 	public unverified = () => {
 		var hasToken = localStorage.getItem("docent-token");
-		console.log(JSON.parse(hasToken));
+		// console.log(JSON.parse(hasToken));
 		if (hasToken && JSON.parse(hasToken).user) {
 			return !JSON.parse(hasToken).user.verified
 		}
@@ -64,5 +65,16 @@ constructor(private http: HttpClient) {}
 		}
 
 		// return true
+	}
+
+	public uploadJSON(jsonFile, userEmail){
+		var jsonRoute = AuthUrl + "uploadJSON"
+		var fileInfo = {
+			file: jsonFile,
+			email: userEmail
+		}
+		console.log(fileInfo);
+		console.log(jsonRoute);
+		this.http.post(jsonRoute, fileInfo).subscribe(a => console.log("cool"));
 	}
 }

@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(DefinitionsPage),
 		ComponentsModule
   ],
+  entryComponents: [
+    DefinitionsPage
+  ],
+  exports: [
+    DefinitionsPage
+  ]
 })
 export class DefinitionsPageModule {}

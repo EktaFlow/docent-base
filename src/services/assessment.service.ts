@@ -7,7 +7,8 @@ import { assessmentQuery,
 				 questionPageAssessmentQuery,
          updateQuestionMutation,
 				 deleteAssessmentMutation,
-         getThreadsQuery	 } from "./gql.service";
+         getThreadsQuery,
+         updateTeamMembersMutation	 } from "./gql.service";
 
 @Injectable()
 export class AssessmentService {
@@ -16,13 +17,13 @@ export class AssessmentService {
 	currentAssessmentId: any = this.getCurrentAssessmentId();
 	currentAssessment:   any;
 
-	constructor( private apollo:  Apollo, 
+	constructor( private apollo:  Apollo,
 	             private auth:    AuthService,
 	             private storage: Storage) { }
 
-	getCurrentAssessment() {
-			
-	}
+	// getCurrentAssessment() {
+  //
+	// }
 
 	setCurrentAssessmentId(assessmentId) {
 		this.storage.set('currentAssessmentId', assessmentId);
@@ -30,7 +31,9 @@ export class AssessmentService {
 
 	async getCurrentAssessmentId() {
 		return await this.storage.get('currentAssessmentId');
-	}	
+	}
+
+
 
 	async getAssessments(userId) {
 
@@ -96,6 +99,16 @@ export class AssessmentService {
 		return await this.apollo.watchQuery<any>({
 			query: getThreadsQuery
     }).valueChanges;
+	}
+
+	async updateTeamMembers(assessmentId, memberEmail){
+		return await this.apollo.mutate<any>({
+			mutation: updateTeamMembersMutation,
+			variables: {
+				_id: assessmentId,
+				teamMember: memberEmail
+			}
+		})
 	}
 
 }

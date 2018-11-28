@@ -1,4 +1,7 @@
 page-skippedquestions {
+    ion-content {
+      margin-top: 130px;
+    }
     .toolbar-class{
         header{
             color:#000;
@@ -24,5 +27,17 @@ page-skippedquestions {
     }
     .questions{
         display: flex;
+    }
+
+    @media screen and (max-width: 420px){
+        ion-content {
+            // margin-top: 40px;
+        }
+    }
+
+    @media screen and (min-width: 420px) and (max-width: 1024px){
+      ion-content {
+        margin-top: 150px;
+      }
     }
 }
