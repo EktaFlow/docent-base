@@ -71,7 +71,8 @@ export class QuestionsPage {
 
 			currentAssessment.subscribe( ({data, loading}) => {
 				console.log(data.assessment);
-				this.assessment = data.assessment
+				this.assessment = data.assessment;
+                                this.files = data.assessment.files;
 				var {assessment} = this;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
@@ -114,7 +115,7 @@ export class QuestionsPage {
 			this.popoverController.create(FileUploadPopoverComponent,
 					{
 						emitter: myEmitter,
-						questionId: this.questionId,
+						questionId: this.currentQuestion.questionId,
 						assessmentId: this.assessmentId
 					},
 					{	cssClass: "upload-popover"})
