@@ -1,7 +1,8 @@
-<topbar [assessmentId]="this.assessmentId">
+<topbar [assessmentId]="this.assessmentId"
+              [pageName]="pageName">
 </topbar>
 
-<ion-content padding>
+<ion-content padding class="wrapper">
   <div class="filter-toolbar">
       <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
       <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
@@ -26,17 +27,19 @@
     </div>
   </div>
 
-      <br><br>
-      <!-- <br><br><br><br><br> -->
+      <!-- <br><br>
+      <br><br><br><br><br> -->
         <!-- <br><br><br><br><br><br><br><br><br><br> -->
-    <br><br><br><br><br><br><br><br><br><br>
-    <hr>
+    <!-- <br><br><br><br><br><br><br><br><br><br> -->
+
+
+<div class="desktop">
   <div *ngFor="let segment of filteredSchema">
-    <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
+    <img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeState(segment)">
     {{segment.header}}
     <div *ngIf="segment.cool || showAll">
       <div *ngFor="let sub of segment.subheader">
-        <img src="../../assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
+        <img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
         {{sub.subheader}}
         <div *ngIf="sub.sweet || showAll">
           <div *ngFor="let question of sub.questions" class="mrl">
@@ -48,5 +51,36 @@
     </div>
     <hr>
   </div>
+</div>
+
+<div class="mobile">
+  <div *ngFor="let segment of filteredSchema">
+    <div class="thread-name" (click)="changeState(segment)">
+      <h3>{{segment.header}} <span><img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" ></span></h3>
+    </div>
+
+    <div *ngIf="segment.cool || showAll">
+      <div *ngFor="let sub of segment.subheader">
+        <div class="subthread-name" (click)="changeSubState(sub)">
+          <h5>{{sub.subheader}} <span><img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" ></span></h5>
+        </div>
+
+
+        <div *ngIf="sub.sweet || showAll">
+          <div *ngFor="let question of sub.questions" class="mrl">
+            <b>MR Level {{question.mrl}}:</b>
+              <p [innerHTML]="question.criteriaSet[0].text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="qspacer"></div>
+
+
+
 
 </ion-content>

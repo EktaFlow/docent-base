@@ -3,8 +3,10 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from "../../components/topbar/topbar";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
-import {DomSanitizer} from '@angular/platform-browser/'
-// import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+import { saveAs } from "file-saver/FileSaver";
+import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 
 
@@ -24,8 +26,7 @@ export class SettingsPage {
 	            private popoverController: PopoverController,
                     public navParams: NavParams,
                     private http: HttpClient,
-                    public sanitizer: DomSanitizer,
-                   ) {
+                  public popover: PopoverController ) {
                       this.user = navParams.data.user;
                       console.log(navParams.data.user);
 
@@ -34,17 +35,23 @@ export class SettingsPage {
   downloadJsonHref: any;
   files: any;
   user: any;
+  pageName: any = "Settings";
+
+  ionViewWillEnter() {
+    GoogleAnalytics.trackPage("settings");
+  }
 
   goBackToUser(){ this.navCtrl.pop()};
 
-  // async saveDownJSON(){
-  // 		this.http.get('assets/json/2016.json')
-  // 					.subscribe( data => {
-  // 						console.log(data);
-  //             this.generateDownloadJsonUri(data);
-  //             return this.downloadJsonHref;
-  // 					});
-  // }
+  async saveDownJSON(){
+  		this.http.get('assets/json/2016.json')
+  					.subscribe( data => {
+  						console.log(data);
+              //get data and then save down file
+              var json = JSON.stringify(data);
+              saveAs(new Blob([json], { type: "text/plain" }), "2016.json");
+  					});
+  }
 
   // generateDownloadJsonUri(json) {
   //   var theJSON = JSON.stringify(json);
@@ -52,21 +59,26 @@ export class SettingsPage {
   //   return this.downloadJsonHref = uri;
   // }
 
-  // showFileUpload() {
-	// 		let myEmitter = new EventEmitter<any>();
-	// 			myEmitter.subscribe( v =>  {
-	// 			this.files.push(v);
-	// 		});
-  //
-	// 		this.popoverController
-	// 			.create(FileUploadPopoverComponent,
-	// 				{
-	// 					emitter: myEmitter,
-  //           userId: this.user.id
-	// 				},
-	// 				{	cssClass: "upload-popover"})
-	// 			.present();
-	// }
+  showFileUpload() {
+
+			let myEmitter = new EventEmitter<any>();
+				myEmitter.subscribe( v =>  {
+				this.files.push(v);
+        console.log(this.files);
+			});
+
+			this.popover
+				.create(JsonUploadPopoverComponent,
+					{
+						emitter: myEmitter
+					},
+					{	cssClass: "json-upload-popover"})
+				.present();
+
+        console.log("emitter");
+	}
+
+
 
 
 

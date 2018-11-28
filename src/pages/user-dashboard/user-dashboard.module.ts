@@ -11,5 +11,11 @@ import { ComponentsModule } from '../../components/components.module';
     IonicPageModule.forChild(UserDashboardPage),
 		ComponentsModule
   ],
+  entryComponents: [
+    UserDashboardPage
+  ],
+  exports: [
+    UserDashboardPage
+  ]
 })
 export class UserDashboardPageModule {}

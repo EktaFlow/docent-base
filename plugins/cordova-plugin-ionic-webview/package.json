@@ -16,12 +16,13 @@
     "fetchSpec": "1.1.19"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-1.1.19.tgz",
+  "_resolved": "http://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-1.1.19.tgz",
   "_shasum": "7f18d30291153c4066f529399a8d8226aa4fb28e",
   "_spec": "cordova-plugin-ionic-webview@1.1.19",
-  "_where": "/Users/mac/Desktop/JavaScript Workspace/docent-v1",
+  "_where": "/Users/dominiquegoncalves/Documents/Code/docent-base",
   "author": {
     "name": "Ionic Team"
   },

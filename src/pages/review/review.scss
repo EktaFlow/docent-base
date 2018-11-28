@@ -19,7 +19,7 @@ page-review {
         background-repeat: no-repeat;
         background-image:url('../../assets/imgs/if_icon-arrow-down.png');
         padding: .5em;
-        padding-right: 1.5em;   
+        padding-right: 1.5em;
     }
     %page-info{
         font-size: 18px;
@@ -99,5 +99,40 @@ page-review {
             width:7%;
             text-align: center;
         }
+    }
+
+    @media screen and (max-width: 1024px){
+
+        .page-one-info {
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+      .survey-info {
+        margin-left: 0px;
+      }
+
+      .skipped {
+          .box {
+              width: 100%;
+          }
+      }
+
+      .no {
+          .box {
+              width: 100%;
+          }
+      }
+
+      .yes {
+          .box {
+              width: 100%;
+          }
+      }
+
+      .na {
+          .box {
+              width: 100%;
+          }
+      }
     }
 }

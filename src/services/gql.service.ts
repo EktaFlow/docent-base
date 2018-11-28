@@ -16,6 +16,8 @@ query assessments($userId: String) {
 }
 `
 
+
+
 export var createAssessmentMutation = gql`
  mutation createAssessment(
      $threads:     [Int],
@@ -113,4 +115,12 @@ export var getThreadsQuery = gql`
 query {
 	allThreadNames
 }
+`
+
+export var updateTeamMembersMutation = gql`
+	mutation addTeamMember($_id: String, $_teamMember: String) {
+		addTeamMember(_id: $_id,  _teamMember: $_teamMember) {
+			teamMembers
+		}
+	}
 `

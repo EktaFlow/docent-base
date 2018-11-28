@@ -1,9 +1,9 @@
 <title>Docent</title>
 
 <topbar [blank]="true"></topbar>
-<ng-container *ngIf="auth.isLoggedIn()">
-<topbar></topbar> 
-</ng-container>
+	<ng-container *ngIf="auth.isLoggedIn()">
+		<topbar></topbar>
+	</ng-container>
 
 
 <ion-content padding>
@@ -11,12 +11,20 @@
 	<ng-container *ngIf="auth.unverified()">
 	You must verify your Docent registration via email before logging on.
 	</ng-container>
-	<login></login>
+  <ng-container *ngIf="!mobileRegister">
+    	<login></login>
+  </ng-container>
+
 
 	<div *ngIf="!showRegister" class="register-container">
-	<h4>Not registered?</h4>
-	<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
+		<h4>Not registered?</h4>
+		<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
 	</div>
+
+	<div *ngIf="!showRegister" class="mobile-register-container" >
+		<h6 (click)="mobileRegisterForm()">sign up</h6>
+	</div>
+
 </ng-container>
 
 <ng-container *ngIf="showRegister">
@@ -35,32 +43,29 @@
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
 			<h6 class="assessment-name">Assessment Name</h6>
+
 	<div class="topmost" style="z-index: 100;">
-      <input type="text" name="assessmentName" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
+      <input type="text" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 
 <!-- Save for auth -->
-  <h6>Team Members</h6>
-  <form>
+<h6 class="team-members-title">Team Members</h6>
+  <form class="member-form">
     <div class="member-list">
       <li *ngFor = "let member of members">
-        <pre>- {{member.email}}:              {{member.role}}</pre>
+        <pre>- {{member.email}}:    {{member.role}}</pre>
       </li>
     </div>
     <div class="members">
-      <div style="width:48%">
-      <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
-      </div>
-      <div class="member-role-button" style="width:48%">
+      <div class="member-inputs">
+        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
         <input type="text" name="memRole" placeholder = "Member Role" #memRole>
-        <div class = "buttons">
-            <button (click)="removeMember()">
-                <ion-icon name="remove-circle" color = "danger"></ion-icon>
-            </button>
-        </div>
       </div>
     </div>
     <div class = "buttons">
+      <button (click)="removeMember()">
+          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+      </button>
       <button (click)="addMember(memEmail.value,memRole.value)">
           <ion-icon name="add-circle" color = "secondary"></ion-icon>
       </button>
@@ -70,13 +75,13 @@
   <div class = "mid-first-page">
     <div class="scope">
       <h6>Scope</h6>
-      <textarea name="scope" placeholder = "Enter Scope Here" [(ngModel)]="assForm.scope"></textarea>
+      <textarea name="scope" placeholder = "Enter Scope Here" id="assessment-scope-input"[(ngModel)]="assForm.scope"></textarea>
     </div>
     <div class ="target-level-date">
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL</h6>
-          <select name="targetMRL" [(ngModel)]="assForm.targetMRL">
+          <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
             <option value = "2">2</option>
@@ -96,47 +101,48 @@
       <button class="tooltip" style="background: white;">
 				<!-- TODO: pull this text out of html -->
   			<span class="tooltiptext left">When on Docent will present questions above and below your selected level. This is to find the ceiling or floor of your MRL, if you pass or fail a level. When off, you will only see questions at your target level</span>
-        <img src="../../assets/imgs/qmark.png" width="15" height="15">
+        <img src="assets/imgs/qmark.png" width="15" height="15">
       </button>
           </div>
           <select id="level-switching-select"[(ngModel)]="assForm.levelSwitching">
             <option value="true">On</option>
-            <option value="" selected="selected">Off</option>
+            <option value="false" selected="selected">Off</option>
           </select>
         </div>
       </div>
       <h6>Date to Achieve Target MRL</h6>
-      <input  type="date" name="dateAchieve" placeholder = "mm/dd/yyyy" [(ngModel)]="assForm.targetDate">
+      <input  type="date" name="dateAchieve" id="date-to-achieve-input" placeholder = "mm/dd/yyyy" [(ngModel)]="assForm.targetDate">
     </div>
   </div>
   <div class = "bottom">
-		<div> 
+		<div>
       <h6>Location</h6>
-      <ion-input name="location" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
+      <ion-input name="location" id="location-input" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
     <div>
       <h6>Deskbook Version</h6>
-      <select id="deskbook-select"name="version" [(ngModel)]="assForm.deskBookVersion">
+      <select id="deskbook-select" name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
-        <option value="2017">2017</option>
-        <option value="2017">2016</option>
+				<ng-container *ngFor="let deskbook of deskbookVersions">
+        	<option value="{{deskbook}}">{{deskbook}}</option>
+        </ng-container>
       </select>
     </div>
   </div>
   <div class = "thread-start">
     <div class = "choose-threads">
       <button style="background: white;"(click)="showThreads($event)">
-        <img src="../../assets/imgs/if_icon-arrow-down.png" width="15" height="15">
+        <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
       </button>
       <p><b>Choose Threads</b></p>
       <button class="tooltip" style="background: white;">
 				<!-- TODO: pull this text out of html -->
   			<span class="tooltiptext right">Choose to include or exclude specific threads in the MRA. If a thread is unselected you will not be presented with any questions from that thread. Typically, all threads are left selected</span>
-        <img src="../../assets/imgs/qmark.png" width="15" height="15">
+        <img src="assets/imgs/qmark.png" width="15" height="15">
       </button>
     </div>
     <div>
-      <button ion-button color ="buttonBlue" (click)="createAssessment($event)">
+      <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
         Start
       </button>
     </div>

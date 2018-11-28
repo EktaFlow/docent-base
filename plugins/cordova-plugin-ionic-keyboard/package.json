@@ -16,12 +16,13 @@
     "fetchSpec": "2.0.5"
   },
   "_requiredBy": [
-    "#USER"
+    "#USER",
+    "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-keyboard/-/cordova-plugin-ionic-keyboard-2.0.5.tgz",
   "_shasum": "c7c35ffd8f6a1ef77e27a1eee70ccaa2e94f99e1",
   "_spec": "cordova-plugin-ionic-keyboard@2.0.5",
-  "_where": "/Users/mac/Desktop/JavaScript Workspace/docent-v1",
+  "_where": "/Users/dominiquegoncalves/Documents/Code/docent-base",
   "author": {
     "name": "Apache Software Foundation"
   },

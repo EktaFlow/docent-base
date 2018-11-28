@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 import { QuestionsPage } from "../questions/questions";
 
@@ -31,13 +33,18 @@ export class SkippedquestionsPage {
 	skipped: any;
 	assessmentId: any;
 	subThreads: any;
+	pageName: any = "Skipped Questions";
 
-	constructor( private apollo: Apollo, 
-							 public navCtrl: NavController, 
-							 public navParams: NavParams, 
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
+  }
+
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("skippedquestions");
   }
 
   // helper function to pull unique values from array.
@@ -57,7 +64,7 @@ export class SkippedquestionsPage {
 			variables: {_id: this.assessmentId},
 			fetchPolicy: "network-only"
 			}).valueChanges
-			.subscribe(data => { 
+			.subscribe(data => {
 					this.skipped = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "skipped");
 
 					var subThreadNames: any = this.skipped.map(s => s.subThreadName);

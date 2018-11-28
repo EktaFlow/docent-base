@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from "ionic-angular";
 import { AuthService } from "../../services/auth.service";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
+import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+
 
 @Component({
   selector: 'login',
@@ -14,6 +16,10 @@ export class LoginComponent {
 
 	constructor( private auth: AuthService,
 	             public navCtrl: NavController) {}
+
+               ionViewWillEnter() {
+                 GoogleAnalytics.trackView("login");
+               }
 
 	submitLogin()  {
 		this.auth.login(this.user)
