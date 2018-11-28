@@ -52,13 +52,7 @@ export class HomePage {
 						    GoogleAnalytics.trackPage("home");
 						  }
 
-	getSchema() {
-		this.http.get('assets/json/2016.json')
-					.subscribe( data => {
-						this.schema = data;
-            // this.schema = data;
-					});
-	}
+
 
 	validateAssessment() {
 		var fields = [
@@ -79,25 +73,44 @@ export class HomePage {
 			return null;
 		}
 
-		var variables = this.formatAssessmentVariables();
+		var schema = await this.getSchema(this.assForm.deskBookVersion);
+
+		var variables = this.formatAssessmentVariables(schema);
 		//  debug what is getting passed into the mutation:
-		// console.log(variables);
+		console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
-		newAssessment.subscribe(({data}) => {
-					var assessmentId = data.createAssessment._id;
-					// !assessmentId ? this.handleBackendError() : null
-					this.sendEmailsToTeamMembers(assessmentId);
-					this.startAssessment(assessmentId);
-		});
+		// catch(error) { console.log("error!!");}
+		console.log("cool");
+		newAssessment.subscribe({
+			next(data) {
+				console.log(data)
+				var assessmentId = data.data.createAssessment._id;
+				//!assessmentId ? this.handleBackendError() : null
+				this.sendEmailsToTeamMembers(assessmentId);
+				this.startAssessment(assessmentId);
+			},
+			error(err) {
+				console.log(err);
+				alert("Invalid JSON");
+			}
+		})
+
+		// newAssessment.subscribe(({data}) => {
+		//
+		// 			var assessmentId = data.createAssessment._id;
+		// 			//!assessmentId ? this.handleBackendError() : null
+		// 		this.sendEmailsToTeamMembers(assessmentId);
+		// 		this.startAssessment(assessmentId);
+		// });
 	}
 
 	developmentVariables() {
 		// add this if we want to bring back the quick way to start assessments for dev.
 	}
 
-	formatAssessmentVariables() {
+	formatAssessmentVariables(schema) {
 		var formValues = this.assForm;
-		console.log(formValues.teamMembers);
+		// console.log(formValues.teamMembers);
 		return {
 			threads:          this.threadsSelected,
 			location:         formValues.location,
@@ -110,7 +123,8 @@ export class HomePage {
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
-      schema:           JSON.stringify(this.schema),
+      // schema:           this.pickSchema(),
+			schema: 					schema
 		};
 	}
 
@@ -156,12 +170,49 @@ export class HomePage {
 
 
 			 }
-    this.getSchema();
+
 		 this.setUpDeskbookArray();
 		 console.log(this.deskbookVersions)
 
 
 	}
+
+	async getSchema(deskbook) {
+		if (deskbook == '2016' || deskbook == '2017'){
+			var deskbookPath = 'assets/json/' + deskbook + '.json'
+			await this.http.get(deskbookPath)
+						.subscribe( data => {
+							this.schema = data;
+							console.log(this.schema);
+							return JSON.stringify(this.schema);
+	            // this.schema = data;
+						});
+		} else {
+			var user = await this.auth.currentUser();
+			var files = [];
+			for (let file of user.jsonFiles){
+				var newFile = JSON.parse(file);
+				files.push(newFile);
+			}
+
+			var deskbookFile = files.filter(f => f.fileName == deskbook);
+			console.log(deskbookFile);
+			this.schema = deskbookFile[0].file;
+			return JSON.stringify(this.schema);
+			// console.log(this.schema);
+
+		}
+
+	}
+
+
+	// async pickSchema() {
+	// 	console.log(this.assForm.deskBookVersion);
+	// 	await this.getSchema(this.assForm.deskBookVersion);
+	//
+	// 	console.log(this.schema);
+	//
+	// }
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
@@ -215,12 +266,13 @@ export class HomePage {
 	async setUpDeskbookArray() {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
-		// console.log(user.jsonFiles);
-		// for (let file of user.jsonFiles){
-		// 	var file = JSON.parse(file);
-		// 	this.deskbookVersions.push(file.fileName);
-		// }
-		// console.log(this.deskbookVersions);
+		console.log(user.jsonFiles);
+		for (let file of user.jsonFiles){
+			var newFile = JSON.parse(file);
+			// console.log(file);
+			this.deskbookVersions.push(newFile.fileName);
+		}
+		console.log(this.deskbookVersions);
 	}
 
 
