@@ -101,10 +101,21 @@ input:focus, textarea:focus {
     opacity: 1;
 }
 
+.password-reset {
+        background: rgba(0,0,0,0.5);
+        color: pink;
+        height: 100%;
+        width: 100%;
+
+        .popover-content {
+                padding: 20px;
+                width: 40vw;
+        }
+}
+
 ion-icon {
   font-size: 1.8em;
 }
-
 
 @media screen and (min-width: 800px){
     .upload-popover .popover-content {
@@ -191,4 +202,4 @@ ion-icon {
          // padding: 60px;
     }
   }
-}
+
