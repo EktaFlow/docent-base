@@ -207,7 +207,9 @@ constructor( public popOver: PopoverController,
 	}
 
 	openMobileNav(){
-		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId}, {cssClass: 'mobile-nav-pop'})
+		var userName = this.auth.currentUser().name;
+		console.log(userName);
+		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}
 
