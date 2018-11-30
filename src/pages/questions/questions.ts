@@ -108,8 +108,10 @@ export class QuestionsPage {
 	/////////////////////////// popover creator(s) /////////////////////
 	showFileUpload() {
 			let myEmitter = new EventEmitter<any>();
-				myEmitter.subscribe( v =>  {
-				this.files.push(v);
+			myEmitter.subscribe( v =>  {
+			var files = JSON.parse(JSON.stringify(this.files));
+			files.push(v)
+			this.files = files;
 			});
 
 			this.popoverController.create(FileUploadPopoverComponent,
