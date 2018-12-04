@@ -48,6 +48,7 @@
           <div class="targets-scope" *ngIf="noSecondBar">
             <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
             <p (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
+            <p (click)="presentQuestionHistory()"><u>Show Question History</u></p>
           </div>
 
           <!-- <div *ngIf="scopeSelected" class="scope-show">

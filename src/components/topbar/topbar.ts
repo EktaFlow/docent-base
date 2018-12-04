@@ -10,6 +10,7 @@ import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
+import { QuestionHistoryPopoverComponent } from '../question-history-popover/question-history-popover';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -215,6 +216,12 @@ constructor( public popOver: PopoverController,
 
 	toggleTopbarInfo(){
 		this.infoShow = !this.infoShow;
+	}
+
+	presentQuestionHistory(){
+		this.popOver.create(QuestionHistoryPopoverComponent, {assessmentId: this.assessmentId}, {cssClass: 'q-history-popover'})
+		.present();
+
 	}
 
 

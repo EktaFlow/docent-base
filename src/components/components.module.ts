@@ -21,6 +21,7 @@ import { AssessmentScopePopoverComponent } from './assessment-scope-popover/asse
 import { MobileNavPopoverComponent } from './mobile-nav-popover/mobile-nav-popover';
 import { LegendPopoverComponent } from './legend-popover/legend-popover';
 import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
+import { QuestionHistoryPopoverComponent } from './question-history-popover/question-history-popover';
 
 @NgModule({
 	declarations: [
@@ -42,7 +43,8 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
     AssessmentScopePopoverComponent,
     MobileNavPopoverComponent,
     LegendPopoverComponent,
-    AcronymPopoverComponent
+    AcronymPopoverComponent,
+    QuestionHistoryPopoverComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -64,7 +66,8 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
     AssessmentScopePopoverComponent,
     MobileNavPopoverComponent,
     LegendPopoverComponent,
-    AcronymPopoverComponent
+    AcronymPopoverComponent,
+    QuestionHistoryPopoverComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -85,7 +88,8 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
 				AssessmentScopePopoverComponent,
 				MobileNavPopoverComponent,
 				LegendPopoverComponent,
-				AcronymPopoverComponent
+				AcronymPopoverComponent,
+				QuestionHistoryPopoverComponent
     ]
 })
 

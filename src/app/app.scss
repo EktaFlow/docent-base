@@ -107,17 +107,27 @@ ion-icon {
 
 
 @media screen and (min-width: 800px){
-    .upload-popover .popover-content {
+    .upload-popover .popover-content{
         padding: 30px;
         height: 400px;
         width: 800px !important;
     }
+
+
+
+
 
     .team-popover .popover-content {
       padding: 30px;
       height: 400px;
       width: 400px;
     }
+}
+
+.q-history-popover .popover-content {
+    width: 800px !important;
+    height: 500px;
+    padding: 30px;
 }
 
 .small-popover .popover-content{
