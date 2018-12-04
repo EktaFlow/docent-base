@@ -54,7 +54,7 @@ export class UploadService {
 	uploadJSON(file){
 		console.log(this);
 		var user = this.auth.currentUser();
-		this.auth.uploadJSON(file, user.email);
+		this.auth.uploadJSON(JSON.stringify(file), user.email);
 	}
 
 	generateUrl(name) {
