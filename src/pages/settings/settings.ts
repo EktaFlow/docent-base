@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
 import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { AuthService } from "../../services/auth.service";
 
 
 
 
 
-// import { UserDashboardPage } from "../user-dashboard/user-dashboard";
+
 
 
 @IonicPage()
@@ -23,23 +24,36 @@ export class SettingsPage {
   // public popoverController: PopoverController
 
   constructor(public navCtrl: NavController,
-	            private popoverController: PopoverController,
-                    public navParams: NavParams,
-                    private http: HttpClient,
-                  public popover: PopoverController ) {
-                      this.user = navParams.data.user;
-                      console.log(navParams.data.user);
+	                private popoverController: PopoverController,
+                  public navParams: NavParams,
+                  private http: HttpClient,
+                  public popover: PopoverController,
+                  private auth: AuthService ) {
+                      // this.user = navParams.data.user;
+                      // console.log(navParams.data.user);
 
   }
 
   downloadJsonHref: any;
   files: any;
-  user: any;
+  currentUser: any;
   pageName: any = "Settings";
+  userFiles: any;
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("settings");
   }
+
+  async ngOnInit(){
+    this.currentUser = await this.auth.currentUser();
+    for (let file of this.currentUser.jsonFiles){
+			var file = JSON.parse(file);
+			this.userFiles.push(file.fileName);
+		}
+
+  }
+
+
 
   goBackToUser(){ this.navCtrl.pop()};
 

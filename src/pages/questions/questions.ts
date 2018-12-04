@@ -32,6 +32,7 @@ export class QuestionsPage {
 	currentQSetAmt: any;
 	currentQPos: any;
   public getAssessmentId = true;
+  public noSecondBar: any = true;
 
 	constructor(public navParams:          NavParams,
 							private popoverController: PopoverController,

@@ -15,6 +15,9 @@
     </div>
 
     <p>List of Deskbook Version the user has uploaded</p>
+    <div>
+      <p *ngFor="let file of userFiles">{{file}}</p>
+    </div>
   </div>
 
 </ion-content>

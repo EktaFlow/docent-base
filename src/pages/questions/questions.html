@@ -1,5 +1,6 @@
 <topbar [subTitle]    = "currentQuestion.subThreadName"
             [getAssessmentId] = "getAssessmentId"
+            [noSecondBar] = "noSecondBar"
     	      [mainTitle]   = "currentQuestion.threadName"
           	[questionLevel] = "currentQuestion.mrLevel"
             [currentQPos] = "this.currentQPos"
@@ -38,6 +39,8 @@
         <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
         <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next/Skip</button>
     </div>
+
+
 
     <!-- <div class="nav-previous-qs">
       <h4>Navigate back to previous questions</h4>

@@ -214,13 +214,13 @@ export class HomePage {
 
 	async setUpDeskbookArray() {
 		var user = await this.auth.currentUser();
-		// this.deskbookVersions = ["2017", "2016"];
-		// console.log(user.jsonFiles);
-		// for (let file of user.jsonFiles){
-		// 	var file = JSON.parse(file);
-		// 	this.deskbookVersions.push(file.fileName);
-		// }
-		// console.log(this.deskbookVersions);
+		this.deskbookVersions = ["2017", "2016"];
+		console.log(user.jsonFiles);
+		for (let file of user.jsonFiles){
+			var file = JSON.parse(file);
+			this.deskbookVersions.push(file.fileName);
+		}
+		console.log(this.deskbookVersions);
 	}
 
 
