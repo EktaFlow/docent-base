@@ -47,7 +47,7 @@ $input-border:#dcdcdc;
     color:white;
     margin-left:13px;
 }
-.nav{
+.nav-wrapper{
     display: flex;
     width: 45%;
     justify-content: space-between;
@@ -58,6 +58,11 @@ $input-border:#dcdcdc;
         @extend %input-style;
         @extend %down-arrow;
         -webkit-appearance: none;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
     }
 }
 .choose-one{
@@ -101,7 +106,23 @@ $input-border:#dcdcdc;
         height: 100%;
         list-style-type: none;
         margin-left: -10px;
+
+        .who {
+            display: flex;
+            flex-direction: column;
+
+            #no-who-input {
+                width: 200%;
+            }
+        }
+
+        .when {
+            display: flex;
+            flex-direction: column;
+        }
     }
+
+
     input{
         @extend %input-style;
         width: 100%;
@@ -172,6 +193,11 @@ $input-border:#dcdcdc;
      width: 100%;
   }
 
+  .attach {
+      width:50%;
+      margin:10px 0px 0px 0px;
+  }
+
 .helpButton{
     // display: flex;
     width: 70%;
@@ -232,14 +258,26 @@ $input-border:#dcdcdc;
 
   }
 
-h6 {
-  color: #494949;
-}
+    h6 {
+      color: #494949;
+    }
 
-a {
-color: black;
+    a {
+    color: black;
 
-}
+    }
+  }
+
+  .displayFiles {
+      margin-top: 20px;
+  }
+
+  @media screen and (min-width: 1660px) and (max-width: 2600px){
+      .no {
+          .who-when{
+
+          }
+      }
   }
 
 
@@ -251,7 +289,7 @@ color: black;
 
     }
 
-    .nav {
+    .nav-wrapper {
         width: 100%;
         position: relative;
 
@@ -364,6 +402,8 @@ color: black;
           padding-top: 65px;
       }
     }
+
+
 
 
 

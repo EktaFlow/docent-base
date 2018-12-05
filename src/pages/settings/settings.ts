@@ -35,10 +35,10 @@ export class SettingsPage {
   }
 
   downloadJsonHref: any;
-  files: any;
+  files: any = [];
   currentUser: any;
   pageName: any = "Settings";
-  userFiles: any;
+  userFiles: any = [];
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("settings");
@@ -47,11 +47,22 @@ export class SettingsPage {
   async ngOnInit(){
     this.currentUser = await this.auth.currentUser();
     for (let file of this.currentUser.jsonFiles){
-			var file = JSON.parse(file);
-			this.userFiles.push(file.fileName);
+			var currentFile = JSON.parse(file);
+      console.log(currentFile);
+      console.log(currentFile.fileName);
+			this.userFiles.push(currentFile.fileName);
 		}
+    console.log(this.userFiles);
 
   }
+
+  // deleteFile(file){
+  //   for (let jsonFile of this.currentUser.jsonFiles){
+  //     if (file == JSON.parse(jsonFile).fileName){
+  //
+  //     }
+  //   }
+  // }
 
 
 
@@ -78,6 +89,7 @@ export class SettingsPage {
 			let myEmitter = new EventEmitter<any>();
 				myEmitter.subscribe( v =>  {
 				this.files.push(v);
+        this.userFiles.push(v.fileName);
         console.log(this.files);
 			});
 

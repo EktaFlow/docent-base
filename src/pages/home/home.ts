@@ -217,8 +217,8 @@ export class HomePage {
 		this.deskbookVersions = ["2017", "2016"];
 		console.log(user.jsonFiles);
 		for (let file of user.jsonFiles){
-			var file = JSON.parse(file);
-			this.deskbookVersions.push(file.fileName);
+			var newFile = JSON.parse(file);
+			this.deskbookVersions.push(newFile.fileName);
 		}
 		console.log(this.deskbookVersions);
 	}

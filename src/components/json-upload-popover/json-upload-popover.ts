@@ -12,7 +12,7 @@ import { UploadService } from "../../services/upload";
 
 export class JsonUploadPopoverComponent {
 
-	questionId:		string;
+	// questionId:		string;
 	assessmentId: string;
 	emitter:			any;
 	file:         any;
@@ -24,8 +24,8 @@ export class JsonUploadPopoverComponent {
 
 		var {navParams} = this;
 
-		this.questionId		= navParams.get("questionId");
-		this.assessmentId = navParams.get("assessmentId");
+
+		// this.assessmentId = navParams.data.assessmentId;
 		this.emitter			= navParams.data.emitter;
 
   }
@@ -86,6 +86,7 @@ export class JsonUploadPopoverComponent {
 			console.log(finalFile);
 			console.log(this);
 			this.upload.uploadJSON(finalFile);
+			this.emitter.emit(finalFile);
 			// coolEmit(uploadedFile);
 		}
 		// var uploadedFile = await this.upload.uploadJSON(file);

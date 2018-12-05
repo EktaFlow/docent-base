@@ -12,27 +12,27 @@
 <ion-content padding>
   <div class="qspacer">
   </div>
-  <div class = "nav">
-		<div style="display:flex;flex-direction:column">
-		<div>
-		<h2>{{currentQuestion.questionText}}</h2>
-		</div>
+  <div class = "nav-wrapper">
+		<div class="nav">
+  		<div>
+  		  <h2>{{currentQuestion.questionText}}</h2>
+  		</div>
 
-		<div class="q-answer">
-		<select [(ngModel)]="vals.currentAnswer" id="select-answer">
-			<option value="skipped">Select Answer</option>
-			<option value="Yes">Yes</option>
-			<option value="No">No</option>
-			<option value="N/A">N/A</option>
-		</select>
-		</div>
-    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
+  		<div class="q-answer">
+    		<select [(ngModel)]="vals.currentAnswer" id="select-answer">
+    			<option value="skipped">Select Answer</option>
+    			<option value="Yes">Yes</option>
+    			<option value="No">No</option>
+    			<option value="N/A">N/A</option>
+    		</select>
+  		</div>
+      <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
 
 
-    <div *ngIf="helpClicked" class="helpTextDiv">
-      <!-- <p>help text</p> -->
-      <p [innerHTML]="currentQuestion.helpText"></p>
-    </div>
+      <div *ngIf="helpClicked" class="helpTextDiv">
+        <!-- <p>help text</p> -->
+        <p [innerHTML]="currentQuestion.helpText"></p>
+      </div>
 		</div>
 
     <div class="nav-q-buttons">
@@ -40,17 +40,6 @@
         <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next/Skip</button>
     </div>
 
-
-
-    <!-- <div class="nav-previous-qs">
-      <h4>Navigate back to previous questions</h4>
-      <p><a href="#">1. question</a></p>
-      <p><a href="#">2. question</a></p>
-      <p><a href="#">3. question</a></p>
-      <p><a href="#">4. question</a></p>
-      <p><a href="#">5. question</a></p>
-
-    </div> -->
   </div>
   <div *ngIf="vals.currentAnswer == undefined" class = "yes">
       <h6>Assumptions</h6>
@@ -66,7 +55,7 @@
       <textarea class="question-input" id="yes-assumptions-input" [(ngModel)]="vals.assumptionsYes" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
       <textarea class="question-input" id="yes-notes-input" [(ngModel)]="vals.notesYes" placeholder="Enter notes here..."></textarea>
-      <div style="width:50%;margin:10px 0px 0px 0px;">
+      <div class="attach">
         <button (click)="showFileUpload()" id="yes-attach-file-button"ion-button color="dark">Attach File</button>
       </div>
     </div>
@@ -89,15 +78,15 @@
 				-->
       <br>
       <br>
-      <div style="margin-left: 2px;" class="who-when">
-        <div style="display:flex; flex-direction:column" class="who">
+      <div class="who-when">
+        <div class="who">
           <li *ngFor = "let persons of actionPerson">
             <pre>{{persons}}</pre>
           </li>
           <h6>Who</h6>
-          <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" style="width: 200%;" #who>
+          <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" #who>
         </div>
-        <div style="display:flex; flex-direction:column" class='when'>
+        <div class='when'>
           <h6>When</h6>
           <input class="question-input" id="no-when-input" [(ngModel)]="vals.when" name= "when" type="date" >
         </div>
@@ -132,7 +121,7 @@
       <textarea class="question-input" id="no-assumptions-input" [(ngModel)]="vals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
       <textarea class="question-input" id="no-notes-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
-      <div class="attach" style="width:50%;margin:10px 0px 0px 0px;">
+      <div class="attach">
           <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
       </div>
 		 </div>
@@ -145,14 +134,14 @@
       <textarea class="question-input" id="na-assumptions-input"[(ngModel)]="vals.assumptionsNA" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
       <textarea class="question-input" id="na-notes-input"[(ngModel)]="vals.notesNA" placeholder="Enter notes here..."></textarea>
-      <div style="width:50%; margin:10px 0px 0px 0px;">
+      <div class="attach">
         <button id="na-attach-file-button"(click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
       </div>
     </div>
 
 
 
-<div style="margin-top:20px" *ngIf="files.length > 0"class="displayFiles">
+<div *ngIf="files.length > 0"class="displayFiles">
 	<h6>Attachments</h6>
 	<div *ngFor="let file of files" class="file">
 		<p *ngIf="file.questionId == questionId"><a href={{file.url}}>{{file.name}}</a></p>
