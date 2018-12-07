@@ -44,7 +44,7 @@ export class ImportComponent {
 	loadAssessment(assessment) {
 	this.apollo.mutate({
 		//this was mutation: load - but the only "importing" mutation in the back was called importAssessment
-		mutation: importAssessment,
+		mutation: load,
 		variables: {
 			import: assessment
 		}

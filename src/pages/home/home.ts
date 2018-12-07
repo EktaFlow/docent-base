@@ -155,10 +155,11 @@ export class HomePage {
 			 });
 
 
-			 }
+
     this.getSchema();
 		 this.setUpDeskbookArray();
 		 console.log(this.deskbookVersions)
+		  }
 
 
 	}

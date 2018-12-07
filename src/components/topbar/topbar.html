@@ -29,8 +29,8 @@
         <hr>
 
         <!-- TODO: use an ngif for if there is an assessmentId -->
-        <!-- (click)="toggleTopbarInfo()" -->
-        <div *ngIf="mainTitle" >
+
+        <div *ngIf="mainTitle"   (click)="toggleTopbarInfo()" >
 	        <h1 class="main-title" ><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
         </div>
 
