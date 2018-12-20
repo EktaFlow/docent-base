@@ -22,6 +22,17 @@ page-acronyms {
     .mobile {
       display: inherit;
     }
+
+    .qspacer {
+                display: inherit;
+                font-size: 0;
+                height: 250px;
+                line-height: 0;
+                border: 0px;
+                /* testing only */
+                 // border: 1px solid red;
+                 width: 100%;
+          }
   }
 
   @media screen and (min-width: 420px) and (max-width: 1024px){

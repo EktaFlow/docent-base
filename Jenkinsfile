@@ -1,4 +1,6 @@
-/* The purpose of this file is to define a pipeline that can take a dev branch and 
+/*
+* Ekta - mpf
+* The purpose of this file is to define a pipeline that can take a dev branch and 
 * build the latest push to the dev branch and deploy to the dev deployment
 *
 * This utilizes a simpler pipeline, designed only to build & deploy and image
@@ -10,8 +12,9 @@ def imageName
 def containerImagePath
 
 def branchName = "${env.BRANCH_NAME}"
-def dockerSuffix = branchName
-def kubectlNamespace = branchName
+if (branchName == 'master') {
+        branchName = 'prod'
+}
 
 podTemplate(label: 'back', 
     containers: [
@@ -29,14 +32,11 @@ podTemplate(label: 'back',
                         
                         try {
                                 stage ('setup') {
-          if (!branchName == "dev") {
-                                                  echo 'How did you get here you clever dog?'
-              // throw some cool error and kick them out. 
-          }
           checkout scm
           repo = getRepoName()
           serviceName = getServiceName(repo)
-                            imageName = "${serviceName}-${dockerSuffix}:b${env.BUILD_NUMBER}"
+                imageName = "${serviceName}-${branchName}:${env.BUILD_NUMBER}"
+                latestImageName = "${serviceName}-${branchName}:latest"
               }  
                                 stage ('Build and Push') {
           container('docker') {
@@ -46,17 +46,18 @@ podTemplate(label: 'back',
             ]){
                                             checkout scm
               containerImagePath = "${CONTAINER_REGISTRY}/${imageName}"
-              sh "docker build -t ${imageName} ."
-              sh "docker tag ${imageName} ${containerImagePath}"
+              latestImagePath    = "${CONTAINER_REGISTRY}/${latestImageName}"
+              sh "docker build -t ${containerImagePath} -t ${latestImagePath} ."
               sh "docker login ${CONTAINER_REGISTRY} -u ${user} -p ${password}"
               sh "docker push ${containerImagePath}"
+              sh "docker push ${latestImagePath}"
             }
           }
                                 }
                                 stage ('Deploy') {
             container('kubectl') {
-                // omit k8 rollout for now
-                // sh "kubectl set image deployment/dev -n ${kubectlNamespace} ${serviceName}=${containerImagePath}"
+                // echo 'not actually rollin the k8s'
+                // sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}"
             }
                                 }
                         } catch (err) {
@@ -74,7 +75,7 @@ String getServiceName(String repoName) {
         def matchingMap = [:]
   matchingMap["docent-back"] = "back"
   matchingMap["docent-base"] = "front"
-  matchingMap["auth"] = "auth"
+  matchingMap["auth_service"] = "auth"
 
   return matchingMap[repoName]
 }

@@ -36,14 +36,16 @@ export class MobileNavPopoverComponent {
   helpShow: boolean = false;
   assessmentId: any;
   assessmentShow: boolean = false;
+  userName: any;
 
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
                     public viewCtrl: ViewController,
                     public auth: AuthService) {
-    console.log('Hello MobileNavPopoverComponent Component');
     this.assessmentId = navParams.data.assessmentId;
+    this.userName = navParams.data.userName;
+    console.log(this.userName);
   }
 
   goBack(){
