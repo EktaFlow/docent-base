@@ -186,6 +186,15 @@ ion-icon {
     }
 }
 
+// @media screen and (max-width: 1024px){
+//
+// }
+
+ion-content {
+  // margin-top: 100px;
+  position: static !important;
+}
+
 @media screen and (min-width: 420px) and (max-width: 800px){
   .mobile-nav-pop .popover-content {
       // width: 100% !important;

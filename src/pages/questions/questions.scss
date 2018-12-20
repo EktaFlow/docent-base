@@ -284,8 +284,25 @@ $input-border:#dcdcdc;
 
   @media screen and (max-width: 1024px){
     ion-content {
-        margin-top: 50px;
+        // margin-top: 50px;
         margin-bottom: 100px;
+
+    }
+
+    .nav-q-buttons {
+        // position: absolute;
+        // top: -60px;
+        // left: 10px;
+        position: static;
+        right: clear;
+        top: clear;
+        margin-bottom: 15px;
+        margin-left: 10px;
+
+        width: 100%;
+        button {
+            width: 30%;
+        }
 
     }
 
@@ -293,16 +310,7 @@ $input-border:#dcdcdc;
         width: 100%;
         position: relative;
 
-        .nav-q-buttons {
-            position: absolute;
-            top: -60px;
-            left: 10px;
-            width: 100%;
-            button {
-                width: 45%;
-            }
 
-        }
     }
 
     .yes {
