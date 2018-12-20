@@ -1,8 +1,8 @@
 <div class="toolbar-class">
   <div>
-    <h1>{{this.mainTitle}}</h1>
-    <ion-header no-border class="docent-header">
-      <ion-navbar color="dark" hideBackButton="true">
+    <!-- <h1>{{this.mainTitle}}</h1> -->
+    <div no-border class="docent-header">
+      <div color="dark" hideBackButton="true">
         <div class = "container-toolbar">
           <img class="toolbar-logo" src="assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
           <div *ngIf="!blank" class = "container-tbbuttons">
@@ -26,7 +26,7 @@
             </button>
           </div>
         </div>
-        <hr>
+        <!-- <hr> -->
 
         <!-- TODO: use an ngif for if there is an assessmentId -->
 
@@ -55,8 +55,8 @@
       		  <p>Assessment Scope: {{ scope }}</p>
       		</div> -->
         </div>
-      </ion-navbar>
-    </ion-header>
+      </div>
+    </div>
 
 
   <!-- <div *ngIf="popUpButtonClicked">

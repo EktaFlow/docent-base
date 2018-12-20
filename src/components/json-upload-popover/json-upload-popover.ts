@@ -58,15 +58,7 @@ export class JsonUploadPopoverComponent {
 				newVar.style.cssText = styling
 	}
 
-	// async uploadFile(event) {
-	// 	var { assessmentId, questionId } = this;
-	//
-	// 	// boooooooooooooooooooo typescript
-	// 	var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-	// 	var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
-	//
-	// 	this.emitter.emit(uploadedFile);
-	// }
+
 
   async uploadJSON(event){
     // var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
