@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ActionitemsPage } from '../actionitems/actionitems';
 import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
+import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 
 
 import { Apollo } from "apollo-angular";
@@ -138,6 +139,13 @@ export class DashboardPage {
       ev: event
     });
   }
+
+	presentLegend(event){
+		let popover = this.popOver.create(LegendPopoverComponent, {cssClass: 'legendpop'});
+		popover.present({
+			ev: event
+		});
+	}
 
 	toggleSubThread(thread){
 		thread.show = !thread.show;

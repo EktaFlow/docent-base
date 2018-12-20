@@ -5,7 +5,8 @@ page-dashboard {
         }
         img{
             margin-left: 10px;
-            margin-top: 10px
+            margin-top: 10px;
+
         }
         hr {
             height: 1px !important;
@@ -98,7 +99,7 @@ page-dashboard {
         display: none;
     }
 
-    @media screen and (max-width: 420px){
+    @media screen and (max-width: 1024px){
           ion-content {
               margin-top: 130px;
           }
@@ -175,5 +176,11 @@ page-dashboard {
 
 
 
+      }
+
+      @media screen and (min-width: 420px) and (max-width: 800px){
+        ion-content {
+          margin-top: 160px;
+        }
       }
 }

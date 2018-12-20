@@ -11,10 +11,16 @@
 	<ng-container *ngIf="auth.unverified()">
 	You must verify your Docent registration via email before logging on.
 	</ng-container>
-  <ng-container *ngIf="!mobileRegister">
+
+    <ng-container *ngIf="!mobileRegister">
     	<login></login>
   </ng-container>
-
+<div *ngIf="!showRegister" class="register-container">
+        <h4>Forgot Password?</h4>
+        <div>
+            <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset Password</button>
+        </div>
+</div>
 
 	<div *ngIf="!showRegister" class="register-container">
 		<h4>Not registered?</h4>
@@ -48,12 +54,13 @@
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
 			<h6 class="assessment-name">Assessment Name</h6>
+
 	<div class="topmost" style="z-index: 100;">
       <input type="text" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 
 <!-- Save for auth -->
-<h6 style="margin-left:15px;">Team Members</h6>
+<h6 class="team-members-title">Team Members</h6>
   <form class="member-form">
     <div class="member-list">
       <li *ngFor = "let member of members">
@@ -151,7 +158,7 @@
       </button>
     </div>
     <div>
-      <button ion-button color ="buttonBlue" id="assessment-start" (click)="createAssessment($event)">
+      <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
         Start
       </button>
     </div>

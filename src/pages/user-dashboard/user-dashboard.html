@@ -54,7 +54,12 @@
                   <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
                   <p><b>Scope: </b>{{assessment.scope}}</p>
                   <p><b>Location: </b> {{assessment.location}}</p>
-                  <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
+		  <ng-container *ngIf="assessment.levelSwitching">
+                      <p><b>Level Switching?: </b> Yes </p>
+		  </ng-container>
+		  <ng-container *ngIf="!assessment.levelSwitching">
+                      <p><b>Level Switching?: </b> No </p>
+	          </ng-container>
                   <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
                 </div>
                 <div class="assNav">

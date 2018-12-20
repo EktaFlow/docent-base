@@ -38,28 +38,7 @@ faq-dropdown {
     width: 80%;
   }
 
-  .mobile {
-    display: none;
-  }
-
-  @media screen and (max-width: 420px){
-    .mobile {
-      display: block;
-    }
-
-    // .arrow-up {
-    //   position: absolute;
-    //   top: 50%;
-    //   right: 10px;
-    // }
-    //
-    // .arrow-down {
-    //   position: absolute;
-    //   top: 50%;
-    //   right: 10px;
-    // }
-
-
+  @media screen and (max-width: 1024px){
     .faq-question-container {
       background-color: lightgray;
       height: auto;

@@ -6,7 +6,4 @@ RUN npm install -g ionic
 
 COPY . .
 
-ARG PORT
-ENV PORT_NUM=$PORT
-
-CMD ionic serve --port=$PORT_NUM
+CMD ionic serve

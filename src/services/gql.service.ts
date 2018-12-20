@@ -16,6 +16,8 @@ query assessments($userId: String) {
 }
 `
 
+
+
 export var createAssessmentMutation = gql`
  mutation createAssessment(
      $threads:     [Int],
@@ -87,7 +89,9 @@ query assessment($_id: String)
 	currentMRL
 	levelSwitching
 	files {
-		url
+		url,
+                questionId,
+                name
 	}
 }
 }
@@ -115,10 +119,10 @@ query {
 }
 `
 
-// export var updateTeamMembersMutation = gql`
-// 	mutation addTeamMember($_id: String, $_teamMembers: ) {
-// 		addTeamMember(_id: $_id, ) {
-// 			teamMembers
-// 		}
-// 	}
-// `
+export var updateTeamMembersMutation = gql`
+	mutation addTeamMember($_id: String, $_teamMember: String) {
+		addTeamMember(_id: $_id,  _teamMember: $_teamMember) {
+			teamMembers
+		}
+	}
+`
