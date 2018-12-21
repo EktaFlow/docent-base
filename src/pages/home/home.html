@@ -134,14 +134,9 @@
       <h6>Deskbook Version</h6>
       <select id="deskbook-select" name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
-<<<<<<< HEAD
-        <option value="2017">2017</option>
-        <option value="2016">2016</option>
-=======
 				<ng-container *ngFor="let deskbook of deskbookVersions">
         	<option value="{{deskbook}}">{{deskbook}}</option>
         </ng-container>
->>>>>>> ioscompile
       </select>
     </div>
   </div>

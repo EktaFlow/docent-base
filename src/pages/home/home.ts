@@ -54,16 +54,6 @@ export class HomePage {
 						    GoogleAnalytics.trackPage("home");
 						  }
 
-	getSchema() {
-		this.http.get('assets/json/2016.json')
-					.subscribe( data => {
-						this.schema = data;
-            // this.schema = data;
-					});
-		this.http.get('assets/json/pretty_2017.json')
-		      .subscribe( data => this.twentySeventeen = data )
-	}
-
 	validateAssessment() {
 		var fields = [
 			"name",
@@ -83,16 +73,22 @@ export class HomePage {
 			return null;
 		}
 
+		await this.getSchema(this.assForm.deskBookVersion);
+
 		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
-		newAssessment.subscribe(({data}) => {
-					var assessmentId = data.createAssessment._id;
-					// !assessmentId ? this.handleBackendError() : null
-					this.sendEmailsToTeamMembers(assessmentId);
-					this.startAssessment(assessmentId);
-		});
+		newAssessment.toPromise()
+            .then( d => {
+              var assessmentId = d.data.createAssessment._id;
+              this.sendEmailsToTeamMembers(assessmentId);
+              this.startAssessment(assessmentId);
+            })
+            .catch(e => {
+              alert('invalid JSON');
+            });
+
 	}
 
 	developmentVariables() {
@@ -101,7 +97,10 @@ export class HomePage {
 
 	formatAssessmentVariables() {
 		var formValues = this.assForm;
+<<<<<<< HEAD
 		formValues.deskBookVersion == "2017" ? this.schema = this.twentySeventeen : null
+=======
+>>>>>>> origin/deskbook-schema
 		return {
 			threads:          this.threadsSelected,
 			location:         formValues.location,
@@ -114,13 +113,12 @@ export class HomePage {
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
-      schema:           JSON.stringify(this.schema),
+			schema: 					JSON.stringify(this.schema)
 		};
 	}
 
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
-		// console.log(teamMembers);
 
 		// move this to constants when we decide it's home.
 		var url = "http://localhost:4002/share";
@@ -160,11 +158,29 @@ export class HomePage {
 
 
 			 }
-    this.getSchema();
+
 		 this.setUpDeskbookArray();
-		 console.log(this.deskbookVersions)
+	}
 
+        // uses the default included schemas.
+        // Checks a user to see if they have custom schemas.
+	async getSchema(deskbook) {
+		if (deskbook == '2016' || deskbook == '2017'){
+			var deskbookPath = 'assets/json/' + deskbook + '.json'
+			var schema = await this.http.get(deskbookPath).toPromise();
+                        this.schema = schema;
+		} else {
+			var user = await this.auth.currentUser();
+			var files = [];
 
+			for (let file of user.jsonFiles){
+				var newFile = JSON.parse(file);
+				files.push(newFile);
+			}
+
+			var deskbookFile = files.filter(f => f.fileName == deskbook);
+			this.schema = deskbookFile[0].file;
+		}
 	}
 
 	////////// METHODS TO LAUNCH POPOVERS //////////////////////////////
@@ -206,9 +222,7 @@ export class HomePage {
   addMember(emailIn:string,roleIn:string){
     var newMember = {email: emailIn, role: roleIn};
     this.members.push(newMember);
-		console.log(newMember);
     this.assForm.teamMembers.push(newMember);
-		console.log(this.assForm.teamMembers);
   }
 
   removeMember(){
@@ -224,12 +238,10 @@ export class HomePage {
 	async setUpDeskbookArray() {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
-		// console.log(user.jsonFiles);
-		// for (let file of user.jsonFiles){
-		// 	var file = JSON.parse(file);
-		// 	this.deskbookVersions.push(file.fileName);
-		// }
-		// console.log(this.deskbookVersions);
+		for (let file of user.jsonFiles){
+			var newFile = JSON.parse(file);
+			this.deskbookVersions.push(newFile.fileName);
+		}
 	}
 
 

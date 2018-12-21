@@ -58,10 +58,14 @@ export class AssessmentService {
 
 	async createAssessment(variables) {
 
-		return await this.apollo.mutate({
+	return await this.apollo.mutate({
 			mutation: createAssessmentMutation,
 			variables
 		});
+
+
+
+
 	}
 
 	async getQuestionPageAssessment(assessmentId) {
