@@ -97,10 +97,6 @@ export class HomePage {
 
 	formatAssessmentVariables() {
 		var formValues = this.assForm;
-<<<<<<< HEAD
-		formValues.deskBookVersion == "2017" ? this.schema = this.twentySeventeen : null
-=======
->>>>>>> origin/deskbook-schema
 		return {
 			threads:          this.threadsSelected,
 			location:         formValues.location,
