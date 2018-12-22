@@ -34,9 +34,12 @@ export class HelpmenuComponent {
   }
 
   handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
-  handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
+	handleDefinitions = () => { 
+		this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId}); }
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
-  handleFAQ = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
+	handleFAQ = () => { 
+		console.log('okokok');
+		this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId}); }
 
 
 }
