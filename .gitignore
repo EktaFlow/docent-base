@@ -4,6 +4,7 @@ node_modules
 www
 plugins
 platforms
+.sourcemaps
 
 # caching dirs
 .temp
@@ -19,3 +20,8 @@ www
 
  # mac silliness
 *.DS_Store
+
+# Docker and Jenkins
+Dockerfile
+Jenkinsfile
+

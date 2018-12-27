@@ -19,7 +19,7 @@
 				<!-- TODO: These question Text p tags can be re-used <01-08-18, mpf> -->
         <p (click)="goToQuestion(question.questionId)"style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>N/A</b></p>
-          <b>Attachements:</b> {{question.attatchements}}
+          <b>Attachments:</b> {{question.attatchements}}
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
@@ -32,7 +32,7 @@
       <div *ngIf = "question.currentAnswer == 'No'" class = "no">
         <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>No</b></p>
-          <b>Attachements:</b>
+          <b>Attachments:</b>
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
@@ -47,7 +47,7 @@
         <p class = "box"><b>Yes</b></p>
         <p>
 				<b>Evidence:</b> {{question.objectiveEvidence}} </p>
-          <b>Attachements:</b>
+          <b>Attachments:</b>
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">

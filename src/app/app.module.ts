@@ -34,12 +34,12 @@ import { CriteriaPageModule } from '../pages/criteria/criteria.module';
 import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
+import { ResetPageModule } from '../pages/reset/reset.module';
 
 
 
 // components
 import { ComponentsModule } from '../components/components.module';
-
 
 // services
 import { AuthService } from "../services/auth.service";
@@ -76,13 +76,44 @@ import { BackUrl } from  "../services/constants";
 		UserDashboardPageModule,
 		SettingsPageModule,
 		NewAssessmentPageModule,
+                ResetPageModule,
 		ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
 
+		//QuestionsPage,
+		//AcronymsPage,
+		//DefinitionsPage,
+		//FaqsPage,
+		//AcronymsPage,
+		//ReviewPage,
+		//RegisterPage,
+		//LoginPage,
+		//HelpmenuComponent,
+		//ContactsDropdownComponent,
+		//FaqDropdownComponent,
+		//AssessmentslistComponent,
+		//ThreadsListComponent,
+		//FileUploadPopoverComponent,
+		//DashboardPage,
+		//NavigatePage,
+		//NotapplicablePage,
+		//SkippedquestionsPage,
+		//CriteriaPage,
+		//ActionitemsPage,
+		//UserDashboardPage,
+		//SettingsPage,
+		//NewAssessmentPage,
+		//ViewsComponent,
+		//ImportComponent,
+		//TopbarComponent,
+		//SubthreadPopupComponent,
+		//ThreadPopupComponent,
+		//LoginComponent,
+		//RegisterComponent
+    HomePage
   ],
   providers: [
     StatusBar,

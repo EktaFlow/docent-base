@@ -89,7 +89,9 @@ query assessment($_id: String)
 	currentMRL
 	levelSwitching
 	files {
-		url
+		url,
+                questionId,
+                name
 	}
 }
 }

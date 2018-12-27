@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from 'ionic-angular';
+import { PasswordResetComponent } from './password-reset/password-reset';
 import { AddTeamMembersPopOverComponent } from './add-team-members-pop-over/add-team-members-pop-over';
 import { JsonUploadPopoverComponent } from './json-upload-popover/json-upload-popover';
 import { AssessmentScopePopoverComponent } from './assessment-scope-popover/assessment-scope-popover';
@@ -37,6 +38,7 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
     ThreadPopupComponent,
     LoginComponent,
     RegisterComponent,
+    PasswordResetComponent,
     AddTeamMembersPopOverComponent,
     JsonUploadPopoverComponent,
     AssessmentScopePopoverComponent,
@@ -59,6 +61,7 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
     ThreadPopupComponent,
     LoginComponent,
     RegisterComponent,
+    PasswordResetComponent,
     AddTeamMembersPopOverComponent,
 		JsonUploadPopoverComponent,
     AssessmentScopePopoverComponent,
@@ -85,7 +88,8 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
 				AssessmentScopePopoverComponent,
 				MobileNavPopoverComponent,
 				LegendPopoverComponent,
-				AcronymPopoverComponent
+				AcronymPopoverComponent,
+        PasswordResetComponent
     ]
 })
 
