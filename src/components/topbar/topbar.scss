@@ -1,5 +1,7 @@
 topbar {
 
+  z-index: 100003;
+
   .docent-header {
     min-height: 50px;
     background-color: black;
@@ -91,8 +93,12 @@ topbar {
     .page-name {
       color: white;
       padding-left: 20px;
-      padding-bottom: 10px;
+      padding-bottom: 5px;
       // border-top: 1px solid white;
+    }
+
+    .mobile {
+      display: none;
     }
 
 
@@ -102,6 +108,14 @@ topbar {
 
     @media screen and (max-width: 1024px){
 
+
+    .desktop {
+      display: none;
+    }
+
+    .mobile {
+      display: inherit;
+    }
 
     .main-title {
       // font-size: 100%;

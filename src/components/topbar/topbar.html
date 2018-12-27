@@ -30,8 +30,12 @@
 
         <!-- TODO: use an ngif for if there is an assessmentId -->
 
-        <div *ngIf="mainTitle"   (click)="toggleTopbarInfo()" >
+        <div *ngIf="mainTitle"   (click)="toggleTopbarInfo()" class="mobile">
 	        <h1 class="main-title" ><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
+        </div>
+
+        <div *ngIf="mainTitle" class="desktop">
+          <h1 class="main-title" ><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
         </div>
 
         <div *ngIf="pageName">
