@@ -130,6 +130,7 @@ export class QuestionsPage {
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
 		this.vals = this.currentQuestion;
+		this.vals.when = this.formatDate();
 		this.findAmtOfQs();
 	}
 
@@ -138,6 +139,7 @@ export class QuestionsPage {
 		this.setValues();
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
+		this.vals.when = this.formatDate();
 		this.findAmtOfQs();
 	}
 
@@ -349,6 +351,7 @@ export class QuestionsPage {
 		];
 
 		questionVals.forEach(val => filteredQuestions[val] = question[val]);
+		filteredQuestions.when = this.formatDate();
 
 		return <any>filteredQuestions;
 
@@ -362,6 +365,21 @@ export class QuestionsPage {
 		this.currentQSetAmt = this.surveyQuestions.length;
 		this.currentQPos = this.surveyQuestions.indexOf(this.currentQuestion.questionId) + 1;
 
+  }
+  
+  /**
+  *  to display correctly on the `date` html5 `input` element, the object needs
+  *  `YYYY-mm-dd` formatting, rather than the format from the db.  
+  */
+  public formatDate() {
+  	var date = this.currentQuestion.when;
+	if (!date) {
+		return null;
+	} else {
+		return new Date(date)
+			     .toISOString()
+			     .slice(0,10);
+	}
   }
 
 
