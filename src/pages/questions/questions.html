@@ -159,7 +159,7 @@
           <h5>Risk Assessment</h5>
           <div style="display: flex">
           <div>
-          <h6>Likelihood <img (click)="launchLikelihood()" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
+          <h6>Likelihood <img (click)="showRiskPopover('likelihood')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
         
             <select [(ngModel)]="vals.likelihood" id="likelihood-input">
               <option value="1">1 - Not likely</option>

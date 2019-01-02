@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover';
 
 @IonicPage()
 @Component({
@@ -123,6 +124,10 @@ export class QuestionsPage {
 					{	cssClass: "upload-popover"})
 				.present();
 	}
+
+  showRiskPopover(highlight = 'matrix') {
+  this.popoverController.create(RiskPopoverComponent, {}, {cssClass: 'risk-popover'}).present();
+  }
 
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
@@ -376,12 +381,17 @@ export class QuestionsPage {
       [ null, 9, 16, 20, 23, 25]
     ];
 
-    if ( this.vals.likelihood && this.vals.consequence ) {
-      var likelihood  = Number(this.vals.likelihood);
-      var consequence = Number(this.vals.consequence);   
+    // typescript -_- 
+    var likelihood = (<any>this.vals).likelihood;
+    var consequence = (<any>this.vals).consequence;
+
+    if ( likelihood && consequence ) {
+      // value is the same as the index, b/c we put nulls in the matrix
+      var likelihoodIndex  = Number(likelihood);
+      var consequenceIndex = Number(consequence);   
 
 
-      return riskMatrix[likelihood][consequence]; 
+      return riskMatrix[likelihoodIndex][consequenceIndex]; 
     } else {
       return " ";
     }
