@@ -364,5 +364,32 @@ export class QuestionsPage {
 
   }
 
+  public calculateRiskScore() {
+    // preventing off by one errors, with nulls. 
+    // values should always be 1-5  
+    var riskMatrix = [
+      [ null ],
+      [ null, 1, 3,  5,  8,  12],
+      [ null, 2, 7,  11, 14, 17],
+      [ null, 4, 10, 15, 19, 21],
+      [ null, 6, 12, 18, 22, 24],
+      [ null, 9, 16, 20, 23, 25]
+    ];
+
+    if ( this.vals.likelihood && this.vals.consequence ) {
+      var likelihood  = Number(this.vals.likelihood);
+      var consequence = Number(this.vals.consequence);   
+
+
+      return riskMatrix[likelihood][consequence]; 
+    } else {
+      return " ";
+    }
+  }
+
+  public launchLikelihood() {
+    
+  }
+
 
 }

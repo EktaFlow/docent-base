@@ -77,7 +77,7 @@ $input-border:#dcdcdc;
     textarea{
         @extend %input-style;
         resize:none;
-        width: 48%;
+        // width: 48%;
     }
     textarea:focus {
         outline:none;
@@ -97,7 +97,7 @@ $input-border:#dcdcdc;
         display: flex;
         flex-direction: row;
         justify-content:space-between;
-        width:48%;
+        // width:48%;
         height: 100%;
         list-style-type: none;
         margin-left: -10px;
@@ -111,7 +111,7 @@ $input-border:#dcdcdc;
         @extend %input-style;
         resize:none;
         height:100%;
-        width: 48%;
+//        width: 48%;
     }
     textarea:focus {
         outline:none;
@@ -130,7 +130,7 @@ $input-border:#dcdcdc;
     textarea{
         @extend %input-style;
         resize:none;
-        width: 48%;
+//        width: 48%;
     }
     textarea:focus {
         outline:none;

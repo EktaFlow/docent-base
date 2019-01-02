@@ -49,6 +49,9 @@
 
     </div> -->
   </div>
+
+  <div style="display:flex;flex-direction:row">
+  <div style="width: 50%">
   <div *ngIf="vals.currentAnswer == undefined" class = "yes">
       <h6>Assumptions</h6>
       <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
@@ -102,18 +105,11 @@
 
 
 
+      <!--
       <h6 class="risk-text">Risk</h6>
 
-			<!-- <div>
-
-			</div> -->
       <div class="risk">
 
-				<!--
-        Technical<input class="question-input" name="technical" value="technical" [(ngModel)]="noVals.technical" type="checkbox">
-        Cost<input class="question-input" [(ngModel)]="noVals.cost" type="checkbox">
-        Schedule<input class="question-input" [(ngModel)]="noVals.schedule" type="checkbox">
-				-->
 				        <ion-label class="label"> Technical</ion-label>
 								<ion-checkbox checked="false" id="no-risk-technical-box" [(ngModel)]="vals.technical"></ion-checkbox>
 				        <ion-label class="label"> Cost</ion-label>
@@ -121,6 +117,8 @@
 				        <ion-label class="label"> Schedule</ion-label>
 								<ion-checkbox checked="false" id="no-risk-schedule-box" [(ngModel)]="vals.schedule"></ion-checkbox>
       </div>
+      -->
+      
       <h6>What</h6>
       <textarea class="question-input" id="no-what-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
       <h6>Reason</h6>
@@ -156,6 +154,58 @@
 		<!-- <img src="../../assets/imgs/redxMark.ico" class="img" (click)="handleFileRemove()"> -->
 	</div>
 </div>
+  </div>
+  <div style="width:50%">
+          <h5>Risk Assessment</h5>
+          <div style="display: flex">
+          <div>
+          <h6>Likelihood <img (click)="launchLikelihood()" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
+        
+            <select [(ngModel)]="vals.likelihood" id="likelihood-input">
+              <option value="1">1 - Not likely</option>
+              <option value="2">2 - Low likelihood</option>
+              <option value="3">3 - Moderate </option>
+              <option value="4">4 - Highly likely</option>
+              <option value="5">5 - Near Certainty</option>
+            </select>
+          </div>
+          <div>
+          <h6>Consequence</h6>
+            <select [(ngModel)]="vals.consequence" id="consequence-input">
+              <option value="1">1 - Negligible</option>
+              <option value="2">2 - Marginal</option>
+              <option value="3">3 - Moderate</option>
+              <option value="4">4 - Critical</option>
+              <option value="5">5 - Catastrophic</option>
+            </select>
+          </div>
+          </div>
+
+            <h6> Risk Score: {{calculateRiskScore()}}</h6>
+            <div *ngIf="calculateRiskScore() > 11">
+                    YOU AER AT RISK
+          <h6>Greatest Impact</h6>
+            <select [(ngModel)]="vals.impact" id="impact-input">
+              <option value="cost">cost</option>
+              <option value="schedule">schedule</option>
+              <option value="performance">performance</option>
+            </select>
+          <h6>Risk Response</h6>
+            <select [(ngModel)]="vals.response" id="response-input">
+              <option value="accept">accept</option>
+              <option value="transfer">transfer</option>
+              <option value="avoid">avoid</option>
+              <option value="mitigate">mitigate</option>
+            </select>
+
+            <h6>MMP Summary</h6>
+            <textarea>
+            </textarea>
+
+            </div>
+  </div>
+
+  </div>
 
   <div class="qspacer"> </div>
 
