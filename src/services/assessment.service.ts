@@ -83,6 +83,9 @@ export class AssessmentService {
 	// updates: an object containing the new values for the question
 	// _id    : the assessmentId of the assessment being updated
 	// questionId: the questionId of the question being updated
+
+	///how does this need to change? need to send the new answer, but we could just send that as updateInfo
+
 	async updateQuestion(updateInfo) {
 		return await this.apollo.mutate<any>({
 			mutation: updateQuestionMutation,

@@ -4,7 +4,7 @@ import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-
+import { AuthService } from "../../services/auth.service";
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 
@@ -35,7 +35,8 @@ export class QuestionsPage {
 
 	constructor(public navParams:          NavParams,
 							private popoverController: PopoverController,
-						  private assessmentService: AssessmentService	) {
+						  private assessmentService: AssessmentService,
+							private auth: AuthService) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
 		this.referringQuestionId = navParams.data.questionId;
@@ -72,15 +73,24 @@ export class QuestionsPage {
 			currentAssessment.subscribe( ({data, loading}) => {
 				console.log(data.assessment);
 				this.assessment = data.assessment;
-                                this.files = data.assessment.files;
+        this.files = data.assessment.files;
 				var {assessment} = this;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
 				this.currentTargetMRL = assessment.targetMRL;
-				this.surveyQuestions = this.setSurveyQuestions()
+				this.surveyQuestions = this.setSurveyQuestions();
 				// add if no currentQuestionId
-				this.determineCurrentQuestion()
-				this.vals = this.filterQuestionVals(this.currentQuestion);
+				this.determineCurrentQuestion();
+				//pullLatestAnswer
+				//if there is no latestAnswer then return empty object
+				//put in latestAnswer into this.filterAnswerVals()
+				var latestAnswer = this.pullLatestAnswer(this.currentQuestion);
+				console.log(latestAnswer);
+				if (latestAnswer == null){
+					this.vals = this.filterAnswerVals({});
+				} else {
+					this.vals = this.filterAnswerVals(latestAnswer);
+				}
 				this.findAmtOfQs();
 		})
   }
@@ -149,9 +159,9 @@ export class QuestionsPage {
 	setValues() {
 		var values: any = Object.assign({}, this.vals)
 		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
-		values = this.filterQuestionVals(values);
+		values = this.filterAnswerVals(values);
 
-		this.updateAssessment(values)
+		this.updateAssessment(values);
 	}
 
 	// sendUpdateInfo(){
@@ -168,29 +178,50 @@ export class QuestionsPage {
 	getQuestionValues() {
 		var values: any = Object.assign({}, this.vals)
 		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
-		values = this.filterQuestionVals(values);
+		values = this.filterAnswerVals(values);
 
 		return values
 	}
 
 	// refactor this down
 	async updateAssessment(values) {
-		var a = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
-		var old = this.allQuestions.map( q => Object.assign({}, q));
-		var newer = old[this.currentQuestion.questionId - 1];
 
-		for (let a in values) {
-			newer[a] = values[a];
+		//updating object in memory
+
+		var oldQuestion = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
+		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
+		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
+
+		console.log(values);
+		var currentUser = this.auth.currentUser();
+		console.log(currentUser);
+		values.userId = currentUser._id;
+		values.updatedAt = new Date();
+		values.answer = values.currentAnswer;
+		newerQuestion.currentAnswer = values.currentAnswer;
+		delete values.currentAnswer
+
+		var updatedAnswers = [...newerQuestion.answers, values];
+		newerQuestion.answers = updatedAnswers;
+		console.log(newerQuestion);
+
+		var tempAssessmentObject = JSON.parse(JSON.stringify(this.allQuestions));
+		tempAssessmentObject.splice(this.currentQuestion.questionId - 1, 1, newerQuestion);
+		this.allQuestions = tempAssessmentObject;
+
+		// ---------------------------------------------------------
+
+		//updating object in the back
+
+		var tempQuestion = {
+			"currentAnswer": newerQuestion.currentAnswer
 		}
-
-		var temp = JSON.parse(JSON.stringify(this.allQuestions));
-		temp.splice(this.currentQuestion.questionId - 1, 1, newer);
-		this.allQuestions = temp;
 
 		var updatedInfo = {
 			_id: this.assessmentId,
 			questionId: Number(this.currentQuestion.questionId),
-			updates: values
+			questionUpdates: tempQuestion,
+			answerUpdates: values
 		};
 		console.log(updatedInfo);
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
@@ -306,28 +337,47 @@ export class QuestionsPage {
 	// and formats them to be in the surveyJs format.
 	// this is the format that survey JS is expecting, so we don't
 	// mess with the structure.
-	mapToSurveyJS(questions) {
-		return questions.map( question => {
-			return {
-				name: question.threadName,
-				elements: [{
-					type: "dropdown",
-					name: question.subThreadName,
-					title: question.questionText,
-					choices: [
-						"Yes",
-						"No",
-						"N/A"
-					]
-				}]
-			};
+	// mapToSurveyJS(questions) {
+	// 	return questions.map( question => {
+	// 		return {
+	// 			name: question.threadName,
+	// 			elements: [{
+	// 				type: "dropdown",
+	// 				name: question.subThreadName,
+	// 				title: question.questionText,
+	// 				choices: [
+	// 					"Yes",
+	// 					"No",
+	// 					"N/A"
+	// 				]
+	// 			}]
+	// 		};
+	// 	});
+	// }
+
+	pullLatestAnswer(question){
+		console.log(question);
+		var answers = question.answers;
+		answers.sort((a, b) => {
+			console.log(b.updatedAt);
+			b.updatedAt - a.updatedAt
 		});
+		if(answers == []){
+			return null;
+		} else {
+			return answers[0];
+		}
 	}
 
-	filterQuestionVals(question) {
+	// TODO: REMOVE - Replace with pullLatestAnswer
+	//we will not need this anymore
+	filterAnswerVals(answer) {
 		// better way to do this.
-		var filteredQuestions = {};
-		var questionVals = [
+		var filteredFields = {};
+		var answerVals = [
+			"userId",
+			"updatedAt",
+			"answer",
 			"objectiveEvidence",
 			"assumptionsYes",
 			"notesYes",
@@ -335,9 +385,15 @@ export class QuestionsPage {
 			"assumptionsSkipped",
 			"who",
 			"when",
-			"technical",
-			"cost",
-			"schedule",
+			"risk",
+			"likelihood",
+			"consequence",
+			"greatestImpact",
+			"riskReponse",
+			"mmpSummary",
+			// "technical",
+			// "cost",
+			// "schedule",
 			"what",
 			"reason",
 			"assumptionsNo",
@@ -348,9 +404,9 @@ export class QuestionsPage {
 			"currentAnswer"
 		];
 
-		questionVals.forEach(val => filteredQuestions[val] = question[val]);
+		answerVals.forEach(val => filteredFields[val] = answer[val]);
 
-		return <any>filteredQuestions;
+		return <any>filteredFields;
 
 	}
 
