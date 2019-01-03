@@ -55,7 +55,7 @@ export class TopbarComponent {
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
 	@Input() public pageName: any;
-	@Input() private questionId: any;
+	// @Input() private questionId: any;
 	public popUpButtonClicked: any;
 	infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
@@ -70,9 +70,7 @@ constructor( public popOver: PopoverController,
 
 	async ngOnInit() {
 
-		console.log(this.getAssessmentId);
 		if (this.getAssessmentId) {
-			console.log()
 			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 			this.getAssessmentData();
 
@@ -81,19 +79,14 @@ constructor( public popOver: PopoverController,
 		}
 
 		this.loggedIn = this.auth.isLoggedIn();
-		// console.log(this.values);
 
-		console.log(this.targetMRL);
 
-		// console.log(this.assessmentId);
 
 	}
 
 	toggleScopeSelected(event) {
-		// console.log("fire!");
 		// this.scopeSelected = !this.scopeSelected;
 		let popover = this.popOver.create(AssessmentScopePopoverComponent, {scopeText: this.scope}, {cssClass: 'scope-popover'});
-		console.log(this.scope);
 		popover.present({
 			ev: event
 		})
@@ -116,7 +109,6 @@ constructor( public popOver: PopoverController,
 			}
 		}).valueChanges
 			.subscribe( ({data, loading}) => {
-				console.log(data.assessment);
 				this.scope	= data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
@@ -165,8 +157,6 @@ constructor( public popOver: PopoverController,
 				questionId: this.questionId
 			}
 
-			console.log("trouble spot");
-			console.log(this.assessmentId);
 			var update = await this.assessmentService.updateQuestion(updateInfo);
 			update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
 		} else {
@@ -216,7 +206,6 @@ constructor( public popOver: PopoverController,
 
 	openMobileNav(){
 		var userName = this.auth.currentUser().name;
-		console.log(userName);
 		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}

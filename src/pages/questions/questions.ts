@@ -65,14 +65,12 @@ export class QuestionsPage {
 	// INIT && related function
   async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-    console.log(this.assessmentId);
 
 		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
 														 .getQuestionPageAssessment(this.assessmentId)
 
 			currentAssessment.subscribe( ({data, loading}) => {
-				console.log(data.assessment);
 				this.assessment = data.assessment;
         this.files = data.assessment.files;
 				var {assessment} = this;
@@ -87,7 +85,6 @@ export class QuestionsPage {
 				//if there is no latestAnswer then return empty object
 				//put in latestAnswer into this.filterAnswerVals()
 				var latestAnswer = this.pullLatestAnswer(this.currentQuestion);
-				console.log(latestAnswer);
 				if (latestAnswer == null){
 					this.vals = this.filterAnswerVals({});
 				} else {
@@ -151,8 +148,7 @@ export class QuestionsPage {
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
 		this.findAmtOfQs();
-		console.log(this.vals.reason);
-		
+
 	}
 
 	/////////////////////////////////////////////////////////////////////////
@@ -196,9 +192,7 @@ export class QuestionsPage {
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
-		// console.log(values);
 		var currentUser = this.auth.currentUser();
-		// console.log(currentUser);
 		values.userId = currentUser._id;
 		values.updatedAt = new Date();
 		values.answer = values.currentAnswer;
@@ -207,7 +201,6 @@ export class QuestionsPage {
 
 		var updatedAnswers = [...newerQuestion.answers, values];
 		newerQuestion.answers = updatedAnswers;
-		// console.log(newerQuestion);
 
 		var tempAssessmentObject = JSON.parse(JSON.stringify(this.allQuestions));
 		tempAssessmentObject.splice(this.currentQuestion.questionId - 1, 1, newerQuestion);
@@ -227,7 +220,6 @@ export class QuestionsPage {
 			questionUpdates: tempQuestion,
 			answerUpdates: values
 		};
-		console.log(updatedInfo);
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => null);
 	}
@@ -309,11 +301,9 @@ export class QuestionsPage {
 
 		currentSubthread.forEach(q => {
 			var level = this.allSubthreadLevelQuestions(q)
-			console.log(level);
 			level.every(ques => ["Yes", "Skipped", "skipped", "N/A"].includes(ques.currentAnswer) ) ? floor = true : null
 		});
 
-		console.log(floor);
 		return floor;
 	}
 
@@ -360,11 +350,12 @@ export class QuestionsPage {
 	// }
 
 	pullLatestAnswer(question){
-		console.log(question);
-		var answers = question.answers;
+		var answers = JSON.parse(JSON.stringify(question.answers));
+
 		answers.sort((a, b) => {
-			console.log(b.updatedAt);
-			b.updatedAt - a.updatedAt
+			var dateA = new Date(a.updatedAt);
+			var dateB = new Date(b.updatedAt);
+			return dateB.getTime() - dateA.getTime();
 		});
 		if(answers == []){
 			return null;
