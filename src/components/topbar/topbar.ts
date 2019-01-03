@@ -10,6 +10,7 @@ import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
+import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -54,6 +55,7 @@ export class TopbarComponent {
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
 	@Input() public pageName: any;
+	@Input() private questionId: any;
 	public popUpButtonClicked: any;
 	infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
@@ -204,6 +206,12 @@ constructor( public popOver: PopoverController,
 		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
 			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
 		.present({ev: event});
+	}
+
+	toggleQuestionHistory(){
+		this.popOver.create(QuestionHistoryPopoverComponent, {assessmentId: this.assessmentId,
+			questionId: this.questionId}, {cssClass: 'question-history-popup'})
+		.present();
 	}
 
 	openMobileNav(){
