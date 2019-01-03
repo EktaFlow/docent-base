@@ -1,8 +1,8 @@
 risk-popover {
 	$cell-font-weight: normal;
 	$likelihood-label-width: 45px;
-	$basic-cell-width: 8vw;
-	$likelihood-cell-width: 20vw;
+	$basic-cell-width: 6vw;
+	$likelihood-cell-width: 6vw;
 	$color-coding-key-width: 7.5em;
 	%digit-cell{
 		width: $basic-cell-width;
@@ -17,7 +17,7 @@ risk-popover {
 	.title-header {
 		text-align: center;
 		font-weight: bolder;
-		height: 8vh;
+		height: 6vw;
 		padding-top: 2vh;
 	}
 	#likelihood-def {
@@ -136,10 +136,15 @@ risk-popover {
 		background-color: red;
 	}
 	.axis-labels-more-info {
-		clear: right;
-		width: 250px;
-		float: right;
-		margin-right: 5vw;
+    display: flex;
+    margin: 0;
+    align-items: center; 
+    justify-content: space-around;
+    h6 {
+      padding-top: 0px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
 	}
 	.toggle-header {
 		text-align: center;
@@ -152,14 +157,18 @@ risk-popover {
 		float: right;
 	}
 	.explainer{
-		padding-top: 50px;
-		clear: both;
+    display: flex;
+    justify-content:center;
+    align-items:flex-start;
+		// padding-top: 50px;
+		// clear: both;
 	}
 	.explainer-heading{
 		text-align: center;
 	}
 	.criteria-table {
 		margin: 0 auto;
+    width: 30vw;
 	}
 	.crit-table-row > th {
 		font-weight: normal;
@@ -198,4 +207,24 @@ risk-popover {
 		text-align: left;
 		padding: 10px 0px 10px 5px;
 	}
+
+  #bottom {
+    display: flex;
+    justify-content: space-around;
+    align-itens: flex-start;
+  }
+
+  #top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #buttons-container {
+    display: flex;
+
+  }
+
+
 }
+

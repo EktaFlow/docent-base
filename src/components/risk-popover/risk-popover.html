@@ -1,7 +1,22 @@
-<div>
+<div style="display:flex; flex-direction: column">
+        <div id="top">
   <div class="title-header">
     <h5>Manufacturing Readiness Level Risk Matrix</h5>
   </div>
+  <div class="axis-labels-more-info">
+    <h6 class="toggle-header">View Rating Descriptions</h6>
+    <div id="buttons-container">
+      <button ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable()">
+        Likelihood
+      </button>
+      <button ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable()">
+        Consequence
+      </button>
+    </div>
+  </div>
+        </div>
+        <div id="bottom">
+
   <div class="matrix-table-container">
   <div class="likelihood-label">
     <p>Likelihood</p>
@@ -86,19 +101,11 @@
     <div id="color-code-cell2">Medium Risk</div>
     <div id="color-code-cell3">High Risk</div>
   </div>
-  <div class="axis-labels-more-info">
-    <h6 class="toggle-header">View Rating Descriptions</h6>
-    <br/>
-    <button ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable()">
-      Likelihood
-    </button>
-    <button ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable()">
-      Consequence
-    </button>
-  </div>
   <div *ngIf="this.chartView =='likelihood'" class="explainer">
-    <h4 class="explainer-heading">Likelihood</h4>
     <table class="criteria-table">
+      <tr>
+        <h4 class="explainer-heading">Likelihood</h4>
+      </tr>
       <tr class="crit-table-row">
         <th class="crit-table-left-col">Rating</th>
         <th class="crit-table-right-col" id="rating-descrip-heading">Description</th>
@@ -131,8 +138,10 @@ Approach and processes are well understood and documented</th>
     </table>
   </div>
   <div *ngIf="this.chartView =='consequence'" class="explainer">
-    <h4 class="explainer-heading">Consequence</h4>
     <table class="criteria-table">
+      <tr>
+        <h4 class="explainer-heading">Consequence</h4>
+      </tr>
       <tr class="cons-table-row">
         <th class="cons-rating-col">Rating</th>
         <th class="cons-cost-col">Cost</th>
@@ -171,4 +180,5 @@ Approach and processes are well understood and documented</th>
       </tr>
     </table>
   </div>
+  </div > <!-- end of 'bottom' -->
 </div>

@@ -8,7 +8,7 @@ export class RiskPopoverComponent {
 	public chartView: any;
 	public chart: any;
 	constructor() {
-		this.chartView = '';
+		this.chartView = 'likelihood';
 	}
 	toggleDescriptionTable(){
     this.chartView = (<any>event).path[0].innerText.toLowerCase();
