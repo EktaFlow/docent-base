@@ -14,6 +14,11 @@ $input-border:#dcdcdc;
     background-color:$input-backgroud;
     border-color: $input-border;
 }
+.risk select {
+    @extend %input-style;
+    height: 30px;
+    width: 9vw;
+}
 %down-arrow{
     background-position: right 50%;
     background-repeat: no-repeat;
@@ -375,3 +380,29 @@ color: black;
     }
 }
 }
+
+	$basic-cell-size: 4vw;
+	%digit-cell{
+		width: $basic-cell-size;
+    height: $basic-cell-size;
+		border: solid black 2px;
+    filter: brightness(120%);
+	}
+
+	.low-risk-cell{
+		background-color: green;
+		@extend %digit-cell;
+	}
+	.med-risk-cell{
+		background-color: yellow;
+		@extend %digit-cell;
+	}
+	.high-risk-cell{
+		background-color: red;
+		@extend %digit-cell;
+	}
+
+  .selected {
+    border: 7px solid black;
+  }
+

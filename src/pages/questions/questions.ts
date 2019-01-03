@@ -389,7 +389,11 @@ export class QuestionsPage {
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);   
-
+      
+      var selectedBox = document.getElementById( likelihood + consequence + 'm');
+      var name = selectedBox.className.replace(/ selected/g, '')
+      selectedBox.className = `${name} selected`;
+      console.log(selectedBox);
 
       return riskMatrix[likelihoodIndex][consequenceIndex]; 
     } else {
