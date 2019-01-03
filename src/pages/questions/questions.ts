@@ -32,6 +32,7 @@ export class QuestionsPage {
 	currentQSetAmt: any;
 	currentQPos: any;
   public getAssessmentId = true;
+	noSecondBar: boolean = true;
 
 	constructor(public navParams:          NavParams,
 							private popoverController: PopoverController,
@@ -81,6 +82,7 @@ export class QuestionsPage {
 				this.surveyQuestions = this.setSurveyQuestions();
 				// add if no currentQuestionId
 				this.determineCurrentQuestion();
+
 				//pullLatestAnswer
 				//if there is no latestAnswer then return empty object
 				//put in latestAnswer into this.filterAnswerVals()
@@ -149,6 +151,8 @@ export class QuestionsPage {
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
 		this.findAmtOfQs();
+		console.log(this.vals.reason);
+		
 	}
 
 	/////////////////////////////////////////////////////////////////////////
@@ -192,9 +196,9 @@ export class QuestionsPage {
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
-		console.log(values);
+		// console.log(values);
 		var currentUser = this.auth.currentUser();
-		console.log(currentUser);
+		// console.log(currentUser);
 		values.userId = currentUser._id;
 		values.updatedAt = new Date();
 		values.answer = values.currentAnswer;
@@ -203,7 +207,7 @@ export class QuestionsPage {
 
 		var updatedAnswers = [...newerQuestion.answers, values];
 		newerQuestion.answers = updatedAnswers;
-		console.log(newerQuestion);
+		// console.log(newerQuestion);
 
 		var tempAssessmentObject = JSON.parse(JSON.stringify(this.allQuestions));
 		tempAssessmentObject.splice(this.currentQuestion.questionId - 1, 1, newerQuestion);
