@@ -23,6 +23,7 @@ import { MobileNavPopoverComponent } from './mobile-nav-popover/mobile-nav-popov
 import { LegendPopoverComponent } from './legend-popover/legend-popover';
 import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
 import { QuestionHistoryPopoverComponent } from './question-history-popover/question-history-popover';
+import { RiskPopoverComponent } from './risk-popover/risk-popover';
 
 @NgModule({
 	declarations: [
@@ -46,7 +47,8 @@ import { QuestionHistoryPopoverComponent } from './question-history-popover/ques
     MobileNavPopoverComponent,
     LegendPopoverComponent,
     AcronymPopoverComponent,
-    QuestionHistoryPopoverComponent
+    QuestionHistoryPopoverComponent,
+    RiskPopoverComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -70,7 +72,8 @@ import { QuestionHistoryPopoverComponent } from './question-history-popover/ques
     MobileNavPopoverComponent,
     LegendPopoverComponent,
     AcronymPopoverComponent,
-    QuestionHistoryPopoverComponent
+    QuestionHistoryPopoverComponent,
+    RiskPopoverComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -93,7 +96,8 @@ import { QuestionHistoryPopoverComponent } from './question-history-popover/ques
 				LegendPopoverComponent,
 				AcronymPopoverComponent,
         PasswordResetComponent,
-        QuestionHistoryPopoverComponent
+        QuestionHistoryPopoverComponent,
+        RiskPopoverComponent
     ]
 })
 

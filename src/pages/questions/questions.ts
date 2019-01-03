@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AuthService } from "../../services/auth.service";
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover';
 
 @IonicPage()
 @Component({
@@ -135,6 +136,10 @@ export class QuestionsPage {
 					{	cssClass: "upload-popover"})
 				.present();
 	}
+
+  showRiskPopover(highlight = 'matrix') {
+  this.popoverController.create(RiskPopoverComponent, {}, {cssClass: 'risk-popover'}).present();
+  }
 
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
@@ -422,6 +427,42 @@ export class QuestionsPage {
 		this.currentQSetAmt = this.surveyQuestions.length;
 		this.currentQPos = this.surveyQuestions.indexOf(this.currentQuestion.questionId) + 1;
 
+  }
+
+  public calculateRiskScore() {
+    // preventing off by one errors, with nulls. 
+    // values should always be 1-5  
+    var riskMatrix = [
+      [ null ],
+      [ null, 1, 3,  5,  8,  12],
+      [ null, 2, 7,  11, 14, 17],
+      [ null, 4, 10, 15, 19, 21],
+      [ null, 6, 12, 18, 22, 24],
+      [ null, 9, 16, 20, 23, 25]
+    ];
+
+    // typescript -_- 
+    var likelihood = (<any>this.vals).likelihood;
+    var consequence = (<any>this.vals).consequence;
+
+    if ( likelihood && consequence ) {
+      // value is the same as the index, b/c we put nulls in the matrix
+      var likelihoodIndex  = Number(likelihood);
+      var consequenceIndex = Number(consequence);   
+      
+      var selectedBox = document.getElementById( likelihood + consequence + 'm');
+      var name = selectedBox.className.replace(/ selected/g, '')
+      selectedBox.className = `${name} selected`;
+      console.log(selectedBox);
+
+      return riskMatrix[likelihoodIndex][consequenceIndex]; 
+    } else {
+      return " ";
+    }
+  }
+
+  public launchLikelihood() {
+    
   }
 
 

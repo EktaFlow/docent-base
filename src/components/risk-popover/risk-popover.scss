@@ -1,0 +1,230 @@
+risk-popover {
+	$cell-font-weight: normal;
+	$likelihood-label-width: 45px;
+	$basic-cell-width: 6vw;
+	$likelihood-cell-width: 6vw;
+	$color-coding-key-width: 7.5em;
+	%digit-cell{
+		width: $basic-cell-width;
+		font-weight: $cell-font-weight;
+		border: solid black 2px;
+	}
+	%color-code-cell{
+		height: 5vh;
+		line-height: 5vh;
+		padding-left: 0.5vw;
+	}
+	.title-header {
+		text-align: center;
+		font-weight: bolder;
+		height: 6vw;
+		padding-top: 2vh;
+	}
+	#likelihood-def {
+		float: left;
+		margin-bottom: 2vh;
+	}
+	#consequence-def {
+		float: right;
+		margin-bottom: 2vh;
+	}
+	.likelihood-label {
+		clear: both;
+		writing-mode: vertical-lr;
+		filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=2);  /* IE6,IE7 */
+		ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)"; /* IE8 */
+		-moz-transform: rotate(-180deg);  /* FF3.5+ */
+		-o-transform: rotate(-180deg);  /* Opera 10.5 */
+		-webkit-transform: rotate(-180deg);  /* Safari 3.1+, Chrome */
+		float: left;
+		height: 44.5vh;
+		margin-top: 2px;
+		padding-top: 20.65vh;
+		box-shadow: 0px 0px 0px 2px black;
+		whitespace: nowrap;
+		overflow: hidden;
+		width: $likelihood-label-width;
+	}
+	.matrix-table-container {
+		height: 64vh;
+	}
+	.risk-matrix-table {
+		margin: 0 auto;
+	}
+	.matrix-row {
+		height: 9vh;
+	}
+	.input-cell {
+		@extend %digit-cell;
+		font-size: 22px;
+	}
+	.likelihood-cell {
+		width: $likelihood-cell-width;
+		font-weight: $cell-font-weight;
+		border: solid black 2px;
+		@media (max-width: 460px) {
+			width: 15vw;
+			font-size: 10px;
+		}
+	}
+	.low-risk-cell{
+		background-color: green;
+		@extend %digit-cell;
+	}
+	.med-risk-cell{
+		background-color: yellow;
+		@extend %digit-cell;
+	}
+	.high-risk-cell{
+		background-color: red;
+		@extend %digit-cell;
+	}
+	.empty-cell{
+		width: $basic-cell-width;
+		border: none;
+	}
+	.consequence-row{
+		height: 5vh;
+	}
+	.consequence-cell{
+		@extend %digit-cell;
+		@media (max-width: 800px) {
+			font-size: 10px;
+		}
+	}
+	#empty-consequence-cell-left{
+		@extend %digit-cell;
+		border: none;
+		border-left: solid black 2px;
+		border-bottom: solid black 2px;
+	}
+	#empty-consequence-cell-right{
+		@extend %digit-cell;
+		border: none;
+		border-right: solid black 2px;
+		border-bottom: solid black 2px;
+	}
+	.empty-consequence-cell-middle{
+		@extend %digit-cell;
+		border: none;
+		border-bottom: solid black 2px;
+	}
+	.consequence-label{
+		@extend %digit-cell;
+		max-width: 0;
+		overflow: visible;
+		white-space: nowrap;
+		border: none;
+		border-bottom: solid black 2px;
+	}
+	.color-coding{
+		float: left;
+		width: $color-coding-key-width;
+		border: solid black 1px;
+		clear: both;
+	}
+	.color-coding > div {
+		@extend %color-code-cell;
+	}
+	#color-code-cell1{
+		background-color: green;
+	}
+	#color-code-cell2{
+		background-color: yellow;
+	}
+	#color-code-cell3{
+		background-color: red;
+	}
+	.axis-labels-more-info {
+    display: flex;
+    margin: 0;
+    align-items: center; 
+    justify-content: space-around;
+    h6 {
+      padding-top: 0px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+	}
+	.toggle-header {
+		text-align: center;
+		padding-top: 15px;
+	}
+	#ratings-toggle1 {
+		float: left;
+	}
+	#ratings-toggle2 {
+		float: right;
+	}
+	.explainer{
+    display: flex;
+    justify-content:center;
+    align-items:flex-start;
+		// padding-top: 50px;
+		// clear: both;
+	}
+	.explainer-heading{
+		text-align: center;
+	}
+	.criteria-table {
+		margin: 0 auto;
+    width: 30vw;
+	}
+	.crit-table-row > th {
+		font-weight: normal;
+	}
+	.crit-table-left-col {
+		width: 20vw;
+		border: solid black 2px;
+	}
+	.crit-table-right-col {
+		width: 50vw;
+		border: solid black 2px;
+		text-align: left;
+		padding: 10px 0px 10px 5px;
+	}
+	#rating-descrip-heading{
+		text-align: center;
+	}
+	.cons-table-row > th {
+		font-weight: normal;
+	}
+	.cons-rating-col {
+		width: 20vw;
+		border: solid black 2px;
+	}
+	.cons-cost-col {
+		width: 20vw;
+		border: solid black 2px;
+	}
+	.cons-sched-col {
+		width: 20vw;
+		border: solid black 2px;
+	}
+	.cons-perf-col {
+		width: 30vw;
+		border: solid black 2px;
+		text-align: left;
+		padding: 10px 0px 10px 5px;
+	}
+
+  #bottom {
+    display: flex;
+    justify-content: space-around;
+    align-itens: flex-start;
+  }
+
+  #top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #buttons-container {
+    display: flex;
+
+  }
+
+
+}
+
