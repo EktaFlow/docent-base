@@ -144,6 +144,12 @@ ion-icon {
 
 }
 
+.question-history-popup .popover-content{
+  width: 800px;
+  height: 400px;
+  padding: 30px;
+}
+
 @media screen and (max-width: 800px){
     .upload-popover .popover-content {
         position: absolute;
