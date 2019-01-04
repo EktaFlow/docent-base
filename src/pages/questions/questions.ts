@@ -66,7 +66,6 @@ export class QuestionsPage {
 	// INIT && related function
   async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-    console.log(this.assessmentId);
 
 		// if we don't already have a loaded assessment.
 		var currentAssessment = await this.assessmentService
@@ -204,7 +203,6 @@ export class QuestionsPage {
 
 		var updatedAnswers = [...newerQuestion.answers, values];
 		newerQuestion.answers = updatedAnswers;
-		// console.log(newerQuestion);
 
 		var tempAssessmentObject = JSON.parse(JSON.stringify(this.allQuestions));
 		tempAssessmentObject.splice(this.currentQuestion.questionId - 1, 1, newerQuestion);
@@ -305,11 +303,9 @@ export class QuestionsPage {
 
 		currentSubthread.forEach(q => {
 			var level = this.allSubthreadLevelQuestions(q)
-			console.log(level);
 			level.every(ques => ["Yes", "Skipped", "skipped", "N/A"].includes(ques.currentAnswer) ) ? floor = true : null
 		});
 
-		console.log(floor);
 		return floor;
 	}
 
@@ -337,7 +333,7 @@ export class QuestionsPage {
 		answers.sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt) );
 
 		if(answers.length === 0) {
-    this.vals = this.filterAnswerVals({});
+      this.vals = this.filterAnswerVals({});
 		} else {
 			this.vals = this.filterAnswerVals(answers[0]);
 		}
