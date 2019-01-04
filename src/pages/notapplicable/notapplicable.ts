@@ -17,6 +17,9 @@ query assessment($_id: String) {
 		questionText
 		subThreadName
 		currentAnswer
+    answers {
+      answer
+    }
 		questionId
 	}
 	}
@@ -58,7 +61,12 @@ export class NotapplicablePage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-			var naQuestions = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "N/A")
+          var questions = (<any>data.data).assessment.questions;
+                  var naQuestions = questions.filter( question => {
+                  if ( question.answers.length > 0 ) {
+                    return question.answers[question.answers.length - 1].answer == 'N/A';
+                  }
+                  })
 					this.na= naQuestions;
 					console.log(naQuestions);
 
