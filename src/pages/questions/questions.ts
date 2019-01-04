@@ -234,18 +234,26 @@ export class QuestionsPage {
 	}
 
         refactorMe() {
-                var oldAnswer = this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
+                var oldAnswer: any = {};
+                if ( this.currentQuestion.answers.length > 0 ) {
+                        console.log('more than 1 answer');
+                        console.log(this.currentQuestion.answers);
+                        oldAnswer = this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
+                } else {
+                        return true;
+                }
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
                 var newestAnswer = newerQuestion.answers[newerQuestion.answers.length - 1];
                 newestAnswer = JSON.parse(JSON.stringify(newestAnswer))
+                console.log(oldAnswer);
                 oldAnswer= JSON.parse(JSON.stringify(oldAnswer));
 
                 newestAnswer.userId='a';
                 oldAnswer.userId='a';
                 newestAnswer.updatedAt='a';
                 oldAnswer.updatedAt='a';
-                delete oldAnswer.__typename;
+                oldAnswer.__typename? delete oldAnswer.__typename : null;
 
                 var match = true;
 
