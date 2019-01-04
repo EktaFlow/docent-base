@@ -147,6 +147,7 @@ export class QuestionsPage {
 		this.vals = this.currentQuestion;
     // this can replace the line above
 		this.pullLatestAnswer(this.currentQuestion);
+		this.vals.when = this.formatDate();
 		this.findAmtOfQs();
 	}
 
@@ -157,6 +158,7 @@ export class QuestionsPage {
 		this.vals = this.currentQuestion;
     // this can replace the line above
 		this.pullLatestAnswer(this.currentQuestion);
+		this.vals.when = this.formatDate();
 		this.findAmtOfQs();
 	}
 
@@ -382,9 +384,10 @@ export class QuestionsPage {
 			"currentAnswer"
 		];
 
-    answerVals.forEach(val => { 
-      filteredFields[val] = answer[val] ? answer[val] : null
-    });
+                answerVals.forEach(val => { 
+                        filteredFields[val] = answer[val] ? answer[val] : null
+                });
+		filteredFields.when = this.formatDate();
 
 		return <any>filteredFields;
 
@@ -398,6 +401,21 @@ export class QuestionsPage {
 		this.currentQSetAmt = this.surveyQuestions.length;
 		this.currentQPos = this.surveyQuestions.indexOf(this.currentQuestion.questionId) + 1;
 
+  }
+  
+  /**
+  *  to display correctly on the `date` html5 `input` element, the object needs
+  *  `YYYY-mm-dd` formatting, rather than the format from the db.  
+  */
+  public formatDate() {
+  	var date = this.currentQuestion.when;
+	if (!date) {
+		return null;
+	} else {
+		return new Date(date)
+			     .toISOString()
+			     .slice(0,10);
+	}
   }
 
   public calculateRiskScore() {
