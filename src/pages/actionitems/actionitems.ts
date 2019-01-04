@@ -4,6 +4,7 @@ import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 
+import * as XLSX from 'xlsx';
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -72,7 +73,6 @@ export class ActionitemsPage {
                                                 }
                                                 
                                         });
-                                        console.log(this.no);
 					this.attachments = (<any>data.data).assessment.files;
 
                                         var newData:Array<any> = [];
@@ -150,6 +150,29 @@ export class ActionitemsPage {
   };
 
 
+
+  public saveXLS() {
+        var headers = this.columns.map(c => c.title);
+        var values = this.no.map(nq => {
+                return [
+                        nq.threadName,
+                        nq.subThreadName,
+                        nq.questionText,
+                        nq.answers[nq.answers.length - 1].answer,
+                        nq.answers[nq.answers.length - 1].what,
+                        nq.answers[nq.answers.length - 1].when,
+                        nq.answers[nq.answers.length - 1].who,
+                ];
+        })
+        var worksheet = [headers, ...values];
+
+        var ws = XLSX.utils.aoa_to_sheet(worksheet);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Action Items');
+
+        /* save to file */
+        XLSX.writeFile(wb, 'action_items.xlsx');
+  }
 
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
     let start = (page.page - 1) * page.itemsPerPage;
