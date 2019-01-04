@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="q-answer">
-		<select [(ngModel)]="vals.currentAnswer" id="select-answer">
+		<select [(ngModel)]="vals.answer" id="select-answer">
 			<option value="skipped">Select Answer</option>
 			<option value="Yes">Yes</option>
 			<option value="No">No</option>
@@ -38,7 +38,7 @@
 
     <div class="nav-q-buttons">
         <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
-        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next/Skip</button>
+        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
     </div>
 
     <!-- <div class="nav-previous-qs">
@@ -54,14 +54,14 @@
 
   <div style="display:flex;flex-direction:row">
   <div style="width: 50%">
-  <div *ngIf="vals.currentAnswer == undefined" class = "yes">
+  <div *ngIf="vals.answer == undefined" class = "yes">
       <h6>Assumptions</h6>
       <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
       <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
     </div>
 
-  <div *ngIf="vals.currentAnswer == 'Yes'" class = "yes">
+  <div *ngIf="vals.answer == 'Yes'" class = "yes">
       <h6>Objective Evidence</h6>
       <textarea id="aaa objective-evidence-input" class="question-input" [(ngModel)]="vals.objectiveEvidence" placeholder="Enter objective evidence here..."></textarea>
       <h6>Assumptions</h6>
@@ -75,7 +75,7 @@
 
 
 
-    <div *ngIf="vals.currentAnswer == 'No'" class = "no">
+    <div *ngIf="vals.answer == 'No'" class = "no">
       <h3 style="margin-top:30px"><b>ACTION PLAN</b></h3>
 				<!-- SAVE THIS FOR AUTH
       <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">
@@ -134,7 +134,7 @@
       </div>
 		 </div>
 
-    <div *ngIf="vals.currentAnswer == 'N/A'" class = "na">
+    <div *ngIf="vals.answer == 'N/A'" class = "na">
       <h6>Documentation</h6>
       <textarea class="question-input" id="na-documentation-input"[(ngModel)]="vals.documentation" placeholder="Document why this question is not applicable..."></textarea>
       <hr>

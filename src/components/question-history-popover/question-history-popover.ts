@@ -16,6 +16,8 @@ export class QuestionHistoryPopoverComponent {
   assessment: any;
   currentQuestion: any;
   noAnswers: boolean = false;
+  allQuestions: any;
+  answersSorted: any;
 
   constructor( public navCtrl: NavController,
                       public navParams: 		 NavParams,

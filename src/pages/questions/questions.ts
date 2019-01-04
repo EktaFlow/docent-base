@@ -73,7 +73,6 @@ export class QuestionsPage {
 														 .getQuestionPageAssessment(this.assessmentId)
 
 			currentAssessment.subscribe( ({data, loading}) => {
-				console.log(data.assessment);
 				this.assessment = data.assessment;
         this.files = data.assessment.files;
 				var {assessment} = this;
@@ -87,15 +86,15 @@ export class QuestionsPage {
 				//pullLatestAnswer
 				//if there is no latestAnswer then return empty object
 				//put in latestAnswer into this.filterAnswerVals()
-				var latestAnswer = this.pullLatestAnswer(this.currentQuestion);
-				console.log(latestAnswer);
-				if (latestAnswer == null){
-					this.vals = this.filterAnswerVals({});
-				} else {
-					this.vals = this.filterAnswerVals(latestAnswer);
-				}
+        // call this setLatestAnswer
+				this.pullLatestAnswer(this.currentQuestion);
 				this.findAmtOfQs();
 		})
+  }
+
+  // this function sets this.vals to the most current answer to the current question
+  getLatestAnswer() {
+    
   }
 
 	setSurveyQuestions() {
@@ -147,6 +146,8 @@ export class QuestionsPage {
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
 		this.vals = this.currentQuestion;
+    // this can replace the line above
+		this.pullLatestAnswer(this.currentQuestion);
 		this.findAmtOfQs();
 	}
 
@@ -155,9 +156,9 @@ export class QuestionsPage {
 		this.setValues();
 		this.moveCurrentQuestion(-1);
 		this.vals = this.currentQuestion;
+    // this can replace the line above
+		this.pullLatestAnswer(this.currentQuestion);
 		this.findAmtOfQs();
-		console.log(this.vals.reason);
-		
 	}
 
 	/////////////////////////////////////////////////////////////////////////
@@ -167,23 +168,13 @@ export class QuestionsPage {
 	///// update function
 	setValues() {
 		var values: any = Object.assign({}, this.vals)
-		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
+		values.answer === null ? values.currentAnswer = "skipped" : null
 		values = this.filterAnswerVals(values);
 
 		this.updateAssessment(values);
 	}
 
-	// sendUpdateInfo(){
-	// 	var values = getQuestionValues();
-	// 	var updateInfo = {
-	// 		_id: this.assessmentId,
-	// 		questionId: this.currentQuestionId,
-	// 		updates: values
-	// 	}
-	//
-	// 	return updateInfo;
-	// }
-
+  // this is used to pass to the template
 	getQuestionValues() {
 		var values: any = Object.assign({}, this.vals)
 		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
@@ -193,20 +184,21 @@ export class QuestionsPage {
 	}
 
 	// refactor this down
+  // values is an object containing the latest values from the input.
+  // if there are no changes, we don't want to do anything.
 	async updateAssessment(values) {
 
 		//updating object in memory
-
+    console.log(values) 
 		var oldQuestion = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
-		// console.log(values);
 		var currentUser = this.auth.currentUser();
-		// console.log(currentUser);
 		values.userId = currentUser._id;
 		values.updatedAt = new Date();
-		values.answer = values.currentAnswer;
+    // we're setting this earlier.
+    //values.answer = values.currentAnswer;
 		newerQuestion.currentAnswer = values.currentAnswer;
 		delete values.currentAnswer
 
@@ -232,7 +224,6 @@ export class QuestionsPage {
 			questionUpdates: tempQuestion,
 			answerUpdates: values
 		};
-		console.log(updatedInfo);
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => null);
 	}
@@ -339,49 +330,23 @@ export class QuestionsPage {
 	  this.currentQuestion = this.getQuestion(nextLowest[0]);
 	}
 
-	///////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////
-
-	// this function takes an arr of questions as assessment sub-documents
-	// and formats them to be in the surveyJs format.
-	// this is the format that survey JS is expecting, so we don't
-	// mess with the structure.
-	// mapToSurveyJS(questions) {
-	// 	return questions.map( question => {
-	// 		return {
-	// 			name: question.threadName,
-	// 			elements: [{
-	// 				type: "dropdown",
-	// 				name: question.subThreadName,
-	// 				title: question.questionText,
-	// 				choices: [
-	// 					"Yes",
-	// 					"No",
-	// 					"N/A"
-	// 				]
-	// 			}]
-	// 		};
-	// 	});
-	// }
-
+  // this function takes in the current question (as an object);
+  // and sets this.vals to the latest answer (by timestamp)
 	pullLatestAnswer(question){
-		console.log(question);
-		var answers = question.answers;
-		answers.sort((a, b) => {
-			console.log(b.updatedAt);
-			b.updatedAt - a.updatedAt
-		});
-		if(answers == []){
-			return null;
+		var answers = JSON.parse(JSON.stringify(question.answers));
+		answers.sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt) );
+
+		if(answers.length === 0) {
+    this.vals = this.filterAnswerVals({});
 		} else {
-			return answers[0];
+			this.vals = this.filterAnswerVals(answers[0]);
 		}
 	}
 
 	// TODO: REMOVE - Replace with pullLatestAnswer
 	//we will not need this anymore
 	filterAnswerVals(answer) {
-		// better way to do this.
+    
 		var filteredFields = {};
 		var answerVals = [
 			"userId",
@@ -398,7 +363,7 @@ export class QuestionsPage {
 			"likelihood",
 			"consequence",
 			"greatestImpact",
-			"riskReponse",
+			"riskResponse",
 			"mmpSummary",
 			// "technical",
 			// "cost",
@@ -413,7 +378,9 @@ export class QuestionsPage {
 			"currentAnswer"
 		];
 
-		answerVals.forEach(val => filteredFields[val] = answer[val]);
+    answerVals.forEach(val => { 
+      filteredFields[val] = answer[val] ? answer[val] : null
+    });
 
 		return <any>filteredFields;
 
