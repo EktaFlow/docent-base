@@ -64,8 +64,7 @@ podTemplate(label: 'back',
                                 }
                                 stage ('Deploy') {
             container('kubectl') {
-                // echo 'not actually rollin the k8s'
-                // sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}"
+                sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}"
             }
                                 }
                         } catch (err) {
