@@ -23,9 +23,12 @@ query assessment($_id: String) {
 		threadName
 		subThreadName
 		currentAnswer
-		notesNo
-		skipped
-		objectiveEvidence
+    answers {
+      answer
+		  notesNo
+      # skipped
+		  objectiveEvidence
+    }
 	}
 	files {
 		name
@@ -89,8 +92,28 @@ export class ReviewPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-					var assessment = (<any>data.data).assessment;
-					this.allQuestions = assessment.questions;
+          var assessment = (<any>data.data).assessment;
+					var questions = assessment.questions;
+
+          var answeredOrSkipped = [];
+          questions.forEach(q => {
+                  if ( q.currentAnswer == 'skipped' ) {
+                    answeredOrSkipped.push(q);
+                  }
+                  if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+                    var drilledQuestion = {
+                      questionId: q.questionId,
+                      questionText: q.questionText,
+                      currentAnswer: q.answers[q.answers.length - 1].answer,
+                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
+                    }
+                    answeredOrSkipped.push(drilledQuestion);
+                  }
+          });
+
+          // all questions is an array of answered questions.
+          // preserving the names to leave markup the same.
+          this.allQuestions = answeredOrSkipped; 
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
