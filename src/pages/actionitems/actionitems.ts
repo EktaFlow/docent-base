@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { TableData } from './table-data';
 
 
 import { QuestionsPage } from '../questions/questions';
@@ -21,17 +20,19 @@ query assessment($_id: String) {
 		subThreadName
 		currentAnswer
 		questionId
-		# mpf - for now bringing in all No vars.
+                answers {
 		when
 		who
 		risk
 		what
 		reason
 		assumptionsNo
-    notesNo
-    technical
-		schedule
-    cost
+                notesNo
+                answer
+                # technical
+		# schedule
+                # cost
+                }
 	}
 	files {
 		name
@@ -53,6 +54,7 @@ query assessment($_id: String) {
 
 
 export class ActionitemsPage {
+        public data:any;
 
 	async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -63,20 +65,27 @@ export class ActionitemsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-					this.no = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "No");
+                                        console.log(data);
+					this.no = (<any>data.data).assessment.questions.filter( a => {
+                                                if (a.answers.length > 0 ) { 
+                                                        return a.answers[a.answers.length - 1].answer == "No" 
+                                                }
+                                                
+                                        });
+                                        console.log(this.no);
 					this.attachments = (<any>data.data).assessment.files;
 
                                         var newData:Array<any> = [];
         
                                         this.no.forEach( (element) => { 
-                                            var newObj = {};
+                                            var newObj:any = {};
                                             newObj.threadName = "" + element.threadName;
                                             newObj.subThreadName = "" + element.subThreadName;
                                             newObj.questionText = "" + element.questionText;
-                                            newObj.currentAnswer = "" + element.currentAnswer;
-                                            newObj.what = "" + element.what;
-                                            newObj.when = "" + element.when;
-                                            newObj.who = "" + element.who;
+                                            newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
+                                            newObj.what = "" + element.answers[element.answers.length - 1].what;
+                                            newObj.when = "" + element.answers[element.answers.length - 1].when;
+                                            newObj.who = "" + element.answers[element.answers.length - 1].who;
                                             newData.push(newObj);
                                         });
 

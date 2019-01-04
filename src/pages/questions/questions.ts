@@ -9,6 +9,7 @@ import { AuthService } from "../../services/auth.service";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover';
 
+
 @IonicPage()
 @Component({
   selector: 'page-questions',
@@ -17,7 +18,7 @@ import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover
 
 export class QuestionsPage {
 
-	private vals = {};
+	private vals:any = {};
 	assessmentId: any;
 	private assessment: any;
 	public helpClicked: boolean = false;
@@ -88,13 +89,12 @@ export class QuestionsPage {
         // call this setLatestAnswer
 				this.pullLatestAnswer(this.currentQuestion);
 				this.findAmtOfQs();
+		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
+		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
+                console.log(newerQuestion);
 		})
   }
 
-  // this function sets this.vals to the most current answer to the current question
-  getLatestAnswer() {
-    
-  }
 
 	setSurveyQuestions() {
     return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
@@ -190,8 +190,9 @@ export class QuestionsPage {
 	async updateAssessment(values) {
 
 		//updating object in memory
-    console.log(values) 
-		var oldQuestion = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
+//    console.log(values) 
+                // oldQuestion doesn't get used & is equivalent to 
+		// var oldQuestion = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
@@ -214,6 +215,8 @@ export class QuestionsPage {
 
 		//updating object in the back
 
+                if ( this.refactorMe() ) {
+                        console.log('we are saving to DB');
 		var tempQuestion = {
 			"currentAnswer": newerQuestion.currentAnswer
 		}
@@ -226,8 +229,40 @@ export class QuestionsPage {
 		};
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => null);
+                }
 	}
 
+        refactorMe() {
+                var oldAnswer = this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
+		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
+		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
+                var newestAnswer = newerQuestion.answers[newerQuestion.answers.length - 1];
+                newestAnswer = JSON.parse(JSON.stringify(newestAnswer))
+                oldAnswer= JSON.parse(JSON.stringify(oldAnswer));
+
+                newestAnswer.userId='a';
+                oldAnswer.userId='a';
+                newestAnswer.updatedAt='a';
+                oldAnswer.updatedAt='a';
+                delete oldAnswer.__typename;
+
+                var match = true;
+
+                for (let a in oldAnswer) {
+                        oldAnswer[a] != newestAnswer[a] ? match = false : null
+                }
+
+
+                if ( match ) {
+                             console.log('they match!!');
+                             return false;
+                } else {
+                        console.log('they don\'t martch!!');
+                        return true
+                }
+        
+                // return false;
+        }
 
 	moveCurrentQuestion(way) {
 		var { questionId } = this.currentQuestion;
@@ -353,7 +388,7 @@ export class QuestionsPage {
 	//we will not need this anymore
 	filterAnswerVals(answer) {
     
-		var filteredFields = {};
+		var filteredFields:any = {};
 		var answerVals = [
 			"userId",
 			"updatedAt",
@@ -439,10 +474,8 @@ export class QuestionsPage {
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);   
       
-      var selectedBox = document.getElementById( likelihood + consequence + 'm');
-      var name = selectedBox.className.replace(/ selected/g, '')
-      selectedBox.className = `${name} selected`;
-      console.log(selectedBox);
+      // var name = selectedBox.className.replace(/ selected/g, '')
+      // selectedBox.className = `${name} selected`;
 
       return riskMatrix[likelihoodIndex][consequenceIndex]; 
     } else {
