@@ -89,9 +89,7 @@ export class QuestionsPage {
         // call this setLatestAnswer
 				this.pullLatestAnswer(this.currentQuestion);
 				this.findAmtOfQs();
-		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
-		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
-                console.log(newerQuestion);
+		this.vals.when = this.formatDate();
 		})
   }
 
@@ -135,8 +133,9 @@ export class QuestionsPage {
 				.present();
 	}
 
-  showRiskPopover(highlight = 'matrix') {
-  this.popoverController.create(RiskPopoverComponent, {}, {cssClass: 'risk-popover'}).present();
+  showRiskPopover(highlight) {
+        console.log(highlight); 
+        this.popoverController.create(RiskPopoverComponent, {highlight: highlight}, {cssClass: 'risk-popover'}).present();
   }
 
 	///////////////////////// next / prev / etc /////////////////////////////
@@ -220,6 +219,8 @@ export class QuestionsPage {
 		var tempQuestion = {
 			"currentAnswer": newerQuestion.currentAnswer
 		}
+
+                console.log(values);
 
 		var updatedInfo = {
 			_id: this.assessmentId,
@@ -422,7 +423,7 @@ export class QuestionsPage {
                 answerVals.forEach(val => { 
                         filteredFields[val] = answer[val] ? answer[val] : null
                 });
-		filteredFields.when = this.formatDate();
+		// filteredFields.when = this.formatDate();
 
 		return <any>filteredFields;
 
@@ -443,7 +444,9 @@ export class QuestionsPage {
   *  `YYYY-mm-dd` formatting, rather than the format from the db.  
   */
   public formatDate() {
-  	var date = this.currentQuestion.when;
+  	var date;
+        this.currentQuestion.answers && this.currentQuestion.answers.length > 0 ? date = this.currentQuestion.answers[this.currentQuestion.answers.length - 1].when : null
+        console.log(date);
 	if (!date) {
 		return null;
 	} else {

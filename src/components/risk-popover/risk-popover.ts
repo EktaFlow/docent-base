@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 
 @Component({
   	selector: 'risk-popover',
@@ -7,8 +8,9 @@ import { Component } from '@angular/core';
 export class RiskPopoverComponent {
 	public chartView: any;
 	public chart: any;
-	constructor() {
-		this.chartView = 'likelihood';
+	constructor( public navParams: NavParams) {
+                console.log(this.navParams.get('highlight'));
+		this.chartView = this.navParams.get('highlight');
 	}
 	toggleDescriptionTable(){
     this.chartView = (<any>event).path[0].innerText.toLowerCase();
