@@ -66,7 +66,7 @@ podTemplate(label: 'back',
                                 }
                                 stage ('Deploy') {
             container('kubectl') {
-                    if branchName == 'dev' { sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}" }
+                    if ( branchName == 'dev' ) { sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}" }
             }
                                 }
                         } catch (err) {
