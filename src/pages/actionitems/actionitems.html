@@ -3,18 +3,19 @@
 </topbar>
 
 <ion-content padding>
-  <br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br>
   <hr>
 
 
 
-<div class="row">
+<div class="row" style="justify-content:space-between;">
   <div class="col-md-4">
     <input *ngIf="config.filtering" placeholder="Filter all columns"
            [ngTableFiltering]="config.filtering"
            class="form-control"
            (tableChanged)="onChangeTable(config)"/>
   </div>
+  <button style="margin-left: 45vw;"ion-button color="buttonBlue" (click)="saveXLS()" id="previous-button">Save to .XLS</button>
 </div>
 <br>
 <ng-table [config]="config"
