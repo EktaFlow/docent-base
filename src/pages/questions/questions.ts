@@ -161,6 +161,11 @@ export class QuestionsPage {
 		this.findAmtOfQs();
 	}
 
+  handleSave() {
+		this.setValues();
+		alert("This question has been saved");
+	} 
+
 	/////////////////////////////////////////////////////////////////////////
 	///////////// FUNCTIONS DEALING WITH VALUE SETTING /////////////////////
 
