@@ -54,7 +54,7 @@ export class TopbarComponent {
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
 	@Input() public pageName: any;
-	// @Input() private questionId: any;
+	@Input() private questionId: any;
 	public popUpButtonClicked: any;
 	infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;

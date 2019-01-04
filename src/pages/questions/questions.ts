@@ -330,7 +330,15 @@ export class QuestionsPage {
   // and sets this.vals to the latest answer (by timestamp)
 	pullLatestAnswer(question){
 		var answers = JSON.parse(JSON.stringify(question.answers));
-		answers.sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt) );
+    
+    answers.sort( (a, b) => { 
+      var horridTypescriptCastingA = <any>(new Date(a.updatedAt));
+      var horridTypescriptCastingB = <any>(new Date(b.updatedAt));
+
+      // `Date - Date` is valid JS and returns a Number
+      // there should be no need to do that casting.
+      return horridTypescriptCastingB - horridTypescriptCastingA;
+    });
 
 		if(answers.length === 0) {
       this.vals = this.filterAnswerVals({});
