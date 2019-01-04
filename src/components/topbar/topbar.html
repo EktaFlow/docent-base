@@ -40,14 +40,15 @@
 
       	<div *ngIf="assessmentId && noSecondBar != false && infoShow && !pageName" class="subheader">
           <div *ngIf="mainTitle">
-            <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover">SubThread: {{this.subTitle}}</span></p>
+            <p><span class="pointer" (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover">Thread: {{this.mainTitle}}</span> | <span class="pointer" (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover">SubThread: {{this.subTitle}}</span></p>
             <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
-            <p (click)="goToNavExpand()" class="show-all" id="show-all-questions">Show All Questions</p>
+            <p (click)="goToNavExpand()" class="show-all pointer" id="show-all-questions">Show All Questions</p>
           </div>
 
-          <div class="targets-scope" *ngIf="noSecondBar">
+          <div class="targets-scope">
             <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
-            <p (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
+            <p class="pointer" (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
+            <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p>
           </div>
 
           <!-- <div *ngIf="scopeSelected" class="scope-show">

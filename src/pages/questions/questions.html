@@ -5,7 +5,8 @@
             [currentQPos] = "this.currentQPos"
             [currentQSetAmt] = "this.currentQSetAmt"
     	      [values]="getQuestionValues()"
-    	      [questionId]="currentQuestion.questionId"> </topbar>
+    	      [questionId]="currentQuestion.questionId"
+            [noSecondBar]="noSecondBar"> </topbar>
 
 
 <ion-content padding>
@@ -18,7 +19,7 @@
 		</div>
 
 		<div class="q-answer">
-		<select [(ngModel)]="vals.currentAnswer" id="select-answer">
+		<select [(ngModel)]="vals.answer" id="select-answer">
 			<option value="skipped">Select Answer</option>
 			<option value="Yes">Yes</option>
 			<option value="No">No</option>
@@ -36,7 +37,7 @@
 
     <div class="nav-q-buttons">
         <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
-        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next/Skip</button>
+        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
     </div>
 
     <!-- <div class="nav-previous-qs">
@@ -49,14 +50,17 @@
 
     </div> -->
   </div>
-  <div *ngIf="vals.currentAnswer == undefined" class = "yes">
+
+  <div style="display:flex;flex-direction:row">
+  <div style="width: 50%">
+  <div *ngIf="vals.answer == undefined" class = "yes">
       <h6>Assumptions</h6>
       <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
       <h6>Notes</h6>
       <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
     </div>
 
-  <div *ngIf="vals.currentAnswer == 'Yes'" class = "yes">
+  <div *ngIf="vals.answer == 'Yes'" class = "yes">
       <h6>Objective Evidence</h6>
       <textarea id="aaa objective-evidence-input" class="question-input" [(ngModel)]="vals.objectiveEvidence" placeholder="Enter objective evidence here..."></textarea>
       <h6>Assumptions</h6>
@@ -70,7 +74,7 @@
 
 
 
-    <div *ngIf="vals.currentAnswer == 'No'" class = "no">
+    <div *ngIf="vals.answer == 'No'" class = "no">
       <h3 style="margin-top:30px"><b>ACTION PLAN</b></h3>
 				<!-- SAVE THIS FOR AUTH
       <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">
@@ -102,18 +106,11 @@
 
 
 
+      <!--
       <h6 class="risk-text">Risk</h6>
 
-			<!-- <div>
-
-			</div> -->
       <div class="risk">
 
-				<!--
-        Technical<input class="question-input" name="technical" value="technical" [(ngModel)]="noVals.technical" type="checkbox">
-        Cost<input class="question-input" [(ngModel)]="noVals.cost" type="checkbox">
-        Schedule<input class="question-input" [(ngModel)]="noVals.schedule" type="checkbox">
-				-->
 				        <ion-label class="label"> Technical</ion-label>
 								<ion-checkbox checked="false" id="no-risk-technical-box" [(ngModel)]="vals.technical"></ion-checkbox>
 				        <ion-label class="label"> Cost</ion-label>
@@ -121,6 +118,8 @@
 				        <ion-label class="label"> Schedule</ion-label>
 								<ion-checkbox checked="false" id="no-risk-schedule-box" [(ngModel)]="vals.schedule"></ion-checkbox>
       </div>
+      -->
+      
       <h6>What</h6>
       <textarea class="question-input" id="no-what-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
       <h6>Reason</h6>
@@ -134,7 +133,7 @@
       </div>
 		 </div>
 
-    <div *ngIf="vals.currentAnswer == 'N/A'" class = "na">
+    <div *ngIf="vals.answer == 'N/A'" class = "na">
       <h6>Documentation</h6>
       <textarea class="question-input" id="na-documentation-input"[(ngModel)]="vals.documentation" placeholder="Document why this question is not applicable..."></textarea>
       <hr>
@@ -156,6 +155,111 @@
 		<!-- <img src="../../assets/imgs/redxMark.ico" class="img" (click)="handleFileRemove()"> -->
 	</div>
 </div>
+  </div>
+          <!-- RISK SECTION -->
+          <div class="risk" style="width:50%; display:flex; justify-content: space-between;align-items: flex-start;">
+              <!-- Non-map section -->
+              <div class="dev-border" style="width: 24vw;">
+                <h5 style="padding: 1vw">Risk Assessment</h5>
+              <div style="display: flex; justify-content: space-between; padding: 1vw;">
+
+                <div>
+                  <h6>Likelihood <img (click)="showRiskPopover('likelihood')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
+                  <select [(ngModel)]="vals.likelihood" id="likelihood-input">
+                    <option value="1">1 - Not likely</option>
+                    <option value="2">2 - Low likelihood</option>
+                    <option value="3">3 - Moderate </option>
+                    <option value="4">4 - Highly likely</option>
+                    <option value="5">5 - Near Certainty</option>
+                  </select>
+                </div>
+
+                <div>
+                  <h6>Consequence <img (click)="showRiskPopover('consequence')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
+                  <select [(ngModel)]="vals.consequence" id="consequence-input">
+                    <option value="1">1 - Negligible</option>
+                    <option value="2">2 - Marginal</option>
+                    <option value="3">3 - Moderate</option>
+                    <option value="4">4 - Critical</option>
+                    <option value="5">5 - Catastrophic</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <h6 style="padding: 1vw;"> Risk Score: {{calculateRiskScore()}}</h6>
+              <div *ngIf="calculateRiskScore() > 11">
+                <div style="display:flex; justify-content:space-between; padding:1vw;">
+                  <div style="display:flex; flex-direction:column">
+                    <h6>Greatest Impact</h6>
+                    <select [(ngModel)]="vals.greatestImpact" id="impact-input">
+                      <option value="cost">cost</option>
+                      <option value="schedule">schedule</option>
+                      <option value="performance">performance</option>
+                    </select>
+                  </div>
+                  <div style="display:flex; flex-direction:column">
+                    <h6>Risk Response</h6>
+                    <select [(ngModel)]="vals.riskResponse" id="response-input">
+                      <option value="accept">accept</option>
+                      <option value="transfer">transfer</option>
+                      <option value="avoid">avoid</option>
+                      <option value="mitigate">mitigate</option>
+                    </select>
+                  </div>
+                </div>
+                <h6 style="padding: 1vw; padding-bottom: 1vw;">MMP Summary</h6>
+                <textarea [(ngModel)]="vals.mmpSummary"style="margin-left: 1vw;height: 400px">
+                </textarea>
+              </div>
+              </div>
+              <!-- MATRIX -->
+              <div style="display: flex; align-items:center; justify-content: center;  width: 22vw; height: 22vw;">
+
+                      <!-- This is the matrix, copy-pasted from the component -->
+                      <!-- The ids correlate to the indices for an answer's likelihood and consequence, 
+                           plus the letter 'm' to differentiate the id -->
+                    <table class="risk-matrix-table" style="float:left;">
+                      <tr class="matrix-row">
+                        <th id="51m" class="low-risk-cell"></th>
+                        <th id="52m"class="med-risk-cell"></th>
+                        <th id="53m" class="high-risk-cell"></th>
+                        <th id="54m" class="high-risk-cell"></th>
+                        <th id="55m" class="high-risk-cell"></th>
+                      </tr>
+                      <tr class="matrix-row">
+                        <th id="41m" class="low-risk-cell"></th>
+                        <th id="42m" class="med-risk-cell"></th>
+                        <th id="43m" class="med-risk-cell"></th>
+                        <th id="44m" class="high-risk-cell"></th>
+                        <th id="45m" class="high-risk-cell"></th>
+                      </tr>
+                      <tr class="matrix-row">
+                        <th id="31m" class="low-risk-cell"></th>
+                        <th id="32m" class="low-risk-cell"></th>
+                        <th id="33m" class="med-risk-cell"></th>
+                        <th id="34m" class="med-risk-cell"></th>
+                        <th id="35m" class="high-risk-cell"></th>
+                      </tr>
+                      <tr class="matrix-row">
+                        <th id="21m" class="low-risk-cell"></th>
+                        <th id="22m" class="low-risk-cell"></th>
+                        <th id="23m" class="low-risk-cell"></th>
+                        <th id="24m" class="med-risk-cell"></th>
+                        <th id="25m" class="med-risk-cell"></th>
+                      </tr>
+                      <tr class="matrix-row">
+                        <th id="11m" class="low-risk-cell"></th>
+                        <th id="12m" class="low-risk-cell"></th>
+                        <th id="13m" class="low-risk-cell"></th>
+                        <th id="14m" class="low-risk-cell"></th>
+                        <th id="15m" class="med-risk-cell"></th>
+                      </tr>
+                    </table>
+              </div>
+          </div>
+
+  </div>
 
   <div class="qspacer"> </div>
 

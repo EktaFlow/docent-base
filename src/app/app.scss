@@ -144,6 +144,22 @@ ion-icon {
 
 }
 
+.question-history-popup .popover-content{
+    // margin-top: -50px;
+  width: 800px;
+  height: 500px;
+  padding: 20px;
+}
+
+.risk-popover .popover-content{
+        min-width: 80vw;
+        position: relative;
+        bottom: 0 !important;
+        top:    0 !important;
+        left:   0 !important;
+
+}
+
 @media screen and (max-width: 800px){
     .upload-popover .popover-content {
         position: absolute;
