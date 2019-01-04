@@ -14,6 +14,11 @@ $input-border:#dcdcdc;
     background-color:$input-backgroud;
     border-color: $input-border;
 }
+.risk select {
+    @extend %input-style;
+    height: 30px;
+    width: 9vw;
+}
 %down-arrow{
     background-position: right 50%;
     background-repeat: no-repeat;
@@ -77,7 +82,7 @@ $input-border:#dcdcdc;
     textarea{
         @extend %input-style;
         resize:none;
-        width: 48%;
+        // width: 48%;
     }
     textarea:focus {
         outline:none;
@@ -97,7 +102,7 @@ $input-border:#dcdcdc;
         display: flex;
         flex-direction: row;
         justify-content:space-between;
-        width:48%;
+        // width:48%;
         height: 100%;
         list-style-type: none;
         margin-left: -10px;
@@ -111,7 +116,7 @@ $input-border:#dcdcdc;
         @extend %input-style;
         resize:none;
         height:100%;
-        width: 48%;
+//        width: 48%;
     }
     textarea:focus {
         outline:none;
@@ -130,7 +135,7 @@ $input-border:#dcdcdc;
     textarea{
         @extend %input-style;
         resize:none;
-        width: 48%;
+//        width: 48%;
     }
     textarea:focus {
         outline:none;
@@ -375,3 +380,29 @@ color: black;
     }
 }
 }
+
+	$basic-cell-size: 4vw;
+	%digit-cell{
+		width: $basic-cell-size;
+    height: $basic-cell-size;
+		border: solid black 2px;
+    filter: brightness(120%);
+	}
+
+	.low-risk-cell{
+		background-color: green;
+		@extend %digit-cell;
+	}
+	.med-risk-cell{
+		background-color: yellow;
+		@extend %digit-cell;
+	}
+	.high-risk-cell{
+		background-color: red;
+		@extend %digit-cell;
+	}
+
+  .selected {
+    border: 7px solid black;
+  }
+
