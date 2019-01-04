@@ -54,18 +54,51 @@ query assessment($_id: String) {
 
 export class ActionitemsPage {
 
+	async ngOnInit() {
+		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
+		this.apollo.watchQuery({
+			query: assessmentQuery,
+			variables: {_id: this.assessmentId},
+			fetchPolicy: "network-only"
+			}).valueChanges
+			.subscribe(data => {
+					this.no = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "No");
+					this.attachments = (<any>data.data).assessment.files;
+
+                                        var newData:Array<any> = [];
+        
+                                        this.no.forEach( (element) => { 
+                                            var newObj = {};
+                                            newObj.threadName = "" + element.threadName;
+                                            newObj.subThreadName = "" + element.subThreadName;
+                                            newObj.questionText = "" + element.questionText;
+                                            newObj.currentAnswer = "" + element.currentAnswer;
+                                            newObj.what = "" + element.what;
+                                            newObj.when = "" + element.when;
+                                            newObj.who = "" + element.who;
+                                            newData.push(newObj);
+                                        });
+
+                                        this.data = newData;
+                                        console.log(this.data);
+                                        this.length = this.data.length;
+                                        this.onChangeTable(this.config);
+			});
+	}
+
+
   public rows:Array<any> = [];
   public columns:Array<any> = [
-    {title: 'Level', name: 'mrLevel', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'ID', name: 'questionId', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'When', name: 'when', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Who', name: 'who', filtering: {filterString: '', placeholder: 'Filter by name'}},
+    {title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
+    {title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
+    {title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
+    {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
+    {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
+    {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
+    {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}}
+/*
     {title: 'Risk', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'What', name: 'what', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'Reason', name: 'reason', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'Assumptions', name: 'assumptionsNo', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'Notes', name: 'notesNo', filtering: {filterString: '', placeholder: 'Filter by name'}},
@@ -73,6 +106,7 @@ export class ActionitemsPage {
     {title: 'Schedule', name: 'schedule', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'Cost', name: 'cost', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'Files', name: 'files', filtering: {filterString: '', placeholder: 'Filter by name'}}
+*/
   ];
 
 /*
@@ -105,8 +139,6 @@ export class ActionitemsPage {
     filtering: {filterString: ''},
     className: ['table-striped', 'table-bordered']
   };
-
-  public data:Array<any> = TableData;
 
 
 
@@ -216,35 +248,14 @@ export class ActionitemsPage {
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService) {
-                    this.length = this.data.length;
                 }
 
 	unique = (item, index, array) => array.indexOf(item) == index
 
 	ionViewWillEnter() {
-    GoogleAnalytics.trackPage("actionitems");
+            GoogleAnalytics.trackPage("actionitems");
+        }
 
-
-
-  }
-
-	async ngOnInit() {
-                this.onChangeTable(this.config);
-		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-					this.no = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "No");
-					this.attachments = (<any>data.data).assessment.files;
-                                        //alert(this.no);
-                                        this.data = this.no;
-                                        console.log(this.data);
-			});
-	}
 
 	displayRisks(q) {
 				var risks = [];
