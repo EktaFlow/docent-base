@@ -1,0 +1,70 @@
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
+
+
+<ion-content padding>
+  <br><br><br><br><br><br><br><br><br>
+  <div class = "page-one-info">
+    <p>
+      <b>Target MRL: </b>{{targetMRL}}<br/><br>
+      <b>Target Date: </b> {{targetDate}}<br/><br>
+      <b>Location: </b>{{location}}<br/><br>
+      <b>Team Members: </b>{{team}}<br/><br>
+    </p>
+    <hr>
+  </div>
+  <div class = "survey-info">
+    <li *ngFor = "let question of allQuestions">
+      <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
+				<!-- TODO: These question Text p tags can be re-used <01-08-18, mpf> -->
+        <p (click)="goToQuestion(question.questionId)"style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p class = "box"><b>N/A</b></p>
+          <b>Attachments:</b> {{question.attatchements}}
+					<ul>
+					<ng-container *ngFor = "let file of files">
+						<ng-container *ngIf = "file.questionId == question.questionId">
+							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+						</ng-container>
+					</ng-container>
+					</ul>
+        <hr>
+      </div>
+      <div *ngIf = "question.currentAnswer == 'No'" class = "no">
+        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p class = "box"><b>No</b></p>
+          <b>Attachments:</b>
+					<ul>
+					<ng-container *ngFor = "let file of files">
+						<ng-container *ngIf = "file.questionId == question.questionId">
+							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+						</ng-container>
+					</ng-container>
+					</ul>
+        <hr>
+      </div>
+      <div *ngIf = "question.currentAnswer == 'Yes'" class = "yes">
+        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p class = "box"><b>Yes</b></p>
+        <p>
+				<b>Evidence:</b> {{question.objectiveEvidence}} </p>
+          <b>Attachments:</b>
+					<ul>
+					<ng-container *ngFor = "let file of files">
+						<ng-container *ngIf = "file.questionId == question.questionId">
+							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+						</ng-container>
+					</ng-container>
+					</ul>
+        <hr>
+      </div>
+
+      <div *ngIf = "question.currentAnswer == 'skipped'" class = "skipped">
+        <p (click)="goToQuestion(question.questionId)" style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
+        <p class="box"><b>Unanswered</b></p>
+        <p>
+        </p>
+        <hr>
+      </div>
+    </li>
+  </div>
+</ion-content>
