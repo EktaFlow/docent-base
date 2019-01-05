@@ -32,6 +32,9 @@ export class AddTeamMembersPopOverComponent {
   addNewMember() {
     //access assessment
     //add team member to assessment
+		console.log(this.newMember);
+		console.log("helloooooo");
+
     this.assessmentService.updateTeamMembers(this.assessmentId, this.newMember.email);
 		this.sendEmailsToTeamMember(this.assessmentId);
 

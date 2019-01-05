@@ -52,7 +52,7 @@ $input-border:#dcdcdc;
     color:white;
     margin-left:13px;
 }
-.nav{
+.nav-wrapper{
     display: flex;
     width: 45%;
     justify-content: space-between;
@@ -63,6 +63,11 @@ $input-border:#dcdcdc;
         @extend %input-style;
         @extend %down-arrow;
         -webkit-appearance: none;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
     }
 }
 .choose-one{
@@ -106,7 +111,23 @@ $input-border:#dcdcdc;
         height: 100%;
         list-style-type: none;
         margin-left: -10px;
+
+        .who {
+            display: flex;
+            flex-direction: column;
+
+            #no-who-input {
+                width: 200%;
+            }
+        }
+
+        .when {
+            display: flex;
+            flex-direction: column;
+        }
     }
+
+
     input{
         @extend %input-style;
         width: 100%;
@@ -177,6 +198,11 @@ $input-border:#dcdcdc;
      width: 100%;
   }
 
+  .attach {
+      width:50%;
+      margin:10px 0px 0px 0px;
+  }
+
 .helpButton{
     // display: flex;
     width: 70%;
@@ -237,39 +263,59 @@ $input-border:#dcdcdc;
 
   }
 
-h6 {
-  color: #494949;
-}
+    h6 {
+      color: #494949;
+    }
 
-a {
-color: black;
+    a {
+    color: black;
 
-}
+    }
+  }
+
+  .displayFiles {
+      margin-top: 20px;
+  }
+
+  @media screen and (min-width: 1660px) and (max-width: 2600px){
+      .no {
+          .who-when{
+
+          }
+      }
   }
 
 
 
   @media screen and (max-width: 1024px){
     ion-content {
-        margin-top: 50px;
+        // margin-top: 50px;
         margin-bottom: 100px;
 
     }
 
-    .nav {
+    .nav-q-buttons {
+        // position: absolute;
+        // top: -60px;
+        // left: 10px;
+        position: static;
+        right: clear;
+        top: clear;
+        margin-bottom: 15px;
+        margin-left: 10px;
+
+        width: 100%;
+        button {
+            width: 30%;
+        }
+
+    }
+
+    .nav-wrapper {
         width: 100%;
         position: relative;
 
-        .nav-q-buttons {
-            position: absolute;
-            top: -60px;
-            left: 10px;
-            width: 100%;
-            button {
-                width: 45%;
-            }
 
-        }
     }
 
     .yes {
@@ -369,6 +415,8 @@ color: black;
           padding-top: 65px;
       }
     }
+
+
 
 
 
