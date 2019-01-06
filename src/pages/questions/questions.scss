@@ -408,3 +408,12 @@ color: black;
     border: 7px solid black;
   }
 
+  .file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a {
+      margin-right: 1em;
+    }
+  }
+

@@ -161,9 +161,13 @@
           <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
       </div>
 	<h6>Attachments</h6>
-	<div *ngFor="let file of files" class="file">
-                <p *ngIf="file.questionId == currentQuestion.questionId"><a href={{file.url}}>{{file.name}}</a></p>
-		<!-- <img src="../../assets/imgs/redxMark.ico" class="img" (click)="handleFileRemove()"> -->
+  <div class="file">
+    <ng-container *ngFor="let file of files" class="file">
+      <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
+        <a href={{file.url}}>{{file.name}}</a>
+        <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
+      </div>
+    </ng-container>
 	</div>
 </div>
     <!-- /files display --> 

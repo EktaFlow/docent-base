@@ -8,7 +8,8 @@ import { assessmentQuery,
          updateQuestionMutation,
 				 deleteAssessmentMutation,
          getThreadsQuery,
-         updateTeamMembersMutation	 } from "./gql.service";
+         updateTeamMembersMutation,
+         deleteFileMutation   } from "./gql.service";
 
 @Injectable()
 export class AssessmentService {
@@ -117,5 +118,16 @@ export class AssessmentService {
 			}
 		})
 	}
+
+  async deleteFile(assessmentId, fileId) {
+    console.log('we in delete file in ass service');
+    return await this.apollo.mutate<any>({
+      mutation: deleteFileMutation, 
+      variables: {
+        assessmentId: assessmentId,
+        fileId:       fileId
+      }
+    });
+  }
 
 }

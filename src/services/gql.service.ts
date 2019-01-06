@@ -15,9 +15,6 @@ query assessments($userId: String) {
 	}
 }
 `
-
-
-
 export var createAssessmentMutation = gql`
  mutation createAssessment(
      $threads:     [Int],
@@ -97,9 +94,10 @@ query assessment($_id: String)
 	currentMRL
 	levelSwitching
 	files {
+    id,
 		url,
-                questionId,
-                name
+    questionId,
+    name
 	}
 }
 }
@@ -137,4 +135,12 @@ export var updateTeamMembersMutation = gql`
 			teamMembers
 		}
 	}
+`
+
+export var deleteFileMutation = gql`
+  mutation deleteFile($assessmentId: String, $fileId: String) {
+    deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
+      name  
+    }
+  }
 `

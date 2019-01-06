@@ -24,6 +24,7 @@ import { LegendPopoverComponent } from './legend-popover/legend-popover';
 import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
 import { QuestionHistoryPopoverComponent } from './question-history-popover/question-history-popover';
 import { RiskPopoverComponent } from './risk-popover/risk-popover';
+import { FileDeleteComponent } from './file-delete/file-delete';
 
 @NgModule({
 	declarations: [
@@ -48,7 +49,8 @@ import { RiskPopoverComponent } from './risk-popover/risk-popover';
     LegendPopoverComponent,
     AcronymPopoverComponent,
     QuestionHistoryPopoverComponent,
-    RiskPopoverComponent
+    RiskPopoverComponent,
+    FileDeleteComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -73,7 +75,8 @@ import { RiskPopoverComponent } from './risk-popover/risk-popover';
     LegendPopoverComponent,
     AcronymPopoverComponent,
     QuestionHistoryPopoverComponent,
-    RiskPopoverComponent
+    RiskPopoverComponent,
+    FileDeleteComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -97,7 +100,8 @@ import { RiskPopoverComponent } from './risk-popover/risk-popover';
 				AcronymPopoverComponent,
         PasswordResetComponent,
         QuestionHistoryPopoverComponent,
-        RiskPopoverComponent
+        RiskPopoverComponent,
+        FileDeleteComponent
     ]
 })
 

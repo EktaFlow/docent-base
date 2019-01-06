@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AuthService } from "../../services/auth.service";
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
+import { FileDeleteComponent } from '../../components/file-delete/file-delete';
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover';
 
 
@@ -134,8 +135,33 @@ export class QuestionsPage {
 	}
 
   showRiskPopover(highlight) {
-        console.log(highlight); 
         this.popoverController.create(RiskPopoverComponent, {highlight: highlight}, {cssClass: 'risk-popover'}).present();
+  }
+
+  /** 
+  * on clicking the minus button next to a file.
+  * - create emitter to pass data up from popover
+  * - launch FileDelete popover, ask user to verify delete
+  * - delete happens on FileDelete / or doesn't
+  * - update DOM, assessment Object if file deleted
+  */
+  handleRemoveFileClick(event, fileId) {
+    var removeFileEmitter = new EventEmitter();
+    removeFileEmitter.subscribe( event => {
+      // remove the file from the view after its been deleted from db
+      var files = JSON.parse(JSON.stringify(this.files));
+      files = files.filter( file => file.id != fileId );
+      this.files = files;
+    });
+
+    var fileDeleteData = {
+      emitter:      removeFileEmitter,
+      assessmentId: this.assessmentId,
+      fileId:       fileId
+    }
+
+    this.popoverController.create(FileDeleteComponent, fileDeleteData)
+                          .present({ev: event});
   }
 
 	///////////////////////// next / prev / etc /////////////////////////////
