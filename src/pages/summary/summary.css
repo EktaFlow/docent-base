@@ -16,3 +16,12 @@ table td {
     background-color: white;
     -moz-border-radius: ;
 }
+
+table th {
+    border-width: 1px;
+    padding: 1px;
+    border-style: inset;
+    border-color: gray;
+    background-color: white;
+    -moz-border-radius: ;
+}

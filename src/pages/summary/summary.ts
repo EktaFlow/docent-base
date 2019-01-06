@@ -61,6 +61,7 @@ export class SummaryPage {
         threads = {};
         threadsArr = [];
 	pageName: any = "MRL Summary";
+        bgColor = "green";
 
 
 
@@ -101,47 +102,93 @@ export class SummaryPage {
                             //also use arrays because that is how .html file can iterate 
                             var threads = {};
                             var threadsArr = [];
+
+                           //create threads object with all the right data
+                            //also use arrays because that is how .html file can iterate
+                            var threads = {};
+                            var threadsArr = [];
                             questions.forEach(q => {
-                                if (threadsArr.indexOf(q.threadName) > -1) {
+                                if (threadsArr.indexOf(q.subThreadName) > -1) {
                                 } else {
+                                    //weed out troubling "" thread/subthread
                                     if (q.threadName.length>0) {
-                                        threadsArr.push(q.threadName);
-                                    }
-                                }
-       
+                                        threadsArr.push(q.subThreadName);
+                                        threads[q.subThreadName] = {};
+                                        threads[q.subThreadName]["threadName"] = q.threadName;
+                                        threads[q.subThreadName]["riskScores"] = {};
 
+                                        //calculate criteria scores, but only for criteria below target MRL
+                                        //todo mix this back in later
+                                        //if (q.mrLevel <= this.targetMRL) {
 
-                                //weed out troubling "" thread 
-                                if (q.threadName.length>0) {
-                                    if (!threads[q.threadName]) { 
-                                        threads[q.threadName] = {};
-                                    }
-                                    threads[q.threadName]["name"] = q.threadName; 
+                                            //get last item in answers array
+                                            //this is the current answer
+                                            var cur;
+                                            q.answers.forEach (a => { cur = a; });
+                                            if (typeof(cur) != "undefined") {
+                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence); 
+                                                if (!threads[q.subThreadName]["riskScores"][q.mrLevel]) {
+                                                    threads[q.subThreadName]["riskScores"][q.mrLevel] = [];
+                                                } 
+                                                threads[q.subThreadName]["riskScores"][q.mrLevel].push(score);
+                                            }
+                                        //}
 
-                                    //setup subthreads
-                                    if (!threads[q.threadName][q.subThreadName]) { 
-                                        threads[q.threadName][q.subThreadName] = {};
-                                    }
-                                    threads[q.threadName][q.subThreadName] = q.subThreadName;
-
-                                    if (typeof threads[q.threadName]["subThreads"] !== 'undefined' && 
-                                        threads[q.threadName]["subThreads"].length > 0) {
-                                    } else {
-                                        threads[q.threadName]["subThreads"] = [];
-                                    }
-
-                                    //make sure we're building subThreads array without dups
-                                    if (threads[q.threadName]["subThreads"].indexOf(q.subThreadName) > -1) {
-                                    } else {
-                                        threads[q.threadName]["subThreads"].push(q.subThreadName);
                                     }
                                 }
 
                           });
+
+                          //now aggregate all the scores and find the max
+                          console.log(threads);
+
+                          for (var sub in threads) {
+                            if (threads.hasOwnProperty(sub)) {
+                                for (var mrl in threads[sub]["riskScores"]) {
+                                    if (threads[sub]["riskScores"].hasOwnProperty(mrl)) {
+                                        if (!threads[sub]["aggRisk"]) {
+                                            threads[sub]["aggRisk"] = [];
+                                        }
+
+                                        if (threads[sub]["riskScores"][mrl].length < 1) {
+                                            threads[sub]["aggRisk"][mrl] = "";
+                                        } else {
+                                            threads[sub]["aggRisk"][mrl] = Math.max.apply(null, threads[sub]["riskScores"][mrl]);
+                                        }
+
+                                        if (!threads[sub]["aggRiskColor"]) { 
+                                            threads[sub]["aggRiskColor"] = [];
+                                        }
+
+                                        threads[sub]["aggRiskColor"][mrl] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
+                                        console.log(threads[sub]["aggRiskColor"][mrl]);
+                                    } else {
+                                        threads[sub]["aggRisk"][mrl] = "";
+                                        threads[sub]["aggRiskColor"][mrl] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
+                                    }
+                                }
+                            }
+                          }
+
+                          for (var sub in threads) {
+                            if (threads.hasOwnProperty(sub)) {
+                                if (typeof(threads[sub]["aggRisk"]) == "undefined") { threads[sub]["aggRisk"] = []; }
+                                if (typeof(threads[sub]["aggRiskColor"]) == "undefined") { threads[sub]["aggRiskColor"] = []; }
+                    
+                                for (var i = 0; i< 10; ++i) {
+                                    if (typeof(threads[sub]["aggRisk"][i]) == "undefined") {
+                                        threads[sub]["aggRisk"][i] = "";
+                                        threads[sub]["aggRiskColor"][i] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
+                                    }
+                                }
+                            }
+                          }
+
+                       
+                            
+                          console.log(threads);
                           this.threads = threads;
                           this.threadsArr = threadsArr;
-                          console.log("DEBUG A");
-                          console.log(this.threads);
 
 		});
 	}
@@ -176,6 +223,20 @@ export class SummaryPage {
       return " ";
     }
   }
+
+    public getRiskColor(score) {
+        if (score<=0) { 
+            return "white";
+        } else if (score <= 11) { 
+            return "green";
+        } else if (score <= 20) {
+            return "yellow";
+        } else if (score <= 25) {
+            return "red";
+        } else {
+            return "white";
+        }
+    }
 
 
 
