@@ -145,6 +145,12 @@ export class CriteriaPage {
 		}
 
 	}
+
+	clearFilter() {
+			this.filterList.filterMRL = 0;
+			this.filterTheList();
+		}
+		
 	expandAllThreads() {
 		this.showAll = !this.showAll;
 	}
