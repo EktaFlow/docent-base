@@ -3,7 +3,7 @@
 </topbar>
 
 <ion-content padding>
-  <br><br><br><br><br>
+  <!-- <br><br><br><br><br> -->
   <hr>
 
 
@@ -17,12 +17,19 @@
   </div>
   <button style="margin-left: 45vw;"ion-button color="buttonBlue" (click)="saveXLS()" id="previous-button">Save to .XLS</button>
 </div>
+
 <br>
+
+<div class="table">
 <ng-table [config]="config"
           (tableChanged)="onChangeTable(config)"
           (cellClicked)="onCellClick($event)"
           [rows]="rows" [columns]="columns">
 </ng-table>
+</div>
+
+<div class="qspacer"></div>
+
 <!--
 <pagination *ngIf="config.paging"
             class="pagination-sm"
