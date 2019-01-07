@@ -8,6 +8,7 @@ import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
+import { SummaryPage } from '../../pages/summary/summary';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
@@ -115,8 +116,8 @@ export class ViewsComponent {
 		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
 		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
 		handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-
-    handleNewAssessment() {this.navCtrl.push(this.homePage);}
+                handleNewAssessment() {this.navCtrl.push(this.homePage);}
+		handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
 
 
 

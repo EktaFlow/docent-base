@@ -35,6 +35,7 @@ import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
 import { ResetPageModule } from '../pages/reset/reset.module';
+import { SummaryPageModule } from '../pages/summary/summary.module';
 
 
 
@@ -67,6 +68,7 @@ import { BackUrl } from  "../services/constants";
 		DefinitionsPageModule,
 		FaqsPageModule,
 		ReviewPageModule,
+		SummaryPageModule,
 		DashboardPageModule,
 		NavigatePageModule,
 		NotapplicablePageModule,

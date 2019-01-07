@@ -282,7 +282,7 @@ export class QuestionsPage {
 		var { questionId } = this.currentQuestion;
 
 		if (!this.surveyQuestions.includes(this.currentQuestion.questionId)) {
-			alert("what is the order when a rando question gets added in?");
+			//alert("what is the order when a rando question gets added in?");
 			this.currentQuestion = this.getQuestion(this.surveyQuestions[0]);
 		}
 		else {
