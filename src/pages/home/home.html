@@ -1,9 +1,11 @@
 <title>Docent</title>
 
-<topbar [blank]="true"></topbar>
-	<ng-container *ngIf="auth.isLoggedIn()">
-		<topbar></topbar>
-	</ng-container>
+<ng-container *ngIf="!auth.isLoggedIn()">
+  <topbar [blank]="true"></topbar>
+</ng-container>
+<ng-container *ngIf="auth.isLoggedIn()">
+	<topbar></topbar>
+</ng-container>
 
 
 <ion-content padding>
@@ -38,14 +40,14 @@
 </ng-container>
 
 <ng-container *ngIf="auth.isLoggedIn()">
-	<div class="desktop">
+	<!-- <div class="desktop">
 		<br>
 	  <br>
 
 	</div>
     <br>
     <br>
-    <br>
+    <br> -->
 
 
   <h1>Start New Assessment</h1>
