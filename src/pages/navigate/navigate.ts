@@ -156,15 +156,14 @@ export class NavigatePage {
 		// this.filteredSchema = filtered;
 	}
 
+	clearFilter() {
+		this.filterList.filterMRL = 0;
+		this.filterTheList();
+	}
+
 expandAllThreads() {
 	this.showAll = !this.showAll;
 }
-
-	clearFilter() {
-			this.filterList.filterMRL = 0;
-			this.filterTheList();
-		}
-
 
   changeState(segment){
 		segment.cool = !segment.cool;

@@ -217,5 +217,11 @@ constructor( public popOver: PopoverController,
 		this.infoShow = !this.infoShow;
 	}
 
+	presentQuestionHistory(){
+		this.popOver.create(QuestionHistoryPopoverComponent, {assessmentId: this.assessmentId}, {cssClass: 'q-history-popover'})
+		.present();
+
+	}
+
 
 }

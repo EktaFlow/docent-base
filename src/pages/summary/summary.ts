@@ -14,7 +14,7 @@ query assessment($_id: String) {
 	assessment(_id: $_id) {
                 deskbookVersion
                 name
-		id
+		# id
 		teamMembers
 	        targetMRL
 	        targetDate

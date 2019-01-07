@@ -183,4 +183,13 @@ page-dashboard {
           // margin-top: 160px;
         }
       }
+      .legend {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              div {
+                      margin-right: 1vw;
+                      margin-left: 1vw;
+              }
+      }
 }

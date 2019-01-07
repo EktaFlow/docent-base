@@ -15,6 +15,10 @@
     </div>
 
     <p>List of Deskbook Version the user has uploaded</p>
+    <div>
+      <!-- <span class="delete" (click)="deleteFile(file)">X</span> -->
+      <p *ngFor="let file of userFiles">{{file}} </p>
+    </div>
   </div>
 
 </ion-content>

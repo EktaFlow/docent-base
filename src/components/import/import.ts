@@ -43,11 +43,12 @@ export class ImportComponent {
 
 	loadAssessment(assessment) {
 	this.apollo.mutate({
+		//this was mutation: load - but the only "importing" mutation in the back was called importAssessment
 		mutation: load,
 		variables: {
-			import: assessment	
+			import: assessment
 		}
-		}).subscribe( data => { 
+		}).subscribe( data => {
 				console.log(data.data.importAssessment._id);
 				this.navController.push(QuestionsPage, { data: data.data.importAssessment._id })})
 
@@ -58,7 +59,7 @@ export class ImportComponent {
 
 		var fileObject = {
 			size: file.size,
-			name: file.name, 
+			name: file.name,
 			lastModified: file.lastModifiedDate
 		}
 

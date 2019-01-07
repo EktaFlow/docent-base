@@ -6,12 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
 import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { AuthService } from "../../services/auth.service";
 
 
 
 
 
-// import { UserDashboardPage } from "../user-dashboard/user-dashboard";
+
 
 
 @IonicPage()
@@ -23,23 +24,47 @@ export class SettingsPage {
   // public popoverController: PopoverController
 
   constructor(public navCtrl: NavController,
-	            private popoverController: PopoverController,
-                    public navParams: NavParams,
-                    private http: HttpClient,
-                  public popover: PopoverController ) {
-                      this.user = navParams.data.user;
-                      console.log(navParams.data.user);
+	                private popoverController: PopoverController,
+                  public navParams: NavParams,
+                  private http: HttpClient,
+                  public popover: PopoverController,
+                  private auth: AuthService ) {
+                      // this.user = navParams.data.user;
+                      // console.log(navParams.data.user);
 
   }
 
   downloadJsonHref: any;
-  files: any;
-  user: any;
+  files: any = [];
+  currentUser: any;
   pageName: any = "Settings";
+  userFiles: any = [];
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("settings");
   }
+
+  async ngOnInit(){
+    this.currentUser = await this.auth.currentUser();
+    for (let file of this.currentUser.jsonFiles){
+			var currentFile = JSON.parse(file);
+      console.log(currentFile);
+      console.log(currentFile.fileName);
+			this.userFiles.push(currentFile.fileName);
+		}
+    console.log(this.userFiles);
+
+  }
+
+  // deleteFile(file){
+  //   for (let jsonFile of this.currentUser.jsonFiles){
+  //     if (file == JSON.parse(jsonFile).fileName){
+  //
+  //     }
+  //   }
+  // }
+
+
 
   goBackToUser(){ this.navCtrl.pop()};
 
@@ -64,6 +89,7 @@ export class SettingsPage {
 			let myEmitter = new EventEmitter<any>();
 				myEmitter.subscribe( v =>  {
 				this.files.push(v);
+        this.userFiles.push(v.fileName);
         console.log(this.files);
 			});
 
