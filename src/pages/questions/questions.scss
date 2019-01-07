@@ -93,22 +93,12 @@ $input-border:#dcdcdc;
 .no{
     display: flex;
     flex-direction: column;
-    //justify-content: space-between;
+    justify-content: space-between;
     height: 80%;
-    div {
-      margin-bottom: 1em;
-    }
     ion-icon{
         font-size:20px;
     }
-    .who-when{
-        display: flex;
-        flex-direction: row;
-        justify-content:space-between;
-        min-height: max-content;
-        //list-style-type: none;
-        margin-left: -10px;
-    }
+
     input{
         @extend %input-style;
         width: 100%;
@@ -117,14 +107,63 @@ $input-border:#dcdcdc;
     textarea{
         @extend %input-style;
         resize:none;
-        height:5vw;
-//        width: 48%;
+        height:100%;
+    //        width: 48%;
     }
     textarea:focus {
         outline:none;
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
     }
+    .who-when{
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        // width:48%;
+        height: 100%;
+        list-style-type: none;
+        // margin-left: -10px;
+
+        .who {
+            display: flex;
+            flex-direction: column;
+
+            #no-who-input {
+                width: 150%;
+                height: 40px;
+            }
+        }
+
+        .when {
+            display: flex;
+            flex-direction: column;
+
+            #no-who-input {
+                padding: 15px;
+            }
+        }
+
+
+    }
+
+    .what {
+        margin-top: 70px;
+    }
+
+    .reason {
+        margin-top: 10px;
+    }
+
+    .no-assumptions{
+        margin-top: 10px;
+    }
+
+    .no-notes {
+        margin-top: 10px;
+    }
+
+
+
     .up-btn{
         width:10%;
     }
@@ -416,4 +455,3 @@ color: black;
       margin-right: 1em;
     }
   }
-
