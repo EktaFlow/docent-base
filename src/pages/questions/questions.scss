@@ -142,8 +142,9 @@ $input-border:#dcdcdc;
             display: flex;
             flex-direction: column;
 
-            #no-who-input {
-                padding: 15px;
+            #no-when-input {
+                height: 40px;
+                // padding: 15px;
             }
         }
 
@@ -151,7 +152,7 @@ $input-border:#dcdcdc;
     }
 
     .what {
-        margin-top: 70px;
+        margin-top: 10px;
     }
 
     .reason {
@@ -214,7 +215,7 @@ $input-border:#dcdcdc;
 }
   .qspacer {
     font-size: 0;
-    height: 220px;
+    height: 250px;
     line-height: 0;
     border: 0px;
     /* testing only */

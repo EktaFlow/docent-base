@@ -106,18 +106,41 @@ export class ViewsComponent {
 		}
 
 		handleSkipped() {
-			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId})
+			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
+			this.close();
 		}
 		handleNa()	{
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
+			this.close();
 		}
-		handleContinue = () => this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
-		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
-		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
-		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
-		handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-                handleNewAssessment() {this.navCtrl.push(this.homePage);}
-		handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
+		handleContinue(){
+			this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleActions(){
+			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleReview(){
+			this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleNavigate(){
+			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleDashboard(){
+			this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleSummary(){
+			this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
+		}
+		handleNewAssessment() {
+			this.navCtrl.push(this.homePage);
+			this.close();
+		}
+
 
 
 
