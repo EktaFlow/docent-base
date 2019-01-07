@@ -141,10 +141,11 @@ constructor( public popOver: PopoverController,
 			questionId: this.questionId
 		}
 
+    /*
 		var update = await this.assessmentService.updateQuestion(updateInfo);
-		update.subscribe(data =>
-			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}));
-
+		update.subscribe(data => );
+    */
+    this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 	}
 
 
