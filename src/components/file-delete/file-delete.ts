@@ -12,6 +12,7 @@ export class FileDeleteComponent {
 
   assessmentId: string;
   fileId: string;
+  emitter: any;
 
   constructor( private navParams:         NavParams,
                private viewController:    ViewController,
