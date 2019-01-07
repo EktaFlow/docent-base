@@ -165,12 +165,6 @@ expandAllThreads() {
 	this.showAll = !this.showAll;
 }
 
-	clearFilter() {
-			this.filterList.filterMRL = 0;
-			this.filterTheList();
-		}
-
-
   changeState(segment){
 		segment.cool = !segment.cool;
     // this.state[index] = !this.state[index];
