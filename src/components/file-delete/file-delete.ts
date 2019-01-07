@@ -14,6 +14,8 @@ export class FileDeleteComponent {
   fileId: string;
   emitter: any;
 
+  typeToDelete: string;
+
   constructor( private navParams:         NavParams,
                private viewController:    ViewController,
                private assessmentService: AssessmentService,
@@ -22,7 +24,7 @@ export class FileDeleteComponent {
     this.assessmentId = this.navParams.get('assessmentId');
     this.fileId       = this.navParams.get('fileId');
     this.emitter      = this.navParams.get('emitter');
-    //    console.log(this.assessmentId, this.fileId, this.emitter);
+    this.typeToDelete = this.navParams.get('typeToDelete');
   }
 
   async deleteFile() {
@@ -36,6 +38,11 @@ export class FileDeleteComponent {
     });
     // launch toast?
     // this.closePopover();
+  }
+
+  async delete() {
+    this.emitter.emit(true);
+    this.closePopover();
   }
 
   closePopover() {
