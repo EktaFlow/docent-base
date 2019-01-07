@@ -2,13 +2,13 @@ page-actionitems {
 
 
     ion-content {
-    fixed-content{
+    .fixed-content{
       margin-top: 100px;
-      scroll-content{
+      .scroll-content{
         margin-top: 100px;
       }
     }
-  }
+}
     .toolbar-class{
         header{
             color:#000;

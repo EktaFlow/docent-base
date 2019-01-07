@@ -1,10 +1,10 @@
 page-user-dashboard {
 
   ion-content {
-    fixed-content {
+    .fixed-content {
       margin-top: 50px;
 
-      scroll-content {
+      .scroll-content {
         margin-top: 50px;
       }
     }
@@ -93,7 +93,7 @@ page-user-dashboard {
   .assessment-boxes {
     width: 98%;
     position: absolute;
-    top: 250px;
+    top: 200px;
     left: 40px;
     vertical-align: top;
 
@@ -181,6 +181,8 @@ page-user-dashboard {
   .mobile {
     display: none;
   }
+
+
 
 
 
@@ -304,13 +306,7 @@ page-user-dashboard {
       width: 35%;
     }
 
-    .qspacer {
-        font-size: 0;
-        height: 250px;
-        line-height: 0;
-        border: 0px;
-         width: 100%;
-    }
+
 
 
 
@@ -341,6 +337,14 @@ page-user-dashboard {
     }
 
 
+  }
+
+  .qspacer {
+      font-size: 0;
+      height: 250px;
+      line-height: 0;
+      border: 0px;
+       width: 100%;
   }
 
 
