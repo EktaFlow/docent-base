@@ -1,4 +1,9 @@
 page-review {
+
+    ion-content {
+      margin-top: 60px;
+    }
+
     $input-backgroud:#fbfbfb;
     $input-border:#dcdcdc;
     %input-style{
@@ -96,10 +101,20 @@ page-review {
             background-color:lightgrey;
             color:white;
             border-radius:3px;
-            width:7%;
+            width:15%;
             text-align: center;
         }
     }
+
+    .qspacer {
+    font-size: 0;
+    height: 250px;
+    line-height: 0;
+    border: 0px;
+    /* testing only */
+     // border: 1px solid red;
+     width: 100%;
+  }
 
     @media screen and (max-width: 1024px){
 
