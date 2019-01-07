@@ -214,7 +214,7 @@ $input-border:#dcdcdc;
 }
   .qspacer {
     font-size: 0;
-    height: 200px;
+    height: 220px;
     line-height: 0;
     border: 0px;
     /* testing only */
@@ -504,6 +504,8 @@ color: black;
 
     .qspacer {
         background-color: transparent;
+        height: 160px;
+
     }
 
     .risk {
