@@ -42,7 +42,7 @@
           <h1 class="page-name" id="page-name">{{pageName}}</h1>
         </div>
 
-      	<div *ngIf="assessmentId && noSecondBar != false && !infoShow && !pageName" class="subheader">
+      	<div *ngIf="assessmentId && noSecondBar != false && infoShow && !pageName" class="subheader">
           <div *ngIf="mainTitle">
             <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover">SubThread: {{this.subTitle}}</span></p>
             <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
