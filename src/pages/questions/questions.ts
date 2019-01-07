@@ -156,6 +156,7 @@ export class QuestionsPage {
 
     var fileDeleteData = {
       emitter:      removeFileEmitter,
+      typeToDelete: 'file',
       assessmentId: this.assessmentId,
       fileId:       fileId
     }
