@@ -31,15 +31,15 @@ table th {
 
 
 <ion-content padding>
-  <br><br><br><br><br><br><br><br><br>
+  <br><br>
   <div class = "page-one-info">
-    <p>
-      <b>Target MRL: </b>{{targetMRL}}<br/><br>
-      <b>Target Date: </b> {{targetDate}}<br/><br>
-      <b>Location: </b>{{location}}<br/><br>
-      <b>Team Members: </b>{{team}}<br/><br>
-      <b>Scope: </b>{{scope}}<br/><br>
-    </p>
+    <table><tr><td> <b>Target MRL: </b>{{targetMRL}}</td>
+      <td><b>Target Date: </b> {{targetDate}}</td>
+    </tr><tr>
+      <td><b>Location: </b>{{location}}</td>
+      <td><b>Team Members: </b>{{team}}</td>
+      </tr><tr><td> <b>Scope: </b>{{scope}}</td>
+    </tr></table>
     <hr>
   </div>
 
@@ -49,7 +49,7 @@ table th {
 
     <tr>
         <th colspan="7" style="width:100%; text-align: center; border-color: 1px solid black;"> 
-            MRL 6 Criteria Summary
+            MRL {{targetMRL}} Criteria Summary
         </th>
     </tr>
 
@@ -69,14 +69,14 @@ table th {
 
 
 
-            <td style="border: 1px solid black;"><font color="red">{{threads[subThread]["threadName"]}}</font></td>
-            <td style="border: 1px solid black;"><font color="blue">{{subThread}}</font></td>
+            <td style="border: 1px solid black;"><font color="black">{{threads[subThread]["threadName"]}}</font></td>
+            <td style="border: 1px solid black;"><font color="black">{{subThread}}</font></td>
 
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][1]}">{{threads[subThread]['aggRisk'][1]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][2]}">{{threads[subThread]['aggRisk'][2]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][3]}">{{threads[subThread]['aggRisk'][3]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][4]}">{{threads[subThread]['aggRisk'][4]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][5]}">{{threads[subThread]['aggRisk'][5]}}&nbsp;</td>
+            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][1]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][1]}}&nbsp;</td>
+            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][2]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][2]}}&nbsp;</td>
+            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][3]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][3]}}&nbsp;</td>
+            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][4]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][4]}}&nbsp;</td>
+            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][5]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][5]}}&nbsp;</td>
     </tr>   
 
 </table>

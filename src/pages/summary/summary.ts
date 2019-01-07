@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
-import { ViewsComponent } from '../../components/views/views';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
+import { QuestionsPage } from "../questions/questions";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -12,7 +12,6 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
-
                 deskbookVersion
                 name
 		id
@@ -103,12 +102,24 @@ export class SummaryPage {
                             var threads = {};
                             var threadsArr = [];
 
+
                            //create threads object with all the right data
                             //also use arrays because that is how .html file can iterate
                             var threads = {};
                             var threadsArr = [];
                             questions.forEach(q => {
                                 if (threadsArr.indexOf(q.subThreadName) > -1) {
+                                            var cur;
+                                            q.answers.forEach (a => { cur = a; });
+                                            if (typeof(cur) != "undefined") {
+                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence); 
+                                                if (!threads[q.subThreadName]["riskScores"][q.mrLevel]) {
+                                                    threads[q.subThreadName]["riskScores"][q.mrLevel] = [];
+                                                } 
+                                                threads[q.subThreadName]["riskScores"][q.mrLevel].push(score);
+                                            }
+
+
                                 } else {
                                     //weed out troubling "" thread/subthread
                                     if (q.threadName.length>0) {
@@ -139,9 +150,8 @@ export class SummaryPage {
 
                           });
 
-                          //now aggregate all the scores and find the max
-                          console.log(threads);
 
+                          //now aggregate all the scores and find the max
                           for (var sub in threads) {
                             if (threads.hasOwnProperty(sub)) {
                                 for (var mrl in threads[sub]["riskScores"]) {
@@ -151,7 +161,7 @@ export class SummaryPage {
                                         }
 
                                         if (threads[sub]["riskScores"][mrl].length < 1) {
-                                            threads[sub]["aggRisk"][mrl] = "";
+                                            threads[sub]["aggRisk"][mrl] = " ";
                                         } else {
                                             threads[sub]["aggRisk"][mrl] = Math.max.apply(null, threads[sub]["riskScores"][mrl]);
                                         }
@@ -161,15 +171,15 @@ export class SummaryPage {
                                         }
 
                                         threads[sub]["aggRiskColor"][mrl] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
-                                        console.log(threads[sub]["aggRiskColor"][mrl]);
                                     } else {
-                                        threads[sub]["aggRisk"][mrl] = "";
+                                        threads[sub]["aggRisk"][mrl] = " ";
                                         threads[sub]["aggRiskColor"][mrl] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
                                     }
                                 }
                             }
                           }
 
+                          //fill in everyone with no answer and thus no score
                           for (var sub in threads) {
                             if (threads.hasOwnProperty(sub)) {
                                 if (typeof(threads[sub]["aggRisk"]) == "undefined") { threads[sub]["aggRisk"] = []; }
@@ -177,16 +187,32 @@ export class SummaryPage {
                     
                                 for (var i = 0; i< 10; ++i) {
                                     if (typeof(threads[sub]["aggRisk"][i]) == "undefined") {
-                                        threads[sub]["aggRisk"][i] = "";
-                                        threads[sub]["aggRiskColor"][i] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
+                                        threads[sub]["aggRisk"][i] = " ";
+                                        threads[sub]["aggRiskColor"][i] = this.getRiskColor(threads[sub]["aggRisk"][i]);
                                     }
                                 }
                             }
                           }
 
+                          //final cheap hack to backfill 3 or below 
+                          //todo: get full logic from AFRL/Jordan
+                          var highest;
+                          for (var sub in threads) {
+                                highest = null;
+                                for (var i = 4; i > 0; --i) {
+                                    if (threads[sub]["aggRisk"][i] != " ") {
+                                        var highest = threads[sub]["aggRisk"][i];
+                                    } else {
+                                        if (highest) {
+                                            threads[sub]["aggRisk"][i] = highest;
+                                            threads[sub]["aggRiskColor"][i] = this.getRiskColor(threads[sub]["aggRisk"][i]);
+                                        }
+                                    }
+                                }
+
+                          }
                        
                             
-                          console.log(threads);
                           this.threads = threads;
                           this.threadsArr = threadsArr;
 
@@ -220,7 +246,7 @@ export class SummaryPage {
 
       return riskMatrix[likelihoodIndex][consequenceIndex]; 
     } else {
-      return " ";
+      return "";
     }
   }
 
@@ -228,11 +254,11 @@ export class SummaryPage {
         if (score<=0) { 
             return "white";
         } else if (score <= 11) { 
-            return "green";
+            return "lightgreen";
         } else if (score <= 20) {
             return "yellow";
         } else if (score <= 25) {
-            return "red";
+            return "#F75D59";
         } else {
             return "white";
         }
