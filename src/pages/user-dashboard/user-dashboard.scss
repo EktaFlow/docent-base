@@ -1,6 +1,14 @@
 page-user-dashboard {
 
+  ion-content {
+    fixed-content {
+      margin-top: 50px;
 
+      scroll-content {
+        margin-top: 50px;
+      }
+    }
+  }
   .first-bar {
     width: 100%;
     background-color: black;

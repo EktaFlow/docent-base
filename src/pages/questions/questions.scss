@@ -1,4 +1,13 @@
 page-questions {
+
+  ion-content {
+    fixed-content{
+      margin-top: 200px;
+      scroll-content{
+        margin-top: 200px;
+      }
+    }
+  }
 $input-backgroud:#fbfbfb;
 $input-border:#dcdcdc;
 %input-style{
@@ -259,7 +268,7 @@ $input-border:#dcdcdc;
     // margin: 0;
     position: fixed;
     right: 10px;
-    top: 10px;
+    top: 240px;
   }
 
   .nav-previous-qs {

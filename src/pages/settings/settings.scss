@@ -5,6 +5,15 @@ page-settings {
   //   margin-left: 30px;
   // }
 
+  ion-content {
+    fixed-content{
+      margin-top: 100px;
+      scroll-content{
+        margin-top: 100px;
+      }
+    }
+  }
+
   .wrapper {
       width: 100%;
       margin-top: 100px;

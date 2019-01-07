@@ -1,6 +1,13 @@
 page-definitions {
+
+
   ion-content {
-    // margin-top: 130px;
+    fixed-content{
+      margin-top: 100px;
+      scroll-content{
+        margin-top: 100px;
+      }
+    }
   }
   @media screen and (max-width: 1024px){
         ion-content {
