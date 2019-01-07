@@ -1,10 +1,14 @@
 page-acronyms {
 
   ion-content {
-    margin-top: 130px;
+    // margin-top: 130px;
   }
   .desktop {
 
+  }
+
+  .label {
+    color: black;
   }
 
   .mobile {
@@ -13,7 +17,7 @@ page-acronyms {
 
   @media screen and (max-width: 1024px){
     ion-content {
-      margin-top: 120px;
+      // margin-top: 120px;
     }
     .desktop {
       display: none;
@@ -35,9 +39,5 @@ page-acronyms {
           }
   }
 
-  @media screen and (min-width: 420px) and (max-width: 1024px){
-    ion-content {
-      margin-top: 140px;
-    }
-  }
+
 }
