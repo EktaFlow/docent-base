@@ -45,6 +45,24 @@ export class AssessmentService {
 			}).valueChanges;
 	}
 
+  /**
+  *   The purpose of this function is to [].
+  *   @query = a `gql` formatted string that contains a query 
+  * 
+  *   return: Observable
+  */
+  async getAssessment(query, assessmentId: String) {
+  // console.log('we in get Assessment');
+    //  console.log(query, assessmentId);
+
+    return await this.apollo.watchQuery<any>({
+            query: query,
+            variables: {
+              _id: assessmentId
+            }
+    }).valueChanges;
+  }
+
 	async getSharedAssessments(userId) {
 	/*
 		return await this.apollo.watchQuery<any>({

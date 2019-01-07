@@ -7,6 +7,7 @@ import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
+import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 
@@ -165,6 +166,13 @@ export class UserDashboardPage {
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
 
   handleSettings(){ this.navCtrl.push(SettingsPage);}
+
+  async handleEditAssessmentClick(assessmentId) {
+    await this.assessmentService.setCurrentAssessmentId(assessmentId);
+
+    // Go to page to edit assessment.
+    this.navCtrl.push(EditAssessmentPage, {page: 'edit'});
+  }
 
 	toggleMine = () => {this.showMine = !this.showMine;}
 	toggleShared = () => {this.showShared = !this.showShared;}
