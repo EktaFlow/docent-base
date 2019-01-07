@@ -25,6 +25,8 @@ query assessment($_id: String) {
 		when
 		who
 		risk
+                consequence
+                likelihood
 		what
 		reason
 		assumptionsNo
@@ -86,6 +88,10 @@ export class ActionitemsPage {
                                             newObj.what = "" + element.answers[element.answers.length - 1].what;
                                             newObj.when = "" + element.answers[element.answers.length - 1].when;
                                             newObj.who = "" + element.answers[element.answers.length - 1].who;
+
+                                            var cur = element.answers[element.answers.length - 1];
+console.log(element);
+                                            newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
                                             newData.push(newObj);
                                         });
 
@@ -105,34 +111,10 @@ export class ActionitemsPage {
     {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
     {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
     {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
-    {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}}
-/*
-    {title: 'Risk', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Reason', name: 'reason', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Assumptions', name: 'assumptionsNo', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Notes', name: 'notesNo', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Technical', name: 'technical', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Schedule', name: 'schedule', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Cost', name: 'cost', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {title: 'Files', name: 'files', filtering: {filterString: '', placeholder: 'Filter by name'}}
-*/
+    {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
+    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by owner'}}
   ];
 
-/*
-  public columns:Array<any> = [
-    {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
-    {
-      title: 'Position',
-      name: 'position',
-      sort: false,
-      filtering: {filterString: '', placeholder: 'Filter by position'}
-    },
-    {title: 'Office', className: ['office-header', 'text-success'], name: 'office', sort: 'asc'},
-    {title: 'Extn.', name: 'ext', sort: '', filtering: {filterString: '', placeholder: 'Filter by extn.'}},
-    {title: 'Start date', className: 'text-warning', name: 'startDate'},
-    {title: 'Salary ($)', name: 'salary'}
-  ];
-*/
 
 
 
@@ -162,6 +144,7 @@ export class ActionitemsPage {
                         nq.answers[nq.answers.length - 1].what,
                         nq.answers[nq.answers.length - 1].when,
                         nq.answers[nq.answers.length - 1].who,
+                        this.calculateRiskScore(nq.answers[nq.answers.length - 1].likelihood, nq.answers[nq.answers.length - 1].consequence)
                 ];
         })
         var worksheet = [headers, ...values];
@@ -307,5 +290,34 @@ export class ActionitemsPage {
 			questionId: questionId
 		});
 	}
+
+
+  public calculateRiskScore(likelihood, consequence) {
+    // preventing off by one errors, with nulls. 
+    // values should always be 1-5  
+    var riskMatrix = [
+      [ null ],
+      [ null, 1, 3,  5,  8,  12],
+      [ null, 2, 7,  11, 14, 17],
+      [ null, 4, 10, 15, 19, 21],
+      [ null, 6, 12, 18, 22, 24],
+      [ null, 9, 16, 20, 23, 25]
+    ];
+
+
+    if ( likelihood && consequence ) {
+      // value is the same as the index, b/c we put nulls in the matrix
+      var likelihoodIndex  = Number(likelihood);
+      var consequenceIndex = Number(consequence);   
+      
+      // var name = selectedBox.className.replace(/ selected/g, '')
+      // selectedBox.className = `${name} selected`;
+
+      return riskMatrix[likelihoodIndex][consequenceIndex]; 
+    } else {
+      return "";
+    }
+  }
+
 
 }

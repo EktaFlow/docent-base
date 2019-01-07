@@ -117,7 +117,7 @@ ion-icon {
   font-size: 1.8em;
 }
 
-@media screen and (min-width: 800px){
+@media screen and (min-width: 1024px){
     .upload-popover .popover-content {
         padding: 30px;
         height: 400px;
@@ -160,7 +160,7 @@ ion-icon {
 
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 1024px){
     .upload-popover .popover-content {
         position: absolute;
         top: 200px;
@@ -200,6 +200,12 @@ ion-icon {
           font-size: 20px;
           padding: 40px;
       }
+    }
+
+    .question-history-popup .popover-content{
+      width: 90vw;
+      height: 400px;
+      padding: 15px;
     }
 }
 

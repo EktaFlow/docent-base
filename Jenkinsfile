@@ -52,7 +52,7 @@ podTemplate(label: 'back',
                 string(credentialsId: 'containerRegistry', variable: 'CONTAINER_REGISTRY'),
                 usernamePassword(credentialsId: 'containerRegistryCreds', passwordVariable: 'password', usernameVariable: 'user')
             ]){
-                    if (branchName == 'dev') {
+                    //if (branchName == 'dev') {
                                             checkout scm
               containerImagePath = "${CONTAINER_REGISTRY}/${imageName}"
               latestImagePath    = "${CONTAINER_REGISTRY}/${latestImageName}"
@@ -60,13 +60,13 @@ podTemplate(label: 'back',
               sh "docker login ${CONTAINER_REGISTRY} -u ${user} -p ${password}"
               sh "docker push ${containerImagePath}"
               sh "docker push ${latestImagePath}"
-                    }
+                    //}
             }
           }
                                 }
                                 stage ('Deploy') {
             container('kubectl') {
-                    if ( branchName == 'dev' ) { sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}" }
+                    sh "kubectl set image deployment/dev -n ${branchName} ${serviceName}=${containerImagePath}"
             }
                                 }
                         } catch (err) {
