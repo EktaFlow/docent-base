@@ -23,9 +23,25 @@ page-actionitems {
         margin-left:13px;
     }
 
-    @media screen and (max-width: 800px){
-          ion-content {
-              // margin-top: 10px;
-          }
-      }
+    .table {
+        width: 100%;
+        overflow: scroll;
+    }
+
+    .qspacer {
+display: inherit;
+font-size: 0;
+height: 250px;
+line-height: 0;
+border: 0px;
+/* testing only */
+// border: 1px solid red;
+width: 100%;
+}
+
+    // @media screen and (max-width: 800px){
+    //       ion-content {
+    //           // margin-top: 10px;
+    //       }
+    //   }
 }
