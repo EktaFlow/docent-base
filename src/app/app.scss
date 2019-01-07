@@ -117,12 +117,6 @@ ion-icon {
   font-size: 1.8em;
 }
 
-.ion-page {
-    ion-content {
-        position: static;
-    }
-}
-
 @media screen and (min-width: 800px){
     .upload-popover .popover-content{
         padding: 30px;

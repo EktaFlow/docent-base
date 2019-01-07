@@ -259,7 +259,7 @@ $input-border:#dcdcdc;
     // margin: 0;
     position: fixed;
     right: 10px;
-    top: 10px;
+    top: 240px;
   }
 
   .nav-previous-qs {
@@ -348,7 +348,7 @@ color: black;
 
   @media screen and (max-width: 1024px){
     ion-content {
-        // margin-top: 50px;
+        margin-top: 50px;
         margin-bottom: 100px;
 
     }
@@ -527,11 +527,11 @@ color: black;
 
 }
 
-// @media screen and (min-width: 421px) and (max-width: 1024px){
-//     ion-content {
-//         margin-top: 70px;
-//     }
-// }
+@media screen and (min-width: 421px) and (max-width: 1024px){
+    ion-content {
+        margin-top: 70px;
+    }
+}
 }
 
 	$basic-cell-size: 4vw;

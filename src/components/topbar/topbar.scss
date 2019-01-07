@@ -1,6 +1,8 @@
 topbar {
 
-  z-index: 100003;
+  .pointer {
+    cursor: pointer;
+  }
 
   .docent-header {
     min-height: 50px;
@@ -8,7 +10,6 @@ topbar {
   }
 
   .toolbar-class{
-    background-color: black;
     header{
         color:#000;
     }
@@ -28,9 +29,7 @@ topbar {
 
   .container-toolbar{
     display: flex;
-    height: 100%;
     justify-content: space-between;
-    background-color: black;
     img{
         padding: 5px;
     }
@@ -111,25 +110,19 @@ topbar {
 
     @media screen and (max-width: 1024px){
 
+
     .desktop {
       display: none;
     }
 
     .mobile {
-      display: flex;
-      // height: 100px;
-
+      display: inherit;
     }
 
     .main-title {
       // font-size: 100%;
         // font-size: 2rem !important;
         font-size: 1.5em !important;
-        padding: 10px 0;
-    }
-
-    .page-name {
-      // padding-bottom: 50px;
     }
       .toolbar-class {
 

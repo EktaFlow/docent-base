@@ -1,13 +1,11 @@
 <title>Docent</title>
 
-
-<ng-container *ngIf="!auth.isLoggedIn()">
-  <topbar [blank]="true"></topbar>
-</ng-container>
-<ng-container *ngIf="auth.isLoggedIn()">
-	<topbar></topbar>
-</ng-container>
-
+  <ng-container *ngIf="!auth.isLoggedIn()">
+    <topbar [blank]="true"></topbar>
+  </ng-container>
+	<ng-container *ngIf="auth.isLoggedIn()">
+		<topbar></topbar>
+	</ng-container>
 
 
 <ion-content padding>
@@ -42,18 +40,7 @@
 </ng-container>
 
 <ng-container *ngIf="auth.isLoggedIn()">
-
-	<!-- <div class="desktop">
-		<br>
-	  <br>
-
-	</div>
-    <br>
-    <br>
-    <br> -->
-
-
-
+	
   <h1>Start New Assessment</h1>
 	<font *ngIf="!auth.isLoggedIn()"color="red">You must be a registered Docent User to begin an assessment</font><br />
 	<font color="grey">Use this option to start a new assessment</font><br />
