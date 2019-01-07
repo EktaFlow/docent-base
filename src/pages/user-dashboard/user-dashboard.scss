@@ -26,9 +26,11 @@ page-user-dashboard {
         left: 20px;
         color: white;
         font-size: 2.5em;
-
-
       }
+      // .main {
+      //   font-size: 1.5em !important;
+      //   padding: 10px 0;
+      // }
 
 
       .info {
@@ -310,9 +312,7 @@ page-user-dashboard {
   }
 
   @media screen and (min-width: 420px) and (max-width: 1024px){
-    ion-content {
-      // margin-top: 150px;
-    }
+
 
     .assessments {
       .accordion-tab {
