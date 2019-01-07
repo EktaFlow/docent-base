@@ -99,6 +99,10 @@ $input-border:#dcdcdc;
         font-size:20px;
     }
 
+    h3 {
+        margin-top: 30px;
+    }
+
     input{
         @extend %input-style;
         width: 100%;
@@ -184,16 +188,16 @@ $input-border:#dcdcdc;
         box-shadow:0 0 10px #9ecaed;
     }
 }
-.risk{
-    display: flex;
-		align-items: center;
-    width: 25%;
-    margin:20px;
-		.label {
-			text-align: right;
-
-		}
-}
+// .risk{
+//     display: flex;
+// 		align-items: center;
+//     width: 25%;
+//     margin:20px;
+// 		.label {
+// 			text-align: right;
+//
+// 		}
+// }
 .questions{
     input{
         margin:10px 0px 0px 0px;
@@ -210,7 +214,7 @@ $input-border:#dcdcdc;
 }
   .qspacer {
     font-size: 0;
-    height: 250px;
+    height: 200px;
     line-height: 0;
     border: 0px;
     /* testing only */
@@ -288,6 +292,58 @@ color: black;
 }
   }
 
+  .guiding-text {
+      display:flex;
+      flex-direction:column;
+  }
+
+  .full-fields-wrapper {
+      display:flex;
+      flex-direction:column;
+
+      .fields-wrapper-2 {
+          width: 45%;
+      }
+  }
+
+  .display-files{
+
+        margin-top:20px;
+      .attach {
+          width:50%;
+          margin:10px 0px 0px 0px;
+      }
+  }
+
+  .risk {
+    width:50%;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .dev-border {
+        width: 24vw;
+
+        h5 {
+            padding: 1vw;
+        }
+
+        .likelihood-wrapper {
+            display: flex;
+            justify-content: space-between;
+            padding: 1vw;
+        }
+    }
+
+    .matrix-wrapper {
+        display: flex;
+        align-items:center;
+        justify-content: center;
+        width: 22vw;
+        height: 22vw;
+    }
+  }
+
 
 
   @media screen and (max-width: 1024px){
@@ -300,16 +356,37 @@ color: black;
     .nav {
         width: 100%;
         position: relative;
+        display: flex;
+        flex-direction: column;
 
         .nav-q-buttons {
-            position: absolute;
-            top: -60px;
-            left: 10px;
-            width: 100%;
-            button {
-                width: 45%;
-            }
+        // position: absolute;
+        // top: -60px;
+        // left: 10px;
 
+        position: static;
+        right: 0;
+        top: 0;
+        width: 95%;
+        margin: 0 auto;
+        // display: flex;
+        // flex-direction: column;
+        margin-bottom: 15px;
+        // margin-left: 10px;
+
+
+        button {
+            width: 30%;
+        }
+
+        }
+
+        .guiding-text {
+            display: block;
+
+            button {
+                width: 95%;
+            }
         }
     }
 
@@ -324,7 +401,7 @@ color: black;
     .no {
         width: 100%;
         height: 100%;
-        margin-bottom: 200px;
+        // margin-bottom: 200px;
         // margin-bottom: 30px;
 
         h6, textarea {
@@ -358,32 +435,37 @@ color: black;
 
                     input {
                         width: 100% !important;
-                        padding: 20px;
+                        // padding: 20px;
+                        height: 40px;
                     }
 
                 }
             }
 
-
-        .risk-text{
-            margin-top: 100px;
-            display: block;
-        }
-
-        .risk {
-            width: 100%;
-            margin-top: 20px;
-            margin-left: 0;
-            margin-right: 0;
-            padding-right: 20px;
-            .label {
-                text-align: center;
-                padding: 0;
-                margin: 0;
-                width: 30%;
+            .what {
+                margin-top: 20px;
             }
 
-        }
+
+        // .risk-text{
+        //     margin-top: 100px;
+        //     display: block;
+        // }
+        //
+        // .risk {
+        //     width: 100%;
+        //     margin-top: 20px;
+        //     margin-left: 0;
+        //     margin-right: 0;
+        //     padding-right: 20px;
+        //     .label {
+        //         text-align: center;
+        //         padding: 0;
+        //         margin: 0;
+        //         width: 30%;
+        //     }
+        //
+        // }
 
     }
 
@@ -396,20 +478,50 @@ color: black;
     }
 
 
+        .full-fields-wrapper {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+
+            .fields-wrapper-2 {
+                width: 100%;
+                margin: 0 auto;
+                display: flex;
+            }
+        }
+
+
+
+
+    .display-files {
+        width: 100%;
+        display: block;
+    }
 
     .attach {
-        margin-bottom: 100px !important;
+        // margin-bottom: 100px !important;
     }
 
     .qspacer {
         background-color: transparent;
     }
 
-    .no {
-      .displayFiles {
-          padding-top: 65px;
-      }
+    .risk {
+        width: 100%;
+
+        .dev-border {
+            width: 45%;
+        }
+
+        .matrix-wrapper {
+            margin-right: 50px;
+        }
+
     }
+
+
+
+
 
 
 

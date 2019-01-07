@@ -13,10 +13,17 @@
   <div class="qspacer">
   </div>
   <div class = "nav">
-		<div style="display:flex;flex-direction:column">
-		<div>
-		<h2>{{currentQuestion.questionText}}</h2>
-		</div>
+
+    <div class="nav-q-buttons">
+        <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
+        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+        <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
+    </div>
+
+		<div class="guiding-text">
+  		<div>
+  		<h2>{{currentQuestion.questionText}}</h2>
+  		</div>
 
 		<div class="q-answer">
 		<select [(ngModel)]="vals.answer" id="select-answer">
@@ -29,17 +36,13 @@
     <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
 
 
-    <div *ngIf="helpClicked" class="helpTextDiv">
-      <!-- <p>help text</p> -->
-      <p [innerHTML]="currentQuestion.helpText"></p>
-    </div>
+      <div *ngIf="helpClicked" class="helpTextDiv">
+        <!-- <p>help text</p> -->
+        <p [innerHTML]="currentQuestion.helpText"></p>
+      </div>
 		</div>
 
-    <div class="nav-q-buttons">
-        <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
-        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
-        <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
-    </div>
+
 
     <!-- <div class="nav-previous-qs">
       <h4>Navigate back to previous questions</h4>
@@ -52,14 +55,15 @@
     </div> -->
   </div>
 
-  <div style="display:flex;flex-direction:row">
-  <div style="width: 50%">
-  <div *ngIf="vals.answer == undefined" class = "yes">
-      <h6>Assumptions</h6>
-      <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
-      <h6>Notes</h6>
-      <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
-    </div>
+
+  <div class="full-fields-wrapper">
+  <div class="fields-wrapper-2">
+    <div *ngIf="vals.answer == undefined" class = "yes">
+        <h6>Assumptions</h6>
+        <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
+        <h6>Notes</h6>
+        <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
+      </div>
 
 
   <div *ngIf="vals.answer == 'Yes'" class = "yes">
@@ -75,7 +79,7 @@
 
     <!-- No Answer Box -->
     <div *ngIf="vals.answer == 'No'" class = "no">
-      <h3 style="margin-top:30px"><b>ACTION PLAN</b></h3>
+      <h3><b>ACTION PLAN</b></h3>
 				<!-- SAVE THIS FOR AUTH
       <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">
         <button style="background:white;">
@@ -136,14 +140,14 @@
         <h6>Notes</h6>
         <textarea class="question-input" id="no-notes-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
       </div>
-      <div class="attach">
+      <!-- <div class="attach">
           <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
-      </div>
+      </div> -->
 		 </div>
 
       <!-- /Row 5 -->
 
-		</div>
+
     <!-- /No Answer Box-->
 
     <div *ngIf="vals.answer == 'N/A'" class = "na">
@@ -156,31 +160,35 @@
       <textarea class="question-input" id="na-notes-input"[(ngModel)]="vals.notesNA" placeholder="Enter notes here..."></textarea>
     </div>
 
+    </div>
+
 
 
     <!-- files display -->
-<div style="margin-top:20px" class="displayFiles">
-      <div class="attach" style="width:50%;margin:10px 0px 0px 0px;">
-          <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
-      </div>
-	<h6>Attachments</h6>
-  <div class="file">
-    <ng-container *ngFor="let file of files" class="file">
-      <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
-        <a href={{file.url}}>{{file.name}}</a>
-        <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
-      </div>
-    </ng-container>
-	</div>
-</div>
-    <!-- /files display -->
+  <div class="display-files">
+        <div class="attach">
+            <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+        </div>
+  	<h6>Attachments</h6>
+    <div class="file">
+      <ng-container *ngFor="let file of files" class="file">
+        <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
+          <a href={{file.url}}>{{file.name}}</a>
+          <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
+        </div>
+      </ng-container>
+  	</div>
   </div>
+
+  </div>
+    <!-- /files display -->
+
           <!-- RISK SECTION -->
-          <div class="risk" style="width:50%; display:flex; justify-content: space-between;align-items: flex-start;">
+          <div class="risk" >
               <!-- Non-map section -->
-              <div class="dev-border" style="width: 24vw;">
-                <h5 style="padding: 1vw">Risk Assessment</h5>
-              <div style="display: flex; justify-content: space-between; padding: 1vw;">
+              <div class="dev-border">
+                <h5 >Risk Assessment</h5>
+                <div class="likelihood-wrapper">
 
                 <div>
                   <h6>Likelihood <img (click)="showRiskPopover('likelihood')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
@@ -233,7 +241,7 @@
               </div>
               </div>
               <!-- MATRIX -->
-              <div style="display: flex; align-items:center; justify-content: center;  width: 22vw; height: 22vw;">
+              <div class="matrix-wrapper">
 
                       <!-- This is the matrix, copy-pasted from the component -->
                       <!-- The ids correlate to the indices for an answer's likelihood and consequence,
@@ -278,7 +286,7 @@
               </div>
           </div>
 
-  </div>
+  <!-- </div> -->
 
   <div class="qspacer"> </div>
 
