@@ -13,10 +13,17 @@
   <div class="qspacer">
   </div>
   <div class = "nav">
-		<div style="display:flex;flex-direction:column">
-		<div>
-		<h2>{{currentQuestion.questionText}}</h2>
-		</div>
+
+    <div class="nav-q-buttons">
+        <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
+        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+        <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
+    </div>
+
+		<div class="guiding-text">
+  		<div>
+  		<h2>{{currentQuestion.questionText}}</h2>
+  		</div>
 
 		<div class="q-answer">
 		<select [(ngModel)]="vals.answer" id="select-answer">
@@ -29,17 +36,13 @@
     <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
 
 
-    <div *ngIf="helpClicked" class="helpTextDiv">
-      <!-- <p>help text</p> -->
-      <p [innerHTML]="currentQuestion.helpText"></p>
-    </div>
+      <div *ngIf="helpClicked" class="helpTextDiv">
+        <!-- <p>help text</p> -->
+        <p [innerHTML]="currentQuestion.helpText"></p>
+      </div>
 		</div>
 
-    <div class="nav-q-buttons">
-        <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
-        <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
-        <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
-    </div>
+
 
     <!-- <div class="nav-previous-qs">
       <h4>Navigate back to previous questions</h4>
@@ -52,14 +55,15 @@
     </div> -->
   </div>
 
-  <div style="display:flex;flex-direction:row">
-  <div style="width: 50%">
-  <div *ngIf="vals.answer == undefined" class = "yes">
-      <h6>Assumptions</h6>
-      <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
-      <h6>Notes</h6>
-      <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
-    </div>
+
+  <div class="full-fields-wrapper">
+  <div class="fields-wrapper-2">
+    <div *ngIf="vals.answer == undefined" class = "yes">
+        <h6>Assumptions</h6>
+        <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
+        <h6>Notes</h6>
+        <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
+      </div>
 
 
   <div *ngIf="vals.answer == 'Yes'" class = "yes">
@@ -75,72 +79,75 @@
 
     <!-- No Answer Box -->
     <div *ngIf="vals.answer == 'No'" class = "no">
-
-      <!-- no answer header -->
-      <div>
-        <h3 style="margin-top:30px"><b>ACTION PLAN</b></h3>
-          <!-- SAVE THIS FOR AUTH
-        <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">
-          <button style="background:white;">
-            <label style="color:#32db64;font-size:16px;" (click)="addPerson(who.value)"><b>Add Action Person</b></label>
-            <ion-icon name="add-circle" color = "secondary"></ion-icon>
-          </button>
-          <button style="background:white;">
-            <label style="color:#f53d3d;font-size:16px;" (click)="removePerson()"><b>Remove</b></label>
-            <ion-icon name="remove-circle" color = "danger"></ion-icon>
-          </button>
-        </div>
-          -->
+      <h3><b>ACTION PLAN</b></h3>
+				<!-- SAVE THIS FOR AUTH
+      <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">
+        <button style="background:white;">
+          <label style="color:#32db64;font-size:16px;" (click)="addPerson(who.value)"><b>Add Action Person</b></label>
+          <ion-icon name="add-circle" color = "secondary"></ion-icon>
+        </button>
+        <button style="background:white;">
+          <label style="color:#f53d3d;font-size:16px;" (click)="removePerson()"><b>Remove</b></label>
+          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+        </button>
       </div>
-      <!-- /no answer header -->
-
-      <!-- Row 1 --> 
-      <div style="margin-left: 2px;" class="who-when">
-        <div style="display:flex; flex-direction:column" class="who">
-          <!--
+				-->
+      <!-- <br>
+      <br> -->
+      <div class="who-when">
+        <div class="who">
           <li *ngFor = "let persons of actionPerson">
             <pre>{{persons}}</pre>
           </li>
-          -->
           <h6>Who</h6>
-          <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" style="width: 200%;" #who>
+          <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" #who>
         </div>
-        <div style="display:flex; flex-direction:column" class='when'>
+        <div class='when'>
           <h6>When</h6>
-          <input class="question-input" id="no-when-input" [(ngModel)]="vals.when" name= "when" type="date" >
+          <input class="question-input" id="no-when-input" [(ngModel)]="vals.when" name= "when" type="date" style="padding:15px;">
         </div>
       </div>
-      <!-- /Row 1 -->
-      
-      <!-- Row 2 -->
-      <div>
+
+
+
+      <!--
+      <h6 class="risk-text">Risk</h6>
+
+      <div class="risk">
+
+				        <ion-label class="label"> Technical</ion-label>
+								<ion-checkbox checked="false" id="no-risk-technical-box" [(ngModel)]="vals.technical"></ion-checkbox>
+				        <ion-label class="label"> Cost</ion-label>
+								<ion-checkbox checked="false" id="no-risk-cost-box" [(ngModel)]="vals.cost"></ion-checkbox>
+				        <ion-label class="label"> Schedule</ion-label>
+								<ion-checkbox checked="false" id="no-risk-schedule-box" [(ngModel)]="vals.schedule"></ion-checkbox>
+      </div>
+      -->
+
+      <div class="what">
         <h6>What</h6>
         <textarea class="question-input" id="no-what-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
       </div>
-      <!-- /Row 2-->
-
-      <!-- Row 3 -->
-      <div>
+      <div class="reason">
         <h6>Reason</h6>
         <textarea class="question-input" id="no-reason-input" [(ngModel)]="vals.reason" placeholder="Reason that criteria is not met..."></textarea>
       </div>
-      <!-- /Row 3 -->
-
-      <!-- Row 4 --> 
-      <div>
+      <div class="no-assumptions">
         <h6>Assumptions</h6>
         <textarea class="question-input" id="no-assumptions-input" [(ngModel)]="vals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
       </div>
-      <!-- /Row 4 -->
-
-      <!-- Row 5 -->
-      <div>
+      <div class="no-notes">
         <h6>Notes</h6>
         <textarea class="question-input" id="no-notes-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
       </div>
-      <!-- /Row 5 --> 
+      <!-- <div class="attach">
+          <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+      </div> -->
+		 </div>
 
-		</div>
+      <!-- /Row 5 -->
+
+
     <!-- /No Answer Box-->
 
     <div *ngIf="vals.answer == 'N/A'" class = "na">
@@ -153,31 +160,35 @@
       <textarea class="question-input" id="na-notes-input"[(ngModel)]="vals.notesNA" placeholder="Enter notes here..."></textarea>
     </div>
 
+    </div>
 
 
-    <!-- files display --> 
-<div style="margin-top:20px" class="displayFiles">
-      <div class="attach" style="width:50%;margin:10px 0px 0px 0px;">
-          <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
-      </div>
-	<h6>Attachments</h6>
-  <div class="file">
-    <ng-container *ngFor="let file of files" class="file">
-      <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
-        <a href={{file.url}}>{{file.name}}</a>
-        <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
-      </div>
-    </ng-container>
-	</div>
-</div>
-    <!-- /files display --> 
+
+    <!-- files display -->
+  <div class="display-files">
+        <div class="attach">
+            <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+        </div>
+  	<h6>Attachments</h6>
+    <div class="file">
+      <ng-container *ngFor="let file of files" class="file">
+        <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
+          <a href={{file.url}}>{{file.name}}</a>
+          <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
+        </div>
+      </ng-container>
+  	</div>
   </div>
+
+  </div>
+    <!-- /files display -->
+
           <!-- RISK SECTION -->
-          <div class="risk" style="width:50%; display:flex; justify-content: space-between;align-items: flex-start;">
+          <div class="risk" >
               <!-- Non-map section -->
-              <div class="dev-border" style="width: 24vw;">
-                <h5 style="padding: 1vw">Risk Assessment</h5>
-              <div style="display: flex; justify-content: space-between; padding: 1vw;">
+              <div class="dev-border">
+                <h5 >Risk Assessment</h5>
+                <div class="likelihood-wrapper">
 
                 <div>
                   <h6>Likelihood <img (click)="showRiskPopover('likelihood')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
@@ -230,10 +241,10 @@
               </div>
               </div>
               <!-- MATRIX -->
-              <div style="display: flex; align-items:center; justify-content: center;  width: 22vw; height: 22vw;">
+              <div class="matrix-wrapper">
 
                       <!-- This is the matrix, copy-pasted from the component -->
-                      <!-- The ids correlate to the indices for an answer's likelihood and consequence, 
+                      <!-- The ids correlate to the indices for an answer's likelihood and consequence,
                            plus the letter 'm' to differentiate the id -->
                     <table class="risk-matrix-table" style="float:left;">
                       <tr class="matrix-row">
@@ -275,7 +286,7 @@
               </div>
           </div>
 
-  </div>
+  <!-- </div> -->
 
   <div class="qspacer"> </div>
 

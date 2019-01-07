@@ -17,7 +17,7 @@ export class FileDeleteComponent {
   constructor( private navParams:         NavParams,
                private viewController:    ViewController,
                private assessmentService: AssessmentService,
-               private toastController:   ToastController ) 
+               private toastController:   ToastController )
   {
     this.assessmentId = this.navParams.get('assessmentId');
     this.fileId       = this.navParams.get('fileId');
@@ -26,12 +26,12 @@ export class FileDeleteComponent {
   }
 
   async deleteFile() {
-    
+
     var ok = await this.assessmentService.deleteFile(this.assessmentId, this.fileId)
     // what about errors?
-    ok.subscribe(a => { 
+    ok.subscribe(a => {
       this.emitter.emit(this.fileId);
-      this.launchToast(); 
+      this.launchToast();
       this.closePopover();
     });
     // launch toast?
