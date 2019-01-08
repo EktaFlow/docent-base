@@ -299,12 +299,23 @@ color: black;
   }
 
   .full-fields-wrapper {
-      display:flex;
-      flex-direction:column;
+      width: 45%;
+      display: inline-block;
+      // border: 1px solid green;
+      padding: 5px;
+      // margin-left: 20px;
+
 
       .fields-wrapper-2 {
-          width: 45%;
+          width: 100%;
+          display:flex;
+          flex-direction:column;
       }
+  }
+
+  .page-wrapper {
+      width: 100%;
+      // border: 1px solid red;
   }
 
   .display-files{
@@ -316,34 +327,45 @@ color: black;
       }
   }
 
-  .risk {
-    width:50%;
-    display:flex;
-    justify-content: space-between;
-    align-items: flex-start;
+.risk-wrapper {
 
-    .dev-border {
-        width: 24vw;
+    width: 45%;
+    // border: 1px solid blue;
+    display: inline-block;
+    padding: 10px;
+    float: right;
+    margin-right: 60px;
+    .risk {
+      width: 100%;
+      display:flex;
+      justify-content: space-between;
+      align-items: flex-start;
 
-        h5 {
-            padding: 1vw;
-        }
+      .dev-border {
+          width: 24vw;
 
-        .likelihood-wrapper {
-            display: flex;
-            justify-content: space-between;
-            padding: 1vw;
-        }
+          h5 {
+              padding: 1vw;
+          }
+
+          .likelihood-wrapper {
+              display: flex;
+              justify-content: space-between;
+              padding: 1vw;
+          }
+      }
+
+      .matrix-wrapper {
+          display: flex;
+          align-items:center;
+          justify-content: center;
+          width: 22vw;
+          height: 22vw;
+      }
     }
+}
 
-    .matrix-wrapper {
-        display: flex;
-        align-items:center;
-        justify-content: center;
-        width: 22vw;
-        height: 22vw;
-    }
-  }
+
 
 
 
