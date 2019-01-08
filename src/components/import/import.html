@@ -13,6 +13,8 @@
 </label>
 </ng-container>
 	<input id="qwerty" type="file" (change)="test($event)" placeholder="Choose File">
+  <hr *ngIf="file" />
+  <h6 *ngIf="file">{{file.name}}</h6>
 	<button *ngIf="file" ion-button color="buttonBlue"(click)="uploadFile($event)" type="submit">Upload</button>
 	<div id="inputTextToSave">
 
