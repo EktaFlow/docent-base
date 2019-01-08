@@ -112,6 +112,7 @@ page-summary {
       .table-wrapper {
         width: 100%;
         overflow: scroll;
+        padding-bottom: 12px;
       }
 
         .page-one-info {
@@ -145,8 +146,5 @@ page-summary {
               width: 100%;
           }
       }
-    }
-    .table-wrapper {
-            padding-bottom: 12px;
     }
 }
