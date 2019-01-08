@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-
-
 import { TopbarComponent } from '../../components/topbar/topbar';
-
 import { QuestionsPage } from "../questions/questions";
-
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -23,9 +19,12 @@ query assessment($_id: String) {
 		threadName
 		subThreadName
 		currentAnswer
-		notesNo
-		skipped
-		objectiveEvidence
+    answers {
+      answer
+		  notesNo
+      # skipped
+		  objectiveEvidence
+    }
 	}
 	files {
 		name
@@ -45,15 +44,15 @@ export class ReviewPage {
 
 	assessmentId: any;
 	allQuestions: any;
-  targetMRL: any;
-  targetDate: any;
-  location: any;
-  team: any;
-  survey: any;
-  surveyResults: any;
-  reviewResults = [];
+        targetMRL: any;
+        targetDate: any;
+        location: any;
+        team: any;
+        survey: any;
+        surveyResults: any;
+        reviewResults = [];
 	pageName: any = "Review";
-  response;
+        response;
 	files;
 
 	constructor( private apollo: Apollo,
@@ -62,11 +61,11 @@ export class ReviewPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
-  }
+        }
 
 	ionViewWillEnter() {
-    GoogleAnalytics.trackPage("review");
-  }
+            GoogleAnalytics.trackPage("review");
+        }
 
 
 	goToQuestion(questionId) {
@@ -89,13 +88,34 @@ export class ReviewPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-					var assessment = (<any>data.data).assessment;
-					this.allQuestions = assessment.questions;
+                            var assessment = (<any>data.data).assessment;
+                            var questions = assessment.questions;
+
+
+                            var answeredOrSkipped = [];
+                            questions.forEach(q => {
+                                if ( q.currentAnswer == 'skipped' ) {
+                                    answeredOrSkipped.push(q);
+                               }
+                                  if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+                                 var drilledQuestion = {
+                                      questionId: q.questionId,
+                                   questionText: q.questionText,
+                                      currentAnswer: q.answers[q.answers.length - 1].answer,
+                                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
+                                    }
+                                    answeredOrSkipped.push(drilledQuestion);
+                                  }
+                          });
+
+                  // all questions is an array of answered questions.
+                  // preserving the names to leave markup the same.
+                  this.allQuestions = answeredOrSkipped; 
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
 					this.files = assessment.files;
-			});
+		});
 	}
 
 }

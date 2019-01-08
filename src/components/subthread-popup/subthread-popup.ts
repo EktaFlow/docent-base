@@ -44,9 +44,9 @@ export class SubthreadPopupComponent {
 	// @Input() private subTitle: any;
 
   constructor(private apollo: 			 Apollo,
-							 public navCtrl: 			 NavController,
-							 public navParams: 		 NavParams,
-						 	private assessmentService: AssessmentService) {
+							 			public navCtrl: 			 NavController,
+							 			public navParams: 		 NavParams,
+						 				private assessmentService: AssessmentService) {
 								 this.assessmentId = navParams.data.assessmentId;
 								this.subTitle = navParams.data.subTitle;
 								this.updateInfo = navParams.data.updateInfo;

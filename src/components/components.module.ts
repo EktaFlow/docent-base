@@ -22,6 +22,9 @@ import { AssessmentScopePopoverComponent } from './assessment-scope-popover/asse
 import { MobileNavPopoverComponent } from './mobile-nav-popover/mobile-nav-popover';
 import { LegendPopoverComponent } from './legend-popover/legend-popover';
 import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
+import { QuestionHistoryPopoverComponent } from './question-history-popover/question-history-popover';
+import { RiskPopoverComponent } from './risk-popover/risk-popover';
+import { FileDeleteComponent } from './file-delete/file-delete';
 
 @NgModule({
 	declarations: [
@@ -44,7 +47,10 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
     AssessmentScopePopoverComponent,
     MobileNavPopoverComponent,
     LegendPopoverComponent,
-    AcronymPopoverComponent
+    AcronymPopoverComponent,
+    QuestionHistoryPopoverComponent,
+    RiskPopoverComponent,
+    FileDeleteComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -67,7 +73,10 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
     AssessmentScopePopoverComponent,
     MobileNavPopoverComponent,
     LegendPopoverComponent,
-    AcronymPopoverComponent
+    AcronymPopoverComponent,
+    QuestionHistoryPopoverComponent,
+    RiskPopoverComponent,
+    FileDeleteComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -89,7 +98,10 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
 				MobileNavPopoverComponent,
 				LegendPopoverComponent,
 				AcronymPopoverComponent,
-        PasswordResetComponent
+        PasswordResetComponent,
+        QuestionHistoryPopoverComponent,
+        RiskPopoverComponent,
+        FileDeleteComponent
     ]
 })
 

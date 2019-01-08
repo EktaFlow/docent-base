@@ -8,6 +8,7 @@ import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
+import { SummaryPage } from '../../pages/summary/summary';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
@@ -23,7 +24,19 @@ var assessmentQuery = gql`
 query assessment($_id: String)
 {
  assessment(_id: $_id)  {
+  userId
+  userEmail
+  scope
+  targetMRL
+  teamMembers
+  levelSwitching
+  targetDate
+  location
+  deskbookVersion
+  name
+  threads
 	questions{
+		questionText
 	  currentAnswer
     skipped
 		questionId
@@ -31,31 +44,38 @@ query assessment($_id: String)
     subThreadName
     mrLevel
 		questionId
-		questionText
-		objectiveEvidence
-		assumptionsYes
-		notesYes
-		who
-		when
-		technical
-		cost
-		schedule
-		what
-		reason
-		assumptionsNo
-		notesNo
-		documentation
-		assumptionsNA
-		notesNA
     helpText
     criteriaText
+    answers {
+      userId
+      updatedAt
+      answer
+      likelihood
+      consequence
+      greatestImpact
+      riskResponse
+      mmpSummary
+  		objectiveEvidence
+  		assumptionsYes
+  		notesYes
+  		who
+  		when
+  		what
+  		reason
+  		assumptionsNo
+  		notesNo
+  		documentation
+  		assumptionsNA
+  		notesNA
+      assumptionsSkipped
+      notesSkipped
+    }
   }
-	targetMRL
-	currentMRL
-	levelSwitching
-	name
-	threads
 	files {
+    id
+    caption
+    name
+    questionId
 		url
 	}
 }
@@ -105,18 +125,41 @@ export class ViewsComponent {
 		}
 
 		handleSkipped() {
-			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId})
+			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
+			this.close();
 		}
 		handleNa()	{
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
+			this.close();
 		}
-		handleContinue = () => this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
-		handleActions = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
-		handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
-		handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
-		handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
+		handleContinue(){
+			this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleActions(){
+			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleReview(){
+			this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleNavigate(){
+			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleDashboard(){
+			this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
+			this.close();
+		}
+		handleSummary(){
+			this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
+		}
+		handleNewAssessment() {
+			this.navCtrl.push(this.homePage);
+			this.close();
+		}
 
-    handleNewAssessment() {this.navCtrl.push(this.homePage);}
 
 
 

@@ -10,6 +10,7 @@ import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
+import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -41,7 +42,6 @@ export class TopbarComponent {
 	public scopeSelected: any;
 	public loggedIn: boolean = false;
 	@Input() public assessmentId: any;
-	@Input() public questionId: number;
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
@@ -54,6 +54,7 @@ export class TopbarComponent {
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
 	@Input() public pageName: any;
+	@Input() private questionId: any;
 	public popUpButtonClicked: any;
 	infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
@@ -68,9 +69,7 @@ constructor( public popOver: PopoverController,
 
 	async ngOnInit() {
 
-		console.log(this.getAssessmentId);
 		if (this.getAssessmentId) {
-			console.log()
 			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 			this.getAssessmentData();
 
@@ -79,19 +78,14 @@ constructor( public popOver: PopoverController,
 		}
 
 		this.loggedIn = this.auth.isLoggedIn();
-		// console.log(this.values);
 
-		console.log(this.targetMRL);
 
-		// console.log(this.assessmentId);
 
 	}
 
 	toggleScopeSelected(event) {
-		// console.log("fire!");
 		// this.scopeSelected = !this.scopeSelected;
 		let popover = this.popOver.create(AssessmentScopePopoverComponent, {scopeText: this.scope}, {cssClass: 'scope-popover'});
-		console.log(this.scope);
 		popover.present({
 			ev: event
 		})
@@ -114,7 +108,6 @@ constructor( public popOver: PopoverController,
 			}
 		}).valueChanges
 			.subscribe( ({data, loading}) => {
-				console.log(data.assessment);
 				this.scope	= data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
@@ -148,25 +141,27 @@ constructor( public popOver: PopoverController,
 			questionId: this.questionId
 		}
 
+    /*
 		var update = await this.assessmentService.updateQuestion(updateInfo);
-		update.subscribe(data =>
-			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}));
-
+		update.subscribe(data => );
+    */
+    this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 	}
 
 
 	async handleUserDash() {
 		if (this.assessmentId && this.values && this.questionId) {
+    /* Removing this feature -- we now have the save button -ask if we want to keep it?
 			var updateInfo = {
 				updates: this.values,
 				_id:     this.assessmentId,
 				questionId: this.questionId
 			}
 
-			console.log("trouble spot");
-			console.log(this.assessmentId);
 			var update = await this.assessmentService.updateQuestion(updateInfo);
 			update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
+      */
+      this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId})
 		} else {
 			this.navCtrl.push(this.userDashPage);
 		}
@@ -206,9 +201,14 @@ constructor( public popOver: PopoverController,
 		.present({ev: event});
 	}
 
+	toggleQuestionHistory(){
+		this.popOver.create(QuestionHistoryPopoverComponent, {assessmentId: this.assessmentId,
+			questionId: this.questionId}, {cssClass: 'question-history-popup'})
+		.present();
+	}
+
 	openMobileNav(){
 		var userName = this.auth.currentUser().name;
-		console.log(userName);
 		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}

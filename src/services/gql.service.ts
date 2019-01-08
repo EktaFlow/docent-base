@@ -15,9 +15,6 @@ query assessments($userId: String) {
 	}
 }
 `
-
-
-
 export var createAssessmentMutation = gql`
  mutation createAssessment(
      $threads:     [Int],
@@ -66,40 +63,53 @@ query assessment($_id: String)
     mrLevel
 		questionId
 		questionText
-		objectiveEvidence
-		assumptionsYes
-		notesYes
-		notesSkipped
-		assumptionsSkipped
-		who
-		when
-		technical
-		cost
-		schedule
-		what
-		reason
-		assumptionsNo
-		notesNo
-		documentation
-		assumptionsNA
-		notesNA
 		helpText
+		answers {
+			userId
+			updatedAt
+			answer
+			objectiveEvidence
+			assumptionsYes
+			notesYes
+			notesSkipped
+			assumptionsSkipped
+			likelihood
+			consequence
+			greatestImpact
+			riskResponse
+			mmpSummary
+			risk
+			who
+			when
+			what
+			reason
+			assumptionsNo
+			notesNo
+			documentation
+			assumptionsNA
+			notesNA
+		}
   }
 	targetMRL
 	currentMRL
 	levelSwitching
 	files {
+    id,
 		url,
-                questionId,
-                name
+    questionId,
+    name
 	}
 }
 }
 `
 
+//needs to change to something like 'addAnAnswerToAQuestionMutation'
+//included userId in args for the new Answer
+//not sure what else to change currently
+//probably want to return answers array /// most recent answer
 export var updateQuestionMutation = gql`
-mutation updateAssessment($_id: String!, $questionId: Int, $updates: QuestionUpdate) {
-	updateAssessment(_id: $_id, questionId: $questionId, updates: $updates) {
+mutation updateAssessment($_id: String!, $questionId: Int, $questionUpdates: QuestionInput, $answerUpdates: AnswerInput) {
+	updateAssessment(_id: $_id, questionId: $questionId, questionUpdates: $questionUpdates, answerUpdates: $answerUpdates) {
 		scope
     location
 	}
@@ -125,4 +135,12 @@ export var updateTeamMembersMutation = gql`
 			teamMembers
 		}
 	}
+`
+
+export var deleteFileMutation = gql`
+  mutation deleteFile($assessmentId: String, $fileId: String) {
+    deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
+      name  
+    }
+  }
 `

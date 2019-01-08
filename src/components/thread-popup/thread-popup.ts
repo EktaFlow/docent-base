@@ -103,13 +103,16 @@ export class ThreadPopupComponent {
 
 	 createThreadsObject(questionsArray) {
 		 console.log(questionsArray);
-		 var threadNames = questionsArray.map(a => a.threadName)
+
+		 var filteredQuestions = questionsArray.filter(question => question.mrLevel == this.targetMRL);
+
+		 var threadNames = filteredQuestions.map(a => a.threadName)
 	 					  											 .filter(this.unique);
 	 		var subThreadNames = threadNames.map( a => {
-	 		var allSubheaders = questionsArray.filter(b => b.threadName == a)
+	 		var allSubheaders = filteredQuestions.filter(b => b.threadName == a)
 	 		var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
 	 				.map(sName => {
-	 					var questions = questionsArray.filter(m => m.subThreadName == sName);
+	 					var questions = filteredQuestions.filter(m => m.subThreadName == sName);
 	 					var mrLevels = this.filterByProperty(questions, "mrLevel");
 	 					var a = mrLevels.map(f => {
 	 						var questionSet = questions.filter(s => s.mrLevel == f)
@@ -137,9 +140,6 @@ export class ThreadPopupComponent {
 		 console.log(correctQsByMRL);
 		 this.navToQuestion(correctQsByMRL[0].questionSet[0].questionId);
 	 }
-
-
-
 
 
   async navToQuestion(questionId) {

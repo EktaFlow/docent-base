@@ -22,7 +22,8 @@
         <option value = "9">9</option>
         <option value = "10">10</option>
       </select>
-      <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
+      <button class="filter-buttons" (click)="filterTheList()" ion-button small>Filter</button>
+      <button class="filter-buttons" ion-button small (click)="clearFilter()">Clear</button>
 
     </div>
   </div>
@@ -74,7 +75,7 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>
 
