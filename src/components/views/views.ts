@@ -24,7 +24,19 @@ var assessmentQuery = gql`
 query assessment($_id: String)
 {
  assessment(_id: $_id)  {
+  userId
+  userEmail
+  scope
+  targetMRL
+  teamMembers
+  levelSwitching
+  targetDate
+  location
+  deskbookVersion
+  name
+  threads
 	questions{
+		questionText
 	  currentAnswer
     skipped
 		questionId
@@ -32,31 +44,38 @@ query assessment($_id: String)
     subThreadName
     mrLevel
 		questionId
-		questionText
-		objectiveEvidence
-		assumptionsYes
-		notesYes
-		who
-		when
-		technical
-		cost
-		schedule
-		what
-		reason
-		assumptionsNo
-		notesNo
-		documentation
-		assumptionsNA
-		notesNA
     helpText
     criteriaText
+    answers {
+      userId
+      updatedAt
+      answer
+      likelihood
+      consequence
+      greatestImpact
+      riskResponse
+      mmpSummary
+  		objectiveEvidence
+  		assumptionsYes
+  		notesYes
+  		who
+  		when
+  		what
+  		reason
+  		assumptionsNo
+  		notesNo
+  		documentation
+  		assumptionsNA
+  		notesNA
+      assumptionsSkipped
+      notesSkipped
+    }
   }
-	targetMRL
-	currentMRL
-	levelSwitching
-	name
-	threads
 	files {
+    id
+    caption
+    name
+    questionId
 		url
 	}
 }
