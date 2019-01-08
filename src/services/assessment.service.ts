@@ -40,6 +40,7 @@ export class AssessmentService {
 
 		return await this.apollo.watchQuery<any>({
 				query: assessmentQuery,
+        fetchPolicy: 'network-only',
 					variables: {
 						userId: this.auth.currentUser()._id
 					}
