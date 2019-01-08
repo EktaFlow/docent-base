@@ -5,6 +5,7 @@ risk-popover {
 	$likelihood-cell-width: 6vw;
 	$color-coding-key-width: 7.5em;
 	%digit-cell{
+    background-clip: padding-box;
 		width: $basic-cell-width;
 		font-weight: $cell-font-weight;
 		border: solid black 2px;
@@ -62,6 +63,7 @@ risk-popover {
 		width: $likelihood-cell-width;
 		font-weight: $cell-font-weight;
 		border: solid black 2px;
+    text-align: center;
 		@media (max-width: 460px) {
 			width: 15vw;
 			font-size: 10px;
@@ -115,24 +117,27 @@ risk-popover {
 		overflow: visible;
 		white-space: nowrap;
 		border: none;
-		border-bottom: solid black 2px;
+//		border-bottom: solid black 2px;
 	}
 	.color-coding{
 		float: left;
 		width: $color-coding-key-width;
-		border: solid black 1px;
+		//border: solid black 1px;
 		clear: both;
 	}
 	.color-coding > div {
 		@extend %color-code-cell;
 	}
 	#color-code-cell1{
+    border: 2px solid black;
 		background-color: green;
 	}
 	#color-code-cell2{
+    border: 2px solid black;
 		background-color: yellow;
 	}
 	#color-code-cell3{
+    border: 2px solid black;
 		background-color: red;
 	}
 	.axis-labels-more-info {
@@ -171,6 +176,7 @@ risk-popover {
     width: 30vw;
 	}
 	.crit-table-row > th {
+    text-align: center;
 		font-weight: normal;
 	}
 	.crit-table-left-col {
@@ -223,6 +229,16 @@ risk-popover {
   #buttons-container {
     display: flex;
 
+  }
+
+  th {
+          text-align: center;
+  }
+
+  #con-label {
+          th {
+            border:none;
+          }
   }
 
 

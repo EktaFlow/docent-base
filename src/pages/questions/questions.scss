@@ -561,6 +561,8 @@ color: black;
 
 	$basic-cell-size: 4vw;
 	%digit-cell{
+    text-align: center;
+    background-clip: padding-box;
 		width: $basic-cell-size;
     height: $basic-cell-size;
 		border: solid black 2px;
