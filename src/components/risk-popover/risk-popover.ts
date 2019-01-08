@@ -12,8 +12,8 @@ export class RiskPopoverComponent {
                 console.log(this.navParams.get('highlight'));
 		this.chartView = this.navParams.get('highlight');
 	}
-	toggleDescriptionTable(){
-    this.chartView = (<any>event).path[0].innerText.toLowerCase();
+	toggleDescriptionTable(type){
+    this.chartView = type
 		setTimeout(() => {
 		  this.chart = document.getElementsByClassName("criteria-table")[0];
 		  this.scrollTableToView();
