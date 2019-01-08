@@ -544,6 +544,27 @@ color: black;
 
     }
 
+    .page-wrapper {
+            display: flex;
+            flex-direction: column;
+    }
+
+    .full-fields-wrapper {
+            flex-direction: column;
+    }
+
+    //  a more specific rule eg. .risk-wrapper .risk .dev-border was overriding the media query
+    .risk-wrapper {
+            display: flex;
+            width: 90vw;
+            .risk {
+            .dev-border {
+                    width: 48vw;
+            }
+    }
+    }
+
+
 
 
 
