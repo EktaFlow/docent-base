@@ -46,7 +46,7 @@
         <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>Yes</b></p>
         <p>
-				<b>Evidence:</b> {{question.objectiveEvidence}} </p>
+				<b>Objective Evidence:</b> {{question.objectiveEvidence}} </p>
           <b>Attachments:</b>
 					<ul>
 					<ng-container *ngFor = "let file of files">
