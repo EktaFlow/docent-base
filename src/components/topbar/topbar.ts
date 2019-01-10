@@ -11,6 +11,7 @@ import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
 import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
+import {QuestionsPage} from '../../pages/questions/questions';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -56,7 +57,7 @@ export class TopbarComponent {
 	@Input() public pageName: any;
 	@Input() private questionId: any;
 	public popUpButtonClicked: any;
-	infoShow: boolean = true;
+	// infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
 
 
@@ -124,6 +125,9 @@ constructor( public popOver: PopoverController,
 	showHelp(event) {
 		this.popOver.create(HelpmenuComponent, {assessmentId: this.assessmentId})
 		            .present({ev: event});
+	}
+	handleContinue(){
+		this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 	}
 
 	// registerNav() { this.navCtrl.push( this.registerPage ); }
