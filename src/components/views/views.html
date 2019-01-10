@@ -1,6 +1,6 @@
-<div style="display:flex;flex-direction:column;background-color:black">
+<div class="wrapper">
 
-  <button (click)="handleNewAssessment()" ion-button color="dark">Start New Assessment</button>
+  <!-- <button (click)="handleNewAssessment()" ion-button color="dark">Start New Assessment</button>
   <ng-container *ngIf="assessmentId">
 		<button (click)="handleContinue()" ion-button color="dark" id="continue-assessment-button">
 			Continue Assessment
@@ -11,7 +11,7 @@
 	</ng-container >
 	<button (click)="handleImport()" ion-button color="dark" class="export-import" id="import-button">
 		Import Assessment
-	</button>
+	</button> -->
 	<ng-container *ngIf="assessmentId">
 	<!-- We're auto-saving on updates now.
   <button ion-button color="dark">
@@ -22,26 +22,22 @@
     Save
   </button>
 	-->
-  <hr>
+  <!-- <hr> -->
   <button (click)="handleDashboard()" ion-button color="dark" id="dashboard-button">
     Dashboard
   </button>
   <button (click)="handleNavigate()" ion-button color="dark" id="navigate-button">
-    Navigate
+    Questions List
   </button>
   <button (click)="handleReview()" ion-button color="dark" id="review-button">
     Review
   </button>
 
-  <hr>
   <button (click)="handleActions()" ion-button color="dark" id="action-items-button">
     Action Items
   </button>
   <button (click)="handleSkipped()"  ion-button color="dark" id="skipped-questions-button">
     Skipped Questions
-  </button>
-  <button (click)="handleNa()" ion-button color="dark" id="na-questions-button">
-    N/A Questions
   </button>
   <button (click)="handleSummary()" ion-button color="dark" id="na-questions-button">
     MRL Summary
