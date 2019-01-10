@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NavController } from "ionic-angular";
 import { AuthService } from "../../services/auth.service";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
@@ -13,6 +13,7 @@ export class LoginComponent {
 
 	user: any = {};
 	private errors: any = [];
+  @Output() toggleClicked = new EventEmitter<boolean>();
 
 	constructor( private auth: AuthService,
 	             public navCtrl: NavController) {}
@@ -33,6 +34,10 @@ export class LoginComponent {
 
   removeErrors() {
     this.errors = [];
+  }
+
+  toggle() {
+    this.toggleClicked.emit(true)
   }
 
 }

@@ -1,48 +1,111 @@
 register {
+  .register-error {
+    color: red;
+  }
+
+  .blank {
+    visibility: hidden;
+  }
+
+  #password-rules {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  #top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    h6 {
+            margin-top: .6em;
+    }
+  }
+
 	input {
-		width: 25vw;
+		width: 15vw;
 		height: inherit
 	}
 
-	.container {
+  button {
+    width: 15vw;
+  }
+
+  #page-container {
+    display: flex;
+    flex-direction: column;
+    justify-contener: center;
+    align-items: center;
+    margin-top: 5vw;
+  }
+
+  #button-container {
+    margin-top: 2vw;
+    margin-bottom: .5vw;
+  }
+
+	#register-container {
+    width:20vw;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-	}
-
-	.submit-container{
-		display:flex;
-		flex-direction:column;
-		align-items:center;
-		justify-content:center;
+		justify-content: flex-end;
+    border: 1px solid grey;
+    border-radius: 1vw;
+    height: 100%;
 	}
 
 	.col {
 		display: flex;
 		flex-direction: column;
-
+    justify-content: flex-start;
+    align-items: center;
 	}
+
+  .cell {
+    margin-bottom: 1vw;
+  }
 
 	.row {
 		margin-bottom: 2vh;
 	}
 
-	.cell {
-		margin-right: 2vh;
-		margin-left:  2vh;
+	#header {
+    margin-bottom: 0;
+    margin-top: 3vh;
 	}
 
-	h1 {
-		margin-bottom: 3vh;
-	}
+  #forgot-password {
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      color: rgba(55, 58, 60, .7);
+    }
+  }
+
+  // the only difference is that we want the register to have a right margin.
+  #register-link {
+    text-decoration: underline;
+    cursor: pointer;
+    margin-right: 1vw;
+    &:hover {
+      color: rgba(55, 58, 60, .7);
+    }
+  }
 
 	.error {
-		padding: 2vw;
-		margin-bottom: 1vw;
 		background: pink;
-		border-radius: 2vh;
+    border: 1px solid red;
+    display: flex;
+    padding-right: 1vw;
+    padding-left:1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+		border-radius: 1vw;
 	}
+
+  .close {
+    margin-top: .5vw;
+  }
 
 
 	@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
@@ -52,23 +115,22 @@ register {
 
 	.cell {
 		margin-top: 2vh;
-		margin-left: 0;
 	}
 
 	.container {
-		align-items: flex-start;
 		justify-content: flex-start;
+		align-items: flex-start;
 		margin-left: 20px;
-
 	}
 
-	.submit-container {
-		align-items: baseline;
+	.cell {
+		margin-left: 0;
 	}
 
-	.register-title {
+	.login-title {
 		font-size: 1.5em;
 	}
 }
+
 
 }

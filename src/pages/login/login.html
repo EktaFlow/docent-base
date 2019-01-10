@@ -1,8 +1,16 @@
-<div>
+<div id="public-page-container">
         <!-- Public Topbar-->
-        <div>
+        <div id="public-topbar">
 
         </div>
+        <div id="public-main">
+            <div *ngIf="!registerSelected" id="login-container">
+                <login (toggleClicked)="onToggle($event)">
+                </login>
+            </div>
+            <div *ngIf="registerSelected">
+                <register (toggleClicked)="onToggle($event)"></register>
+            </div>
+        </div>
 
-        <login></login>
 </div>

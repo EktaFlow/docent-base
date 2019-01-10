@@ -17,4 +17,8 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  onToggle(toggleClicked) {
+    this.registerSelected = !this.registerSelected;
+  }
+
 }

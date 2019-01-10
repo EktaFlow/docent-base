@@ -1,17 +1,11 @@
 <div id="page-container">
+        <div id="top-container">
 				<h1 id="header">Login</h1>
+        <h6 *ngIf="this.errors.length > 0"class="error">incorrect username password combination</h6>
+        <h6 *ngIf="this.errors.length == 0"class="blank">there are errors with your registration</h6>
+        </div>
         <div>
 			<div id="login-container">
-
-              <!--    <div class="error-wrapper"> -->
-				<div class="error" *ngIf="errors.length > 0">
-					<h6 *ngFor="let error of errors">
-						Error: {{error}}
-					</h6>
-          <i (click)="removeErrors()" class="glyphicon glyphicon-remove close"></i>
-				</div>
-        <!--              </div> -->
-
         <div>
 						<h5>Email</h5>
 					<input  type="email" name="emaial" [(ngModel)]="user.email">
@@ -30,7 +24,7 @@
 
       </div>
       <div style="display: flex; justify-content: flex-end">
-          <h6 id="register-link"> Register for Docent </h6>
+          <h6 (click)="toggle()" id="register-link"> Register for Docent </h6>
       </div>
       <div *ngIf="registerSelected "style="display: flex; justify-content: flex-end">
           <h6 id="register-link"> back to Login </h6>
