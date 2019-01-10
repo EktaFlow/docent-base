@@ -22,6 +22,9 @@ query assessment($_id: String) {
 		subThreadName
 		questionId
 		currentAnswer
+		answers{
+			answer
+		}
 	}
 	}
 }
@@ -120,7 +123,7 @@ export class NavigatePage {
 					var mrLevels = this.filterByProperty(questions, "mrLevel");
 					var a = mrLevels.map(f => {
 						var questionSet = questions.filter(s => s.mrLevel == f)
-						   .map(a => ({ text: a.questionText, questionId: a.questionId, questionStatus: this.findQStatus(a.currentAnswer, a.mrLevel) }));
+						   .map(a => ({ text: a.questionText, questionId: a.questionId, questionStatus: this.findQStatus(a.answers, a.mrLevel, a) }));
 							 return {mrl: f, questionSet: questionSet}
 					})
 				return {subheader: sName, questions: a};
@@ -182,15 +185,25 @@ expandAllThreads() {
 		});
 	}
 
-	findQStatus(currentAnswer, mrLevel){
-		if (currentAnswer == "Yes") {
-			return "Correct"
-		} else if (currentAnswer == "No") {
-			return "Incorrect"
-		} else if (currentAnswer == "N/A") {
+	findQStatus(answers, mrLevel, question){
+
+		var filteredAnswers = answers.filter(a => a.answer != null);
+		if (filteredAnswers.length == 0 && mrLevel == this.targetLevel ) {
+			return "Unanswered"
+		} else if (filteredAnswers.length == 0 && mrLevel != this.targetLevel || filteredAnswers == null){
+			return null
+		} else {
+				var currentAnswer = filteredAnswers[filteredAnswers.length - 1];
+		}
+
+		if (currentAnswer.answer == "Yes") {
+			return "Yes"
+		} else if (currentAnswer.answer == "No") {
+			return "No"
+		} else if (currentAnswer.answer == "N/A") {
 			return "N/A"
-		} else if (mrLevel == this.targetLevel){
-				return "Unanswered"
+		} else if (currentAnswer.answer == null ) {
+			return "Unanswered"
 		} else {
 			return null
 		}
@@ -198,9 +211,9 @@ expandAllThreads() {
 
 	pickColor(status){
 		var status = status.toLowerCase();
-		if (status == "correct"){
+		if (status == "yes"){
 			return "secondary"
-		} else if (status == "incorrect"){
+		} else if (status == "no"){
 			return "danger"
 		} else if (status == "n/a"){
 			return "buttonBlue"
