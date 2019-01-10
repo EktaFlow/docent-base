@@ -65,6 +65,7 @@ export class UserDashboardPage {
 
 	showMine: boolean = false;
 	showShared: boolean = false;
+	assessmentsBox: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -98,7 +99,12 @@ export class UserDashboardPage {
 			this.showMine = true;
 			this.showShared = true;
 		}
+
+
+
   }
+
+
 
 	async getSharedAssessments() {
 		var user;
@@ -153,7 +159,16 @@ export class UserDashboardPage {
     } else {
       this.currentAssessment = assessmentId;
     }
+		window.setTimeout(this.scrollToElement(assessmentId), 500);
+
+		// target.scrollIntoView();
   }
+
+	scrollToElement(assessmentId){
+		var target = document.getElementById(assessmentId);
+		console.log(target);
+		target.scrollIntoView({behavior: "smooth", block: "center"});
+	}
 
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate

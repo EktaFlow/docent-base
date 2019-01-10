@@ -49,10 +49,10 @@
 
             </div>
             <div *ngFor="let assessment of assessments">
-              <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+              <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                 <b>Assessment:</b> {{assessment.name}}
               </div>
-              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
+              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
                   <p><b>Name: </b>{{assessment.name}}</p>
                   <p><b>mrLevel: </b> {{assessment.targetMRL}}</p>
@@ -126,14 +126,15 @@
     </div>
 
 
-  <div class="mobile-to-reports">
-    <div class="box-title">
-      <h3><b>View Reports</b></h3>
+    <div class="mobile-to-reports">
+      <div class="box-title">
+        <h3><b>View Reports</b></h3>
+      </div>
     </div>
-  </div>
 
-    <div class="qspacer"></div>
 </div>
+<div class="qspacer"></div>
+
 
 
 
