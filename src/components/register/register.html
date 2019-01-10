@@ -18,6 +18,7 @@
                 <div style="display:flex; justify-content:space-between">
 						<h5>Email</h5>
             <h6 *ngIf="checkError('email')" class="register-error">enter an email</h6>
+            <h6 *ngIf="checkError('dupe')" class="register-error">that email is in use</h6>
                 </div>
 					<input  type="email" name="emaial" [(ngModel)]="user.email">
         </div>

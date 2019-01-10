@@ -8,17 +8,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  registerSelected: boolean = false;
+  componentShown: string = 'login';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
+    console.log(this.componentShown);
     console.log('ionViewDidLoad LoginPage');
   }
 
-  onToggle(toggleClicked) {
-    this.registerSelected = !this.registerSelected;
+  onToggle(componentToShow) {
+    this.componentShown = componentToShow;
   }
 
 }

@@ -13,7 +13,7 @@ export class RegisterComponent {
 	private user = {};
 	private errors: any = [];
 	private submitted: boolean = false;
-  @Output() toggleClicked = new EventEmitter<boolean>();
+  @Output() toggleClicked = new EventEmitter<string>();
 
   constructor( private auth: AuthService, public navCtrl: NavController) {}
 
@@ -30,9 +30,11 @@ export class RegisterComponent {
 				.subscribe( user => {
 					this.submitted = true },
 
+          // error handling taking the text of the error directly.
            ( {error} ) => {
-        this.errors.push(error.error);
-});
+           console.log(error);
+          this.errors.push(error.error);
+        });
 		}
 	}
 
@@ -83,6 +85,6 @@ export class RegisterComponent {
   }
 
   toggle() {
-    this.toggleClicked.emit(true);
+    this.toggleClicked.emit('login');
   }
 }

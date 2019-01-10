@@ -13,7 +13,7 @@
 
          <div> 
                     <div style="display: flex; justify-content: space-between; align-items: flex-end">
-                            <h5>Password</h5> <h6 id="forgot-password"> Forgot Password?</h6>
+                            <h5>Password</h5> <h6 (click)="showPasswordReset()" id="forgot-password"> Forgot Password?</h6>
                     </div>
 							<input  type="password" name="passwd" [(ngModel)]="user.passwd">
 				 </div>
@@ -24,7 +24,7 @@
 
       </div>
       <div style="display: flex; justify-content: flex-end">
-          <h6 (click)="toggle()" id="register-link"> Register for Docent </h6>
+          <h6 (click)="showRegister()" id="register-link"> Register for Docent </h6>
       </div>
       <div *ngIf="registerSelected "style="display: flex; justify-content: flex-end">
           <h6 id="register-link"> back to Login </h6>

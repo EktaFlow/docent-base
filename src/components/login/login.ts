@@ -13,7 +13,7 @@ export class LoginComponent {
 
 	user: any = {};
 	private errors: any = [];
-  @Output() toggleClicked = new EventEmitter<boolean>();
+  @Output() toggleClicked = new EventEmitter<string>();
 
 	constructor( private auth: AuthService,
 	             public navCtrl: NavController) {}
@@ -36,8 +36,12 @@ export class LoginComponent {
     this.errors = [];
   }
 
-  toggle() {
-    this.toggleClicked.emit(true)
+  showRegister() {
+    this.toggleClicked.emit('register');
+  }
+
+  showPasswordReset() {
+    this.toggleClicked.emit('reset');
   }
 
 }

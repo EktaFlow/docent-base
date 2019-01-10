@@ -4,12 +4,15 @@
 
         </div>
         <div id="public-main">
-            <div *ngIf="!registerSelected" id="login-container">
+            <div *ngIf="componentShown == 'login'" id="login-container">
                 <login (toggleClicked)="onToggle($event)">
                 </login>
             </div>
-            <div *ngIf="registerSelected">
+            <div *ngIf="componentShown == 'register'">
                 <register (toggleClicked)="onToggle($event)"></register>
+            </div>
+            <div *ngIf="componentShown == 'reset'">
+                    <password-reset (toggleClicked)="onToggle($event)"></password-reset>
             </div>
         </div>
 
