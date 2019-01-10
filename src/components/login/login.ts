@@ -28,16 +28,11 @@ export class LoginComponent {
 	}
 
 	incorrectCredentials() {
-		this.errors.push("That username password combination is incorrect");
+		this.errors = ["That username password combination is incorrect"];
 	}
 
-	validateInput() {
-		var { user } = this;
-
-		if (!user.email) this.errors.push("No email provided");
-		if (!user.passwd) this.errors.push("No password provided");
-
-		return this.errors == false;
-	}
+  removeErrors() {
+    this.errors = [];
+  }
 
 }

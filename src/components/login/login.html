@@ -1,41 +1,40 @@
-<!-- Generated template for the LoginComponent component -->
-<div>
-	<!-- TODO: Fix this. -->
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<div class="container">
-				<h1>Login to Docent</h1>
+<div id="page-container">
+				<h1 id="header">Login</h1>
+        <div>
+			<div id="login-container">
 
+              <!--    <div class="error-wrapper"> -->
 				<div class="error" *ngIf="errors.length > 0">
-					<h3>Ooops, Login Errors</h3>
-					<p *ngFor="let error of errors">
-						{{error}}
-					</p>
+					<h6 *ngFor="let error of errors">
+						Error: {{error}}
+					</h6>
+          <i (click)="removeErrors()" class="glyphicon glyphicon-remove close"></i>
 				</div>
+        <!--              </div> -->
 
-				<div style="display:flex; flex-direction:column">
-					<div class="row">
-						<div class="cell">
-							<h6>Email</h6>
-							<input  type="email" name="emaial" placeholder = "Email" [(ngModel)]="user.email">
-						</div>
+        <div>
+						<h5>Email</h5>
+					<input  type="email" name="emaial" [(ngModel)]="user.email">
+        </div>
 
-						<div class="cell">
-							<h6>Password</h6>
-							<input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
-						</div>
-					</div>
-				</div>
+         <div> 
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end">
+                            <h5>Password</h5> <h6 id="forgot-password"> Forgot Password?</h6>
+                    </div>
+							<input  type="password" name="passwd" [(ngModel)]="user.passwd">
+				 </div>
 
-				<button ion-button color="buttonBlue" (click)="submitLogin()">Login</button>
-			</div>
+          <div id="button-container">
+				      <button ion-button color="buttonBlue" (click)="submitLogin()">Login</button>
+          </div>
+
+      </div>
+      <div style="display: flex; justify-content: flex-end">
+          <h6 id="register-link"> Register for Docent </h6>
+      </div>
+      <div *ngIf="registerSelected "style="display: flex; justify-content: flex-end">
+          <h6 id="register-link"> back to Login </h6>
+      </div>
+
+     </div>
 </div>

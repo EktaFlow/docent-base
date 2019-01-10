@@ -25,6 +25,7 @@ import { DefinitionsPageModule } from '../pages/definitions/definitions.module';
 import { FaqsPageModule } from '../pages/faqs/faqs.module';
 import { ReviewPageModule } from '../pages/review/review.module';
 import { QuestionsPageModule } from '../pages/questions/questions.module';
+import { LoginPageModule } from '../pages/login/login.module';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { NavigatePageModule } from '../pages/navigate/navigate.module';
 import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
@@ -64,6 +65,7 @@ import { BackUrl } from  "../services/constants";
 		FormsModule,
 		AcronymsPageModule,
 		QuestionsPageModule,
+    LoginPageModule,
 		DefinitionsPageModule,
 		FaqsPageModule,
 		ReviewPageModule,
@@ -91,7 +93,7 @@ import { BackUrl } from  "../services/constants";
 		//AcronymsPage,
 		//ReviewPage,
 		//RegisterPage,
-		//LoginPage,
+    //LoginPage,
 		//HelpmenuComponent,
 		//ContactsDropdownComponent,
 		//FaqDropdownComponent,
