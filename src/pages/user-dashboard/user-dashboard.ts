@@ -11,6 +11,8 @@ import { ActionitemsPage } from "../actionitems/actionitems";
 import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ImportComponent } from "../../components/import/import";
+
 
 
 import { HomePage } from "../home/home";
@@ -116,6 +118,18 @@ export class UserDashboardPage {
 		}
 	}
 
+
+
+	launchImportPopover() {
+		console.log("hi");
+		this.popOver.create(ImportComponent)
+								.present();
+	}
+
+	handleImport() {
+		this.launchImportPopover();
+	}
+
 	pullSharedAssessments() {
 		console.log(this.sharedAssessmentIds);
 		this.apollo.watchQuery<any>({
@@ -176,7 +190,7 @@ export class UserDashboardPage {
 	toggleMine = () => {this.showMine = !this.showMine;}
 	toggleShared = () => {this.showShared = !this.showShared;}
 
-  /** 
+  /**
   *   launch delete popover, pass assessment type
   *   create an emitter to recieve user response from popover,
   *   if emitter returns truthy, go use assessment service delete,
@@ -185,7 +199,7 @@ export class UserDashboardPage {
   */
 	async handleDeleting(assessmentId){
     var emitter =  new EventEmitter<any>();
-    emitter.subscribe(deleteFile => { 
+    emitter.subscribe(deleteFile => {
       if (deleteFile) {
         this.assessmentService.deleteAssessment(assessmentId)
         .then(a => a.toPromise())

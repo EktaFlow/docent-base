@@ -1,63 +1,52 @@
 page-user-dashboard {
 
-
-  .first-bar {
-    width: 100%;
-    background-color: black;
-    // margin-top: 100px;
-    // padding: 20px 20px 5px 20px;
-    margin: 76px auto 0 auto;
-    display: flex;
-    position: relative;
-    min-height: 100px;
-    border-top: .5px solid lightgray;
-
-
-
-    .user-info{
-      margin-left: 50px;
-      width: 50%;
-      padding-left: 40px;
-      h1 {
-        display: inline-block;
-        width: 20%;
-        position: absolute;
-        top: 0px;
-        left: 20px;
-        color: white;
-        font-size: 2.5em;
-
-
-      }
-
-
-      .info {
-        display: inline-block;
-        // width: 70%;
-        color: white;
-        position: absolute;
-        bottom: 0px;
-        left: 20px;
-
-        p {
-          display: inline-block;
-          // width: 25%;
-        }
-
-      }
-    }
-
-
-    .buttons {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-
-      button {
-        margin: 3px;
-      }
-    }
-  }
+// first bar -styling
+  // .first-bar {
+  //   width: 100%;
+  //   background-color: black;
+  //   // margin-top: 100px;
+  //   // padding: 20px 20px 5px 20px;
+  //   margin: 76px auto 0 auto;
+  //   display: flex;
+  //   position: relative;
+  //   min-height: 100px;
+  //   border-top: .5px solid lightgray;
+  //   .user-info{
+  //     margin-left: 50px;
+  //     width: 50%;
+  //     padding-left: 40px;
+  //     h1 {
+  //       display: inline-block;
+  //       width: 20%;
+  //       position: absolute;
+  //       top: 0px;
+  //       left: 20px;
+  //       color: white;
+  //       font-size: 2.5em;
+  //     }
+  //     .info {
+  //       display: inline-block;
+  //       // width: 70%;
+  //       color: white;
+  //       position: absolute;
+  //       bottom: 0px;
+  //       left: 20px;
+  //       p {
+  //         display: inline-block;
+  //         // width: 25%;
+  //       }
+  //     }
+  //   }
+  //   .buttons {
+  //     position: absolute;
+  //     right: 10px;
+  //     top: 10px;
+  //
+  //     button {
+  //       margin: 3px;
+  //     }
+  //   }
+  // }
 
 
 
@@ -83,7 +72,7 @@ page-user-dashboard {
   .assessment-boxes {
     width: 98%;
     position: absolute;
-    top: 250px;
+    top: 200px;
     left: 40px;
     vertical-align: top;
 
@@ -116,6 +105,26 @@ page-user-dashboard {
 
         // text-decoration: underline;
       }
+
+    .assessment-links {
+      padding-top: 10px;
+      // height: 40px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid white;
+      width: 100%;
+      .buttons {
+        width: 99%;
+        margin: 0 auto;
+        button {
+          display: inline-block;
+          width: 30%;
+          // padding: 0 7px;
+          margin: 0 10px;
+          font-size: .6em;
+        }
+      }
+
+    }
 
 
     .an-assessment {
