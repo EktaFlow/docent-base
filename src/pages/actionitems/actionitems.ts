@@ -86,7 +86,7 @@ export class ActionitemsPage {
                                             newObj.questionText = "" + element.questionText;
                                             // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
                                             newObj.what = "" + element.answers[element.answers.length - 1].what;
-                                            newObj.when = "" + element.answers[element.answers.length - 1].when;
+                                            newObj.when = "" + this.formatDate(element.answers[element.answers.length - 1].when);
                                             newObj.who = "" + element.answers[element.answers.length - 1].who;
 
                                             var cur = element.answers[element.answers.length - 1];
@@ -101,6 +101,16 @@ console.log(element);
                                         this.onChangeTable(this.config);
 			});
 	}
+
+  formatDate(date){
+    if (!date) {
+  		return null;
+  	} else {
+  		return new Date(date)
+  			     .toISOString()
+  			     .slice(0,10);
+  	}
+  }
 
 
   public rows:Array<any> = [];
