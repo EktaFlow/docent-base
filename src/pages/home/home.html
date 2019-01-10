@@ -53,7 +53,7 @@
 	<font color="grey">Use this option to start a new assessment</font><br />
   <font color="grey">Please fill in all fields to begin an assessment</font>
   <br><br>
-			<h6 class="assessment-name">Assessment Name</h6>
+			<h6 class="assessment-name">Assessment Name*</h6>
 
 	<div class="topmost" style="z-index: 100;">
       <input type="text" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
@@ -85,13 +85,13 @@
 
   <div class = "mid-first-page">
     <div class="scope">
-      <h6>Scope</h6>
+      <h6>Additional Information</h6>
       <textarea name="scope" placeholder = "Enter Scope Here" id="assessment-scope-input"[(ngModel)]="assForm.scope"></textarea>
     </div>
     <div class ="target-level-date">
       <div class = "target-level">
         <div style = "width:45%;">
-          <h6>Target MRL</h6>
+          <h6>Target MRL*</h6>
           <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
@@ -131,7 +131,7 @@
       <ion-input name="location" id="location-input" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
     <div>
-      <h6>Deskbook Version</h6>
+      <h6>Deskbook Version*</h6>
       <select id="deskbook-select" name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
 				<ng-container *ngFor="let deskbook of deskbookVersions">
