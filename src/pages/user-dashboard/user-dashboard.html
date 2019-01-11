@@ -1,25 +1,22 @@
 <topbar [assessmentId]="assessmentId" [pageName]="pageName" class="mobile"></topbar>
-<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" class="desktop"></topbar>
+<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [pageName]="pageName" class="desktop"></topbar>
 
 
 
 <ion-content>
-  <div class="first-bar">
-    <!-- user's name -->
+  <!-- <div class="first-bar">
+
     <div class="user-info">
       <h1 id="users-name">{{user.name}}</h1>
       <div class="info">
-        <!-- email -->
         <p><b>email:</b> {{user.email}}</p>
-        <!-- organization don't currently have a concept of organization for users-->
-        <!-- <p><b>organization:</b> {{fakeUser.organization}}</p> -->
       </div>
     </div>
     <div class="buttons">
       <button ion-button color="buttonBlue" small (click)="handleSettings()">Settings</button>
       <button ion-button color="buttonBlue" small (click)="redirectToCreate()" id="start-new-desktop">Start New Assessment</button>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -38,19 +35,27 @@
         <div class="box-title mobile">
           <h3 (click)="toggleMine()"><b>My Assessments</b></h3>
         </div>
+        <div class="assessment-links">
+          <div class="buttons">
+            <button ion-button small color="light" (click)="redirectToCreate()">Start New Assessment</button>
+            <button ion-button small color="light" (click)="handleImport()">Import</button>
+            <button ion-button small color="light" (click)="handleSettings()">Settings</button>
+          </div>
+        </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">
             <div class="accordion-tab metrics">
               <p>You currently have {{assessments.length}} assessments</p>
+
             </div>
             <div *ngFor="let assessment of assessments">
-              <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+              <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                 <b>Assessment:</b> {{assessment.name}}
               </div>
-              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
+              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
                   <p><b>Name: </b>{{assessment.name}}</p>
-                  <p><b>MRLevel: </b> {{assessment.targetMRL}}</p>
+                  <p><b>mrLevel: </b> {{assessment.targetMRL}}</p>
                   <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
                   <p><b>Scope: </b>{{assessment.scope}}</p>
                   <p><b>Location: </b> {{assessment.location}}</p>
@@ -98,7 +103,7 @@
                 <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
                   <div class="details">
                     <p><b>Name: </b>{{assessment.name}}</p>
-                    <p><b>MRLevel: </b> {{assessment.targetMRL}}</p>
+                    <p><b>MRL: </b> {{assessment.targetMRL}}</p>
                     <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
                     <p><b>Scope: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
@@ -121,14 +126,15 @@
     </div>
 
 
-  <div class="mobile-to-reports">
-    <div class="box-title">
-      <h3><b>View Reports</b></h3>
+    <div class="mobile-to-reports">
+      <div class="box-title">
+        <h3><b>View Reports</b></h3>
+      </div>
     </div>
-  </div>
 
-    <div class="qspacer"></div>
 </div>
+<div class="qspacer"></div>
+
 
 
 

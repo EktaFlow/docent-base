@@ -27,7 +27,7 @@
 
 		<div class="q-answer">
 		<select [(ngModel)]="vals.answer" id="select-answer">
-			<option value="skipped">Select Answer</option>
+			<option value="" disabled selected>Select Answer</option>
 			<option value="Yes">Yes</option>
 			<option value="No">No</option>
 			<option value="N/A">N/A</option>
@@ -100,11 +100,11 @@
           <li *ngFor = "let persons of actionPerson">
             <pre>{{persons}}</pre>
           </li>
-          <h6>Who</h6>
+          <h6>Owner</h6>
           <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" #who>
         </div>
         <div class='when'>
-          <h6>When</h6>
+          <h6>Due Date</h6>
           <input class="question-input" id="no-when-input" [(ngModel)]="vals.when" name= "when" type="date" style="padding:15px;">
         </div>
       </div>
@@ -126,7 +126,7 @@
       -->
 
       <div class="what">
-        <h6>What</h6>
+        <h6>Action Item</h6>
         <textarea class="question-input" id="no-what-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
       </div>
       <div class="reason">
@@ -222,18 +222,18 @@
                     <div style="display:flex; flex-direction:column">
                       <h6>Greatest Impact</h6>
                       <select [(ngModel)]="vals.greatestImpact" id="impact-input">
-                        <option value="cost">cost</option>
-                        <option value="schedule">schedule</option>
-                        <option value="performance">performance</option>
+                        <option value="cost">Cost</option>
+                        <option value="schedule">Schedule</option>
+                        <option value="performance">Performance</option>
                       </select>
                     </div>
                     <div style="display:flex; flex-direction:column">
                       <h6>Risk Response</h6>
                       <select [(ngModel)]="vals.riskResponse" id="response-input">
-                        <option value="accept">accept</option>
-                        <option value="transfer">transfer</option>
-                        <option value="avoid">avoid</option>
-                        <option value="mitigate">mitigate</option>
+                        <option value="accept">Accept</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="avoid">Avoid</option>
+                        <option value="mitigate">Mitigate</option>
                       </select>
                     </div>
                   </div>

@@ -113,11 +113,15 @@ export class ViewsComponent {
 		})
 			.valueChanges
 			.subscribe( ({data, loading}) => {
+        console.log('we firin up a save')
+        console.log(event.target);
 				var title = data.assessment.name;
 				title ? null : title = "untitled"
 				var assessment = JSON.stringify(data);
 				saveAs(new Blob([assessment], { type: "text/plain" }), title + ".mra")
+        this.close();
 			})
+
 		}
 
 		handleImport() {
@@ -136,6 +140,7 @@ export class ViewsComponent {
 			this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 			this.close();
 		}
+    
 		handleActions(){
 			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
 			this.close();
