@@ -103,12 +103,22 @@ export class QuestionsPage {
 	determineCurrentQuestion() {
 		var { getQuestion } = this;
 
+		//what im trying to go in this if statement (mostly the else section)
+		//1st filter out all nulls out of the answers array for each question
+		//is that better to do outside of the find function? and then run find on the new array of questions?
+		//run the find - the nulls would have been removed so they will not affect the length of the
+		//answers array
+		//we just really need to remove the nulls all together!
+
 		if (this.referringQuestionId ) {
 			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
 		else {
 			var noAnswer = this.surveyQuestions.find( qId => {
-				return getQuestion(qId).currentAnswer == null
+				console.log(getQuestion(qId));
+				// var questions = getQuestion(qId).answers.filter(a => a != null);
+				// console.log(questions);
+				return getQuestion(qId).answers.length == 0;
 			})
 			this.currentQuestion = getQuestion(noAnswer);
 		}
@@ -138,7 +148,7 @@ export class QuestionsPage {
         this.popoverController.create(RiskPopoverComponent, {highlight: highlight}, {cssClass: 'risk-popover'}).present();
   }
 
-  /** 
+  /**
   * on clicking the minus button next to a file.
   * - create emitter to pass data up from popover
   * - launch FileDelete popover, ask user to verify delete
@@ -191,7 +201,7 @@ export class QuestionsPage {
   handleSave() {
 		this.setValues();
 		alert("This question has been saved");
-	} 
+	}
 
 	/////////////////////////////////////////////////////////////////////////
 	///////////// FUNCTIONS DEALING WITH VALUE SETTING /////////////////////
@@ -221,8 +231,8 @@ export class QuestionsPage {
 	async updateAssessment(values) {
 
 		//updating object in memory
-//    console.log(values) 
-                // oldQuestion doesn't get used & is equivalent to 
+//    console.log(values)
+                // oldQuestion doesn't get used & is equivalent to
 		// var oldQuestion = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
@@ -301,7 +311,7 @@ export class QuestionsPage {
                         console.log('they don\'t martch!!');
                         return true
                 }
-        
+
                 // return false;
         }
 
@@ -408,8 +418,8 @@ export class QuestionsPage {
   // and sets this.vals to the latest answer (by timestamp)
 	pullLatestAnswer(question){
 		var answers = JSON.parse(JSON.stringify(question.answers));
-    
-    answers.sort( (a, b) => { 
+
+    answers.sort( (a, b) => {
       var horridTypescriptCastingA = <any>(new Date(a.updatedAt));
       var horridTypescriptCastingB = <any>(new Date(b.updatedAt));
 
@@ -428,7 +438,7 @@ export class QuestionsPage {
 	// TODO: REMOVE - Replace with pullLatestAnswer
 	//we will not need this anymore
 	filterAnswerVals(answer) {
-    
+
 		var filteredFields:any = {};
 		var answerVals = [
 			"userId",
@@ -460,7 +470,7 @@ export class QuestionsPage {
 			"currentAnswer"
 		];
 
-                answerVals.forEach(val => { 
+                answerVals.forEach(val => {
                         filteredFields[val] = answer[val] ? answer[val] : null
                 });
 		// filteredFields.when = this.formatDate();
@@ -478,10 +488,10 @@ export class QuestionsPage {
 		this.currentQPos = this.surveyQuestions.indexOf(this.currentQuestion.questionId) + 1;
 
   }
-  
+
   /**
   *  to display correctly on the `date` html5 `input` element, the object needs
-  *  `YYYY-mm-dd` formatting, rather than the format from the db.  
+  *  `YYYY-mm-dd` formatting, rather than the format from the db.
   */
   public formatDate() {
   	var date;
@@ -497,8 +507,8 @@ export class QuestionsPage {
   }
 
   public calculateRiskScore() {
-    // preventing off by one errors, with nulls. 
-    // values should always be 1-5  
+    // preventing off by one errors, with nulls.
+    // values should always be 1-5
     var riskMatrix = [
       [ null ],
       [ null, 1, 3,  5,  8,  12],
@@ -508,26 +518,26 @@ export class QuestionsPage {
       [ null, 9, 16, 20, 23, 25]
     ];
 
-    // typescript -_- 
+    // typescript -_-
     var likelihood = (<any>this.vals).likelihood;
     var consequence = (<any>this.vals).consequence;
 
     if ( likelihood && consequence ) {
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
-      var consequenceIndex = Number(consequence);   
-      
+      var consequenceIndex = Number(consequence);
+
       // var name = selectedBox.className.replace(/ selected/g, '')
       // selectedBox.className = `${name} selected`;
 
-      return riskMatrix[likelihoodIndex][consequenceIndex]; 
+      return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {
       return " ";
     }
   }
 
   public launchLikelihood() {
-    
+
   }
 
 
