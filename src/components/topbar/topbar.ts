@@ -217,9 +217,9 @@ constructor( public popOver: PopoverController,
 		.present();
 	}
 
-	toggleTopbarInfo(){
-		this.infoShow = !this.infoShow;
-	}
+	// toggleTopbarInfo(){
+	// 	this.infoShow = !this.infoShow;
+	// }
 
 
 }
