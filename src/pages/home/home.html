@@ -56,7 +56,7 @@
 			<h6 class="assessment-name">Assessment Name</h6>
 
 	<div class="topmost" style="z-index: 100;">
-      <input type="text" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
+      <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
 
 <!-- Save for auth -->
@@ -64,20 +64,22 @@
   <form class="member-form">
     <div class="member-list">
       <li *ngFor = "let member of members">
-        <pre>- {{member.email}}:    {{member.role}}</pre>
+        <pre>- {{member.name}}: {{member.email}}, {{member.role}}</pre>
       </li>
     </div>
     <div class="members">
       <div class="member-inputs">
+        <input type="text" name="memName" placeholder="Member Name" #memName>
         <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
         <input type="text" name="memRole" placeholder = "Member Role" #memRole>
+
       </div>
     </div>
     <div class = "buttons">
       <button (click)="removeMember()" style="background-color:white">
           <ion-icon name="remove-circle" color = "danger"></ion-icon>
       </button>
-      <button (click)="addMember(memEmail.value,memRole.value)" style="background-color:white">
+      <button (click)="addMember(memName.value, memEmail.value,memRole.value)" style="background-color:white">
           <ion-icon name="add-circle" color = "secondary"></ion-icon>
       </button>
     </div>
@@ -86,7 +88,7 @@
   <div class = "mid-first-page">
     <div class="scope">
       <h6>Scope</h6>
-      <textarea name="scope" placeholder = "Enter Scope Here" id="assessment-scope-input"[(ngModel)]="assForm.scope"></textarea>
+      <textarea name="scope" maxlength="200" placeholder = "Enter Additional Information Here" id="assessment-scope-input"[(ngModel)]="assForm.scope"></textarea>
     </div>
     <div class ="target-level-date">
       <div class = "target-level">
