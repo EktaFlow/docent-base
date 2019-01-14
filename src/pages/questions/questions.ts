@@ -115,9 +115,6 @@ export class QuestionsPage {
 		}
 		else {
 			var noAnswer = this.surveyQuestions.find( qId => {
-				console.log(getQuestion(qId));
-				// var questions = getQuestion(qId).answers.filter(a => a != null);
-				// console.log(questions);
 				return getQuestion(qId).answers.length == 0;
 			})
 			this.currentQuestion = getQuestion(noAnswer);
@@ -496,7 +493,7 @@ export class QuestionsPage {
   public formatDate() {
   	var date;
         this.currentQuestion.answers && this.currentQuestion.answers.length > 0 ? date = this.currentQuestion.answers[this.currentQuestion.answers.length - 1].when : null
-        console.log(date);
+        // console.log(date);
 	if (!date) {
 		return null;
 	} else {

@@ -31,8 +31,8 @@
       <hr>
       <div *ngFor = "let answer of question.questions" class="questions">
         <div class="header">
-          <p *ngIf="answer.subheader!= 'MR Levels'"class = "subtitle">{{answer.subheader}}</p>
-          <h5 *ngIf="answer.subheader == 'MR Levels'"> MR Levels</h5>
+          <p *ngIf="answer.subheader!= 'MR Levels'"class = "subtitle" (click)="goToQuestion(answer.subheader)">{{answer.subheader}}</p>
+          <h5 *ngIf="answer.subheader == 'MR Levels'"> MRLs</h5>
         </div>
         <div *ngFor ="let response of answer.answers" class="answers">
                 <div *ngIf="isHeader(response)">
