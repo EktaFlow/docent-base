@@ -57,10 +57,8 @@ export class HomePage {
 	validateAssessment() {
 		var fields = [
 			"name",
-			"targetMRL",
-      "scope",
-      "location",
-			"targetDate",
+			"targetMRL"
+
 		];
 
 		return fields.every(field => this.assForm[field])
@@ -183,9 +181,9 @@ export class HomePage {
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 
     handleResetClick() {
-      this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'}) 
+      this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'})
                     .present();
-    } 
+    }
 
 	showRegisterForm = () => this.showRegister = true;
 	mobileRegisterForm() {
