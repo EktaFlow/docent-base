@@ -165,6 +165,14 @@ export class QuestionsPage {
                           .present({ev: event});
   }
 
+  /**
+  *  Simple handler to launch files in new tab/window rather than
+  *  changing actual address url. 
+  */
+  openFile(url) {
+    window.open(url);
+  }
+
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
 		this.setValues();
