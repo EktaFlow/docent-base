@@ -174,7 +174,8 @@
     <div class="file">
       <ng-container *ngFor="let file of files" class="file">
         <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
-          <a href={{file.url}}>{{file.name}}</a>
+          <!--          <a href={{file.url}}>{{file.name}}</a> -->
+          <p class="file-link" (click)="openFile(file.url)">{{file.name}}</p>
           <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
         </div>
       </ng-container>
