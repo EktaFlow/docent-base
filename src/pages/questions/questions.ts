@@ -103,6 +103,13 @@ export class QuestionsPage {
 	determineCurrentQuestion() {
 		var { getQuestion } = this;
 
+		//what im trying to go in this if statement (mostly the else section)
+		//1st filter out all nulls out of the answers array for each question
+		//is that better to do outside of the find function? and then run find on the new array of questions?
+		//run the find - the nulls would have been removed so they will not affect the length of the
+		//answers array
+		//we just really need to remove the nulls all together!
+
 		if (this.referringQuestionId ) {
 			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
