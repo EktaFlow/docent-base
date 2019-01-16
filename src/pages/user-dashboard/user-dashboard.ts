@@ -11,6 +11,8 @@ import { ActionitemsPage } from "../actionitems/actionitems";
 import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ImportComponent } from "../../components/import/import";
+
 
 
 import { HomePage } from "../home/home";
@@ -63,6 +65,7 @@ export class UserDashboardPage {
 
 	showMine: boolean = false;
 	showShared: boolean = false;
+	assessmentsBox: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -96,7 +99,12 @@ export class UserDashboardPage {
 			this.showMine = true;
 			this.showShared = true;
 		}
+
+
+
   }
+
+
 
 	async getSharedAssessments() {
 		var user;
@@ -114,6 +122,18 @@ export class UserDashboardPage {
 			.then(a => this.sharedAssessmentIds = a )
 			.catch(e => console.log(e));
 		}
+	}
+
+
+
+	launchImportPopover() {
+		console.log("hi");
+		this.popOver.create(ImportComponent)
+								.present();
+	}
+
+	handleImport() {
+		this.launchImportPopover();
 	}
 
 	pullSharedAssessments() {
@@ -139,7 +159,16 @@ export class UserDashboardPage {
     } else {
       this.currentAssessment = assessmentId;
     }
+		window.setTimeout(this.scrollToElement(assessmentId), 500);
+
+		// target.scrollIntoView();
   }
+
+	scrollToElement(assessmentId){
+		var target = document.getElementById(assessmentId);
+		console.log(target);
+		target.scrollIntoView({behavior: "smooth", block: "center"});
+	}
 
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
@@ -176,7 +205,7 @@ export class UserDashboardPage {
 	toggleMine = () => {this.showMine = !this.showMine;}
 	toggleShared = () => {this.showShared = !this.showShared;}
 
-  /** 
+  /**
   *   launch delete popover, pass assessment type
   *   create an emitter to recieve user response from popover,
   *   if emitter returns truthy, go use assessment service delete,
@@ -185,7 +214,7 @@ export class UserDashboardPage {
   */
 	async handleDeleting(assessmentId){
     var emitter =  new EventEmitter<any>();
-    emitter.subscribe(deleteFile => { 
+    emitter.subscribe(deleteFile => {
       if (deleteFile) {
         this.assessmentService.deleteAssessment(assessmentId)
         .then(a => a.toPromise())

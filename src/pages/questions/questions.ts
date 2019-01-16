@@ -115,9 +115,6 @@ export class QuestionsPage {
 		}
 		else {
 			var noAnswer = this.surveyQuestions.find( qId => {
-				console.log(getQuestion(qId));
-				// var questions = getQuestion(qId).answers.filter(a => a != null);
-				// console.log(questions);
 				return getQuestion(qId).answers.length == 0;
 			})
 			this.currentQuestion = getQuestion(noAnswer);
@@ -173,6 +170,14 @@ export class QuestionsPage {
 
     this.popoverController.create(FileDeleteComponent, fileDeleteData)
                           .present({ev: event});
+  }
+
+  /**
+  *  Simple handler to launch files in new tab/window rather than
+  *  changing actual address url. 
+  */
+  openFile(url) {
+    window.open(url);
   }
 
 	///////////////////////// next / prev / etc /////////////////////////////
@@ -496,7 +501,7 @@ export class QuestionsPage {
   public formatDate() {
   	var date;
         this.currentQuestion.answers && this.currentQuestion.answers.length > 0 ? date = this.currentQuestion.answers[this.currentQuestion.answers.length - 1].when : null
-        console.log(date);
+        // console.log(date);
 	if (!date) {
 		return null;
 	} else {
