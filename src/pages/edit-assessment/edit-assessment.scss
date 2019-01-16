@@ -1,5 +1,41 @@
 page-edit-assessment {
 
+  .thread-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: .4em;
+  }
+
+  .choose-threads {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .choose-threads-header {
+    display: flex;
+    h6 {
+      margin: 0;
+    }
+    margin-bottom: 1em;
+  }
+
+  .choose-threads-thread-list {
+    display: flex;
+    flex-direction: column;
+    input[type=checkbox] {
+       height: 20px;
+       width: 20px;
+       margin-right: 1em;
+    }
+    h6 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    font {
+      margin-bottom: .5em;
+    }
+  }
+
   .close {
 		position: absolute;
 		top: 75px;

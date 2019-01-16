@@ -31,6 +31,8 @@ export class EditAssessmentPage {
   private page: String = 'edit';
   private assessmentId: String;
   private assessment: any = {};
+  private threads: any;
+  private threadsShown: boolean = false;
 
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
@@ -45,6 +47,17 @@ export class EditAssessmentPage {
   // things you can't --> the underlying schema
 
   async ngOnInit() {
+    var threads = await this.assessmentService.getThreads();
+    threads.subscribe( ({data}) => {
+      var threads = data.allThreadNames;
+      // for now, just dealing with the extra array element in the front
+      // need to go to back && refactor function grabbing thread names
+      threads = JSON.parse(JSON.stringify(threads));
+      threads.pop();
+      threads[8] = 'H. Facilities';
+      this.threads = threads;
+    });
+
     // handle this when there is nope assId
     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
     if (this.page == 'edit') {
@@ -54,6 +67,10 @@ export class EditAssessmentPage {
         console.log(this.assessment);
       })
     }
+  }
+
+  showThreads() {
+    this.threadsShown = true;
   }
 
   closePopover(){

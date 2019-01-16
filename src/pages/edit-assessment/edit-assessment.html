@@ -122,15 +122,27 @@
     </div>
     <div class = "thread-start">
       <div class = "choose-threads">
-        <button style="background: white;"(click)="showThreads($event)">
-          <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
-        </button>
-        <p><b>Choose Threads</b></p>
+        <div class="choose-threads-header">
+          <h6>Choose Threads</h6>
+          <button style="background: white;"(click)="showThreads($event)">
+            <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
+          </button>
+        </div>
+        <div class="choose-threads-thread-list" *ngIf="threadsShown">
+          <font color="grey">
+            Unselecting a thread will remove it from your MRA. Typically, all threads are selected.
+          </font>
+                <div class="thread-row" *ngFor="let thread of threads">
+                  <input type="checkbox" />
+                  <h6>{{thread}}</h6>
+                </div>
+        </div>
+        <!-- 
         <button class="tooltip" style="background: white;">
-          <!-- TODO: pull this text out of html -->
           <span class="tooltiptext right">Choose to include or exclude specific threads in the MRA. If a thread is unselected you will not be presented with any questions from that thread. Typically, all threads are left selected</span>
           <img src="assets/imgs/qmark.png" width="15" height="15">
         </button>
+        -->
       </div>
       <div>
         <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
@@ -138,25 +150,5 @@
         </button>
       </div>
     </div>
-    <!--
-    <div class="existing-assessment">
-      <div>
-        <h1>Continue Existing Assessment</h1>
-        <p>
-          Use this option to start working on an existing assessment. You will be<br> required to import your assessment
-          data
-        </p>
-      </div>
-      <div>
-        <button ion-button class="grayed" ion-button (click)="helpButtonClick()" color="buttonBlue">
-          Help Importing
-        </button>
-        <button (click)="showAssessmentsList($event)" ion-button color ="buttonBlue">
-          Open Assessment
-        </button>
-      </div>
-    </div>
-    -->
-
 
 </ion-content>
