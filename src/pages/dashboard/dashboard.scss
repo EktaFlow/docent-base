@@ -37,6 +37,10 @@ page-dashboard {
         justify-content: space-between;
     }
     .subtitle{
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
     .answers{
         flex-basis: 5%;
@@ -193,4 +197,3 @@ page-dashboard {
               }
       }
 }
-
