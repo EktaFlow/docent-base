@@ -14,7 +14,7 @@
       <br>
 
       <ion-icon name="close-circle" (click)="closePopover()" class="close"></ion-icon>
-      
+
 
 
     <!-- new assessment -->
@@ -102,7 +102,7 @@
           </div>
         </div>
         <h6>Date to Achieve Target MRL</h6>
-        <input  type="date" name="dateAchieve" id="date-to-achieve-input" placeholder = "mm/dd/yyyy" > <!-- [(ngModel)]=""> -->
+        <input  type="date" name="dateAchieve" id="date-to-achieve-input" [(ngModel)]="assessment.targetDate" placeholder = "mm/dd/yyyy" > <!-- [(ngModel)]=""> -->
       </div>
     </div>
     <div class = "bottom">
@@ -133,30 +133,12 @@
         </button>
       </div>
       <div>
-        <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+        <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="updateAssessment($event)">
           Start
         </button>
       </div>
     </div>
-    <!--
-    <div class="existing-assessment">
-      <div>
-        <h1>Continue Existing Assessment</h1>
-        <p>
-          Use this option to start working on an existing assessment. You will be<br> required to import your assessment
-          data
-        </p>
-      </div>
-      <div>
-        <button ion-button class="grayed" ion-button (click)="helpButtonClick()" color="buttonBlue">
-          Help Importing
-        </button>
-        <button (click)="showAssessmentsList($event)" ion-button color ="buttonBlue">
-          Open Assessment
-        </button>
-      </div>
-    </div>
-    -->
+
 
 
 </ion-content>
