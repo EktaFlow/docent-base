@@ -107,8 +107,8 @@ console.log(element);
   		return null;
   	} else {
   		return new Date(date)
-  			     .toISOString()
-  			     .slice(0,10);
+  			     .toDateString()
+  			     .slice(0,20);
   	}
   }
 
