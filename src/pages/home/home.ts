@@ -214,8 +214,8 @@ export class HomePage {
 		threadsSelected.sort((a,b) => a-b);
 	}
 
-  addMember(emailIn:string,roleIn:string){
-    var newMember = {email: emailIn, role: roleIn};
+  addMember(nameIn:string,emailIn:string,roleIn:string){
+    var newMember = {name: nameIn, email: emailIn, role: roleIn};
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
   }
