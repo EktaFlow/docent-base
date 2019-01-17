@@ -1,4 +1,4 @@
-/** 
+/**
 *   The purpose of the edit-assessment page is to allow a user to change the
 *   higher-level attributes of a given assessment.
 */
@@ -18,7 +18,7 @@ export class EditAssessmentPage {
   private editQuery: any = gql`
   query assessment($_id: String) {
     assessment(_id: $_id) {
-      teamMembers 
+      teamMembers
       scope
       targetMRL
       targetDate
@@ -32,15 +32,15 @@ export class EditAssessmentPage {
   private assessmentId: String;
   private assessment: any = {};
 
-  constructor(public navCtrl: NavController, 
-              private assessmentService: AssessmentService, 
-              public navParams: NavParams ) 
+  constructor(public navCtrl: NavController,
+              private assessmentService: AssessmentService,
+              public navParams: NavParams )
   {
     this.page = this.navParams.get('page');
   }
 
-  // things you can change 
-  // -  
+  // things you can change
+  // -
 
   // things you can't --> the underlying schema
 
@@ -55,6 +55,10 @@ export class EditAssessmentPage {
       })
     }
   }
+
+  closePopover(){
+		this.navCtrl.pop();
+	}
 
 
 }

@@ -53,7 +53,7 @@ export class ThreadPopupComponent {
 		var styling = `
 		width: 300px;
 		`
-		var test = document.getElementsByClassName("popover-content")
+		var test = document.getElementsByClassName("popover-content");
 
 		var	newVar = test[test.length - 1] as HTMLElement;
 		newVar.style.cssText = styling;
@@ -134,15 +134,17 @@ export class ThreadPopupComponent {
    }
 
 	 navToQuestionFromSchema(questionsArray){
-		 console.log("hello");
-		 console.log(this.targetMRL);
-		 var correctQsByMRL = questionsArray.filter(q => q.mrl == this.targetMRL);
-		 console.log(correctQsByMRL);
-		 this.navToQuestion(correctQsByMRL[0].questionSet[0].questionId);
+		 // console.log("hello");
+		 // console.log(this.targetMRL);
+		 // console.log(questionsArray);
+		 // var correctQsByMRL = questionsArray.filter(q => q.mrl == this.targetMRL);
+		 // console.log(correctQsByMRL);
+		 this.navToQuestion(questionsArray[0].questionSet[0].questionId);
 	 }
 
 
   async navToQuestion(questionId) {
+		console.log(this.updateInfo);
 		var update = await this.assessmentService.updateQuestion(this.updateInfo);
 		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
 			assessmentId: 			this.assessmentId,

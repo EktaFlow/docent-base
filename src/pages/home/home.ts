@@ -57,10 +57,8 @@ export class HomePage {
 	validateAssessment() {
 		var fields = [
 			"name",
-			"targetMRL",
-      "scope",
-      "location",
-			"targetDate",
+			"targetMRL"
+
 		];
 
 		return fields.every(field => this.assForm[field])
@@ -116,8 +114,8 @@ export class HomePage {
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
-		// move this to constants when we decide it's home.
-		var url = "http://localhost:4002/share";
+		// move this to constants when we decide it's home.		
+		var url = "http://dev.mfgdocent.com/auth/share";
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
@@ -150,12 +148,13 @@ export class HomePage {
 			 .valueChanges
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+					this.setUpDeskbookArray();
+					
 			 });
 
 
 			 }
 
-		 this.setUpDeskbookArray();
 	}
 
         // uses the default included schemas.

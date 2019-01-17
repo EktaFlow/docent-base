@@ -1,63 +1,52 @@
 page-user-dashboard {
 
-
-  .first-bar {
-    width: 100%;
-    background-color: black;
-    // margin-top: 100px;
-    // padding: 20px 20px 5px 20px;
-    margin: 76px auto 0 auto;
-    display: flex;
-    position: relative;
-    min-height: 100px;
-    border-top: .5px solid lightgray;
-
-
-
-    .user-info{
-      margin-left: 50px;
-      width: 50%;
-      padding-left: 40px;
-      h1 {
-        display: inline-block;
-        width: 20%;
-        position: absolute;
-        top: 0px;
-        left: 20px;
-        color: white;
-        font-size: 2.5em;
-
-
-      }
-
-
-      .info {
-        display: inline-block;
-        // width: 70%;
-        color: white;
-        position: absolute;
-        bottom: 0px;
-        left: 20px;
-
-        p {
-          display: inline-block;
-          // width: 25%;
-        }
-
-      }
-    }
-
-
-    .buttons {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-
-      button {
-        margin: 3px;
-      }
-    }
-  }
+// first bar -styling
+  // .first-bar {
+  //   width: 100%;
+  //   background-color: black;
+  //   // margin-top: 100px;
+  //   // padding: 20px 20px 5px 20px;
+  //   margin: 76px auto 0 auto;
+  //   display: flex;
+  //   position: relative;
+  //   min-height: 100px;
+  //   border-top: .5px solid lightgray;
+  //   .user-info{
+  //     margin-left: 50px;
+  //     width: 50%;
+  //     padding-left: 40px;
+  //     h1 {
+  //       display: inline-block;
+  //       width: 20%;
+  //       position: absolute;
+  //       top: 0px;
+  //       left: 20px;
+  //       color: white;
+  //       font-size: 2.5em;
+  //     }
+  //     .info {
+  //       display: inline-block;
+  //       // width: 70%;
+  //       color: white;
+  //       position: absolute;
+  //       bottom: 0px;
+  //       left: 20px;
+  //       p {
+  //         display: inline-block;
+  //         // width: 25%;
+  //       }
+  //     }
+  //   }
+  //   .buttons {
+  //     position: absolute;
+  //     right: 10px;
+  //     top: 10px;
+  //
+  //     button {
+  //       margin: 3px;
+  //     }
+  //   }
+  // }
 
 
 
@@ -81,11 +70,14 @@ page-user-dashboard {
 }
 
   .assessment-boxes {
-    width: 98%;
-    position: absolute;
-    top: 250px;
-    left: 40px;
+    width: 99%;
+    // position: absolute;
+    // top: 200px;
+    // left: 40px;
+    margin: 0 auto;
+    margin-top: 200px;
     vertical-align: top;
+    padding-left: 100px;
 
   }
 
@@ -97,7 +89,8 @@ page-user-dashboard {
     background-color: #EBEBEB;
     // display: flex;
 
-    margin: 0px 20px 0px 50px;
+    // margin: 0 auto;
+    margin: 3%;
     display: inline-block;
     min-height: 250px;
 
@@ -116,6 +109,26 @@ page-user-dashboard {
 
         // text-decoration: underline;
       }
+
+    .assessment-links {
+      padding-top: 10px;
+      // height: 40px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid white;
+      width: 100%;
+      .buttons {
+        width: 99%;
+        margin: 0 auto;
+        button {
+          display: inline-block;
+          width: 30%;
+          // padding: 0 7px;
+          margin: 0 10px;
+          font-size: .6em;
+        }
+      }
+
+    }
 
 
     .an-assessment {
@@ -140,7 +153,7 @@ page-user-dashboard {
         padding-left: 20px;
         text-align: center;
         margin-right: 10px;
-        margin-top: 15px;
+        margin-top: 0px;
 
 
         button {
@@ -174,22 +187,13 @@ page-user-dashboard {
 
 
 
-
-
-  // @media screen and (max-width: 800px){
-  //   .assessment-boxes {
-  //     width: 90%;
-  //     left: 0;
-  //
-  //   }
-  //
-  //   .assessments {
-  //     width: 100%;
-  //     margin: 0 10px 0 40px;
-  //     margin-bottom: 20px;
-  //
-  //   }
-  // }
+  .qspacer {
+      font-size: 0;
+      height: 250px;
+      line-height: 0;
+      border: 0px;
+       width: 100%;
+  }
 
   @media screen and (max-width: 1024px){
 
@@ -210,6 +214,8 @@ page-user-dashboard {
     .assessment-boxes {
       position: inherit;
       width: 100%;
+      margin-top: 0px;
+      padding-left: 0px;
       // right: 10px;
       // margin: 0;
     }
@@ -294,13 +300,7 @@ page-user-dashboard {
       width: 35%;
     }
 
-    .qspacer {
-        font-size: 0;
-        height: 250px;
-        line-height: 0;
-        border: 0px;
-         width: 100%;
-    }
+
 
 
 

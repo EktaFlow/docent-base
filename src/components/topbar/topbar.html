@@ -7,10 +7,13 @@
           <img class="toolbar-logo" src="assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
           <div *ngIf="!blank" class = "container-tbbuttons">
             <button (click)="handleUserDash()" color="dark" ion-button id="user-dash-button">
-              User Dash
+              Home
             </button>
-            <button ion-button (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
-                Assessment
+            <button (click)="handleContinue()" *ngIf="this.assessmentId && !noSecondBar" ion-button color="dark" id="continue-assessment-button">
+        			Continue Assessment
+        		</button>
+            <button ion-button *ngIf="this.assessmentId" (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
+                Reports
             </button>
             <button (click)="showHelp($event)"ion-button color="dark" id="help-open-button">
                 Help
@@ -38,23 +41,23 @@
           <h1 class="page-name" id="page-name">{{pageName}}</h1>
         </div>
 
-        <div *ngIf="assessmentId && noSecondBar != false && infoShow && !pageName" class="subheader">
-        <div *ngIf="mainTitle">
-          <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover">SubThread: {{this.subTitle}}</span></p>
-          <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
-          <p><span (click)="goToNavExpand()" class="show-all" id="show-all-questions">Show All Questions</span> | <span (click)="toggleQuestionHistory()"><u>Show Question History</u></span></p>
-        </div>
+        <!-- <div *ngIf="userDash">
+          <h1 class="page-name"></h1>
+        </div> -->
 
-          <div class="targets-scope">
-            <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
-            <p class="pointer" (click)="toggleScopeSelected($event)"><u>Show Assessment Scope</u></p>
-            <!-- <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p> -->
+        <div *ngIf="assessmentId && noSecondBar != false && !pageName" class="subheader">
+          <div *ngIf="mainTitle">
+            <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link">SubThread: {{this.subTitle}}</span></p>
+            <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
+            <p><span (click)="goToNavExpand()" class="show-all" id="show-all-questions">Show All Questions</span> | <span (click)="toggleQuestionHistory()" class="question-pop-link">Show Question History</span></p>
           </div>
 
-          <!-- <div *ngIf="scopeSelected" class="scope-show">
-      		  <p>Assessment Scope: {{ scope }}</p>
-      		</div> -->
-        </div>
+            <div class="targets-scope">
+              <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date:'mediumDate'}}</p>
+              <p class="scope-link" (click)="toggleScopeSelected($event)">Show Additional Information</p>
+              <!-- <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p> -->
+            </div>
+          </div>
       </ion-navbar>
     </ion-header>
 

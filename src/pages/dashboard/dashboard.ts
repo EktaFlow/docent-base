@@ -8,6 +8,7 @@ import { ActionitemsPage } from '../actionitems/actionitems';
 import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
+import {QuestionsPage} from '../questions/questions';
 
 
 import { Apollo } from "apollo-angular";
@@ -16,7 +17,9 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
+		targetMRL
 	questions {
+		questionId
 		mrLevel
 		threadName
 		questionText
@@ -42,6 +45,7 @@ export class DashboardPage {
   questionSet: any;
 	showAll: any;
 	pageName: any = "Dashboard";
+	targetMRL: any;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -66,7 +70,9 @@ export class DashboardPage {
 			}).valueChanges
 			.subscribe(data => {
 					this.allQuestions = (<any>data.data).assessment.questions;
+					// console.log((<any>data.data).assessment);
 					this.questionSet  = this.createQuestionSet(this.allQuestions);
+					this.targetMRL = (<any>data.data).assessment.targetMRL;
           this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
           //					this.questionSet = this.dearGod();
 			});
@@ -118,7 +124,7 @@ export class DashboardPage {
 						// if there are no questions, the section is marked as blank
 						if (questionSet.length == 0) { sectionValue = "blank";}
 
-            if ( questionSet.length > 0 && questionSet.every(obj => obj.answers.length > 0 && obj.answers[obj.answers.length - 1].answer == 'Yes') )  { 
+            if ( questionSet.length > 0 && questionSet.every(obj => obj.answers.length > 0 && obj.answers[obj.answers.length - 1].answer == 'Yes') )  {
             sectionValue = true;}
 						// if every answer is yes, complete the section
             if (questionSet.length > 0 && questionSet.every(a => { a.answers.length > 0 && a.answers[a.answers.length - 1 ].answer == "Yes" }) ) {
@@ -137,6 +143,20 @@ export class DashboardPage {
 		return {header: a, questions: subThreadNames};
 	})
 		return subThreadNames
+	}
+
+	goToQuestion(subheader){
+		console.log(subheader);
+		console.log(this.allQuestions);
+		var questions = this.allQuestions.filter(q => q.subThreadName == subheader && q.mrLevel == this.targetMRL);
+		console.log(questions);
+		if(questions.length != 0){
+			this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId,
+																														questionId: questions[0].questionId});
+		} else {
+			alert("There are no questions in this subthread on your current Target MRL");
+		}
+
 	}
 
 
@@ -166,4 +186,3 @@ export class DashboardPage {
 	handleNa = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
 	handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
 }
-
