@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { AuthService } from "./auth.service";
 import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
 import { assessmentQuery,
          createAssessmentMutation,
 				 questionPageAssessmentQuery,
@@ -20,7 +21,9 @@ export class AssessmentService {
 
 	constructor( private apollo:  Apollo,
 	             private auth:    AuthService,
-	             private storage: Storage) { }
+               private storage: Storage,
+               private http:    HttpClient) { }
+
 
 	// getCurrentAssessment() {
   //
@@ -120,6 +123,11 @@ export class AssessmentService {
         _id: assessmentId
       }
     });
+  }
+
+  async getDefaultThreads() {
+    return this.http.get('/assets/json/2016.json')
+      .map(threads => threads.map(thread => thread.name))
   }
 
 	async getThreads() {

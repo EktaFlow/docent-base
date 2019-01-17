@@ -145,8 +145,11 @@
         -->
       </div>
       <div>
-        <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+        <button *ngIf="page == 'new'" ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
           Start
+        </button>
+        <button *ngIf="page == 'edit'" ion-button color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
+          Update Assessment
         </button>
       </div>
     </div>
