@@ -152,6 +152,7 @@ ion-icon {
 }
 
 .risk-popover .popover-content{
+        min-height: 88vh;
         min-width: 80vw;
         position: relative;
         bottom: 0 !important;

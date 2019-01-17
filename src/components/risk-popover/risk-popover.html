@@ -1,4 +1,6 @@
 <div style="display:flex; flex-direction: column">
+  <ion-icon name="close-circle" (click)="closePopover()" class="close"></ion-icon>
+
         <div id="top">
   <div class="title-header">
     <h5>Manufacturing Readiness Level Risk Matrix</h5>
@@ -6,10 +8,10 @@
   <div class="axis-labels-more-info">
     <h6 class="toggle-header">View Rating Descriptions</h6>
     <div id="buttons-container">
-      <button ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable()">
+      <button ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable('likelihood')">
         Likelihood
       </button>
-      <button ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable()">
+      <button ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable('consequence')">
         Consequence
       </button>
     </div>
@@ -85,7 +87,7 @@
         <th class="consequence-cell">Critical</th>
         <th class="consequence-cell">Catastrophic</th>
       </tr>
-      <tr class="consequence-row">
+      <tr id="con-label" class="consequence-row">
         <th class="empty-cell"></th>
         <th class="empty-cell"></th>
         <th id="empty-consequence-cell-left"></th>
@@ -112,7 +114,7 @@
       </tr>
       <tr class="crit-table-row">
         <th class="crit-table-left-col">5 - Near Certainty</th>
-        <th class="crit-table-right-col">Assume and Anticipate Occurrence (>90%)<br/> 
+        <th class="crit-table-right-col">Assume and Anticipate Occurrence (>90%)<br/>
 Approach and processes cannot mitigate risk; Immature technology; System very complex</th>
       </tr>
       <tr class="crit-table-row">

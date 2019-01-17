@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 
 @Component({
   	selector: 'risk-popover',
@@ -8,12 +8,12 @@ import { NavParams } from 'ionic-angular';
 export class RiskPopoverComponent {
 	public chartView: any;
 	public chart: any;
-	constructor( public navParams: NavParams) {
+	constructor( public navParams: NavParams, public viewCtrl: ViewController) {
                 console.log(this.navParams.get('highlight'));
 		this.chartView = this.navParams.get('highlight');
 	}
-	toggleDescriptionTable(){
-    this.chartView = (<any>event).path[0].innerText.toLowerCase();
+	toggleDescriptionTable(type){
+    this.chartView = type
 		setTimeout(() => {
 		  this.chart = document.getElementsByClassName("criteria-table")[0];
 		  this.scrollTableToView();
@@ -26,4 +26,9 @@ export class RiskPopoverComponent {
 			window.scrollTo(0, 0);
 		}
 	}
+
+	closePopover(){
+		this.viewCtrl.dismiss();
+	}
+
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { FileDeleteComponent } from '../../components/file-delete/file-delete';
 import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
@@ -10,6 +11,8 @@ import { ActionitemsPage } from "../actionitems/actionitems";
 import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ImportComponent } from "../../components/import/import";
+
 
 
 import { HomePage } from "../home/home";
@@ -62,6 +65,7 @@ export class UserDashboardPage {
 
 	showMine: boolean = false;
 	showShared: boolean = false;
+	assessmentsBox: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -95,6 +99,9 @@ export class UserDashboardPage {
 			this.showMine = true;
 			this.showShared = true;
 		}
+
+
+
   }
 
 
@@ -115,6 +122,18 @@ export class UserDashboardPage {
 			.then(a => this.sharedAssessmentIds = a )
 			.catch(e => console.log(e));
 		}
+	}
+
+
+
+	launchImportPopover() {
+		console.log("hi");
+		this.popOver.create(ImportComponent)
+								.present();
+	}
+
+	handleImport() {
+		this.launchImportPopover();
 	}
 
 	pullSharedAssessments() {
@@ -140,7 +159,16 @@ export class UserDashboardPage {
     } else {
       this.currentAssessment = assessmentId;
     }
+		window.setTimeout(this.scrollToElement(assessmentId), 500);
+
+		// target.scrollIntoView();
   }
+
+	scrollToElement(assessmentId){
+		var target = document.getElementById(assessmentId);
+		console.log(target);
+		target.scrollIntoView({behavior: "smooth", block: "center"});
+	}
 
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
@@ -177,9 +205,27 @@ export class UserDashboardPage {
 	toggleMine = () => {this.showMine = !this.showMine;}
 	toggleShared = () => {this.showShared = !this.showShared;}
 
+  /**
+  *   launch delete popover, pass assessment type
+  *   create an emitter to recieve user response from popover,
+  *   if emitter returns truthy, go use assessment service delete,
+  *   & remove from view
+  *   assessmentId: the assessmentId of the assessment to be deleted
+  */
 	async handleDeleting(assessmentId){
-		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
-		observe.subscribe((data => this.removeAssessmentFromPage(assessmentId)) );
+    var emitter =  new EventEmitter<any>();
+    emitter.subscribe(deleteFile => {
+      if (deleteFile) {
+        this.assessmentService.deleteAssessment(assessmentId)
+        .then(a => a.toPromise())
+        .catch( err => console.error('cant resolve to Promise'))
+        .then(p => this.removeAssessmentFromPage(assessmentId))
+        .catch( err => console.error('cant remove from page'));
+      }
+    });
+
+    this.popOver.create(FileDeleteComponent, {emitter: emitter, typeToDelete: 'assessment'})
+                .present();
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
