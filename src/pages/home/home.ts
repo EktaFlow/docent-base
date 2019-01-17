@@ -150,12 +150,13 @@ export class HomePage {
 			 .valueChanges
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+					this.setUpDeskbookArray();
+					
 			 });
 
 
 			 }
 
-		 this.setUpDeskbookArray();
 	}
 
         // uses the default included schemas.
@@ -183,9 +184,9 @@ export class HomePage {
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 
     handleResetClick() {
-      this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'}) 
+      this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'})
                     .present();
-    } 
+    }
 
 	showRegisterForm = () => this.showRegister = true;
 	mobileRegisterForm() {
