@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -48,7 +48,8 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,
-              private http: HttpClient) {}
+              private http: HttpClient,
+							private loadingCtrl: LoadingController) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -64,6 +65,19 @@ export class HomePage {
 		return fields.every(field => this.assForm[field])
 	}
 
+	presentLoadingDefault() {
+	let loading = this.loadingCtrl.create({
+		spinner: 'crescent',
+		content: 'Assessment Loading In, Please Wait',
+		dismissOnPageChange: 'true'
+	});
+
+
+	loading.present();
+
+
+}
+
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
@@ -74,14 +88,17 @@ export class HomePage {
 		await this.getSchema(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
+		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
+
             })
             .catch(e => {
               alert('invalid JSON');
@@ -114,7 +131,7 @@ export class HomePage {
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
-		// move this to constants when we decide it's home.		
+		// move this to constants when we decide it's home.
 		var url = "http://dev.mfgdocent.com/auth/share";
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
@@ -149,13 +166,15 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
-					
+
 			 });
 
 
 			 }
 
 	}
+
+
 
         // uses the default included schemas.
         // Checks a user to see if they have custom schemas.
