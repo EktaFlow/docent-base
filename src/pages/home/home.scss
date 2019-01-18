@@ -52,6 +52,29 @@ $input-border:#dcdcdc;
         font-size: 30px;
     }
 }
+
+.removeMember {
+  &:hover {
+    cursor: pointer;
+  }
+
+  display: inline-block;
+  padding: 0 10px;
+
+  font-size: 20px;
+  vertical-align: top;
+  // padding-top: 5px;
+}
+
+.addMember {
+  &:hover {
+    cursor: pointer;
+  }
+
+  font-size: 30px;
+  vertical-align: top;
+  padding: 0 10px;
+}
 .container-toolbar{
     display: flex;
     justify-content: space-between;
@@ -62,7 +85,21 @@ $input-border:#dcdcdc;
 .member-list{
     display:flex;
     flex-direction: column;
-    list-style-type: none;
+    list-style-type: circle;
+
+
+    li {
+      padding: 7px;
+
+      p {
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+}
+
+.member-form {
+  padding-bottom: 15px;
 }
 
 .members{
@@ -243,6 +280,7 @@ $input-border:#dcdcdc;
 
   .member-form {
       margin-left: 15px;
+
   }
 
   .members {

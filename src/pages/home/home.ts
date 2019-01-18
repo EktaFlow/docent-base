@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -48,7 +48,8 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,
-              private http: HttpClient) {}
+              private http: HttpClient,
+							private toastCtrl: ToastController) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -102,7 +103,7 @@ export class HomePage {
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers.map(a => a.email),
+			teamMembers:      formValues.teamMembers,
 			userId:						this.auth.currentUser()._id,
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
@@ -114,7 +115,7 @@ export class HomePage {
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
-		// move this to constants when we decide it's home.		
+		// move this to constants when we decide it's home.
 		var url = "http://dev.mfgdocent.com/auth/share";
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
@@ -149,7 +150,7 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
-					
+
 			 });
 
 
@@ -218,11 +219,32 @@ export class HomePage {
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
+
+		document.getElementById("memName").value = "";
+		document.getElementById("memEmail").value = "";
+		document.getElementById("memRole").value = "";
+		this.presentToast();
   }
 
-  removeMember(){
-    this.members.pop();
-    this.assForm.teamMembers.pop();
+	presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'Member added to assessment and emailed',
+    duration: 2000,
+    position: 'middle'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+}
+
+  removeMember(memEmail){
+		this.members = this.members.filter(m => m.email != memEmail);
+		this.assForm.teamMembers = this.assForm.teamMembers.filter(m => m.email != memEmail);
+    // this.members.pop();
+    // this.assForm.teamMembers.pop();
   }
 
   async startAssessment(_id){
