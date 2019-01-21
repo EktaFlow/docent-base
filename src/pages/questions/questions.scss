@@ -264,7 +264,13 @@ $input-border:#dcdcdc;
         padding: 10px;
     }
     .acronymHere {
-        color: gray;
+        color: #305194;
+        &:hover {
+          // text-decoration: underline;
+          font-style: italic;
+          // border: .5px solid #305194;
+          // padding: 1px;
+        }
     }
 
   }
