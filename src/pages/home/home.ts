@@ -220,9 +220,9 @@ export class HomePage {
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
 
-		document.getElementById("memName").value = "";
-		document.getElementById("memEmail").value = "";
-		document.getElementById("memRole").value = "";
+		<any>document.getElementById("memName").value = "";
+		<any>document.getElementById("memEmail").value = "";
+		<any>document.getElementById("memRole").value = "";
 		this.presentToast();
   }
 
