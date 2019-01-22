@@ -98,6 +98,7 @@ export class QuestionHistoryPopoverComponent {
       var filteredAnswer = this.filterAnswerVals(newAnswer);
       // filteredAnswer.userId = await this.auth.currentUser().id;
       filteredAnswer.updatedAt = new Date();
+      filteredAnswer.revertedBy = await this.auth.currentUser().id;
       console.log(filteredAnswer);
       console.log(this.latestQuestion);
       var updateInfo = {
