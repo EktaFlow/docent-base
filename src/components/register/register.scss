@@ -54,6 +54,22 @@ register {
     height: 100%;
 	}
 
+  #post-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    height: 40vh;
+  }
+
+  #pre-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
 	.col {
 		display: flex;
 		flex-direction: column;

@@ -28,7 +28,9 @@ export class RegisterComponent {
 				this.errors = [];
 				this.auth.registerUser(this.user)
 				.subscribe( user => {
-					this.submitted = true },
+          console.log(user);
+          this.submitted = true
+          },
 
           // error handling taking the text of the error directly.
            ( {error} ) => {

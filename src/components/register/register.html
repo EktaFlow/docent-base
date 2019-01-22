@@ -6,6 +6,10 @@
         </div>
         <div>
 			<div id="register-container">
+              <div *ngIf="submitted" id="post-register">
+                <h6> Thank you for registering. Please check your email to complete the registration process.</h6> 
+              </div>
+              <div *ngIf="!submitted" id="pre-register">
 
         <div>
                 <div style="display:flex; justify-content:space-between">
@@ -47,6 +51,7 @@
           <div id="password-rules">
                   <h6> * passwords must be at least 10 characters in length, with at least one digit, special character, and uppercase letter.  </h6> 
           </div>
+      </div>
 
       </div>
       <div style="display: flex; justify-content: flex-end">
