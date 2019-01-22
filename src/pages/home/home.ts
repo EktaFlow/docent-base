@@ -69,7 +69,7 @@ export class HomePage {
 	let loading = this.loadingCtrl.create({
 		spinner: 'crescent',
 		content: 'Assessment Loading In, Please Wait',
-		dismissOnPageChange: 'true'
+		dismissOnPageChange: true
 	});
 
 
