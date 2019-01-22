@@ -220,9 +220,12 @@ export class HomePage {
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
 
-		<any>document.getElementById("memName").value = "";
-		<any>document.getElementById("memEmail").value = "";
-		<any>document.getElementById("memRole").value = "";
+		var name = <any>(document.getElementById("memName"));
+		name.value = "";
+		var email = <any>(document.getElementById("memEmail"));
+		email.value = "";
+		var role = <any>(document.getElementById("memRole"));
+		role.value = "";
 		this.presentToast();
   }
 
@@ -232,13 +235,11 @@ export class HomePage {
 	    duration: 2000,
 	    position: 'middle'
 	  });
-}
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
 
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
-
-  toast.present();
+	  toast.present();
 }
 
   removeMember(memEmail){
