@@ -38,7 +38,7 @@
             <p *ngIf="answer.revertedBy"><b>Answer Reverted By:</b> {{emails[answer.revertedBy]}}</p>
           </div>
           <div class="action-buttons">
-              <button ion-button color="darkslateblue">Revert Back</button>
+              <button ion-button color="darkslateblue" (click)="revertBack(answer)">Revert Back</button>
           </div>
       </div>
       </ng-container>
