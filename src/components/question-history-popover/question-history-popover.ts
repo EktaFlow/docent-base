@@ -58,6 +58,7 @@ export class QuestionHistoryPopoverComponent {
     var ids = [];
     for (let answer of answers){
       ids.push(answer.userId);
+      ids.push(answer.revertedBy);
     }
 
     ids = ids.filter(this.onlyUnique);
