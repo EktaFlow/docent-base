@@ -33,7 +33,7 @@
               <p><b>Assumptions:</b> {{answer.assumptionsNA}}</p>
               <p><b>Notes:</b> {{answer.notesNA}}</p>
             </ng-container>
-            <p><b>User Who Answered:</b> {{answer.userId}}</p>
+            <p><b>User Who Answered:</b> {{emails[answer.userId]}}</p>
             <p><b>Answered At:</b> {{answer.updatedAt | date:'medium'}}</p>
           </div>
           <div class="action-buttons">

@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from '../../pages/questions/questions';
 import { AssessmentService } from "../../services/assessment.service";
+import {AuthService} from "../../services/auth.service";
+import { AuthUrl } from "../../services/constants";
+
 
 
 @Component({
@@ -19,10 +22,12 @@ export class QuestionHistoryPopoverComponent {
   allQuestions: any;
   answerToShow: any = null;
   answersSorted: any;
+  emails: any;
 
   constructor( public navCtrl: NavController,
                       public navParams: 		 NavParams,
-                      private assessmentService: AssessmentService
+                      private assessmentService: AssessmentService,
+                      private auth: AuthService
                   ) {
 
     this.assessmentId = navParams.data.assessmentId;
@@ -36,11 +41,60 @@ export class QuestionHistoryPopoverComponent {
         this.latestQuestion = allQuestions.filter(q => q.questionId == this.questionId);
         this.latestQuestion = this.latestQuestion[0];
         this.decideAnswersAction(this.latestQuestion);
+        console.log(this.answersSorted)
+        this.getUserIds(this.answersSorted);
       });
 
 
 
   }
+
+  // async fetchUser(id){
+  //   var userObject = await this.auth.fetchUser(id);
+  //   userObject.subscribe(a => console.log(a) );
+  // }
+
+  async getUserIds(answers){
+    var ids = [];
+    for (let answer of answers){
+      ids.push(answer.userId);
+    }
+
+    ids = ids.filter(this.onlyUnique);
+
+    var userInfo = {
+			"ids": ids
+		}
+
+
+    // var emails = await this.auth.fetchMultiple(ids);
+    // console.log(emails);
+    // emails.subscribe(a => console.log("please log"));
+
+    // user = this.auth.currentUser();
+    console.log(userInfo)
+     await fetch(AuthUrl + "fetchMultiple", {
+     method: "POST",
+     body: JSON.stringify(userInfo),
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+     },
+   })
+     .then(a => a.json())
+     .then(a => this.emails = a)
+     .catch(e => console.log(e));
+
+
+
+
+
+
+  }
+
+  onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
 
   decideAnswersAction(question){
     if (question.answers.length >= 2){
