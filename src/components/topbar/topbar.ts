@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PopoverController, NavController } from "ionic-angular";
 import { ViewsComponent } from "../views/views";
 import { HomePage } from "../../pages/home/home";
+import { LoginPage } from '../../pages/login/login';
 import { NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
@@ -134,7 +135,7 @@ constructor( public popOver: PopoverController,
 	// loginNav() { this.navCtrl.push( this.loginPage ); }
 	handleLogout() {
 		this.auth.logout();
-		this.navCtrl.setRoot(HomePage);
+		this.navCtrl.setRoot(LoginPage);
 		this.navCtrl.popToRoot();
 	}
 

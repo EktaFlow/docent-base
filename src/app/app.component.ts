@@ -8,6 +8,7 @@ import { GoogleAnalytics } from "../application/helpers/GoogleAnalytics";
 
 import { HomePage } from '../pages/home/home';
 import { UserDashboardPage } from "../pages/user-dashboard/user-dashboard";
+import { LoginPage } from '../pages/login/login';
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -26,7 +27,7 @@ export class MyApp {
 			this.rootPage = UserDashboardPage;
 		}
 		else {
-			this.rootPage = HomePage;
+			this.rootPage = LoginPage;
 		}
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

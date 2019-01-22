@@ -13,6 +13,7 @@ import { PasswordResetComponent } from '../../components/password-reset/password
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { LoginPage } from '../login/login';
 
 
 import { Apollo } from "apollo-angular";
@@ -228,6 +229,11 @@ export class HomePage {
   async startAssessment(_id){
 		await this.assessmentService.setCurrentAssessmentId(_id);
     this.navCtrl.push(QuestionsPage);
+  }
+
+  newLogin() {
+    console.log('hi');
+    this.navCtrl.push(LoginPage);
   }
 
 	async setUpDeskbookArray() {

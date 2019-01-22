@@ -8,6 +8,8 @@ import { ToastController, ViewController } from 'ionic-angular';
 })
 export class PasswordResetComponent {
   private emailInput: string = null;
+  private errors = [];
+  private user: any = {};
 
   constructor( private auth: AuthService,
                private toast: ToastController,
