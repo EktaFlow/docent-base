@@ -37,7 +37,7 @@
             <p><b>Answered At:</b> {{answer.updatedAt | date:'medium'}}</p>
           </div>
           <div class="action-buttons">
-              <button ion-button color="darkslateblue">Revert Back</button>
+              <button ion-button color="darkslateblue" (click)="revertBack(answer)">Revert Back</button>
           </div>
       </div>
       </ng-container>
