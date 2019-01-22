@@ -227,11 +227,12 @@ export class HomePage {
   }
 
 	presentToast() {
-  let toast = this.toastCtrl.create({
-    message: 'Member added to assessment and emailed',
-    duration: 2000,
-    position: 'middle'
-  });
+	  let toast = this.toastCtrl.create({
+	    message: 'Member added to assessment and emailed',
+	    duration: 2000,
+	    position: 'middle'
+	  });
+}
 
   toast.onDidDismiss(() => {
     console.log('Dismissed toast');
