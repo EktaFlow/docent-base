@@ -92,12 +92,9 @@
         </div>
         <div *ngIf="showShared">
           <div *ngIf="this.sharedAssessments.length >= 1">
-            <div class="accordion-tab metrics">
-              <p>You currently have {{sharedAssessments.length}} assessments</p>
-            </div> <!-- close 19 -->
             <div *ngIf="this.sharedAssessments.length > 0">
               <div *ngFor="let assessment of sharedAssessments">
-                <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
+                <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                   <b>Assessment:</b> {{assessment.name}}
                 </div>
                 <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
