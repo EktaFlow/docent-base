@@ -151,7 +151,7 @@ export class QuestionHistoryPopoverComponent {
       var filteredAnswer = this.filterAnswerVals(newAnswer);
       // filteredAnswer.userId = await this.auth.currentUser().id;
       filteredAnswer.updatedAt = new Date();
-      filteredAnswer.revertedBy = user;
+      filteredAnswer.revertedBy = user._id;
       console.log(filteredAnswer);
       var updateInfo = {
         _id: this.assessmentId,
