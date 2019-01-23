@@ -44,7 +44,7 @@ export class DashboardPage {
 	assessmentId: any;
   questionSet: any;
 	showAll: any;
-	pageName: any = "Dashboard";
+	pageName: any = "MRL Summary";
 	targetMRL: any;
 
 	constructor( private apollo: Apollo,
