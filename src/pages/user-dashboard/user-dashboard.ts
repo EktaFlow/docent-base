@@ -93,8 +93,6 @@ export class UserDashboardPage {
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
-		// console.log(this.currentAssessment);
-		// console.log(window.screen.width);
 		if (window.screen.width > 440) {
 			this.showMine = true;
 			this.showShared = true;
@@ -127,7 +125,6 @@ export class UserDashboardPage {
 
 
 	launchImportPopover() {
-		console.log("hi");
 		this.popOver.create(ImportComponent)
 								.present();
 	}
@@ -137,7 +134,7 @@ export class UserDashboardPage {
 	}
 
 	pullSharedAssessments() {
-		console.log(this.sharedAssessmentIds);
+
 		this.apollo.watchQuery<any>({
       query: sharedQuery,
       variables: {
@@ -166,7 +163,6 @@ export class UserDashboardPage {
 
 	scrollToElement(assessmentId){
 		var target = document.getElementById(assessmentId);
-		console.log(target);
 		target.scrollIntoView({behavior: "smooth", block: "center"});
 	}
 
