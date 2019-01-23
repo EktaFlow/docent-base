@@ -44,6 +44,7 @@ export class QuestionHistoryPopoverComponent {
         this.decideAnswersAction(this.latestQuestion);
         console.log(this.answersSorted)
         this.getUserIds(this.answersSorted);
+        console.log(this.answersSorted[0]);
       });
 
 
@@ -59,7 +60,9 @@ export class QuestionHistoryPopoverComponent {
     var ids = [];
     for (let answer of answers){
       ids.push(answer.userId);
-      ids.push(answer.revertedBy);
+      if (answer.revertedBy){
+        ids.push(answer.revertedBy);
+      }
     }
 
     ids = ids.filter(this.onlyUnique);
@@ -69,12 +72,7 @@ export class QuestionHistoryPopoverComponent {
 		}
 
 
-    // var emails = await this.auth.fetchMultiple(ids);
-    // console.log(emails);
-    // emails.subscribe(a => console.log("please log"));
 
-    // user = this.auth.currentUser();
-    console.log(userInfo)
      await fetch(AuthUrl + "fetchMultiple", {
      method: "POST",
      body: JSON.stringify(userInfo),
@@ -134,6 +132,8 @@ export class QuestionHistoryPopoverComponent {
     }
 
     async revertBack(newAnswer){
+      var user = await this.auth.currentUser();
+      console.log(user);
       // var currentAnswer = this.latestQuestion.answers[0];
       //we have latestQuestion, currentAnswer and newAnswer
       //probably do not need currentAnswer unless we want to check reverting back to currentAnswer
@@ -151,16 +151,16 @@ export class QuestionHistoryPopoverComponent {
       var filteredAnswer = this.filterAnswerVals(newAnswer);
       // filteredAnswer.userId = await this.auth.currentUser().id;
       filteredAnswer.updatedAt = new Date();
-      filteredAnswer.revertedBy = await this.auth.currentUser().id;
+      filteredAnswer.revertedBy = user;
       console.log(filteredAnswer);
-      console.log(this.latestQuestion);
       var updateInfo = {
         _id: this.assessmentId,
         questionId: Number(this.latestQuestion.questionId),
         answerUpdates: filteredAnswer,
         questionUpdates: tempQuestion
       }
-      console.log(updateInfo);
+
+
 
       var update = await this.assessmentService.updateQuestion(updateInfo);
   		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
