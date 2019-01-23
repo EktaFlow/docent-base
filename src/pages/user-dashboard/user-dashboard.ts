@@ -85,11 +85,14 @@ export class UserDashboardPage {
 
 
 		// TODO make this better
-		await this.getSharedAssessments();
-		this.pullSharedAssessments();
-
+		// await this.getSharedAssessments();
 		var user = this.auth.currentUser();
 		this.user = user;
+		console.log(this.user);
+		this.sharedAssessmentIds = this.user.sharedAssessments;
+		this.pullSharedAssessments();
+
+
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
@@ -110,6 +113,7 @@ export class UserDashboardPage {
 		var user;
 		if (this.auth.currentUser()) {
 		 user = this.auth.currentUser();
+		 console.log(user);
 			await fetch(AuthUrl + "shared", {
 			method: "POST",
 			body: JSON.stringify({email: user.email}),
@@ -146,8 +150,10 @@ export class UserDashboardPage {
     })
     .valueChanges
     .subscribe(({data, loading}) => {
+			console.log(data);
 		  // TODO, make this a better fix else where...
 			data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
+			console.log(this.sharedAssessments);
     });
 
 	}
