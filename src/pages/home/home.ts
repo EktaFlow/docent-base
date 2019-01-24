@@ -77,6 +77,11 @@ export class HomePage {
 		var variables = this.formatAssessmentVariables();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
+
+		//do we want / need to remove team members out of variables before sending it to the back?
+		//do we need to use teamMembersInput
+		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
+
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
@@ -95,6 +100,8 @@ export class HomePage {
 	}
 
 	formatAssessmentVariables() {
+		//here on line 107 (assigning team members) we need to assign the whole team members object
+		//or input it in another section?
 		var formValues = this.assForm;
 		return {
 			threads:          this.threadsSelected,
@@ -103,7 +110,7 @@ export class HomePage {
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers.map(a => a.email),
+			teamMembers:      formValues.teamMembers,
 			userId:						this.auth.currentUser()._id,
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
@@ -115,7 +122,7 @@ export class HomePage {
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
-		// move this to constants when we decide it's home.		
+		// move this to constants when we decide it's home.
 		var url = "http://dev.mfgdocent.com/auth/share";
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
@@ -150,7 +157,7 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
-					
+
 			 });
 
 
