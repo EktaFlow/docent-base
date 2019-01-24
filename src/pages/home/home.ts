@@ -82,6 +82,10 @@ export class HomePage {
 		//do we need to use teamMembersInput
 		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
 
+		// var createInfo = {
+		//
+		// }
+
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
@@ -110,7 +114,7 @@ export class HomePage {
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers,
+			teamMembersUpdates:      formValues.teamMembers,
 			userId:						this.auth.currentUser()._id,
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
