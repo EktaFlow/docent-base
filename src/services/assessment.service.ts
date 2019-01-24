@@ -77,10 +77,11 @@ export class AssessmentService {
 	}
 
 	async createAssessment(variables) {
+		console.log(variables);
 
 	return await this.apollo.mutate({
 			mutation: createAssessmentMutation,
-			variables
+			variables: variables
 		});
 
 
