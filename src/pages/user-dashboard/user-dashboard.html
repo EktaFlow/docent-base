@@ -65,7 +65,8 @@
 		  <ng-container *ngIf="!assessment.levelSwitching">
                       <p><b>Level Switching?: </b> No </p>
 	          </ng-container>
-                  <!-- <p><b>Team Members: </b> {{assessment.teamMembers}}</p> -->
+                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}, </span></p>
+
                 </div>
                 <div class="assNav">
                   <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>

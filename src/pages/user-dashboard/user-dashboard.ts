@@ -34,6 +34,11 @@ query getShared($assessments: [String]) {
 		id
 		userId
 		userEmail
+		#teamMembers {
+		#	name
+		#	email
+		#	role 
+		#}
 	}
 }
 `
