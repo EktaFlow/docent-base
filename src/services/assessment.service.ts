@@ -127,12 +127,12 @@ export class AssessmentService {
     }).valueChanges;
 	}
 
-	async updateTeamMembers(assessmentId, memberEmail){
+	async updateTeamMembers(assessmentId, memberInfo){
 		return await this.apollo.mutate<any>({
 			mutation: updateTeamMembersMutation,
 			variables: {
 				_id: assessmentId,
-				teamMember: memberEmail
+				teamMember: memberInfo
 			}
 		})
 	}
