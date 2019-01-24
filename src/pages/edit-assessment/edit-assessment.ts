@@ -34,6 +34,9 @@ export class EditAssessmentPage {
   private threads: any;
   private customThreads: any = {};
   private threadsShown: boolean = false;
+  private threadsSelectButton: string = 'Unselect All';
+  private oThreads: any = [1,3,5,7,9];
+  private threadsSelected: any = [1,3,5,7,9] // array 
 
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
@@ -71,7 +74,7 @@ export class EditAssessmentPage {
   }
 
   async getCustomDeskbooks() {
-    var user = await this.auth.currentUser();  
+  // var user = await this.auth.currentUser();  
     // what do we actually need with the Custom Deskbooks?
     // -- the name of the assessment 
     // -- the threads
@@ -79,13 +82,42 @@ export class EditAssessmentPage {
   }
 
 
+ 
+
   // Click handlers
   showThreads() {
     // check for custom threads
-    if (assForm.deskbookVersion !== "2017" || assform.deskBookVersion !== "2016" ) {
+    //    if (assForm.deskbookVersion !== "2017" || assform.deskBookVersion !== "2016" ) {
       // if a custom deskbook is selected, 
-    }
+      // }
     this.threadsShown = true;
+  }
+
+  toggleThread(event, threadName) {
+    var threadIndex = this.threads.indexOf(threadName) + 1;
+    if ( this.threadsSelected.includes(threadIndex) ) {
+      var index = this.threadsSelected.indexOf(threadIndex);
+      this.threadsSelected.splice(index, 1);
+    } else {
+      this.threadsSelected.push(threadIndex);
+
+      this.threadsSelected = this.threadsSelected.sort((a,b) => a - b );
+    }
+  }
+
+  toggleAllThreads() {
+    this.threadsSelectButton == 'Unselect All' ? this.unselectAll() : this.selectAll() 
+  }
+
+  unselectAll() {
+    this.threadsSelected = [];
+    this.threadsSelectButton = 'Select All';
+  }
+
+  selectAll() {
+    this.threadsSelected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    this.threadsSelectButton = 'Unselect All';
+
   }
 
   closePopover(){
@@ -106,9 +138,9 @@ export class EditAssessmentPage {
   }
 
   async createAssessment() {
-    if (!this.validateAssessment()) {
+  //  if (!this.validateAssessment()) {
       // handle invalid assessment;
-    }
+      //  }
 
     await this.setSchema();
      

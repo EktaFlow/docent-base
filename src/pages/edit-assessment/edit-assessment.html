@@ -11,11 +11,8 @@
     </div>
       <br>
       <br>
-      <br>
 
       <ion-icon name="close-circle" (click)="closePopover()" class="close"></ion-icon>
-      
-
 
     <!-- new assessment -->
     <div *ngIf="page == 'new'">
@@ -28,11 +25,9 @@
     <!-- edit assessment -->
     <div *ngIf="page == 'edit'">
       <h1>Edit Assessment</h1>
-      <font color="grey">Use this option to edit the options of an existing assessment</font><br />
     </div>
     <!-- /edit assessment -->
 
-    <br><br>
     <h6 class="assessment-name">Assessment Name</h6>
 
     <div class="topmost" style="z-index: 100;">
@@ -133,9 +128,12 @@
             Unselecting a thread will remove it from your MRA. Typically, all threads are selected.
           </font>
                 <div class="thread-row" *ngFor="let thread of threads">
-                  <input type="checkbox" />
+                  <input type="checkbox" (click)="toggleThread($event, thread)" [checked]="this.threadsSelected.includes((threads.indexOf(thread)) + 1)"/>
                   <h6>{{thread}}</h6>
                 </div>
+          <div>
+                  <button style="border: 1px solid blue; padding:1em; padding-top: .5em; padding-bottom: .5em; background: white; margin-bottom: .4em; width: 106px" (click)="toggleAllThreads()">{{threadsSelectButton}}</button>
+          </div>
         </div>
         <!-- 
         <button class="tooltip" style="background: white;">
