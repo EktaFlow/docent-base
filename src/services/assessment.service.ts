@@ -128,11 +128,12 @@ export class AssessmentService {
 	}
 
 	async updateTeamMembers(assessmentId, memberInfo){
+		console.log("are we getting to this point?");
 		return await this.apollo.mutate<any>({
 			mutation: updateTeamMembersMutation,
 			variables: {
 				_id: assessmentId,
-				teamMember: memberInfo
+				_teamMember: memberInfo
 			}
 		})
 	}
