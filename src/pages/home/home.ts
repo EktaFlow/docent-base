@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController, ToastController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -50,6 +50,7 @@ export class HomePage {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
               private http: HttpClient,
+							private loadingCtrl: LoadingController,
 							private toastCtrl: ToastController) {}
 
 							ionViewWillEnter() {
@@ -66,6 +67,19 @@ export class HomePage {
 		return fields.every(field => this.assForm[field])
 	}
 
+	presentLoadingDefault() {
+	let loading = this.loadingCtrl.create({
+		spinner: 'crescent',
+		content: 'Assessment Loading In, Please Wait',
+		dismissOnPageChange: true
+	});
+
+
+	loading.present();
+
+
+}
+
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
@@ -76,14 +90,17 @@ export class HomePage {
 		await this.getSchema(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
+		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
+
             })
             .catch(e => {
               alert('invalid JSON');
@@ -158,6 +175,8 @@ export class HomePage {
 			 }
 
 	}
+
+
 
         // uses the default included schemas.
         // Checks a user to see if they have custom schemas.
