@@ -49,6 +49,15 @@ page-criteria {
         margin-left:20px;
         margin-top:10px;
     }
+    .acronymHere {
+        color: #305194;
+        &:hover {
+          // text-decoration: underline;
+          font-style: italic;
+          // border: .5px solid #305194;
+          // padding: 1px;
+        }
+    }
     .navigate-links {
       color: blue;
       cursor: pointer;

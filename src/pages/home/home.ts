@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController, LoadingController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -13,6 +13,7 @@ import { PasswordResetComponent } from '../../components/password-reset/password
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { LoginPage } from '../login/login';
 
 
 import { Apollo } from "apollo-angular";
@@ -49,7 +50,8 @@ export class HomePage {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
               private http: HttpClient,
-							private loadingCtrl: LoadingController) {}
+							private loadingCtrl: LoadingController,
+							private toastCtrl: ToastController) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -119,7 +121,7 @@ export class HomePage {
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers.map(a => a.email),
+			teamMembers:      formValues.teamMembers,
 			userId:						this.auth.currentUser()._id,
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
@@ -237,16 +239,44 @@ export class HomePage {
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
+
+		var name = <any>(document.getElementById("memName"));
+		name.value = "";
+		var email = <any>(document.getElementById("memEmail"));
+		email.value = "";
+		var role = <any>(document.getElementById("memRole"));
+		role.value = "";
+		this.presentToast();
   }
 
-  removeMember(){
-    this.members.pop();
-    this.assForm.teamMembers.pop();
+	presentToast() {
+	  let toast = this.toastCtrl.create({
+	    message: 'Member added to assessment and emailed',
+	    duration: 2000,
+	    position: 'middle'
+	  });
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
+
+	  toast.present();
+}
+
+  removeMember(memEmail){
+		this.members = this.members.filter(m => m.email != memEmail);
+		this.assForm.teamMembers = this.assForm.teamMembers.filter(m => m.email != memEmail);
+    // this.members.pop();
+    // this.assForm.teamMembers.pop();
   }
 
   async startAssessment(_id){
 		await this.assessmentService.setCurrentAssessmentId(_id);
     this.navCtrl.push(QuestionsPage);
+  }
+
+  newLogin() {
+    console.log('hi');
+    this.navCtrl.push(LoginPage);
   }
 
 	async setUpDeskbookArray() {

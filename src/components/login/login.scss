@@ -1,41 +1,102 @@
 login {
 	input {
-		width: 25vw;
+		width: 15vw;
 		height: inherit
 	}
 
-	.container {
+  button {
+    width: 15vw;
+  }
+
+  .errors-input {
+    border-color: #F53D3D;
+    box-shadow: 0 0 10px #F53D3D;
+  }
+
+  #page-container {
+    display: flex;
+    flex-direction: column;
+    justify-contener: center;
+    align-items: center;
+    margin-top: 5vw;
+  }
+
+  #button-container {
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+
+	#login-container {
+    width:20vw;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+    border: 1px solid grey;
+    border-radius: 1vw;
+    height: 40vh;
 	}
 
 	.col {
 		display: flex;
 		flex-direction: column;
-
+    justify-content: flex-start;
+    align-items: center;
 	}
+
+  .cell {
+    margin-bottom: 1vw;
+  }
 
 	.row {
 		margin-bottom: 2vh;
 	}
 
-	.cell {
-		margin-right: 2vh;
-		margin-left:  2vh;
+	#header {
+    margin-bottom: 0;
+    margin-top: 3vh;
 	}
 
-	h1 {
-		margin-bottom: 3vh;
-	}
+  #forgot-password {
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 0;
+    margin-right: 1vw;
+    &:hover {
+      color: rgba(55, 58, 60, .7);
+    }
+  }
+
+  // the only difference is that we want the register to have a right margin.
+  #register-link {
+    text-decoration: underline;
+    cursor: pointer;
+    margin-right: 1vw;
+    &:hover {
+      color: rgba(55, 58, 60, .7);
+    }
+  }
 
 	.error {
-		margin-bottom: 1vw;
-		padding: 2vw;
-		background: pink;
-		border-radius: 2vh;
+    color: red;
 	}
+
+  .close {
+    margin-top: .5vw;
+  }
+
+  .blank {
+    visibility: hidden;
+  }
+
+  #top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    h6 {
+            margin-top: .6em;
+    }
+  }
 
 
 	@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {

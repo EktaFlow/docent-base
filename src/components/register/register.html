@@ -1,60 +1,65 @@
-<div>
-	<!-- TODO: Fix this. -->
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<div class="submit-container"*ngIf="submitted">
-				<h6>Your information has been submitted.</h6>
-				<h6> Please check your email to confirm your registration</h6>
+<div id="page-container">
+        <div id="top-container">
+				<h1 id="header">Register</h1>
+        <h6 *ngIf="this.errors.length > 0"class="register-error">there are errors with your registration</h6>
+        <h6 *ngIf="this.errors.length == 0"class="blank">there are errors with your registration</h6>
+        </div>
+        <div>
+			<div id="register-container">
+              <div *ngIf="submitted" id="post-register">
+                <h6> Thank you for registering. Please check your email to complete the registration process.</h6> 
+              </div>
+              <div *ngIf="!submitted" id="pre-register">
 
-				<button ion-button color="buttonBlue" class="email-confirm-login" (click)="goToLogin()">Login Page</button>
+        <div>
+                <div style="display:flex; justify-content:space-between">
+						<h5>Name</h5>
+            <h6 *ngIf="checkError('name')"class="register-error">enter a name</h6>
+                </div>
+					<input  type="text" name="name" [(ngModel)]="user.name">
+        </div>
+        <div>
+                <div style="display:flex; justify-content:space-between">
+						<h5>Email</h5>
+            <h6 *ngIf="checkError('email')" class="register-error">enter an email</h6>
+            <h6 *ngIf="checkError('dupe')" class="register-error">that email is in use</h6>
+                </div>
+					<input  type="email" name="emaial" [(ngModel)]="user.email">
+        </div>
 
-			</div>
-			<div *ngIf="!submitted" class="container">
-				<h1 class="register-title">Register as a Docent User</h1>
+         <div> 
+                <div style="display:flex; justify-content:space-between">
+						<h5>Password *</h5>
+            <h6 *ngIf="checkError('no_match')" class="register-error">passwords don't match</h6>
+            <h6 *ngIf="checkError('passwd')" class="register-error">enter a password</h6>
+                </div>
+							<input  type="password" name="passwd" [(ngModel)]="user.passwd">
+				 </div>
 
-				<div class="error" *ngIf="errors.length > 0">
-					<h3>Ooops, Registration Errors</h3>
-					<p *ngFor="let error of errors">
-						{{error}}
-					</p>
-				</div>
+         <div> 
+                <div style="display:flex; justify-content:space-between">
+						<h5>Repeat Password</h5>
+            <h6 *ngIf="checkError('passwd2')" class="register-error">enter a password</h6>
+                </div>
+							<input  type="password" name="passwd" [(ngModel)]="user.passwd2">
+				 </div>
 
-				<div style="display:flex; flex-direction:column">
-					<div class="row">
-						<div class="cell">
-							<h6>Name</h6>
-							<input  type="text" name="name" placeholder = "Name" [(ngModel)]="user.name">
-						</div>
+          <div id="button-container">
+				      <button ion-button color="buttonBlue" (click)="submitRegistration()">Register</button>
+          </div>
 
-						<div class="cell">
-							<h6>Email</h6>
-							<input  type="email" name="email" placeholder = "Email" [(ngModel)]="user.email">
-						</div>
-					</div>
+          <div id="password-rules">
+                  <h6> * passwords must be at least 10 characters in length, with at least one digit, special character, and uppercase letter.  </h6> 
+          </div>
+      </div>
 
-					<div class="row">
-						<div class="cell">
-							<h6>Password</h6>
-							<input  type="password" name="passwd" placeholder = "Password" [(ngModel)]="user.passwd">
-						</div>
+      </div>
+      <div style="display: flex; justify-content: flex-end">
+          <h6 (click)="toggle()" id="register-link"> Back to Login </h6>
+      </div>
+      <div *ngIf="registerSelected "style="display: flex; justify-content: flex-end">
+          <h6 id="register-link"> back to Login </h6>
+      </div>
 
-						<div class="cell">
-							<h6>Retype Password</h6>
-							<input  type="password" name="passwd2" placeholder = "Password" [(ngModel)]="user.passwd2">
-						</div>
-					</div>
-				</div>
-
-				<button ion-button color="buttonBlue" (click)="submitRegistration()">Register</button>
-				<button small ion-button color="buttonBlue" (click)="goToLogin()">Return to Login</button>
-			</div>
+     </div>
 </div>
