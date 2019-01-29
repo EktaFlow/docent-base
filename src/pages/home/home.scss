@@ -258,6 +258,7 @@ $input-border:#dcdcdc;
 		}
 	}
 	.mid-first-page, .bottom {
+    margin-top: 20px;
 		flex-direction: column;
 		align-items: center;
 		div {
@@ -289,8 +290,9 @@ $input-border:#dcdcdc;
     .member-inputs {
         input {
             width: 92%;
-            height: 50%;
+            height: 30%;
             display: block;
+            margin: 3px 0;
         }
     }
 
@@ -310,6 +312,10 @@ $input-border:#dcdcdc;
   .start-button {
       margin-top: 20px;
       margin-right: 15px;
+  }
+
+  .desktop {
+    display: none;
   }
 
 }
