@@ -25,7 +25,6 @@ export class AssessmentService {
                private storage: Storage,
                private http:    HttpClient) { }
 
-
 	// getCurrentAssessment() {
   //
 	// }
@@ -41,6 +40,7 @@ export class AssessmentService {
 
 
   async queryAssessment(assessmentId, query) {
+  console.log(query);
     var ok = gql`
       query assessment($_id: String) {
         ${query}
@@ -127,6 +127,14 @@ export class AssessmentService {
 			variables: updateInfo
 		});
 	}
+
+  async updateAssessment(assessment) {
+    return await this.apollo.mutate<any>({
+      mutation: gql`
+
+      `
+    });
+  }
 
   async deleteAssessment(assessmentId){
     return await this.apollo.mutate<any>({

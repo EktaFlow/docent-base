@@ -47,6 +47,7 @@ import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
 import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
+import { Helpers } from '../services/helpers';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { BackUrl } from  "../services/constants";
   ],
   providers: [
     StatusBar,
+    Helpers,
 		AuthService,
 		AssessmentService,
 		UploadService,

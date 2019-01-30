@@ -97,7 +97,7 @@
           </div>
         </div>
         <h6>Date to Achieve Target MRL</h6>
-        <input  type="date" name="dateAchieve" id="date-to-achieve-input" placeholder = "mm/dd/yyyy" > <!-- [(ngModel)]=""> -->
+        <input  [(ngModel)]="assessment.targetDate" type="date" name="dateAchieve" id="date-to-achieve-input" placeholder = "mm/dd/yyyy" > <!-- [(ngModel)]=""> -->
       </div>
     </div>
     <div class = "bottom">
@@ -128,7 +128,7 @@
             Unselecting a thread will remove it from your MRA. Typically, all threads are selected.
           </font>
                 <div class="thread-row" *ngFor="let thread of threads">
-                  <input type="checkbox" (click)="toggleThread($event, thread)" [checked]="this.threadsSelected.includes((threads.indexOf(thread)) + 1)"/>
+                  <input type="checkbox" (click)="toggleThread($event, thread)" [checked]="assessment.threads.includes((threads.indexOf(thread)) + 1)"/>
                   <h6>{{thread}}</h6>
                 </div>
           <div>

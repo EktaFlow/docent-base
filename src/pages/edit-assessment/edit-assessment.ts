@@ -6,11 +6,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AssessmentService } from '../../services/assessment.service';
-import gql from "graphql-tag";
-
-var gqlQuery = `
-
-`
+import { Helpers } from '../../services/helpers';
 
 @IonicPage()
 @Component({
@@ -29,6 +25,8 @@ export class EditAssessmentPage {
       location
       name
       targetDate
+      threads
+      levelSwitching
     }
   `
   private members: any = [];
@@ -39,17 +37,13 @@ export class EditAssessmentPage {
   private customThreads: any = {};
   private threadsShown: boolean = false;
   private threadsSelectButton: string = 'Unselect All';
-  private oThreads: any = [1,3,5,7,9];
-  private threadsSelected: any = [1,3,5,7,9] // array 
 
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
-              public navParams: NavParams )
+              public navParams: NavParams,
+              public help: Helpers )
   {
     this.page = this.navParams.get('page');
-    // edit 
-    // if the page is in 'edit' mode, we're going to have an assessment id, and going to get that assessment's info... but we don't need to bring down any of the questions.
-
   }
 
   // things you can change
@@ -68,8 +62,6 @@ export class EditAssessmentPage {
     // bring in the normal threads by default. // since now the schema is coming in from the front, we don't need to make a call to the back to get the threads.
    var cool = await this.assessmentService.getDefaultThreads()
       cool.subscribe( threads => this.threads = threads );
-
-      console.log(this.threads);
 
     // handle this when there is nope assId
     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -93,12 +85,19 @@ export class EditAssessmentPage {
   *    @output: none, SE
   *    @SE:     sets this.assessment 
   */
-  // input - assessment id 
-  // output -
   async getExistingAssessment() {
     var existingAssessment = await this.assessmentService.queryAssessment(this.assessmentId, this.editQuery);
 
-    existingAssessment.subscribe(data => this.assessment = data.data.assessment ); 
+    // this is needed to get the targetDate into the HTML5 format 
+    // threads are coming in as string... change that.
+    existingAssessment.subscribe(data => {
+      var assessment = data.data.assessment
+      var formattedDate = this.help.formatDate(assessment.targetDate);
+      var numberThreads = assessment.threads.map(number => Number(number));
+      var formattedAssessment = Object.assign({}, assessment, { threads: numberThreads, targetDate: formattedDate });
+
+      this.assessment = formattedAssessment;
+    })
 
   }
 
@@ -121,14 +120,14 @@ export class EditAssessmentPage {
   */
   toggleThread(event, threadName) {
     var threadIndex = this.threads.indexOf(threadName) + 1;
-    if ( this.threadsSelected.includes(threadIndex) ) {
-      var index = this.threadsSelected.indexOf(threadIndex);
-      this.threadsSelected.splice(index, 1);
+    if ( this.assessment.threads.includes(threadIndex) ) {
+      var index = this.assessment.threads.indexOf(threadIndex);
+      this.assessment.threads.splice(index, 1);
     } else {
-      this.threadsSelected.push(threadIndex);
+      this.assessment.threads.push(threadIndex);
 
       // using the indices to ID the threads relies on them being sorted. 
-      this.threadsSelected = this.threadsSelected.sort((a,b) => a - b );
+      this.assessment.threads = this.assessment.threads.sort((a,b) => a - b );
     }
   }
 
@@ -137,12 +136,12 @@ export class EditAssessmentPage {
   }
 
   unselectAll() {
-    this.threadsSelected = [];
+    this.assessment.threads = [];
     this.threadsSelectButton = 'Select All';
   }
 
   selectAll() {
-    this.threadsSelected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    this.assessment.threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     this.threadsSelectButton = 'Unselect All';
 
   }
@@ -152,7 +151,6 @@ export class EditAssessmentPage {
 	}
   
   async updateAssessment() {
-    console.log('we updaing');
     // format the assessmentVariables as needed
     // var updatedVariables = this.formatAssessmentVariables();
     // var updatedAssessment = await this.assessmentService.updateAssessment(updatedVariables)
