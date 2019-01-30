@@ -20,8 +20,7 @@ var gqlQuery = `
 
 export class EditAssessmentPage {
 
-  private editQuery: any = gql`
-  query assessment($_id: String) {
+  private editQuery: any =`
     assessment(_id: $_id) {
       teamMembers
       scope
@@ -29,8 +28,8 @@ export class EditAssessmentPage {
       targetDate
       location
       name
+      targetDate
     }
-  }
   `
   private members: any = [];
   private page: String = 'edit';
@@ -87,12 +86,20 @@ export class EditAssessmentPage {
     // that's all initially
   }
 
+  /**
+  *    purpose: set this.assessment to fields defined in editQuery
+  *    @input: String assessment id 
+  *            String gql query 
+  *    @output: none, SE
+  *    @SE:     sets this.assessment 
+  */
   // input - assessment id 
   // output -
   async getExistingAssessment() {
-    var existingAssessment = await this.assessmentService.queryAssessment(this.assessmentId, gqlQuery);
+    var existingAssessment = await this.assessmentService.queryAssessment(this.assessmentId, this.editQuery);
 
-    this.assessment = existingAssessment
+    existingAssessment.subscribe(data => this.assessment = data.data.assessment ); 
+
   }
 
 

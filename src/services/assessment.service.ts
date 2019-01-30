@@ -11,6 +11,7 @@ import { assessmentQuery,
          getThreadsQuery,
          updateTeamMembersMutation,
          deleteFileMutation   } from "./gql.service";
+import gql from 'graphql-tag';
 
 @Injectable()
 export class AssessmentService {
@@ -38,6 +39,21 @@ export class AssessmentService {
 	}
 
 
+
+  async queryAssessment(assessmentId, query) {
+    var ok = gql`
+      query assessment($_id: String) {
+        ${query}
+      } 
+    `
+
+    return await this.apollo.watchQuery<any>({
+            query: ok,
+            fetchPolicy: 'network-only',
+            variables: { _id: assessmentId }
+    }).valueChanges;
+
+  }
 
 	async getAssessments(userId) {
 
