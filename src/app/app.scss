@@ -161,6 +161,11 @@ ion-icon {
 
 }
 
+.thread-popup .popover-content {
+    padding: 10px;
+    width: 320px !important;
+}
+
 @media screen and (max-width: 1024px){
     .upload-popover .popover-content {
         position: absolute;
@@ -204,9 +209,11 @@ ion-icon {
     }
 
     .question-history-popup .popover-content{
-      width: 90vw;
+      width: 80% !important;
       height: 400px;
       padding: 15px;
+      margin: 0 auto;
+      left: 40px !important;
     }
 }
 
