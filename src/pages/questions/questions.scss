@@ -357,6 +357,29 @@ $input-border:#dcdcdc;
           }
       }
 
+      .risk-part-2-wrapper {
+        .risk-part-2{
+          display: flex;
+          justify-content: space-between;
+          padding: 1vw;
+
+          .greatest-impact {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .risk-response {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+
+        .mmp-summary {
+          margin-left: 1vw;
+          height: 400px;
+        }
+      }
+
       .matrix-wrapper {
           display: flex;
           align-items:center;
@@ -365,6 +388,10 @@ $input-border:#dcdcdc;
           height: 22vw;
       }
     }
+}
+
+.mobile {
+  display: none !important;
 }
 
 
@@ -376,6 +403,14 @@ $input-border:#dcdcdc;
         margin-top: 50px;
         margin-bottom: 100px;
 
+    }
+
+    .desktop {
+      display: none !important;
+    }
+
+    .mobile {
+      display: inherit !important;
     }
 
     .nav {
@@ -394,6 +429,7 @@ $input-border:#dcdcdc;
         top: 0;
         width: 95%;
         margin: 10 auto;
+        padding-left: 10px;
         // display: flex;
         // flex-direction: column;
         margin-bottom: 15px;
@@ -422,6 +458,7 @@ $input-border:#dcdcdc;
       bottom: 0;
       width: 95%;
       margin: 0 auto;
+      padding-left: 10px;
       // display: flex;
       // flex-direction: column;
       margin-bottom: 15px;
@@ -548,18 +585,7 @@ $input-border:#dcdcdc;
 
     }
 
-    .risk {
-        width: 100%;
 
-        .dev-border {
-            width: 45%;
-        }
-
-        .matrix-wrapper {
-            margin-right: 50px;
-        }
-
-    }
 
     .page-wrapper {
             display: flex;
@@ -571,15 +597,64 @@ $input-border:#dcdcdc;
     }
 
     //  a more specific rule eg. .risk-wrapper .risk .dev-border was overriding the media query
-    .risk-wrapper {
-            display: flex;
-            width: 90vw;
-            .risk {
-            .dev-border {
-                    width: 48vw;
+  .risk-wrapper {
+  display: flex;
+  width: 90vw;
+
+  .risk {
+    width: 100%;
+
+    .dev-border {
+      width: 100%;
+
+      .likelihood, .consequence {
+        width: 45%;
+
+        select {
+          width: 100%;
+        }
+      }
+
+    }
+
+    .matrix-wrapper {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 7px 0;
+
+      table {
+        float: none;
+        width: 90%;
+        height: 300px;
+        margin: 0 auto;
+
+      }
+    }
+
+    .risk-part-2-wrapper {
+        width: 100%;
+        margin-top: 20px;
+
+        .risk-part-2 {
+
+          .greatest-impact, .risk-response {
+            width: 45%;
+
+            select {
+              width: 100%;
             }
+
+          }
+        }
+
+        .mmp-summary {
+          height: 200px;
+        }
     }
-    }
+  }
+}
+
 
 
 
