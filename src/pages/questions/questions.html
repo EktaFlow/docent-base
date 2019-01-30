@@ -41,18 +41,6 @@
         <p [innerHTML]="currentQuestion.helpText"></p>
       </div>
 		</div>
-
-
-
-    <!-- <div class="nav-previous-qs">
-      <h4>Navigate back to previous questions</h4>
-      <p><a href="#">1. question</a></p>
-      <p><a href="#">2. question</a></p>
-      <p><a href="#">3. question</a></p>
-      <p><a href="#">4. question</a></p>
-      <p><a href="#">5. question</a></p>
-
-    </div> -->
   </div>
 
 
@@ -288,7 +276,13 @@
                 </div>
             </div>
           </div>
+          <div class="bottom-q-buttons">
+              <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
+              <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+              <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
           </div>
+          </div>
+
 
 
   <!-- </div> -->

@@ -278,13 +278,18 @@ $input-border:#dcdcdc;
   .nav-q-buttons {
     // display: flex;
     // margin: 0;
-    position: fixed;
+    position: absolute;
     right: 10px;
     top: 240px;
+    margin-top: 10px;
     -webkit-transform: translateZ(0);
     // background-color: white;
     z-index: 100000;
 
+  }
+
+  .bottom-q-buttons {
+    display: none;
   }
 
 
@@ -388,7 +393,7 @@ $input-border:#dcdcdc;
         right: 0;
         top: 0;
         width: 95%;
-        margin: 0 auto;
+        margin: 10 auto;
         // display: flex;
         // flex-direction: column;
         margin-bottom: 15px;
@@ -408,6 +413,21 @@ $input-border:#dcdcdc;
                 width: 95%;
             }
         }
+    }
+
+    .bottom-q-buttons {
+      display: inherit;
+      position: static;
+      right: 0;
+      bottom: 0;
+      width: 95%;
+      margin: 0 auto;
+      // display: flex;
+      // flex-direction: column;
+      margin-bottom: 15px;
+      button {
+          width: 30%;
+      }
     }
 
     .yes {
@@ -435,7 +455,7 @@ $input-border:#dcdcdc;
 
             .who-when{
                 width: 100%;
-                margin: 5px;
+                // margin: 5px;
                 margin-top: 0px;
                 .who {
                     display: block !important;
