@@ -38,6 +38,7 @@ export class MobileNavPopoverComponent {
   assessmentId: any;
   assessmentShow: boolean = false;
   userName: any;
+  noSecondBar: boolean = false;
 
 
   constructor(public navCtrl: NavController,
@@ -46,6 +47,12 @@ export class MobileNavPopoverComponent {
                     public auth: AuthService) {
     this.assessmentId = navParams.data.assessmentId;
     this.userName = navParams.data.userName;
+    if (navParams.data.noSecondBar){
+      this.noSecondBar = navParams.data.noSecondBar;
+    }
+
+    console.log(this.noSecondBar);
+    console.log(this.assessmentId);
     console.log(this.userName);
   }
 

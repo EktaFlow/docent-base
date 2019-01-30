@@ -14,13 +14,16 @@
         Logout
     </button>
     <button (click)="handleUserDash()" ion-button color="dark">
-        User Dash
+        Home
     </button>
-    <button (click)="handleStartNew()" ion-button color="dark">
+    <button (click)="handleStartNew()" *ngIf="!assessmentId" ion-button color="dark">
         Start New Assessment
     </button>
+    <button (click)="handleContinue()" *ngIf="assessmentId && !noSecondBar" ion-button color="dark">
+        Continue Assessment
+    </button>
     <button *ngIf="assessmentId" (click)="showAssessment()" ion-button color="dark">
-      Assessment
+      Reports
     </button>
     <button (click)="showHelp()" ion-button color="dark">
         Help Menu
@@ -34,9 +37,7 @@
   </ng-container>
 
   <ng-container *ngIf="assessmentShow && assessmentId" class="assessment-links" >
-      <button (click)="handleContinue()" ion-button color="dark">
-          Continue Assessment
-      </button>
+
       <button (click)="handleDashboard()" ion-button color="dark">
           Dashboard
       </button>
@@ -51,9 +52,6 @@
       </button>
       <button (click)="handleSkipped()" ion-button color="dark">
           Skipped Questions
-      </button>
-      <button (click)="handleNA()" ion-button color="dark">
-          N/A Questions
       </button>
       <button (click)="handleSummary()" ion-button color="dark">
           Summary

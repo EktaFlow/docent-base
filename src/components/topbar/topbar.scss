@@ -188,8 +188,16 @@ topbar {
             color: white;
             // width: 30px;
 
+            .hamburger-nav {
+              font-size: 3em;
+            }
 
 
+
+
+        }
+        .mobile-link {
+          font-weight: bold;
         }
 
         .subheader {

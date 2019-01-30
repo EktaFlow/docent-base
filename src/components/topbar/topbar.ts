@@ -190,9 +190,9 @@ constructor( public popOver: PopoverController,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
-			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
-    .present({ev: event});
+		var popover = this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+    popover.present({ev: event});
   }
 
 	presentThreadPop(event){
@@ -201,9 +201,9 @@ constructor( public popOver: PopoverController,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
-			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
-		.present({ev: event});
+		var popover = this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
+			updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+		popover.present({ev: event});
 	}
 
 	toggleQuestionHistory(){
@@ -213,8 +213,9 @@ constructor( public popOver: PopoverController,
 	}
 
 	openMobileNav(){
+		console.log(this.noSecondBar);
 		var userName = this.auth.currentUser().name;
-		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
+		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}
 
