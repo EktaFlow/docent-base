@@ -43,7 +43,7 @@ export class DashboardPage {
 	allQuestions: any;
 	assessmentId: any;
   questionSet: any;
-	showAll: any;
+	showAll: any = true;
 	pageName: any = "MRL Summary";
 	targetMRL: any;
 
