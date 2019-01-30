@@ -184,7 +184,7 @@ constructor( public popOver: PopoverController,
 
 
 
-	presentSubThreadPop(event){
+	presentSubThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
@@ -192,10 +192,14 @@ constructor( public popOver: PopoverController,
 		}
 		var popover = this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
 			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'thread-popup'});
-    popover.present({ev: event});
+			if (mobileness == "false"){
+				popover.present({ev: event});
+			} else {
+				popover.present();
+			}
   }
 
-	presentThreadPop(event){
+	presentThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
@@ -203,7 +207,11 @@ constructor( public popOver: PopoverController,
 		}
 		var popover = this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
 			updateInfo: updateInfo}, {cssClass: 'thread-popup'});
-		popover.present({ev: event});
+		if (mobileness == "false"){
+			popover.present({ev: event});
+		} else {
+			popover.present();
+		}
 	}
 
 	toggleQuestionHistory(){
