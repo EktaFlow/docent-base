@@ -56,7 +56,7 @@
   <font color="grey">Please fill in required fields denoted by the <sup>*</sup>  (asterisk)</font>
   <br><br>
 			<h6 class="assessment-name headers">Assessment Name<sup>*</sup></h6>
-      <small class="ass-name-count"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
+      <small class="ass-name-count assessment-name"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
 	<div class="topmost" style="z-index: 100;">
       <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
