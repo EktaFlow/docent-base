@@ -85,10 +85,6 @@ export class AssessmentService {
 			mutation: createAssessmentMutation,
 			variables
 		});
-
-
-
-
 	}
 
 	async getQuestionPageAssessment(assessmentId) {
@@ -125,11 +121,21 @@ export class AssessmentService {
     });
   }
 
+  /**
+  *   purpose: pull the standard thread names
+  *   @input:   none
+  *   @output:  Observable
+  */
   async getDefaultThreads() {
     return this.http.get('/assets/json/2016.json')
       .map(threads => threads.map(thread => thread.name))
   }
 
+  /** 
+  *   purpose:  return thread names arr given a schema
+  *   @input:   A valid schema
+  *   @output:  Observable
+  */
 	async getThreads() {
 		return await this.apollo.watchQuery<any>({
 			query: getThreadsQuery

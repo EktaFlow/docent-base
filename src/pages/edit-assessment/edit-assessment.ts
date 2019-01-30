@@ -8,11 +8,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AssessmentService } from '../../services/assessment.service';
 import gql from "graphql-tag";
 
+var gqlQuery = `
+
+`
+
 @IonicPage()
 @Component({
   selector: 'page-edit-assessment',
   templateUrl: 'edit-assessment.html',
 })
+
 export class EditAssessmentPage {
 
   private editQuery: any = gql`
@@ -43,6 +48,9 @@ export class EditAssessmentPage {
               public navParams: NavParams )
   {
     this.page = this.navParams.get('page');
+    // edit 
+    // if the page is in 'edit' mode, we're going to have an assessment id, and going to get that assessment's info... but we don't need to bring down any of the questions.
+
   }
 
   // things you can change
@@ -55,7 +63,9 @@ export class EditAssessmentPage {
   *   steps on init
   */
   async ngOnInit() {
+  // the custom deskbooks only need to be loaded if the page is 'new'
     // getCustomDeskbooks() 
+
     // bring in the normal threads by default. // since now the schema is coming in from the front, we don't need to make a call to the back to get the threads.
    var cool = await this.assessmentService.getDefaultThreads()
       cool.subscribe( threads => this.threads = threads );
@@ -65,11 +75,7 @@ export class EditAssessmentPage {
     // handle this when there is nope assId
     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
     if (this.page == 'edit') {
-      var assessment = await this.assessmentService.getAssessment(this.editQuery, this.assessmentId)
-      assessment.subscribe( ({data}) => {
-        this.assessment = data.assessment
-        console.log(this.assessment);
-      })
+      this.getExistingAssessment();
     }
   }
 
@@ -81,8 +87,14 @@ export class EditAssessmentPage {
     // that's all initially
   }
 
+  // input - assessment id 
+  // output -
+  async getExistingAssessment() {
+    var existingAssessment = await this.assessmentService.queryAssessment(this.assessmentId, gqlQuery);
 
- 
+    this.assessment = existingAssessment
+  }
+
 
   // Click handlers
   showThreads() {
@@ -93,6 +105,13 @@ export class EditAssessmentPage {
     this.threadsShown = true;
   }
 
+  /**
+  *   @purpose: toggle whether a thread is included in a particular assessment
+  *             threads array contains ids of threads used [1,2,3,4...etc]
+  *   @inputs   @1 event = click event why do we need event?
+  *             @2 threadName = 'string' 
+  *
+  */
   toggleThread(event, threadName) {
     var threadIndex = this.threads.indexOf(threadName) + 1;
     if ( this.threadsSelected.includes(threadIndex) ) {
@@ -101,6 +120,7 @@ export class EditAssessmentPage {
     } else {
       this.threadsSelected.push(threadIndex);
 
+      // using the indices to ID the threads relies on them being sorted. 
       this.threadsSelected = this.threadsSelected.sort((a,b) => a - b );
     }
   }
@@ -146,7 +166,19 @@ export class EditAssessmentPage {
      
   }
 
-  ////////
+  // How to share the common elements, and not the different elements.
+  // the elements which are different are the save/update functionality
+  // what is actually different?
+  // ON INIT
+  // edit - have a current assessment's values to load in.
+  // new - have to load in the custom deskbooks.
+
+  // otherwise the basic functionality is the same ... we're changing an Angular model behind the scenes.
+
+  // ON SAVE
+  // new - create a new assessment, email the peeps, 
+  
+
   /**
   *   This function sets `this.schema` to an array of 'thread objects'
   *   If a standard deskbook version is selected, pull from assets
