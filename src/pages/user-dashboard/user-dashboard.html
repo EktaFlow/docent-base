@@ -50,7 +50,7 @@
             </div>
             <div *ngFor="let assessment of assessments">
               <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
-                <p><b>Assessment:</b> {{assessment.name}}</p>
+                <p><b>Assessment:</b> {{assessment.name}} <ion-icon name="arrow-dropdown" class="dropdown"></ion-icon></p>
               </div>
               <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
@@ -98,7 +98,7 @@
             <div *ngIf="this.sharedAssessments.length > 0">
               <div *ngFor="let assessment of sharedAssessments">
                 <div class="accordion-tab" (click)="expandAssessment(assessment.id)"  id="{{assessment.id}}">
-                  <p><b>Assessment:</b> {{assessment.name}}</p>
+                  <p><b>Assessment:</b> {{assessment.name}} <ion-icon name="arrow-dropdown" class="dropdown"></ion-icon></p>
                 </div>
                 <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
                   <div class="details">

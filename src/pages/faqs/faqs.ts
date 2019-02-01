@@ -18,6 +18,7 @@ export class FaqsPage {
         assessmentId: any;
         noSecondBar: boolean = false;
         pageName: any = "Faqs";
+        currentQ: any = "";
 
 
     constructor( public navCtrl:   NavController,
@@ -33,6 +34,7 @@ export class FaqsPage {
 		private faqInfoWeb:        any;
 		private faqInfoIOS:        any;
 		private faqInfoAndroid:    any;
+
 
 		private feedbackContacts: any;
 
@@ -62,6 +64,15 @@ export class FaqsPage {
 
     ionViewWillEnter() {
       GoogleAnalytics.trackPage("faqs");
+    }
+
+    toggleFaq(help_title){
+      console.log(help_title);
+      if (this.currentQ == "" || help_title != ''){
+        this.currentQ = help_title;
+      } else if (help_title == ''){
+        this.currentQ = "";
+      }
     }
 
 

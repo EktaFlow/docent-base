@@ -3,6 +3,10 @@ page-faqs {
   ion-content {
     margin-top: 130px;
   }
+
+  .mobile {
+    display: none;
+  }
   @media screen and (max-width: 1024px){
     .desktop {
       display: none;
@@ -18,6 +22,58 @@ page-faqs {
                  // border: 1px solid red;
                  width: 100%;
           }
+
+  .mobile {
+    display: inherit;
+
+  }
+
+  .faqs-container {
+    width: 100%;
+    padding: 8px;
+    background-color: #e5e5e5;
+
+    .header {
+      width: 98%;
+      padding: 5px;
+      background-color: #FFFFFF;
+      margin: 3px 3px 7px 3px;
+
+      h3 {
+        font-size: 19px;
+        padding: 3px;
+        margin: 0;
+        ion-icon {
+          font-size: medium;
+        }
+      }
+    }
+
+    .answer-text {
+      width: 98%;
+      padding: 6px;
+
+    }
+  }
+
+  .feedback-container {
+    width: 100%;
+    border: 10px solid #e5e5e5;
+    background-color: white;
+    padding: 10px;
+    margin: 20px 0;
+
+    h3{
+      text-decoration: underline;
+    }
+
+    .contact {
+      padding: 5px;
+    }
+
+
+  }
+
   }
 
   @media screen and (min-width: 420px) and (max-width: 1024px){
