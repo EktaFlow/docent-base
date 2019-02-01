@@ -50,7 +50,7 @@
             </div>
             <div *ngFor="let assessment of assessments">
               <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
-                <b>Assessment:</b> {{assessment.name}}
+                <p><b>Assessment:</b> {{assessment.name}}</p>
               </div>
               <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
@@ -65,7 +65,7 @@
 		  <ng-container *ngIf="!assessment.levelSwitching">
                       <p><b>Level Switching?: </b> No </p>
 	          </ng-container>
-                  <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}</span></p>
                 </div>
                 <div class="assNav">
                   <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
@@ -97,8 +97,8 @@
             </div> <!-- close 19 -->
             <div *ngIf="this.sharedAssessments.length > 0">
               <div *ngFor="let assessment of sharedAssessments">
-                <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
-                  <b>Assessment:</b> {{assessment.name}}
+                <div class="accordion-tab" (click)="expandAssessment(assessment.id)"  id="{{assessment.id}}">
+                  <p><b>Assessment:</b> {{assessment.name}}</p>
                 </div>
                 <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
                   <div class="details">
@@ -108,7 +108,7 @@
                     <p><b>Scope: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
                     <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-                    <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+                    <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}</span></p>
                     <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
                   </div>
                   <div class="assNav">

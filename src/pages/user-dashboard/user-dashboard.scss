@@ -195,6 +195,8 @@ page-user-dashboard {
        width: 100%;
   }
 
+
+
   @media screen and (max-width: 1024px){
 
     ion-content {
@@ -280,11 +282,23 @@ page-user-dashboard {
       .an-assessment{
         margin: 4.5px;
         margin-bottom: 10px;
+
+        .details {
+          width: 100%;
+        }
         .assNav{
-          width: 55%;
+          width: 100%;
+          float: none;
+          padding-left: 0;
+          text-align: inherit;
 
           button {
-            width: 90%;
+            width: 30%;
+            font-size: x-small;
+            display: inline-block;
+            margin: 5px;
+            vertical-align: middle;
+
             h3 {
               font-size: 9px;
             }
@@ -311,6 +325,14 @@ page-user-dashboard {
 
 
 
+  }
+
+  @media screen and (max-width: 375px){
+    .accordion-tab {
+      p {
+        font-size: small;
+      }
+    }
   }
 
   @media screen and (min-width: 420px) and (max-width: 1024px){
