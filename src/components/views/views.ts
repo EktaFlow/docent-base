@@ -140,7 +140,7 @@ export class ViewsComponent {
 			this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 			this.close();
 		}
-    
+
 		handleActions(){
 			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
 			this.close();
@@ -150,7 +150,7 @@ export class ViewsComponent {
 			this.close();
 		}
 		handleNavigate(){
-			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 			this.close();
 		}
 		handleDashboard(){

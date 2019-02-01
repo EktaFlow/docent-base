@@ -97,7 +97,7 @@ export class MobileNavPopoverComponent {
   handleContinue = () => this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId});
   handleStartNew = () => this.navCtrl.push(HomePage);
   handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
   handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
   handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
   handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
