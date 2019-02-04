@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
 
 
 import { QuestionsPage } from '../questions/questions';

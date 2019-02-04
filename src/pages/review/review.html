@@ -3,16 +3,9 @@
 
 
 <ion-content padding>
-  <!-- <br><br><br><br><br><br><br><br><br> -->
-  <div class = "page-one-info">
-    <p>
-      <b>Target MRL: </b>{{targetMRL}}<br/><br>
-      <b>Target Date: </b> {{targetDate}}<br/><br>
-      <b>Location: </b>{{location}}<br/><br>
-      <b>Team Members: </b>{{team}}<br/><br>
-    </p>
-    <hr>
-  </div>
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
   <div class = "survey-info">
     <li *ngFor = "let question of allQuestions">
       <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">

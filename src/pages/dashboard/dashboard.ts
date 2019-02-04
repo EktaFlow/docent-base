@@ -9,6 +9,7 @@ import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 import {QuestionsPage} from '../questions/questions';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
 
 import { Apollo } from "apollo-angular";
@@ -46,12 +47,18 @@ export class DashboardPage {
 	showAll: any = true;
 	pageName: any = "MRL Summary";
 	targetMRL: any;
+	assessmentIdFromParams: any;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
-               private assessmentService: AssessmentService) {}
+               private assessmentService: AssessmentService) {
+
+								 this.assessmentIdFromParams = navParams.data.assessmentId;
+								 console.log(this.assessmentIdFromParams);
+
+				}
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index

@@ -4,6 +4,7 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 import { QuestionsPage } from "../questions/questions";
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -61,7 +62,7 @@ export class SummaryPage {
         threadsArr = [];
 	      pageName: any = "MRL Risk Summary";
         bgColor = "green";
-        
+
 
 
 

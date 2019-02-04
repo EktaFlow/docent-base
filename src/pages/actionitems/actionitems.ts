@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
 
 import * as XLSX from 'xlsx';
 
@@ -267,12 +269,16 @@ console.log(element);
 	assessmentId: any;
 	private attachments: any;
 	pageName: any = "Action Items";
+	assessmentIdFromParams: any;
+
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService) {
+								 	this.assessmentIdFromParams = navParams.data.assessmentId;
+									console.log(this.assessmentIdFromParams);
                 }
 
 	unique = (item, index, array) => array.indexOf(item) == index
