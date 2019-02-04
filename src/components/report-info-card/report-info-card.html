@@ -1,0 +1,16 @@
+<div class="info-card-wrapper">
+  <div class="info-card-header">
+    <h3>Assessment Information</h3>
+  </div>
+
+  <div class="info-card-content">
+    <p><b>Target MRL:</b> {{targetMRL}}</p>
+    <p><b>Target Date:</b> {{targetDate | date: 'mediumDate'}}</p>
+    <p><b>Location:</b> {{location}}</p>
+    <p><b>Additional Information:</b> {{scope}}</p>
+    <ul><b>Team Members:</b>
+      <li *ngFor="let member of teamMembers">{{member}}</li>
+
+    </ul>
+  </div>
+</div>
