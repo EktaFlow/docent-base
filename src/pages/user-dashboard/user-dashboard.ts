@@ -181,14 +181,15 @@ export class UserDashboardPage {
 
 	async openDashboard(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
+		console.log(assessmentId);
 
-	  this.navCtrl.push(DashboardPage);
+	  this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});
 	}
 
 	async openActionItems(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
-     this.navCtrl.push(ActionitemsPage);
+     this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});
 	}
 
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
