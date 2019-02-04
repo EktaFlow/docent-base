@@ -155,7 +155,7 @@ constructor( public popOver: PopoverController,
 
 
 	async handleUserDash() {
-		if (this.assessmentId && this.values && this.questionId) {
+		if (this.assessmentId ) {
     /* Removing this feature -- we now have the save button -ask if we want to keep it?
 			var updateInfo = {
 				updates: this.values,
