@@ -45,4 +45,22 @@ report-info-card {
       }
     }
   }
+
+  @media screen and (max-width: 1024px){
+    .info-card-wrapper {
+      width: 95%;
+
+      .info-card-content {
+        p {
+          width: 90%;
+          padding: 2px;
+        }
+        ul {
+          width: 90%;
+          margin-left: 0;
+          padding: 2px;
+        }
+      }
+    }
+  }
 }
