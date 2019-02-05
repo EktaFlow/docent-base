@@ -10,6 +10,7 @@ import { ComponentsModule } from '../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(RiskReportPage),
+    ComponentsModule
   ],
   entryComponents: [
     RiskReportPage
