@@ -19,10 +19,9 @@
             </ng-container>
             <ng-container *ngIf="answer.answer == 'No' ">
               <p><b>Answer:</b> {{answer.answer}}</p>
-              <p><b>Who:</b> {{answer.who}}</p>
-              <p><b>When:</b> {{answer.when}}</p>
-              <p><b>Risk:</b> {{answer.risk}}</p>
-              <p><b>What:</b> {{answer.what}}</p>
+              <p><b>Owner:</b> {{answer.who}}</p>
+              <p><b>Due Date:</b> {{answer.when}}</p>
+              <p><b>Action Item:</b> {{answer.what}}</p>
               <p><b>Reason:</b> {{answer.reason}}</p>
               <p><b>Assumptions:</b> {{answer.assumptionsNo}}</p>
               <p><b>Notes:</b> {{answer.notesNo}}</p>
@@ -33,11 +32,12 @@
               <p><b>Assumptions:</b> {{answer.assumptionsNA}}</p>
               <p><b>Notes:</b> {{answer.notesNA}}</p>
             </ng-container>
-            <p><b>User Who Answered:</b> {{answer.userId}}</p>
+            <p><b>User Who Answered:</b> {{emails[answer.userId]}}</p>
             <p><b>Answered At:</b> {{answer.updatedAt | date:'medium'}}</p>
+            <p *ngIf="answer.revertedBy"><b>Answer Reverted By:</b> {{emails[answer.revertedBy]}}</p>
           </div>
           <div class="action-buttons">
-              <button ion-button color="darkslateblue">Revert Back</button>
+              <button ion-button color="darkslateblue" (click)="revertBack(answer)">Revert Back</button>
           </div>
       </div>
       </ng-container>
