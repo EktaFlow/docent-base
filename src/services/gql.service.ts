@@ -88,6 +88,7 @@ query assessment($_id: String)
 			documentation
 			assumptionsNA
 			notesNA
+			revertedBy
 		}
   }
 	targetMRL
@@ -140,7 +141,7 @@ export var updateTeamMembersMutation = gql`
 export var deleteFileMutation = gql`
   mutation deleteFile($assessmentId: String, $fileId: String) {
     deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
-      name  
+      name
     }
   }
 `
