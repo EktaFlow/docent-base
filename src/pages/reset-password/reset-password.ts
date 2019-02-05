@@ -41,7 +41,7 @@ export class ResetPasswordPage {
   validateInput() {
     if (!this.userInput.passwd) { this.errors.push('passwd') }
     if (!this.userInput.passwd2) { this.errors.push('passwd2') }
-    if (this.userInpput.passwd && this.userInput.passwd2 && this.userInput.passwd !== this.userInput.passwd2 ) {
+    if (this.userInput.passwd && this.userInput.passwd2 && this.userInput.passwd !== this.userInput.passwd2 ) {
       this.errors.push('no_match');
     }
     if ( this.errors.length == 0 ) {
