@@ -23,12 +23,13 @@ export class MyApp {
               auth:         AuthService,
             keyboard: Keyboard) {
     platform.ready().then(() => {
-		if (auth.isLoggedIn()) {
+    if (window.location.href.includes('reset')) {
+      auth.setReset(window.location.href);
+			this.rootPage = LoginPage;
+    }
+		else if (auth.isLoggedIn()) {
 			this.rootPage = UserDashboardPage;
 		}
-    else if (window.location.href.includes('reset')) {
-      console.log = 'we-resettin';
-    }
 		else {
 			this.rootPage = LoginPage;
 		}

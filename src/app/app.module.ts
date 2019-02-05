@@ -35,7 +35,7 @@ import { CriteriaPageModule } from '../pages/criteria/criteria.module';
 import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
-import { ResetPageModule } from '../pages/reset/reset.module';
+// import { ResetPageModule } from '../pages/reset/reset.module';
 import { EditAssessmentPageModule } from '../pages/edit-assessment/edit-assessment.module';
 import { SummaryPageModule } from '../pages/summary/summary.module';
 import {RiskReportPageModule} from '../pages/risk-report/risk-report.module';
@@ -81,7 +81,7 @@ import { BackUrl } from  "../services/constants";
 		SettingsPageModule,
 		NewAssessmentPageModule,
     EditAssessmentPageModule,
-    ResetPageModule,
+    //ResetPageModule,
 		RiskReportPageModule,
 		ComponentsModule
   ],

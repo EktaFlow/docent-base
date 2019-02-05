@@ -11,6 +11,9 @@ export class AuthService {
 
 constructor(private http: HttpClient) {}
 
+  reset: boolean = false;
+  resetToken: string = '';
+  resetEmail: string = '';
 	registerUrl = AuthUrl + "register";
 	loginUrl    = AuthUrl + "login";
         resetUrl    = AuthUrl + 'reset';
@@ -28,6 +31,22 @@ constructor(private http: HttpClient) {}
 		          )
 		)
 	}
+
+  /** purpose: grab info from url.
+  *
+  *
+  */
+  public setReset(url) { 
+  console.log(url);
+    this.reset = true; 
+    var tokenRegex = /g(.*?)h/;
+    var emailRegex = /\%(.*?)$/;
+    this.resetToken = tokenRegex.exec(url)[1];
+    this.resetEmail = emailRegex.exec(url)[1];
+
+    console.log(this.resetEmail);
+    
+  }
 
 	public logout() {
 		localStorage.removeItem("docent-token");

@@ -8,6 +8,9 @@
         </div>
         </div>
         <div id="public-main">
+            <div *ngIf="componentShown == 'doreset'">
+                <do-reset></do-reset>
+            </div>
             <div *ngIf="componentShown == 'login'" id="login-container">
                 <login (toggleClicked)="onToggle($event)">
                 </login>
@@ -17,6 +20,7 @@
             </div>
             <div *ngIf="componentShown == 'reset'">
                 <password-reset (toggleClicked)="onToggle($event)"></password-reset>
+
             </div>
         </div>
 
