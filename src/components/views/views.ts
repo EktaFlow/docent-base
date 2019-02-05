@@ -12,6 +12,7 @@ import { SummaryPage } from '../../pages/summary/summary';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
+import { RiskReportPage } from "../../pages/risk-report/risk-report";
 
 
 
@@ -164,6 +165,10 @@ export class ViewsComponent {
 			this.navCtrl.push(this.homePage);
 			this.close();
 		}
+    handleRiskReport(){
+      this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
+      this.close();
+    }
 
 
 

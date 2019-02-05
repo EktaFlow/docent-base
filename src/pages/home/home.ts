@@ -93,6 +93,15 @@ export class HomePage {
 		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
+
+		//do we want / need to remove team members out of variables before sending it to the back?
+		//do we need to use teamMembersInput
+		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
+
+		// var createInfo = {
+		//
+		// }
+
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
@@ -113,6 +122,8 @@ export class HomePage {
 	}
 
 	formatAssessmentVariables() {
+		//here on line 107 (assigning team members) we need to assign the whole team members object
+		//or input it in another section?
 		var formValues = this.assForm;
 		return {
 			threads:          this.threadsSelected,
@@ -121,7 +132,7 @@ export class HomePage {
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers,
+			teamMembersUpdates:      formValues.teamMembers,
 			userId:						this.auth.currentUser()._id,
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,

@@ -44,10 +44,6 @@
         </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">
-            <div class="accordion-tab metrics">
-              <p>You currently have {{assessments.length}} assessments</p>
-
-            </div>
             <div *ngFor="let assessment of assessments">
               <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                 <p><b>Assessment:</b> {{assessment.name}} <ion-icon name="arrow-dropdown" class="dropdown"></ion-icon></p>
@@ -65,7 +61,8 @@
 		  <ng-container *ngIf="!assessment.levelSwitching">
                       <p><b>Level Switching?: </b> No </p>
 	          </ng-container>
-                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}</span></p>
+                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}, </span></p>
+
                 </div>
                 <div class="assNav">
                   <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
@@ -108,7 +105,7 @@
                     <p><b>Scope: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
                     <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-                    <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}</span></p>
+                    <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}, </span></p>
                     <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
                   </div>
                   <div class="assNav">

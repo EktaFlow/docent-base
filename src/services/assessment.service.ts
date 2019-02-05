@@ -49,8 +49,8 @@ export class AssessmentService {
 
   /**
   *   The purpose of this function is to [].
-  *   @query = a `gql` formatted string that contains a query 
-  * 
+  *   @query = a `gql` formatted string that contains a query
+  *
   *   return: Observable
   */
   async getAssessment(query, assessmentId: String) {
@@ -77,13 +77,12 @@ export class AssessmentService {
 	}
 
 	async createAssessment(variables) {
+		console.log(variables);
 
 	return await this.apollo.mutate({
 			mutation: createAssessmentMutation,
-			variables
+			variables: variables
 		});
-
-
 
 
 	}
@@ -128,12 +127,13 @@ export class AssessmentService {
     }).valueChanges;
 	}
 
-	async updateTeamMembers(assessmentId, memberEmail){
+	async updateTeamMembers(assessmentId, memberInfo){
+		console.log("are we getting to this point?");
 		return await this.apollo.mutate<any>({
 			mutation: updateTeamMembersMutation,
 			variables: {
 				_id: assessmentId,
-				teamMember: memberEmail
+				_teamMember: memberInfo
 			}
 		})
 	}
@@ -141,7 +141,7 @@ export class AssessmentService {
   async deleteFile(assessmentId, fileId) {
     console.log('we in delete file in ass service');
     return await this.apollo.mutate<any>({
-      mutation: deleteFileMutation, 
+      mutation: deleteFileMutation,
       variables: {
         assessmentId: assessmentId,
         fileId:       fileId

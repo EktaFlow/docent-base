@@ -11,7 +11,11 @@ query assessments($userId: String) {
      location
      name
 		 id
-		 teamMembers
+			teamMembers {
+				name
+				email
+				role 
+			}
 	}
 }
 `
@@ -28,7 +32,7 @@ export var createAssessmentMutation = gql`
 		 $levelSwitching: Boolean
 		 $userId: String
 		 $userEmail: String
-		 $teamMembers: [String]
+		 $teamMembersUpdates: [TeamMemberInput]
 		 $schema: String
    ) {
      createAssessment(
@@ -42,7 +46,7 @@ export var createAssessmentMutation = gql`
        targetDate: $targetDate,
        deskbookVersion: $deskbookVersion,
 			 name: $name,
-			 teamMembers: $teamMembers,
+			 teamMembersUpdates: $teamMembersUpdates,
 			 levelSwitching: $levelSwitching,
 			 schema: $schema
      ) {
@@ -88,6 +92,7 @@ query assessment($_id: String)
 			documentation
 			assumptionsNA
 			notesNA
+			revertedBy
 		}
   }
 	targetMRL
@@ -140,7 +145,7 @@ export var updateTeamMembersMutation = gql`
 export var deleteFileMutation = gql`
   mutation deleteFile($assessmentId: String, $fileId: String) {
     deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
-      name  
+      name
     }
   }
 `

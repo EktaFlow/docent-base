@@ -27,7 +27,7 @@
 
 		<div class="q-answer">
 		<select [(ngModel)]="vals.answer" id="select-answer">
-			<option value="" disabled selected>Select Answer</option>
+			<option [ngValue]="null" disabled>Select Answer</option>
 			<option value="Yes">Yes</option>
 			<option value="No">No</option>
 			<option value="N/A">N/A</option>
