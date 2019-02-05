@@ -32,7 +32,11 @@ query getShared($assessments: [String]) {
     location
     name
 		id
-		teamMembers
+		teamMembers {
+			name
+			email
+			role 
+		}
 		userId
 		userEmail
 	}
