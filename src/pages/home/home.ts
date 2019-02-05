@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -49,7 +49,9 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,
-              private http: HttpClient) {}
+              private http: HttpClient,
+							private loadingCtrl: LoadingController,
+							private toastCtrl: ToastController) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -65,6 +67,19 @@ export class HomePage {
 		return fields.every(field => this.assForm[field])
 	}
 
+	presentLoadingDefault() {
+	let loading = this.loadingCtrl.create({
+		spinner: 'crescent',
+		content: 'Assessment Loading In, Please Wait',
+		dismissOnPageChange: true
+	});
+
+
+	loading.present();
+
+
+}
+
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
@@ -75,6 +90,7 @@ export class HomePage {
 		await this.getSchema(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
+		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
 
@@ -89,9 +105,11 @@ export class HomePage {
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
+
             })
             .catch(e => {
               alert('invalid JSON');
@@ -169,6 +187,8 @@ export class HomePage {
 
 	}
 
+
+
         // uses the default included schemas.
         // Checks a user to see if they have custom schemas.
 	async getSchema(deskbook) {
@@ -230,11 +250,34 @@ export class HomePage {
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
+
+		var name = <any>(document.getElementById("memName"));
+		name.value = "";
+		var email = <any>(document.getElementById("memEmail"));
+		email.value = "";
+		var role = <any>(document.getElementById("memRole"));
+		role.value = "";
+		this.presentToast();
   }
 
-  removeMember(){
-    this.members.pop();
-    this.assForm.teamMembers.pop();
+	presentToast() {
+	  let toast = this.toastCtrl.create({
+	    message: 'Member added to assessment and emailed',
+	    duration: 2000,
+	    position: 'middle'
+	  });
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
+
+	  toast.present();
+}
+
+  removeMember(memEmail){
+		this.members = this.members.filter(m => m.email != memEmail);
+		this.assForm.teamMembers = this.assForm.teamMembers.filter(m => m.email != memEmail);
+    // this.members.pop();
+    // this.assForm.teamMembers.pop();
   }
 
   async startAssessment(_id){

@@ -92,6 +92,7 @@ query assessment($_id: String)
 			documentation
 			assumptionsNA
 			notesNA
+			revertedBy
 		}
   }
 	targetMRL
