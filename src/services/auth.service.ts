@@ -14,6 +14,8 @@ constructor(private http: HttpClient) {}
 	registerUrl = AuthUrl + "register";
 	loginUrl    = AuthUrl + "login";
         resetUrl    = AuthUrl + 'reset';
+				fetchUrl = AuthUrl + 'fetchUser';
+				fetchMultipleUrl = AuthUrl + 'fetchMultiple';
 
 	registerUser(user) {
 		return this.http.post(this.registerUrl, user)
@@ -37,13 +39,26 @@ constructor(private http: HttpClient) {}
 		return ok
 	}
 
-        public resetPassword(email) {
-          return this.http.post(this.resetUrl, {email})
-                 .pipe(tap( data => console.log(data),
-                            error => console.log(error)
-                          ))
-                 .subscribe(a => console.log('of course'));
-        }
+  public resetPassword(email) {
+    return this.http.post(this.resetUrl, {email})
+           .pipe(tap( data => console.log(data),
+                      error => console.log(error)
+                    ))
+           .subscribe(a => console.log('of course'));
+  }
+
+	public fetchUser(id){
+		return this.http.post(this.fetchUrl, id);
+	}
+
+	public fetchMultiple(ids){
+		console.log(ids);
+		console.log(JSON.stringify(ids));
+		var userInfo = {
+			"ids": ids
+		}
+		return this.http.post(this.fetchMultipleUrl, userInfo);
+	}
 
 	private setSession(isAuthed) {
 		localStorage.setItem("docent-token", JSON.stringify(isAuthed))

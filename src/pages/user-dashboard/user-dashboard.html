@@ -44,10 +44,6 @@
         </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">
-            <div class="accordion-tab metrics">
-              <p>You currently have {{assessments.length}} assessments</p>
-
-            </div>
             <div *ngFor="let assessment of assessments">
               <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                 <b>Assessment:</b> {{assessment.name}}
