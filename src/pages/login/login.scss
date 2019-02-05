@@ -8,9 +8,16 @@ page-login {
 
   #public-topbar {
     display: flex;
-    background: #000000;
+//    background: #000000;
     height: 75px;
     width: 100%;
+    #right {
+            background: black;
+            width: 100%;
+    }
+    img {
+      height: 75px;
+    }
   }
 
   #public-main {
