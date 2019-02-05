@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AssessmentService } from "../../services/assessment.service";
 import { HttpClient } from '@angular/common/http';
+import { AuthUrl } from "../../services/constants";
+
 
 
 
@@ -32,7 +34,13 @@ export class AddTeamMembersPopOverComponent {
   addNewMember() {
     //access assessment
     //add team member to assessment
-    this.assessmentService.updateTeamMembers(this.assessmentId, this.newMember.email);
+		var updateTM = {
+			"name" : this.newMember.name,
+			"email" : this.newMember.email,
+			"role" : this.newMember.role
+
+		}
+    this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
 		this.sendEmailsToTeamMember(this.assessmentId);
 
 		//not currently auto syncing with page *ajaxing* for now it is fine.....
@@ -42,8 +50,8 @@ export class AddTeamMembersPopOverComponent {
   async sendEmailsToTeamMember(assessmentId) {
 		var teamMember = [this.newMember.email];
 
-		// move this to constants when we decide its home.
-		var url = "http://localhost:4002/share";
+		var url = AuthUrl + "share";
+		
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
