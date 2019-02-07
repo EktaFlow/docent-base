@@ -16,7 +16,11 @@ query assessment($_id: String) {
                 deskbookVersion
                 name
 		# id
-		teamMembers
+		teamMembers {
+      name
+      email
+      role
+    }
 	        targetMRL
 	        targetDate
 	        location
