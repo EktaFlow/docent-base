@@ -129,6 +129,13 @@ $input-border:#dcdcdc;
 
 }
 
+sup {
+  // font-size: small;
+  // width: 10%;
+  font-size: 1em;
+  top: -.1em;
+}
+
 
 
 
@@ -243,12 +250,25 @@ $input-border:#dcdcdc;
   margin-bottom: 0;
 }
 
+.mobile {
+  display: none;
+}
+
 
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
 	.assessment-name {
 		margin-left: 15px;
 	}
+
+  .mobile {
+    display: inherit;
+  }
+
+  .addMember {
+    font-size: 14px;
+    margin: 4px 2px;
+  }
 	.target-level {
 		margin-top: 2%;
 		align-items: flex-end;
@@ -294,10 +314,10 @@ $input-border:#dcdcdc;
 
     .member-inputs {
         input {
-            width: 92%;
-            height: 30%;
+            width: 94.5%;
+            height: 25%;
             display: block;
-            margin: 3px 0;
+            margin: 3px 3px;
         }
     }
 
@@ -330,6 +350,8 @@ $input-border:#dcdcdc;
     .team-members-title {
         margin-left: 40px;
     }
+
+
 
     .assessment-name {
         margin-left: 40px;

@@ -76,8 +76,8 @@
         <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
         <input type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
-        <ion-icon  (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember"></ion-icon>
-
+        <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
+        <button ion-button small color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</button>
 
       </div>
     </div>
