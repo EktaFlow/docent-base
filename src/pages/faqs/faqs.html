@@ -26,7 +26,9 @@
   <div class="mobile faqs-container">
     <div *ngFor="let faq of faqInfoStandalone">
       <div class="header">
-        <h3 class="title">{{faq.help_title}} <ion-icon  *ngIf="currentQ != faq.help_title" name="arrow-dropdown" class="down-arrow" (click)="toggleFaq(faq.help_title)"></ion-icon><ion-icon *ngIf="currentQ == faq.help_title" class="up-arrow" name="arrow-dropup" (click)="toggleFaq('')"></ion-icon></h3>
+        <h3 class="title">{{faq.help_title}} </h3>
+        <ion-icon  *ngIf="currentQ != faq.help_title" name="arrow-dropdown" class="arrow" (click)="toggleFaq(faq.help_title)"></ion-icon>
+        <ion-icon *ngIf="currentQ == faq.help_title" name="arrow-dropup" class="arrow"(click)="toggleFaq('')"></ion-icon>
       </div>
       <div class="answer-text" *ngIf="currentQ == faq.help_title">
         <p [innerHTML]="faq.help_text"></p>
