@@ -80,7 +80,11 @@ export class DashboardPage {
 					// console.log((<any>data.data).assessment);
 					this.questionSet  = this.createQuestionSet(this.allQuestions);
 					this.targetMRL = (<any>data.data).assessment.targetMRL;
-          this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
+					console.log(this.questionSet);
+					this.questionSet = this.questionSet.filter(s => s.header.length > 1);
+					if (window.innerWidth > 1024){
+						this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
+					}
           //					this.questionSet = this.dearGod();
 			});
 	}
