@@ -108,6 +108,8 @@ export class MobileNavPopoverComponent {
   handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
   handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+  goToDoD = () => window.location.href = "http://dodmrl.com";
+  goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2017.pdf"
   // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }

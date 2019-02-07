@@ -2,9 +2,9 @@
 <div>
   <div class='icons'>
     <ng-container *ngIf="assessmentShow || helpShow">
-      <ion-icon  name="arrow-dropleft" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
+      <ion-icon  name="arrow-back" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
     </ng-container>
-    <ion-icon name="close-circle-outline" (click)="closeNav()" class="close"></ion-icon>
+    <ion-icon name="close" (click)="closeNav()" class="close"></ion-icon>
   </div>
   <ng-container *ngIf="regularNavShow">
     <button ion-button color="dark" disabled class="user-name">
@@ -39,10 +39,10 @@
   <ng-container *ngIf="assessmentShow && assessmentId" class="assessment-links" >
 
       <button (click)="handleDashboard()" ion-button color="dark">
-          Dashboard
+          MRL Summary
       </button>
       <button (click)="handleNavigate()" ion-button color="dark">
-          Navigate
+          Questions List
       </button>
       <button (click)="handleReview()" ion-button color="dark">
           Review
@@ -54,7 +54,7 @@
           Skipped Questions
       </button>
       <button (click)="handleSummary()" ion-button color="dark">
-          Summary
+          MRL Risk Summary
       </button>
       <!-- <button (click)="closeAssessment()" ion-button color="dark">
           Back
@@ -74,10 +74,10 @@
     <button (click)="handleFaqs()" ion-button color="dark">
         FAQs
     </button>
-    <button ion-button color="dark">
+    <button ion-button color="dark" (click)="goToDoD()">
         User Guide
     </button>
-    <button ion-button color="dark">
+    <button ion-button color="dark" (click)="goToDeskbook()">
         MRL Deskbook
     </button>
     <!-- <button (click)="closeHelp()" ion-button color="dark">
