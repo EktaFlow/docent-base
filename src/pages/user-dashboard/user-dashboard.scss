@@ -58,9 +58,23 @@ page-user-dashboard {
   background: white;
   margin: 6px;
   vertical-align: middle;
+  position: relative;
+
+  p {
+    // width: 70%;
+    // height: 20px;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // display: block;
+
+
+  }
 
   .dropdown {
-    font-size: small;
+    font-size: medium;
+    position: absolute;
+    top: 30%;
+    right: 10px;
   }
 }
 
@@ -119,6 +133,7 @@ page-user-dashboard {
       padding-bottom: 10px;
       border-bottom: 1px solid white;
       width: 100%;
+      height: 40px;
       .buttons {
         width: 99%;
         margin: 0 auto;
@@ -127,7 +142,8 @@ page-user-dashboard {
           width: 30%;
           // padding: 0 7px;
           margin: 0 10px;
-          font-size: .6em;
+          font-size: .7em;
+          // padding: 3px;
         }
       }
 
@@ -143,7 +159,7 @@ page-user-dashboard {
       // border-bottom: 1px solid white;
 
       .details {
-        width: 40%;
+        width: 55%;
         display: inline-block;
         padding: 10px;
 

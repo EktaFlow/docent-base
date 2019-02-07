@@ -35,7 +35,7 @@ query getShared($assessments: [String]) {
 		teamMembers {
 			name
 			email
-			role 
+			role
 		}
 		userId
 		userEmail
@@ -152,6 +152,14 @@ export class UserDashboardPage {
     });
 
 	}
+
+	public truncate(value: string, limit = 30, completeWords = true, ellipsis = '…') {
+  let lastindex = limit;
+  if (completeWords) {
+    lastindex = value.substr(0, limit).lastIndexOf(' ');
+  }
+  return `${value.substr(0, limit)}${ellipsis}`;
+}
 
   expandAssessment(assessmentId) {
     // this.expand = !this.expand;
