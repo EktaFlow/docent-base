@@ -12,9 +12,17 @@ page-settings {
       // margin-left: 30px;
   }
 
+  .mobile {
+    display: none;
+  }
+
   @media screen and (max-width: 1024px){
     .desktop {
       display: none;
+    }
+
+    .mobile {
+      display: inherit;
     }
   }
 
