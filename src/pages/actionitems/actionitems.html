@@ -11,21 +11,23 @@
 
 
 
-<div class="row" style="justify-content:space-between;">
-  <div class="col-md-4">
+<div class="row">
+  <div class="toolbar">
     <input *ngIf="config.filtering" placeholder="Filter all columns"
            [ngTableFiltering]="config.filtering"
            class="form-control"
            (tableChanged)="onChangeTable(config)"/>
+  <button ion-button color="buttonBlue" (click)="saveXLS()" id="previous-button">Save to .XLS</button>
   </div>
-  <button style="margin-left: 45vw;"ion-button color="buttonBlue" (click)="saveXLS()" id="previous-button">Save to .XLS</button>
 </div>
 <br>
+<div class="table-wrapper">
 <ng-table [config]="config"
           (tableChanged)="onChangeTable(config)"
           (cellClicked)="onCellClick($event)"
           [rows]="rows" [columns]="columns">
 </ng-table>
+</div>
 <!--
 <pagination *ngIf="config.paging"
             class="pagination-sm"
