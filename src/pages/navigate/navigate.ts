@@ -82,6 +82,8 @@ export class NavigatePage {
 					this.targetLevel = (<any>data.data).assessment.targetMRL;
 					this.schema = this.createSchemaObject(this.allQuestions);
 					this.filteredSchema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
 					// filterTheList();
 
 					console.log(this.allQuestions);
