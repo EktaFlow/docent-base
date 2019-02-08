@@ -1,10 +1,11 @@
+/*
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 
 
 @IonicPage({
-  segment: 'reset/:cool/:beans'
+//segment: 'reset/:cool/:beans'
 })
 @Component({
   selector: 'page-reset',
@@ -67,3 +68,4 @@ export class ResetPage {
   }
 
 }
+*/
