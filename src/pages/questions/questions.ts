@@ -96,7 +96,16 @@ export class QuestionsPage {
 
 
 	setSurveyQuestions() {
-    return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
+
+		var editableQuestions = JSON.parse(JSON.stringify(this.allQuestions))
+		for (var q = 0; q < editableQuestions.length; q++){
+			if (editableQuestions[q].answers.length > 0){
+				console.log(editableQuestions[q].answers);
+			}
+			editableQuestions[q].answers = editableQuestions[q].answers.filter(a => a.answer != null);
+		}
+		console.log(editableQuestions.filter(q => q.mrLevel == this.assessment.targetMRL));
+    return editableQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
 							.map( q => q.questionId);
 	}
 
@@ -114,6 +123,7 @@ export class QuestionsPage {
 			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
 		else {
+      // var noNulls = this.surveyQuestions.map(q => q)
 			var noAnswer = this.surveyQuestions.find( qId => {
 				return getQuestion(qId).answers.length == 0;
 			})
