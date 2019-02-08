@@ -173,6 +173,14 @@ export class UserDashboardPage {
 		// target.scrollIntoView();
   }
 
+	expandAssessmentMobile(assessmentId){
+		if (this.currentAssessment == assessmentId) {
+      this.currentAssessment = null;
+    } else {
+      this.currentAssessment = assessmentId;
+    }
+	}
+
 	scrollToElement(assessmentId){
 		var target = document.getElementById(assessmentId);
 		target.scrollIntoView({behavior: "smooth", block: "center"});
