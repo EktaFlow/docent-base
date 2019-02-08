@@ -709,7 +709,9 @@ $arrow-width: 1em;
 	}
 
   .selected {
-    border: 7px solid black;
+    // border: 7px solid black;
+    font-size: 1.8em; 
+    filter: brightness(75%);
   }
 
   .file-item {

@@ -27,7 +27,7 @@ export class MyApp {
 			this.rootPage = UserDashboardPage;
 		}
     else if (window.location.href.includes('reset')) {
-      console.log = 'we-resettin';
+      //console.log = 'we-resettin';
     }
 		else {
 			this.rootPage = LoginPage;
