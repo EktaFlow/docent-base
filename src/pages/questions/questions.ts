@@ -525,7 +525,7 @@ export class QuestionsPage {
     var consequence = (<any>this.vals).consequence;
 
     if ( likelihood && consequence ) {
-    document.querySelectorAll('.matrix-row th').forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
+    (<any>document.querySelectorAll('.matrix-row th')).forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
  
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
@@ -536,7 +536,7 @@ export class QuestionsPage {
       var name = selectedBox.className.replace(/ selected/g, '')
       selectedBox.className = `${name} selected`;
 
-      selectedBox.innerHTML = riskMatrix[likelihoodIndex][consequenceIndex];
+      selectedBox.innerHTML = String(riskMatrix[likelihoodIndex][consequenceIndex]);
 
       return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {
