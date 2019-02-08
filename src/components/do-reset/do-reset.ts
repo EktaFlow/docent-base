@@ -1,12 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { NavController } from 'ionic-angular';
+import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard';
 
-/**
- * Generated class for the DoResetComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'do-reset',
   templateUrl: 'do-reset.html'
@@ -19,14 +15,17 @@ export class DoResetComponent {
   private errors  = [];
   passwd: string  = '';
   passwd2: string = ''
+  resetDone: boolean = false;
 
-  constructor( private auth: AuthService ) {}
+  constructor( private auth: AuthService, private navCtrl: NavController ) {}
 
-  handleResetClick() {
+  async handleResetClick() {
     console.log('we resettin'); 
-    console.log(this.auth);
-    console.log(this.auth.resetEmail);
-    // call all the login goodness here.
+
+    var resetResult = await this.auth.doPasswordReset(this.passwd);
+    this.resetDone = true;
+
+    setTimeout(() => window.location.replace('http://localhost:8100'), 1200);
   }
 
 }

@@ -8,13 +8,14 @@
 
   <div>
 	  <div id="login-container">
+      <div id="login-container" *ngIf="!resetDone">
       <div>
 			  <h5>password</h5>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd" [(ngModel)]="passwd">
       </div>
       <div>
 			  <h5>repeat password</h5>
-        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd2" [(ngModel)]="passwd">
+        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd2" [(ngModel)]="passwd2">
       </div>
 
       <div id="button-container">
@@ -23,6 +24,10 @@
 
       <div id="reset-rules">
         <h6>Enter a valid Docent account email, and instructions to reset your password will be mailed.</h6>
+      </div>
+      </div>
+      <div *ngIf="resetDone">
+        <h6> Reset successful! </h6>
       </div>
     </div>
 

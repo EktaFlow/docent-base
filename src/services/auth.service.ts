@@ -40,12 +40,32 @@ constructor(private http: HttpClient) {}
   console.log(url);
     this.reset = true; 
     var tokenRegex = /g(.*?)h/;
-    var emailRegex = /\%(.*?)$/;
+    var emailRegex = /\?(.*?)$/;
     this.resetToken = tokenRegex.exec(url)[1];
     this.resetEmail = emailRegex.exec(url)[1];
+  }
 
-    console.log(this.resetEmail);
-    
+  public doPasswordReset(newPassword) {
+    var body = {
+      newPassword: newPassword,
+      email: this.resetEmail,
+      resetToken: this.resetToken
+    };
+
+    return this.http.post(AuthUrl + 'doreset', body)
+      .subscribe(a => {
+      console.log(a);
+        if (a == 'Success') {
+        console.log('wer succ');
+          var userCreds = {
+            email: this.resetEmail,
+            passwd: newPassword
+          }
+
+          this.login(userCreds)
+            .subscribe(user => console.log(user));
+        }
+      });
   }
 
 	public logout() {
