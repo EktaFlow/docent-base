@@ -4,12 +4,15 @@
     <h2>Add A Team Member to This Assessment</h2>
   </div>
   <div>
+    <label for="role">Name: </label>
+    <input type="text" name="name" [(ngModel)]="newMember.name">
+
     <label for="email">Email: </label>
     <input type="email" name="email" [(ngModel)]="newMember.email">
 
     <label for="role">Role: </label>
     <input type="text" name="role" [(ngModel)]="newMember.role">
 
-    <button (click)="addNewMember()">Add Team Member</button>
+    <button (click)="addNewMember()" ion-button small (color)="buttonBlue" class="new-button">Add Team Member</button>
   </div>
 </div>

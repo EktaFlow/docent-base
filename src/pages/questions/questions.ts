@@ -174,7 +174,7 @@ export class QuestionsPage {
 
   /**
   *  Simple handler to launch files in new tab/window rather than
-  *  changing actual address url. 
+  *  changing actual address url.
   */
   openFile(url) {
     window.open(url);
@@ -236,9 +236,6 @@ export class QuestionsPage {
 	async updateAssessment(values) {
 
 		//updating object in memory
-//    console.log(values)
-                // oldQuestion doesn't get used & is equivalent to
-		// var oldQuestion = this.allQuestions.find(a => a.questionId == this.currentQuestion.questionId);
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
@@ -267,7 +264,7 @@ export class QuestionsPage {
 			"currentAnswer": newerQuestion.currentAnswer
 		}
 
-                console.log(values);
+
 
 		var updatedInfo = {
 			_id: this.assessmentId,
@@ -284,7 +281,7 @@ export class QuestionsPage {
                 var oldAnswer: any = {};
                 if ( this.currentQuestion.answers.length > 0 ) {
                         console.log('more than 1 answer');
-                        console.log(this.currentQuestion.answers);
+
                         oldAnswer = this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
                 } else {
                         return true;

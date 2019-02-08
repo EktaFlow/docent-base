@@ -50,11 +50,9 @@
 
 
   <h1>Start New Assessment</h1>
-	<font *ngIf="!auth.isLoggedIn()"color="red">You must be a registered Docent User to begin an assessment</font><br />
-	<font color="grey">Use this option to start a new assessment</font><br />
-  <font color="grey">Please fill in all fields to begin an assessment</font>
+  <font color="grey">Please fill in required fields denoted by the <sup>*</sup>  (asterisk)</font>
   <br><br>
-			<h6 class="assessment-name headers">Assessment Name*</h6>
+			<h6 class="assessment-name headers">Assessment Name<sup>*</sup></h6>
       <small class="ass-name-count"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
 	<div class="topmost" style="z-index: 100;">
       <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
@@ -64,26 +62,26 @@
 <h6 class="team-members-title">Team Members</h6>
   <form class="member-form">
     <div class="member-list">
-      <li *ngFor = "let member of members">
-        <pre>- {{member.name}}: {{member.email}}, {{member.role}}</pre>
+      <li *ngFor = "let member of members" >
+        <b>{{member.name}}</b> at <b>{{member.email}}</b> as <b>{{member.role}}</b>
+        <ion-icon color="danger" name="remove-circle" (click)="removeMember(member.email)" class="removeMember"></ion-icon>
+        <!-- <span id="memberToast" style="color:secondary"> </span> -->
       </li>
     </div>
     <div class="members">
       <div class="member-inputs">
-        <input type="text" name="memName" placeholder="Member Name" #memName>
-        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
-        <input type="text" name="memRole" placeholder = "Member Role" #memRole>
+        <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
+        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
+        <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
+        <ion-icon  (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember"></ion-icon>
+
 
       </div>
     </div>
-    <div class = "buttons">
-      <button (click)="removeMember()" style="background-color:white">
-          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+    <!-- <div class = "buttons">
+      <button  style="background-color:white">
       </button>
-      <button (click)="addMember(memName.value, memEmail.value,memRole.value)" style="background-color:white">
-          <ion-icon name="add-circle" color = "secondary"></ion-icon>
-      </button>
-    </div>
+    </div> -->
   </form>
 
   <div class = "mid-first-page">
@@ -97,7 +95,7 @@
     <div class ="target-level-date">
       <div class = "target-level">
         <div style = "width:45%;">
-          <h6>Target MRL*</h6>
+          <h6>Target MRL<sup>*</sup></h6>
           <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
@@ -137,7 +135,7 @@
       <ion-input name="location" id="location-input" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
     </div>
     <div>
-      <h6>Deskbook Version*</h6>
+      <h6>Deskbook Version<sup>*</sup></h6>
       <select id="deskbook-select" name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
 				<ng-container *ngFor="let deskbook of deskbookVersions">

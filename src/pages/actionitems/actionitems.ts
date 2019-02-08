@@ -122,7 +122,7 @@ console.log(element);
     {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
     {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
     {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
-    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk'}}
+    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
   ];
 
 

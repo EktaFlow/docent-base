@@ -44,10 +44,6 @@
         </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">
-            <div class="accordion-tab metrics">
-              <p>You currently have {{assessments.length}} assessments</p>
-
-            </div>
             <div *ngFor="let assessment of assessments">
               <div class="accordion-tab" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                 <b>Assessment:</b> {{assessment.name}}
@@ -65,13 +61,14 @@
 		  <ng-container *ngIf="!assessment.levelSwitching">
                       <p><b>Level Switching?: </b> No </p>
 	          </ng-container>
-                  <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}, </span></p>
+
                 </div>
                 <div class="assNav">
                   <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
-                  <button (click)="openDashboard(assessment.id)">Dashboard</button>
+                  <button (click)="openDashboard(assessment.id)">MRL Summary</button>
                   <button (click)="openActionItems(assessment.id)">Action Items</button>
-                  <button (click)="presentAddTeamMembersPopOver(assessment.id)">Add Team Members</button>
+                  <button (click)="presentAddTeamMembersPopOver(assessment.id)">Invite Team Members</button>
                   <button (click)="handleEditAssessmentClick(assessment.id)">Edit</button>
                   <button (click)="handleDeleting(assessment.id)">Delete</button>
                 </div>
@@ -108,12 +105,12 @@
                     <p><b>Scope: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
                     <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-                    <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+                    <!-- <p><b>Team Members: </b> {{assessment.teamMembers}}</p> -->
                     <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
                   </div>
                   <div class="assNav">
                     <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
-                    <button (click)="openDashboard(assessment.id)">Dashboard</button>
+                    <button (click)="openDashboard(assessment.id)">MRL Summary</button>
                     <button (click)="openActionItems(assessment.id)">Action Items</button>
                     <!-- <button>Add Team Members</button> -->
                   </div>

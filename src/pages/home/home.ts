@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -49,7 +49,9 @@ export class HomePage {
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,
-              private http: HttpClient) {}
+              private http: HttpClient,
+							private loadingCtrl: LoadingController,
+							private toastCtrl: ToastController) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -65,6 +67,19 @@ export class HomePage {
 		return fields.every(field => this.assForm[field])
 	}
 
+	presentLoadingDefault() {
+	let loading = this.loadingCtrl.create({
+		spinner: 'crescent',
+		content: 'Assessment Loading In, Please Wait',
+		dismissOnPageChange: true
+	});
+
+
+	loading.present();
+
+
+}
+
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
@@ -75,14 +90,26 @@ export class HomePage {
 		await this.getSchema(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
+		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
+
+		//do we want / need to remove team members out of variables before sending it to the back?
+		//do we need to use teamMembersInput
+		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
+
+		// var createInfo = {
+		//
+		// }
+
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
+
             })
             .catch(e => {
               alert('invalid JSON');
@@ -95,6 +122,8 @@ export class HomePage {
 	}
 
 	formatAssessmentVariables() {
+		//here on line 107 (assigning team members) we need to assign the whole team members object
+		//or input it in another section?
 		var formValues = this.assForm;
 		return {
 			threads:          this.threadsSelected,
@@ -103,7 +132,7 @@ export class HomePage {
 			name:             formValues.name,
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers.map(a => a.email),
+			teamMembersUpdates:      formValues.teamMembers,
 			userId:						this.auth.currentUser()._id,
 			userEmail: 		this.auth.currentUser().email,
 			scope:            formValues.scope,
@@ -115,7 +144,7 @@ export class HomePage {
 	async sendEmailsToTeamMembers(assessmentId) {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
-		// move this to constants when we decide it's home.		
+		// move this to constants when we decide it's home.
 		var url = "http://dev.mfgdocent.com/auth/share";
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
@@ -150,13 +179,15 @@ export class HomePage {
 			 .subscribe(({data, loading}) => {
 					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
-					
+
 			 });
 
 
 			 }
 
 	}
+
+
 
         // uses the default included schemas.
         // Checks a user to see if they have custom schemas.
@@ -219,11 +250,34 @@ export class HomePage {
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
+
+		var name = <any>(document.getElementById("memName"));
+		name.value = "";
+		var email = <any>(document.getElementById("memEmail"));
+		email.value = "";
+		var role = <any>(document.getElementById("memRole"));
+		role.value = "";
+		this.presentToast();
   }
 
-  removeMember(){
-    this.members.pop();
-    this.assForm.teamMembers.pop();
+	presentToast() {
+	  let toast = this.toastCtrl.create({
+	    message: 'Member added to assessment and emailed',
+	    duration: 2000,
+	    position: 'middle'
+	  });
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
+
+	  toast.present();
+}
+
+  removeMember(memEmail){
+		this.members = this.members.filter(m => m.email != memEmail);
+		this.assForm.teamMembers = this.assForm.teamMembers.filter(m => m.email != memEmail);
+    // this.members.pop();
+    // this.assForm.teamMembers.pop();
   }
 
   async startAssessment(_id){

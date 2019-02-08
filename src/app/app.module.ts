@@ -38,6 +38,7 @@ import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.
 import { ResetPageModule } from '../pages/reset/reset.module';
 import { EditAssessmentPageModule } from '../pages/edit-assessment/edit-assessment.module';
 import { SummaryPageModule } from '../pages/summary/summary.module';
+import {RiskReportPageModule} from '../pages/risk-report/risk-report.module';
 
 // components
 import { ComponentsModule } from '../components/components.module';
@@ -80,42 +81,13 @@ import { BackUrl } from  "../services/constants";
 		SettingsPageModule,
 		NewAssessmentPageModule,
     EditAssessmentPageModule,
-                ResetPageModule,
+    ResetPageModule,
+		RiskReportPageModule,
 		ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-		//QuestionsPage,
-		//AcronymsPage,
-		//DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-    //LoginPage,
-		//HelpmenuComponent,
-		//ContactsDropdownComponent,
-		//FaqDropdownComponent,
-		//AssessmentslistComponent,
-		//ThreadsListComponent,
-		//FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//CriteriaPage,
-		//ActionitemsPage,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		//ViewsComponent,
-		//ImportComponent,
-		//TopbarComponent,
-		//SubthreadPopupComponent,
-		//ThreadPopupComponent,
-		//LoginComponent,
-		//RegisterComponent
     HomePage
   ],
   providers: [
