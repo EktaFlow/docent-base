@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ToastController, ViewController } from 'ionic-angular';
 
@@ -10,6 +10,7 @@ export class PasswordResetComponent {
   private emailInput: string = null;
   private errors = [];
   private user: any = {};
+  @Output() toggleClicked = new EventEmitter<string>();
 
   constructor( private auth: AuthService,
                private toast: ToastController,
@@ -24,6 +25,10 @@ export class PasswordResetComponent {
        // todo - legit error handling
        console.error(error);
     }
+  }
+
+  showLogin() {
+    this.toggleClicked.emit('login');
   }
 
   showNoTextToast() {

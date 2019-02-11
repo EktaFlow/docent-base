@@ -51,6 +51,8 @@ export class RegisterComponent {
 		this.checkPresence(user);
 		this.checkPasswords(user);
 		this.checkEmail((<any>user).email);
+    
+            console.log(this.errors);
 
 		return this.errors == false
 	}
@@ -70,9 +72,10 @@ export class RegisterComponent {
 	}
 
 	checkPasswordRules(passwd) {
-    if (passwd.length < 10 ) {
-      this.errors.push('invalid_pass');
-    }
+    var regEx = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,72}$/;
+    var test = regEx.test(passwd);
+
+    !test ? this.errors.push('invalid_passwd') : null 
 	}
 
 	checkEmail(email) {
