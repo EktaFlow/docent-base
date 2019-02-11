@@ -354,10 +354,22 @@ page-user-dashboard {
     }
   }
 
-  @media screen and (min-width: 420px) and (max-width: 1024px){
+  @media screen and (min-width: 750px) and (max-width: 1024px){
+
+
+
     ion-content {
       margin-top: 150px;
     }
+
+    .nav {
+      .nav-q-buttons {
+
+      }
+    }
+
+
+    
 
     .assessments {
       .accordion-tab {
@@ -365,14 +377,14 @@ page-user-dashboard {
       }
 
       .an-assessment {
-        margin: 10px;
+        // margin: 10px;
 
           .details {
-            width: 55%;
+            // width: 55%;
           }
 
           .assNav {
-            width: 40%;
+            padding-left: 50px;
           }
       }
     }
