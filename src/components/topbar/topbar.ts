@@ -155,7 +155,7 @@ constructor( public popOver: PopoverController,
 
 
 	async handleUserDash() {
-		if (this.assessmentId && this.values && this.questionId) {
+		if (this.assessmentId ) {
     /* Removing this feature -- we now have the save button -ask if we want to keep it?
 			var updateInfo = {
 				updates: this.values,
@@ -184,26 +184,34 @@ constructor( public popOver: PopoverController,
 
 
 
-	presentSubThreadPop(event){
+	presentSubThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
-			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
-    .present({ev: event});
+		var popover = this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+			if (mobileness == "false"){
+				popover.present({ev: event});
+			} else {
+				popover.present();
+			}
   }
 
-	presentThreadPop(event){
+	presentThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
-			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
-		.present({ev: event});
+		var popover = this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
+			updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+		if (mobileness == "false"){
+			popover.present({ev: event});
+		} else {
+			popover.present();
+		}
 	}
 
 	toggleQuestionHistory(){
@@ -213,8 +221,9 @@ constructor( public popOver: PopoverController,
 	}
 
 	openMobileNav(){
+		console.log(this.noSecondBar);
 		var userName = this.auth.currentUser().name;
-		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
+		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}
 

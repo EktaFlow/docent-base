@@ -35,7 +35,7 @@ query getShared($assessments: [String]) {
 		teamMembers {
 			name
 			email
-			role 
+			role
 		}
 		userId
 		userEmail
@@ -153,6 +153,14 @@ export class UserDashboardPage {
 
 	}
 
+	public truncate(value: string, limit = 30, completeWords = true, ellipsis = '…') {
+  let lastindex = limit;
+  if (completeWords) {
+    lastindex = value.substr(0, limit).lastIndexOf(' ');
+  }
+  return `${value.substr(0, limit)}${ellipsis}`;
+}
+
   expandAssessment(assessmentId) {
     // this.expand = !this.expand;
     if (this.currentAssessment == assessmentId) {
@@ -181,14 +189,15 @@ export class UserDashboardPage {
 
 	async openDashboard(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
+		console.log(assessmentId);
 
-	  this.navCtrl.push(DashboardPage);
+	  this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});
 	}
 
 	async openActionItems(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
-     this.navCtrl.push(ActionitemsPage);
+     this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});
 	}
 
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}

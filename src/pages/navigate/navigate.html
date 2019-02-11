@@ -6,6 +6,9 @@
 
   <!-- <br><br><br><br><br><br><br><br><br><br> -->
 
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+
 <div class="filter-toolbar">
   <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
   <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>

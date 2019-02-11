@@ -58,7 +58,24 @@ page-user-dashboard {
   background: white;
   margin: 6px;
   vertical-align: middle;
+  position: relative;
 
+  p {
+    // width: 70%;
+    // height: 20px;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // display: block;
+
+
+  }
+
+  .dropdown {
+    font-size: medium;
+    position: absolute;
+    top: 30%;
+    right: 10px;
+  }
 }
 
 .metrics {
@@ -116,6 +133,7 @@ page-user-dashboard {
       padding-bottom: 10px;
       border-bottom: 1px solid white;
       width: 100%;
+      height: 40px;
       .buttons {
         width: 99%;
         margin: 0 auto;
@@ -124,7 +142,8 @@ page-user-dashboard {
           width: 30%;
           // padding: 0 7px;
           margin: 0 10px;
-          font-size: .6em;
+          font-size: .7em;
+          // padding: 3px;
         }
       }
 
@@ -140,7 +159,7 @@ page-user-dashboard {
       // border-bottom: 1px solid white;
 
       .details {
-        width: 40%;
+        width: 55%;
         display: inline-block;
         padding: 10px;
 
@@ -195,6 +214,8 @@ page-user-dashboard {
        width: 100%;
   }
 
+
+
   @media screen and (max-width: 1024px){
 
     ion-content {
@@ -207,6 +228,10 @@ page-user-dashboard {
 
     .mobile {
       display: inherit;
+    }
+
+    .assessment-links {
+      display: none;
     }
 
 
@@ -276,11 +301,23 @@ page-user-dashboard {
       .an-assessment{
         margin: 4.5px;
         margin-bottom: 10px;
+
+        .details {
+          width: 100%;
+        }
         .assNav{
-          width: 55%;
+          width: 100%;
+          float: none;
+          padding-left: 0;
+          text-align: inherit;
 
           button {
-            width: 90%;
+            width: 30%;
+            font-size: x-small;
+            display: inline-block;
+            margin: 5px;
+            vertical-align: middle;
+
             h3 {
               font-size: 9px;
             }
@@ -307,6 +344,14 @@ page-user-dashboard {
 
 
 
+  }
+
+  @media screen and (max-width: 375px){
+    .accordion-tab {
+      p {
+        font-size: small;
+      }
+    }
   }
 
   @media screen and (min-width: 420px) and (max-width: 1024px){

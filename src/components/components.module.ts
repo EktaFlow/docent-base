@@ -25,6 +25,7 @@ import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
 import { QuestionHistoryPopoverComponent } from './question-history-popover/question-history-popover';
 import { RiskPopoverComponent } from './risk-popover/risk-popover';
 import { FileDeleteComponent } from './file-delete/file-delete';
+import { ReportInfoCardComponent } from './report-info-card/report-info-card';
 
 @NgModule({
 	declarations: [
@@ -50,7 +51,8 @@ import { FileDeleteComponent } from './file-delete/file-delete';
     AcronymPopoverComponent,
     QuestionHistoryPopoverComponent,
     RiskPopoverComponent,
-    FileDeleteComponent
+    FileDeleteComponent,
+    ReportInfoCardComponent
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -76,7 +78,8 @@ import { FileDeleteComponent } from './file-delete/file-delete';
     AcronymPopoverComponent,
     QuestionHistoryPopoverComponent,
     RiskPopoverComponent,
-    FileDeleteComponent
+    FileDeleteComponent,
+    ReportInfoCardComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -101,7 +104,8 @@ import { FileDeleteComponent } from './file-delete/file-delete';
         PasswordResetComponent,
         QuestionHistoryPopoverComponent,
         RiskPopoverComponent,
-        FileDeleteComponent
+        FileDeleteComponent,
+        ReportInfoCardComponent
     ]
 })
 

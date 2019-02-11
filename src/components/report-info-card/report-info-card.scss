@@ -1,0 +1,66 @@
+report-info-card {
+  .info-card-wrapper {
+    width: 60%;
+    border: 1px solid black;
+    margin: 10px;
+
+    .info-card-header {
+      margin: 10px auto;
+      width: 50%;
+      padding: 5px;
+      // border: 1px solid black;
+      text-decoration: underline;
+      text-align: center;
+
+      h3 {
+        vertical-align: middle;
+        margin: 0;
+
+      }
+    }
+
+    .info-card-content {
+      width: 95%;
+      // border: 1px solid green;
+      margin: 5px auto;
+
+      p {
+        display: inline-block;
+        width: 30%;
+        padding: 10px;
+        vertical-align: top;
+      }
+
+      ul {
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: top;
+        width: 45%;
+        padding: 10px;
+
+        margin-left: 50px;
+        li {
+          padding-left: 8px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1024px){
+    .info-card-wrapper {
+      width: 95%;
+
+      .info-card-content {
+        p {
+          width: 90%;
+          padding: 2px;
+        }
+        ul {
+          width: 90%;
+          margin-left: 0;
+          padding: 2px;
+        }
+      }
+    }
+  }
+}

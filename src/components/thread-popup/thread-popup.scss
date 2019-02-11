@@ -32,6 +32,13 @@ thread-popup {
 
     }
 
+    .arrow{
+        font-size: medium;
+        position: absolute;
+        top: 30%;
+        right: 10px;
+    }
+
 
 
     // div{
@@ -42,14 +49,21 @@ thread-popup {
         padding: 0;
         padding: 10px 0 10px 10px;
         margin: 0;
-        color: darkslateblue;
-        font-size: 0.8em;
+        position: relative;
+
+
+        p{
+          color: darkslateblue;
+          font-size: 0.8em;
+        }
 
         &:hover {
           background-color: #bbb9cc ;
         }
 
       }
+
+
 
       .subheader {
         padding-left: 20px;

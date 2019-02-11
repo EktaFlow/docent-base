@@ -16,6 +16,22 @@ page-actionitems {
             visibility: visible !important;
             }
     }
+
+    .row {
+        // justify-content: space-between;
+        margin: 5px 10px;
+    input{
+        width: 40%;
+        display: inline-block;
+
+    }
+
+        button {
+            width: auto;
+            display: inline-block;
+            float: left;
+        }
+    }
     .subheader{
         display: flex;
         justify-content: space-between;
@@ -27,5 +43,10 @@ page-actionitems {
           ion-content {
               // margin-top: 10px;
           }
+
+        .table-wrapper {
+            width: 100%;
+            overflow: scroll;
+        }
       }
 }

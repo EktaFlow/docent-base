@@ -42,18 +42,21 @@
 	<div class="desktop">
 		<br>
 	  <br>
+    <br>
 
 	</div>
-    <br>
-    <br>
-    <br>
+
+  <br>
+  <br>
+
+
 
 
   <h1>Start New Assessment</h1>
   <font color="grey">Please fill in required fields denoted by the <sup>*</sup>  (asterisk)</font>
   <br><br>
 			<h6 class="assessment-name headers">Assessment Name<sup>*</sup></h6>
-      <small class="ass-name-count"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
+      <small class="ass-name-count assessment-name"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
 	<div class="topmost" style="z-index: 100;">
       <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
 	</div>
@@ -73,8 +76,8 @@
         <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
         <input type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
-        <ion-icon  (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember"></ion-icon>
-
+        <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
+        <button ion-button small color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</button>
 
       </div>
     </div>

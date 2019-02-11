@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
 
 
 import { QuestionsPage } from '../questions/questions';
@@ -80,6 +82,8 @@ export class NavigatePage {
 					this.targetLevel = (<any>data.data).assessment.targetMRL;
 					this.schema = this.createSchemaObject(this.allQuestions);
 					this.filteredSchema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
 					// filterTheList();
 
 					console.log(this.allQuestions);

@@ -9,6 +9,7 @@ import { NotapplicablePage } from '../notapplicable/notapplicable';
 import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 import {QuestionsPage} from '../questions/questions';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
 
 import { Apollo } from "apollo-angular";
@@ -43,15 +44,21 @@ export class DashboardPage {
 	allQuestions: any;
 	assessmentId: any;
   questionSet: any;
-	showAll: any;
+	showAll: any = true;
 	pageName: any = "MRL Summary";
 	targetMRL: any;
+	assessmentIdFromParams: any;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
-               private assessmentService: AssessmentService) {}
+               private assessmentService: AssessmentService) {
+
+								 this.assessmentIdFromParams = navParams.data.assessmentId;
+								 console.log(this.assessmentIdFromParams);
+
+				}
 
   // helper function to pull unique values from array.
 	unique = (item, index, array) => array.indexOf(item) == index
@@ -73,7 +80,11 @@ export class DashboardPage {
 					// console.log((<any>data.data).assessment);
 					this.questionSet  = this.createQuestionSet(this.allQuestions);
 					this.targetMRL = (<any>data.data).assessment.targetMRL;
-          this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
+					console.log(this.questionSet);
+					this.questionSet = this.questionSet.filter(s => s.header.length > 1);
+					if (window.innerWidth > 1024){
+						this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
+					}
           //					this.questionSet = this.dearGod();
 			});
 	}
