@@ -98,6 +98,7 @@ export class QuestionsPage {
 
 
 	setSurveyQuestions() {
+
   var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
     return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
               .filter( q => threadNames.includes(q.threadName))

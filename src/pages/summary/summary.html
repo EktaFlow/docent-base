@@ -8,19 +8,6 @@
 <ion-content padding>
 
   <report-info-card [assessmentId]="assessmentId"></report-info-card>
-  <!-- <br><br> -->
-  <!-- <div class = "page-one-info">
-    <table><tr><td> <b>Target MRL: </b>{{targetMRL}}</td>
-      <td><b>Target Date: </b> {{targetDate}}</td>
-    </tr><tr>
-      <td><b>Location: </b>{{location}}</td>
-      <td><b>Team Members: </b>{{team}}</td>
-      </tr><tr><td> <b>Scope: </b>{{scope}}</td>
-    </tr></table>
-    <hr>
-  </div> -->
-
-
 
 <div class="table-wrapper">
 
@@ -43,21 +30,26 @@
         <th style="border: 1px solid black;">Criteria 5</th>
     </tr>
 
-    <tr *ngFor = "let subThread of threadsArr" style="border-width 1px; border-spacing: 2px; border-color: black;" width="100%">
+  <ng-container *ngFor="let thread of schema">
+    <tr *ngFor = "let subThread of thread.subheaders" style="border-width 1px; border-spacing: 2px; border-color: black;" width="100%">
 
 <!--        <tr *ngFor = "let subthread of threads[thread]['subThreads']" style="border-width 1px; border-spacing: 2px; border-color: black;" width="100%"> -->
 
 
 
-            <td style="border: 1px solid black;"><font color="black">{{threads[subThread]["threadName"]}}</font></td>
-            <td style="border: 1px solid black;"><font color="black">{{subThread}}</font></td>
+            <td style="border: 1px solid black;"><font color="black">{{thread.header}}</font></td>
+            <td style="border: 1px solid black;"><font color="black">{{subThread.subThreadName}}</font></td>
 
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][1]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][1]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][2]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][2]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][3]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][3]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][4]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][4]}}&nbsp;</td>
-            <td [ngStyle]="{'background-color':threads[subThread]['aggRiskColor'][5]}" style="border: 1px solid black; text-align: center">{{threads[subThread]['aggRisk'][5]}}&nbsp;</td>
+            <td *ngFor="let score of subThread.riskScores" [ngStyle]="{'background-color': setRiskColor(score)}" style="border: 1px solid black; text-align: center">{{score}}</td>
+
+            <ng-container *ngIf="subThread.riskScores.length < 5">
+              <td *ngFor="let item of extraFields(subThread.riskScores.length)" [ngStyle]="{'background-color': setRiskColor('')}" style="border: 1px solid black; text-align: center"> </td>
+            </ng-container>
+
     </tr>
+    </ng-container>
+
+
 
 </table>
 

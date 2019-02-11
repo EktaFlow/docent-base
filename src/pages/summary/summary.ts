@@ -66,6 +66,8 @@ export class SummaryPage {
         threadsArr = [];
 	      pageName: any = "MRL Risk Summary";
         bgColor = "green";
+        schema: any;
+
 
 
 
@@ -93,7 +95,10 @@ export class SummaryPage {
 			}).valueChanges
 			.subscribe(data => {
                             var assessment = (<any>data.data).assessment;
-                            var questions = assessment.questions;
+                            this.allQuestions = assessment.questions;
+                            // console.log(this.questions);
+                            this.allQuestions = this.allQuestions.filter(q => q.threadName.length > 1);
+
 
                             console.log(assessment);
                             //set top-level items
@@ -103,127 +108,111 @@ export class SummaryPage {
 		            this.targetDate = assessment.targetDate;
 		            this.location = assessment.location;
 
-                            //create threads object with all the right data
-                            //also use arrays because that is how .html file can iterate
-                            var threads = {};
-                            var threadsArr = [];
+                this.allQuestions = this.allQuestions.filter(q => q.mrLevel == this.targetMRL);
+                console.log(this.allQuestions);
 
-
-                           //create threads object with all the right data
-                            //also use arrays because that is how .html file can iterate
-                            var threads = {};
-                            var threadsArr = [];
-                            questions.forEach(q => {
-                                if (threadsArr.indexOf(q.subThreadName) > -1) {
-                                            var cur;
-                                            q.answers.forEach (a => { cur = a; });
-                                            if (typeof(cur) != "undefined") {
-                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence);
-                                                if (!threads[q.subThreadName]["riskScores"][q.mrLevel]) {
-                                                    threads[q.subThreadName]["riskScores"][q.mrLevel] = [];
-                                                }
-                                                threads[q.subThreadName]["riskScores"][q.mrLevel].push(score);
-                                            }
-
-
-                                } else {
-                                    //weed out troubling "" thread/subthread
-                                    if (q.threadName.length>0) {
-                                        threadsArr.push(q.subThreadName);
-                                        threads[q.subThreadName] = {};
-                                        threads[q.subThreadName]["threadName"] = q.threadName;
-                                        threads[q.subThreadName]["riskScores"] = {};
-
-                                        //calculate criteria scores, but only for criteria below target MRL
-                                        //todo mix this back in later
-                                        //if (q.mrLevel <= this.targetMRL) {
-
-                                            //get last item in answers array
-                                            //this is the current answer
-                                            var cur;
-                                            q.answers.forEach (a => { cur = a; });
-                                            if (typeof(cur) != "undefined") {
-                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence);
-                                                if (!threads[q.subThreadName]["riskScores"][q.mrLevel]) {
-                                                    threads[q.subThreadName]["riskScores"][q.mrLevel] = [];
-                                                }
-                                                threads[q.subThreadName]["riskScores"][q.mrLevel].push(score);
-                                            }
-                                        //}
-
-                                    }
-                                }
-
-                          });
-
-
-                          //now aggregate all the scores and find the max
-                          for (var sub in threads) {
-                            if (threads.hasOwnProperty(sub)) {
-                                for (var mrl in threads[sub]["riskScores"]) {
-                                    if (threads[sub]["riskScores"].hasOwnProperty(mrl)) {
-                                        if (!threads[sub]["aggRisk"]) {
-                                            threads[sub]["aggRisk"] = [];
-                                        }
-
-                                        if (threads[sub]["riskScores"][mrl].length < 1) {
-                                            threads[sub]["aggRisk"][mrl] = " ";
-                                        } else {
-                                            threads[sub]["aggRisk"][mrl] = Math.max.apply(null, threads[sub]["riskScores"][mrl]);
-                                        }
-
-                                        if (!threads[sub]["aggRiskColor"]) {
-                                            threads[sub]["aggRiskColor"] = [];
-                                        }
-
-                                        threads[sub]["aggRiskColor"][mrl] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
-                                    } else {
-                                        threads[sub]["aggRisk"][mrl] = " ";
-                                        threads[sub]["aggRiskColor"][mrl] = this.getRiskColor(threads[sub]["aggRisk"][mrl]);
-                                    }
-                                }
-                            }
-                          }
-
-                          //fill in everyone with no answer and thus no score
-                          for (var sub in threads) {
-                            if (threads.hasOwnProperty(sub)) {
-                                if (typeof(threads[sub]["aggRisk"]) == "undefined") { threads[sub]["aggRisk"] = []; }
-                                if (typeof(threads[sub]["aggRiskColor"]) == "undefined") { threads[sub]["aggRiskColor"] = []; }
-
-                                for (var i = 0; i< 10; ++i) {
-                                    if (typeof(threads[sub]["aggRisk"][i]) == "undefined") {
-                                        threads[sub]["aggRisk"][i] = " ";
-                                        threads[sub]["aggRiskColor"][i] = this.getRiskColor(threads[sub]["aggRisk"][i]);
-                                    }
-                                }
-                            }
-                          }
-
-                          //final cheap hack to backfill 3 or below
-                          //todo: get full logic from AFRL/Jordan
-                          var highest;
-                          for (var sub in threads) {
-                                highest = null;
-                                for (var i = 4; i > 0; --i) {
-                                    if (threads[sub]["aggRisk"][i] != " ") {
-                                        var highest = threads[sub]["aggRisk"][i];
-                                    } else {
-                                        if (highest) {
-                                            threads[sub]["aggRisk"][i] = highest;
-                                            threads[sub]["aggRiskColor"][i] = this.getRiskColor(threads[sub]["aggRisk"][i]);
-                                        }
-                                    }
-                                }
-
-                          }
-
-
-                          this.threads = threads;
-                          this.threadsArr = threadsArr;
+                this.grabRiskScores();
 
 		});
 	}
+
+  unique = (item, index, array) => array.indexOf(item) == index
+  filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
+
+	filterByValue(array) {
+		return Array.from(new Set(array));
+	}
+
+	filterByProperty(array, itemProperty) {
+		return Array.from(new Set(array.map(item => item[itemProperty])));
+	}
+
+
+  grabRiskScores(){
+      //create threads object with all the right data
+      //also use arrays because that is how .html file can iterate
+      var threads = {};
+      var threadsArr = [];
+
+      var schema = this.createThreadsObject();
+      // console.log(schema);
+
+
+      for (let question of this.allQuestions){
+        //only need latest answer
+        var answer = question.answers[question.answers.length - 1];
+        var tIndex = schema.findIndex(function(obj){return obj.header == question.threadName});
+        var sTIndex = schema[tIndex].subheaders.findIndex(function(obj){return obj.subThreadName == question.subThreadName});
+        if (answer != undefined){
+          // console.log(answer);
+          if (answer.likelihood != undefined && answer.consequence != undefined){
+            var score = this.calculateRiskScore(answer.likelihood, answer.consequence);
+            schema[tIndex].subheaders[sTIndex].riskScores.push(score);
+          }
+        } else {
+          schema[tIndex].subheaders[sTIndex].riskScores.push("");
+        }
+      }
+
+
+
+      // console.log(schema);
+      this.schema = schema;
+
+  }
+
+  createThreadsObject(){
+    var threadNames = this.allQuestions.map(a => a.threadName)
+    // console.log(threadNames);
+                                     .filter(this.unique);
+    // console.log(this.allQuestions);
+
+    var subThreadNames = threadNames.map( a => {
+      // console.log(a);
+     var allSubheaders = this.allQuestions.filter(b => b.threadName == a)
+     // console.log(allSubheaders);
+     var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
+     // console.log(s)
+       .map(s => {
+         // console.log(s);
+         var riskScores = [];
+         var questions = this.allQuestions.filter(m => m.subThreadName == s);
+         var obj =  { subThreadName: s, "riskScores": []};
+         // console.log(obj);
+         return obj;
+       })
+     var obj2 =  {header: a, subheaders: subThreadNames};
+     // console.log(obj2);
+     return obj2;
+   });
+
+   return subThreadNames;
+
+  }
+
+  extraFields(length){
+    var extras = 5 - length;
+    // console.log(Array(extras));
+    return Array(extras);
+  }
+
+  setRiskColor(score){
+    if (score == ""){
+      return "white"
+    } else if (score <= 11){
+      return "green"
+    } else if (score <= 19){
+      return "yellow"
+    } else if (score <= 25){
+      return "red"
+    } else {
+      return "white"
+    }
+  }
+
+
+
+
 
 
 
