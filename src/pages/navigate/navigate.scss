@@ -166,26 +166,28 @@ page-navigate {
                     padding-top: 0;
                     margin-top: 0;
                     padding-bottom: 10px;
+                    padding-left: 10px;
                     margin-bottom: 0;
                     height: auto;
                     // margin-bottom: 80px;
                     border: none;
                     button {
-                        width: 25%;
+                        width: 30%;
+                        padding: 5px;
                     }
                     .filter-list {
-                        width: 70%;
+                        width: 65%;
+                        margin-left: 8px;
 
                         select {
-                            width: 20%;
+                            width: 45%;
                             border: .5px solid lightgray;
 
                         }
 
-                        .filter-it {
-                            width: 23%;
-                            font-size: .9em;
-                            padding: 10px;
+                        .filter-buttons {
+                          width: 45%;
+                          margin: 5px;
                         }
                     }
                 }

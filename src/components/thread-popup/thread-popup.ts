@@ -145,11 +145,12 @@ export class ThreadPopupComponent {
 
   async navToQuestion(questionId) {
 		console.log(this.updateInfo);
-		var update = await this.assessmentService.updateQuestion(this.updateInfo);
-		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
-			assessmentId: 			this.assessmentId,
-			questionId: questionId
-		}));
+		this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
+		// var update = await this.assessmentService.updateQuestion(this.updateInfo);
+		// update.subscribe(data => this.navCtrl.push(QuestionsPage, {
+		// 	assessmentId: 			this.assessmentId,
+		// 	questionId: questionId
+		// }));
 
 	}
 }

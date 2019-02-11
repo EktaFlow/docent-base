@@ -4,6 +4,7 @@ import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 import { QuestionsPage } from "../questions/questions";
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -15,7 +16,11 @@ query assessment($_id: String) {
                 deskbookVersion
                 name
 		# id
-		teamMembers
+		teamMembers {
+      name
+      email
+      role
+    }
 	        targetMRL
 	        targetDate
 	        location
@@ -59,8 +64,9 @@ export class SummaryPage {
         questionSet: any;
         threads = {};
         threadsArr = [];
-	pageName: any = "MRL Summary";
+	      pageName: any = "MRL Risk Summary";
         bgColor = "green";
+
 
 
 
@@ -88,8 +94,8 @@ export class SummaryPage {
 			.subscribe(data => {
                             var assessment = (<any>data.data).assessment;
                             var questions = assessment.questions;
-                   
-                            console.log(assessment); 
+
+                            console.log(assessment);
                             //set top-level items
                             this.scope = assessment.scope;
                             this.team = assessment.teamMembers;
@@ -98,7 +104,7 @@ export class SummaryPage {
 		            this.location = assessment.location;
 
                             //create threads object with all the right data
-                            //also use arrays because that is how .html file can iterate 
+                            //also use arrays because that is how .html file can iterate
                             var threads = {};
                             var threadsArr = [];
 
@@ -112,10 +118,10 @@ export class SummaryPage {
                                             var cur;
                                             q.answers.forEach (a => { cur = a; });
                                             if (typeof(cur) != "undefined") {
-                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence); 
+                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence);
                                                 if (!threads[q.subThreadName]["riskScores"][q.mrLevel]) {
                                                     threads[q.subThreadName]["riskScores"][q.mrLevel] = [];
-                                                } 
+                                                }
                                                 threads[q.subThreadName]["riskScores"][q.mrLevel].push(score);
                                             }
 
@@ -137,10 +143,10 @@ export class SummaryPage {
                                             var cur;
                                             q.answers.forEach (a => { cur = a; });
                                             if (typeof(cur) != "undefined") {
-                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence); 
+                                                var score = this.calculateRiskScore(cur.likelihood, cur.consequence);
                                                 if (!threads[q.subThreadName]["riskScores"][q.mrLevel]) {
                                                     threads[q.subThreadName]["riskScores"][q.mrLevel] = [];
-                                                } 
+                                                }
                                                 threads[q.subThreadName]["riskScores"][q.mrLevel].push(score);
                                             }
                                         //}
@@ -166,7 +172,7 @@ export class SummaryPage {
                                             threads[sub]["aggRisk"][mrl] = Math.max.apply(null, threads[sub]["riskScores"][mrl]);
                                         }
 
-                                        if (!threads[sub]["aggRiskColor"]) { 
+                                        if (!threads[sub]["aggRiskColor"]) {
                                             threads[sub]["aggRiskColor"] = [];
                                         }
 
@@ -184,7 +190,7 @@ export class SummaryPage {
                             if (threads.hasOwnProperty(sub)) {
                                 if (typeof(threads[sub]["aggRisk"]) == "undefined") { threads[sub]["aggRisk"] = []; }
                                 if (typeof(threads[sub]["aggRiskColor"]) == "undefined") { threads[sub]["aggRiskColor"] = []; }
-                    
+
                                 for (var i = 0; i< 10; ++i) {
                                     if (typeof(threads[sub]["aggRisk"][i]) == "undefined") {
                                         threads[sub]["aggRisk"][i] = " ";
@@ -194,7 +200,7 @@ export class SummaryPage {
                             }
                           }
 
-                          //final cheap hack to backfill 3 or below 
+                          //final cheap hack to backfill 3 or below
                           //todo: get full logic from AFRL/Jordan
                           var highest;
                           for (var sub in threads) {
@@ -211,8 +217,8 @@ export class SummaryPage {
                                 }
 
                           }
-                       
-                            
+
+
                           this.threads = threads;
                           this.threadsArr = threadsArr;
 
@@ -224,8 +230,8 @@ export class SummaryPage {
 
 
   public calculateRiskScore(likelihood, consequence) {
-    // preventing off by one errors, with nulls. 
-    // values should always be 1-5  
+    // preventing off by one errors, with nulls.
+    // values should always be 1-5
     var riskMatrix = [
       [ null ],
       [ null, 1, 3,  5,  8,  12],
@@ -239,21 +245,21 @@ export class SummaryPage {
     if ( likelihood && consequence ) {
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
-      var consequenceIndex = Number(consequence);   
-      
+      var consequenceIndex = Number(consequence);
+
       // var name = selectedBox.className.replace(/ selected/g, '')
       // selectedBox.className = `${name} selected`;
 
-      return riskMatrix[likelihoodIndex][consequenceIndex]; 
+      return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {
       return "";
     }
   }
 
     public getRiskColor(score) {
-        if (score<=0) { 
+        if (score<=0) {
             return "white";
-        } else if (score <= 11) { 
+        } else if (score <= 11) {
             return "lightgreen";
         } else if (score <= 20) {
             return "yellow";
@@ -267,5 +273,3 @@ export class SummaryPage {
 
 
 }
-
-

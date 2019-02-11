@@ -1,0 +1,39 @@
+<div id="page-container">
+
+  <div id="top-container">
+    <h1 id="header">Reset Password</h1>
+    <h6 *ngIf="this.errors.length > 0" class="error">You must enter an email address</h6>
+    <h6 *ngIf="this.errors.length == 0" class="blank">there are errors with your registration</h6>
+  </div>
+
+  <div>
+	  <div id="login-container">
+      <div id="login-container" *ngIf="!resetDone">
+      <div>
+			  <h5>password</h5>
+        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd" [(ngModel)]="passwd">
+      </div>
+      <div>
+			  <h5>repeat password</h5>
+        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd2" [(ngModel)]="passwd2">
+      </div>
+
+      <div id="button-container">
+		    <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset</button>
+      </div>
+
+      <div id="reset-rules">
+        <h6>Enter a valid Docent account email, and instructions to reset your password will be mailed.</h6>
+      </div>
+      </div>
+      <div *ngIf="resetDone">
+        <h6> Reset successful! </h6>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: flex-end; flex-direction:column;">
+            <!--      <h6 (click)="showLogin()" id="register-link"> Back to Login </h6> -->
+    </div>
+
+  </div>
+</div>

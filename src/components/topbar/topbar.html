@@ -25,7 +25,7 @@
 
           <div *ngIf="!blank" class="container-tbbuttons-mobile">
             <button ion-button (click)="openMobileNav()" color="dark">
-              <ion-icon name="menu"></ion-icon>
+              <ion-icon name="menu" class="hamburger-nav"></ion-icon>
             </button>
           </div>
         </div>
@@ -47,13 +47,14 @@
 
         <div *ngIf="assessmentId && noSecondBar != false && !pageName" class="subheader">
           <div *ngIf="mainTitle">
-            <p><span (click)="presentThreadPop($event)" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event)" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link">SubThread: {{this.subTitle}}</span></p>
-            <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
-            <p><span (click)="goToNavExpand()" class="show-all" id="show-all-questions">Show All Questions</span> | <span (click)="toggleQuestionHistory()" class="question-pop-link">Show Question History</span></p>
+            <p class="mobile"><span (click)="presentThreadPop($event, 'true')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'true')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
+            <p class="desktop"><span (click)="presentThreadPop($event, 'false')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'false')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
+            <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile mobile-link" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
+            <p><span (click)="goToNavExpand()" class="show-all mobile-link" id="show-all-questions">Show All Questions</span> | <span (click)="toggleQuestionHistory()" class="question-pop-link mobile-link">Show Question History</span></p>
           </div>
 
             <div class="targets-scope">
-              <p>Target MRL: {{targetMRL}}| Target Date: {{targetDate | date: mediumDate}}</p>
+              <p>Target MRL: {{targetMRL}} | Target Date: {{targetDate | date:'mediumDate'}}</p>
               <p class="scope-link" (click)="toggleScopeSelected($event)">Show Additional Information</p>
               <!-- <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p> -->
             </div>

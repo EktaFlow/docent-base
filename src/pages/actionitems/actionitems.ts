@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
 
 import * as XLSX from 'xlsx';
 
@@ -107,8 +109,8 @@ console.log(element);
   		return null;
   	} else {
   		return new Date(date)
-  			     .toISOString()
-  			     .slice(0,10);
+  			     .toDateString()
+  			     .slice(0,20);
   	}
   }
 
@@ -122,7 +124,7 @@ console.log(element);
     {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
     {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
     {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
-    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk'}}
+    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
   ];
 
 
@@ -267,12 +269,16 @@ console.log(element);
 	assessmentId: any;
 	private attachments: any;
 	pageName: any = "Action Items";
+	assessmentIdFromParams: any;
+
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService) {
+								 	this.assessmentIdFromParams = navParams.data.assessmentId;
+									console.log(this.assessmentIdFromParams);
                 }
 
 	unique = (item, index, array) => array.indexOf(item) == index

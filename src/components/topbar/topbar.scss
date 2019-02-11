@@ -123,6 +123,14 @@ topbar {
       // border-top: 1px solid white;
     }
 
+    .desktop {
+
+    }
+
+    .mobile {
+      display: none;
+    }
+
 
 
 
@@ -131,6 +139,14 @@ topbar {
     // }
 
     @media screen and (max-width: 1024px){
+
+      .desktop {
+        display: none;
+      }
+
+      .mobile {
+        display: inherit;
+      }
 
 
     .main-title {
@@ -188,8 +204,16 @@ topbar {
             color: white;
             // width: 30px;
 
+            .hamburger-nav {
+              font-size: 3em;
+            }
 
 
+
+
+        }
+        .mobile-link {
+          font-weight: bold;
         }
 
         .subheader {

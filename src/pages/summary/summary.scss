@@ -1,7 +1,32 @@
 page-summary {
 
   ion-content{
-    margin-top: 130px;
+    margin-top: 120px;
+  }
+
+  table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: outset;
+      border-color: gray;
+      border-collapse: separate;
+      background-color: white;
+  }
+
+  table td {
+      border-width: 1px;
+      padding: 1px;
+      border-color: gray;
+      background-color: white;
+      // -moz-border-radius: ;
+  }
+
+  table th {
+      border-width: 1px;
+      padding: 1px;
+      border-color: gray;
+      background-color: white;
+      // -moz-border-radius: ;
   }
 
 

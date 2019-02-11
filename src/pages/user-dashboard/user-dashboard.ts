@@ -32,7 +32,11 @@ query getShared($assessments: [String]) {
     location
     name
 		id
-		teamMembers
+		teamMembers {
+			name
+			email
+			role
+		}
 		userId
 		userEmail
 	}
@@ -93,8 +97,6 @@ export class UserDashboardPage {
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => this.assessments = data.assessments);
-		// console.log(this.currentAssessment);
-		// console.log(window.screen.width);
 		if (window.screen.width > 440) {
 			this.showMine = true;
 			this.showShared = true;
@@ -127,7 +129,6 @@ export class UserDashboardPage {
 
 
 	launchImportPopover() {
-		console.log("hi");
 		this.popOver.create(ImportComponent)
 								.present();
 	}
@@ -137,7 +138,7 @@ export class UserDashboardPage {
 	}
 
 	pullSharedAssessments() {
-		console.log(this.sharedAssessmentIds);
+
 		this.apollo.watchQuery<any>({
       query: sharedQuery,
       variables: {
@@ -151,6 +152,14 @@ export class UserDashboardPage {
     });
 
 	}
+
+	public truncate(value: string, limit = 30, completeWords = true, ellipsis = '…') {
+  let lastindex = limit;
+  if (completeWords) {
+    lastindex = value.substr(0, limit).lastIndexOf(' ');
+  }
+  return `${value.substr(0, limit)}${ellipsis}`;
+}
 
   expandAssessment(assessmentId) {
     // this.expand = !this.expand;
@@ -166,7 +175,6 @@ export class UserDashboardPage {
 
 	scrollToElement(assessmentId){
 		var target = document.getElementById(assessmentId);
-		console.log(target);
 		target.scrollIntoView({behavior: "smooth", block: "center"});
 	}
 
@@ -181,14 +189,15 @@ export class UserDashboardPage {
 
 	async openDashboard(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
+		console.log(assessmentId);
 
-	  this.navCtrl.push(DashboardPage);
+	  this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});
 	}
 
 	async openActionItems(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
-     this.navCtrl.push(ActionitemsPage);
+     this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});
 	}
 
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}

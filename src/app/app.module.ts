@@ -25,6 +25,7 @@ import { DefinitionsPageModule } from '../pages/definitions/definitions.module';
 import { FaqsPageModule } from '../pages/faqs/faqs.module';
 import { ReviewPageModule } from '../pages/review/review.module';
 import { QuestionsPageModule } from '../pages/questions/questions.module';
+import { LoginPageModule } from '../pages/login/login.module';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { NavigatePageModule } from '../pages/navigate/navigate.module';
 import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
@@ -34,9 +35,10 @@ import { CriteriaPageModule } from '../pages/criteria/criteria.module';
 import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
-import { ResetPageModule } from '../pages/reset/reset.module';
+// import { ResetPageModule } from '../pages/reset/reset.module';
 import { EditAssessmentPageModule } from '../pages/edit-assessment/edit-assessment.module';
 import { SummaryPageModule } from '../pages/summary/summary.module';
+import {RiskReportPageModule} from '../pages/risk-report/risk-report.module';
 
 // components
 import { ComponentsModule } from '../components/components.module';
@@ -65,6 +67,7 @@ import { Helpers } from '../services/helpers';
 		FormsModule,
 		AcronymsPageModule,
 		QuestionsPageModule,
+    LoginPageModule,
 		DefinitionsPageModule,
 		FaqsPageModule,
 		ReviewPageModule,
@@ -79,42 +82,13 @@ import { Helpers } from '../services/helpers';
 		SettingsPageModule,
 		NewAssessmentPageModule,
     EditAssessmentPageModule,
-                ResetPageModule,
+    //ResetPageModule,
+		RiskReportPageModule,
 		ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-		//QuestionsPage,
-		//AcronymsPage,
-		//DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		//HelpmenuComponent,
-		//ContactsDropdownComponent,
-		//FaqDropdownComponent,
-		//AssessmentslistComponent,
-		//ThreadsListComponent,
-		//FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//CriteriaPage,
-		//ActionitemsPage,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		//ViewsComponent,
-		//ImportComponent,
-		//TopbarComponent,
-		//SubthreadPopupComponent,
-		//ThreadPopupComponent,
-		//LoginComponent,
-		//RegisterComponent
     HomePage
   ],
   providers: [

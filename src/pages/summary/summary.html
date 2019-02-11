@@ -1,38 +1,15 @@
-<style type="text/css" media="screen">
-table {
-    border-width: 1px;
-    border-spacing: 2px;
-    border-style: outset;
-    border-color: gray;
-    border-collapse: separate;
-    background-color: white;
-}
-
-table td {
-    border-width: 1px;
-    padding: 1px;
-    border-color: gray;
-    background-color: white;
-    -moz-border-radius: ;
-}
-
-table th {
-    border-width: 1px;
-    padding: 1px;
-    border-color: gray;
-    background-color: white;
-    -moz-border-radius: ;
-}
-
-</style>
 
 <topbar [assessmentId]="assessmentId"
               [pageName]="pageName"></topbar>
 
 
+
+
 <ion-content padding>
-  <br><br>
-  <div class = "page-one-info">
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+  <!-- <br><br> -->
+  <!-- <div class = "page-one-info">
     <table><tr><td> <b>Target MRL: </b>{{targetMRL}}</td>
       <td><b>Target Date: </b> {{targetDate}}</td>
     </tr><tr>
@@ -41,7 +18,7 @@ table th {
       </tr><tr><td> <b>Scope: </b>{{scope}}</td>
     </tr></table>
     <hr>
-  </div>
+  </div> -->
 
 
 

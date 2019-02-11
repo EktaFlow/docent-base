@@ -1,6 +1,8 @@
-page-questions {
-$input-backgroud:#fbfbfb;
-$input-border:#dcdcdc;
+page-questions { $input-backgroud:#fbfbfb; $input-border:#dcdcdc;
+
+
+$basic-cell-size: 4vw;
+
 %input-style{
     width: 100%;
     height: 100%;
@@ -28,6 +30,111 @@ $input-border:#dcdcdc;
     height: 30px;
     width: 9vw;
 }
+
+.matrix-top-wrapper {
+        display: flex;
+}
+
+.matrix-bottom-wrapper {
+        display: flex;
+        width: 100%;
+        // easiest way to offset bottom div by size of y-axis label and arrow
+        padding-left: 4em;
+        justify-content: flex-end;
+}
+
+.x-axis-wrapper {
+}
+
+.x-axis-label-wrapper {
+        width: 5* $basic-cell-size;
+        display:flex;
+        justify-content: center;
+}
+
+.x-axis-arrow-wrapper {
+        width: 100%;
+        margin-top: 1em;
+        height: 2em;
+}
+
+.y-axis-wrapper {
+        display: flex;
+        height: 100%;
+        align-items: center;
+}
+
+.y-axis-label {
+        width: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h4 { 
+          transform: rotate(-90deg);
+          height: 1em;
+        }
+}
+
+$arrow-width: 1em;
+.y-axis-arrow-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: flex-start;
+        width: 2em;
+        height: 5 * $basic-cell-size;
+        margin-right: 1em;
+}
+
+.y-axis-arrow-body {
+        background: black;
+        width: .75em;
+        height: 96%;
+}
+
+.y-axis-arrow-head-wrapper {
+        width: 100%;
+        height: $arrow-width;
+}
+
+.y-axis-arrow-head {
+  width: 0;
+  height: 0;
+  border-left: $arrow-width solid transparent;
+  border-right: $arrow-width solid transparent;
+  border-bottom: $arrow-width solid black;
+
+}
+
+.x-axis-arrow-wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items:center;
+        justify-content: flex-start;
+        height: 2em;
+        width: 5 * $basic-cell-size;
+        margin-right: 1em;
+}
+
+.x-axis-arrow-body {
+        background: black;
+        height: .75em;
+        width: 96%;
+}
+
+.x-axis-arrow-head-wrapper {
+        height: 2em;
+}
+
+.x-axis-arrow-head {
+  width: 0;
+  height: 0;
+  border-top: $arrow-width solid transparent;
+  border-bottom: $arrow-width solid transparent;
+  border-left: $arrow-width solid black;
+}
+
+
 %down-arrow{
     background-position: right 50%;
     background-repeat: no-repeat;
@@ -264,7 +371,13 @@ $input-border:#dcdcdc;
         padding: 10px;
     }
     .acronymHere {
-        color: gray;
+        color: #305194;
+        &:hover {
+          // text-decoration: underline;
+          font-style: italic;
+          // border: .5px solid #305194;
+          // padding: 1px;
+        }
     }
 
   }
@@ -272,13 +385,18 @@ $input-border:#dcdcdc;
   .nav-q-buttons {
     // display: flex;
     // margin: 0;
-    position: fixed;
+    position: absolute;
     right: 10px;
     top: 240px;
+    margin-top: 10px;
     -webkit-transform: translateZ(0);
     // background-color: white;
     z-index: 100000;
 
+  }
+
+  .bottom-q-buttons {
+    display: none;
   }
 
 
@@ -346,14 +464,42 @@ $input-border:#dcdcdc;
           }
       }
 
+      .risk-part-2-wrapper {
+        .risk-part-2{
+          display: flex;
+          justify-content: space-between;
+          padding: 1vw;
+
+          .greatest-impact {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .risk-response {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+
+        .mmp-summary {
+          margin-left: 1vw;
+          height: 400px;
+        }
+      }
+
       .matrix-wrapper {
           display: flex;
+          flex-direction: column;
           align-items:center;
           justify-content: center;
-          width: 22vw;
-          height: 22vw;
+          width: 25vw;
+          height: 25vw;
       }
     }
+}
+
+.mobile {
+  display: none !important;
 }
 
 
@@ -365,6 +511,14 @@ $input-border:#dcdcdc;
         margin-top: 50px;
         margin-bottom: 100px;
 
+    }
+
+    .desktop {
+      display: none !important;
+    }
+
+    .mobile {
+      display: inherit !important;
     }
 
     .nav {
@@ -382,7 +536,8 @@ $input-border:#dcdcdc;
         right: 0;
         top: 0;
         width: 95%;
-        margin: 0 auto;
+        margin: 10 auto;
+        padding-left: 10px;
         // display: flex;
         // flex-direction: column;
         margin-bottom: 15px;
@@ -402,6 +557,22 @@ $input-border:#dcdcdc;
                 width: 95%;
             }
         }
+    }
+
+    .bottom-q-buttons {
+      display: inherit;
+      position: static;
+      right: 0;
+      bottom: 0;
+      width: 95%;
+      margin: 0 auto;
+      padding-left: 10px;
+      // display: flex;
+      // flex-direction: column;
+      margin-bottom: 15px;
+      button {
+          width: 30%;
+      }
     }
 
     .yes {
@@ -429,7 +600,7 @@ $input-border:#dcdcdc;
 
             .who-when{
                 width: 100%;
-                margin: 5px;
+                // margin: 5px;
                 margin-top: 0px;
                 .who {
                     display: block !important;
@@ -522,18 +693,7 @@ $input-border:#dcdcdc;
 
     }
 
-    .risk {
-        width: 100%;
 
-        .dev-border {
-            width: 45%;
-        }
-
-        .matrix-wrapper {
-            margin-right: 50px;
-        }
-
-    }
 
     .page-wrapper {
             display: flex;
@@ -545,15 +705,64 @@ $input-border:#dcdcdc;
     }
 
     //  a more specific rule eg. .risk-wrapper .risk .dev-border was overriding the media query
-    .risk-wrapper {
-            display: flex;
-            width: 90vw;
-            .risk {
-            .dev-border {
-                    width: 48vw;
+  .risk-wrapper {
+  display: flex;
+  width: 90vw;
+
+  .risk {
+    width: 100%;
+
+    .dev-border {
+      width: 100%;
+
+      .likelihood, .consequence {
+        width: 45%;
+
+        select {
+          width: 100%;
+        }
+      }
+
+    }
+
+    .matrix-wrapper {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 7px 0;
+
+      table {
+        float: none;
+        width: 90%;
+        height: 300px;
+        margin: 0 auto;
+
+      }
+    }
+
+    .risk-part-2-wrapper {
+        width: 100%;
+        margin-top: 20px;
+
+        .risk-part-2 {
+
+          .greatest-impact, .risk-response {
+            width: 45%;
+
+            select {
+              width: 100%;
             }
+
+          }
+        }
+
+        .mmp-summary {
+          height: 200px;
+        }
     }
-    }
+  }
+}
+
 
 
 
@@ -595,7 +804,9 @@ $input-border:#dcdcdc;
 	}
 
   .selected {
-    border: 7px solid black;
+    // border: 7px solid black;
+    font-size: 1.8em; 
+    filter: brightness(75%);
   }
 
   .file-item {

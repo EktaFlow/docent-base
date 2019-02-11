@@ -52,6 +52,29 @@ $input-border:#dcdcdc;
         font-size: 30px;
     }
 }
+
+.removeMember {
+  &:hover {
+    cursor: pointer;
+  }
+
+  display: inline-block;
+  padding: 0 10px;
+
+  font-size: 20px;
+  vertical-align: top;
+  // padding-top: 5px;
+}
+
+.addMember {
+  &:hover {
+    cursor: pointer;
+  }
+
+  font-size: 30px;
+  vertical-align: top;
+  padding: 0 10px;
+}
 .container-toolbar{
     display: flex;
     justify-content: space-between;
@@ -62,7 +85,21 @@ $input-border:#dcdcdc;
 .member-list{
     display:flex;
     flex-direction: column;
-    list-style-type: none;
+    list-style-type: circle;
+
+
+    li {
+      padding: 7px;
+
+      p {
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+}
+
+.member-form {
+  padding-bottom: 15px;
 }
 
 .members{
@@ -90,6 +127,13 @@ $input-border:#dcdcdc;
 
     }
 
+}
+
+sup {
+  // font-size: small;
+  // width: 10%;
+  font-size: 1em;
+  top: -.1em;
 }
 
 
@@ -201,12 +245,30 @@ $input-border:#dcdcdc;
     display: none;
 }
 
+.headers {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.mobile {
+  display: none;
+}
+
 
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
 	.assessment-name {
 		margin-left: 15px;
 	}
+
+  .mobile {
+    display: inherit;
+  }
+
+  .addMember {
+    font-size: 14px;
+    margin: 4px 2px;
+  }
 	.target-level {
 		margin-top: 2%;
 		align-items: flex-end;
@@ -221,6 +283,7 @@ $input-border:#dcdcdc;
 		}
 	}
 	.mid-first-page, .bottom {
+    margin-top: 20px;
 		flex-direction: column;
 		align-items: center;
 		div {
@@ -243,6 +306,7 @@ $input-border:#dcdcdc;
 
   .member-form {
       margin-left: 15px;
+
   }
 
   .members {
@@ -250,9 +314,10 @@ $input-border:#dcdcdc;
 
     .member-inputs {
         input {
-            width: 92%;
-            height: 50%;
+            width: 94.5%;
+            height: 25%;
             display: block;
+            margin: 3px 3px;
         }
     }
 
@@ -274,6 +339,10 @@ $input-border:#dcdcdc;
       margin-right: 15px;
   }
 
+  .desktop {
+    display: none;
+  }
+
 }
 
 
@@ -281,6 +350,8 @@ $input-border:#dcdcdc;
     .team-members-title {
         margin-left: 40px;
     }
+
+
 
     .assessment-name {
         margin-left: 40px;
