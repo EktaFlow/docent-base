@@ -96,6 +96,7 @@ query assessment($_id: String)
 		}
   }
 	targetMRL
+  threads
 	currentMRL
 	levelSwitching
 	files {

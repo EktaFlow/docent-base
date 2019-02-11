@@ -37,12 +37,15 @@ export class HomePage {
 	assessments: any;
   schema: any;
 	twentySeventeen: any;
-	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: []};
+	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
 	private mobileRegister: boolean = false;
 	public deskbookVersions: any = ["2017", "2016"];
+  private threadsShown: boolean = false;
+  private threads: any;
+  private threadsSelectButton: string = 'Unselect All';
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -61,7 +64,6 @@ export class HomePage {
 		var fields = [
 			"name",
 			"targetMRL"
-
 		];
 
 		return fields.every(field => this.assForm[field])
@@ -126,7 +128,7 @@ export class HomePage {
 		//or input it in another section?
 		var formValues = this.assForm;
 		return {
-			threads:          this.threadsSelected,
+			threads:          formValues.threads,
 			location:         formValues.location,
 			targetMRL:        formValues.targetMRL,
 			name:             formValues.name,
@@ -172,16 +174,17 @@ export class HomePage {
 	  tmp ? tmp.value = "2017" : null;
 
 		if (this.auth.currentUser()) {
+      var cool = await this.assessmentService.getDefaultThreads()
+      cool.subscribe( threads => this.threads = threads );
 		this.apollo.watchQuery<any>({
 			query: threadsQuery
 			})
 			 .valueChanges
 			 .subscribe(({data, loading}) => {
-					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+
+      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
-
 			 });
-
 
 			 }
 
@@ -225,25 +228,7 @@ export class HomePage {
 	}
 
 	showThreads(myEvent) {
-		myEvent.preventDefault();
-
-		let myEmitter = new EventEmitter<any>();
-		myEmitter.subscribe( v =>  this.toggleThread(v.index));
-
-		var popoverClick = this.popOver.create(ThreadsListComponent, {allThreads: this.allThreads, emitter: myEmitter, threadsSelected: this.threadsSelected});
-      popoverClick.present({
-        ev: myEvent
-      });
-	}
-
-	toggleThread(thread) {
-		var {threadsSelected} = this;
-		if ( threadsSelected.includes(thread) ) {
-			threadsSelected = threadsSelected.filter(a => a !== thread)
-		}
-		else { threadsSelected.push(thread) }
-
-		threadsSelected.sort((a,b) => a-b);
+    this.threadsShown = !this.threadsShown;
 	}
 
   addMember(nameIn:string,emailIn:string,roleIn:string){
@@ -299,6 +284,31 @@ export class HomePage {
 		}
 	}
 
+  toggleThread(event, threadName) {
+    var threadIndex = this.threads.indexOf(threadName) + 1;
+    if ( this.assForm.threads.includes(threadIndex) ) {
+      var index = this.assForm.threads.indexOf(threadIndex);
+      this.assForm.threads.splice(index, 1);
+    } else {
+      this.assForm.threads.push(threadIndex);
 
+      // using the indices to ID the threads relies on them being sorted. 
+      this.assForm.threads = this.assessment.threads.sort((a,b) => a - b );
+    }
+  }
+
+  toggleAllThreads() {
+    this.threadsSelectButton == 'Unselect All' ? this.unselectAll() : this.selectAll() 
+  }
+
+  unselectAll() {
+    this.assessment.threads = [];
+    this.threadsSelectButton = 'Select All';
+  }
+
+  selectAll() {
+    this.assessment.threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    this.threadsSelectButton = 'Unselect All';
+  }
 
 }

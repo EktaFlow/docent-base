@@ -5,6 +5,7 @@ import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AuthService } from "../../services/auth.service";
+import { Helpers } from '../../services/helpers';
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete';
@@ -38,6 +39,7 @@ export class QuestionsPage {
 	noSecondBar: boolean = true;
 
 	constructor(public navParams:          NavParams,
+              public help: Helpers,
 							private popoverController: PopoverController,
 						  private assessmentService: AssessmentService,
 							private auth: AuthService) {
@@ -96,16 +98,10 @@ export class QuestionsPage {
 
 
 	setSurveyQuestions() {
+  var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
+    return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
+              .filter( q => threadNames.includes(q.threadName))
 
-		var editableQuestions = JSON.parse(JSON.stringify(this.allQuestions))
-		for (var q = 0; q < editableQuestions.length; q++){
-			if (editableQuestions[q].answers.length > 0){
-				console.log(editableQuestions[q].answers);
-			}
-			editableQuestions[q].answers = editableQuestions[q].answers.filter(a => a.answer != null);
-		}
-		console.log(editableQuestions.filter(q => q.mrLevel == this.assessment.targetMRL));
-    return editableQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
 							.map( q => q.questionId);
 	}
 
@@ -535,12 +531,18 @@ export class QuestionsPage {
     var consequence = (<any>this.vals).consequence;
 
     if ( likelihood && consequence ) {
+    (<any>document.querySelectorAll('.matrix-row th')).forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
+ 
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);
 
-      // var name = selectedBox.className.replace(/ selected/g, '')
-      // selectedBox.className = `${name} selected`;
+      var selectedId = likelihood + consequence + 'm';
+      var selectedBox = document.getElementById(selectedId);
+      var name = selectedBox.className.replace(/ selected/g, '')
+      selectedBox.className = `${name} selected`;
+
+      selectedBox.innerHTML = String(riskMatrix[likelihoodIndex][consequenceIndex]);
 
       return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {

@@ -1,6 +1,8 @@
-page-questions {
-$input-backgroud:#fbfbfb;
-$input-border:#dcdcdc;
+page-questions { $input-backgroud:#fbfbfb; $input-border:#dcdcdc;
+
+
+$basic-cell-size: 4vw;
+
 %input-style{
     width: 100%;
     height: 100%;
@@ -28,6 +30,111 @@ $input-border:#dcdcdc;
     height: 30px;
     width: 9vw;
 }
+
+.matrix-top-wrapper {
+        display: flex;
+}
+
+.matrix-bottom-wrapper {
+        display: flex;
+        width: 100%;
+        // easiest way to offset bottom div by size of y-axis label and arrow
+        padding-left: 4em;
+        justify-content: flex-end;
+}
+
+.x-axis-wrapper {
+}
+
+.x-axis-label-wrapper {
+        width: 5* $basic-cell-size;
+        display:flex;
+        justify-content: center;
+}
+
+.x-axis-arrow-wrapper {
+        width: 100%;
+        margin-top: 1em;
+        height: 2em;
+}
+
+.y-axis-wrapper {
+        display: flex;
+        height: 100%;
+        align-items: center;
+}
+
+.y-axis-label {
+        width: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h4 { 
+          transform: rotate(-90deg);
+          height: 1em;
+        }
+}
+
+$arrow-width: 1em;
+.y-axis-arrow-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: flex-start;
+        width: 2em;
+        height: 5 * $basic-cell-size;
+        margin-right: 1em;
+}
+
+.y-axis-arrow-body {
+        background: black;
+        width: .75em;
+        height: 96%;
+}
+
+.y-axis-arrow-head-wrapper {
+        width: 100%;
+        height: $arrow-width;
+}
+
+.y-axis-arrow-head {
+  width: 0;
+  height: 0;
+  border-left: $arrow-width solid transparent;
+  border-right: $arrow-width solid transparent;
+  border-bottom: $arrow-width solid black;
+
+}
+
+.x-axis-arrow-wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items:center;
+        justify-content: flex-start;
+        height: 2em;
+        width: 5 * $basic-cell-size;
+        margin-right: 1em;
+}
+
+.x-axis-arrow-body {
+        background: black;
+        height: .75em;
+        width: 96%;
+}
+
+.x-axis-arrow-head-wrapper {
+        height: 2em;
+}
+
+.x-axis-arrow-head {
+  width: 0;
+  height: 0;
+  border-top: $arrow-width solid transparent;
+  border-bottom: $arrow-width solid transparent;
+  border-left: $arrow-width solid black;
+}
+
+
 %down-arrow{
     background-position: right 50%;
     background-repeat: no-repeat;
@@ -386,10 +493,11 @@ $input-border:#dcdcdc;
 
       .matrix-wrapper {
           display: flex;
+          flex-direction: column;
           align-items:center;
           justify-content: center;
-          width: 22vw;
-          height: 22vw;
+          width: 25vw;
+          height: 25vw;
       }
     }
 }
@@ -711,7 +819,9 @@ $input-border:#dcdcdc;
 	}
 
   .selected {
-    border: 7px solid black;
+    // border: 7px solid black;
+    font-size: 1.8em; 
+    filter: brightness(75%);
   }
 
   .file-item {

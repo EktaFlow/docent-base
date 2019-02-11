@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { AuthService } from "./auth.service";
 import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
 import { assessmentQuery,
          createAssessmentMutation,
 				 questionPageAssessmentQuery,
@@ -10,6 +11,7 @@ import { assessmentQuery,
          getThreadsQuery,
          updateTeamMembersMutation,
          deleteFileMutation   } from "./gql.service";
+import gql from 'graphql-tag';
 
 @Injectable()
 export class AssessmentService {
@@ -20,7 +22,8 @@ export class AssessmentService {
 
 	constructor( private apollo:  Apollo,
 	             private auth:    AuthService,
-	             private storage: Storage) { }
+               private storage: Storage,
+               private http:    HttpClient) { }
 
 	// getCurrentAssessment() {
   //
@@ -35,6 +38,22 @@ export class AssessmentService {
 	}
 
 
+
+  async queryAssessment(assessmentId, query) {
+  console.log(query);
+    var ok = gql`
+      query assessment($_id: String) {
+        ${query}
+      } 
+    `
+
+    return await this.apollo.watchQuery<any>({
+            query: ok,
+            fetchPolicy: 'network-only',
+            variables: { _id: assessmentId }
+    }).valueChanges;
+
+  }
 
 	async getAssessments(userId) {
 
@@ -84,7 +103,6 @@ export class AssessmentService {
 			variables: variables
 		});
 
-
 	}
 
 	async getQuestionPageAssessment(assessmentId) {
@@ -121,11 +139,47 @@ export class AssessmentService {
     });
   }
 
+  /**
+  *   purpose: pull the standard thread names
+  *   @input:   none
+  *   @output:  Observable
+  */
+  async getDefaultThreads() {
+    return this.http.get('/assets/json/2016.json')
+    .map(threads => (<any>threads).map(thread => thread.name))
+  }
+
+  /** 
+  *   purpose:  return thread names arr given a schema
+  *   @input:   A valid schema
+  *   @output:  Observable
+  */
 	async getThreads() {
 		return await this.apollo.watchQuery<any>({
 			query: getThreadsQuery
     }).valueChanges;
 	}
+
+  async updateAssessment(assessmentId, assessmentUpdate) {
+  return await this.apollo.mutate<any>({
+          mutation: gql`
+           mutation updateAssessmentMeta(
+             $_id: String,
+             $assessmentUpdate: AssessmentInput
+             ){ updateAssessmentMeta(
+              _id: $_id,
+              assessmentUpdate: $assessmentUpdate
+              ) {
+                scope
+              }
+              }
+          `,
+          variables: {
+            _id: assessmentId,
+            assessmentUpdate: assessmentUpdate
+          }
+          });
+  }
 
 	async updateTeamMembers(assessmentId, memberInfo){
 		console.log("are we getting to this point?");
