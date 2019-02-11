@@ -229,7 +229,7 @@ $input-border:#dcdcdc;
 }
   .qspacer {
     font-size: 0;
-    height: 250px;
+    height: 220px;
     line-height: 0;
     border: 0px;
     /* testing only */
@@ -280,7 +280,7 @@ $input-border:#dcdcdc;
     // margin: 0;
     position: absolute;
     right: 10px;
-    top: 240px;
+    top: 220px;
     margin-top: 10px;
     -webkit-transform: translateZ(0);
     // background-color: white;
@@ -289,7 +289,11 @@ $input-border:#dcdcdc;
   }
 
   .bottom-q-buttons {
-    display: none;
+    // display: none;
+    position: absolute;
+    right: 10px;
+    bottom: -200px;
+
   }
 
 
@@ -428,7 +432,7 @@ $input-border:#dcdcdc;
         right: 0;
         top: 0;
         width: 95%;
-        margin: 10 auto;
+        margin: 10px auto;
         padding-left: 10px;
         // display: flex;
         // flex-direction: column;
@@ -458,7 +462,7 @@ $input-border:#dcdcdc;
       bottom: 0;
       width: 95%;
       margin: 0 auto;
-      padding-left: 10px;
+      padding-left: 20px;
       // display: flex;
       // flex-direction: column;
       margin-bottom: 15px;
@@ -668,6 +672,17 @@ $input-border:#dcdcdc;
 @media screen and (min-width: 421px) and (max-width: 1024px){
     ion-content {
         margin-top: 70px;
+    }
+
+    .risk-wrapper {
+      .risk {
+        .matrix-wrapper {
+          table {
+            width: 80%;
+            height: 500px;
+          }
+        }
+      }
     }
 }
 }
