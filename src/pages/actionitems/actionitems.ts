@@ -4,9 +4,12 @@ import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+// import { Ng2TableModule } from 'ng2-table/ng2-table';
+// import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 
 
 import * as XLSX from 'xlsx';
+
 
 import { QuestionsPage } from '../questions/questions';
 

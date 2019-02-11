@@ -63,5 +63,44 @@ question-history-popover {
     }
   }
 
+  @media screen and (max-width: 1024px){
+    .wrapper {
+      .header {
+
+      }
+
+      .answers-list {
+        .top-and-block {
+          .top {
+
+
+            h3 {
+              font-size: 1.5em;
+            }
+          }
+
+          .block {
+            .fields {
+
+            }
+
+            .action-buttons {
+              width: 40%;
+              margin: 0;
+              // float: left;
+
+              button {
+                width: 100%;
+                font-size: small;
+              }
+            }
+          }
+        }
+      }
+
+
+    }
+  }
+
 
 }

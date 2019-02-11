@@ -129,6 +129,18 @@ register {
 		width: 80vw;
 	}
 
+  #register-container {
+    width: 90vw;
+  }
+
+  #button-container {
+    button {
+      // width: 60%;
+      padding: 20px;
+      width: 20vw;
+    }
+  }
+
 	.cell {
 		margin-top: 2vh;
 	}

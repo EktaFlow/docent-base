@@ -9,6 +9,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
   selector: 'login',
   templateUrl: 'login.html'
 })
+
 export class LoginComponent {
 
 	user: any = {};

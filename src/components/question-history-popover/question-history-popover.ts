@@ -17,7 +17,7 @@ export class QuestionHistoryPopoverComponent {
   assessmentId: any;
   questionId: any;
   assessment: any;
-  latestQuestion: any;
+  currentQ: any;
   noAnswers: boolean = false;
   allQuestions: any;
   answerToShow: any = null;
@@ -39,9 +39,9 @@ export class QuestionHistoryPopoverComponent {
       var assessment = await this.assessmentService.getQuestionPageAssessment(this.assessmentId)
       assessment.subscribe(({data, loading}) => {
         var allQuestions = data.assessment.questions;
-        this.latestQuestion = allQuestions.filter(q => q.questionId == this.questionId);
-        this.latestQuestion = this.latestQuestion[0];
-        this.decideAnswersAction(this.latestQuestion);
+        this.currentQ = allQuestions.filter(q => q.questionId == this.questionId);
+        this.currentQ = this.currentQ[0];
+        this.decideAnswersAction(this.currentQ);
         console.log(this.answersSorted)
         this.getUserIds(this.answersSorted);
         console.log(this.answersSorted[0]);
@@ -134,8 +134,8 @@ export class QuestionHistoryPopoverComponent {
     async revertBack(newAnswer){
       var user = await this.auth.currentUser();
       console.log(user);
-      // var currentAnswer = this.latestQuestion.answers[0];
-      //we have latestQuestion, currentAnswer and newAnswer
+      // var currentAnswer = this.currentQ.answers[0];
+      //we have currentQ, currentAnswer and newAnswer
       //probably do not need currentAnswer unless we want to check reverting back to currentAnswer
       //we could allow but do we need to?
       //just call updateAssessment  and make sure updateInfo is sending correctly
@@ -155,7 +155,7 @@ export class QuestionHistoryPopoverComponent {
       console.log(filteredAnswer);
       var updateInfo = {
         _id: this.assessmentId,
-        questionId: Number(this.latestQuestion.questionId),
+        questionId: Number(this.currentQ.questionId),
         answerUpdates: filteredAnswer,
         questionUpdates: tempQuestion
       }
@@ -165,7 +165,7 @@ export class QuestionHistoryPopoverComponent {
       var update = await this.assessmentService.updateQuestion(updateInfo);
   		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
   			assessmentId: 			this.assessmentId,
-  			questionId: this.latestQuestion.questionId
+  			questionId: this.currentQ.questionId
   		}));
 
 

@@ -336,7 +336,7 @@ $arrow-width: 1em;
 }
   .qspacer {
     font-size: 0;
-    height: 250px;
+    height: 220px;
     line-height: 0;
     border: 0px;
     /* testing only */
@@ -387,7 +387,7 @@ $arrow-width: 1em;
     // margin: 0;
     position: absolute;
     right: 10px;
-    top: 240px;
+    top: 220px;
     margin-top: 10px;
     -webkit-transform: translateZ(0);
     // background-color: white;
@@ -396,7 +396,11 @@ $arrow-width: 1em;
   }
 
   .bottom-q-buttons {
-    display: none;
+    // display: none;
+    position: absolute;
+    right: 10px;
+    bottom: -200px;
+
   }
 
 
@@ -536,7 +540,7 @@ $arrow-width: 1em;
         right: 0;
         top: 0;
         width: 95%;
-        margin: 10 auto;
+        margin: 10px auto;
         padding-left: 10px;
         // display: flex;
         // flex-direction: column;
@@ -554,7 +558,7 @@ $arrow-width: 1em;
             display: block;
 
             button {
-                width: 95%;
+                width: 98%;
             }
         }
     }
@@ -566,7 +570,7 @@ $arrow-width: 1em;
       bottom: 0;
       width: 95%;
       margin: 0 auto;
-      padding-left: 10px;
+      padding-left: 20px;
       // display: flex;
       // flex-direction: column;
       margin-bottom: 15px;
@@ -776,6 +780,17 @@ $arrow-width: 1em;
 @media screen and (min-width: 421px) and (max-width: 1024px){
     ion-content {
         margin-top: 70px;
+    }
+
+    .risk-wrapper {
+      .risk {
+        .matrix-wrapper {
+          table {
+            width: 80%;
+            height: 500px;
+          }
+        }
+      }
     }
 }
 }

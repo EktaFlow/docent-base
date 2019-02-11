@@ -101,6 +101,7 @@ export class QuestionsPage {
   var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
     return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
               .filter( q => threadNames.includes(q.threadName))
+
 							.map( q => q.questionId);
 	}
 
@@ -118,6 +119,7 @@ export class QuestionsPage {
 			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
 		else {
+      // var noNulls = this.surveyQuestions.map(q => q)
 			var noAnswer = this.surveyQuestions.find( qId => {
 				return getQuestion(qId).answers.length == 0;
 			})
