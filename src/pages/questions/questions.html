@@ -41,18 +41,6 @@
         <p [innerHTML]="currentQuestion.helpText"></p>
       </div>
 		</div>
-
-
-
-    <!-- <div class="nav-previous-qs">
-      <h4>Navigate back to previous questions</h4>
-      <p><a href="#">1. question</a></p>
-      <p><a href="#">2. question</a></p>
-      <p><a href="#">3. question</a></p>
-      <p><a href="#">4. question</a></p>
-      <p><a href="#">5. question</a></p>
-
-    </div> -->
   </div>
 
 
@@ -192,7 +180,7 @@
                   <h5 >Risk Assessment</h5>
                   <div class="likelihood-wrapper">
 
-                  <div>
+                  <div class="likelihood">
                     <h6>Likelihood <img (click)="showRiskPopover('likelihood')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
                     <select [(ngModel)]="vals.likelihood" id="likelihood-input">
                       <option value="1">1 - Not likely</option>
@@ -203,7 +191,7 @@
                     </select>
                   </div>
 
-                  <div>
+                  <div class="consequence">
                     <h6>Consequence <img (click)="showRiskPopover('consequence')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
                     <select [(ngModel)]="vals.consequence" id="consequence-input">
                       <option value="1">1 - Negligible</option>
@@ -220,6 +208,7 @@
                 <div>
                   <div style="display:flex; justify-content:space-between; padding:1vw;">
                     <div style="display:flex; flex-direction:column">
+
                       <h6>Greatest Impact</h6>
                       <select [(ngModel)]="vals.greatestImpact" id="impact-input">
                         <option value="cost">Cost</option>
@@ -227,7 +216,7 @@
                         <option value="performance">Performance</option>
                       </select>
                     </div>
-                    <div style="display:flex; flex-direction:column">
+                    <div class="risk-response">
                       <h6>Risk Response</h6>
                       <select [(ngModel)]="vals.riskResponse" id="response-input">
                         <option value="accept">Accept</option>
@@ -238,7 +227,7 @@
                     </div>
                   </div>
                   <h6 style="padding: 1vw; padding-bottom: 1vw;">MMP Summary</h6>
-                  <textarea [(ngModel)]="vals.mmpSummary"style="margin-left: 1vw;height: 400px">
+                  <textarea [(ngModel)]="vals.mmpSummary" class="mmp-summary">
                   </textarea>
                 </div>
                 </div>
@@ -259,6 +248,7 @@
                             </div>
                           </div>
                         </div>
+
 
                         <!-- This is the matrix, copy-pasted from the component -->
                         <!-- The ids correlate to the indices for an answer's likelihood and consequence,
@@ -323,7 +313,13 @@
                 </div>
             </div>
           </div>
+          <div class="bottom-q-buttons">
+              <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
+              <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+              <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
           </div>
+          </div>
+
 
 
   <!-- </div> -->

@@ -26,6 +26,8 @@ import { QuestionHistoryPopoverComponent } from './question-history-popover/ques
 import { RiskPopoverComponent } from './risk-popover/risk-popover';
 import { FileDeleteComponent } from './file-delete/file-delete';
 import { DoResetComponent } from './do-reset/do-reset';
+import { ReportInfoCardComponent } from './report-info-card/report-info-card';
+
 
 @NgModule({
 	declarations: [
@@ -52,7 +54,9 @@ import { DoResetComponent } from './do-reset/do-reset';
     QuestionHistoryPopoverComponent,
     RiskPopoverComponent,
     FileDeleteComponent,
-    DoResetComponent
+    DoResetComponent,
+    ReportInfoCardComponent
+
     ],
 	imports: [CommonModule, FormsModule, IonicModule],
 	exports: [
@@ -79,7 +83,8 @@ import { DoResetComponent } from './do-reset/do-reset';
     QuestionHistoryPopoverComponent,
     RiskPopoverComponent,
     FileDeleteComponent,
-    DoResetComponent
+    DoResetComponent,
+    ReportInfoCardComponent
 	],
 	entryComponents: [
         ViewsComponent,
@@ -105,7 +110,8 @@ import { DoResetComponent } from './do-reset/do-reset';
         QuestionHistoryPopoverComponent,
         RiskPopoverComponent,
         FileDeleteComponent,
-        DoResetComponent
+        DoResetComponent,
+        ReportInfoCardComponent
     ]
 })
 

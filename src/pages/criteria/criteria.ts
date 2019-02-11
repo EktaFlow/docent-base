@@ -74,6 +74,8 @@ export class CriteriaPage {
 					this.allQuestions = (<any>data.data).assessment.questions;
 					// this.schema = this.createSchemaObject(this.allQuestions);
 					this.filteredSchema = this.createSchemaObject(this.allQuestions);
+					this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
 					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
@@ -150,7 +152,7 @@ export class CriteriaPage {
 			this.filterList.filterMRL = 0;
 			this.filterTheList();
 		}
-		
+
 	expandAllThreads() {
 		this.showAll = !this.showAll;
 	}

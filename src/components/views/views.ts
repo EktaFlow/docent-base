@@ -151,7 +151,7 @@ export class ViewsComponent {
 			this.close();
 		}
 		handleNavigate(){
-			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 			this.close();
 		}
 		handleDashboard(){

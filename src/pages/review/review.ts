@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { QuestionsPage } from "../questions/questions";
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -110,7 +112,7 @@ export class ReviewPage {
 
                   // all questions is an array of answered questions.
                   // preserving the names to leave markup the same.
-                  this.allQuestions = answeredOrSkipped; 
+                  this.allQuestions = answeredOrSkipped;
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;

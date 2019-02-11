@@ -38,6 +38,7 @@ export class MobileNavPopoverComponent {
   assessmentId: any;
   assessmentShow: boolean = false;
   userName: any;
+  noSecondBar: boolean = false;
 
 
   constructor(public navCtrl: NavController,
@@ -46,6 +47,12 @@ export class MobileNavPopoverComponent {
                     public auth: AuthService) {
     this.assessmentId = navParams.data.assessmentId;
     this.userName = navParams.data.userName;
+    if (navParams.data.noSecondBar){
+      this.noSecondBar = navParams.data.noSecondBar;
+    }
+
+    console.log(this.noSecondBar);
+    console.log(this.assessmentId);
     console.log(this.userName);
   }
 
@@ -90,7 +97,7 @@ export class MobileNavPopoverComponent {
   handleContinue = () => this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId});
   handleStartNew = () => this.navCtrl.push(HomePage);
   handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
   handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
   handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
   handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
@@ -101,6 +108,8 @@ export class MobileNavPopoverComponent {
   handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
   handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+  goToDoD = () => window.location.href = "http://dodmrl.com";
+  goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2017.pdf"
   // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }
