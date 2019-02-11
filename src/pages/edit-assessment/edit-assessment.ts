@@ -4,9 +4,11 @@
 */
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AssessmentService } from '../../services/assessment.service';
 import { Helpers } from '../../services/helpers';
+
+import { UserDashboardPage } from '../user-dashboard/user-dashboard';
 
 @IonicPage()
 @Component({
@@ -43,7 +45,7 @@ export class EditAssessmentPage {
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
               public navParams: NavParams,
-              public help: Helpers )
+              public help: Helpers, private toast: ToastController )
   {
     this.page = this.navParams.get('page');
   }
@@ -165,17 +167,20 @@ export class EditAssessmentPage {
     console.log(assessment);
     var updatedAssessment = await this.assessmentService.updateAssessment(this.assessmentId, assessment);
     console.log(updatedAssessment);
-    updatedAssessment.subscribe(a => console.log(a));
+    updatedAssessment.subscribe(a => {
+      this.launchToast();
+      this.navCtrl.push(UserDashboardPage);
+    });
+  }
 
-    // format the assessmentVariables as needed
-    // var updatedVariables = this.formatAssessmentVariables();
-    // var updatedAssessment = await this.assessmentService.updateAssessment(updatedVariables)
-    // updatedAssessment.toPromise()
-    //   .then(a => {
-    //   // launch toast for success
-    //   // redir to Home page (with that assessment selected?)
-    //   })
-    //   .catch( e => // toast error);
+  launchToast() {
+    this.toast.create({
+      message: 'assessment updated',
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true,
+      closeButtonText: 'ok'
+    }).present();
   }
 
   async createAssessment() {
