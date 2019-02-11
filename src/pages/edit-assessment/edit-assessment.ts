@@ -112,7 +112,7 @@ export class EditAssessmentPage {
     //    if (assForm.deskbookVersion !== "2017" || assform.deskBookVersion !== "2016" ) {
       // if a custom deskbook is selected, 
       // }
-    this.threadsShown = true;
+    this.threadsShown = !this.threadsShown;
   }
 
   /**
@@ -147,7 +147,6 @@ export class EditAssessmentPage {
   selectAll() {
     this.assessment.threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     this.threadsSelectButton = 'Unselect All';
-
   }
 
   closePopover(){

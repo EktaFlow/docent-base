@@ -149,6 +149,26 @@
   </div>
   <div class = "thread-start">
 
+      <div class = "choose-threads">
+        <div class="choose-threads-header">
+          <h6>Choose Threads</h6>
+          <button style="background: white;"(click)="showThreads($event)">
+            <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
+          </button>
+        </div>
+        <div class="choose-threads-thread-list" *ngIf="threadsShown">
+          <font color="grey">
+            Unselecting a thread will remove it from your MRA. Typically, all threads are selected.
+          </font>
+                <div class="thread-row" *ngFor="let thread of threads">
+                  <input type="checkbox" (click)="toggleThread($event, thread)" [checked]="assForm.threads.includes((threads.indexOf(thread)) + 1)"/>
+                  <h6>{{thread}}</h6>
+                </div>
+          <div>
+                  <button style="border: 1px solid blue; padding:1em; padding-top: .5em; padding-bottom: .5em; background: white; margin-bottom: .4em; width: 106px" (click)="toggleAllThreads()">{{threadsSelectButton}}</button>
+          </div>
+        </div>
+      </div>
 
     <div>
       <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">

@@ -5,6 +5,7 @@ import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AuthService } from "../../services/auth.service";
+import { Helpers } from '../../services/helpers';
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete';
@@ -38,6 +39,7 @@ export class QuestionsPage {
 	noSecondBar: boolean = true;
 
 	constructor(public navParams:          NavParams,
+              public help: Helpers,
 							private popoverController: PopoverController,
 						  private assessmentService: AssessmentService,
 							private auth: AuthService) {
@@ -96,7 +98,9 @@ export class QuestionsPage {
 
 
 	setSurveyQuestions() {
+  var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
     return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
+              .filter( q => threadNames.includes(q.threadName))
 							.map( q => q.questionId);
 	}
 
