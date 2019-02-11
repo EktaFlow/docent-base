@@ -205,10 +205,95 @@
                 </div>
 
                 <h6 style="padding: 1vw;"> Risk Score: {{calculateRiskScore()}}</h6>
-                <div>
-                  <div style="display:flex; justify-content:space-between; padding:1vw;">
-                    <div style="display:flex; flex-direction:column">
+                <div class="matrix-wrapper mobile">
 
+                        <!-- This is the matrix, copy-pasted from the component -->
+                        <!-- The ids correlate to the indices for an answer's likelihood and consequence,
+                             plus the letter 'm' to differentiate the id -->
+
+                             <div class="matrix-top-wrapper">
+
+
+
+                             <div class="y-axis-wrapper">
+                               <div class="y-axis-label">
+                                       <h4>Likelihood</h4>
+                               </div>
+                               <div class="y-axis-arrow-wrapper">
+                                 <div class="y-axis-arrow-head-wrapper">
+                                   <div class="y-axis-arrow-head">
+                                   </div>
+                                 </div>
+                                 <div class="y-axis-arrow-body">
+                                 </div>
+                               </div>
+                             </div>
+
+                        <table class="risk-matrix-table">
+                          <tr class="matrix-row">
+                            <th id="51m" class="low-risk-cell"></th>
+                            <th id="52m"class="med-risk-cell"></th>
+                            <th id="53m" class="high-risk-cell"></th>
+                            <th id="54m" class="high-risk-cell"></th>
+                            <th id="55m" class="high-risk-cell"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="41m" class="low-risk-cell"></th>
+                            <th id="42m" class="med-risk-cell"></th>
+                            <th id="43m" class="med-risk-cell"></th>
+                            <th id="44m" class="high-risk-cell"></th>
+                            <th id="45m" class="high-risk-cell"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="31m" class="low-risk-cell"></th>
+                            <th id="32m" class="low-risk-cell"></th>
+                            <th id="33m" class="med-risk-cell"></th>
+                            <th id="34m" class="med-risk-cell"></th>
+                            <th id="35m" class="high-risk-cell"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="21m" class="low-risk-cell"></th>
+                            <th id="22m" class="low-risk-cell"></th>
+                            <th id="23m" class="low-risk-cell"></th>
+                            <th id="24m" class="med-risk-cell"></th>
+                            <th id="25m" class="med-risk-cell"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="11m" class="low-risk-cell"></th>
+                            <th id="12m" class="low-risk-cell"></th>
+                            <th id="13m" class="low-risk-cell"></th>
+                            <th id="14m" class="low-risk-cell"></th>
+                            <th id="15m" class="med-risk-cell"></th>
+                          </tr>
+                        </table>
+
+                        </div>
+
+                        <div class="matrix-bottom-wrapper">
+
+                               <div class="x-axis-wrapper">
+                                 <div class="x-axis-arrow-wrapper">
+                                   <div class="x-axis-arrow-head-wrapper">
+                                     <div class="x-axis-arrow-head">
+                                     </div>
+                                   </div>
+                                   <div class="x-axis-arrow-body">
+                                   </div>
+                                 </div>
+                                 <div class="x-axis-label-wrapper">
+                                         <h4>Consequence</h4>
+                                 </div>
+                               </div>
+
+                        </div>
+
+
+                </div>
+
+                <div>
+                  <div class="risk-part-2-wrapper">
+                    <div class="risk-part-2">
+                    <div class="greatest-impact">
                       <h6>Greatest Impact</h6>
                       <select [(ngModel)]="vals.greatestImpact" id="impact-input">
                         <option value="cost">Cost</option>
@@ -231,8 +316,10 @@
                   </textarea>
                 </div>
                 </div>
+
+                </div>
                 <!-- MATRIX -->
-                <div class="matrix-wrapper">
+                <div class="matrix-wrapper desktop">
                   <div class="matrix-top-wrapper">
 
                         <div class="y-axis-wrapper">
@@ -253,6 +340,7 @@
                         <!-- This is the matrix, copy-pasted from the component -->
                         <!-- The ids correlate to the indices for an answer's likelihood and consequence,
                              plus the letter 'm' to differentiate the id -->
+
                       <table class="risk-matrix-table" style="float:left;">
                         <tr class="matrix-row">
                           <th id="51m" class="low-risk-cell"></th>
@@ -303,11 +391,11 @@
                             <div class="x-axis-arrow-body">
                             </div>
                           </div>
-                          <div class="x-axis-label-wrapper"> 
+                          <div class="x-axis-label-wrapper">
                                   <h4>Consequence</h4>
                           </div>
                         </div>
-                 
+
                  </div>
 
                 </div>
