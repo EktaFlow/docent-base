@@ -18,7 +18,9 @@ export class EditAssessmentPage {
 
   private editQuery: any =`
     assessment(_id: $_id) {
-      teamMembers
+    teamMembers {
+    email
+      }
       scope
       targetMRL
       targetDate
@@ -150,7 +152,21 @@ export class EditAssessmentPage {
 		this.navCtrl.pop();
 	}
   
+  formatAssessment() {
+  var assessment = Object.assign({}, this.assessment);
+    delete assessment.__typename;
+    delete assessment.teamMembers;
+    console.log(assessment);
+    return assessment;
+  }
+
   async updateAssessment() {
+    var assessment = this.formatAssessment();
+    console.log(assessment);
+    var updatedAssessment = await this.assessmentService.updateAssessment(this.assessmentId, assessment);
+    console.log(updatedAssessment);
+    updatedAssessment.subscribe(a => console.log(a));
+
     // format the assessmentVariables as needed
     // var updatedVariables = this.formatAssessmentVariables();
     // var updatedAssessment = await this.assessmentService.updateAssessment(updatedVariables)

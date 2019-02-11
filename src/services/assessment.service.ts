@@ -130,14 +130,6 @@ export class AssessmentService {
 		});
 	}
 
-  async updateAssessment(assessment) {
-    return await this.apollo.mutate<any>({
-      mutation: gql`
-
-      `
-    });
-  }
-
   async deleteAssessment(assessmentId){
     return await this.apollo.mutate<any>({
       mutation: deleteAssessmentMutation,
@@ -154,7 +146,7 @@ export class AssessmentService {
   */
   async getDefaultThreads() {
     return this.http.get('/assets/json/2016.json')
-      .map(threads => threads.map(thread => thread.name))
+    .map(threads => (<any>threads).map(thread => thread.name))
   }
 
   /** 
@@ -167,6 +159,27 @@ export class AssessmentService {
 			query: getThreadsQuery
     }).valueChanges;
 	}
+
+  async updateAssessment(assessmentId, assessmentUpdate) {
+  return await this.apollo.mutate<any>({
+          mutation: gql`
+           mutation updateAssessmentMeta(
+             $_id: String,
+             $assessmentUpdate: AssessmentInput
+             ){ updateAssessmentMeta(
+              _id: $_id,
+              assessmentUpdate: $assessmentUpdate
+              ) {
+                scope
+              }
+              }
+          `,
+          variables: {
+            _id: assessmentId,
+            assessmentUpdate: assessmentUpdate
+          }
+          });
+  }
 
 	async updateTeamMembers(assessmentId, memberInfo){
 		console.log("are we getting to this point?");
