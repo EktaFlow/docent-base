@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AssessmentService } from "../../services/assessment.service";
 import { HttpClient } from '@angular/common/http';
@@ -51,7 +51,7 @@ export class AddTeamMembersPopOverComponent {
 		var teamMember = [this.newMember.email];
 
 		var url = AuthUrl + "share";
-		
+
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
