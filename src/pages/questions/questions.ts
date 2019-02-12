@@ -251,7 +251,7 @@ export class QuestionsPage {
 		values.updatedAt = new Date();
     // we're setting this earlier.
     //values.answer = values.currentAnswer;
-		newerQuestion.currentAnswer = values.currentAnswer;
+		newerQuestion.currentAnswer = values.answer;
 		delete values.currentAnswer
 
 		var updatedAnswers = [...newerQuestion.answers, values];
