@@ -31,7 +31,7 @@ export class AddTeamMembersPopOverComponent {
     this.assessmentId = navParams.data.assessmentId;
   }
 
-  addNewMember() {
+  async addNewMember() {
     //access assessment
     //add team member to assessment
 		var updateTM = {
@@ -40,8 +40,13 @@ export class AddTeamMembersPopOverComponent {
 			"role" : this.newMember.role
 
 		}
-    this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
-		this.sendEmailsToTeamMember(this.assessmentId);
+		console.log(this.assessmentId);
+
+    var obser = await this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
+		obser.subscribe(b => {
+			console.log(b);
+			this.sendEmailsToTeamMember(this.assessmentId);
+		});
 
 		//not currently auto syncing with page *ajaxing* for now it is fine.....
 
