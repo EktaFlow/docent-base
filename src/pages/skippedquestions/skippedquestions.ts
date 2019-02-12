@@ -79,7 +79,7 @@ export class SkippedquestionsPage {
 				// }
 				// console.log(assessment);
 					// this.skipped = assessment.questions.filter(a => a.answers.length == 0);
-					this.skipped = assessment.questions.filter(a => a.answers.currentAnswer == "skipped");
+					this.skipped = assessment.questions.filter(a => a.currentAnswer == "skipped");
 
 					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);
