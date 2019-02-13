@@ -2,7 +2,14 @@
               [pageName]="pageName"></topbar>
 
 <ion-content>
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+  
+
   <div class="wrapper">
+    <div class="toolbar">
+      <button ion-button (click)="saveXLS()">Export to XLSX</button>
+    </div>
     <div class="thread-object" *ngFor="let thread of schema">
       <hr>
       <h2>{{thread.header}}</h2>
@@ -37,5 +44,5 @@
 
   </div>
   <div class="qspacer"></div>
-  
+
 </ion-content>
