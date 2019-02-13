@@ -251,10 +251,11 @@ export class UserDashboardPage {
 
 	presentAddTeamMembersPopOver(assessmentId){
 		let myEmitter = new EventEmitter<any>();
-		myEmitter.subscribe( member =>  {
-		console.log(member);
-		var assId = this.assessments.findIndex(a => a.id == assessmentId);
-		this.assessments[assId].teamMembers.push(member);
+		myEmitter.subscribe( data =>  {
+		console.log(data);
+		var assIndex= this.assessments.findIndex(a => a.id == assessmentId);
+		this.assessments[assIndex].teamMembers.push(data.data.addTeamMember);
+		console.log(this.assessments[assIndex]);
 		});
 
 		this.popOver.create(AddTeamMembersPopOverComponent,
