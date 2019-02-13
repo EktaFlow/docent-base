@@ -1,5 +1,5 @@
  import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AssessmentService } from "../../services/assessment.service";
 import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../../services/constants";
@@ -23,12 +23,15 @@ export class AddTeamMembersPopOverComponent {
 
   public newMember: any = {};
   assessmentId: any;
+	emitter: any;
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
                   public assessmentService: AssessmentService,
-									public http: HttpClient) {
+									public http: HttpClient,
+									public viewCtrl: ViewController) {
     this.assessmentId = navParams.data.assessmentId;
+		this.emitter = navParams.data.emitter;
   }
 
   async addNewMember() {
@@ -43,9 +46,11 @@ export class AddTeamMembersPopOverComponent {
 		console.log(this.assessmentId);
 
     var obser = await this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
-		obser.subscribe(b => {
-			console.log(b);
+		obser.subscribe(member => {
+			console.log(member);
 			this.sendEmailsToTeamMember(this.assessmentId);
+			this.emitter.emit(member);
+			this.viewCtrl.dismiss();
 		});
 
 		//not currently auto syncing with page *ajaxing* for now it is fine.....

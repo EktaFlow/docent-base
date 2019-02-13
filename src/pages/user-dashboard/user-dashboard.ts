@@ -246,8 +246,20 @@ export class UserDashboardPage {
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
-		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: assessmentId}, {cssClass: 'team-popover'})
-		.present();
+		let myEmitter = new EventEmitter<any>();
+		myEmitter.subscribe( member =>  {
+		console.log(member);
+		var assId = this.assessments.findIndex(a => a.id == assessmentId);
+		this.assessments[assId].teamMembers.push(member);
+		});
+
+		this.popOver.create(AddTeamMembersPopOverComponent,
+			{assessmentId: assessmentId,
+			emitter: myEmitter},
+			{cssClass: 'team-popover'})
+				.present();
+
+
 	}
 
 	removeAssessmentFromPage(assessmentId){
