@@ -96,7 +96,11 @@ export class UserDashboardPage {
 		this.user = user;
 
 		var observe =  await this.assessmentService.getAssessments(user);
-		observe.subscribe(({data}) => this.assessments = data.assessments);
+		observe.subscribe(({data}) => {
+			this.assessments = data.assessments;
+			this.assessments = JSON.parse(JSON.stringify(this.assessments));
+			console.log(this.assessments);
+		});
 		if (window.screen.width > 440) {
 			this.showMine = true;
 			this.showShared = true;
