@@ -5,6 +5,10 @@
 <ion-content padding>
 	<report-info-card [assessmentId]="assessmentId"></report-info-card>
 
+	<div class="toolbar">
+		<button ion-button (click)="saveXLS()">Export to XLSX</button>
+	</div>
+
 
 	<div *ngIf="skipped && skipped.length == 0">
 		<p>You have no skipped questions</p>

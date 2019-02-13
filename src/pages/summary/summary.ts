@@ -6,6 +6,8 @@ import { LegendPopoverComponent } from '../../components/legend-popover/legend-p
 import { QuestionsPage } from "../questions/questions";
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
+import * as XLSX from 'xlsx';
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -211,10 +213,57 @@ export class SummaryPage {
   }
 
 
+saveXLS(){
+  var headers = [
+    "Thread Name",
+    "Subthread Name",
+    "Criteria 1",
+    "Criteria 2",
+    "Criteria 3",
+    "Criteria 4",
+    "Criteria 5"
+  ]
+
+  var subThreadNames = this.allQuestions.map(q => q.subThreadName);
+
+  var values = this.schema.map(t => {
+    var threads = [];
+    for (var i =0; i < t.subheaders.length; i++){
+      threads.push([
+        t.header,
+        t.subheaders[i].subThreadName,
+        ...t.subheaders[i].riskScores
+      ]);
+    }
+    return [...threads]
+  });
+
+  console.log(values);
+
+    var newVals = []
+  for (let arr of values) {
+    if (arr.length > 1) {
+      for (let arr2 of arr){
+        newVals.push(arr2);
+      }
+    } else {
+        newVals.push(arr[0]);
+    }
+  }
 
 
+  console.log(newVals);
 
 
+  var worksheet = [headers, ...newVals];
+
+  var ws = XLSX.utils.aoa_to_sheet(worksheet);
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'MRL Risk Summary');
+
+  /* save to file */
+  XLSX.writeFile(wb, 'mrl_risk_summary.xlsx');
+}
 
 
 
