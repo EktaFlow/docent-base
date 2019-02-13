@@ -189,6 +189,7 @@ export class QuestionsPage {
 
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
+		// if (this.currentQPos == this.currentQSetAmt) return null;
 		this.setValues();
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
