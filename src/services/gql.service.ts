@@ -14,7 +14,7 @@ query assessments($userId: String) {
 			teamMembers {
 				name
 				email
-				role 
+				role
 			}
 	}
 }
@@ -136,9 +136,11 @@ query {
 `
 
 export var updateTeamMembersMutation = gql`
-	mutation addTeamMember($_id: String, $_teamMember: String) {
-		addTeamMember(_id: $_id,  _teamMember: $_teamMember) {
-			teamMembers
+	mutation addTeamMember($assessmentId: String, $teamMember: TeamMemberInput) {
+		addTeamMember(assessmentId: $assessmentId,  teamMemberUpdates: $teamMember) {
+			name
+			email
+			role 
 		}
 	}
 `

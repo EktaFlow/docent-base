@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+ import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AssessmentService } from "../../services/assessment.service";
 import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../../services/constants";
@@ -23,15 +23,18 @@ export class AddTeamMembersPopOverComponent {
 
   public newMember: any = {};
   assessmentId: any;
+	emitter: any;
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
                   public assessmentService: AssessmentService,
-									public http: HttpClient) {
+									public http: HttpClient,
+									public viewCtrl: ViewController) {
     this.assessmentId = navParams.data.assessmentId;
+		this.emitter = navParams.data.emitter;
   }
 
-  addNewMember() {
+  async addNewMember() {
     //access assessment
     //add team member to assessment
 		var updateTM = {
@@ -40,8 +43,15 @@ export class AddTeamMembersPopOverComponent {
 			"role" : this.newMember.role
 
 		}
-    this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
-		this.sendEmailsToTeamMember(this.assessmentId);
+		console.log(this.assessmentId);
+
+    var obser = await this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
+		obser.subscribe(member => {
+			console.log(member);
+			this.sendEmailsToTeamMember(this.assessmentId);
+			this.emitter.emit(member);
+			this.viewCtrl.dismiss();
+		});
 
 		//not currently auto syncing with page *ajaxing* for now it is fine.....
 
@@ -51,7 +61,7 @@ export class AddTeamMembersPopOverComponent {
 		var teamMember = [this.newMember.email];
 
 		var url = AuthUrl + "share";
-		
+
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",

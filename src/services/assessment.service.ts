@@ -44,7 +44,7 @@ export class AssessmentService {
     var ok = gql`
       query assessment($_id: String) {
         ${query}
-      } 
+      }
     `
 
     return await this.apollo.watchQuery<any>({
@@ -149,7 +149,7 @@ export class AssessmentService {
     .map(threads => (<any>threads).map(thread => thread.name))
   }
 
-  /** 
+  /**
   *   purpose:  return thread names arr given a schema
   *   @input:   A valid schema
   *   @output:  Observable
@@ -186,10 +186,10 @@ export class AssessmentService {
 		return await this.apollo.mutate<any>({
 			mutation: updateTeamMembersMutation,
 			variables: {
-				_id: assessmentId,
-				_teamMember: memberInfo
+				assessmentId: assessmentId,
+				teamMember: memberInfo
 			}
-		})
+		});
 	}
 
   async deleteFile(assessmentId, fileId) {
