@@ -189,6 +189,7 @@ export class QuestionsPage {
 
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
+		// if (this.currentQPos == this.currentQSetAmt) return null;
 		this.setValues();
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
@@ -251,7 +252,7 @@ export class QuestionsPage {
 		values.updatedAt = new Date();
     // we're setting this earlier.
     //values.answer = values.currentAnswer;
-		newerQuestion.currentAnswer = values.currentAnswer;
+		newerQuestion.currentAnswer = values.answer;
 		delete values.currentAnswer
 
 		var updatedAnswers = [...newerQuestion.answers, values];
@@ -532,8 +533,10 @@ export class QuestionsPage {
     var consequence = (<any>this.vals).consequence;
 
     if ( likelihood && consequence ) {
-    (<any>document.querySelectorAll('.matrix-row th')).forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
- 
+			var rows = (<any>document.querySelectorAll('.matrix-row th'));
+			console.log(rows);
+    rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
+
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);

@@ -46,6 +46,7 @@ export class HomePage {
   private threadsShown: boolean = false;
   private threads: any;
   private threadsSelectButton: string = 'Unselect All';
+	assessment: any;
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -293,13 +294,14 @@ export class HomePage {
     } else {
       this.assForm.threads.push(threadIndex);
 
+
       // using the indices to ID the threads relies on them being sorted. 
       this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );
     }
   }
 
   toggleAllThreads() {
-    this.threadsSelectButton == 'Unselect All' ? this.unselectAll() : this.selectAll() 
+    this.threadsSelectButton == 'Unselect All' ? this.unselectAll() : this.selectAll()
   }
 
   unselectAll() {

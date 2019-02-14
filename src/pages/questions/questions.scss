@@ -69,7 +69,7 @@ $basic-cell-size: 4vw;
         display: flex;
         align-items: center;
         justify-content: center;
-        h4 { 
+        h4 {
           transform: rotate(-90deg);
           height: 1em;
         }
@@ -442,12 +442,12 @@ $arrow-width: 1em;
 
 .risk-wrapper {
 
-    width: 45%;
+    width: 50%;
     // border: 1px solid blue;
     display: inline-block;
-    padding: 10px;
+    padding: 5px;
     float: right;
-    margin-right: 60px;
+    // margin-right: 60px;
     .risk {
       width: 100%;
       display:flex;
@@ -455,10 +455,10 @@ $arrow-width: 1em;
       align-items: flex-start;
 
       .dev-border {
-          width: 24vw;
+          width: 50%;
 
           h5 {
-              padding: 1vw;
+              padding: 0 1vw;
           }
 
           .likelihood-wrapper {
@@ -767,6 +767,30 @@ $arrow-width: 1em;
   }
 }
 
+.x-axis-wrapper {
+  width: 100%;
+}
+
+.x-axis-arrow-wrapper{
+  width: 100%;
+}
+
+.x-axis-label-wrapper {
+  width: 100%;
+}
+
+.y-axis-wrapper {
+  height: 300px;
+}
+
+.y-axis-label {
+  height: 300px;
+}
+
+.y-axis-arrow-wrapper {
+  height: 300px;
+}
+
 
 
 
@@ -791,6 +815,22 @@ $arrow-width: 1em;
           }
         }
       }
+    }
+
+    .x-axis-arrow-wrapper {
+      height: 5em;
+    }
+
+    .y-axis-wrapper {
+      height: 500px;
+    }
+
+    .y-axis-label {
+      height: 500px;
+    }
+
+    .y-axis-arrow-wrapper {
+      height: 500px;
     }
 }
 }
@@ -820,7 +860,7 @@ $arrow-width: 1em;
 
   .selected {
     // border: 7px solid black;
-    font-size: 1.8em; 
+    font-size: 1.8em;
     filter: brightness(75%);
   }
 
