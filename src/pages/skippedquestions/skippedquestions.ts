@@ -67,7 +67,7 @@ export class SkippedquestionsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-					this.skipped = (<any>data.data).assessment.questions.filter(a => a.currentAnswer == "skipped");
+					this.skipped = (<any>data.data).assessment.questions.filter(q => q.currentAnswer == "skipped");
 
 					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);
