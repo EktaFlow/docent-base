@@ -148,7 +148,8 @@ export class HomePage {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
 		// move this to constants when we decide it's home.
-		var url = "http://dev.mfgdocent.com/auth/share";
+		var url = "https://web.mfgdocent.com/auth/share";
+		
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
@@ -293,8 +294,9 @@ export class HomePage {
     } else {
       this.assForm.threads.push(threadIndex);
 
-      // using the indices to ID the threads relies on them being sorted.
-      this.assForm.threads = this.assessment.threads.sort((a,b) => a - b );
+
+      // using the indices to ID the threads relies on them being sorted. 
+      this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );
     }
   }
 
@@ -303,12 +305,12 @@ export class HomePage {
   }
 
   unselectAll() {
-    this.assessment.threads = [];
+    this.assForm.threads = [];
     this.threadsSelectButton = 'Select All';
   }
 
   selectAll() {
-    this.assessment.threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    this.assForm.threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     this.threadsSelectButton = 'Unselect All';
   }
 
