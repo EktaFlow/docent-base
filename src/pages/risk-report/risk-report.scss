@@ -65,4 +65,13 @@ page-risk-report {
      // border: 1px solid red;
      width: 100%;
   }
+
+  .risk-header {
+    width: 100%;
+    h2{
+      text-align: center;
+      // border: 1px solid black;
+      text-decoration: underline;
+    }
+  }
 }

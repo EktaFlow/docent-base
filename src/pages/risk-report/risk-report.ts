@@ -30,6 +30,7 @@ query assessment($_id: String) {
         		currentAnswer
         		questionId
             answers {
+                answer
                 notesNo
                 notesYes
                 notesNA
@@ -61,6 +62,7 @@ export class RiskReportPage {
   assessmentId: any;
   pageName: any = "Detailed Risk Report";
   schema: any;
+  targetMRL: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.assessmentId = navParams.data.assessmentId;
@@ -79,12 +81,15 @@ export class RiskReportPage {
       .subscribe(data => {
         var assessment = (<any>data.data).assessment;
         var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
+        this.targetMRL = assessment.targetMRL;
+        var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
+        for (let question of extraQuestions){
+          question = question.answers.filter(a => a.answer == null);
+        }
+        extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
 
-
-        console.log(assessment);
-        console.log(questions);
         this.schema = this.createSchemaObject(questions);
-        console.log(this.schema)
+        this.nonLevelSchema = this.createSchemaObject(extraQuestions);
       });
   }
 
@@ -101,7 +106,7 @@ export class RiskReportPage {
      					var mrLevels = this.filterByProperty(questions, "mrLevel");
      					var a = mrLevels.map(f => {
      						var questionSet = questions.filter(s => s.mrLevel == f)
-     						   .map(a => ({ text: a.questionText, questionId: a.questionId, latestAnswer: a.answers[a.answers.length - 1] }));
+     						   .map(a => ({ text: a.questionText, questionId: a.questionId, mrl: a.mrLevel,latestAnswer: a.answers[a.answers.length - 1] }));
      							 return {mrl: f, questionSet: questionSet}
      					})
      				return {subheader: sName, questions: a};
