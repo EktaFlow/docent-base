@@ -68,6 +68,7 @@ export class RiskReportPage {
   schema: any;
   questions: any;
   targetMRL: any;
+  nonLevelSchema: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.assessmentId = navParams.data.assessmentId;
@@ -86,6 +87,7 @@ export class RiskReportPage {
       .subscribe(data => {
         var assessment = (<any>data.data).assessment;
         var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
+	this.questions = questions;
         this.targetMRL = assessment.targetMRL;
         var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
         for (let question of extraQuestions){

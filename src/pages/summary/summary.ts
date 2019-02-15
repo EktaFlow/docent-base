@@ -100,6 +100,7 @@ export class SummaryPage {
 			.subscribe(data => {
                             var assessment = (<any>data.data).assessment;
                             var questions = assessment.questions;
+			    this.allQuestions = assessment.questions;
                             // console.log(this.questions);
                             questions = questions.filter(q => q.threadName.length > 1);
                             this.targetMRL = assessment.targetMRL;
@@ -144,15 +145,7 @@ export class SummaryPage {
                   var mrl = question.mrLevel;
                   sortedMRLS[mrl].push(question);
                 }
-                console.log(sortedMRLS);
 
-                for (let mrl of sortedMRLS){
-                  console.log(mrl);
-                  console.log(" i am here")
-                  // if (mrl.length > 0){
-                  //   // sortedSchemas[mrl]
-                  // }
-                }
 
                 this.nonLevelSchema = this.grabRiskScores(extraQuestions);
                 console.log(this.nonLevelSchema)
@@ -256,6 +249,7 @@ saveXLS(){
     "Criteria 5"
   ]
 
+  // allQuestions is never being set
   var subThreadNames = this.allQuestions.map(q => q.subThreadName);
 
   var values = this.schema.map(t => {
