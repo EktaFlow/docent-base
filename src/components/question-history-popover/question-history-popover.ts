@@ -39,6 +39,7 @@ export class QuestionHistoryPopoverComponent {
       var assessment = await this.assessmentService.getQuestionPageAssessment(this.assessmentId)
       assessment.subscribe(({data, loading}) => {
         var allQuestions = data.assessment.questions;
+        allQuestions = JSON.parse(JSON.stringify(allQuestions));
         this.currentQ = allQuestions.filter(q => q.questionId == this.questionId);
         this.currentQ = this.currentQ[0];
         this.decideAnswersAction(this.currentQ);
@@ -57,6 +58,9 @@ export class QuestionHistoryPopoverComponent {
   // }
 
   async getUserIds(answers){
+    if (answers != undefined){
+
+
     var ids = [];
     for (let answer of answers){
       ids.push(answer.userId);
@@ -87,7 +91,7 @@ export class QuestionHistoryPopoverComponent {
 
 
 
-
+       }
 
 
   }
@@ -97,16 +101,27 @@ export class QuestionHistoryPopoverComponent {
 }
 
   decideAnswersAction(question){
-    question = question.answers.filter(a => a.answer != null);
+    console.log(question);
+    if (question.answers.length > 0){
+      question.answers = question.answers.filter(a => a.answer != null);
+    }
+
+    console.log
+
+    if (question.answers.length > 0){
+      question.answers = question.answers.filter(a => a.answer != 'skipped');
+    }
+
 
     if (question.answers.length >= 2){
-      this.noAnswers = true;
+      this.noAnswers = false;
       this.answersSorted = this.sortAnswers(question);
     } else if (question.answers.length == 1){
-      this.noAnswers = true;
+      this.noAnswers = false;
       this.answersSorted = question.answers;
     } else {
-      this.noAnswers = false;
+      this.noAnswers = true;
+      this.answersSorted = [];
     }
   }
 
