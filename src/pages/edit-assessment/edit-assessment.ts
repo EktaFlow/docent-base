@@ -21,7 +21,9 @@ export class EditAssessmentPage {
   private editQuery: any =`
     assessment(_id: $_id) {
     teamMembers {
-    email
+      name
+      email
+      role
       }
       scope
       targetMRL
@@ -96,9 +98,12 @@ export class EditAssessmentPage {
     // threads are coming in as string... change that.
     existingAssessment.subscribe(data => {
       var assessment = data.data.assessment
+      console.log(assessment);
       var formattedDate = this.help.formatDate(assessment.targetDate);
       var numberThreads = assessment.threads.map(number => Number(number));
-      var formattedAssessment = Object.assign({}, assessment, { threads: numberThreads, targetDate: formattedDate });
+      var extensibleTeamMembers = JSON.parse(JSON.stringify(assessment.teamMembers));
+      var formattedAssessment = Object.assign({}, assessment, { teamMembers: extensibleTeamMembers,threads: numberThreads, targetDate: formattedDate });
+
 
       this.assessment = formattedAssessment;
     })
@@ -156,16 +161,14 @@ export class EditAssessmentPage {
   formatAssessment() {
   var assessment = Object.assign({}, this.assessment);
     delete assessment.__typename;
-    delete assessment.teamMembers;
-    console.log(assessment);
+    assessment.teamMembers.length > 1 ? assessment.teamMembers.forEach(tm => tm.__typename ? delete tm.__typename : null) : null
+    //    delete assessment.teamMembers;
     return assessment;
   }
 
   async updateAssessment() {
     var assessment = this.formatAssessment();
-    console.log(assessment);
     var updatedAssessment = await this.assessmentService.updateAssessment(this.assessmentId, assessment);
-    console.log(updatedAssessment);
     updatedAssessment.subscribe(a => {
       this.launchToast();
       this.navCtrl.push(UserDashboardPage);
@@ -202,6 +205,40 @@ export class EditAssessmentPage {
 
   // ON SAVE
   // new - create a new assessment, email the peeps, 
+
+  addMember(nameIn:string,emailIn:string,roleIn:string){
+    var newMember = {name: nameIn, email: emailIn, role: roleIn};
+    // this.members.push(newMember);
+    this.assessment.teamMembers.push(newMember);
+
+		var name = <any>(document.getElementById("memName"));
+		name.value = "";
+		var email = <any>(document.getElementById("memEmail"));
+		email.value = "";
+		var role = <any>(document.getElementById("memRole"));
+		role.value = "";
+		this.presentToast();
+  }
+
+  removeMember(memEmail){
+  // this.members = this.members.filter(m => m.email != memEmail);
+		this.assessment.teamMembers = this.assessment.teamMembers.filter(m => m.email != memEmail);
+    // this.members.pop();
+    // this.assessment.teamMembers.pop();
+  }
+
+	presentToast() {
+	  let toast = this.toast.create({
+	    message: 'Member added to assessment and emailed',
+	    duration: 2000,
+	    position: 'middle'
+	  });
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
+
+	  toast.present();
+}
   
 
   /**

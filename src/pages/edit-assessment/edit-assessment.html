@@ -35,28 +35,30 @@
     </div>
 
   <!-- Save for auth -->
-  <h6 class="team-members-title">Team Members</h6>
-    <form class="member-form">
-      <div class="member-list">
-        <li *ngFor = "let member of assessment.teamMembers">
-          <pre> {{member}}</pre>
-        </li>
+<h6 class="team-members-title">Team Members</h6>
+  <form class="member-form">
+    <div class="member-list">
+      <li *ngFor = "let member of assessment.teamMembers" >
+        <b>{{member.name}}</b> at <b>{{member.email}}</b> as <b>{{member.role}}</b>
+        <ion-icon color="danger" name="remove-circle" (click)="removeMember(member.email)" class="removeMember"></ion-icon>
+        <!-- <span id="memberToast" style="color:secondary"> </span> -->
+      </li>
+    </div>
+    <div class="members">
+      <div class="member-inputs">
+        <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
+        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
+        <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
+        <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
+        <button ion-button small color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</button>
+
       </div>
-      <div class="members">
-        <div class="member-inputs">
-          <input type="text" name="memEmail" placeholder = "Member Email" #memEmail>
-          <input type="text" name="memRole" placeholder = "Member Role" #memRole>
-        </div>
-      </div>
-      <div class = "buttons">
-        <button (click)="removeMember()" style="background-color:white">
-            <ion-icon name="remove-circle" color = "danger"></ion-icon>
-        </button>
-        <button (click)="addMember(memEmail.value,memRole.value)" style="background-color:white">
-            <ion-icon name="add-circle" color = "secondary"></ion-icon>
-        </button>
-      </div>
-    </form>
+    </div>
+    <!-- <div class = "buttons">
+      <button  style="background-color:white">
+      </button>
+    </div> -->
+  </form>
 
     <div class = "mid-first-page">
       <div class="scope">
