@@ -132,6 +132,16 @@ page-summary {
         }
     }
 
+    .qspacer {
+      font-size: 0;
+      height: 220px;
+      line-height: 0;
+      border: 0px;
+      /* testing only */
+       // border: 1px solid red;
+       width: 100%;
+    }
+
     @media screen and (max-width: 1024px){
 
       .table-wrapper {

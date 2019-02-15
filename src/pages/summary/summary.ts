@@ -33,8 +33,9 @@ query assessment($_id: String) {
         		currentAnswer
         		questionId
                         answers {
-	        	    likelihood
+	        	                likelihood
                             consequence
+                            answer
                         }
     	        }
 	}
@@ -67,6 +68,7 @@ export class SummaryPage {
 	      pageName: any = "MRL Risk Summary";
         bgColor = "green";
         schema: any;
+        nonLevelSchema: any;
 
 
 
@@ -95,23 +97,63 @@ export class SummaryPage {
 			}).valueChanges
 			.subscribe(data => {
                             var assessment = (<any>data.data).assessment;
-                            this.allQuestions = assessment.questions;
+                            var questions = assessment.questions;
                             // console.log(this.questions);
-                            this.allQuestions = this.allQuestions.filter(q => q.threadName.length > 1);
+                            questions = questions.filter(q => q.threadName.length > 1);
+                            this.targetMRL = assessment.targetMRL;
+
+                var mainQuestions = questions.filter(q => q.mrLevel == this.targetMRL);
+
+                var extraQuestions = questions.filter(q => q.answers.length > 0);
+                for (let question of extraQuestions){
+                  question = question.answers.filter(a => a.answer == null);
+                }
+                extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+                var sortedMRLS = {
+                  1: [],
+                  2: [],
+                  3: [],
+                  4: [],
+                  5: [],
+                  6: [],
+                  7: [],
+                  8: [],
+                  9: [],
+                  10: []
+                }
+                var sortedSchemas = {
+                  1: [],
+                  2: [],
+                  3: [],
+                  4: [],
+                  5: [],
+                  6: [],
+                  7: [],
+                  8: [],
+                  9: [],
+                  10: []
+                }
 
 
-                            console.log(assessment);
-                            //set top-level items
-                            this.scope = assessment.scope;
-                            this.team = assessment.teamMembers;
-		            this.targetMRL = assessment.targetMRL;
-		            this.targetDate = assessment.targetDate;
-		            this.location = assessment.location;
+                this.schema = this.grabRiskScores(mainQuestions);
+                console.log(this.schema);
 
-                this.allQuestions = this.allQuestions.filter(q => q.mrLevel == this.targetMRL);
-                console.log(this.allQuestions);
+                for (let question of extraQuestions) {
+                  var mrl = question.mrLevel;
+                  sortedMRLS[mrl].push(question);
+                }
+                console.log(sortedMRLS);
 
-                this.grabRiskScores();
+                for (let mrl of sortedMRLS){
+                  console.log(mrl);
+                  console.log(" i am here")
+                  // if (mrl.length > 0){
+                  //   // sortedSchemas[mrl]
+                  // }
+                }
+
+                this.nonLevelSchema = this.grabRiskScores(extraQuestions);
+                console.log(this.nonLevelSchema)
 
 		});
 	}
@@ -128,23 +170,23 @@ export class SummaryPage {
 	}
 
 
-  grabRiskScores(){
+  grabRiskScores(questionsObj){
       //create threads object with all the right data
       //also use arrays because that is how .html file can iterate
       var threads = {};
       var threadsArr = [];
 
-      var schema = this.createThreadsObject();
+
+      var schema = this.createThreadsObject(questionsObj);
       // console.log(schema);
 
 
-      for (let question of this.allQuestions){
+      for (let question of questionsObj){
         //only need latest answer
         var answer = question.answers[question.answers.length - 1];
         var tIndex = schema.findIndex(function(obj){return obj.header == question.threadName});
         var sTIndex = schema[tIndex].subheaders.findIndex(function(obj){return obj.subThreadName == question.subThreadName});
         if (answer != undefined){
-          // console.log(answer);
           if (answer.likelihood != undefined && answer.consequence != undefined){
             var score = this.calculateRiskScore(answer.likelihood, answer.consequence);
             schema[tIndex].subheaders[sTIndex].riskScores.push(score);
@@ -154,35 +196,25 @@ export class SummaryPage {
         }
       }
 
-
-
-      // console.log(schema);
-      this.schema = schema;
+      console.log(schema);
+      return schema;
 
   }
 
-  createThreadsObject(){
-    var threadNames = this.allQuestions.map(a => a.threadName)
-    // console.log(threadNames);
+  createThreadsObject(questionsObj){
+    var threadNames = questionsObj.map(a => a.threadName)
                                      .filter(this.unique);
-    // console.log(this.allQuestions);
 
     var subThreadNames = threadNames.map( a => {
-      // console.log(a);
-     var allSubheaders = this.allQuestions.filter(b => b.threadName == a)
-     // console.log(allSubheaders);
+     var allSubheaders = questionsObj.filter(b => b.threadName == a)
      var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
-     // console.log(s)
        .map(s => {
-         // console.log(s);
          var riskScores = [];
-         var questions = this.allQuestions.filter(m => m.subThreadName == s);
-         var obj =  { subThreadName: s, "riskScores": []};
-         // console.log(obj);
+         var questions = questionsObj.filter(m => m.subThreadName == s);
+         var obj =  { subThreadName: s, riskScores: [], mrl: questions[0].mrLevel};
          return obj;
        })
-     var obj2 =  {header: a, subheaders: subThreadNames};
-     // console.log(obj2);
+     var obj2 =  {header: a, subheaders: subThreadNames };
      return obj2;
    });
 
