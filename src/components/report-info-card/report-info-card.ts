@@ -41,6 +41,7 @@ export class ReportInfoCardComponent {
   public targetDate: any;
   public location: any;
   public teamMembers: any;
+  public name: any;
 
 
   constructor(
@@ -64,6 +65,7 @@ export class ReportInfoCardComponent {
         this.scope = assessment.scope;
         this.location = assessment.location;
         this.teamMembers = assessment.teamMembers;
+        this.name = assessment.name;
       });
 
   }

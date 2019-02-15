@@ -26,9 +26,13 @@ report-info-card {
 
       p {
         display: inline-block;
-        width: 30%;
+        width: 20%;
         padding: 10px;
         vertical-align: top;
+      }
+
+      .longer {
+        width: 40%;
       }
 
       ul {
