@@ -518,7 +518,7 @@ export class QuestionsPage {
   }
 
   private clearSelected() {
-  console.log('running clear selected');
+  // console.log('running clear selected');
 			var rows = (<any>document.querySelectorAll('.matrix-row th'));
               rows.length > 0 ? rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';}) : null
   }
