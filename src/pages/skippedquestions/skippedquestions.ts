@@ -5,6 +5,8 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
 
+import * as XLSX from 'xlsx';
+
 
 import { QuestionsPage } from "../questions/questions";
 
@@ -20,6 +22,9 @@ query assessment($_id: String) {
 		subThreadName
 		questionId
 		currentAnswer
+		answers {
+			answer
+		}
 	}
 	}
 }
@@ -77,6 +82,32 @@ export class SkippedquestionsPage {
 	// AKA - you can't make me use a `PIPE`
 	filterBySubThread(subThread) {
 		return this.skipped.filter(s => s.subThreadName == subThread);
+	}
+
+	saveXLS(){
+		var header = [
+			"Subthread Name",
+			"MRL",
+			"Question Text"
+		]
+
+		var values = this.skipped.map(q => {
+			console.log(q);
+				return [
+					q.subThreadName,
+					q.mrLevel,
+					q.questionText
+				]
+		})
+
+		var worksheet = [header, ...values];
+
+		var ws = XLSX.utils.aoa_to_sheet(worksheet);
+		var wb = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, 'Skipped Questions');
+
+		/* save to file */
+		XLSX.writeFile(wb, 'skipped_questions.xlsx');
 	}
 
 }

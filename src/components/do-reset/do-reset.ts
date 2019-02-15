@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { NavController } from 'ionic-angular';
 import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard';
 
+import { Url } from '../../services/constants';
+
 @Component({
   selector: 'do-reset',
   templateUrl: 'do-reset.html'
@@ -25,7 +27,7 @@ export class DoResetComponent {
     var resetResult = await this.auth.doPasswordReset(this.passwd);
     this.resetDone = true;
 
-    setTimeout(() => window.location.replace('http://localhost:8100'), 1200);
+    setTimeout(() => window.location.replace(Url), 1200);
   }
 
 }

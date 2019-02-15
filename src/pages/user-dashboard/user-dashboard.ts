@@ -96,7 +96,11 @@ export class UserDashboardPage {
 		this.user = user;
 
 		var observe =  await this.assessmentService.getAssessments(user);
-		observe.subscribe(({data}) => this.assessments = data.assessments);
+		observe.subscribe(({data}) => {
+			this.assessments = data.assessments;
+			this.assessments = JSON.parse(JSON.stringify(this.assessments));
+			console.log(this.assessments);
+		});
 		if (window.screen.width > 440) {
 			this.showMine = true;
 			this.showShared = true;
@@ -246,8 +250,21 @@ export class UserDashboardPage {
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
-		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: assessmentId}, {cssClass: 'team-popover'})
-		.present();
+		let myEmitter = new EventEmitter<any>();
+		myEmitter.subscribe( data =>  {
+		console.log(data);
+		var assIndex= this.assessments.findIndex(a => a.id == assessmentId);
+		this.assessments[assIndex].teamMembers.push(data.data.addTeamMember);
+		console.log(this.assessments[assIndex]);
+		});
+
+		this.popOver.create(AddTeamMembersPopOverComponent,
+			{assessmentId: assessmentId,
+			emitter: myEmitter},
+			{cssClass: 'team-popover'})
+				.present();
+
+
 	}
 
 	removeAssessmentFromPage(assessmentId){

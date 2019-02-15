@@ -189,6 +189,7 @@ export class QuestionsPage {
 
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
+		// if (this.currentQPos == this.currentQSetAmt) return null;
 		this.setValues();
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
@@ -516,9 +517,16 @@ export class QuestionsPage {
 	}
   }
 
+  private clearSelected() {
+  console.log('running clear selected');
+			var rows = (<any>document.querySelectorAll('.matrix-row th'));
+              rows.length > 0 ? rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';}) : null
+  }
+
   public calculateRiskScore() {
     // preventing off by one errors, with nulls.
     // values should always be 1-5
+    this.clearSelected();
     var riskMatrix = [
       [ null ],
       [ null, 1, 3,  5,  8,  12],
@@ -539,12 +547,15 @@ export class QuestionsPage {
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);
 
-      var selectedId = likelihood + consequence + 'm';
-      var selectedBox = document.getElementById(selectedId);
-      var name = selectedBox.className.replace(/ selected/g, '')
-      selectedBox.className = `${name} selected`;
-
-      selectedBox.innerHTML = String(riskMatrix[likelihoodIndex][consequenceIndex]);
+      var selectedId = 'm' + String(likelihood) + String(consequence);
+      var selectedBox = document.querySelectorAll("." + selectedId);
+      console.log(selectedBox);
+      var lordy = Array.from(selectedBox);
+      lordy.forEach( a => {
+      	var name = a.className.replace(/ selected/g, '')
+      	a.className = `${name} selected`;
+      	a.innerHTML = String(riskMatrix[likelihoodIndex][consequenceIndex]);
+      })
 
       return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {

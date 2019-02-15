@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import {ReportInfoCardComponent} from '../../components/report-info-card/report-info-card';
+
+import * as XLSX from 'xlsx';
+
 
 
 import { Apollo } from "apollo-angular";
@@ -62,6 +66,7 @@ export class RiskReportPage {
   assessmentId: any;
   pageName: any = "Detailed Risk Report";
   schema: any;
+  questions: any;
   targetMRL: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
@@ -90,6 +95,7 @@ export class RiskReportPage {
 
         this.schema = this.createSchemaObject(questions);
         this.nonLevelSchema = this.createSchemaObject(extraQuestions);
+
       });
   }
 
@@ -160,6 +166,59 @@ export class RiskReportPage {
     } else {
       return " ";
     }
+  }
+
+  public saveXLS() {
+        // var headers = this.columns.map(c => c.title);
+        var headers = [
+          "Thread Name",
+          "SubThread Name",
+          "Question Text",
+          "Comments/Rationale",
+          "Risk Score",
+          "Greatest Impact",
+          "Risk Response",
+          "MMP Summary"
+        ]
+        var values = this.questions.map(q => {
+
+            if (q.answers.length > 0) {
+              var latestAnswer = q.answers[q.answers.length - 1];
+              var currentComments;
+              if (latestAnswer.notesYes != undefined) { currentComments = latestAnswer.notesYes}
+              if (latestAnswer.notesNo != undefined) { currentComments = latestAnswer.notesNo}
+              if (latestAnswer.notesNA != undefined) { currentComments = latestAnswer.notesNA}
+              var riskScore = this.calculateRiskScore(latestAnswer)
+              console.log(riskScore);
+
+                return [
+                        q.threadName,
+                        q.subThreadName,
+                        q.questionText,
+                        currentComments,
+                        riskScore,
+                        latestAnswer.greatestImpact,
+                        latestAnswer.riskResponse,
+                        latestAnswer.mmpSummary
+                ];
+              } else {
+                return [
+                  q.threadName,
+                  q.subThreadName,
+                  q.questionText
+                ]
+              }
+        })
+
+        var worksheet = [headers, ...values];
+        console.log(worksheet);
+
+        var ws = XLSX.utils.aoa_to_sheet(worksheet);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Detailed Risk Report for MRL ' + String(this.targetMRL));
+
+        /* save to file */
+        XLSX.writeFile(wb, 'detailed_risk_report.xlsx');
   }
 
   public pickRiskColor(latestAnswer){

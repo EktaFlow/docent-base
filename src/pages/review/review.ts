@@ -5,6 +5,8 @@ import { TopbarComponent } from '../../components/topbar/topbar';
 import { QuestionsPage } from "../questions/questions";
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
 
+import * as XLSX from 'xlsx';
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -102,7 +104,7 @@ export class ReviewPage {
                                   if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
                                  var drilledQuestion = {
                                       questionId: q.questionId,
-                                   questionText: q.questionText,
+                                   		questionText: q.questionText,
                                       currentAnswer: q.answers[q.answers.length - 1].answer,
                                       objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
                                     }
@@ -118,6 +120,32 @@ export class ReviewPage {
 					this.location = assessment.location;
 					this.files = assessment.files;
 		});
+	}
+
+	saveXLS(){
+		var headers = [
+			"Question Text",
+			"Current Answer",
+			"Objective Evidence"
+		];
+
+		var values = this.allQuestions.map(q => {
+
+			return [
+				q.questionText,
+				q.currentAnswer,
+				q.objectiveEvidence
+			];
+		})
+
+		var worksheet = [headers, ...values];
+
+		var ws = XLSX.utils.aoa_to_sheet(worksheet);
+		var wb = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, 'Review Page');
+
+		/* save to file */
+		XLSX.writeFile(wb, 'review.xlsx');
 	}
 
 }
