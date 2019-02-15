@@ -69,6 +69,7 @@ export class RiskReportPage {
   questions: any;
   targetMRL: any;
   nonLevelSchema: any;
+  extraQuestions: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.assessmentId = navParams.data.assessmentId;
@@ -94,6 +95,7 @@ export class RiskReportPage {
           question = question.answers.filter(a => a.answer == null);
         }
         extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+        this.extraQuestions = extraQuestions;
 
         this.schema = this.createSchemaObject(questions);
         this.nonLevelSchema = this.createSchemaObject(extraQuestions);
@@ -183,36 +185,16 @@ export class RiskReportPage {
           "MMP Summary"
         ]
         var values = this.questions.map(q => {
+          return this.returnValues(q);
+        });
 
-            if (q.answers.length > 0) {
-              var latestAnswer = q.answers[q.answers.length - 1];
-              var currentComments;
-              if (latestAnswer.notesYes != undefined) { currentComments = latestAnswer.notesYes}
-              if (latestAnswer.notesNo != undefined) { currentComments = latestAnswer.notesNo}
-              if (latestAnswer.notesNA != undefined) { currentComments = latestAnswer.notesNA}
-              var riskScore = this.calculateRiskScore(latestAnswer)
-              console.log(riskScore);
+        var nonLevelValues = this.extraQuestions.map(q => {
+          return this.returnValues(q);
+        });
 
-                return [
-                        q.threadName,
-                        q.subThreadName,
-                        q.questionText,
-                        currentComments,
-                        riskScore,
-                        latestAnswer.greatestImpact,
-                        latestAnswer.riskResponse,
-                        latestAnswer.mmpSummary
-                ];
-              } else {
-                return [
-                  q.threadName,
-                  q.subThreadName,
-                  q.questionText
-                ]
-              }
-        })
+        var finalValues = [...values, ...nonLevelValues];
 
-        var worksheet = [headers, ...values];
+        var worksheet = [headers, ...finalValues];
         console.log(worksheet);
 
         var ws = XLSX.utils.aoa_to_sheet(worksheet);
@@ -221,6 +203,35 @@ export class RiskReportPage {
 
         /* save to file */
         XLSX.writeFile(wb, 'detailed_risk_report.xlsx');
+  }
+
+  returnValues(q){
+      if (q.answers.length > 0) {
+      var latestAnswer = q.answers[q.answers.length - 1];
+      var currentComments;
+      if (latestAnswer.notesYes != undefined) { currentComments = latestAnswer.notesYes}
+      if (latestAnswer.notesNo != undefined) { currentComments = latestAnswer.notesNo}
+      if (latestAnswer.notesNA != undefined) { currentComments = latestAnswer.notesNA}
+      var riskScore = this.calculateRiskScore(latestAnswer)
+      console.log(riskScore);
+
+        return [
+                q.threadName,
+                q.subThreadName,
+                q.questionText,
+                currentComments,
+                riskScore,
+                latestAnswer.greatestImpact,
+                latestAnswer.riskResponse,
+                latestAnswer.mmpSummary
+        ];
+      } else {
+        return [
+          q.threadName,
+          q.subThreadName,
+          q.questionText
+        ]
+      }
   }
 
   public pickRiskColor(latestAnswer){
