@@ -6,6 +6,10 @@
 
   <report-info-card [assessmentId]="assessmentId"></report-info-card>
 
+  <div class="toolbar">
+    <button ion-button (click)="saveXLS">Export to XLSX</button>
+  </div>
+
   <div class = "survey-info">
     <li *ngFor = "let question of allQuestions">
       <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
