@@ -34,6 +34,7 @@ query assessment($_id: String) {
         		currentAnswer
         		questionId
             answers {
+                answer
                 notesNo
                 notesYes
                 notesNA
@@ -84,14 +85,17 @@ export class RiskReportPage {
       }).valueChanges
       .subscribe(data => {
         var assessment = (<any>data.data).assessment;
-        this.questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
+        var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
         this.targetMRL = assessment.targetMRL;
+        var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
+        for (let question of extraQuestions){
+          question = question.answers.filter(a => a.answer == null);
+        }
+        extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
 
+        this.schema = this.createSchemaObject(questions);
+        this.nonLevelSchema = this.createSchemaObject(extraQuestions);
 
-        console.log(assessment);
-        console.log(this.questions);
-        this.schema = this.createSchemaObject(this.questions);
-        console.log(this.schema)
       });
   }
 
@@ -108,7 +112,7 @@ export class RiskReportPage {
      					var mrLevels = this.filterByProperty(questions, "mrLevel");
      					var a = mrLevels.map(f => {
      						var questionSet = questions.filter(s => s.mrLevel == f)
-     						   .map(a => ({ text: a.questionText, questionId: a.questionId, latestAnswer: a.answers[a.answers.length - 1] }));
+     						   .map(a => ({ text: a.questionText, questionId: a.questionId, mrl: a.mrLevel,latestAnswer: a.answers[a.answers.length - 1] }));
      							 return {mrl: f, questionSet: questionSet}
      					})
      				return {subheader: sName, questions: a};
