@@ -517,6 +517,7 @@ export class QuestionsPage {
   }
 
   private clearSelected() {
+  console.log('running clear selected');
 			var rows = (<any>document.querySelectorAll('.matrix-row th'));
               rows.length > 0 ? rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';}) : null
   }
@@ -524,6 +525,7 @@ export class QuestionsPage {
   public calculateRiskScore() {
     // preventing off by one errors, with nulls.
     // values should always be 1-5
+    this.clearSelected();
     var riskMatrix = [
       [ null ],
       [ null, 1, 3,  5,  8,  12],
@@ -532,27 +534,27 @@ export class QuestionsPage {
       [ null, 6, 12, 18, 22, 24],
       [ null, 9, 16, 20, 23, 25]
     ];
-    this.clearSelected();
 
     // typescript -_-
     var likelihood = (<any>this.vals).likelihood;
     var consequence = (<any>this.vals).consequence;
 
     if ( likelihood && consequence ) {
-			var rows = (<any>document.querySelectorAll('.matrix-row th'));
-			console.log(rows);
-    rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
-
+    (<any>document.querySelectorAll('.matrix-row th')).forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
+ 
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);
 
-      var selectedId = String(likelihood) + String(consequence) + 'm';
-      var selectedBox = document.getElementById(selectedId);
-      var name = selectedBox.className.replace(/ selected/g, '')
-      selectedBox.className = `${name} selected`;
-
-      selectedBox.innerHTML = String(riskMatrix[likelihoodIndex][consequenceIndex]);
+      var selectedId = 'm' + String(likelihood) + String(consequence);
+      var selectedBox = document.querySelectorAll("." + selectedId);
+      console.log(selectedBox);
+      var lordy = Array.from(selectedBox);
+      lordy.forEach( a => {
+      	var name = a.className.replace(/ selected/g, '')
+      	a.className = `${name} selected`;
+      	a.innerHTML = String(riskMatrix[likelihoodIndex][consequenceIndex]);
+      })
 
       return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {
