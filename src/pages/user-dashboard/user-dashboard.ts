@@ -127,7 +127,10 @@ export class UserDashboardPage {
 			.then(a => a.json())
 			.then(a => this.sharedAssessmentIds = a )
 			.catch(e => console.log(e));
-		}
+			} else {
+			console.log('we not in auth.currentU');
+			}
+		
 	}
 
 
@@ -142,6 +145,7 @@ export class UserDashboardPage {
 	}
 
 	pullSharedAssessments() {
+	console.log(this.sharedAssessmentIds);
 
 		this.apollo.watchQuery<any>({
       query: sharedQuery,
@@ -152,7 +156,9 @@ export class UserDashboardPage {
     .valueChanges
     .subscribe(({data, loading}) => {
 		  // TODO, make this a better fix else where...
-			data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
+			var noNulls = data.getShared.filter( id => id);
+			this.sharedAssessments = noNulls;
+			// data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
     });
 
 	}
