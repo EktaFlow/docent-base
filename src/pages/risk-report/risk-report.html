@@ -4,7 +4,7 @@
 <ion-content>
 
   <report-info-card [assessmentId]="assessmentId"></report-info-card>
-  
+
 
   <div class="wrapper">
 
@@ -48,7 +48,7 @@
     </div>
 
 
-    <div class="risk-header">
+    <div class="risk-header" *ngIf="!noExtraQuestions">
       <h2>Risk Report for Non Target MRL Questions</h2>
     </div>
 

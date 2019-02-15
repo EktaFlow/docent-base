@@ -70,6 +70,7 @@ export class RiskReportPage {
   targetMRL: any;
   nonLevelSchema: any;
   extraQuestions: any;
+  noExtraQuestions: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.assessmentId = navParams.data.assessmentId;
@@ -98,7 +99,11 @@ export class RiskReportPage {
         this.extraQuestions = extraQuestions;
 
         this.schema = this.createSchemaObject(questions);
-        this.nonLevelSchema = this.createSchemaObject(extraQuestions);
+
+        if (extraQuestions.length > 0){
+          this.noExtraQuestions = false;
+          this.nonLevelSchema = this.createSchemaObject(extraQuestions);
+        }
 
       });
   }
@@ -175,6 +180,7 @@ export class RiskReportPage {
   public saveXLS() {
         // var headers = this.columns.map(c => c.title);
         var headers = [
+          "MRL",
           "Thread Name",
           "SubThread Name",
           "Question Text",
@@ -216,6 +222,7 @@ export class RiskReportPage {
       console.log(riskScore);
 
         return [
+                q.mrLevel,
                 q.threadName,
                 q.subThreadName,
                 q.questionText,
