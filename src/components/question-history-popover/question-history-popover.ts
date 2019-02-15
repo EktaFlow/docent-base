@@ -97,6 +97,8 @@ export class QuestionHistoryPopoverComponent {
 }
 
   decideAnswersAction(question){
+    question = question.answers.filter(a => a.answer != null);
+
     if (question.answers.length >= 2){
       this.noAnswers = true;
       this.answersSorted = this.sortAnswers(question);
