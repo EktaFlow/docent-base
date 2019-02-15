@@ -1,7 +1,7 @@
-<div style="display:flex; flex-direction: column">
+<div class="wrapper desktop">
   <ion-icon name="close-circle" (click)="closePopover()" class="close"></ion-icon>
 
-        <div id="top">
+  <div id="top">
   <div class="title-header">
     <h5>Manufacturing Readiness Level Risk Matrix</h5>
   </div>
@@ -16,8 +16,8 @@
       </button>
     </div>
   </div>
-        </div>
-        <div id="bottom">
+</div>
+<div id="bottom">
 
   <div class="matrix-table-container">
   <div class="likelihood-label">
@@ -183,4 +183,199 @@ Approach and processes are well understood and documented</th>
     </table>
   </div>
   </div > <!-- end of 'bottom' -->
+</div>
+
+
+
+<div class="mobile-wrapper mobile">
+  <ion-icon name="close-circle" class="close-mobile" (click)="closePopover()"></ion-icon>
+  <div class="first-container">
+
+    <div class="title-header">
+      <h5>Manufacturing Readiness Level Risk Matrix</h5>
+    </div>
+
+  <div class="matrix-table-container-mobile">
+    <div class="likelihood-label">
+      <p>Likelihood</p>
+    </div>
+    <table class="risk-matrix-table" style="float:left;">
+      <tr class="matrix-row">
+        <th class="likelihood-cell">Near Certainty</th>
+        <th class="input-cell">5</th>
+        <th class="low-risk-cell">9</th>
+        <th class="med-risk-cell">16</th>
+        <th class="high-risk-cell">20</th>
+        <th class="high-risk-cell">23</th>
+        <th class="high-risk-cell">25</th>
+      </tr>
+      <tr class="matrix-row">
+        <th class="likelihood-cell">Highly Likely</th>
+        <th class="input-cell">4</th>
+        <th class="low-risk-cell">6</th>
+        <th class="med-risk-cell">13</th>
+        <th class="med-risk-cell">18</th>
+        <th class="high-risk-cell">22</th>
+        <th class="high-risk-cell">24</th>
+      </tr>
+      <tr class="matrix-row">
+        <th class="likelihood-cell">Moderate</th>
+        <th class="input-cell">3</th>
+        <th class="low-risk-cell">4</th>
+        <th class="low-risk-cell">10</th>
+        <th class="med-risk-cell">15</th>
+        <th class="med-risk-cell">19</th>
+        <th class="high-risk-cell">21</th>
+      </tr>
+      <tr class="matrix-row">
+        <th class="likelihood-cell">Low Likelihood</th>
+        <th class="input-cell">2</th>
+        <th class="low-risk-cell">2</th>
+        <th class="low-risk-cell">7</th>
+        <th class="low-risk-cell">11</th>
+        <th class="med-risk-cell">14</th>
+        <th class="med-risk-cell">17</th>
+      </tr>
+      <tr class="matrix-row">
+        <th class="likelihood-cell">Not Likely</th>
+        <th class="input-cell">1</th>
+        <th class="low-risk-cell">1</th>
+        <th class="low-risk-cell">3</th>
+        <th class="low-risk-cell">5</th>
+        <th class="low-risk-cell">8</th>
+        <th class="med-risk-cell">12</th>
+      </tr>
+      <tr class="matrix-row">
+        <th class="empty-cell"></th>
+        <th class="empty-cell"></th>
+        <th class="input-cell">1</th>
+        <th class="input-cell">2</th>
+        <th class="input-cell">3</th>
+        <th class="input-cell">4</th>
+        <th class="input-cell">5</th>
+      </tr>
+      <tr class="consequence-row">
+        <th class="empty-cell"></th>
+        <th class="empty-cell"></th>
+        <th class="consequence-cell">Negligible</th>
+        <th class="consequence-cell">Marginal</th>
+        <th class="consequence-cell">Moderate</th>
+        <th class="consequence-cell">Critical</th>
+        <th class="consequence-cell">Catastrophic</th>
+      </tr>
+      <tr id="con-label" class="consequence-row">
+        <th class="empty-cell"></th>
+        <th class="empty-cell"></th>
+        <th id="empty-consequence-cell-left"></th>
+        <th class="empty-consequence-cell-middle"></th>
+        <th class="consequence-label">Consequence</th>
+        <th class="empty-consequence-cell-middle"></th>
+        <th id="empty-consequence-cell-right"></th>
+      </tr>
+    </table>
+
+    <div class="color-coding">
+      <div id="color-code-cell1">Low Risk</div>
+      <div id="color-code-cell2">Medium Risk</div>
+      <div id="color-code-cell3">High Risk</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- <hr> -->
+
+  <div class="second-container">
+    <div class="axis-labels-more-info-mobile">
+      <h6 class="toggle-header">View Rating Descriptions</h6>
+      <div id="buttons-container">
+        <button ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable('likelihood')">
+          Likelihood
+        </button>
+        <button ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable('consequence')">
+          Consequence
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="this.chartView =='likelihood'" class="explainer">
+      <table class="criteria-table">
+        <tr>
+          <h4 class="explainer-heading">Likelihood</h4>
+        </tr>
+        <tr class="crit-table-row">
+          <th class="crit-table-left-col">Rating</th>
+          <th class="crit-table-right-col" id="rating-descrip-heading">Description</th>
+        </tr>
+        <tr class="crit-table-row">
+          <th class="crit-table-left-col">5 - Near Certainty</th>
+          <th class="crit-table-right-col">Assume and Anticipate Occurrence (>90%)<br/>
+  Approach and processes cannot mitigate risk; Immature technology; System very complex</th>
+        </tr>
+        <tr class="crit-table-row">
+          <th class="crit-table-left-col">4 - Highly Likely</th>
+          <th class="crit-table-right-col">Very High Chance of Occurrence (65% to 90%)<br/>
+  Approach and processes not well documented; Technology available but not validated</th>
+        </tr>
+        <tr class="crit-table-row">
+          <th class="crit-table-left-col">3 - Moderate</th>
+          <th class="crit-table-right-col">Significant Chance of Occurrence (40% to 65%)<br/>
+  Approach and processes are partially documented; Un-validated technology has been shown to be feasible by analogy, test or analysis</th>
+        </tr>
+        <tr class="crit-table-row">
+          <th class="crit-table-left-col">2 - Low Likelihood</th>
+          <th class="crit-table-right-col">Occurrence Possible but Less Than Likely (10% to 40%)<br/>
+  Current approach and processes understood and documented; most technology has been validated</th>
+        </tr>
+        <tr class="crit-table-row">
+          <th class="crit-table-left-col">1 - Not Likely</th>
+          <th class="crit-table-right-col">Occurrence is Possible but Very Unlikely (<10%)<br/>
+  Approach and processes are well understood and documented</th>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="this.chartView =='consequence'" class="explainer">
+      <table class="criteria-table">
+        <tr>
+          <h4 class="explainer-heading">Consequence</h4>
+        </tr>
+        <tr class="cons-table-row">
+          <th class="cons-rating-col">Rating</th>
+          <th class="cons-cost-col">Cost</th>
+          <th class="cons-sched-col">Schedule</th>
+          <th class="cons-perf-col">Performance</th>
+        </tr>
+        <tr class="cons-table-row">
+          <th class="cons-rating-col">5 - Catastrophic</th>
+          <th class="cons-cost-col">>50%</th>
+          <th class="cons-sched-col">>4.5 months</th>
+          <th class="cons-perf-col">User exit criteria not achieved</th>
+        </tr>
+        <tr class="cons-table-row">
+          <th class="cons-rating-col">4 - Critical</th>
+          <th class="cons-cost-col">35% to 50%</th>
+          <th class="cons-sched-col">3 to 4.5 months</th>
+          <th class="cons-perf-col">User exit criteria will not be achieved; all margin has been exceeded (performance failure)</th>
+        </tr>
+        <tr class="cons-table-row">
+          <th class="cons-rating-col">3 - Moderate</th>
+          <th class="cons-cost-col">25% to 35%</th>
+          <th class="cons-sched-col">1.5 to 3 months</th>
+          <th class="cons-perf-col">User exit criteria achieved with no margin</th>
+        </tr>
+        <tr class="cons-table-row">
+          <th class="cons-rating-col">2 - Marginal</th>
+          <th class="cons-cost-col">10% to 25%</th>
+          <th class="cons-sched-col">0.5 to 1.5 months</th>
+          <th class="cons-perf-col">User exit criteria achieved with reduced margin</th>
+        </tr>
+        <tr class="cons-table-row">
+          <th class="cons-rating-col">1 - Negligible</th>
+          <th class="cons-cost-col"><10%</th>
+          <th class="cons-sched-col"><0.5 months</th>
+          <th class="cons-perf-col">User exit criteria will be met with adequate margins</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
 </div>

@@ -15,6 +15,11 @@ risk-popover {
 		line-height: 5vh;
 		padding-left: 0.5vw;
 	}
+
+	.wrapper {
+		display:flex;
+		flex-direction: column;
+	}
 	.title-header {
 		text-align: center;
 		font-weight: bolder;
@@ -65,8 +70,9 @@ risk-popover {
 		border: solid black 2px;
     text-align: center;
 		@media (max-width: 460px) {
-			width: 15vw;
-			font-size: 10px;
+			width: 10vw;
+			font-size: 8px;
+			padding: 2px;
 		}
 	}
 	.low-risk-cell{
@@ -90,9 +96,12 @@ risk-popover {
 	}
 	.consequence-cell{
 		@extend %digit-cell;
-		@media (max-width: 800px) {
-			font-size: 10px;
+		@media (max-width: 790px) {
+			font-size: 8px;
+			padding: 2px;
 		}
+
+
 	}
 	#empty-consequence-cell-left{
 		@extend %digit-cell;
@@ -248,6 +257,119 @@ risk-popover {
 		padding: 10px;
 		// color: black;
 		font-size: 3em;
+	}
+
+	.mobile {
+		display: none;
+	}
+
+	@media screen and (max-width: 1024px){
+		.desktop {
+			display: none;
+		}
+
+		.mobile {
+			display: block;
+		}
+
+		.mobile-wrapper{
+			width: 100%;
+			display: block;
+
+			.close-mobile {
+				font-size: 2em;
+				color: black;
+				position: absolute;
+				top: 10px;
+				right: 10px;
+			}
+
+			.first-container {
+				margin-top: 30px;
+				height: 520px;
+				width: 100%;
+				.title-header {
+					padding-top: 0;
+				}
+
+				.matrix-table-container-mobile{
+					margin-top: 30px;
+					.likelihood-label {
+						width: 30px;
+						overflow: visible;
+						border: none;
+
+
+						p {
+							// padding-left: 5px;
+							padding-left: -10px;
+							margin: 10px 2px;
+						}
+					}
+
+					.risk-matrix-table {
+						float: clear !important;
+						width: 90%;
+
+					}
+
+					.input-cell {
+						font-size: 20px;
+					}
+
+					.color-coding {
+						width: 100%;
+						float: clear;
+
+						div{
+							width: 30%;
+							display: inline-block;
+							margin: 5px;
+							padding: 2px;
+							text-align: center;
+							line-height: 2em;
+						}
+					}
+				}
+
+			}
+
+			.second-container {
+				width: 100%;
+
+				margin-top: 0px;
+				.axis-labels-more-info-mobile{
+					width: 100%;
+
+					#buttons-container {
+						margin: 0 auto;
+
+						button{
+							margin: 0 auto;
+							width: 45%;
+						}
+					}
+				}
+
+				.explainer {
+					width: 100%;
+
+					.criteria-table{
+						width: 100%;
+					}
+				}
+			}
+		}
+
+
+	}
+
+	@media screen and (max-width: 1024px) and (min-width: 420px){
+		.mobile-wrapper {
+			.first-container{
+				height: 980px;
+			}
+		}
 	}
 
 
