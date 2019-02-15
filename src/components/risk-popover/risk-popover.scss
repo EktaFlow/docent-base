@@ -15,6 +15,11 @@ risk-popover {
 		line-height: 5vh;
 		padding-left: 0.5vw;
 	}
+
+	.wrapper {
+		display:flex;
+		flex-direction: column;
+	}
 	.title-header {
 		text-align: center;
 		font-weight: bolder;
@@ -248,6 +253,12 @@ risk-popover {
 		padding: 10px;
 		// color: black;
 		font-size: 3em;
+	}
+
+	@media screen and (max-width: 1024px){
+		.wrapper {
+			
+		}
 	}
 
 
