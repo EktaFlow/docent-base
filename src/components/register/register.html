@@ -4,10 +4,10 @@
         <h6 *ngIf="this.errors.length > 0"class="register-error">there are errors with your registration</h6>
         <h6 *ngIf="this.errors.length == 0"class="blank">there are errors with your registration</h6>
         </div>
-        <div>
+        <div class="register-wrapper">
 			<div id="register-container">
               <div *ngIf="submitted" id="post-register">
-                <h6> Thank you for registering. Please check your email to complete the registration process.</h6> 
+                <h6> Thank you for registering. Please check your email to complete the registration process.</h6>
               </div>
               <div *ngIf="!submitted" id="pre-register">
 
@@ -27,7 +27,7 @@
 					<input  type="email" name="emaial" [(ngModel)]="user.email">
         </div>
 
-         <div> 
+         <div>
                 <div style="display:flex; justify-content:space-between">
 						<h5>Password *</h5>
             <h6 *ngIf="checkError('invalid_passwd') && !checkError('passwd')" class="register-error">invalid password</h6>
@@ -37,7 +37,7 @@
 							<input  type="password" name="passwd" [(ngModel)]="user.passwd">
 				 </div>
 
-         <div> 
+         <div>
                 <div style="display:flex; justify-content:space-between">
 						<h5>Repeat Password</h5>
             <h6 *ngIf="checkError('passwd2')" class="register-error">enter a password</h6>
@@ -51,7 +51,7 @@
 
           <div id="password-rules">
                   <h6 *ngIf="checkError('invalid_passwd')" style="color:red">* passwords must be at least 10 characters in length, with at least one digit, special character, and uppercase letter.  </h6>
-                  <h6 *ngIf="!checkError('invalid_passwd')"> * passwords must be at least 10 characters in length, with at least one digit, special character, and uppercase letter.  </h6> 
+                  <h6 *ngIf="!checkError('invalid_passwd')"> * passwords must be at least 10 characters in length, with at least one digit, special character, and uppercase letter.  </h6>
           </div>
       </div>
 
@@ -64,4 +64,6 @@
       </div>
 
      </div>
+
+     <!-- <div class="qspacer"></div> -->
 </div>
