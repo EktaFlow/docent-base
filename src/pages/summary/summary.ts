@@ -71,6 +71,7 @@ export class SummaryPage {
         bgColor = "green";
         schema: any;
         nonLevelSchema: any;
+        noExtraQuestions: boolean;
 
 
 
@@ -112,43 +113,20 @@ export class SummaryPage {
                   question = question.answers.filter(a => a.answer == null);
                 }
                 extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
-                var sortedMRLS = {
-                  1: [],
-                  2: [],
-                  3: [],
-                  4: [],
-                  5: [],
-                  6: [],
-                  7: [],
-                  8: [],
-                  9: [],
-                  10: []
-                }
-                var sortedSchemas = {
-                  1: [],
-                  2: [],
-                  3: [],
-                  4: [],
-                  5: [],
-                  6: [],
-                  7: [],
-                  8: [],
-                  9: [],
-                  10: []
-                }
+
 
 
                 this.schema = this.grabRiskScores(mainQuestions);
                 console.log(this.schema);
 
-                for (let question of extraQuestions) {
-                  var mrl = question.mrLevel;
-                  sortedMRLS[mrl].push(question);
+                this.noExtraQuestions = true;
+
+                if (extraQuestions.length > 0){
+                  this.noExtraQuestions = false;
+                  this.nonLevelSchema = this.grabRiskScores(extraQuestions);
+                  console.log(this.nonLevelSchema)
                 }
 
-
-                this.nonLevelSchema = this.grabRiskScores(extraQuestions);
-                console.log(this.nonLevelSchema)
 
 		});
 	}
