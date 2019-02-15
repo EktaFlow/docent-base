@@ -39,7 +39,7 @@ constructor(private http: HttpClient) {}
   public setReset(url) { 
   console.log(url);
     this.reset = true; 
-    var tokenRegex = /g(.*?)h/;
+    var tokenRegex = /x(.*?)h/;
     var emailRegex = /\?(.*?)$/;
     this.resetToken = tokenRegex.exec(url)[1];
     this.resetEmail = emailRegex.exec(url)[1];
