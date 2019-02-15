@@ -516,6 +516,11 @@ export class QuestionsPage {
 	}
   }
 
+  private clearSelected() {
+			var rows = (<any>document.querySelectorAll('.matrix-row th'));
+              rows.length > 0 ? rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';}) : null
+  }
+
   public calculateRiskScore() {
     // preventing off by one errors, with nulls.
     // values should always be 1-5
@@ -527,6 +532,7 @@ export class QuestionsPage {
       [ null, 6, 12, 18, 22, 24],
       [ null, 9, 16, 20, 23, 25]
     ];
+    this.clearSelected();
 
     // typescript -_-
     var likelihood = (<any>this.vals).likelihood;
@@ -541,7 +547,7 @@ export class QuestionsPage {
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);
 
-      var selectedId = likelihood + consequence + 'm';
+      var selectedId = String(likelihood) + String(consequence) + 'm';
       var selectedBox = document.getElementById(selectedId);
       var name = selectedBox.className.replace(/ selected/g, '')
       selectedBox.className = `${name} selected`;
