@@ -72,16 +72,7 @@ export class SkippedquestionsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-				var assessment = (<any>data.data).assessment;
-				//need to remove nulls out of all answers
-				console.log(assessment);
-				// for (var i = 0; i < assessment.questions.length; i++){
-				// 	// console.log(assessment.questions[i]);
-				// 	assessment.questions[i].answers.filter(a => a == null);
-				// }
-				// console.log(assessment);
-					// this.skipped = assessment.questions.filter(a => a.answers.length == 0);
-					this.skipped = assessment.questions.filter(a => a.currentAnswer == "skipped");
+					this.skipped = (<any>data.data).assessment.questions.filter(q => q.currentAnswer == "skipped");
 
 					var subThreadNames: any = this.skipped.map(s => s.subThreadName);
 					this.subThreads = subThreadNames.filter(this.unique);

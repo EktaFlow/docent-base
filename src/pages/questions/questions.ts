@@ -223,7 +223,7 @@ export class QuestionsPage {
 	///// update function
 	setValues() {
 		var values: any = Object.assign({}, this.vals)
-		values.answer === null ? values.currentAnswer = "skipped" : null
+		values.answer === null ? values.answer = "skipped" : null
 		values = this.filterAnswerVals(values);
 
 		this.updateAssessment(values);
@@ -232,7 +232,7 @@ export class QuestionsPage {
   // this is used to pass to the template
 	getQuestionValues() {
 		var values: any = Object.assign({}, this.vals)
-		values.currentAnswer === null ? values.currentAnswer = "skipped" : null
+		values.answer === null ? values.answer = "skipped" : null
 		values = this.filterAnswerVals(values);
 
 		return values
@@ -258,6 +258,7 @@ export class QuestionsPage {
 		var updatedAnswers = [...newerQuestion.answers, values];
 		newerQuestion.answers = updatedAnswers;
 
+		console.log(newerQuestion);
 		var tempAssessmentObject = JSON.parse(JSON.stringify(this.allQuestions));
 		tempAssessmentObject.splice(this.currentQuestion.questionId - 1, 1, newerQuestion);
 		this.allQuestions = tempAssessmentObject;
@@ -541,7 +542,7 @@ export class QuestionsPage {
 
     if ( likelihood && consequence ) {
     (<any>document.querySelectorAll('.matrix-row th')).forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';});
- 
+
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
       var consequenceIndex = Number(consequence);
