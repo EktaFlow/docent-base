@@ -8,7 +8,8 @@
       <h2>You have not answered this question yet.</h2>
     </div>
     <div class="top-and-block" *ngFor="let answer of answersSorted" >
-      <ng-container *ngIf="answer.answer != 'skipped' && answer.answer != null">
+      <!-- Can use truthiness of answer.answer if we don't have skipped -->
+      <ng-container *ngIf="answer.answer">
       <div class="top" (click)="toggleAnswer(answer.updatedAt)">
         <h3>{{answer.answer}} | <span><small>Answered On: {{answer.updatedAt | date:'medium'}} | <u>Open</u></small></span></h3>
       </div>
