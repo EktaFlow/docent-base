@@ -20,7 +20,7 @@ import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover
 
 export class QuestionsPage {
 
-	private vals:any = {};
+	private vals: any = {};
 	assessmentId: any;
 	private assessment: any;
 	public helpClicked: boolean = false;
@@ -222,17 +222,18 @@ export class QuestionsPage {
 	///// any modification of the inputs needed to be used in the assessment
 	///// update function
 	setValues() {
-		var values: any = Object.assign({}, this.vals)
-		values.answer === null ? values.answer = "skipped" : null
-		values = this.filterAnswerVals(values);
+    if ( this.valuesHaveChanged() ) { 
+    // if nothing has been changed -- dont do any of this.
+		  var values: any = Object.assign({}, this.vals)
+		  values = this.filterAnswerVals(values);
 
-		this.updateAssessment(values);
+      this.updateAssessment(values);
+    }
 	}
 
   // this is used to pass to the template
 	getQuestionValues() {
 		var values: any = Object.assign({}, this.vals)
-		values.answer === null ? values.answer = "skipped" : null
 		values = this.filterAnswerVals(values);
 
 		return values
@@ -267,7 +268,6 @@ export class QuestionsPage {
 
 		//updating object in the back
 
-                if ( this.refactorMe() ) {
                         console.log('we are saving to DB');
 		var tempQuestion = {
 			"currentAnswer": newerQuestion.currentAnswer
@@ -283,47 +283,29 @@ export class QuestionsPage {
 		};
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => null);
-                }
 	}
 
-        refactorMe() {
+        /**
+        *   @purpose: determine whether there have been any changes made 
+        *   @return: boolean
+        *   checks the state of this.vals against current answer of this.currentQuestion
+        */
+        valuesHaveChanged() {
                 var oldAnswer: any = {};
+                var changed = false;
                 if ( this.currentQuestion.answers.length > 0 ) {
-                        console.log('more than 1 answer');
-
                         oldAnswer = this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
-                } else {
-                        return true;
-                }
-		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
-		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
-                var newestAnswer = newerQuestion.answers[newerQuestion.answers.length - 1];
-                newestAnswer = JSON.parse(JSON.stringify(newestAnswer))
-                console.log(oldAnswer);
-                oldAnswer= JSON.parse(JSON.stringify(oldAnswer));
+                } 		
 
-                newestAnswer.userId='a';
-                oldAnswer.userId='a';
-                newestAnswer.updatedAt='a';
-                oldAnswer.updatedAt='a';
-                oldAnswer.__typename? delete oldAnswer.__typename : null;
+                // we only want to compare based on inputs, neither of these are direct inputs
+                delete this.vals.updatedAt;
+                delete this.vals.userId;
 
-                var match = true;
-
-                for (let a in oldAnswer) {
-                        oldAnswer[a] != newestAnswer[a] ? match = false : null
+                for (let value in this.vals) {
+                  this.vals[value] != oldAnswer[value] ? changed = true : null
                 }
 
-
-                if ( match ) {
-                             console.log('they match!!');
-                             return false;
-                } else {
-                        console.log('they don\'t martch!!');
-                        return true
-                }
-
-                // return false;
+                return changed;
         }
 
 	moveCurrentQuestion(way) {
