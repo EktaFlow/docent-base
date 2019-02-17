@@ -22,6 +22,7 @@ export class MyApp {
               splashScreen: SplashScreen,
               auth:         AuthService,
             keyboard: Keyboard) {
+    console.log('when do we run???');
     platform.ready().then(() => {
     if (window.location.href.includes('reset')) {
       auth.setReset(window.location.href);

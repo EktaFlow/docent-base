@@ -40,9 +40,9 @@ constructor(private http: HttpClient) {}
   console.log(url);
     this.reset = true; 
     var tokenRegex = /x(.*?)h/;
-    var emailRegex = /\?(.*?)$/;
-    this.resetToken = tokenRegex.exec(url)[1];
-    this.resetEmail = emailRegex.exec(url)[1];
+    var token = url.match(tokenRegex)[0].substring(1);
+    console.log(token);
+    this.resetToken = token;
   }
 
   public doPasswordReset(newPassword) {
