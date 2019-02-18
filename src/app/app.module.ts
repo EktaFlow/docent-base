@@ -29,7 +29,6 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { NavigatePageModule } from '../pages/navigate/navigate.module';
 import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
-import { SkippedquestionsPageModule } from '../pages/skippedquestions/skippedquestions.module';
 import { ActionitemsPageModule } from '../pages/actionitems/actionitems.module';
 import { CriteriaPageModule } from '../pages/criteria/criteria.module';
 import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.module';
@@ -75,7 +74,6 @@ import { Helpers } from '../services/helpers';
 		DashboardPageModule,
 		NavigatePageModule,
 		NotapplicablePageModule,
-		SkippedquestionsPageModule,
 		ActionitemsPageModule,
 		CriteriaPageModule,
 		UserDashboardPageModule,

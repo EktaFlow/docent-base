@@ -5,8 +5,6 @@ import { AssessmentService } from "../../services/assessment.service";
 import {AuthService} from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
 
-
-
 @Component({
   selector: 'question-history-popover',
   templateUrl: 'question-history-popover.html'
@@ -23,6 +21,31 @@ export class QuestionHistoryPopoverComponent {
   answerToShow: any = null;
   answersSorted: any;
   emails: any;
+  private questionQuery: any =`
+    question(questionId: $questionId, assessmentId: $assessmentId) {
+    	currentAnswer
+      questionId
+	answers {
+		answer
+		objectiveEvidence,
+		assumptionsYes
+		notesYes
+		who
+		when
+		what
+		reason
+		assumptionsNo
+		notesNo
+    documentation
+    assumptionsNA
+    notesNA
+    userId
+    updatedAt
+    revertedBy
+	}
+    }
+  `
+
 
 
   constructor( public navCtrl: NavController,
@@ -36,6 +59,13 @@ export class QuestionHistoryPopoverComponent {
   }
 
   async ngOnInit(){
+      var cool = await this.assessmentService.queryQuestion(this.questionId, this.assessmentId, this.questionQuery)
+      cool.subscribe(a => {
+      	this.currentQ = JSON.parse(JSON.stringify(a.data.question));
+        this.decideAnswersAction(this.currentQ);
+        this.getUserIds(this.answersSorted);
+      })
+      /*
       var assessment = await this.assessmentService.getQuestionPageAssessment(this.assessmentId)
       assessment.subscribe(({data, loading}) => {
         var allQuestions = data.assessment.questions;
@@ -47,6 +77,7 @@ export class QuestionHistoryPopoverComponent {
         this.getUserIds(this.answersSorted);
         console.log(this.answersSorted[0]);
       });
+      */
 
 
 
@@ -59,7 +90,6 @@ export class QuestionHistoryPopoverComponent {
 
   async getUserIds(answers){
     if (answers != undefined){
-
 
     var ids = [];
     for (let answer of answers){
@@ -105,13 +135,6 @@ export class QuestionHistoryPopoverComponent {
     if (question.answers.length > 0){
       question.answers = question.answers.filter(a => a.answer != null);
     }
-
-    console.log
-
-    if (question.answers.length > 0){
-      question.answers = question.answers.filter(a => a.answer != 'skipped');
-    }
-
 
     if (question.answers.length >= 2){
       this.noAnswers = false;
@@ -187,14 +210,6 @@ export class QuestionHistoryPopoverComponent {
 
 
     }
-
-    // getQuestionValues() {
-  	// 	var values: any = Object.assign({}, this.vals)
-  	// 	values.currentAnswer === null ? values.currentAnswer = "skipped" : null
-  	// 	values = this.filterAnswerVals(values);
-    //
-  	// 	return values
-  	// }
 
     filterAnswerVals(answer) {
 

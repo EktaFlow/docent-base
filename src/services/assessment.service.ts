@@ -12,6 +12,7 @@ import { assessmentQuery,
          updateTeamMembersMutation,
          deleteFileMutation   } from "./gql.service";
 import gql from 'graphql-tag';
+import { AuthUrl } from './constants';
 
 @Injectable()
 export class AssessmentService {
@@ -38,6 +39,36 @@ export class AssessmentService {
 	}
 
 
+  async queryQuestion(questionId, assessmentId, query) {
+  	var ok = gql`
+	   query question($questionId: Int, $assessmentId: String) {
+	     ${query}
+	   }
+	`
+	return await this.apollo.watchQuery<any>({
+		query: ok, 
+		fetchPolicy: 'network-only',
+                variables: {questionId, assessmentId}
+		}).valueChanges;
+  }
+
+  async removeTeamMember(assessmentId, teamMemberEmail) {
+    var mutation = gql`
+      mutation removeTeamMember($assessmentId: String, $teamMemberEmail: String) {
+        removeTeamMember(assessmentId: $assessmentId, teamMemberEmail: $teamMemberEmail)  {
+          email
+        }
+      }
+    `;
+
+    return await this.apollo.mutate({
+      mutation: mutation,
+      variables: {
+        assessmentId: assessmentId, 
+        teamMemberEmail: teamMemberEmail
+      }
+    });
+  }
 
   async queryAssessment(assessmentId, query) {
   console.log(query);
@@ -183,6 +214,7 @@ export class AssessmentService {
 
 	async updateTeamMembers(assessmentId, memberInfo){
 		console.log("are we getting to this point?");
+    this.emailSharedAssessment(assessmentId, memberInfo.email)
 		return await this.apollo.mutate<any>({
 			mutation: updateTeamMembersMutation,
 			variables: {
@@ -191,6 +223,26 @@ export class AssessmentService {
 			}
 		});
 	}
+
+  async emailSharedAssessment(assessmentId, userEmail) {
+    var teamMember = [userEmail];
+		var url = AuthUrl + "share";
+
+	// this makes sense in auth b/c we probably do want some user checking here, right?
+		fetch(url, {
+			method: "POST",
+			headers: {
+	      'Accept': 'application/json',
+	      'Content-Type': 'application/json'
+				},
+			body: JSON.stringify({
+				recipients: teamMember,
+				assessmentId
+			})
+		})
+		.then(a => console.log("okok"))
+		.catch(e => console.error(e));
+  }
 
   async deleteFile(assessmentId, fileId) {
     console.log('we in delete file in ass service');

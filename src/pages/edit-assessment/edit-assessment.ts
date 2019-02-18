@@ -3,12 +3,13 @@
 *   higher-level attributes of a given assessment.
 */
 
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, EventEmitter } from '@angular/core';
+import { IonicPage, PopoverController, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AssessmentService } from '../../services/assessment.service';
 import { Helpers } from '../../services/helpers';
 
 import { UserDashboardPage } from '../user-dashboard/user-dashboard';
+import { FileDeleteComponent } from '../../components/file-delete/file-delete';
 
 @IonicPage()
 @Component({
@@ -46,6 +47,7 @@ export class EditAssessmentPage {
 
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
+              private popovers: PopoverController,
               public navParams: NavParams,
               public help: Helpers, private toast: ToastController )
   {
@@ -206,26 +208,54 @@ export class EditAssessmentPage {
   // ON SAVE
   // new - create a new assessment, email the peeps, 
 
-  addMember(nameIn:string,emailIn:string,roleIn:string){
+  async addMember(nameIn:string,emailIn:string,roleIn:string){
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
     // this.members.push(newMember);
-    this.assessment.teamMembers.push(newMember);
+    var addedMember = await this.assessmentService.updateTeamMembers(this.assessmentId, newMember)
+    addedMember.subscribe(data => {
+      this.assessment.teamMembers.push(data.data.addTeamMember);
+		  var name = <any>(document.getElementById("memName"));
+		  name.value = "";
+		  var email = <any>(document.getElementById("memEmail"));
+		  email.value = "";
+		  var role = <any>(document.getElementById("memRole"));
+		  role.value = "";
+		  this.presentToast();
+    });
 
-		var name = <any>(document.getElementById("memName"));
-		name.value = "";
-		var email = <any>(document.getElementById("memEmail"));
-		email.value = "";
-		var role = <any>(document.getElementById("memRole"));
-		role.value = "";
-		this.presentToast();
+
   }
 
-  removeMember(memEmail){
-  // this.members = this.members.filter(m => m.email != memEmail);
-		this.assessment.teamMembers = this.assessment.teamMembers.filter(m => m.email != memEmail);
-    // this.members.pop();
-    // this.assessment.teamMembers.pop();
+  async removeMember(memEmail){
+  // var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, memEmail)
+    var removeTeamMemberEmitter = new EventEmitter();
+    //removedTeamMember.subscribe(({data}) => {
+    removeTeamMemberEmitter.subscribe( event => {
+        var newMembers = this.assessment.teamMembers.filter(member => member.email !== memEmail);
+        this.assessment.teamMembers = newMembers;
+        this.launchRemoveTeamMemberToast(memEmail);
+    });
+
+    var teamMemberRemoveData = {
+      emitter: removeTeamMemberEmitter,
+      typeToDelete: 'teamMember',
+      assessmentId: this.assessmentId,
+      teamMemberEmail: memEmail
+    };
+
+    this.popovers.create(FileDeleteComponent, teamMemberRemoveData)
+      .present({ev: event})
   }
+
+  launchRemoveTeamMemberToast(removedEmail) {
+    var toast = this.toast.create({
+      message: removedEmail + ' has been removed from this assessment',
+      duration: 3000,
+      position: 'top'
+    })
+    toast.present();
+ }
+
 
 	presentToast() {
 	  let toast = this.toast.create({

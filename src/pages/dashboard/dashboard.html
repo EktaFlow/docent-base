@@ -11,8 +11,10 @@
   </div>
 
     <report-info-card [assessmentId]="assessmentIdFromParams"></report-info-card>
+    <button *ngIf="!imageDownloading" ion-button (click)="downloadPNG()"> download png</button>
+    <button *ngIf="imageDownloading" ion-button [disabled]="true"> download png</button>
 
-  <div class="desktop">
+  <div id="desktoper" class="desktop">
   	<div class="legend" style="display:flex; align-items: center; "> <span>subthread passed: </span>
   					<div class="yes dashbox">
             <img class="dashpic" src="assets/imgs/check-mark-256.png">
@@ -102,8 +104,10 @@
 
       <div class="links">
         <button (click)="handleActionItems()" ion-button color="darkSlateBlue">Action Items</button>
+        <!-- commenting this out b/c not sure if this should exist, haven't had an N/A page available for a bit
+                regardless, this is a mobile thing
         <button (click)="handleNa()" ion-button color="darkSlateBlue">Not Applicable</button>
-        <button (click)="handleSkipped()" ion-button color="darkSlateBlue">Skipped Questions</button>
+        -->
       </div>
 
 

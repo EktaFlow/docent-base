@@ -26,7 +26,6 @@ query assessment($_id: String) {
     answers {
       answer
 		  notesNo
-      # skipped
 		  objectiveEvidence
     }
 	}
@@ -96,25 +95,23 @@ export class ReviewPage {
                             var questions = assessment.questions;
 
 
-                            var answeredOrSkipped = [];
+                            var answeredQuestions = [];
                             questions.forEach(q => {
-                                if ( q.currentAnswer == 'skipped' ) {
-                                    answeredOrSkipped.push(q);
-                               }
-                                  if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+                              if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
                                  var drilledQuestion = {
                                       questionId: q.questionId,
                                    		questionText: q.questionText,
                                       currentAnswer: q.answers[q.answers.length - 1].answer,
                                       objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
-                                    }
-                                    answeredOrSkipped.push(drilledQuestion);
-                                  }
+                                 }
+
+                                 answeredQuestions.push(drilledQuestion);
+                              }
                           });
 
                   // all questions is an array of answered questions.
                   // preserving the names to leave markup the same.
-                  this.allQuestions = answeredOrSkipped;
+                  this.allQuestions = answeredQuestions;
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
