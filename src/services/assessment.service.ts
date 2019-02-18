@@ -38,6 +38,18 @@ export class AssessmentService {
 	}
 
 
+  async queryQuestion(questionId, assessmentId, query) {
+  	var ok = gql`
+	   query question($questionId: Int, $assessmentId: String) {
+	     ${query}
+	   }
+	`
+	return await this.apollo.watchQuery<any>({
+		query: ok, 
+		fetchPolicy: 'network-only',
+                variables: {questionId, assessmentId}
+		}).valueChanges;
+  }
 
   async queryAssessment(assessmentId, query) {
   console.log(query);

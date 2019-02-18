@@ -39,7 +39,7 @@ constructor(private http: HttpClient) {}
   public setReset(url) { 
   console.log(url);
     this.reset = true; 
-    var tokenRegex = /x(.*?)h/;
+    var tokenRegex = /=.+$/;
     var token = url.match(tokenRegex)[0].substring(1);
     console.log(token);
     this.resetToken = token;

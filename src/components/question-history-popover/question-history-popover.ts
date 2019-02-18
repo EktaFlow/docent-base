@@ -23,6 +23,24 @@ export class QuestionHistoryPopoverComponent {
   answerToShow: any = null;
   answersSorted: any;
   emails: any;
+  private questionQuery: any =`
+    question(questionId: $questionId, assessmentId: $assessmentId) {
+    	currentAnswer
+	answers {
+		answer
+		objectiveEvidence,
+		assumptionsYes
+		notesYes
+		who
+		when
+		what
+		reason
+		assumptionsNo
+		notesNo
+	}
+    }
+  `
+
 
 
   constructor( public navCtrl: NavController,
@@ -36,6 +54,13 @@ export class QuestionHistoryPopoverComponent {
   }
 
   async ngOnInit(){
+      var cool = await this.assessmentService.queryQuestion(this.questionId, this.assessmentId, this.questionQuery)
+      cool.subscribe(a => {
+      	this.currentQ = JSON.parse(JSON.stringify(a.data.question));
+        this.decideAnswersAction(this.currentQ);
+        this.getUserIds(this.answersSorted);
+      })
+      /*
       var assessment = await this.assessmentService.getQuestionPageAssessment(this.assessmentId)
       assessment.subscribe(({data, loading}) => {
         var allQuestions = data.assessment.questions;
@@ -47,6 +72,7 @@ export class QuestionHistoryPopoverComponent {
         this.getUserIds(this.answersSorted);
         console.log(this.answersSorted[0]);
       });
+      */
 
 
 
