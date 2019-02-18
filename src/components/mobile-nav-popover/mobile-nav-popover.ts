@@ -7,7 +7,6 @@ import { ReviewPage } from '../../pages/review/review';
 import { DashboardPage } from '../../pages/dashboard/dashboard';
 import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
-import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
@@ -100,7 +99,6 @@ export class MobileNavPopoverComponent {
   handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
   handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
   handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
-  handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
   handleNA = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
   handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
   handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});

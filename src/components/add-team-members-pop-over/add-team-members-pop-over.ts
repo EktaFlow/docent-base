@@ -1,19 +1,9 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AssessmentService } from "../../services/assessment.service";
 import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../../services/constants";
 
-
-
-
-
-/**
- * Generated class for the AddTeamMembersPopOverComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'add-team-members-pop-over',
   templateUrl: 'add-team-members-pop-over.html'
@@ -24,6 +14,7 @@ export class AddTeamMembersPopOverComponent {
   public newMember: any = {};
   assessmentId: any;
 	emitter: any;
+  private memberAdding: boolean = false;
 
   constructor(public navCtrl: NavController,
                     public navParams: NavParams,
@@ -37,16 +28,17 @@ export class AddTeamMembersPopOverComponent {
   async addNewMember() {
     //access assessment
     //add team member to assessment
+    this.memberAdding = true;
 		var updateTM = {
 			"name" : this.newMember.name,
 			"email" : this.newMember.email,
 			"role" : this.newMember.role
-
 		}
 		console.log(this.assessmentId);
 
     var obser = await this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
 		obser.subscribe(member => {
+      // TODO: ERORR HANDLING HERE.
 			console.log(member);
 			this.sendEmailsToTeamMember(this.assessmentId);
 			this.emitter.emit(member);
@@ -77,7 +69,5 @@ export class AddTeamMembersPopOverComponent {
 		.then(a => console.log("okok"))
 		.catch(e => console.error(e));
 	}
-
-
 
 }
