@@ -53,6 +53,7 @@ export class AssessmentService {
   }
 
   async removeTeamMember(assessmentId, teamMemberEmail) {
+    console.log(teamMemberEmail);
     var mutation = gql`
       mutation removeTeamMember($assessmentId: String, $teamMemberEmail: String) {
         removeTeamMember(assessmentId: $assessmentId, teamMemberEmail: $teamMemberEmail)  {
@@ -61,6 +62,8 @@ export class AssessmentService {
       }
     `;
 
+    await this.removeAssessmentFromAuth(assessmentId, teamMemberEmail);
+
     return await this.apollo.mutate({
       mutation: mutation,
       variables: {
@@ -68,6 +71,24 @@ export class AssessmentService {
         teamMemberEmail: teamMemberEmail
       }
     });
+  }
+
+  async removeAssessmentFromAuth(assessmentId, teamMemberEmail) {
+    console.log('we in remove assessmen form auth');
+    var url = AuthUrl + 'remove-shared';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        assessmentId: assessmentId,
+        teamMemberEmail: teamMemberEmail
+      })
+      }).then(response => response.json())
+        .then(json => console.log(json))
+        .catch(err => console.error(err));
   }
 
   async queryAssessment(assessmentId, query) {
