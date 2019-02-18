@@ -40,7 +40,7 @@ export class AddTeamMembersPopOverComponent {
 		obser.subscribe(member => {
       // TODO: ERORR HANDLING HERE.
 			console.log(member);
-			this.sendEmailsToTeamMember(this.assessmentId);
+			// this.sendEmailsToTeamMember(this.assessmentId);
 			this.emitter.emit(member);
 			this.viewCtrl.dismiss();
 		});
