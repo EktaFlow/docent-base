@@ -157,13 +157,15 @@ export class EditAssessmentPage {
   }
 
   closePopover(){
-		this.navCtrl.pop();
+    //this.navCtrl.pop();
+    // you can only get to edit page from user dash && we want to refresh if a new team member has been added
+    this.navCtrl.push(UserDashboardPage);
 	}
   
   formatAssessment() {
   var assessment = Object.assign({}, this.assessment);
     delete assessment.__typename;
-    assessment.teamMembers.length > 1 ? assessment.teamMembers.forEach(tm => tm.__typename ? delete tm.__typename : null) : null
+    assessment.teamMembers.length > 0 ? assessment.teamMembers.forEach(tm => tm.__typename ? delete tm.__typename : null) : null
     //    delete assessment.teamMembers;
     return assessment;
   }
@@ -260,8 +262,8 @@ export class EditAssessmentPage {
 	presentToast() {
 	  let toast = this.toast.create({
 	    message: 'Member added to assessment and emailed',
-	    duration: 2000,
-	    position: 'middle'
+	    duration: 3000,
+	    position: 'top'
 	  });
 	  toast.onDidDismiss(() => {
 	    console.log('Dismissed toast');
