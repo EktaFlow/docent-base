@@ -208,18 +208,22 @@ export class EditAssessmentPage {
   // ON SAVE
   // new - create a new assessment, email the peeps, 
 
-  addMember(nameIn:string,emailIn:string,roleIn:string){
+  async addMember(nameIn:string,emailIn:string,roleIn:string){
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
     // this.members.push(newMember);
-    this.assessment.teamMembers.push(newMember);
+    var addedMember = await this.assessmentService.updateTeamMembers(this.assessmentId, newMember)
+    addedMember.subscribe(data => {
+      this.assessment.teamMembers.push(data.data.addTeamMember);
+		  var name = <any>(document.getElementById("memName"));
+		  name.value = "";
+		  var email = <any>(document.getElementById("memEmail"));
+		  email.value = "";
+		  var role = <any>(document.getElementById("memRole"));
+		  role.value = "";
+		  this.presentToast();
+    });
 
-		var name = <any>(document.getElementById("memName"));
-		name.value = "";
-		var email = <any>(document.getElementById("memEmail"));
-		email.value = "";
-		var role = <any>(document.getElementById("memRole"));
-		role.value = "";
-		this.presentToast();
+
   }
 
   async removeMember(memEmail){
