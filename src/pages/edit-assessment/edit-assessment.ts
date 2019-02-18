@@ -3,12 +3,13 @@
 *   higher-level attributes of a given assessment.
 */
 
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component, EventEmitter } from '@angular/core';
+import { IonicPage, PopoverController, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AssessmentService } from '../../services/assessment.service';
 import { Helpers } from '../../services/helpers';
 
 import { UserDashboardPage } from '../user-dashboard/user-dashboard';
+import { FileDeleteComponent } from '../../components/file-delete/file-delete';
 
 @IonicPage()
 @Component({
@@ -46,6 +47,7 @@ export class EditAssessmentPage {
 
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
+              private popovers: PopoverController,
               public navParams: NavParams,
               public help: Helpers, private toast: ToastController )
   {
@@ -221,12 +223,24 @@ export class EditAssessmentPage {
   }
 
   async removeMember(memEmail){
-    var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, memEmail)
-    removedTeamMember.subscribe(({data}) => {
+  // var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, memEmail)
+    var removeTeamMemberEmitter = new EventEmitter();
+    //removedTeamMember.subscribe(({data}) => {
+    removeTeamMemberEmitter.subscribe( event => {
         var newMembers = this.assessment.teamMembers.filter(member => member.email !== memEmail);
         this.assessment.teamMembers = newMembers;
-        launchRemoveTeamMemberToast(memEmail);
-    })
+        this.launchRemoveTeamMemberToast(memEmail);
+    });
+
+    var teamMemberRemoveData = {
+      emitter: removeTeamMemberEmitter,
+      typeToDelete: 'teamMember',
+      assessmentId: this.assessmentId,
+      teamMemberEmail: memEmail
+    };
+
+    this.popovers.create(FileDeleteComponent, teamMemberRemoveData)
+      .present({ev: event})
   }
 
   launchRemoveTeamMemberToast(removedEmail) {

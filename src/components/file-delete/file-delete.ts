@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NavParams,
-         ViewController,
-         ToastController } from 'ionic-angular';
-import { AssessmentService } from "../../services/assessment.service";
+import { NavParams, ViewController, ToastController } from 'ionic-angular';
 
+import { AssessmentService } from '../../services/assessment.service';
 @Component({
   selector: 'file-delete',
   templateUrl: 'file-delete.html'
@@ -12,6 +10,7 @@ export class FileDeleteComponent {
 
   assessmentId: string;
   fileId: string;
+  teamMemberEmail: string;
   emitter: any;
   typeToDelete: string;
 
@@ -24,6 +23,16 @@ export class FileDeleteComponent {
     this.fileId       = this.navParams.get('fileId');
     this.emitter      = this.navParams.get('emitter');
     this.typeToDelete = this.navParams.get('typeToDelete');
+    this.teamMemberEmail = this.navParams.get('teamMemberEmail');
+  }
+
+  async deleteTeamMember() {
+    var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, this.teamMemberEmail)
+
+    removedTeamMember.subscribe(({data}) => {
+      this.emitter.emit(true);
+      this.closePopover();
+    });
   }
 
   async deleteFile() {
@@ -35,8 +44,6 @@ export class FileDeleteComponent {
       this.launchToast();
       this.closePopover();
     });
-    // launch toast?
-    // this.closePopover();
   }
 
   async delete() {
