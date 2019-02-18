@@ -124,7 +124,7 @@ export class SummaryPage {
                 if (extraQuestions.length > 0){
                   this.noExtraQuestions = false;
                   this.nonLevelSchema = this.grabRiskScores(extraQuestions);
-                  console.log(this.nonLevelSchema)
+                  console.log(this.nonLevelSchema);
                 }
 
 
@@ -150,8 +150,11 @@ export class SummaryPage {
       var threadsArr = [];
 
 
+
+
       var schema = this.createThreadsObject(questionsObj);
-      // console.log(schema);
+
+
 
 
       for (let question of questionsObj){
@@ -177,6 +180,7 @@ export class SummaryPage {
   createThreadsObject(questionsObj){
     var threadNames = questionsObj.map(a => a.threadName)
                                      .filter(this.unique);
+
 
     var subThreadNames = threadNames.map( a => {
      var allSubheaders = questionsObj.filter(b => b.threadName == a)
@@ -227,24 +231,9 @@ saveXLS(){
     "Criteria 5"
   ]
 
-  // allQuestions is never being set
-  var subThreadNames = this.allQuestions.map(q => q.subThreadName);
+  var values = this.settingValues(this.schema, false)
 
-  var values = this.schema.map(t => {
-    var threads = [];
-    for (var i =0; i < t.subheaders.length; i++){
-      threads.push([
-        t.header,
-        t.subheaders[i].subThreadName,
-        ...t.subheaders[i].riskScores
-      ]);
-    }
-    return [...threads]
-  });
-
-  console.log(values);
-
-    var newVals = []
+  var newVals = []
   for (let arr of values) {
     if (arr.length > 1) {
       for (let arr2 of arr){
@@ -256,9 +245,6 @@ saveXLS(){
   }
 
 
-  console.log(newVals);
-
-
   var worksheet = [headers, ...newVals];
 
   var ws = XLSX.utils.aoa_to_sheet(worksheet);
@@ -267,6 +253,71 @@ saveXLS(){
 
   /* save to file */
   XLSX.writeFile(wb, 'mrl_risk_summary.xlsx');
+}
+
+saveXLSExtra(){
+  var headers = [
+    "MRL",
+    "Thread Name",
+    "Subthread Name",
+    "Criteria 1",
+    "Criteria 2",
+    "Criteria 3",
+    "Criteria 4",
+    "Criteria 5"
+  ];
+
+  var values = this.settingValues(this.nonLevelSchema, true)
+
+  var newVals = []
+  for (let arr of values) {
+    if (arr.length > 1) {
+      for (let arr2 of arr){
+        newVals.push(arr2);
+      }
+    } else {
+        newVals.push(arr[0]);
+    }
+  }
+
+
+  var worksheet = [headers, ...newVals];
+
+  var ws = XLSX.utils.aoa_to_sheet(worksheet);
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'MRL Risk Summary Non Level');
+
+  /* save to file */
+  XLSX.writeFile(wb, 'mrl_risk_summary_extra.xlsx');
+
+
+}
+
+settingValues(currentSchema, mrlOn){
+  var subThreadNames = this.allQuestions.map(q => q.subThreadName);
+
+  return currentSchema.map(t => {
+    var threads = [];
+    for (var i =0; i < t.subheaders.length; i++){
+      if (mrlOn){
+        threads.push([
+          t.subheaders[i].mrl,
+          t.header,
+          t.subheaders[i].subThreadName,
+          ...t.subheaders[i].riskScores
+        ]);
+      } else {
+        threads.push([
+          t.header,
+          t.subheaders[i].subThreadName,
+          ...t.subheaders[i].riskScores
+          ]);
+      }
+
+
+    }
+    return [...threads]
+  });
 }
 
 
