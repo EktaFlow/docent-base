@@ -220,18 +220,16 @@ export class EditAssessmentPage {
 		this.presentToast();
   }
 
-  removeMember(memEmail){
+  async removeMember(memEmail){
     var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, memEmail)
     removedTeamMember.subscribe(({data}) => {
-    	console.log(data);
-	// show a Toast with the removed teamMember
-        // remove member from DOM.
-        // assessment.teamMembers.filter(member => member.email !== removedEmail)
-        // 
+        var newMembers = this.assessment.teamMembers.filter(member => member.email !== memEmail);
+        this.assessment.teamMembers = newMembers;
+        launchRemoveTeamMemberToast(memEmail);
     })
   }
 
-  launchRemovedTeamMemberToast(removedEmail) {
+  launchRemoveTeamMemberToast(removedEmail) {
     var toast = this.toast.create({
       message: removedEmail + ' has been removed from this assessment',
       duration: 3000,
