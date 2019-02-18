@@ -44,6 +44,8 @@ export class EditAssessmentPage {
   private customThreads: any = {};
   private threadsShown: boolean = false;
   private threadsSelectButton: string = 'Unselect All';
+  private errors: any = [];
+  private newMember: any = {};
 
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
@@ -212,6 +214,8 @@ export class EditAssessmentPage {
 
   async addMember(nameIn:string,emailIn:string,roleIn:string){
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
+    if ( this.validMemberInput() ) {
+    console.log('we in valid!')
     // this.members.push(newMember);
     var addedMember = await this.assessmentService.updateTeamMembers(this.assessmentId, newMember)
     addedMember.subscribe(data => {
@@ -224,8 +228,22 @@ export class EditAssessmentPage {
 		  role.value = "";
 		  this.presentToast();
     });
+  }
 
+  }
 
+  // all that is required is an email
+  // space this correctly!!!!
+  validMemberInput() {
+    var emailInput = document.getElementById('memEmail').value;
+  if (!emailInput) { 
+    this.errors = ['no-email'];
+    return false ;
+    } else if (this.assessment.teamMembers.map(a => a.email).includes(emailInput)) {
+      this.errors = ['dupe'];
+      return false;
+    }
+    return true;
   }
 
   async removeMember(memEmail){

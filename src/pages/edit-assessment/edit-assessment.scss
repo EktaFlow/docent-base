@@ -1,5 +1,24 @@
 page-edit-assessment {
 
+  .add-team-members-header {
+          margin-bottom: 1rem;
+    display: flex;
+    align-items:center;
+    div {
+            h6, p {
+      margin: 0;
+      }
+    }
+  }
+
+  .error {
+    color: red;
+  }
+
+  .error-container {
+    margin-left: 2em;
+  }
+
   .thread-row {
     display: flex;
     align-items: center;
