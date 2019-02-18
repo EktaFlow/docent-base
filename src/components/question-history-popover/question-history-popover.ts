@@ -24,6 +24,7 @@ export class QuestionHistoryPopoverComponent {
   private questionQuery: any =`
     question(questionId: $questionId, assessmentId: $assessmentId) {
     	currentAnswer
+      questionId
 	answers {
 		answer
 		objectiveEvidence,
@@ -35,6 +36,12 @@ export class QuestionHistoryPopoverComponent {
 		reason
 		assumptionsNo
 		notesNo
+    documentation
+    assumptionsNA
+    notesNA
+    userId
+    updatedAt
+    revertedBy
 	}
     }
   `
@@ -83,7 +90,6 @@ export class QuestionHistoryPopoverComponent {
 
   async getUserIds(answers){
     if (answers != undefined){
-
 
     var ids = [];
     for (let answer of answers){

@@ -52,6 +52,7 @@ export class DashboardPage {
 	targetMRL: any;
 	assessmentIdFromParams: any;
   private imageDownloading: boolean = false;
+  private assessmentName: string;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
