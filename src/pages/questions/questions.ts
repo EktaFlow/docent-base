@@ -223,7 +223,6 @@ export class QuestionsPage {
 	///// update function
 	setValues() {
 		var values: any = Object.assign({}, this.vals)
-		values.answer === null ? values.answer = "skipped" : null
 		values = this.filterAnswerVals(values);
 
 		this.updateAssessment(values);
@@ -232,7 +231,6 @@ export class QuestionsPage {
   // this is used to pass to the template
 	getQuestionValues() {
 		var values: any = Object.assign({}, this.vals)
-		values.answer === null ? values.answer = "skipped" : null
 		values = this.filterAnswerVals(values);
 
 		return values

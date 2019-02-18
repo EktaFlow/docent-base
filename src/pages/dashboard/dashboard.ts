@@ -6,7 +6,6 @@ import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ActionitemsPage } from '../actionitems/actionitems';
 import { NotapplicablePage } from '../notapplicable/notapplicable';
-import { SkippedquestionsPage } from '../skippedquestions/skippedquestions';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 import {QuestionsPage} from '../questions/questions';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
@@ -194,6 +193,6 @@ export class DashboardPage {
 	}
 
 	handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
+  // for NA, see note on the markup for this page -- are we keeping these?
 	handleNa = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
-	handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
 }
