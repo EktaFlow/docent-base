@@ -13,10 +13,14 @@ import { ReportInfoCardComponent } from "../../components/report-info-card/repor
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+import html2canvas from 'html2canvas';
+
+import { saveAs } from "file-saver/FileSaver";
 
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
+    name
 		targetMRL
 	questions {
 		questionId
@@ -47,6 +51,7 @@ export class DashboardPage {
 	pageName: any = "MRL Summary";
 	targetMRL: any;
 	assessmentIdFromParams: any;
+  private imageDownloading: boolean = false;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -80,6 +85,7 @@ export class DashboardPage {
 					this.questionSet  = this.createQuestionSet(this.allQuestions);
 					this.targetMRL = (<any>data.data).assessment.targetMRL;
 					console.log(this.questionSet);
+          this.assessmentName =  (<any>data.data).assessment.name;
 					this.questionSet = this.questionSet.filter(s => s.header.length > 1);
 					if (window.innerWidth > 1024){
 						this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
@@ -87,6 +93,19 @@ export class DashboardPage {
           //					this.questionSet = this.dearGod();
 			});
 	}
+
+  downloadPNG() {
+    var image = document.getElementById('desktoper');
+    this.imageDownloading = true;
+
+    html2canvas(image).then(canvas => {
+        canvas.toBlob(blob => {
+            saveAs(blob, `mra-${this.assessmentName}-summary.png`);
+            this.imageDownloading = false;
+        });
+    })
+    .catch(e => console.error(e));
+  }
 
   isHeader(response) { return typeof response == 'number'; }
 
