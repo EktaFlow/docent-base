@@ -260,21 +260,18 @@ export class QuestionsPage {
 		var updatedAnswers = [...newerQuestion.answers, values];
 		newerQuestion.answers = updatedAnswers;
 
-		console.log(newerQuestion);
 		var tempAssessmentObject = JSON.parse(JSON.stringify(this.allQuestions));
 		tempAssessmentObject.splice(this.currentQuestion.questionId - 1, 1, newerQuestion);
-		this.allQuestions = tempAssessmentObject;
+    this.allQuestions = tempAssessmentObject;
+    this.currentQuestion = this.allQuestions.filter(q => q.questionId == this.currentQuestion.questionId)[0];
 
 		// ---------------------------------------------------------
 
 		//updating object in the back
 
-                        console.log('we are saving to DB');
 		var tempQuestion = {
 			"currentAnswer": newerQuestion.currentAnswer
 		}
-
-
 
 		var updatedInfo = {
 			_id: this.assessmentId,
@@ -490,7 +487,6 @@ export class QuestionsPage {
   public formatDate() {
   	var date;
         this.currentQuestion.answers && this.currentQuestion.answers.length > 0 ? date = this.currentQuestion.answers[this.currentQuestion.answers.length - 1].when : null
-        // console.log(date);
 	if (!date) {
 		return null;
 	} else {
@@ -501,7 +497,6 @@ export class QuestionsPage {
   }
 
   private clearSelected() {
-  // console.log('running clear selected');
 			var rows = (<any>document.querySelectorAll('.matrix-row th'));
               rows.length > 0 ? rows.forEach(element => { element.className = element.className.replace(/selected/g, ''); element.innerHTML = '';}) : null
   }
@@ -532,7 +527,6 @@ export class QuestionsPage {
 
       var selectedId = 'm' + String(likelihood) + String(consequence);
       var selectedBox = document.querySelectorAll("." + selectedId);
-      console.log(selectedBox);
       var lordy = Array.from(selectedBox);
       lordy.forEach( a => {
       	var name = a.className.replace(/ selected/g, '')
