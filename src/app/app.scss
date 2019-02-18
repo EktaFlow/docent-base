@@ -17,6 +17,15 @@
 /////////////////////////////////////////////////////////////////////
 //                INPUT DEFAULTS                                   //
 /////////////////////////////////////////////////////////////////////
+
+body {
+-webkit-user-select: auto;
+-moz-user-select: auto;
+-ms-user-select: auto;
+user-select: auto;
+cursor: default;
+}
+
 $input-backgroud:#fbfbfb;
 $input-border:#dcdcdc;
 %input-style {

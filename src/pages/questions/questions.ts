@@ -227,6 +227,7 @@ export class QuestionsPage {
 		  var values: any = Object.assign({}, this.vals)
 		  values = this.filterAnswerVals(values);
 
+
       this.updateAssessment(values);
     }
 	}

@@ -6,7 +6,6 @@ import { ReviewPage } from '../../pages/review/review';
 import { DashboardPage } from '../../pages/dashboard/dashboard';
 import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
-import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { SummaryPage } from '../../pages/summary/summary';
 import { QuestionsPage } from "../../pages/questions/questions";
@@ -39,7 +38,6 @@ query assessment($_id: String)
 	questions{
 		questionText
 	  currentAnswer
-    skipped
 		questionId
     threadName
     subThreadName
@@ -127,11 +125,6 @@ export class ViewsComponent {
 
 		handleImport() {
 			this.launchImportPopover();
-		}
-
-		handleSkipped() {
-			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
-			this.close();
 		}
 		handleNa()	{
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});

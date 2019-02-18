@@ -5,8 +5,6 @@ import { AssessmentService } from "../../services/assessment.service";
 import {AuthService} from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
 
-
-
 @Component({
   selector: 'question-history-popover',
   templateUrl: 'question-history-popover.html'
@@ -106,13 +104,6 @@ export class QuestionHistoryPopoverComponent {
       question.answers = question.answers.filter(a => a.answer != null);
     }
 
-    console.log
-
-    if (question.answers.length > 0){
-      question.answers = question.answers.filter(a => a.answer != 'skipped');
-    }
-
-
     if (question.answers.length >= 2){
       this.noAnswers = false;
       this.answersSorted = this.sortAnswers(question);
@@ -187,14 +178,6 @@ export class QuestionHistoryPopoverComponent {
 
 
     }
-
-    // getQuestionValues() {
-  	// 	var values: any = Object.assign({}, this.vals)
-  	// 	values.currentAnswer === null ? values.currentAnswer = "skipped" : null
-  	// 	values = this.filterAnswerVals(values);
-    //
-  	// 	return values
-  	// }
 
     filterAnswerVals(answer) {
 
