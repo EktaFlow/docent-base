@@ -221,11 +221,25 @@ export class EditAssessmentPage {
   }
 
   removeMember(memEmail){
-  // this.members = this.members.filter(m => m.email != memEmail);
-		this.assessment.teamMembers = this.assessment.teamMembers.filter(m => m.email != memEmail);
-    // this.members.pop();
-    // this.assessment.teamMembers.pop();
+    var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, memEmail)
+    removedTeamMember.subscribe(({data}) => {
+    	console.log(data);
+	// show a Toast with the removed teamMember
+        // remove member from DOM.
+        // assessment.teamMembers.filter(member => member.email !== removedEmail)
+        // 
+    })
   }
+
+  launchRemovedTeamMemberToast(removedEmail) {
+    var toast = this.toast.create({
+      message: removedEmail + ' has been removed from this assessment',
+      duration: 3000,
+      position: 'top'
+    })
+    toast.present();
+ }
+
 
 	presentToast() {
 	  let toast = this.toast.create({

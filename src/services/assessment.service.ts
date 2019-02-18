@@ -51,6 +51,24 @@ export class AssessmentService {
 		}).valueChanges;
   }
 
+  async removeTeamMember(assessmentId, teamMemberEmail) {
+    var mutation = gql`
+      mutation removeTeamMember($assessmentId: String, $teamMemberEmail: String) {
+        removeTeamMember(assessmentId: $assessmentId, teamMemberEmail: $teamMemberEmail)  {
+          email
+        }
+      }
+    `;
+
+    return await this.apollo.mutate({
+      mutation: mutation,
+      variables: {
+        assessmentId: assessmentId, 
+        teamMemberEmail: teamMemberEmail
+      }
+    });
+  }
+
   async queryAssessment(assessmentId, query) {
   console.log(query);
     var ok = gql`
