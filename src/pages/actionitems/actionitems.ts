@@ -91,7 +91,7 @@ export class ActionitemsPage {
                                             newObj.questionText = "" + element.questionText;
                                             // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
                                             newObj.what = "" + element.answers[element.answers.length - 1].what;
-                                            newObj.when = "" + this.formatDate(element.answers[element.answers.length - 1].when);
+                                            newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
                                             newObj.who = "" + element.answers[element.answers.length - 1].who;
 
                                             var cur = element.answers[element.answers.length - 1];
@@ -107,14 +107,17 @@ console.log(element);
 			});
 	}
 
+  /**
+  *   @purpose: format data as a sortable string for table
+  *   @input: date: a new Date() parsable string
+  *   @output: string, format YYYY-MM-DD
+  */
   formatDate(date){
-    if (!date) {
-  		return null;
-  	} else {
-  		return new Date(date)
-  			     .toDateString()
-  			     .slice(0,20);
-  	}
+    if ( date ) {
+      return new Date(date).toISOString().substr(0,10);
+    } else {
+      return '';
+    }
   }
 
 
