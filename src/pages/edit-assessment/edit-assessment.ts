@@ -215,12 +215,10 @@ export class EditAssessmentPage {
 
   async addMember(nameIn:string,emailIn:string,roleIn:string){
     var newMember = {name: nameIn, email: emailIn, role: roleIn};
-    if ( this.validMemberInput() ) {
-    console.log('we in valid!')
-    // this.members.push(newMember);
-    var addedMember = await this.assessmentService.updateTeamMembers(this.assessmentId, newMember)
-    addedMember.subscribe(data => {
-      this.assessment.teamMembers.push(data.data.addTeamMember);
+    if ( this.validMemberInput(emailIn) ) {
+    	var addedMember = await this.assessmentService.updateTeamMembers(this.assessmentId, newMember)
+    	addedMember.subscribe(data => {
+        this.assessment.teamMembers.push(data.data.addTeamMember);
 		  var name = <any>(document.getElementById("memName"));
 		  name.value = "";
 		  var email = <any>(document.getElementById("memEmail"));
@@ -235,8 +233,7 @@ export class EditAssessmentPage {
 
   // all that is required is an email
   // space this correctly!!!!
-  validMemberInput() {
-  var emailInput = <any>(document.getElementById('memEmail')).value;
+  validMemberInput(emailInput) {
   if (!emailInput) { 
     this.errors = ['no-email'];
     return false ;
