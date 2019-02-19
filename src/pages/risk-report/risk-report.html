@@ -33,7 +33,7 @@
               <p *ngIf="question.latestAnswer.notesNA != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNA}}</p>
               <p [style.color]="pickRiskColor(question.latestAnswer)"><b>Risk Score: </b>{{calculateRiskScore(question.latestAnswer)}}</p>
 
-              <div class="extra-risk">
+              <div *ngIf="calculateRiskScore(question.latestAnswer) > 11" class="extra-risk">
                 <p><b>Greatest Impact: </b>{{question.latestAnswer.greatestImpact}}</p>
                 <p><b>Risk Response: </b>{{question.latestAnswer.riskResponse}}</p>
                 <p><b>MMP Summary: </b>{{question.latestAnswer.mmpSummary}}</p>
