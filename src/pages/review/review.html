@@ -7,7 +7,7 @@
   <report-info-card [assessmentId]="assessmentId"></report-info-card>
 
   <div class="toolbar">
-    <button ion-button (click)="saveXLS()">Export to XLSX</button>
+    <button ion-button (click)="saveXLS()" color="buttonBlue">Export to .XLS</button>
   </div>
 
   <div class = "survey-info">
@@ -55,7 +55,7 @@
         <hr>
       </div>
 
-      <!-- Some dicussion here, we won't see questions that haven't been answered  
+      <!-- Some dicussion here, we won't see questions that haven't been answered
            in the review page, which seems like the right behavior
            should we decide otherwise, we can include them in the allQuestions var
            and display them like below:
