@@ -83,10 +83,23 @@ export class HomePage {
 
 }
 
+  invalidInputToast() {
+	  var toast = this.toastCtrl.create({
+	    message: 'Please ensure your assessment has a name and target MR Level',
+	    duration: 4500,
+      showCloseButton: true,
+      position: 'top',
+      cssClass: 'error-toast'
+	  });
+
+    toast.present();
+  }
+
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
-			alert("please fill out all the fields");
+      this.invalidInputToast();
+    //alert("please fill out all the fields");
 			return null;
 		}
 
@@ -250,8 +263,8 @@ export class HomePage {
 	presentToast() {
 	  let toast = this.toastCtrl.create({
 	    message: 'Member added to assessment and emailed',
-	    duration: 2000,
-	    position: 'middle'
+	    duration: 2500,
+	    position: 'top'
 	  });
 	  toast.onDidDismiss(() => {
 	    console.log('Dismissed toast');

@@ -26,6 +26,12 @@ user-select: auto;
 cursor: default;
 }
 
+.error-toast {
+        .toast-wrapper {
+                background: darkred;
+        }
+}
+
 .errors-input {
   border-color: #F53D3D;
   box-shadow: 0 0 10px #F53D3D;
