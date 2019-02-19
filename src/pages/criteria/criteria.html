@@ -4,8 +4,8 @@
 
 <ion-content padding class="wrapper">
   <div class="filter-toolbar">
-      <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
-      <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
+      <button *ngIf="!showAll" ion-button (click)="expandAllThreads()" color="buttonBlue">Expand All</button>
+      <button *ngIf="showAll" ion-button (click)="expandAllThreads()" color="buttonBlue">Close All</button>
     <div class="filter-list">
       <p>Filter MR Level: </p>
       <select name="filterMRL" [(ngModel)]="filterList.filterMRL">
@@ -22,8 +22,8 @@
         <option value = "9">9</option>
         <option value = "10">10</option>
       </select>
-      <button class="filter-buttons" (click)="filterTheList()" ion-button small>Filter</button>
-      <button class="filter-buttons" ion-button small (click)="clearFilter()">Clear</button>
+      <button class="filter-buttons" (click)="filterTheList()" ion-button small color="buttonBlue">Filter</button>
+      <button class="filter-buttons" ion-button small (click)="clearFilter()" color="buttonBlue">Clear</button>
 
     </div>
   </div>
