@@ -23,7 +23,7 @@
     </div>
 
   <!-- Save for auth -->
-<h6 class="team-members-title">Team Members</h6>
+  <h6 *ngIf="assessment.teamMembers && assessment.teamMembers.length > 0" class="team-members-title">Team Members</h6>
   <form class="member-form">
     <div class="member-list">
       <li *ngFor = "let member of assessment.teamMembers" >
@@ -32,10 +32,19 @@
         <!-- <span id="memberToast" style="color:secondary"> </span> -->
       </li>
     </div>
+    <div class="add-team-members-header">
+            <div>
+    <h6>Add Team Member:</h6>
+            </div>
+            <div class="error-container">
+    <p class="error" *ngIf="this.errors.includes('no-email')">You must enter an email address for the team member</p>
+    <p class="error" *ngIf="this.errors.includes('dupe')">This assessment is already shared with the user at this email address</p>
+            </div>
+    </div>
     <div class="members">
       <div class="member-inputs">
         <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
-        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
+        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
         <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
         <button ion-button small color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</button>
