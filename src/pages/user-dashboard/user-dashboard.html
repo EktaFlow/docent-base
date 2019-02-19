@@ -64,7 +64,7 @@
                   <p><b>Name: </b>{{assessment.name}}</p>
                   <p><b>MRL: </b> {{assessment.targetMRL}}</p>
                   <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
-                  <p><b>Scope: </b>{{assessment.scope}}</p>
+                  <p><b>Additional Information: </b>{{assessment.scope}}</p>
                   <p><b>Location: </b> {{assessment.location}}</p>
 		  <ng-container *ngIf="assessment.levelSwitching">
                       <p><b>Level Switching?: </b> Yes </p>
@@ -122,7 +122,7 @@
                     <p><b>Name: </b>{{assessment.name}}</p>
                     <p><b>MRL: </b> {{assessment.targetMRL}}</p>
                     <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
-                    <p><b>Scope: </b>{{assessment.scope}}</p>
+                    <p><b>Additional Information: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
                     <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
                     <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}  </span></p>
