@@ -102,12 +102,13 @@ export class EditAssessmentPage {
     // threads are coming in as string... change that.
     existingAssessment.subscribe(data => {
       var assessment = data.data.assessment
-      console.log(assessment);
-      var formattedDate = this.help.formatDate(assessment.targetDate);
+			// if the targetDate on the assessment is null, we want to keep it null,
+      // if it is a date, we want to format it to the HTML 5 input standard
+      var formattedDate;
+			if ( assessment.targetDate ) formattedDate = this.help.formatDate(assessment.targetDate);
       var numberThreads = assessment.threads.map(number => Number(number));
       var extensibleTeamMembers = JSON.parse(JSON.stringify(assessment.teamMembers));
       var formattedAssessment = Object.assign({}, assessment, { teamMembers: extensibleTeamMembers,threads: numberThreads, targetDate: formattedDate });
-
 
       this.assessment = formattedAssessment;
     })
@@ -235,7 +236,7 @@ export class EditAssessmentPage {
   // all that is required is an email
   // space this correctly!!!!
   validMemberInput() {
-    var emailInput = document.getElementById('memEmail').value;
+  var emailInput = <any>(document.getElementById('memEmail')).value;
   if (!emailInput) { 
     this.errors = ['no-email'];
     return false ;
@@ -243,6 +244,7 @@ export class EditAssessmentPage {
       this.errors = ['dupe'];
       return false;
     }
+    this.errors = [];
     return true;
   }
 
