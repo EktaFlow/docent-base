@@ -12,6 +12,8 @@ import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ImportComponent } from "../../components/import/import";
+import { saveAs } from "file-saver/FileSaver";
+
 
 
 
@@ -40,6 +42,71 @@ query getShared($assessments: [String]) {
 		userId
 		userEmail
 	}
+}
+`
+
+var assessmentQuery = gql`
+query assessment($_id: String)
+{
+ assessment(_id: $_id)  {
+  userId
+  userEmail
+  scope
+  targetMRL
+  teamMembers {
+    name
+    email
+    role 
+  }
+  levelSwitching
+  targetDate
+  location
+  deskbookVersion
+  name
+  threads
+	questions{
+		questionText
+	  currentAnswer
+		questionId
+    threadName
+    subThreadName
+    mrLevel
+		questionId
+    helpText
+    criteriaText
+    answers {
+      userId
+      updatedAt
+      answer
+      likelihood
+      consequence
+      greatestImpact
+      riskResponse
+      mmpSummary
+  		objectiveEvidence
+  		assumptionsYes
+  		notesYes
+  		who
+  		when
+  		what
+  		reason
+  		assumptionsNo
+  		notesNo
+  		documentation
+  		assumptionsNA
+  		notesNA
+      assumptionsSkipped
+      notesSkipped
+    }
+  }
+	files {
+    id
+    caption
+    name
+    questionId
+		url
+	}
+}
 }
 `
 
@@ -130,7 +197,7 @@ export class UserDashboardPage {
 			} else {
 			console.log('we not in auth.currentU');
 			}
-		
+
 	}
 
 
@@ -160,6 +227,25 @@ export class UserDashboardPage {
 			this.sharedAssessments = noNulls;
 			// data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
     });
+
+	}
+
+	handleSave(assessmentId) {
+		this.apollo.watchQuery<any>({
+		query: assessmentQuery,
+		fetchPolicy: "network-only",
+		variables: {_id: assessmentId}
+	})
+		.valueChanges
+		.subscribe( ({data, loading}) => {
+			console.log('we firin up a save')
+			console.log(event.target);
+			var title = data.assessment.name;
+			title ? null : title = "untitled"
+			var assessment = JSON.stringify(data);
+			saveAs(new Blob([assessment], { type: "text/plain" }), title + ".mra")
+			// this.close();
+		})
 
 	}
 

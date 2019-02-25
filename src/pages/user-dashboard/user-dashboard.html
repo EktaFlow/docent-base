@@ -82,6 +82,7 @@
                   <button (click)="presentAddTeamMembersPopOver(assessment.id)">Invite</button>
                   <button (click)="handleEditAssessmentClick(assessment.id)">Edit</button>
                   <button (click)="handleDeleting(assessment.id)">Delete</button>
+                  <button (click)="handleSave(assessment.id)">Export</button>
                 </div>
               </div>
             </div>
@@ -132,6 +133,7 @@
                     <button (click)="continueAssessment(assessment.id)">Continue</button>
                     <button (click)="openDashboard(assessment.id)">MRL Summary</button>
                     <button (click)="openActionItems(assessment.id)">Action Items</button>
+                    <button (click)="handleSave(assessment.id)">Export</button>
                     <!-- <button>Add Team Members</button> -->
                   </div>
                 </div>
