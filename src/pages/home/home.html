@@ -1,12 +1,15 @@
 <title>Docent</title>
 
-<topbar [blank]="true"></topbar>
-	<ng-container *ngIf="auth.isLoggedIn()">
-		<topbar></topbar>
-	</ng-container>
+<ng-container *ngIf="!isElectron">
+  <topbar [blank]="true"></topbar>
+  <topbar *ngIf="auth.isLoggedIn()"></topbar>
+</ng-container>
+<topbar *ngIf="isElectron" [pageName]="pageName"></topbar>
+
 
 
 <ion-content padding>
+  <ng-container *ngIf="!isElectron">
 <ng-container *ngIf="!auth.isLoggedIn()">
 	<ng-container *ngIf="auth.unverified()">
 	You must verify your Docent registration via email before logging on.
@@ -38,7 +41,9 @@
 	<register></register>
 </ng-container>
 
-<ng-container *ngIf="auth.isLoggedIn()">
+</ng-container>
+
+<ng-container *ngIf="isElectron || auth.isLoggedIn()">
 	<div class="desktop">
 		<br>
 	  <br>
@@ -62,6 +67,7 @@
 	</div>
 
 <!-- Save for auth -->
+<ng-container *ngIf="!isElectron">
 <h6 class="team-members-title">Team Members</h6>
   <form class="member-form">
     <div class="member-list">
@@ -86,6 +92,7 @@
       </button>
     </div> -->
   </form>
+  </ng-container>
 
   <div class = "mid-first-page">
     <div class="scope">

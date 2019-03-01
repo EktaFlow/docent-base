@@ -1,8 +1,3 @@
-/*
-*   The purpose of the Home Page is (currently) to both diplay the login information
-*		and create a new assessment.
-*   TODO: mpf - split this into a loginpage and a newassessment page
-*/
 
 import { Component, EventEmitter } from '@angular/core';
 import { NavController, PopoverController, LoadingController, ToastController } from 'ionic-angular';
@@ -14,6 +9,8 @@ import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LoginPage } from '../login/login';
+import { isElectron} from "../../services/constants";
+import {ElectronService} from "../../services/electron.service";
 
 
 import { Apollo } from "apollo-angular";
@@ -47,6 +44,8 @@ export class HomePage {
   private threads: any;
   private threadsSelectButton: string = 'Unselect All';
 	assessment: any;
+	isElectron: any;
+	pageName: any = "";
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
@@ -55,7 +54,8 @@ export class HomePage {
               private assessmentService: AssessmentService,
               private http: HttpClient,
 							private loadingCtrl: LoadingController,
-							private toastCtrl: ToastController) {}
+							private toastCtrl: ToastController,
+							private electron: ElectronService) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -107,29 +107,37 @@ export class HomePage {
 
 		var variables = this.formatAssessmentVariables();
 		this.presentLoadingDefault();
-		//  debug what is getting passed into the mutation:
-		// console.log(variables);
 
-		//do we want / need to remove team members out of variables before sending it to the back?
-		//do we need to use teamMembersInput
-		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
+		if(isElectron){
+			var myStorage = window.localStorage;
+			console.log(variables);
+			console.log(JSON.parse(variables.schema));
 
-		// var createInfo = {
-		//
-		// }
 
-		var newAssessment = await this.assessmentService.createAssessment(variables);
-		newAssessment.toPromise()
-            .then( d => {
+			variables['questions'] = this.electron.drillQuestions(JSON.parse(variables.schema));
+			 delete variables.schema;
+			console.log(variables);
+			var newElectronAss = JSON.stringify(variables);
+			myStorage.setItem('currentAssessment', newElectronAss);
+			myStorage.setItem('inAssessment', 'true');
+			this.navCtrl.push(QuestionsPage);
+		}
 
-              var assessmentId = d.data.createAssessment._id;
-              this.sendEmailsToTeamMembers(assessmentId);
-              this.startAssessment(assessmentId);
+		if(!isElectron){
+			var newAssessment = await this.assessmentService.createAssessment(variables);
+			newAssessment.toPromise()
+	            .then( d => {
 
-            })
-            .catch(e => {
-              alert('invalid JSON');
-            });
+	              var assessmentId = d.data.createAssessment._id;
+	              this.sendEmailsToTeamMembers(assessmentId);
+	              this.startAssessment(assessmentId);
+
+	            })
+	            .catch(e => {
+	              alert('invalid JSON');
+	            });
+
+			}
 
 	}
 
@@ -141,20 +149,36 @@ export class HomePage {
 		//here on line 107 (assigning team members) we need to assign the whole team members object
 		//or input it in another section?
 		var formValues = this.assForm;
-		return {
-			threads:          formValues.threads,
-			location:         formValues.location,
-			targetMRL:        formValues.targetMRL,
-			name:             formValues.name,
-			levelSwitching:   formValues.levelSwitching,
-			deskBookVersion:  formValues.deskBookVersion,
-			teamMembersUpdates:      formValues.teamMembers,
-			userId:						this.auth.currentUser()._id,
-			userEmail: 		this.auth.currentUser().email,
-			scope:            formValues.scope,
-			targetDate:       formValues.targetDate,
-			schema: 					JSON.stringify(this.schema)
-		};
+		if (!this.isElectron){
+			return {
+				threads:          formValues.threads,
+				location:         formValues.location,
+				targetMRL:        formValues.targetMRL,
+				name:             formValues.name,
+				levelSwitching:   formValues.levelSwitching,
+				deskBookVersion:  formValues.deskBookVersion,
+				teamMembersUpdates:      formValues.teamMembers,
+				userId:						this.auth.currentUser()._id,
+				userEmail: 		this.auth.currentUser().email,
+				scope:            formValues.scope,
+				targetDate:       formValues.targetDate,
+				schema: 					JSON.stringify(this.schema)
+			};
+		} else {
+			return {
+				threads:          formValues.threads,
+				location:         formValues.location,
+				targetMRL:        formValues.targetMRL,
+				name:             formValues.name,
+				levelSwitching:   formValues.levelSwitching,
+				deskBookVersion:  formValues.deskBookVersion,
+				// teamMembersUpdates:      formValues.teamMembers,
+				scope:            formValues.scope,
+				targetDate:       formValues.targetDate,
+				schema: 					JSON.stringify(this.schema)
+			};
+		}
+
 	}
 
 	async sendEmailsToTeamMembers(assessmentId) {
@@ -162,7 +186,7 @@ export class HomePage {
 
 		// move this to constants when we decide it's home.
 		var url = "https://web.mfgdocent.com/auth/share";
-		
+
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
@@ -181,6 +205,8 @@ export class HomePage {
 
 	// this function sets a couple default values and brings in the threads
 	async ngOnInit() {
+
+		this.isElectron = isElectron;
 	// setting defaults, ionic is weird with this.
   //have to cast to HTMLInputElement which contains value prop
     var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
@@ -188,20 +214,24 @@ export class HomePage {
     tmp = <HTMLInputElement>document.getElementById("deskbook-select");
 	  tmp ? tmp.value = "2017" : null;
 
-		if (this.auth.currentUser()) {
-      var cool = await this.assessmentService.getDefaultThreads()
-      cool.subscribe( threads => this.threads = threads );
-		this.apollo.watchQuery<any>({
-			query: threadsQuery
-			})
-			 .valueChanges
-			 .subscribe(({data, loading}) => {
+		if (!this.isElectron){
+			if (this.auth.currentUser()) {
+	      var cool = await this.assessmentService.getDefaultThreads()
+	      cool.subscribe( threads => this.threads = threads );
+				this.apollo.watchQuery<any>({
+					query: threadsQuery
+				})
+				 .valueChanges
+				 .subscribe(({data, loading}) => {
 
-      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
-					this.setUpDeskbookArray();
-			 });
+	      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+						this.setUpDeskbookArray();
+				 });
 
-			 }
+				 }
+		}
+
+
 
 	}
 
@@ -308,7 +338,7 @@ export class HomePage {
       this.assForm.threads.push(threadIndex);
 
 
-      // using the indices to ID the threads relies on them being sorted. 
+      // using the indices to ID the threads relies on them being sorted.
       this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );
     }
   }
