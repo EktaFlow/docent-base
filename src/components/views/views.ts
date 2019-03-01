@@ -12,6 +12,7 @@ import { QuestionsPage } from "../../pages/questions/questions";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
 import { RiskReportPage } from "../../pages/risk-report/risk-report";
+import {isElectron} from "../../services/constants";
 
 
 
@@ -94,6 +95,8 @@ export class ViewsComponent {
   actionitemsPage = ActionitemsPage;
 	assessments: any;
 	assessmentId: any;
+  isElectron:any;
+  inAssessment: any;
 
 	constructor(  public navCtrl: NavController,
 								public popOver: PopoverController,

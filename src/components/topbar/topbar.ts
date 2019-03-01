@@ -13,6 +13,9 @@ import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/ass
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
 import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
 import {QuestionsPage} from '../../pages/questions/questions';
+import {isElectron} from "../../services/constants";
+import { saveAs } from "file-saver/FileSaver";
+
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -58,6 +61,8 @@ export class TopbarComponent {
 	@Input() public pageName: any;
 	@Input() private questionId: any;
 	public popUpButtonClicked: any;
+	isElectron: any;
+	@Input() public inAssessment: any;
 	// infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
 
@@ -71,15 +76,29 @@ constructor( public popOver: PopoverController,
 
 	async ngOnInit() {
 
-		if (this.getAssessmentId) {
-			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-			this.getAssessmentData();
+		this.isElectron = isElectron;
 
+		if (!this.isElectron){
+			if (this.getAssessmentId) {
+				this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+				this.getAssessmentData();
+
+			} else {
+				this.assessmentId ? this.getAssessmentData() : null;
+			}
+
+			this.loggedIn = this.auth.isLoggedIn();
 		} else {
-			this.assessmentId ? this.getAssessmentData() : null;
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				var parsedAssessment = JSON.parse(fullAssessment);
+				this.scope	= parsedAssessment.scope;
+				this.targetMRL  = parsedAssessment.targetMRL;
+				this.targetDate = parsedAssessment.targetDate;
+			}
 		}
 
-		this.loggedIn = this.auth.isLoggedIn();
 
 
 
@@ -226,6 +245,18 @@ constructor( public popOver: PopoverController,
 		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}
+
+	handleSaveAssessment(){
+		var myStorage = window.localStorage;
+		var assessment = JSON.parse(myStorage.getItem('currentAssessment'));
+		var date = new Date().toISOString();
+		// date = date.toString();
+		var title = assessment.name + "_updated_" + date;
+		console.log(title);
+		saveAs(new Blob([JSON.stringify(assessment)], { type: "text/plain" }), title + ".mra");
+	}
+
+
 
 	// toggleTopbarInfo(){
 	// 	this.infoShow = !this.infoShow;
