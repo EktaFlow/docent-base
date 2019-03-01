@@ -12,6 +12,7 @@ import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ImportComponent } from "../../components/import/import";
+import { isElectron } from "../../services/constants";
 
 
 
@@ -56,6 +57,9 @@ export class UserDashboardPage {
     id: ""
   };
 
+	isElectron: any;
+	inAssessment: any;
+
   assessments: any;
 	sharedAssessments: any = [];
   loading: boolean;
@@ -70,6 +74,7 @@ export class UserDashboardPage {
 	showMine: boolean = false;
 	showShared: boolean = false;
 	assessmentsBox: any;
+	showLoad: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -78,34 +83,48 @@ export class UserDashboardPage {
               private assessmentService: AssessmentService,
 							public popOver: PopoverController) {
 							this.assessmentId = navParams.data.assessmentId;
+
               }
 
 
-							ionViewWillEnter() {
-						    GoogleAnalytics.trackPage("user-dashboard");
-						  }
+							// ionViewWillEnter() {
+						  //   GoogleAnalytics.trackPage("user-dashboard");
+						  // }
 
   async ngOnInit() {
 
+		this.isElectron = isElectron;
 
 		// TODO make this better
-		await this.getSharedAssessments();
-		this.pullSharedAssessments();
+		if (!this.isElectron){
+			await this.getSharedAssessments();
+			this.pullSharedAssessments();
 
-		var user = this.auth.currentUser();
-		this.user = user;
+			var user = this.auth.currentUser();
+			this.user = user;
 
-		var observe =  await this.assessmentService.getAssessments(user);
-		observe.subscribe(({data}) => {
-			this.assessments = data.assessments;
-			this.assessments = JSON.parse(JSON.stringify(this.assessments));
-			console.log(this.assessments);
-		});
-		if (window.screen.width > 440) {
-			this.showMine = true;
-			this.showShared = true;
+			var observe =  await this.assessmentService.getAssessments(user);
+			observe.subscribe(({data}) => {
+				this.assessments = data.assessments;
+				this.assessments = JSON.parse(JSON.stringify(this.assessments));
+				console.log(this.assessments);
+			});
+			if (window.screen.width > 440) {
+				this.showMine = true;
+				this.showShared = true;
+			}
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem("inAssessment") == "true"){
+				if (myStorage.getItem("currentAssessment") == "undefined"){
+					myStorage.setItem("inAssessment", "false");
+					this.inAssessment = false;
+				} else {
+					this.inAssessment = true;
+				}
+
+			}
 		}
-
 
 
   }
@@ -130,7 +149,7 @@ export class UserDashboardPage {
 			} else {
 			console.log('we not in auth.currentU');
 			}
-		
+
 	}
 
 
@@ -278,5 +297,26 @@ export class UserDashboardPage {
 		var assessmentIndex = newArr.findIndex(a => a.id == assessmentId);
 		newArr.splice(assessmentIndex, 1);
 		this.assessments = newArr;
+	}
+
+	showLoadIn(){
+		console.log(this.showLoad);
+		this.showLoad = !this.showLoad;
+		console.log(this.showLoad);
+	}
+
+	handleLoadIn(event){
+		var file = (<HTMLInputElement>document.getElementById("newAss")).files[0];
+		var reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = (e) => {
+			var text = (<any>e.target).result;
+			var myStorage = window.localStorage;
+			var ass = JSON.parse(text);
+			var actual = ass.assessment;
+			myStorage.setItem('currentAssessment', JSON.stringify(actual));
+			myStorage.setItem('inAssessment', 'true');
+			this.navCtrl.push(QuestionsPage);
+		};
 	}
 }
