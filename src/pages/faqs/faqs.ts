@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { isElectron} from "../../services/constants";
 
 
 
@@ -19,6 +20,8 @@ export class FaqsPage {
         noSecondBar: boolean = false;
         pageName: any = "Faqs";
         currentQ: any = "";
+        isElectron: any;
+        inAssessment: any;
 
 
     constructor( public navCtrl:   NavController,
@@ -37,6 +40,25 @@ export class FaqsPage {
 
 
 		private feedbackContacts: any;
+
+    ngOnInit() {
+        this.mainTitle = "Frequently Asked Questions";
+        this.isElectron = isElectron;
+
+        if (!this.isElectron){
+          this.getFaqInfo();
+          this.getFeedbackContacts();
+        } else {
+          var myStorage = window.localStorage;
+    			if (myStorage.getItem('inAssessment') == 'true'){
+    				this.inAssessment = true;
+            this.getFaqInfo();
+            this.getFeedbackContacts();
+    			}
+        }
+
+
+    }
 
 
 		getFaqInfo() {
@@ -57,10 +79,6 @@ export class FaqsPage {
 		    return arr.filter( object => object.help_type == type || !object.help_type );
 		}
 
-    ionViewDidLoad() {
-				this.getFaqInfo();
-        this.getFeedbackContacts();
-    }
 
     ionViewWillEnter() {
       GoogleAnalytics.trackPage("faqs");
@@ -77,8 +95,6 @@ export class FaqsPage {
 
 
 
-    ngOnInit() {
-        this.mainTitle = "Frequently Asked Questions";
-    }
+
 
 }

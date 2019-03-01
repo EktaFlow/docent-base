@@ -5,6 +5,8 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
 import { QuestionsPage } from "../questions/questions";
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import {isElectron} from "../../services/constants";
+
 
 import * as XLSX from 'xlsx';
 
@@ -72,6 +74,9 @@ export class SummaryPage {
         schema: any;
         nonLevelSchema: any;
         noExtraQuestions: boolean;
+        isElectron: any;
+        inAssessment: any;
+
 
 
 
@@ -93,43 +98,58 @@ export class SummaryPage {
   }
 
 	ngOnInit() {
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-                            var assessment = (<any>data.data).assessment;
-                            var questions = assessment.questions;
-			    this.allQuestions = assessment.questions;
-                            // console.log(this.questions);
-                            questions = questions.filter(q => q.threadName.length > 1);
-                            this.targetMRL = assessment.targetMRL;
+    this.isElectron = isElectron;
 
-                var mainQuestions = questions.filter(q => q.mrLevel == this.targetMRL);
+    if (!this.isElectron){
+      this.apollo.watchQuery({
+  			query: assessmentQuery,
+  			variables: {_id: this.assessmentId},
+  			fetchPolicy: "network-only"
+  			}).valueChanges
+  			.subscribe(data => {
+          this.setPageVariables((<any>data.data).assessment);
+  		});
+    } else {
+      var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+        this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+    }
 
-                var extraQuestions = questions.filter(q => q.answers.length > 0);
-                for (let question of extraQuestions){
-                  question = question.answers.filter(a => a.answer == null);
-                }
-                extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
-
-
-
-                this.schema = this.grabRiskScores(mainQuestions);
-                console.log(this.schema);
-
-                this.noExtraQuestions = true;
-
-                if (extraQuestions.length > 0){
-                  this.noExtraQuestions = false;
-                  this.nonLevelSchema = this.grabRiskScores(extraQuestions);
-                  console.log(this.nonLevelSchema);
-                }
-
-
-		});
 	}
+
+  setPageVariables(assessment){
+    var assessment = assessment;
+    var questions = assessment.questions;
+    this.allQuestions = assessment.questions;
+        // console.log(this.questions);
+        questions = questions.filter(q => q.threadName.length > 1);
+        this.targetMRL = assessment.targetMRL;
+
+    var mainQuestions = questions.filter(q => q.mrLevel == this.targetMRL);
+
+    var extraQuestions = questions.filter(q => q.answers.length > 0);
+    for (let question of extraQuestions){
+    question = question.answers.filter(a => a.answer == null);
+    }
+    extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+
+
+
+    this.schema = this.grabRiskScores(mainQuestions);
+    console.log(this.schema);
+
+    this.noExtraQuestions = true;
+
+    if (extraQuestions.length > 0){
+    this.noExtraQuestions = false;
+    this.nonLevelSchema = this.grabRiskScores(extraQuestions);
+    console.log(this.nonLevelSchema);
+    }
+  }
 
   unique = (item, index, array) => array.indexOf(item) == index
   filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)

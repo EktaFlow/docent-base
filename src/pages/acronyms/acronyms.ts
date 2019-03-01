@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AcronymPopoverComponent } from '../../components/acronym-popover/acronym-popover';
+import {isElectron} from "../../services/constants";
 
 
 
@@ -23,6 +24,10 @@ export class AcronymsPage {
         assessmentId: any;
 				noSecondBar: boolean = false;
         pageName: any = "Acronyms";
+        isElectron: any;
+        inAssessment: any;
+        private acronyms: any = {};
+        private acronymsKeys: any = [];
 
 
     constructor(public navCtrl: NavController,
@@ -35,8 +40,25 @@ export class AcronymsPage {
 
     }
 
-	private acronyms: any = {};
-	private acronymsKeys: any = [];
+    ngOnInit() {
+      this.mainTitle = "Acronyms";
+      this.isElectron = isElectron;
+      if (!this.isElectron){
+        this.getAcronyms();
+      	console.log(this.acronyms);
+      } else {
+        var myStorage = window.localStorage;
+        if (myStorage.getItem('inAssessment') == "true"){
+          this.inAssessment = true;
+          this.getAcronyms();
+        }
+      }
+
+    }
+
+
+
+
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("acronyms");
@@ -51,7 +73,7 @@ export class AcronymsPage {
 					});
 	}
 
-  
+
 
   presentFullAcronym(fullText, event){
     this.popOver.create(AcronymPopoverComponent, {fullText: fullText}, {cssClass: 'acro-popup'})
@@ -61,13 +83,11 @@ export class AcronymsPage {
   }
 
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AcronymsPage');
-	this.getAcronyms();
-	console.log(this.acronyms);
-  }
 
-  ngOnInit() {
-    this.mainTitle = "Acronyms";
-  }
+
+
+
+
+
+  
 }

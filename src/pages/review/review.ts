@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { QuestionsPage } from "../questions/questions";
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import {isElectron} from "../../services/constants";
 
 import * as XLSX from 'xlsx';
 
@@ -57,6 +58,8 @@ export class ReviewPage {
 	pageName: any = "Review";
         response;
 	files;
+	isElectron: any;
+	inAssessment: any;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -85,39 +88,56 @@ export class ReviewPage {
 	}
 
 	ngOnInit() {
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
+		this.isElectron = isElectron;
+
+		if(!this.isElectron){
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
 			.subscribe(data => {
-                            var assessment = (<any>data.data).assessment;
-                            var questions = assessment.questions;
+	      this.setPageVariables((<any>data.data).assessment);
+			});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
 
-
-                            var answeredQuestions = [];
-                            questions.forEach(q => {
-                              if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
-                                 var drilledQuestion = {
-                                      questionId: q.questionId,
-                                   		questionText: q.questionText,
-                                      currentAnswer: q.answers[q.answers.length - 1].answer,
-                                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
-                                 }
-
-                                 answeredQuestions.push(drilledQuestion);
-                              }
-                          });
-
-                  // all questions is an array of answered questions.
-                  // preserving the names to leave markup the same.
-                  this.allQuestions = answeredQuestions;
-					this.targetMRL = assessment.targetMRL;
-					this.targetDate = assessment.targetDate;
-					this.location = assessment.location;
-					this.files = assessment.files;
-		});
 	}
+
+	setPageVariables(assessment){
+		var assessment = assessment;
+		var questions = assessment.questions;
+
+
+		var answeredQuestions = [];
+		questions.forEach(q => {
+			if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+				 var drilledQuestion = {
+							questionId: q.questionId,
+							questionText: q.questionText,
+							currentAnswer: q.answers[q.answers.length - 1].answer,
+							objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
+				 }
+
+				 answeredQuestions.push(drilledQuestion);
+			}
+	});
+
+// all questions is an array of answered questions.
+// preserving the names to leave markup the same.
+	this.allQuestions = answeredQuestions;
+	this.targetMRL = assessment.targetMRL;
+	this.targetDate = assessment.targetDate;
+	this.location = assessment.location;
+	this.files = assessment.files;
+}
 
 	saveXLS(){
 		var headers = [

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import {isElectron} from "../../services/constants";
 
 
 /**
@@ -21,6 +22,8 @@ export class DefinitionsPage {
         assessmentId: any;
         noSecondBar: boolean = false;
         pageName: any = "Definitions";
+        isElectron: any;
+        inAssessment: any;
 
 
       constructor(public navCtrl: NavController,
@@ -38,9 +41,7 @@ export class DefinitionsPage {
 						});
 	}
 
-  ionViewDidLoad() {
-	this.getDefinitions();
-  }
+
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("definitions");
@@ -48,5 +49,17 @@ export class DefinitionsPage {
 
   ngOnInit() {
     this.mainTitle = "Definitions";
+    this.isElectron = isElectron;
+
+    if (!this.isElectron){
+      this.getDefinitions();
+    } else {
+      var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+        this.getDefinitions();
+			}
+    }
+
   }
 }

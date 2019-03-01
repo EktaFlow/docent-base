@@ -9,7 +9,7 @@
     <p><b>Target Date:</b> {{targetDate | date: 'mediumDate'}}</p>
     <p class="longer"><b>Location:</b> {{location}}</p>
     <!-- <p><b>Additional Information:</b> {{scope}}</p> -->
-    <ul><b>Team Members:</b>
+    <ul *ngIf="!isElectron"><b>Team Members:</b>
       <li *ngFor="let member of teamMembers">{{member.name}} at {{member.email}} as {{member.role}}</li>
 
     </ul>

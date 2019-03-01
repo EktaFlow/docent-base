@@ -4,6 +4,7 @@ import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import {isElectron} from "../../services/constants";
 // import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 
@@ -63,48 +64,67 @@ query assessment($_id: String) {
 
 export class ActionitemsPage {
         public data:any;
+				isElectron: any;
+				inAssessment: any;
 
 	async ngOnInit() {
-		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+		this.isElectron = isElectron;
 
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-                                        console.log(data);
-					this.no = (<any>data.data).assessment.questions.filter( a => {
-                                                if (a.answers.length > 0 ) {
-                                                        return a.answers[a.answers.length - 1].answer == "No"
-                                                }
+		if (!this.isElectron){
+			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 
-                                        });
-					this.attachments = (<any>data.data).assessment.files;
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
+				.subscribe(data => {
+	           this.setPageVariables((<any>data.data).assessment);
+				});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
 
-                                        var newData:Array<any> = [];
+	}
 
-                                        this.no.forEach( (element) => {
-                                            var newObj:any = {};
-                                            newObj.threadName = "" + element.threadName;
-                                            newObj.subThreadName = "" + element.subThreadName;
-                                            newObj.questionText = "" + element.questionText;
-                                            // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
-                                            newObj.what = "" + element.answers[element.answers.length - 1].what;
-                                            newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
-                                            newObj.who = "" + element.answers[element.answers.length - 1].who;
+	setPageVariables(assessment){
+		// console.log(data);
+		this.no = assessment.questions.filter( a => {
+								if (a.answers.length > 0 ) {
+												return a.answers[a.answers.length - 1].answer == "No"
+								}
 
-                                            var cur = element.answers[element.answers.length - 1];
-console.log(element);
-                                            newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
-                                            newData.push(newObj);
-                                        });
+				});
+		this.attachments = assessment.files;
 
-                                        this.data = newData;
-                                        console.log(this.data);
-                                        this.length = this.data.length;
-                                        this.onChangeTable(this.config);
-			});
+		var newData:Array<any> = [];
+
+		this.no.forEach( (element) => {
+				var newObj:any = {};
+				newObj.threadName = "" + element.threadName;
+				newObj.subThreadName = "" + element.subThreadName;
+				newObj.questionText = "" + element.questionText;
+				// newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
+				newObj.what = "" + element.answers[element.answers.length - 1].what;
+				newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
+				newObj.who = "" + element.answers[element.answers.length - 1].who;
+
+				var cur = element.answers[element.answers.length - 1];
+				console.log(element);
+				newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
+				newData.push(newObj);
+		});
+
+		this.data = newData;
+		console.log(this.data);
+		this.length = this.data.length;
+		this.onChangeTable(this.config);
 	}
 
   /**
