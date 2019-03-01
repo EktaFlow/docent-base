@@ -49,6 +49,8 @@ import { httpInterceptorsProviders } from "../services/interceptors";
 import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
 import { Helpers } from '../services/helpers';
+import {ElectronService} from "../services/electron.service"
+// import { ElectronProvider } from '../providers/electron/electron';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,8 @@ import { Helpers } from '../services/helpers';
 		UploadService,
 		httpInterceptorsProviders,
     SplashScreen,
-		Keyboard
+		Keyboard,
+    ElectronService
 		//    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 
