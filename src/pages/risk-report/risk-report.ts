@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import {ReportInfoCardComponent} from '../../components/report-info-card/report-info-card';
+import {isElectron} from "../../services/constants";
+
 
 import * as XLSX from 'xlsx';
 
@@ -71,6 +73,9 @@ export class RiskReportPage {
   nonLevelSchema: any;
   extraQuestions: any;
   noExtraQuestions: boolean = true;
+  isElectron: any;
+  inAssessment: any;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.assessmentId = navParams.data.assessmentId;
@@ -81,31 +86,47 @@ export class RiskReportPage {
   }
 
   async ngOnInit(){
-    this.apollo.watchQuery({
-      query: assessmentQuery,
-      variables: {_id: this.assessmentId},
-      fetchPolicy: "network-only"
-      }).valueChanges
-      .subscribe(data => {
-        var assessment = (<any>data.data).assessment;
-        var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
-	this.questions = questions;
-        this.targetMRL = assessment.targetMRL;
-        var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
-        for (let question of extraQuestions){
-          question = question.answers.filter(a => a.answer == null);
-        }
-        extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
-        this.extraQuestions = extraQuestions;
+    this.isElectron = isElectron;
 
-        this.schema = this.createSchemaObject(questions);
+    if(!this.isElectron){
+      this.apollo.watchQuery({
+        query: assessmentQuery,
+        variables: {_id: this.assessmentId},
+        fetchPolicy: "network-only"
+        }).valueChanges
+        .subscribe(data => {
+          this.setPageVariables((<any>data.data).assessment);
+        });
+    } else {
+      var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+        this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+    }
 
-        if (extraQuestions.length > 0){
-          this.noExtraQuestions = false;
-          this.nonLevelSchema = this.createSchemaObject(extraQuestions);
-        }
+  }
 
-      });
+  setPageVariables(assessment){
+    var assessment = assessment;
+    var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
+     this.questions = questions;
+    this.targetMRL = assessment.targetMRL;
+    var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
+    for (let question of extraQuestions){
+      question = question.answers.filter(a => a.answer == null);
+    }
+    extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+    this.extraQuestions = extraQuestions;
+
+    this.schema = this.createSchemaObject(questions);
+
+    if (extraQuestions.length > 0){
+      this.noExtraQuestions = false;
+      this.nonLevelSchema = this.createSchemaObject(extraQuestions);
+    }
   }
 
   createSchemaObject(questionsArray) {
