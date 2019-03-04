@@ -300,9 +300,9 @@ export class UserDashboardPage {
 	}
 
 	showLoadIn(){
-		console.log(this.showLoad);
+		// console.log(this.showLoad);
 		this.showLoad = !this.showLoad;
-		console.log(this.showLoad);
+		// console.log(this.showLoad);
 	}
 
 	handleLoadIn(event){
@@ -313,8 +313,12 @@ export class UserDashboardPage {
 			var text = (<any>e.target).result;
 			var myStorage = window.localStorage;
 			var ass = JSON.parse(text);
-			var actual = ass.assessment;
-			myStorage.setItem('currentAssessment', JSON.stringify(actual));
+			if (ass.assessment){
+				var actual = ass.assessment;
+				myStorage.setItem('currentAssessment', JSON.stringify(actual));
+			} else {
+				myStorage.setItem('currentAssessment', JSON.stringify(ass));
+			}
 			myStorage.setItem('inAssessment', 'true');
 			this.navCtrl.push(QuestionsPage);
 		};
