@@ -4,7 +4,7 @@
   <topbar [blank]="true"></topbar>
   <topbar *ngIf="auth.isLoggedIn()"></topbar>
 </ng-container>
-<topbar *ngIf="isElectron" [pageName]="pageName"></topbar>
+<topbar *ngIf="isElectron" [pageName]="pageName" [noSecondBar]="noSecondBar"></topbar>
 
 
 

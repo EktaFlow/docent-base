@@ -46,6 +46,7 @@ export class HomePage {
 	assessment: any;
 	isElectron: any;
 	pageName: any = "";
+	noSecondBar: any = false;
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
