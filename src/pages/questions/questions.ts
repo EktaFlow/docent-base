@@ -89,8 +89,8 @@ export class QuestionsPage {
 				this.inAssessment = true;
 				console.log(myStorage);
 				var fullAssessment = myStorage.getItem('currentAssessment');
-				console.log(fullAssessment);
-				console.log(JSON.parse(fullAssessment));
+				// console.log(fullAssessment);
+				// console.log(JSON.parse(fullAssessment));
 				this.setPageVariables(JSON.parse(fullAssessment));
 			}
 		}
