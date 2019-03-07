@@ -8,6 +8,7 @@ import { Keyboard } from '@ionic-native/keyboard'
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { NgxElectronModule } from 'ngx-electron';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -61,6 +62,7 @@ import {ElectronService} from "../services/electron.service"
   imports: [
     BrowserModule,
 		IonicModule.forRoot(MyApp),
+      NgxElectronModule,
     IonicStorageModule.forRoot(),
 		HttpClientModule,
 		HttpLinkModule,

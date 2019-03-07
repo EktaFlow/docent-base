@@ -99,7 +99,8 @@ export class QuestionsPage {
 
 	setPageVariables(assessment){
 		this.assessment = assessment;
-		this.files = this.assessment.files;
+		console.log(this.assessment);
+		this.assessment.files ? this.files = this.assessment.files : this.files = []
 		this.allQuestions = this.assessment.questions;
 		this.targetMRL = this.assessment.targetMRL;
 		this.currentTargetMRL = this.assessment.targetMRL;
@@ -108,6 +109,7 @@ export class QuestionsPage {
 		this.pullLatestAnswer(this.currentQuestion);
 		this.findAmtOfQs();
 		this.vals.when = this.formatDate();
+		console.log(this.currentQuestion);
 	}
 
 
@@ -147,9 +149,18 @@ export class QuestionsPage {
 	showFileUpload() {
 			let myEmitter = new EventEmitter<any>();
 			myEmitter.subscribe( v =>  {
+			console.log(v);
+			console.log(this.files);
+			console.log(this.questionId);
 			var files = JSON.parse(JSON.stringify(this.files));
-			files.push(v)
+			var cool = {
+			name: v.name,
+			questionId: this.currentQuestion.questionId
+			}
+			files.push(cool);
 			this.files = files;
+			console.log(this.files);
+			// plus, save to the localstorage
 			});
 
 			this.popoverController.create(FileUploadPopoverComponent,
