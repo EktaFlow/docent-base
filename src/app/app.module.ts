@@ -50,7 +50,7 @@ import { httpInterceptorsProviders } from "../services/interceptors";
 import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
 import { Helpers } from '../services/helpers';
-import {ElectronService} from "../services/electron.service"
+import {ElectronServiceD} from "../services/electron.service"
 // import { ElectronProvider } from '../providers/electron/electron';
 
 @NgModule({
@@ -102,7 +102,7 @@ import {ElectronService} from "../services/electron.service"
 		httpInterceptorsProviders,
     SplashScreen,
 		Keyboard,
-    ElectronService
+    ElectronServiceD
 		//    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 

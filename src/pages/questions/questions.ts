@@ -7,6 +7,8 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AuthService } from "../../services/auth.service";
 import { Helpers } from '../../services/helpers';
 import {isElectron} from "../../services/constants";
+import { ElectronService } from 'ngx-electron';
+
 
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete';
@@ -40,14 +42,17 @@ export class QuestionsPage {
 	noSecondBar: boolean = true;
 	isElectron: any;
 	inAssessment: any;
+	private exec: any;
 
 	constructor(public navParams:          NavParams,
               public help: Helpers,
 							private popoverController: PopoverController,
 						  private assessmentService: AssessmentService,
-							private auth: AuthService) {
+						  private auth: AuthService,
+						  private electron: ElectronService) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
+		this.exec = electron.remote.require('child_process').exec;
 		this.referringQuestionId = navParams.data.questionId;
   }
 
@@ -98,6 +103,8 @@ export class QuestionsPage {
   }
 
 	setPageVariables(assessment){
+	// separate process for setting the assessmentId w/ Electron
+		this.isElectron? this.assessmentId = assessment.assessmentId : null
 		this.assessment = assessment;
 		console.log(this.assessment);
 		this.assessment.files ? this.files = this.assessment.files : this.files = []
@@ -146,21 +153,31 @@ export class QuestionsPage {
 
 	////////////////// CLICK HANDLERS //////////////////////////////////
 	/////////////////////////// popover creator(s) /////////////////////
+	openFile(path) {
+		console.log(path);
+		// WINDOWS
+		this.exec(`"${path}"`);
+		// MAC
+		// this.exec(`open "${path}"`);
+	}
+
 	showFileUpload() {
 			let myEmitter = new EventEmitter<any>();
 			myEmitter.subscribe( v =>  {
-			console.log(v);
-			console.log(this.files);
-			console.log(this.questionId);
-			var files = JSON.parse(JSON.stringify(this.files));
-			var cool = {
-			name: v.name,
-			questionId: this.currentQuestion.questionId
-			}
-			files.push(cool);
-			this.files = files;
-			console.log(this.files);
-			// plus, save to the localstorage
+			  var files = JSON.parse(JSON.stringify(this.files));
+			  var fileInfo = {
+			    name: v.name,
+			    path: v.path,
+			    questionId: this.currentQuestion.questionId
+			  };
+			  files.push(fileInfo);
+		          this.files = files;
+
+			  // this is a copy-paste of the other save to localstorage code
+			  var myStorage = window.localStorage;
+			  var oldAssessment = JSON.parse(myStorage.getItem('currentAssessment'));
+			  oldAssessment.files = this.files;
+			  myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment));
 			});
 
 			this.popoverController.create(FileUploadPopoverComponent,
@@ -207,11 +224,10 @@ export class QuestionsPage {
   /**
   *  Simple handler to launch files in new tab/window rather than
   *  changing actual address url.
+  *openFile(url) {
+  *  window.open(url);
+  *}
   */
-  openFile(url) {
-    window.open(url);
-  }
-
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
 		// if (this.currentQPos == this.currentQSetAmt) return null;

@@ -10,7 +10,8 @@ import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LoginPage } from '../login/login';
 import { isElectron} from "../../services/constants";
-import {ElectronService} from "../../services/electron.service";
+import {ElectronServiceD} from "../../services/electron.service";
+import { ElectronService } from 'ngx-electron';
 
 
 import { Apollo } from "apollo-angular";
@@ -49,6 +50,7 @@ export class HomePage {
 	noSecondBar: any = false;
 
   constructor(public navCtrl: NavController,
+  		private electronRemote: ElectronService,
 							public popOver: PopoverController,
 							private apollo: Apollo,
 							private auth: AuthService,
@@ -56,7 +58,7 @@ export class HomePage {
               private http: HttpClient,
 							private loadingCtrl: LoadingController,
 							private toastCtrl: ToastController,
-							private electron: ElectronService) {}
+							private electron: ElectronServiceD) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -110,13 +112,16 @@ export class HomePage {
 		this.presentLoadingDefault();
 
 		if(isElectron){
+			var crypto = this.electronRemote.remote.require('crypto');
 			var myStorage = window.localStorage;
 			console.log(variables);
 			console.log(JSON.parse(variables.schema));
-
+			var assessmentId = crypto.randomBytes(20).toString('hex');
+			console.log(assessmentId);
 
 			variables['questions'] = this.electron.drillQuestions(JSON.parse(variables.schema));
-			 delete variables.schema;
+			variables['assessmentId'] = assessmentId;
+			delete variables.schema;
 			console.log(variables);
 			var newElectronAss = JSON.stringify(variables);
 			myStorage.setItem('currentAssessment', newElectronAss);

@@ -31,6 +31,7 @@ export class FileUploadPopoverComponent {
 
 		this.questionId		= navParams.get("questionId");
 		this.assessmentId = navParams.get("assessmentId");
+		console.log(this.assessmentId);
 		this.emitter			= navParams.data.emitter;
 
   }
@@ -67,17 +68,20 @@ export class FileUploadPopoverComponent {
 
 		// boooooooooooooooooooo typescript
 		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-			console.log(file);
 			var filePath = file.path
 			var fileName = file.name
-			var assessmentFileDir = `./file/aaaaaaa/`;
+			if (!this.fs.existsSync('./file/')) { this.fs.mkdirSync('./file/') }
+			var assessmentFileDir = `./file/${this.assessmentId}/`;
 			if (!this.fs.existsSync(assessmentFileDir)) {
-			console.log('no dir');
 				this.fs.mkdirSync(assessmentFileDir);
 			}
-			//var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
+
 			this.fs.copyFile(filePath, assessmentFileDir + fileName, err => console.log(err));
-		  this.emitter.emit(file);
+			var emitted = {
+				path: assessmentFileDir + fileName,
+				name: file.name
+			}
+		  this.emitter.emit(emitted);
 		this.viewCtrl.dismiss()
 	}
 
