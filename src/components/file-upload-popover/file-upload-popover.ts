@@ -20,6 +20,7 @@ export class FileUploadPopoverComponent {
 	file:         any;
 	user: any;
 	fs: any;
+	assessmentName: string;
 
 	constructor(	public upload: UploadService,
 	              public navParams: NavParams,
@@ -32,6 +33,7 @@ export class FileUploadPopoverComponent {
 		this.questionId		= navParams.get("questionId");
 		this.assessmentId = navParams.get("assessmentId");
 		console.log(this.assessmentId);
+		this.assessmentName = navParams.get('assessmentName');
 		this.emitter			= navParams.data.emitter;
 
   }
@@ -71,7 +73,7 @@ export class FileUploadPopoverComponent {
 			var filePath = file.path
 			var fileName = file.name
 			if (!this.fs.existsSync('./file/')) { this.fs.mkdirSync('./file/') }
-			var assessmentFileDir = `./file/${this.assessmentId}/`;
+			var assessmentFileDir = `./file/${this.assessmentName}-${this.assessmentId.substr(0,5)}/`;
 			if (!this.fs.existsSync(assessmentFileDir)) {
 				this.fs.mkdirSync(assessmentFileDir);
 			}

@@ -163,6 +163,8 @@ export class QuestionsPage {
 
 	showFileUpload() {
 			let myEmitter = new EventEmitter<any>();
+			var assessment = JSON.parse(window.localStorage.getItem('currentAssessment'));
+			var assessmentName = assessment.name;
 			myEmitter.subscribe( v =>  {
 			  var files = JSON.parse(JSON.stringify(this.files));
 			  var fileInfo = {
@@ -184,7 +186,8 @@ export class QuestionsPage {
 					{
 						emitter: myEmitter,
 						questionId: this.currentQuestion.questionId,
-						assessmentId: this.assessmentId
+						assessmentId: this.assessmentId,
+						assessmentName: assessmentName
 					},
 					{	cssClass: "upload-popover"})
 				.present();
@@ -201,24 +204,15 @@ export class QuestionsPage {
   * - delete happens on FileDelete / or doesn't
   * - update DOM, assessment Object if file deleted
   */
-  handleRemoveFileClick(event, fileId) {
-    var removeFileEmitter = new EventEmitter();
-    removeFileEmitter.subscribe( event => {
-      // remove the file from the view after its been deleted from db
-      var files = JSON.parse(JSON.stringify(this.files));
-      files = files.filter( file => file.id != fileId );
-      this.files = files;
-    });
+  handleRemoveFileClick(fileName) {
+  	var files = JSON.parse(JSON.stringify(this.files));
+	files = files.filter(f => f.name != fileName );
+	this.files = files;
 
-    var fileDeleteData = {
-      emitter:      removeFileEmitter,
-      typeToDelete: 'file',
-      assessmentId: this.assessmentId,
-      fileId:       fileId
-    }
-
-    this.popoverController.create(FileDeleteComponent, fileDeleteData)
-                          .present({ev: event});
+	var myStorage = window.localStorage;
+	var oldAssessment = JSON.parse(myStorage.getItem('currentAssessment'));
+	oldAssessment.files = this.files;
+	myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment));
   }
 
   /**
