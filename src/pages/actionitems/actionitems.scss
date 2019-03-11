@@ -1,8 +1,12 @@
 page-actionitems {
+  ion-content{
+    margin-top: 120px;
+  }
     .toolbar-class{
         header{
             color:#000;
         }
+
         img{
             margin-left: 10px;
             margin-top: 10px
@@ -37,6 +41,16 @@ page-actionitems {
         justify-content: space-between;
         color:white;
         margin-left:13px;
+    }
+
+    .qspacer {
+      font-size: 0;
+      height: 220px;
+      line-height: 0;
+      border: 0px;
+      /* testing only */
+       // border: 1px solid red;
+       width: 100%;
     }
 
     @media screen and (max-width: 800px){

@@ -24,7 +24,20 @@ body {
 -ms-user-select: auto;
 user-select: auto;
 cursor: default;
+
 }
+
+body, html {
+  overflow: hidden;
+}
+
+ion-content {
+  overflow: scroll;
+}
+
+// .abs::-webkit-scrollbar {
+//  z-index:99999;
+// }
 
 .error-toast {
         .toast-wrapper {

@@ -6,7 +6,7 @@
 	</ng-container>
 
 
-<ion-content padding>
+<ion-content padding class="home-wrapper">
 <ng-container *ngIf="!auth.isLoggedIn()">
 	<ng-container *ngIf="auth.unverified()">
 	You must verify your Docent registration via email before logging on.
@@ -39,15 +39,7 @@
 </ng-container>
 
 <ng-container *ngIf="auth.isLoggedIn()">
-	<div class="desktop">
-		<br>
-	  <br>
-    <br>
 
-	</div>
-
-  <br>
-  <br>
 
 
 
