@@ -1,4 +1,5 @@
 
+
 ion-scroll { white-space: nowrap; }
 $input-backgroud:#fbfbfb;
 $input-border:#dcdcdc;
@@ -27,6 +28,10 @@ $input-border:#dcdcdc;
     outline:none;
     border-color:#9ecaed;
     box-shadow:0 0 10px #9ecaed;
+}
+
+.home-wrapper{
+  margin-top: 80px;
 }
 
 .toolbar-class{
