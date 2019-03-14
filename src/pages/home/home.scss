@@ -262,6 +262,9 @@ sup {
 
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+  .home-wrapper {
+    margin-top: 60px;
+  }
 	.assessment-name {
 		margin-left: 15px;
 	}
@@ -350,8 +353,22 @@ sup {
 
 }
 
+.qspacer {
+      font-size: 0;
+      height: 100px;
+      line-height: 0;
+      border: 0px;
+      /* testing only */
+       // border: 1px solid red;
+       width: 100%;
+    }
+
 
 @media screen and (min-width: 420px) and (max-width: 1024px){
+
+  .home-wrapper {
+    margin-top: 90px;
+  }
     .team-members-title {
         margin-left: 40px;
     }
@@ -375,6 +392,12 @@ sup {
 
   .start-button {
       margin-right: 35px;
+  }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1024px){
+  .home-wrapper {
+    margin-top: 120px;
   }
 }
 
