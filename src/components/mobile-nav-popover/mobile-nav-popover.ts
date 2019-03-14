@@ -16,6 +16,7 @@ import { CriteriaPage } from '../../pages/criteria/criteria';
 import { SettingsPage } from '../../pages/settings/settings';
 import { AcronymsPage } from '../../pages/acronyms/acronyms';
 import { SummaryPage } from '../../pages/summary/summary';
+import { RiskReportPage } from '../../pages/risk-report/risk-report';
 
 
 
@@ -108,6 +109,7 @@ export class MobileNavPopoverComponent {
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
   goToDoD = () => window.location.href = "http://dodmrl.com";
   goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2017.pdf"
+  handleRiskReport = () => this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
   // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }

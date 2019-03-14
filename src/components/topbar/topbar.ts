@@ -191,7 +191,7 @@ constructor( public popOver: PopoverController,
 			questionId: this.questionId
 		}
 		var popover = this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
-			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'sub-thread-popup'});
 			if (mobileness == "false"){
 				popover.present({ev: event});
 			} else {
