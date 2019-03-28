@@ -69,6 +69,7 @@ export class QuestionsPage {
 	/////////////////////////////////////////////////////////////////////
 	// INIT && related function
   async ngOnInit() {
+
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 
 		// if we don't already have a loaded assessment.
@@ -83,6 +84,8 @@ export class QuestionsPage {
 				this.targetMRL = assessment.targetMRL;
 				this.currentTargetMRL = assessment.targetMRL;
 				this.surveyQuestions = this.setSurveyQuestions();
+				console.log(this.allQuestions);
+				console.log(this.surveyQuestions);
 				// add if no currentQuestionId
 				this.determineCurrentQuestion();
 
@@ -99,11 +102,27 @@ export class QuestionsPage {
 
 	setSurveyQuestions() {
 
-  var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
-    return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
-              .filter( q => threadNames.includes(q.threadName))
+		console.log(this.assessment.threads);
+		console.log(this.help.threadMap);
 
-							.map( q => q.questionId);
+
+		console.log(this.assessment);
+  var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
+	var threadNames2 = this.assessment.threads.map(index => this.help.threadMap2016[index])
+  console.log(threadNames);
+    // return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
+    //           .filter( q => threadNames.includes(q.threadName))
+		// 					.map( q => q.questionId);
+
+		var level1 = this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL );
+		console.log(level1);
+			var level2 =				level1.filter( q => threadNames.includes(q.threadName) || threadNames2.includes(q.threadName));
+			console.log(level2);
+			var level3 = 				level2.map( q => q.questionId);
+			console.log(level3);
+
+
+			return level3;
 	}
 
 	determineCurrentQuestion() {
@@ -222,7 +241,7 @@ export class QuestionsPage {
 	///// any modification of the inputs needed to be used in the assessment
 	///// update function
 	setValues() {
-    if ( this.valuesHaveChanged() ) { 
+    if ( this.valuesHaveChanged() ) {
     // if nothing has been changed -- dont do any of this.
 		  var values: any = Object.assign({}, this.vals)
 		  values = this.filterAnswerVals(values);
@@ -284,7 +303,7 @@ export class QuestionsPage {
 	}
 
         /**
-        *   @purpose: determine whether there have been any changes made 
+        *   @purpose: determine whether there have been any changes made
         *   @return: boolean
         *   checks the state of this.vals against current answer of this.currentQuestion
         */
@@ -293,7 +312,7 @@ export class QuestionsPage {
                 var changed = false;
                 if ( this.currentQuestion.answers.length > 0 ) {
                         oldAnswer = this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
-                } 		
+                }
 
                 // we only want to compare based on inputs, neither of these are direct inputs
                 delete this.vals.updatedAt;
