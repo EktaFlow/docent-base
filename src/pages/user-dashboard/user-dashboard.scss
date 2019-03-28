@@ -175,16 +175,14 @@ page-user-dashboard {
   @media screen and (max-width: 1024px){
 
     .desktop {
-      display: none;
+      display: none !important;
     }
 
     ion-content {
       margin-top: 100px;
     }
 
-    .desktop {
-      display: none;
-    }
+
 
     .mobile {
       display: inherit;
