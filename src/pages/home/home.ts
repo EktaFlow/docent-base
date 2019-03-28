@@ -104,8 +104,10 @@ export class HomePage {
 		}
 
 		await this.getSchema(this.assForm.deskBookVersion);
+		console.log(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
+		console.log(variables);
 		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
@@ -117,6 +119,8 @@ export class HomePage {
 		// var createInfo = {
 		//
 		// }
+
+		console.log(variables);
 
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
@@ -162,7 +166,7 @@ export class HomePage {
 
 		// move this to constants when we decide it's home.
 		var url = "https://web.mfgdocent.com/auth/share";
-		
+
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
@@ -308,7 +312,7 @@ export class HomePage {
       this.assForm.threads.push(threadIndex);
 
 
-      // using the indices to ID the threads relies on them being sorted. 
+      // using the indices to ID the threads relies on them being sorted.
       this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );
     }
   }
