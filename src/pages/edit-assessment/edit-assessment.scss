@@ -70,5 +70,17 @@ page-edit-assessment {
 		font-size: 3em;
 	}
 
+  @media screen and (max-width: 1024px) {
+    .close {
+      top: -20px;
+    }
+  }
+
+  @media screen and (max-width: 1024px) and (min-width: 440px){
+    .close {
+      top: 0px;
+    }
+  }
+
 
 }

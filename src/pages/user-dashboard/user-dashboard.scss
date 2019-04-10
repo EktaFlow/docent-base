@@ -174,13 +174,15 @@ page-user-dashboard {
 
   @media screen and (max-width: 1024px){
 
+    .desktop {
+      display: none !important;
+    }
+
     ion-content {
       margin-top: 100px;
     }
 
-    .desktop {
-      display: none;
-    }
+
 
     .mobile {
       display: inherit;
@@ -327,6 +329,8 @@ page-user-dashboard {
 
 
 
+
+
     .assessments {
       .accordion-tab {
         margin: 10px;
@@ -341,6 +345,10 @@ page-user-dashboard {
 
           .assNav {
             padding-left: 50px;
+
+            button {
+              font-size: 14px;
+            }
           }
       }
     }

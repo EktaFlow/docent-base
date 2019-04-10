@@ -53,9 +53,13 @@ page-actionitems {
        width: 100%;
     }
 
-    @media screen and (max-width: 800px){
+    @media screen and (max-width: 1024px){
           ion-content {
               // margin-top: 10px;
+          }
+
+          .desktop {
+            display: none !important;
           }
 
         .table-wrapper {
@@ -63,4 +67,10 @@ page-actionitems {
             overflow: scroll;
         }
       }
+
+  @media screen and (min-width: 420px) and (max-width: 1024px){
+    ion-content{
+      margin-top: 160px;
+    }
+  }
 }

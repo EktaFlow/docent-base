@@ -99,6 +99,7 @@ query assessment($_id: String)
   threads
 	currentMRL
 	levelSwitching
+	deskbookVersion
 	files {
     id,
 		url,
@@ -140,7 +141,7 @@ export var updateTeamMembersMutation = gql`
 		addTeamMember(assessmentId: $assessmentId,  teamMemberUpdates: $teamMember) {
 			name
 			email
-			role 
+			role
 		}
 	}
 `

@@ -118,6 +118,10 @@ page-review {
 
     @media screen and (max-width: 1024px){
 
+      .export-toolbar {
+        display: none;
+      }
+
         .page-one-info {
             margin-left: 0px;
             margin-top: 0px;
@@ -148,6 +152,12 @@ page-review {
           .box {
               width: 100%;
           }
+      }
+    }
+
+    @media screen and (min-width: 420px) and (max-width: 1024px){
+      ion-content {
+        margin-top: 160px;
       }
     }
 }

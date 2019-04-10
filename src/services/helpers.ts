@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class Helpers {
 
-  constructor() {} 
+  constructor() {}
 
   formatDate(date) {
   console.log('hi');
@@ -23,6 +23,20 @@ export class Helpers {
     "8": "Mfg Personnel",
     "9": "Facilities",
     "10": "Mfg Management"
+
+  };
+
+  public threadMap2016: any = {
+    "1": "Technology Maturity",
+    "2": "A. Technology & Industrial Base",
+    "3": "B. Design",
+    "4": "C. Cost & Funding",
+    "5": "D. Materials",
+    "6": "E. Process Capability & Control",
+    "7": "F. Quality Management",
+    "8": "G. Mfg Personnel",
+    "9": "H. Facilities",
+    "10": "I. Mfg Management"
   };
 
 }

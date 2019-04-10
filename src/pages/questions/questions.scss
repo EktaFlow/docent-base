@@ -518,8 +518,8 @@ $arrow-width: 1em;
 
   @media screen and (max-width: 1024px){
     ion-content {
-        margin-top: 50px;
-        margin-bottom: 100px;
+        margin-top: 200px;
+        // margin-bottom: 300px;
 
     }
 
@@ -699,7 +699,7 @@ $arrow-width: 1em;
 
     .qspacer {
         background-color: transparent;
-        height: 160px;
+        height: 200px;
 
     }
 
@@ -708,6 +708,7 @@ $arrow-width: 1em;
     .page-wrapper {
             display: flex;
             flex-direction: column;
+            height: auto;
     }
 
     .full-fields-wrapper {
@@ -809,7 +810,7 @@ $arrow-width: 1em;
 
 @media screen and (min-width: 421px) and (max-width: 1024px){
     ion-content {
-        margin-top: 70px;
+        margin-top: 230px;
     }
 
     .risk-wrapper {
