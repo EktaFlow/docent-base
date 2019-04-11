@@ -68,6 +68,34 @@ page-actionitems {
         }
       }
 
+      .list-wrapper {
+        width: 100%;
+
+        .action-items-list {
+          .item-wrapper {
+              margin: 5px;
+              border: 1px solid black;
+              padding: 5px;
+
+              .top {
+                h2 {
+                  text-decoration: underline;
+                }
+              }
+
+              .bottom {
+                border-top: .5px solid black;
+                display: block;
+                padding-top: 15px;
+
+                p {
+                  font-size: 20px;
+                }
+              }
+          }
+        }
+      }
+
   @media screen and (min-width: 420px) and (max-width: 1024px){
     ion-content{
       margin-top: 160px;

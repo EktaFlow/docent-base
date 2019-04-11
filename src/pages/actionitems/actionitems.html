@@ -10,7 +10,7 @@
 
 
 
-<div><h2>Action Items not available currently on native applications</h2></div>
+<!-- <div><h2>Action Items not available currently on native applications</h2></div> -->
 
 <!-- <div class="row">
   <div class="toolbar">
@@ -29,67 +29,27 @@
           [rows]="rows" [columns]="columns">
 </ng-table>
 </div> -->
-<!--
-<pagination *ngIf="config.paging"
-            class="pagination-sm"
-            [(ngModel)]="page"
-            [totalItems]="length"
-            [itemsPerPage]="itemsPerPage"
-            [maxSize]="maxSize"
-            [boundaryLinks]="true"
-            [rotate]="false"
-            (pageChanged)="onChangeTable(config, $event)"
-            (numPages)="numPages = $event">
-</pagination>
--->
-<!--
-<pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
--->
 
-<!--
-  <div *ngFor="let question of no">
-    <p>
-      <b>{{question.threadName}}</b> / {{question.subThreadName}} / MR Level: {{question.mrLevel}}
-    </p>
-    <p (click)="navToQuestion(question.questionId)" style="color:darkslateblue"><b>{{question.questionText}}</b></p>
-    <div style="display:flex;">
-      <div style="width:40%">
-        <p>
-          <b>Reason:</b><br>
-          {{question.reason}}
-        </p>
-        <p>
-          <b>Action:</b><br>
-          {{question.what}}
-        </p>
-        <p>
-          <b>Assumptions:</b><br>
-          {{question.assumptionsNo}}
-        </p>
-      </div>
-      <div style="width:40%;">
-        <p>
-            <b>Risks:</b><br>
-						{{displayRisks(question)}}
-          </p>
-          <p>
-            <b>Team Members:</b><br>
-            {{question.teamMembers}}
-          </p>
-          <p>
-            <b>Attachments:</b><br>
-						<ng-container *ngFor="let attachment of getAttachments(question)">
-							<a href={{attachment.url}}>{{attachment.name}}</a><br />
-						</ng-container>
-          </p>
-      </div>
+<div class="list-wrapper">
+  <div class="action-items-list">
+    <div *ngFor="let item of data" class="item-wrapper">
+        <div class="top">
+        <h2>Question: {{item.questionText}}</h2>
+        <h4>Thread Name: {{item.threadName}}</h4>
+        <h4>Sub Thread Name: {{item.subThreadName}}</h4>
+        </div>
+
+        <div class="bottom">
+          <p><b>Action Item: </b>{{item.what}}</p>
+          <p><b>Due Date: </b>{{item.when}}</p>
+          <p><b>Owner: </b>{{item.who}}</p>
+          <p><b>Risk: </b>{{item.risk}}</p>
+        </div>
+
     </div>
-    <p><b>Notes:</b></p>
-    {{question.notesNo}}
-    <hr>
-  </div>
 
--->
+  </div>
+</div>
 
 <div class="qspacer">
 </div>
