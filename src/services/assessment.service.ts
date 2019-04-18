@@ -13,6 +13,9 @@ import { assessmentQuery,
          deleteFileMutation   } from "./gql.service";
 import gql from 'graphql-tag';
 import { AuthUrl } from './constants';
+import 'rxjs/add/operator/catch';
+import { Observable, of } from 'rxjs';
+
 
 @Injectable()
 export class AssessmentService {
@@ -30,7 +33,7 @@ export class AssessmentService {
   //
 	// }
 
-	setCurrentAssessmentId(assessmentId) {
+	async setCurrentAssessmentId(assessmentId) {
 		this.storage.set('currentAssessmentId', assessmentId);
 	}
 
@@ -178,8 +181,30 @@ export class AssessmentService {
 	async updateQuestion(updateInfo) {
 		return await this.apollo.mutate<any>({
 			mutation: updateQuestionMutation,
+			errorPolicy: 'all',
 			variables: updateInfo
-		});
+			})
+			.catch(e => {
+				// return Observable.throw(e.statusText);
+				return of({error: 'network Error!'})
+			}); 
+	}
+
+	async updateQuestionSeries(updateArray) {
+		var success = true;
+		for ( let update of updateArray) {
+			await this.apollo.mutate<any>({
+				mutation: updateQuestionMutation,
+				variables: update
+			}).catch(e => {
+				console.log('we in error in series');
+				success = false;
+				return of('error');
+			}).subscribe(a => {
+				console.log('always with the subscribe');
+			})
+		}
+		return success;
 	}
 
   async deleteAssessment(assessmentId){

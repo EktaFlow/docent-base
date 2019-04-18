@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, ViewController, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from "../../pages/questions/questions";
 import {AuthService} from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
+import { AssessmentService } from '../../services/assessment.service';
+
 
 
 import { Apollo } from "apollo-angular";
@@ -25,7 +27,7 @@ export class ImportComponent {
   text: string;
 	file: any;
 
-  constructor( private apollo: Apollo, public navController: NavController, private auth: AuthService) {
+  constructor(private viewController: ViewController, private assessmentService: AssessmentService, private apollo: Apollo, public navController: NavController, private auth: AuthService) {
     console.log('Hello ImportComponent Component');
   }
 
@@ -56,6 +58,8 @@ export class ImportComponent {
 			}
 		}).subscribe( data => {
 				console.log(data.data.importAssessment._id);
+				this.assessmentService.setCurrentAssessmentId(data.data.importAssessment._id)
+				this.viewController.dismiss();
 				this.navController.push(QuestionsPage, { data: data.data.importAssessment._id })
 			})
 

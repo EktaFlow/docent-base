@@ -131,7 +131,7 @@ export class QuestionHistoryPopoverComponent {
 }
 
   decideAnswersAction(question){
-    console.log(question);
+    console.log('running decide ansers action', question.answers);
     if (question.answers.length > 0){
       question.answers = question.answers.filter(a => a.answer != null);
     }

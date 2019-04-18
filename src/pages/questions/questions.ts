@@ -266,6 +266,7 @@ export class QuestionsPage {
   // values is an object containing the latest values from the input.
   // if there are no changes, we don't want to do anything.
 	async updateAssessment(values) {
+		var nice = this.currentQuestion.questionId;
 
 		//updating object in memory
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
@@ -290,37 +291,59 @@ export class QuestionsPage {
 		// ---------------------------------------------------------
 
 		//updating object in the back
+		// if
+		var hasOfflineAnswers = await this.storage.get('offline');
+		// if it has offline answers...
+		if ( hasOfflineAnswers ) {
+			console.log('we have offline answers', hasOfflineAnswers);
+				var saveOffline = await this.assessmentService.updateQuestionSeries(hasOfflineAnswers);
+				if ( saveOffline ) {
+					console.log('we have successfully saved offline answers')
+					this.storage.remove('offline')
+					} else {
+					console.log('we were unable to save offline answers')
+					}
 
-    try {
+			} else {
+				console.log('no offline answers');
+			}
+
 		var tempQuestion = {
 			"currentAnswer": newerQuestion.currentAnswer
 		}
 
 		var updatedInfo = {
 			_id: this.assessmentId,
-			questionId: Number(this.currentQuestion.questionId),
+			questionId: nice,
 			questionUpdates: tempQuestion,
 			answerUpdates: values
 		};
+		console.log('info going into update', updatedInfo);
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => {
-      // if the update is successful clear the offline object in Storage
-      console.log('assessment Update successful')
-      storage.remove('offline')
-        .then(p => {
-          console.log('removed offline from storage');
-          console.log(p);
-        })
-        .catch(e => {
-          console.log('does the promise get rejected if key specified doesn't exist??');
-        });
-    });
-    } catch(e) {
-      console.log('unable to update assessment');
-      storage.set('offline', tempAssessmentObject);
-      // keep a copy of most current assessment object in Storage. 
-      // if 
-    }
+			// we're (almost?) always going to end up in here because we're catching the error in the service
+      			// if the update is successful clear the offline object in Storage
+			// what is the data object on failure and on success??
+			// right now, we only want to handle the failure case -- no we want both because we want to store and / or delete.
+			console.log('in update subscribe in q page', data);
+			if ( (<any>data).data ) {
+				console.log('success gql');
+				// any successful gql response is going to have a key called 'data'
+				this.storage.remove('offline')
+					.then( p => {
+						p ? console.log('something was removed') : console.log('nothing removed... nothing exist??')
+					})
+
+			}
+
+			if ( (<any>data).error ) {
+				console.log('error was thrown');
+				var offlineAnswers = hasOfflineAnswers || [];
+				offlineAnswers.push( updatedInfo );
+				console.log('this is offlineAnswers object', offlineAnswers);
+				this.storage.set('offline', offlineAnswers);
+			}
+		});
 	}
 
         /**
