@@ -1,5 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import { IonicPage, NavParams, PopoverController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 import { ReviewPage } from '../review/review';
 import { ViewsComponent } from '../../components/views/views';
 import { AssessmentService } from "../../services/assessment.service";
@@ -40,6 +42,7 @@ export class QuestionsPage {
 
 	constructor(public navParams:          NavParams,
               public help: Helpers,
+              private storage: Storage,
 							private popoverController: PopoverController,
 						  private assessmentService: AssessmentService,
 							private auth: AuthService) {
@@ -288,6 +291,7 @@ export class QuestionsPage {
 
 		//updating object in the back
 
+    try {
 		var tempQuestion = {
 			"currentAnswer": newerQuestion.currentAnswer
 		}
@@ -299,7 +303,24 @@ export class QuestionsPage {
 			answerUpdates: values
 		};
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
-		update.subscribe(data => null);
+		update.subscribe(data => {
+      // if the update is successful clear the offline object in Storage
+      console.log('assessment Update successful')
+      storage.remove('offline')
+        .then(p => {
+          console.log('removed offline from storage');
+          console.log(p);
+        })
+        .catch(e => {
+          console.log('does the promise get rejected if key specified doesn't exist??');
+        });
+    });
+    } catch(e) {
+      console.log('unable to update assessment');
+      storage.set('offline', tempAssessmentObject);
+      // keep a copy of most current assessment object in Storage. 
+      // if 
+    }
 	}
 
         /**
