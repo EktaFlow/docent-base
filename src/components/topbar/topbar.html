@@ -24,7 +24,11 @@
           </div>
 
           <div *ngIf="!blank" class="container-tbbuttons-mobile">
-            <button ion-button (click)="openMobileNav()" color="dark">
+            <button *ngIf="!isOffline" ion-button (click)="openMobileNav()" color="dark">
+              <ion-icon name="menu" class="hamburger-nav"></ion-icon>
+            </button>
+            <h2 *ngIf="isOffline">Offline</h2>
+            <button *ngIf="isOffline" ion-button (click)="handleMobileOfflineMenuPress()" color="warning">
               <ion-icon name="menu" class="hamburger-nav"></ion-icon>
             </button>
           </div>
@@ -45,7 +49,7 @@
           <h1 class="page-name"></h1>
         </div> -->
 
-        <div *ngIf="assessmentId && noSecondBar != false && !pageName" class="subheader">
+        <div *ngIf="!isOffline && assessmentId && noSecondBar != false && !pageName" class="subheader">
           <div *ngIf="mainTitle">
             <p class="mobile"><span (click)="presentThreadPop($event, 'true')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'true')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
             <p class="desktop"><span (click)="presentThreadPop($event, 'false')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'false')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
@@ -59,6 +63,7 @@
               <!-- <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p> -->
             </div>
           </div>
+          <!-- Can copy the web offline code here.-->
       </ion-navbar>
     </ion-header>
 

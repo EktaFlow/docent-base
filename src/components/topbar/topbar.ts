@@ -57,6 +57,7 @@ export class TopbarComponent {
 	@Input() private getAssessmentId: any;
 	@Input() public pageName: any;
 	@Input() private questionId: any;
+  @Input() public isOffline: boolean;
 	public popUpButtonClicked: any;
 	// infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
@@ -130,6 +131,11 @@ constructor( public popOver: PopoverController,
 	handleContinue(){
 		this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 	}
+
+  handleMobileOfflineMenuPress() {
+    // TODO: UI changes on click? 
+    console.log('we offline');
+  }
 
 	// registerNav() { this.navCtrl.push( this.registerPage ); }
 	// loginNav() { this.navCtrl.push( this.loginPage ); }
