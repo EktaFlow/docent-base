@@ -6,6 +6,7 @@
         <div class = "container-toolbar">
           <img class="toolbar-logo" src="assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
           <div *ngIf="!blank" class = "container-tbbuttons">
+		  <h1 *ngIf="isOffline" >You're offline, holmes</h1>
             <button (click)="handleUserDash()" color="dark" ion-button id="user-dash-button">
               Home
             </button>
@@ -24,9 +25,13 @@
           </div>
 
           <div *ngIf="!blank" class="container-tbbuttons-mobile">
-            <button ion-button (click)="openMobileNav()" color="dark">
+            <button *nfIf="!isOffline" ion-button (click)="openMobileNav()" color="dark">
               <ion-icon name="menu" class="hamburger-nav"></ion-icon>
             </button>
+            <button *nfIf="isOffline" ion-button (click)="handleMobileOfflineMenuPress()" color="red">
+              <ion-icon name="menu" class="hamburger-nav"></ion-icon>
+            </button>
+	    
           </div>
         </div>
         <hr>
@@ -41,11 +46,7 @@
           <h1 class="page-name" id="page-name">{{pageName}}</h1>
         </div>
 
-        <!-- <div *ngIf="userDash">
-          <h1 class="page-name"></h1>
-        </div> -->
-
-        <div *ngIf="assessmentId && noSecondBar != false && !pageName" class="subheader">
+        <div *ngIf="!isOffline && assessmentId && noSecondBar != false && !pageName" class="subheader">
           <div *ngIf="mainTitle">
             <p class="mobile"><span (click)="presentThreadPop($event, 'true')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'true')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
             <p class="desktop"><span (click)="presentThreadPop($event, 'false')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'false')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
@@ -56,9 +57,13 @@
             <div class="targets-scope">
               <p>Target MRL: {{targetMRL}} | Target Date: {{targetDate | date:'mediumDate'}}</p>
               <p class="scope-link" (click)="toggleScopeSelected($event)">Show Additional Information</p>
-              <!-- <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p> -->
             </div>
           </div>
+	  <div *ngIf="isOffline" style="display:flex">
+		  <h1>You are offline</h1>
+		  <h4>You can still answer questions, but cannot use other features</h4>
+		  <h4>When you answer a question again while connected your answers will sync</h4>
+	  </div>
       </ion-navbar>
     </ion-header>
 

@@ -23,6 +23,7 @@ import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover
 export class QuestionsPage {
 
 	private vals: any = {};
+	private isOffline: boolean = false;
 	assessmentId: any;
 	private assessment: any;
 	public helpClicked: boolean = false;
@@ -37,7 +38,7 @@ export class QuestionsPage {
 	currentQSet: any;
 	currentQSetAmt: any;
 	currentQPos: any;
-  public getAssessmentId = true;
+  	public getAssessmentId = true;
 	noSecondBar: boolean = true;
 
 	constructor(public navParams:          NavParams,
@@ -300,6 +301,7 @@ export class QuestionsPage {
 				if ( saveOffline ) {
 					console.log('we have successfully saved offline answers')
 					this.storage.remove('offline')
+					this.isOffline = false;
 					} else {
 					console.log('we were unable to save offline answers')
 					}
@@ -338,6 +340,7 @@ export class QuestionsPage {
 
 			if ( (<any>data).error ) {
 				console.log('error was thrown');
+				this.isOffline = true;
 				var offlineAnswers = hasOfflineAnswers || [];
 				offlineAnswers.push( updatedInfo );
 				console.log('this is offlineAnswers object', offlineAnswers);
@@ -511,9 +514,6 @@ export class QuestionsPage {
 			"greatestImpact",
 			"riskResponse",
 			"mmpSummary",
-			// "technical",
-			// "cost",
-			// "schedule",
 			"what",
 			"reason",
 			"assumptionsNo",
