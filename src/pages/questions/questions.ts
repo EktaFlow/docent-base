@@ -114,10 +114,22 @@ export class QuestionsPage {
 	setSurveyQuestions() {
 
   var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
-    return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
-              .filter( q => threadNames.includes(q.threadName))
+	var threadNames2 = this.assessment.threads.map(index => this.help.threadMap2016[index])
+  console.log(threadNames);
+    // return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
+    //           .filter( q => threadNames.includes(q.threadName))
+		// 					.map( q => q.questionId);
 
-							.map( q => q.questionId);
+		var level1 = this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL );
+		console.log(level1);
+			var level2 =				level1.filter( q => threadNames.includes(q.threadName) || threadNames2.includes(q.threadName));
+			console.log(level2);
+			var level3 = 				level2.map( q => q.questionId);
+			console.log(level3);
+
+
+			return level3;
+
 	}
 
 	determineCurrentQuestion() {
