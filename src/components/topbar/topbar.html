@@ -9,6 +9,9 @@
             <button (click)="handleUserDash()" color="dark" ion-button id="user-dash-button">
               Home
             </button>
+            <button (click)="handleEditAssessmentClick()" *ngIf="isElectron && inAssessment">
+              Edit Assessment 
+            </button>
             <button (click)="handleContinue()" *ngIf="(this.assessmentId && !noSecondBar) || (isElectron && inAssessment && !noSecondBar)" ion-button color="dark" id="continue-assessment-button">
         			Continue Assessment
         		</button>

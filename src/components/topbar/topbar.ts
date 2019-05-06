@@ -13,6 +13,7 @@ import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/ass
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
 import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
 import {QuestionsPage} from '../../pages/questions/questions';
+import { EditAssessmentPage } from '../../pages/edit-assessment/edit-assessment';
 import {isElectron} from "../../services/constants";
 import { saveAs } from "file-saver/FileSaver";
 
@@ -149,6 +150,11 @@ constructor( public popOver: PopoverController,
 	handleContinue(){
 		this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 	}
+
+  handleEditAssessmentClick() {
+    this.navCtrl.push(EditAssessmentPage);
+  }
+
 
 	// registerNav() { this.navCtrl.push( this.registerPage ); }
 	// loginNav() { this.navCtrl.push( this.loginPage ); }
