@@ -121,6 +121,7 @@ export class HomePage {
 			var newElectronAss = JSON.stringify(variables);
 			myStorage.setItem('currentAssessment', newElectronAss);
 			myStorage.setItem('inAssessment', 'true');
+			myStorage.setItem('default', newElectronAss);
 			this.navCtrl.push(QuestionsPage);
 		}
 

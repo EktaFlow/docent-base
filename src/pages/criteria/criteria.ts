@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import {isElectron} from "../../services/constants"
+//import ok from "../../assets/json/default.json";
 
 
 import { QuestionsPage } from '../questions/questions';
@@ -86,10 +87,10 @@ export class CriteriaPage {
 				console.log(JSON.parse(fullAssessment));
 				this.setPageVariables(JSON.parse(fullAssessment));
 			} else {
-    this.http.get('/assets/json/default.json')
-      .subscribe( d => {
-        this.setPageVariables(d);
-    })
+			var defaultAssessment = myStorage.getItem('default');
+			defaultAssessment = JSON.parse(defaultAssessment);
+
+			this.setPageVariables(defaultAssessment);
         
       }
 

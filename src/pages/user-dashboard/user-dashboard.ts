@@ -115,12 +115,16 @@ export class UserDashboardPage {
 			}
 		} else {
 			var myStorage = window.localStorage;
+			myStorage.removeItem("inAssessment");
+			myStorage.removeItem("currentAssessment");
 			if (myStorage.getItem("inAssessment") == "true"){
 				if (myStorage.getItem("currentAssessment") == "undefined"){
 					myStorage.setItem("inAssessment", "false");
 					this.inAssessment = false;
 				} else {
 					this.inAssessment = true;
+					var existingAssessment = myStorage.getItem("currentAssessment");
+					myStorage.setItem("default", existingAssessment);
 				}
 
 			}
