@@ -50,14 +50,16 @@ export class FaqsPage {
           this.getFeedbackContacts();
         } else {
           var myStorage = window.localStorage;
+          this.getFaqInfo();
+          this.getFeedbackContacts();
     			if (myStorage.getItem('inAssessment') == 'true'){
     				this.inAssessment = true;
-            this.getFaqInfo();
-            this.getFeedbackContacts();
-    			}
+   //         this.getFaqInfo();
+   //         this.getFeedbackContacts();
+    			} else {
+            this.inAssessment = false;
+          }
         }
-
-
     }
 
 

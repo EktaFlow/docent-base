@@ -5,13 +5,6 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import {isElectron} from "../../services/constants";
 
 
-/**
- * Generated class for the DefinitionsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-definitions',
@@ -54,10 +47,11 @@ export class DefinitionsPage {
     if (!this.isElectron){
       this.getDefinitions();
     } else {
+      this.getDefinitions();
       var myStorage = window.localStorage;
 			if (myStorage.getItem('inAssessment') == 'true'){
 				this.inAssessment = true;
-        this.getDefinitions();
+  //      this.getDefinitions();
 			}
     }
 

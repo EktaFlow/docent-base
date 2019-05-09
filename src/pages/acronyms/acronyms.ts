@@ -5,15 +5,6 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { AcronymPopoverComponent } from '../../components/acronym-popover/acronym-popover';
 import {isElectron} from "../../services/constants";
 
-
-
-/**
- * Generated class for the AcronymsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-acronyms',
@@ -47,11 +38,13 @@ export class AcronymsPage {
         this.getAcronyms();
       	console.log(this.acronyms);
       } else {
+        this.getAcronyms();
         var myStorage = window.localStorage;
         if (myStorage.getItem('inAssessment') == "true"){
           this.inAssessment = true;
-          this.getAcronyms();
+        //  this.getAcronyms();
         }
+        
       }
 
     }
