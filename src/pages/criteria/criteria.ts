@@ -85,13 +85,22 @@ export class CriteriaPage {
 				var fullAssessment = myStorage.getItem('currentAssessment');
 				console.log(JSON.parse(fullAssessment));
 				this.setPageVariables(JSON.parse(fullAssessment));
-			}
+			} else {
+    this.http.get('/assets/json/default.json')
+      .subscribe( d => {
+        this.setPageVariables(d);
+    })
+        
+      }
+
 		}
 
 	}
 
 	setPageVariables(assessment){
+    
 		this.allQuestions = assessment.questions;
+    console.log(assessment.questions);
 		// this.schema = this.createSchemaObject(this.allQuestions);
 		this.filteredSchema = this.createSchemaObject(this.allQuestions);
 		this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
