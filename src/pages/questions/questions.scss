@@ -699,7 +699,7 @@ $arrow-width: 1em;
 
     .qspacer {
         background-color: transparent;
-        height: 200px;
+        height: 400px;
 
     }
 
@@ -838,6 +838,11 @@ $arrow-width: 1em;
 
     .y-axis-arrow-wrapper {
       height: 500px;
+    }
+
+    .selected {
+      // border: 7px solid black;
+      font-size: .5em !important;
     }
 }
 }
