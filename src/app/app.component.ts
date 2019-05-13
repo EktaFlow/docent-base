@@ -34,12 +34,15 @@ export class MyApp {
 		else {
 			this.rootPage = LoginPage;
 		}
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
       // statusBar.styleBlackTranslucent();
+      statusBar.hide();
       splashScreen.hide();
-      keyboard.hideFormAccessoryBar(false);
+      // keyboard.hideFormAccessoryBar(false);
+      keyboard.disableScroll(true);
       GoogleAnalytics.initialize();
 
     });
