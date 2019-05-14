@@ -20,7 +20,8 @@
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
-							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+              <li class="desktop"><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+              <li class="mobile"><a (click)="window.open(file.url, '_system', 'location=yes')">{{file.name}}</a></li>
 						</ng-container>
 					</ng-container>
 					</ul>
@@ -33,7 +34,8 @@
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
-							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+							<li class="desktop"><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+              <li class="mobile"><a (click)="window.open(file.url, '_system', 'location=yes')">{{file.name}}</a></li>
 						</ng-container>
 					</ng-container>
 					</ul>
@@ -48,7 +50,8 @@
 					<ul>
 					<ng-container *ngFor = "let file of files">
 						<ng-container *ngIf = "file.questionId == question.questionId">
-							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+              <li class="desktop"><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+              <li class="mobile"><a (click)="window.open(file.url, '_system', 'location=yes')">{{file.name}}</a></li>
 						</ng-container>
 					</ng-container>
 					</ul>
