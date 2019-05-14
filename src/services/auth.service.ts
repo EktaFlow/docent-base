@@ -78,7 +78,7 @@ constructor(private http: HttpClient, private storage: Storage) {}
 		var ok = JSON.parse(wait);
     if (ok){
       ok ? ok = ok.user : null
-  		return (ok<any>)
+  		return (<any>ok)
     }
 
 	}
@@ -112,7 +112,7 @@ constructor(private http: HttpClient, private storage: Storage) {}
 		var hasToken = await this.storage.get("docent-token");
 		// console.log(JSON.parse(hasToken));
 		if (hasToken && JSON.parse(hasToken).user) {
-			return (!JSON.parse(hasToken).user.verified<any>)
+			return (<any>!JSON.parse(hasToken).user.verified)
 		}
 
 	}
@@ -122,7 +122,7 @@ constructor(private http: HttpClient, private storage: Storage) {}
 
 
 		if (hasToken && JSON.parse(hasToken).user) {
-			return (JSON.parse(hasToken).user.verified<any>)
+			return (<any>JSON.parse(hasToken).user.verified)
 		}
 
 		// return true
