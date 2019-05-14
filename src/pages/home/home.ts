@@ -185,6 +185,7 @@ export class HomePage {
 
 	// this function sets a couple default values and brings in the threads
 	async ngOnInit() {
+		console.log("after logout????");
 	// setting defaults, ionic is weird with this.
   //have to cast to HTMLInputElement which contains value prop
     var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
