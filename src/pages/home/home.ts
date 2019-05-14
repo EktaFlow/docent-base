@@ -193,8 +193,20 @@ export class HomePage {
 	  tmp ? tmp.value = "2017" : null;
 
 		if (this.auth.currentUser()) {
-      var cool = await this.assessmentService.getDefaultThreads()
-      cool.subscribe( threads => this.threads = threads );
+      // var cool = await this.assessmentService.getDefaultThreads()
+      // cool.subscribe( threads => this.threads = threads );
+      this.threads = [
+        "Technology Maturity",
+        "A. Technology & Industrial Base",
+        "B. Design",
+        "C. Cost & Funding",
+        "D. Materials",
+        "E. Process Capability & Control",
+        "F. Quality Management",
+        "G. Mfg Personnel",
+        "H. Facilities",
+        "I. Mfg Management"
+      ];
 		this.apollo.watchQuery<any>({
 			query: threadsQuery
 			})
