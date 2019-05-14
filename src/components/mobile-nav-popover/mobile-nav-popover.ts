@@ -17,6 +17,8 @@ import { SettingsPage } from '../../pages/settings/settings';
 import { AcronymsPage } from '../../pages/acronyms/acronyms';
 import { SummaryPage } from '../../pages/summary/summary';
 import { RiskReportPage } from '../../pages/risk-report/risk-report';
+import { LoginPage } from '../../pages/login/login';
+
 
 
 
