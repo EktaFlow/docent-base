@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
+import { Storage } from '@ionic/storage';
 import { tap } from "rxjs/operators";
 
 import { AuthUrl } from "./constants";
@@ -9,7 +10,7 @@ import { AuthUrl } from "./constants";
 export class AuthService {
 
 
-constructor(private http: HttpClient) {}
+constructor(private http: HttpClient, private storage: Storage) {}
 
   reset: boolean = false;
   resetToken: string = '';
@@ -36,9 +37,9 @@ constructor(private http: HttpClient) {}
   *
   *
   */
-  public setReset(url) { 
+  public setReset(url) {
   console.log(url);
-    this.reset = true; 
+    this.reset = true;
     var tokenRegex = /=.+$/;
     var token = url.match(tokenRegex)[0].substring(1);
     console.log(token);
@@ -69,13 +70,17 @@ constructor(private http: HttpClient) {}
   }
 
 	public logout() {
-		localStorage.removeItem("docent-token");
+    this.storage.remove("docent-token");
 	}
 
-	public currentUser() {
-		var ok = JSON.parse(localStorage.getItem("docent-token"))
-		ok ? ok = ok.user : null
-		return ok
+	public async currentUser() {
+    var wait = await this.storage.get("docent-token");
+		var ok = JSON.parse(wait);
+    if (ok){
+      ok ? ok = ok.user : null
+  		return (ok<any>)
+    }
+
 	}
 
   public resetPassword(email) {
@@ -100,22 +105,24 @@ constructor(private http: HttpClient) {}
 	}
 
 	private setSession(isAuthed) {
-		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
+    this.storage.set("docent-token", JSON.stringify(isAuthed))
 	}
 
-	public unverified = () => {
-		var hasToken = localStorage.getItem("docent-token");
+	public async unverified() {
+		var hasToken = await this.storage.get("docent-token");
 		// console.log(JSON.parse(hasToken));
 		if (hasToken && JSON.parse(hasToken).user) {
-			return !JSON.parse(hasToken).user.verified
+			return (!JSON.parse(hasToken).user.verified<any>)
 		}
 
 	}
 
-	public isLoggedIn = () => {
-		var hasToken = localStorage.getItem("docent-token");
+	public async isLoggedIn() {
+		var hasToken = await this.storage.get("docent-token");
+
+
 		if (hasToken && JSON.parse(hasToken).user) {
-			return JSON.parse(hasToken).user.verified
+			return (JSON.parse(hasToken).user.verified<any>)
 		}
 
 		// return true
