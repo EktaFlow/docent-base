@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { ViewController, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from '../../pages/questions/questions';
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -22,12 +22,6 @@ query assessment($_id: String!) {
 }
 `
 
-/**
- * Generated class for the SubthreadPopupComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'subthread-popup',
   templateUrl: 'subthread-popup.html'
@@ -46,6 +40,7 @@ export class SubthreadPopupComponent {
   constructor(private apollo: 			 Apollo,
 							 			public navCtrl: 			 NavController,
 							 			public navParams: 		 NavParams,
+                    public viewCtrl:       ViewController,
 						 				private assessmentService: AssessmentService) {
 								 this.assessmentId = navParams.data.assessmentId;
 								this.subTitle = navParams.data.subTitle;
@@ -84,6 +79,11 @@ export class SubthreadPopupComponent {
 	 // change this to use 2 way binding. eg, rather than reloading the quesitons page,
 	 // stay on the questions page and change the current question variable
   async navToQuestion(questionId) {
+    console.log(this.navCtrl.getViews());
+    console.log(this.navCtrl.getActive().index);
+    var index = this.navCtrl.getActive().index;
+    this.navCtrl.remove(0, index);
+    this.viewCtrl.dismiss();
 		var update = await this.assessmentService.updateQuestion(this.updateInfo);
 		this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
 		// update.subscribe(data => this.navCtrl.push(QuestionsPage, {

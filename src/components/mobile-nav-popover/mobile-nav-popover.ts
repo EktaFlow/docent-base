@@ -88,30 +88,50 @@ export class MobileNavPopoverComponent {
     this.viewCtrl.dismiss();
   }
 
+  async nuke(page, data = {}) {
+    console.log(this.navCtrl.getViews());
+    console.log(this.navCtrl.getActive().index);
+    var index = this.navCtrl.getActive().index;
+    this.navCtrl.remove(0, index);
+    console.log(this.navCtrl.getViews());
+
+    this.closeNav();
+
+    this.navCtrl.push(page, data);
+      
+  }
+
   ///ROUTING FUNCTIONS
   handleLogout(){
+    this.viewCtrl.dismiss();
     this.auth.logout();
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(LoginPage);
     this.navCtrl.popToRoot();
   }
 
-  handleUserDash = () => this.navCtrl.push(UserDashboardPage, {assessmentId: this.assessmentId});
-  handleContinue = () => this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId});
-  handleStartNew = () => this.navCtrl.push(HomePage);
-  handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
-  handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
-  handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
-  handleNA = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
-  handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
-  handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
-  handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
-  handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
-  handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
-  handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+  handleUserDash = () => {
+    this.nuke(UserDashboardPage, {assessmentId: this.assessmentId});
+  }
+
+  handleContinue = async () => { 
+    this.nuke(QuestionsPage, {assessmentId: this.assessmentId}); 
+  }
+
+  handleStartNew = () => { this.nuke(HomePage); }
+  handleDashboard = () => { this.nuke(DashboardPage, {assessmentId: this.assessmentId}); }
+  handleNavigate = () => { this.nuke(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});}
+  handleReview = () => {  this.nuke(ReviewPage, {assessmentId: this.assessmentId}); }
+  handleActionItems = () => {   this.nuke(ActionitemsPage, {assessmentId: this.assessmentId});}
+  handleNA = () => {  this.nuke(NotapplicablePage, {assessmentId: this.assessmentId});}
+  handleCriteria = () => {  this.nuke(CriteriaPage, {assessmentId: this.assessmentId});}
+  handleDefinitions = () => {  this.nuke(DefinitionsPage, {assessmentId: this.assessmentId});}
+  handleFaqs = () => {  this.nuke(FaqsPage, {assessmentId: this.assessmentId});}
+  handleSettings = () => {  this.nuke(SettingsPage, {assessmentId: this.assessmentId});}
+  handleSummary = () => {  this.nuke(SummaryPage, {assessmentId: this.assessmentId});}
+  handleAcronyms = () => {  this.nuke(AcronymsPage, {assessmentId: this.assessmentId});}
   goToDoD = () => window.location.href = "http://dodmrl.com";
   goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2017.pdf"
-  handleRiskReport = () => this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
+  handleRiskReport = () => { this.nuke(RiskReportPage, {assessmentId: this.assessmentId});}
   // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }

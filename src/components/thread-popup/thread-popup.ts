@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { ViewController, IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from '../../pages/questions/questions';
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -41,6 +41,7 @@ export class ThreadPopupComponent {
   constructor(private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
+               public viewCtrl:      ViewController,
 						 	private assessmentService: AssessmentService) {
 								 this.assessmentId = navParams.data.assessmentId;
 								this.subTitle = navParams.data.subTitle;
@@ -144,7 +145,9 @@ export class ThreadPopupComponent {
 
 
   async navToQuestion(questionId) {
-		console.log(this.updateInfo);
+    var index = this.navCtrl.getActive().index;
+    this.navCtrl.remove(0, index);
+    this.viewCtrl.dismiss();
 		this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
 		// var update = await this.assessmentService.updateQuestion(this.updateInfo);
 		// update.subscribe(data => this.navCtrl.push(QuestionsPage, {
