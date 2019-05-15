@@ -45,6 +45,7 @@ export class TopbarComponent {
 	public loggedIn: boolean = false;
 	@Input() public assessmentId: any;
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
+  @Input() private levelSwitching: any;
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
 	@Input() private questionLevel: any;
