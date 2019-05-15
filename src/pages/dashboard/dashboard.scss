@@ -108,6 +108,10 @@ page-dashboard {
     }
 
     @media screen and (max-width: 1024px){
+        #image-dl, #image-dled {
+          display: none
+        }
+
           ion-content {
               margin-top: 130px;
           }
