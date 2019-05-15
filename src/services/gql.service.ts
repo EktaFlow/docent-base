@@ -99,6 +99,7 @@ query assessment($_id: String)
   threads
 	currentMRL
 	levelSwitching
+  levelSwitchQuestions
 	deskbookVersion
 	files {
     id,
