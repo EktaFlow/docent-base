@@ -28,6 +28,7 @@ export class QuestionsPage {
 	public helpClicked: boolean = false;
 	private questionId: any;
 	files = [];
+  private levelSwitching;
 	private allQuestions;
 	private referringQuestionId: any;
 	private targetMRL;
@@ -82,6 +83,7 @@ export class QuestionsPage {
 			currentAssessment.subscribe( ({data, loading}) => {
 				this.assessment = data.assessment;
         this.files = data.assessment.files;
+        this.levelSwitching = data.assessment.levelSwitching;
 				var {assessment} = this;
 				this.allQuestions = assessment.questions;
 				this.targetMRL = assessment.targetMRL;
@@ -108,6 +110,14 @@ export class QuestionsPage {
 		console.log(this.assessment.threads);
 		console.log(this.help.threadMap);
 
+    console.log(this.assessment);
+    if ( this.levelSwitching && this.assessment.levelSwitchQuestions ) {
+      var questions = this.assessment.levelSwitchQuestions;
+      questions = JSON.parse(questions);
+      console.log(questions);
+       
+      return questions;
+    }
 
 		console.log(this.assessment);
   var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
@@ -410,7 +420,6 @@ export class QuestionsPage {
 					this.moveCurrentQuestion(1);
 				}
 				else {
-					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
 					this.launchLevelSwitchModal();
 				}
 	}
@@ -455,17 +464,33 @@ export class QuestionsPage {
 		this.addLowerMRL();
 	}
 
-	addLowerMRL() {
+	async addLowerMRL() {
     var nextLowest = this.allQuestions
                        .filter(q => q.subThreadName == this.currentQuestion.subThreadName)
 											 .filter(q => q.mrLevel == this.currentQuestion.mrLevel - 1)
 											 .map(q => q.questionId);
 
-											 // add logic if there is no lower mrLevel
- 	  var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a - b)
-	  this.surveyQuestions = newSurvey;
+    if (nextLowest.length == 0) {
+		  alert("You have failed this subthread, but there are no more questions for this subthread at the next lowest MRL");
+      this.moveCurrentQuestion(1)
+    } else {
+      console.log(nextLowest);
+		  alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
 
-	  this.currentQuestion = this.getQuestion(nextLowest[0]);
+ 	    var newSurvey = [...nextLowest, ...this.surveyQuestions].sort( (a,b) => a - b)
+	    this.surveyQuestions = newSurvey;
+
+      var assessment = {levelSwitchQuestions: JSON.stringify(newSurvey)}
+
+      var updatedAssessment = await this.assessmentService.updateAssessment(this.assessmentId, assessment);
+    updatedAssessment.subscribe(a => {
+      console.log(a);
+      //this.launchToast();
+      //this.navCtrl.push(UserDashboardPage);
+    });
+
+	    this.currentQuestion = this.getQuestion(nextLowest[0]);
+    }
 	}
 
   // this function takes in the current question (as an object);
