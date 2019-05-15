@@ -81,7 +81,12 @@ export class ReviewPage {
 	// unique = (item, index, array) => array.indexOf(item) == index
 
 	openFile(url) {
+		console.log("desktop");
 		window.open(url, "new_window");
+	}
+	openFileMobile(url){
+		console.log("mobile");
+		window.open(url, '_system', 'location=yes');
 	}
 
 	ngOnInit() {
