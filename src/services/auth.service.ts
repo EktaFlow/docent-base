@@ -129,6 +129,11 @@ constructor(private http: HttpClient) {}
 		}
 		console.log(fileInfo);
 		console.log(jsonRoute);
-		this.http.post(jsonRoute, fileInfo).subscribe(a => console.log("cool"));
+		this.http.post(jsonRoute, fileInfo).subscribe(a => {
+			var user = localStorage.getItem('docent-token');
+			user = JSON.parse(user);
+			(<any>user).user = a;
+			localStorage.setItem('docent-token', JSON.stringify(user));
+		});
 	}
 }

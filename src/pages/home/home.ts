@@ -224,6 +224,9 @@ export class HomePage {
 
 			for (let file of user.jsonFiles){
 				var newFile = JSON.parse(file);
+				if ( typeof newFile == 'string' ) {
+					newFile = JSON.parse(newFile);
+				}
 				files.push(newFile);
 			}
 
@@ -299,6 +302,9 @@ export class HomePage {
 		// this.deskbookVersions = ["2017", "2016"];
 		for (let file of user.jsonFiles){
 			var newFile = JSON.parse(file);
+			if ( typeof newFile == 'string' ) {
+				newFile = JSON.parse(newFile);
+			}
 			this.deskbookVersions.push(newFile.fileName);
 		}
 	}
