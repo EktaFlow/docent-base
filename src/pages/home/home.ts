@@ -336,7 +336,6 @@ export class HomePage {
 			var newFile = JSON.parse(file);
       if ( typeof newFile == 'string' ) {
         newFile = JSON.parse(newFile);
-        console.log(newFile);
       }
 			this.deskbookVersions.push(newFile.fileName);
 		}
@@ -349,7 +348,6 @@ export class HomePage {
       this.assForm.threads.splice(index, 1);
     } else {
       this.assForm.threads.push(threadIndex);
-
 
       // using the indices to ID the threads relies on them being sorted.
       this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );
