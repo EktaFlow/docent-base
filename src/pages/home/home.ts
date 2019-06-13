@@ -99,7 +99,6 @@ export class HomePage {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
       this.invalidInputToast();
-    //alert("please fill out all the fields");
 			return null;
 		}
 
@@ -107,7 +106,6 @@ export class HomePage {
 		console.log(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
-		console.log(variables);
 		this.presentLoadingDefault();
 		//  debug what is getting passed into the mutation:
 		// console.log(variables);
@@ -209,6 +207,37 @@ export class HomePage {
 
 	}
 
+  async updateDeskbook() {
+    console.log('we update');
+    console.log(this.assForm.deskBookVersion);
+    var selectedDeskbookName = this.assForm.deskBookVersion;
+    // go from the name of the deskbook to an array of the threads.
+
+			var user = await this.auth.currentUser();
+			var files = [];
+
+			for (let file of user.jsonFiles){
+				var newFile = JSON.parse(file);
+        if (typeof newFile == 'string' ) {
+          newFile = JSON.parse(newFile);
+        }
+
+				files.push(newFile);
+			}
+
+			var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
+			var selectedDeskbook  = deskbookFile[0].file;
+    
+      // this should give us the schema for the selected deskbook.
+      console.log(selectedDeskbook);
+      var threads = selectedDeskbook.map(t => t.name.length > 0 ? t.name : null );
+
+      console.log(threads);
+      console.log(this.threads);
+      this.threads = threads;
+      
+}
+
 
 
         // uses the default included schemas.
@@ -223,11 +252,17 @@ export class HomePage {
 			var files = [];
 
 			for (let file of user.jsonFiles){
+        console.log(file);
 				var newFile = JSON.parse(file);
+        if (typeof newFile == 'string') {
+          newFile = JSON.parse(newFile);
+        }
 				files.push(newFile);
 			}
 
+      console.log(files);
 			var deskbookFile = files.filter(f => f.fileName == deskbook);
+      console.log(deskbookFile);
 			this.schema = deskbookFile[0].file;
 		}
 	}
@@ -290,7 +325,6 @@ export class HomePage {
   }
 
   newLogin() {
-    console.log('hi');
     this.navCtrl.push(LoginPage);
   }
 
@@ -298,7 +332,12 @@ export class HomePage {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
 		for (let file of user.jsonFiles){
+      console.log(file);
 			var newFile = JSON.parse(file);
+      if ( typeof newFile == 'string' ) {
+        newFile = JSON.parse(newFile);
+        console.log(newFile);
+      }
 			this.deskbookVersions.push(newFile.fileName);
 		}
 	}

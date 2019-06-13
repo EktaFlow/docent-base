@@ -108,8 +108,15 @@ export class QuestionsPage {
 		console.log(this.assessment.threads);
 		console.log(this.help.threadMap);
 
+  console.log('we in set surveyQuestions');
 
-		console.log(this.assessment);
+    var threadNames = this.assessment.questions
+    threadNames = threadNames.map( tn => tn.threadName);
+    console.log(threadNames);
+    var distinctThreadNames = threadNames.filter((a, i) => threadNames[i + 1] != a && a.length > 0);
+    console.log(distinctThreadNames);
+
+	console.log(this.assessment );
   var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
 	var threadNames2 = this.assessment.threads.map(index => this.help.threadMap2016[index])
   console.log(threadNames);
@@ -119,7 +126,7 @@ export class QuestionsPage {
 
 		var level1 = this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL );
 		console.log(level1);
-			var level2 =				level1.filter( q => threadNames.includes(q.threadName) || threadNames2.includes(q.threadName));
+			var level2 =				level1.filter( q => distinctThreadNames.includes(q.threadName) || threadNames2.includes(q.threadName));
 			console.log(level2);
 			var level3 = 				level2.map( q => q.questionId);
 			console.log(level3);
