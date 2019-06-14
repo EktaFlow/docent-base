@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, ToastController } from 'ionic-angular';
 import { UploadService } from "../../services/upload";
-// import { AuthService } from "../../services/auth.service";
-// import { AuthUrl } from "../../services/constants";
-
 
 @Component({
   selector: 'json-upload-popover',
@@ -20,7 +17,8 @@ export class JsonUploadPopoverComponent {
 	finalFile: any;
 
 	constructor(	public upload: UploadService,
-								public navParams: NavParams) {
+								public navParams: NavParams,
+                private toastCtrl: ToastController ) {
 
 		var {navParams} = this;
 
@@ -30,17 +28,8 @@ export class JsonUploadPopoverComponent {
 
   }
 
-	test(e) {
+	setFile(e) {
 		this.file = e.target.files[0];
-    console.log(this.file);
-
-		// var fileObject = {
-		// 	size: file.size,
-		// 	name: file.name,
-		// 	lastModified: file.lastModifiedDate
-		// }
-
-		// this.file = fileObject;
 	}
 
 	ngOnInit() {
@@ -58,36 +47,59 @@ export class JsonUploadPopoverComponent {
 				newVar.style.cssText = styling
 	}
 
-	// async uploadFile(event) {
-	// 	var { assessmentId, questionId } = this;
-	//
-	// 	// boooooooooooooooooooo typescript
-	// 	var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-	// 	var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
-	//
-	// 	this.emitter.emit(uploadedFile);
-	// }
+  
+  invalidJSONToast() {
+	  var toast = this.toastCtrl.create({
+	    message: 'It appears this file is not valid JSON',
+	    duration: 4500,
+      showCloseButton: true,
+      position: 'top',
+      cssClass: 'error-toast'
+	  });
+
+    toast.present();
+  }
+
+  unknownErrorToast() {
+	  var toast = this.toastCtrl.create({
+	    message: 'Unknown error',
+	    duration: 4500,
+      showCloseButton: true,
+      position: 'top',
+      cssClass: 'error-toast'
+	  });
+
+    toast.present();
+  }
 
   async uploadJSON(event){
-    // var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-    // var file = this.file;
-		var fileName = this.file.name;
+    // TODO -- change this to allow user input to name the file.
+		// var fileName = this.file.name;
 		var fileReader = new FileReader();
 		fileReader.readAsText(this.file);
-		// var coolUpload = this.upload.uploadJSON.bind(this);
-		// var coolEmit = this.emitter.emit.bind(this);
 		fileReader.onloadend = () => {
 
-			console.log(fileReader.result);
+    try { 
 			var finalFile = {
 				file: JSON.parse(fileReader.result),
-				fileName: fileName
-			}
-			console.log(finalFile);
-			console.log(this);
-			this.upload.uploadJSON(finalFile);
-			// coolEmit(uploadedFile);
+				fileName: this.file.name
 		}
-		// var uploadedFile = await this.upload.uploadJSON(file);
+    
+		var uploadResponse = this.upload.uploadJSON(finalFile);
+    <any>uploadResponse.subscribe(a => {
+	    var user = localStorage.getItem('docent-token');
+	    user = JSON.parse(user);
+	    (<any>user).user = a;
+	    localStorage.setItem('docent-token', JSON.stringify(user));
+		})
+    }
+    catch (error) {
+       if (error.message.includes('Unexpected token')) {
+        this.invalidJSONToast();       
+       } else {
+        this.unknownErrorToast(); 
+       }
+    }
+		}
   }
 }

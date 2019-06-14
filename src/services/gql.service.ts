@@ -51,7 +51,7 @@ export var createAssessmentMutation = gql`
 			 schema: $schema
      ) {
           _id
-
+          deskbookVersion
        }
      }
 `
