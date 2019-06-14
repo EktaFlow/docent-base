@@ -103,12 +103,9 @@ export class QuestionsPage {
   }
 
 
+  // @return - an array of ints
 	setSurveyQuestions() {
 
-		console.log(this.assessment.threads);
-		console.log(this.help.threadMap);
-
-  console.log('we in set surveyQuestions');
 
     var threadNames = this.assessment.questions
     threadNames = threadNames.map( tn => tn.threadName);
@@ -117,16 +114,12 @@ export class QuestionsPage {
     console.log(distinctThreadNames);
 
 	console.log(this.assessment );
-  var threadNames = this.assessment.threads.map(index => this.help.threadMap[index])
-	var threadNames2 = this.assessment.threads.map(index => this.help.threadMap2016[index])
-  console.log(threadNames);
-    // return this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL )
-    //           .filter( q => threadNames.includes(q.threadName))
-		// 					.map( q => q.questionId);
+  var selectedThreads = this.assessment.threads.map( threadNumber => distinctThreadNames[threadNumber - 1] )
+  console.log(selectedThreads);
 
 		var level1 = this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL );
 		console.log(level1);
-			var level2 =				level1.filter( q => distinctThreadNames.includes(q.threadName) || threadNames2.includes(q.threadName));
+			var level2 = level1.filter( q => selectedThreads.includes(q.threadName))
 			console.log(level2);
 			var level3 = 				level2.map( q => q.questionId);
 			console.log(level3);

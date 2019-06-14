@@ -131,7 +131,7 @@
     </div>
     <div>
       <h6>Deskbook Version<sup>*</sup></h6>
-      <select id="deskbook-select" (change)="updateDeskbook()" name="version" [(ngModel)]="assForm.deskBookVersion">
+      <select id="deskbook-select" (change)="updateThreads()" name="version" [(ngModel)]="assForm.deskBookVersion">
         <option value="" disabled selected>Select One...</option>
 				<ng-container *ngFor="let deskbook of deskbookVersions">
         	<option value="{{deskbook}}">{{deskbook}}</option>

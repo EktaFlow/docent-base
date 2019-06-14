@@ -33,7 +33,6 @@ query {
 })
 export class HomePage {
 	loading: boolean;
-	allThreads: any;
 	assessments: any;
   schema: any;
 	twentySeventeen: any;
@@ -71,17 +70,15 @@ export class HomePage {
 	}
 
 	presentLoadingDefault() {
-	let loading = this.loadingCtrl.create({
-		spinner: 'crescent',
-		content: 'Assessment Loading In, Please Wait',
-		dismissOnPageChange: true
-	});
+	  let loading = this.loadingCtrl.create({
+		  spinner: 'crescent',
+		  content: 'Assessment Loading In, Please Wait',
+		  dismissOnPageChange: true
+	  });
 
 
-	loading.present();
-
-
-}
+	  loading.present();
+  }
 
   invalidInputToast() {
 	  var toast = this.toastCtrl.create({
@@ -103,26 +100,15 @@ export class HomePage {
 		}
 
 		await this.getSchema(this.assForm.deskBookVersion);
-		console.log(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
+    console.log(variables);
 		this.presentLoadingDefault();
-		//  debug what is getting passed into the mutation:
-		// console.log(variables);
-
-		//do we want / need to remove team members out of variables before sending it to the back?
-		//do we need to use teamMembersInput
-		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
-
-		// var createInfo = {
-		//
-		// }
-
-		console.log(variables);
 
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+              console.log(d);
 
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
@@ -135,24 +121,18 @@ export class HomePage {
 
 	}
 
-	developmentVariables() {
-		// add this if we want to bring back the quick way to start assessments for dev.
-	}
-
 	formatAssessmentVariables() {
-		//here on line 107 (assigning team members) we need to assign the whole team members object
-		//or input it in another section?
 		var formValues = this.assForm;
 		return {
-			threads:          formValues.threads,
-			location:         formValues.location,
-			targetMRL:        formValues.targetMRL,
-			name:             formValues.name,
-			levelSwitching:   formValues.levelSwitching,
-			deskBookVersion:  formValues.deskBookVersion,
-			teamMembersUpdates:      formValues.teamMembers,
-			userId:						this.auth.currentUser()._id,
-			userEmail: 		this.auth.currentUser().email,
+			threads:            formValues.threads,
+			location:           formValues.location,
+			targetMRL:          formValues.targetMRL,
+			name:               formValues.name,
+			levelSwitching:     formValues.levelSwitching,
+			deskbookVersion:    formValues.deskBookVersion,
+			teamMembersUpdates: formValues.teamMembers,
+			userId:						  this.auth.currentUser()._id,
+			userEmail: 		      this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
 			schema: 					JSON.stringify(this.schema)
@@ -199,7 +179,6 @@ export class HomePage {
 			 .valueChanges
 			 .subscribe(({data, loading}) => {
 
-      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
 			 });
 
@@ -207,11 +186,15 @@ export class HomePage {
 
 	}
 
-  async updateDeskbook() {
-    console.log('we update');
-    console.log(this.assForm.deskBookVersion);
+  async updateThreads() {
     var selectedDeskbookName = this.assForm.deskBookVersion;
+    console.log(this.assForm.deskBookVersion);
     // go from the name of the deskbook to an array of the threads.
+    if ( selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+      var cool = await this.assessmentService.getDefaultThreads()
+      cool.subscribe( threads => this.threads = threads );
+      return null;
+    }
 
 			var user = await this.auth.currentUser();
 			var files = [];
@@ -228,20 +211,13 @@ export class HomePage {
 			var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
 			var selectedDeskbook  = deskbookFile[0].file;
     
-      // this should give us the schema for the selected deskbook.
-      console.log(selectedDeskbook);
-      var threads = selectedDeskbook.map(t => t.name.length > 0 ? t.name : null );
-
-      console.log(threads);
-      console.log(this.threads);
+      var threads = selectedDeskbook.map(t => t.name)
+                      .filter(tname => tname.length > 0);
       this.threads = threads;
-      
-}
+  }
 
 
 
-        // uses the default included schemas.
-        // Checks a user to see if they have custom schemas.
 	async getSchema(deskbook) {
 		if (deskbook == '2016' || deskbook == '2017'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
@@ -260,9 +236,7 @@ export class HomePage {
 				files.push(newFile);
 			}
 
-      console.log(files);
 			var deskbookFile = files.filter(f => f.fileName == deskbook);
-      console.log(deskbookFile);
 			this.schema = deskbookFile[0].file;
 		}
 	}
