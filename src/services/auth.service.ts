@@ -3,13 +3,15 @@ import { HttpClient } from "@angular/common/http"
 import { tap } from "rxjs/operators";
 
 import { AuthUrl } from "./constants";
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 
 export class AuthService {
 
 
-constructor(private http: HttpClient) {}
+constructor(private http: HttpClient,
+            private storage: Storage) {}
 
   reset: boolean = false;
   resetToken: string = '';
@@ -69,11 +71,12 @@ constructor(private http: HttpClient) {}
   }
 
 	public logout() {
-		localStorage.removeItem("docent-token");
+    this.storage.remove('docent-token');
 	}
 
-	public currentUser() {
-		var ok = JSON.parse(localStorage.getItem("docent-token"))
+	public async currentUser() {
+    var item = await this.storage.get('docent-token');
+		var ok = JSON.parse(item);
 		ok ? ok = ok.user : null
 		return ok
 	}
@@ -100,11 +103,11 @@ constructor(private http: HttpClient) {}
 	}
 
 	private setSession(isAuthed) {
-		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
+		this.storage.set("docent-token", JSON.stringify(isAuthed))
 	}
 
-	public unverified = () => {
-		var hasToken = localStorage.getItem("docent-token");
+	public unverified = async () => {
+		var hasToken = await this.storage.get("docent-token");
 		// console.log(JSON.parse(hasToken));
 		if (hasToken && JSON.parse(hasToken).user) {
 			return !JSON.parse(hasToken).user.verified
@@ -112,13 +115,13 @@ constructor(private http: HttpClient) {}
 
 	}
 
-	public isLoggedIn = () => {
-		var hasToken = localStorage.getItem("docent-token");
+	public isLoggedIn = async () => {
+		var hasToken = await this.storage.get("docent-token");
 		if (hasToken && JSON.parse(hasToken).user) {
 			return JSON.parse(hasToken).user.verified
 		}
 
-		// return true
+		return false;
 	}
 
 	public uploadJSON(jsonFile, userEmail){

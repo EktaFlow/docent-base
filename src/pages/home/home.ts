@@ -141,10 +141,12 @@ export class HomePage {
 		// add this if we want to bring back the quick way to start assessments for dev.
 	}
 
-	formatAssessmentVariables() {
+	async formatAssessmentVariables() {
 		//here on line 107 (assigning team members) we need to assign the whole team members object
 		//or input it in another section?
 		var formValues = this.assForm;
+
+    var user = await this.auth.currentUser();
 		return {
 			threads:          formValues.threads,
 			location:         formValues.location,
@@ -153,8 +155,8 @@ export class HomePage {
 			levelSwitching:   formValues.levelSwitching,
 			deskBookVersion:  formValues.deskBookVersion,
 			teamMembersUpdates:      formValues.teamMembers,
-			userId:						this.auth.currentUser()._id,
-			userEmail: 		this.auth.currentUser().email,
+			userId:						user._id,
+			userEmail: 		    user.email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
 			schema: 					JSON.stringify(this.schema)
@@ -192,7 +194,9 @@ export class HomePage {
     tmp = <HTMLInputElement>document.getElementById("deskbook-select");
 	  tmp ? tmp.value = "2017" : null;
 
-		if (this.auth.currentUser()) {
+    var isUserish = await this.auth.currentUser();
+
+		if ( isUserish ) {
       var cool = await this.assessmentService.getDefaultThreads()
       cool.subscribe( threads => this.threads = threads );
 		this.apollo.watchQuery<any>({

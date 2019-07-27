@@ -24,6 +24,8 @@ export class MyApp {
             keyboard: Keyboard) {
     console.log('when do we run???');
     platform.ready().then(() => {
+    this.rootPage = LoginPage;
+/*
     if (window.location.href.includes('reset')) {
       auth.setReset(window.location.href);
 			this.rootPage = LoginPage;
@@ -34,6 +36,7 @@ export class MyApp {
 		else {
 			this.rootPage = LoginPage;
 		}
+*/
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 

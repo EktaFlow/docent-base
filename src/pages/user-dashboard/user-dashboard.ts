@@ -154,6 +154,7 @@ export class UserDashboardPage {
 
   async ngOnInit() {
 
+    console.log('we init');
 
 		// TODO make this better
 		await this.getSharedAssessments();
@@ -180,9 +181,10 @@ export class UserDashboardPage {
 
 
 	async getSharedAssessments() {
-		var user;
-		if (this.auth.currentUser()) {
-		 user = this.auth.currentUser();
+    console.log('we in shared');
+		var user = await this.auth.currentUser();
+    console.log(user);
+		if (user) {
 			await fetch(AuthUrl + "shared", {
 			method: "POST",
 			body: JSON.stringify({email: user.email}),
@@ -212,6 +214,7 @@ export class UserDashboardPage {
 	}
 
 	pullSharedAssessments() {
+  console.log('we in pulled');
 	console.log(this.sharedAssessmentIds);
 
 		this.apollo.watchQuery<any>({

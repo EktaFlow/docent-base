@@ -51,9 +51,9 @@ export class UploadService {
 		return {name: file.name, questionId: questionId, url: this.generateUrl(file.name)};
 	}
 
-	uploadJSON(file){
+	async uploadJSON(file){
 		console.log(this);
-		var user = this.auth.currentUser();
+		var user = await this.auth.currentUser();
 		this.auth.uploadJSON(JSON.stringify(file), user.email);
 	}
 

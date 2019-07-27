@@ -42,7 +42,7 @@ export class TopbarComponent {
 	public targetMRL: any;
 	public targetDate: any;
 	public scopeSelected: any;
-	public loggedIn: boolean = false;
+	public loggedIn: boolean = true;
 	@Input() public assessmentId: any;
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
 	@Input() private mainTitle: any;
@@ -80,7 +80,9 @@ constructor( public popOver: PopoverController,
 			this.assessmentId ? this.getAssessmentData() : null;
 		}
 
-		this.loggedIn = this.auth.isLoggedIn();
+    
+    //var loggedIn = await this.auth.isLoggedIn();
+		//this.loggedIn = loggedIn;
 
 
 
@@ -226,9 +228,10 @@ constructor( public popOver: PopoverController,
 		.present();
 	}
 
-	openMobileNav(){
+	async openMobileNav(){
 		console.log(this.noSecondBar);
-		var userName = this.auth.currentUser().name;
+		var userName = await this.auth.currentUser();
+    userName = userName.name;
 		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}

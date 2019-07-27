@@ -273,7 +273,7 @@ export class QuestionsPage {
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
-		var currentUser = this.auth.currentUser();
+		var currentUser = await this.auth.currentUser();
 		values.userId = currentUser._id;
 		values.updatedAt = new Date();
     // we're setting this earlier.

@@ -112,11 +112,14 @@ export class AssessmentService {
 
 	async getAssessments(userId) {
 
+    var userId = await this.auth.currentUser();
+    userId = userId._id;
+
 		return await this.apollo.watchQuery<any>({
 				query: assessmentQuery,
         fetchPolicy: 'network-only',
 					variables: {
-						userId: this.auth.currentUser()._id
+						userId: userId
 					}
 			}).valueChanges;
 	}
