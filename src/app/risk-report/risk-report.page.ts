@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from '@ionic/angular';
-import { TopbarComponent } from "../../components/topbar/topbar";
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import {ReportInfoCardComponent} from '../../components/report-info-card/report-info-card';
-
+import { TopbarComponent } from "./topbar/topbar";
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import {ReportInfoCardComponent} from './report-info-card/report-info-card';
+import {ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
-
-
-
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -67,7 +64,8 @@ export class RiskReportPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private apollo: Apollo) {
+    private apollo: Apollo
+    private activatedRoute: ActivatedRoute) {
       this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
     // this.assessmentId = navParams.data.assessmentId;
   }

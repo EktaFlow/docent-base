@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from '../../pages/questions/questions';
-import { AssessmentService } from "../../services/assessment.service";
-import {AuthService} from "../../services/auth.service";
-import { AuthUrl } from "../../services/constants";
+import { QuestionsPage } from './questions/questions';
+import { AssessmentService } from "./assessment.service";
+import {AuthService} from ".s/auth.service";
+import { AuthUrl } from "./constants";
 import { RouterModule, ActivatedRoute } from "@angular/router";
 
 

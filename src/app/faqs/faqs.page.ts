@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { ActivatedRoute } from '@angular/router';
 
-import { ContactsDropdownComponent } from '../../components/contacts-dropdown/contacts-dropdown';
-import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown';
+import { ContactsDropdownComponent } from './contacts-dropdown/contacts-dropdown';
+import { FaqDropdownComponent } from './faq-dropdown/faq-dropdown';
 
 @Component({
   selector: 'app-faqs',
@@ -22,7 +23,8 @@ export class FaqsPage implements OnInit {
 
   constructor( public navCtrl:   NavController,
                public navParams: NavParams,
-               public http:      HttpClient )
+               public http:      HttpClient,
+               private activatedRoute: ActivatedRoute)
   {
 
           this.mainTitle = "Frequently Asked Questions";

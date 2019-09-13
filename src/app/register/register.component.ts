@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
-import { HomePage } from "../../pages/home/home";
+import { AuthService } from "./auth.service";
+import { HomePage } from "./home/home";
 import { NavController } from "@ionic/angular";
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
 
 
 @Component({

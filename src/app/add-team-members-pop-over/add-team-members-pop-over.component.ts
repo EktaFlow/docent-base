@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ViewController } from '@ionic/angular';
-import { AssessmentService } from "../../services/assessment.service";
+import { AssessmentService } from "./assessment.service";
 import { HttpClient } from '@angular/common/http';
-import { AuthUrl } from "../../services/constants";
+import { AuthUrl } from "./constants";
 
 @Component({
   selector: 'add-team-members-pop-over',
@@ -24,7 +24,7 @@ export class AddTeamMembersPopOverComponent implements OnInit {
 			public http: HttpClient,
 			public viewCtrl: ViewController
   ) {
-		
+
     this.assessmentId = navParams.data.assessmentId;
 		this.emitter = navParams.data.emitter;
   }

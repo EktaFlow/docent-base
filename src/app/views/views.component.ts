@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController, NavController, NavParams, PopoverController } from '@ionic/angular'
 
-import { HomePage } from '../../pages/home/home';
-import { ReviewPage } from '../../pages/review/review';
-import { DashboardPage } from '../../pages/dashboard/dashboard';
-import { NavigatePage } from '../../pages/navigate/navigate';
-import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
-import { ActionitemsPage } from '../../pages/actionitems/actionitems';
-import { SummaryPage } from '../../pages/summary/summary';
-import { QuestionsPage } from "../../pages/questions/questions";
+import { HomePage } from './home/home';
+import { ReviewPage } from './review/review';
+import { DashboardPage } from './dashboard/dashboard';
+import { NavigatePage } from './navigate/navigate';
+import { NotapplicablePage } from './notapplicable/notapplicable';
+import { ActionitemsPage } from './actionitems/actionitems';
+import { SummaryPage } from './summary/summary';
+import { QuestionsPage } from "./questions/questions";
 import { saveAs } from "file-saver/FileSaver";
-import { ImportComponent } from "../import/import";
-import { RiskReportPage } from "../../pages/risk-report/risk-report";
-import {RouterModule} from "@angular/router";
-
+import { ImportComponent } from "./import/import";
+import { RiskReportPage } from "./risk-report/risk-report";
+import {RouterModule, ActivatedRoute} from "@angular/router";
 
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
-import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
+import {AssessmentslistComponent} from "./assessmentslist/assessmentslist";
 
 var assessmentQuery = gql`
 query assessment($_id: String)
@@ -103,7 +102,8 @@ export class ViewsComponent implements OnInit {
   	public navParams: NavParams,
   	public viewCtrl: ViewController,
   	private apollo: Apollo
-    public router: RouterModule
+    public router: RouterModule,
+    private activatedRoute: ActivatedRoute
   ) {
     // this.assessmentId = navParams.data.assessmentId;
     this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');

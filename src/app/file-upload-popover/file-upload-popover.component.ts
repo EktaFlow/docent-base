@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController } from '@ionic/angular';
-import { UploadService } from "../../services/upload";
-import { AuthService } from "../../services/auth.service";
-import { AuthUrl } from "../../services/constants";
+import { UploadService } from "./upload";
+import { AuthService } from "./auth.service";
+import { AuthUrl } from "./constants";
 
 @Component({
   selector: 'file-upload-popover',

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { TopbarComponent } from '../../components/topbar/topbar';
-import { QuestionsPage } from "../questions/questions";
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { TopbarComponent } from './topbar/topbar';
+import { QuestionsPage } from "./questions/questions";
+import { ReportInfoCardComponent } from "./report-info-card/report-info-card";
 import { RouterModule, ActivatedRoute } from "@angular/router";
 import * as XLSX from 'xlsx';
-
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 

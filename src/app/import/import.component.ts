@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from "../../pages/questions/questions";
-import {AuthService} from "../../services/auth.service";
-import { AuthUrl } from "../../services/constants";
-import { AssessmentService } from '../../services/assessment.service';
+import { QuestionsPage } from "./questions/questions";
+import {AuthService} from "./auth.service";
+import { AuthUrl } from "./constants";
+import { AssessmentService } from './assessment.service';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";

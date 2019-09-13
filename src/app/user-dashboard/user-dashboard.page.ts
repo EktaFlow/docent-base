@@ -1,27 +1,24 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { AuthService } from "../../services/auth.service";
-import { AssessmentService } from "../../services/assessment.service";
-import { TopbarComponent } from "../../components/topbar/topbar";
-import { FileDeleteComponent } from '../../components/file-delete/file-delete';
-import { SettingsPage } from "../settings/settings";
-import { QuestionsPage } from "../questions/questions";
-import { DashboardPage } from "../dashboard/dashboard";
-import { ActionitemsPage } from "../actionitems/actionitems";
-import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
-import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { ImportComponent } from "../../components/import/import";
+import { AuthService } from "./auth.service";
+import { AssessmentService } from "./assessment.service";
+import { TopbarComponent } from "./topbar/topbar";
+import { FileDeleteComponent } from './file-delete/file-delete';
+import { SettingsPage } from "./settings/settings";
+import { QuestionsPage } from "./questions/questions";
+import { DashboardPage } from "./dashboard/dashboard";
+import { ActionitemsPage } from "./actionitems/actionitems";
+import { EditAssessmentPage } from './edit-assessment/edit-assessment';
+import { AddTeamMembersPopOverComponent } from "./add-team-members-pop-over/add-team-members-pop-over";
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { ImportComponent } from "./import/import";
 import { saveAs } from "file-saver/FileSaver";
 import { RouterModule, ActivatedRoute } from '@angular/router';
-
-
-
-import { HomePage } from "../home/home";
+import { HomePage } from "./home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import { AuthUrl } from "../../services/constants";
+import { AuthUrl } from "./constants";
 
 var sharedQuery = gql`
 query getShared($assessments: [String]) {
@@ -142,7 +139,8 @@ export class UserDashboardPage implements OnInit {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
 							public popOver: PopoverController,
-              public router: RouterModule) {
+              public router: RouterModule,
+              private activatedRoute: ActivatedRoute) {
 							// this.assessmentId = navParams.data.assessmentId;
               this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
               }

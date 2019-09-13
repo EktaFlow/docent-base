@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController } from '@ionic/angular'
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from '@ionic/angular';
 
-import { AcronymsPage } from '../../pages/acronyms/acronyms';
-import { DefinitionsPage } from '../../pages/definitions/definitions';
-import { FaqsPage } from '../../pages/faqs/faqs';
-import { CriteriaPage } from '../../pages/criteria/criteria';
-import { RouterModule } from "@angular/router";
+import { AcronymsPage } from './acronyms/acronyms';
+import { DefinitionsPage } from './definitions/definitions';
+import { FaqsPage } from './faqs/faqs';
+import { CriteriaPage } from './criteria/criteria';
+import { RouterModule, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-helpmenu',
@@ -21,7 +21,8 @@ export class HelpmenuComponent implements OnInit {
     public navCtrl: NavController,
     public navParams: 		 NavParams,
   	public viewCtrl: ViewController,
-    public router: RouterModule
+    public router: RouterModule,
+    private activatedRoute: ActivatedRoute
   ) {
     this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
   }

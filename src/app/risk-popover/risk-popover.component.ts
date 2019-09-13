@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController } from '@ionic/angular';
-
+import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'risk-popover',
   templateUrl: './risk-popover.component.html',
@@ -13,10 +13,11 @@ export class RiskPopoverComponent implements OnInit {
 
   constructor(
     public navParams: NavParams,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+		private activatedRoute: ActivatedRoute
   ) {
     console.log(this.navParams.get('highlight'));
-    this.chartView = this.navParams.get('highlight');
+    // this.chartView = this.navParams.get('highlight');
 		this.chartView = this.activatedRoute.snapshot.paramMap.get('highlight');
 
   }

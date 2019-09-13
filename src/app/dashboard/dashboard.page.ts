@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { ViewsComponent } from '../../components/views/views';
-import { TopbarComponent } from "../../components/topbar/topbar";
-import { AssessmentService } from '../../services/assessment.service';
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { ActionitemsPage } from '../actionitems/actionitems';
-import { NotapplicablePage } from '../notapplicable/notapplicable';
-import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
-import {QuestionsPage} from '../questions/questions';
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import { ViewsComponent } from './views/views';
+import { TopbarComponent } from "./topbar/topbar";
+import { AssessmentService } from './services/assessment.service';
+import { GoogleAnalytics } from './application/helpers/GoogleAnalytics';
+import { ActionitemsPage } from './actionitems/actionitems';
+// import { NotapplicablePage } from './notapplicable/notapplicable';
+import { LegendPopoverComponent } from './legend-popover/legend-popover';
+import {QuestionsPage} from './questions/questions';
+import { ReportInfoCardComponent } from "./report-info-card/report-info-card";
 import { RouterModule, ActivatedRoute} from "@angular/router"
 
 import { Apollo } from "apollo-angular";

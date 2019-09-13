@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController, ViewController} from '@ionic/angular'
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "./auth.service";
 import {RouterModule, ActivatedRoute} from "@angular/router";
-import { HomePage } from '../../pages/home/home';
-import { ReviewPage } from '../../pages/review/review';
-import { DashboardPage } from '../../pages/dashboard/dashboard';
-import { NavigatePage } from '../../pages/navigate/navigate';
-import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
-import { ActionitemsPage } from '../../pages/actionitems/actionitems';
-import { QuestionsPage } from "../../pages/questions/questions";
-import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
-import { DefinitionsPage } from '../../pages/definitions/definitions';
-import { FaqsPage } from '../../pages/faqs/faqs';
-import { CriteriaPage } from '../../pages/criteria/criteria';
-import { SettingsPage } from '../../pages/settings/settings';
-import { AcronymsPage } from '../../pages/acronyms/acronyms';
-import { SummaryPage } from '../../pages/summary/summary';
-import { RiskReportPage } from '../../pages/risk-report/risk-report';
+import { HomePage } from './home/home';
+import { ReviewPage } from './review/review';
+import { DashboardPage } from './dashboard/dashboard';
+import { NavigatePage } from './navigate/navigate';
+// import { NotapplicablePage } from './notapplicable/notapplicable';
+import { ActionitemsPage } from './actionitems/actionitems';
+import { QuestionsPage } from "./questions/questions";
+import { UserDashboardPage } from "./user-dashboard/user-dashboard";
+import { DefinitionsPage } from './definitions/definitions';
+import { FaqsPage } from './faqs/faqs';
+import { CriteriaPage } from './criteria/criteria';
+import { SettingsPage } from './settings/settings';
+import { AcronymsPage } from './acronyms/acronyms';
+import { SummaryPage } from './summary/summary';
+import { RiskReportPage } from './risk-report/risk-report';
 
 @Component({
   selector: 'mobile-nav-popover',

@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../auth.service';
 import { ToastController, ViewController } from '@ionic/angular';
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController, ToastController } from '@ionic/angular';
-import { AssessmentService } from '../../services/assessment.service';
+import { AssessmentService } from './assessment.service';
 
 
 @Component({

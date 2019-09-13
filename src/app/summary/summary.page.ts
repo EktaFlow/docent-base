@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../../components/topbar/topbar";
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover';
-import { QuestionsPage } from "../questions/questions";
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
-// import {}
+import { TopbarComponent } from "./topbar/topbar";
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { LegendPopoverComponent } from './legend-popover/legend-popover';
+import { QuestionsPage } from "./questions/questions";
+import { ReportInfoCardComponent } from "./report-info-card/report-info-card";
+import { ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
 
 import { Apollo } from "apollo-angular";
@@ -84,7 +84,8 @@ ionViewWillEnter() {
 constructor( private apollo: Apollo,
              public navCtrl: NavController,
              public navParams: NavParams,
-             public popOver: PopoverController) {
+             public popOver: PopoverController,
+            private activatedRoute: ActivatedRoute) {
                this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
 
   // this.assessmentId = navParams.data.assessmentId;

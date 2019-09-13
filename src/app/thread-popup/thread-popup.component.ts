@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from '../../pages/questions/questions';
-import { AssessmentService } from "../../services/assessment.service";
+import { QuestionsPage } from './questions/questions';
+import { AssessmentService } from "./assessment.service";
 import { Apollo } from "apollo-angular";
 import { RouterModule} from "@angular/router";
 import gql from "graphql-tag";
@@ -40,7 +40,7 @@ export class ThreadPopupComponent implements OnInit {
 		public navParams: NavParams,
 		private assessmentService: AssessmentService,
 		public router: RouterModule
-	) {		
+	) {
 		this.assessmentId = navParams.data.assessmentId;
 	 this.subTitle = navParams.data.subTitle;
 	 this.updateInfo = navParams.data.updateInfo;

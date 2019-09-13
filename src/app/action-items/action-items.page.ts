@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from '../../components/topbar/topbar';
-import { AssessmentService } from '../../services/assessment.service';
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import { TopbarComponent } from './topbar/topbar';
+import { AssessmentService } from './assessment.service';
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "./report-info-card/report-info-card";
 // import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 import {RouterModule} from "@angular/router"

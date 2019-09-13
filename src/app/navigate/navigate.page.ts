@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../../components/topbar/topbar";
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+import { TopbarComponent } from "./topbar/topbar";
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "./report-info-card/report-info-card";
 import { RouterModule, ActivatedRoute } from "@angular/router";
 
 

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { NavController } from "@ionic/angular";
-import { AuthService } from "../../services/auth.service";
-import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { AuthService } from "./auth.service";
+import { UserDashboardPage } from "./user-dashboard/user-dashboard";
+import { GoogleAnalytics } from './helpers/GoogleAnalytics';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ionViewWillEnter() {
     GoogleAnalytics.trackView("login");
   }
-  
+
   submitLogin()  {
     console.log(this.user);
 		this.auth.login(this.user)
