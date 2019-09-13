@@ -1,0 +1,13 @@
+
+
+.wrapper {
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  align-items: flex-start;
+  padding: 10px 0;
+  button, a {
+    margin-left: 30px;
+  }
+}

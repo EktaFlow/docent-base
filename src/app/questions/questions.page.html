@@ -1,0 +1,418 @@
+<topbar [subTitle] = "currentQuestion.subThreadName"
+            [getAssessmentId] = "getAssessmentId"
+    	      [mainTitle]   = "currentQuestion.threadName"
+          	[questionLevel] = "currentQuestion.mrLevel"
+            [currentQPos] = "this.currentQPos"
+            [currentQSetAmt] = "this.currentQSetAmt"
+    	      [values]="getQuestionValues()"
+    	      [questionId]="currentQuestion.questionId"
+            [noSecondBar]="noSecondBar"> </topbar>
+
+
+<ion-content padding>
+  <!-- <div class="qspacer">
+  </div> -->
+  <div class = "nav">
+
+    <div class="nav-q-buttons">
+        <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
+        <button ion-button color="buttonBlue" *ngIf="currentQPos != currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+        <button ion-button color="buttonBlue" disabled *ngIf="currentQPos == currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+        <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
+    </div>
+
+		<div class="guiding-text">
+  		<div>
+  		<h2>{{currentQuestion.questionText}}</h2>
+  		</div>
+
+		<div class="q-answer">
+		<select [(ngModel)]="vals.answer" id="select-answer">
+			<option [ngValue]="null" disabled>Select Answer</option>
+			<option value="Yes">Yes</option>
+			<option value="No">No</option>
+			<option value="N/A">N/A</option>
+		</select>
+		</div>
+    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
+
+
+      <div *ngIf="helpClicked" class="helpTextDiv">
+        <!-- <p>help text</p> -->
+        <p [innerHTML]="currentQuestion.helpText"></p>
+      </div>
+		</div>
+  </div>
+
+
+  <div class="page-wrapper">
+  <div class="full-fields-wrapper">
+  <div class="fields-wrapper-2">
+    <div *ngIf="vals.answer == undefined" class = "yes">
+        <h6>Assumptions</h6>
+        <textarea class="question-input" id="assumptions-input" [(ngModel)]="vals.assumptionsSkipped" placeholder="Enter any assumptions here..."></textarea>
+        <h6>Notes</h6>
+        <textarea class="question-input" id="notes-input" [(ngModel)]="vals.notesSkipped" placeholder="Enter notes here..."></textarea>
+      </div>
+
+
+  <div *ngIf="vals.answer == 'Yes'" class = "yes">
+      <h6>Objective Evidence</h6>
+      <textarea id="aaa objective-evidence-input" class="question-input" [(ngModel)]="vals.objectiveEvidence" placeholder="Enter objective evidence here..."></textarea>
+      <h6>Assumptions</h6>
+      <textarea class="question-input" id="yes-assumptions-input" [(ngModel)]="vals.assumptionsYes" placeholder="Enter any assumptions here..."></textarea>
+      <h6>Notes</h6>
+      <textarea class="question-input" id="yes-notes-input" [(ngModel)]="vals.notesYes" placeholder="Enter notes here..."></textarea>
+    </div>
+
+
+
+    <!-- No Answer Box -->
+    <div *ngIf="vals.answer == 'No'" class = "no">
+      <h3><b>ACTION PLAN</b></h3>
+				<!-- SAVE THIS FOR AUTH
+      <div style="display:flex;flex-direction:row;justify-content:space-between;width:30%;height:60%;">
+        <button style="background:white;">
+          <label style="color:#32db64;font-size:16px;" (click)="addPerson(who.value)"><b>Add Action Person</b></label>
+          <ion-icon name="add-circle" color = "secondary"></ion-icon>
+        </button>
+        <button style="background:white;">
+          <label style="color:#f53d3d;font-size:16px;" (click)="removePerson()"><b>Remove</b></label>
+          <ion-icon name="remove-circle" color = "danger"></ion-icon>
+        </button>
+      </div>
+				-->
+      <!-- <br>
+      <br> -->
+      <div class="who-when">
+        <div class="who">
+          <li *ngFor = "let persons of actionPerson">
+            <pre>{{persons}}</pre>
+          </li>
+          <h6>Owner</h6>
+          <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" #who>
+        </div>
+        <div class='when'>
+          <h6>Due Date</h6>
+          <input class="question-input" id="no-when-input" [(ngModel)]="vals.when" name= "when" type="date" style="padding:15px;">
+        </div>
+      </div>
+
+
+
+      <!--
+      <h6 class="risk-text">Risk</h6>
+
+      <div class="risk">
+
+				        <ion-label class="label"> Technical</ion-label>
+								<ion-checkbox checked="false" id="no-risk-technical-box" [(ngModel)]="vals.technical"></ion-checkbox>
+				        <ion-label class="label"> Cost</ion-label>
+								<ion-checkbox checked="false" id="no-risk-cost-box" [(ngModel)]="vals.cost"></ion-checkbox>
+				        <ion-label class="label"> Schedule</ion-label>
+								<ion-checkbox checked="false" id="no-risk-schedule-box" [(ngModel)]="vals.schedule"></ion-checkbox>
+      </div>
+      -->
+
+      <div class="what">
+        <h6>Action Item</h6>
+        <textarea class="question-input" id="no-what-input" [(ngModel)]="vals.what" placeholder="What needs to be done to meet this objective?"></textarea>
+      </div>
+      <div class="reason">
+        <h6>Reason</h6>
+        <textarea class="question-input" id="no-reason-input" [(ngModel)]="vals.reason" placeholder="Reason that criteria is not met..."></textarea>
+      </div>
+      <div class="no-assumptions">
+        <h6>Assumptions</h6>
+        <textarea class="question-input" id="no-assumptions-input" [(ngModel)]="vals.assumptionsNo" placeholder="Enter any assumptions here..."></textarea>
+      </div>
+      <div class="no-notes">
+        <h6>Notes</h6>
+        <textarea class="question-input" id="no-notes-input" [(ngModel)]="vals.notesNo" placeholder="Enter notes here..."></textarea>
+      </div>
+      <!-- <div class="attach">
+          <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+      </div> -->
+		 </div>
+
+      <!-- /Row 5 -->
+
+
+    <!-- /No Answer Box-->
+
+    <div *ngIf="vals.answer == 'N/A'" class = "na">
+      <h6>Documentation</h6>
+      <textarea class="question-input" id="na-documentation-input"[(ngModel)]="vals.documentation" placeholder="Document why this question is not applicable..."></textarea>
+      <hr>
+      <h6>Assumptions</h6>
+      <textarea class="question-input" id="na-assumptions-input"[(ngModel)]="vals.assumptionsNA" placeholder="Enter any assumptions here..."></textarea>
+      <h6>Notes</h6>
+      <textarea class="question-input" id="na-notes-input"[(ngModel)]="vals.notesNA" placeholder="Enter notes here..."></textarea>
+    </div>
+
+    </div>
+
+
+
+    <!-- files display -->
+  <div class="display-files">
+        <div class="attach">
+            <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+        </div>
+  	<h6>Attachments</h6>
+    <div class="file">
+      <ng-container *ngFor="let file of files" class="file">
+        <div *ngIf="file.questionId == currentQuestion.questionId" class="file-item">
+          <p class="file-link" (click)="openFile(file.url)">{{file.name}}</p>
+          <ion-icon (click)="handleRemoveFileClick($event, file.id)" name="remove-circle" color = "danger"></ion-icon>
+        </div>
+      </ng-container>
+  	</div>
+  </div>
+
+  </div>
+    <!-- /files display -->
+
+          <!-- RISK SECTION -->
+          <div class="risk-wrapper">
+            <div class="risk" >
+                <!-- Non-map section -->
+                <div class="dev-border">
+                  <h5 >Risk Assessment</h5>
+                  <div class="likelihood-wrapper">
+
+                  <div class="likelihood">
+                    <h6>Likelihood <img (click)="showRiskPopover('likelihood')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
+                    <select [(ngModel)]="vals.likelihood" id="likelihood-input">
+                      <option value="1">1 - Not likely</option>
+                      <option value="2">2 - Low likelihood</option>
+                      <option value="3">3 - Moderate </option>
+                      <option value="4">4 - Highly likely</option>
+                      <option value="5">5 - Near Certainty</option>
+                    </select>
+                  </div>
+
+                  <div class="consequence">
+                    <h6>Consequence <img (click)="showRiskPopover('consequence')" style="cursor:pointer" src="assets/imgs/qmark.png" width="15" height="15"></h6>
+                    <select [(ngModel)]="vals.consequence" id="consequence-input">
+                      <option value="1">1 - Negligible</option>
+                      <option value="2">2 - Marginal</option>
+                      <option value="3">3 - Moderate</option>
+                      <option value="4">4 - Critical</option>
+                      <option value="5">5 - Catastrophic</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <h6 style="padding: 1vw;"> Risk Score: {{calculateRiskScore()}}</h6>
+                <div class="matrix-wrapper mobile">
+
+                        <!-- This is the matrix, copy-pasted from the component -->
+                        <!-- The ids correlate to the indices for an answer's likelihood and consequence,
+                             plus the letter 'm' to differentiate the id -->
+
+                             <div class="matrix-top-wrapper">
+
+
+
+                             <div class="y-axis-wrapper">
+                               <div class="y-axis-label">
+                                       <h4>Likelihood</h4>
+                               </div>
+                               <div class="y-axis-arrow-wrapper">
+                                 <div class="y-axis-arrow-head-wrapper">
+                                   <div class="y-axis-arrow-head">
+                                   </div>
+                                 </div>
+                                 <div class="y-axis-arrow-body">
+                                 </div>
+                               </div>
+                             </div>
+
+                        <table class="risk-matrix-table">
+                          <tr class="matrix-row">
+                            <th id="51m" class="low-risk-cell m51"></th>
+                            <th id="52m"class="med-risk-cell m52"></th>
+                            <th id="53m" class="high-risk-cell m53"></th>
+                            <th id="54m" class="high-risk-cell m54"></th>
+                            <th id="55m" class="high-risk-cell m55"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="41m" class="low-risk-cell m41"></th>
+                            <th id="42m" class="med-risk-cell m42"></th>
+                            <th id="43m" class="med-risk-cell m43"></th>
+                            <th id="44m" class="high-risk-cell m44"></th>
+                            <th id="45m" class="high-risk-cell m45"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="31m" class="low-risk-cell m31"></th>
+                            <th id="32m" class="low-risk-cell m32"></th>
+                            <th id="33m" class="med-risk-cell m33"></th>
+                            <th id="34m" class="med-risk-cell m34"></th>
+                            <th id="35m" class="high-risk-cell m35"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="21m" class="low-risk-cell m21"></th>
+                            <th id="22m" class="low-risk-cell m22"></th>
+                            <th id="23m" class="low-risk-cell m23"></th>
+                            <th id="24m" class="med-risk-cell m24 "></th>
+                            <th id="25m" class="med-risk-cell m25"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="11m" class="low-risk-cell m11"></th>
+                            <th id="12m" class="low-risk-cell m12"></th>
+                            <th id="13m" class="low-risk-cell m13"></th>
+                            <th id="14m" class="low-risk-cell m14"></th>
+                            <th id="15m" class="med-risk-cell m15"></th>
+                          </tr>
+                        </table>
+
+                        </div>
+
+                        <div class="matrix-bottom-wrapper">
+
+                               <div class="x-axis-wrapper">
+                                 <div class="x-axis-arrow-wrapper">
+                                   <div class="x-axis-arrow-head-wrapper">
+                                     <div class="x-axis-arrow-head">
+                                     </div>
+                                   </div>
+                                   <div class="x-axis-arrow-body">
+                                   </div>
+                                 </div>
+                                 <div class="x-axis-label-wrapper">
+                                         <h4>Consequence</h4>
+                                 </div>
+                               </div>
+
+                        </div>
+
+
+                </div>
+
+                <div>
+                  <div class="risk-part-2-wrapper">
+                    <div class="risk-part-2">
+                    <div class="greatest-impact">
+                      <h6>Greatest Impact</h6>
+                      <select [(ngModel)]="vals.greatestImpact" id="impact-input">
+                        <option value="cost">Cost</option>
+                        <option value="schedule">Schedule</option>
+                        <option value="performance">Performance</option>
+                      </select>
+                    </div>
+                    <div class="risk-response">
+                      <h6>Risk Response</h6>
+                      <select [(ngModel)]="vals.riskResponse" id="response-input">
+                        <option value="accept">Accept</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="avoid">Avoid</option>
+                        <option value="mitigate">Mitigate</option>
+                      </select>
+                    </div>
+                  </div>
+                  <h6 style="padding: 1vw; padding-bottom: 1vw;">MMP Summary</h6>
+                  <textarea [(ngModel)]="vals.mmpSummary" class="mmp-summary">
+                  </textarea>
+                </div>
+                </div>
+
+                </div>
+                <!-- MATRIX -->
+                <div class="matrix-wrapper desktop">
+                  <div class="matrix-top-wrapper">
+
+                        <div class="y-axis-wrapper">
+                          <div class="y-axis-label">
+                                  <h4>Likelihood</h4>
+                          </div>
+                          <div class="y-axis-arrow-wrapper">
+                            <div class="y-axis-arrow-head-wrapper">
+                              <div class="y-axis-arrow-head">
+                              </div>
+                            </div>
+                            <div class="y-axis-arrow-body">
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <!-- This is the matrix, copy-pasted from the component -->
+                        <!-- The ids correlate to the indices for an answer's likelihood and consequence,
+                             plus the letter 'm' to differentiate the id -->
+
+                      <table class="risk-matrix-table" style="float:left;">
+                          <tr class="matrix-row">
+                            <th id="51m" class="low-risk-cell m51"></th>
+                            <th id="52m"class="med-risk-cell m52"></th>
+                            <th id="53m" class="high-risk-cell m53"></th>
+                            <th id="54m" class="high-risk-cell m54"></th>
+                            <th id="55m" class="high-risk-cell m55"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="41m" class="low-risk-cell m41"></th>
+                            <th id="42m" class="med-risk-cell m42"></th>
+                            <th id="43m" class="med-risk-cell m43"></th>
+                            <th id="44m" class="high-risk-cell m44"></th>
+                            <th id="45m" class="high-risk-cell m45"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="31m" class="low-risk-cell m31"></th>
+                            <th id="32m" class="low-risk-cell m32"></th>
+                            <th id="33m" class="med-risk-cell m33"></th>
+                            <th id="34m" class="med-risk-cell m34"></th>
+                            <th id="35m" class="high-risk-cell m35"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="21m" class="low-risk-cell m21"></th>
+                            <th id="22m" class="low-risk-cell m22"></th>
+                            <th id="23m" class="low-risk-cell m23"></th>
+                            <th id="24m" class="med-risk-cell m24 "></th>
+                            <th id="25m" class="med-risk-cell m25"></th>
+                          </tr>
+                          <tr class="matrix-row">
+                            <th id="11m" class="low-risk-cell m11"></th>
+                            <th id="12m" class="low-risk-cell m12"></th>
+                            <th id="13m" class="low-risk-cell m13"></th>
+                            <th id="14m" class="low-risk-cell m14"></th>
+                            <th id="15m" class="med-risk-cell m15"></th>
+                          </tr>
+                      </table>
+                 </div>
+
+                 <div class="matrix-bottom-wrapper">
+
+                        <div class="x-axis-wrapper">
+                          <div class="x-axis-arrow-wrapper">
+                            <div class="x-axis-arrow-head-wrapper">
+                              <div class="x-axis-arrow-head">
+                              </div>
+                            </div>
+                            <div class="x-axis-arrow-body">
+                            </div>
+                          </div>
+                          <div class="x-axis-label-wrapper">
+                                  <h4>Consequence</h4>
+                          </div>
+                        </div>
+
+                 </div>
+
+                </div>
+            </div>
+          </div>
+          <div class="bottom-q-buttons">
+              <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
+              <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
+              <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
+          </div>
+          </div>
+
+
+
+  <!-- </div> -->
+
+  <div class="qspacer"> </div>
+
+</ion-content>
