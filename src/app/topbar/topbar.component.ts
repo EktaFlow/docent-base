@@ -90,7 +90,7 @@ export class TopbarComponent implements OnInit {
 				AssessmentScopePopoverComponent,
 				{scopeText: this.scope},
 				{cssClass: 'scope-popover'}
-			).then(popover => popover.present({ev: event}););
+			).then(popover => popover.present({ev: event}));
 		}
 
 		toggleInfo(event) {
@@ -98,7 +98,7 @@ export class TopbarComponent implements OnInit {
 				AssessmentScopePopoverComponent,
 				{scopeText: this.scope, targetMRL: this.targetMRL, targetDate: this.targetDate},
 				{cssClass: 'scope-popover'}
-			).then(popover => popover.present({ev: event}););
+			).then(popover => popover.present({ev: event}));
 
 		}
 
@@ -122,14 +122,14 @@ export class TopbarComponent implements OnInit {
 			this.popOver.create(
 				ViewsComponent,
 				{assessmentId: this.assessmentId}
-			).then(popover => popover.present({ev: event}););
+			).then(popover => popover.present({ev: event}));
 	  }
 
 		showHelp(event) {
 			this.popOver.create(
 				HelpmenuComponent,
 				{assessmentId: this.assessmentId}
-			).then(popover => popover.present({ev: event}););
+			).then(popover => popover.present({ev: event}));
 
 		}
 		handleContinue(){

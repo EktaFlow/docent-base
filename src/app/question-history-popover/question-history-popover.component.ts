@@ -209,7 +209,7 @@ export class QuestionHistoryPopoverComponent implements OnInit {
 
        var update = await this.assessmentService.updateQuestion(updateInfo);
    		update.subscribe(data =>
-        this.router.navigate(["/questions", {assessmentId: this.assessmentId, questionId: this.currentQ.questionId}]);
+        this.router.navigate(["/questions", {assessmentId: this.assessmentId, questionId: this.currentQ.questionId}])
         );
 
 

@@ -64,7 +64,7 @@ export class RiskReportPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private apollo: Apollo
+    private apollo: Apollo,
     private activatedRoute: ActivatedRoute) {
       this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
     // this.assessmentId = navParams.data.assessmentId;

@@ -199,7 +199,7 @@ export class DashboardPage implements OnInit {
     this.popOver.create(
 			ViewsComponent
 		).then(
-			popover => popover.present({ev: event});
+			popover => popover.present({ev: event})
 		);
   }
 
@@ -208,7 +208,7 @@ export class DashboardPage implements OnInit {
 			LegendPopoverComponent,
 			{cssClass: 'legendpop'}
 		).then(
-			popover => popover.present({ev: event});
+			popover => popover.present({ev: event})
 		);
 	}
 

@@ -101,7 +101,7 @@ export class ViewsComponent implements OnInit {
   	public popOver: PopoverController,
   	public navParams: NavParams,
   	public viewCtrl: ViewController,
-  	private apollo: Apollo
+  	private apollo: Apollo,
     public router: RouterModule,
     private activatedRoute: ActivatedRoute
   ) {

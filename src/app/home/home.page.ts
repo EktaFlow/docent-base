@@ -242,7 +242,7 @@ export class HomePage implements OnInit {
 
     handleResetClick() {
       this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'})
-                    .then(popover => popover.present(););
+                    .then(popover => popover.present());
     }
 
 

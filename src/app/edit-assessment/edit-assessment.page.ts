@@ -310,7 +310,7 @@ presentToast() {
     message: 'Member added to assessment and emailed',
     duration: 3000,
     position: 'top'
-  }).then( toast => toast.present(););
+  }).then( toast => toast.present());
   toast.onDidDismiss(() => {
     console.log('Dismissed toast');
   });

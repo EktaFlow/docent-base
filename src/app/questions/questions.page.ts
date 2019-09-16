@@ -168,7 +168,7 @@ showFileUpload() {
           assessmentId: this.assessmentId
         },
         {	cssClass: "upload-popover"})
-      .then(popover => popover.present(););
+      .then(popover => popover.present());
 }
 
 showRiskPopover(highlight) {
@@ -176,7 +176,7 @@ showRiskPopover(highlight) {
         RiskPopoverComponent,
         {highlight: highlight},
         {cssClass: 'risk-popover'
-      }).then(popover => popover.present(););
+      }).then(popover => popover.present());
 }
 
 /**
@@ -203,7 +203,7 @@ handleRemoveFileClick(event, fileId) {
   }
 
   this.popoverController.create(FileDeleteComponent, fileDeleteData)
-                        .then(popover => popover.present({ev: event}););
+                        .then(popover => popover.present({ev: event}));
 }
 
 /**
