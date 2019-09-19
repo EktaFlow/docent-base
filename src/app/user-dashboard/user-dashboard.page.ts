@@ -2,23 +2,23 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
 import { AuthService } from "./auth.service";
 import { AssessmentService } from "./assessment.service";
-import { TopbarComponent } from "./topbar/topbar";
-import { FileDeleteComponent } from './file-delete/file-delete';
-import { SettingsPage } from "./settings/settings";
-import { QuestionsPage } from "./questions/questions";
-import { DashboardPage } from "./dashboard/dashboard";
-import { ActionitemsPage } from "./actionitems/actionitems";
-import { EditAssessmentPage } from './edit-assessment/edit-assessment';
-import { AddTeamMembersPopOverComponent } from "./add-team-members-pop-over/add-team-members-pop-over";
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
-import { ImportComponent } from "./import/import";
+import { TopbarComponent } from "../topbar/topbar.component";
+import { FileDeleteComponent } from '../file-delete/file-delete';
+import { SettingsPage } from "../settings/settings";
+import { QuestionsPage } from "../questions/questions";
+import { DashboardPage } from "../dashboard/dashboard";
+import { ActionitemsPage } from "../actionitems/actionitems";
+import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
+import { AddTeamMembersPopOverComponent } from "../add-team-members-pop-over/add-team-members-pop-over";
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { ImportComponent } from "../import/import";
 import { saveAs } from "file-saver/FileSaver";
 import { RouterModule, ActivatedRoute } from '@angular/router';
-import { HomePage } from "./home/home";
+import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import { AuthUrl } from "./constants";
+import { AuthUrl } from "../constants";
 
 var sharedQuery = gql`
 query getShared($assessments: [String]) {
@@ -106,7 +106,7 @@ query assessment($_id: String)
 }
 `
 @Component({
-  selector: 'app-user-dashboard',
+  selector: 'user-dashboard',
   templateUrl: './user-dashboard.page.html',
   styleUrls: ['./user-dashboard.page.scss'],
 })

@@ -2,16 +2,16 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavParams, PopoverController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
-import { ReviewPage } from './review/review';
-import { ViewsComponent } from './views/views';
-import { AssessmentService } from "./assessment.service";
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
-import { AuthService } from "./auth.service";
-import { Helpers } from './helpers';
+import { ReviewPage } from '../review/review';
+import { ViewsComponent } from '../views/views';
+import { AssessmentService } from "../assessment.service";
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { AuthService } from "../auth.service";
+import { Helpers } from '../helpers/helpers';
 
-import {FileUploadPopoverComponent} from "./file-upload-popover/file-upload-popover";
-import { FileDeleteComponent } from './file-delete/file-delete';
-import { RiskPopoverComponent } from './risk-popover/risk-popover';
+import {FileUploadPopoverComponent} from "../file-upload-popover/file-upload-popover";
+import { FileDeleteComponent } from '../file-delete/file-delete';
+import { RiskPopoverComponent } from '../risk-popover/risk-popover';
 import { ActivatedRoute } from "@angular/router"
 
 @Component({

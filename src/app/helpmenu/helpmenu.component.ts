@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ViewController } from '@ionic/angular'
 import { NavController, NavParams, IonicPage } from '@ionic/angular';
 
-import { AcronymsPage } from './acronyms/acronyms';
-import { DefinitionsPage } from './definitions/definitions';
-import { FaqsPage } from './faqs/faqs';
-import { CriteriaPage } from './criteria/criteria';
+import { AcronymsPage } from '../acronyms/acronyms';
+import { DefinitionsPage } from '../definitions/definitions';
+import { FaqsPage } from '../faqs/faqs';
+import { CriteriaPage } from '../criteria/criteria';
 import { RouterModule, ActivatedRoute } from "@angular/router";
 
 @Component({

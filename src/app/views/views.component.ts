@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController, NavController, NavParams, PopoverController } from '@ionic/angular'
 
-import { HomePage } from './home/home';
-import { ReviewPage } from './review/review';
-import { DashboardPage } from './dashboard/dashboard';
-import { NavigatePage } from './navigate/navigate';
-import { NotapplicablePage } from './notapplicable/notapplicable';
-import { ActionitemsPage } from './actionitems/actionitems';
-import { SummaryPage } from './summary/summary';
-import { QuestionsPage } from "./questions/questions";
+import { HomePage } from '../home/home';
+import { ReviewPage } from '../review/review';
+import { DashboardPage } from '../dashboard/dashboard';
+import { NavigatePage } from '../navigate/navigate';
+// import { NotapplicablePage } from './notapplicable/notapplicable';
+import { ActionitemsPage } from '../actionitems/actionitems';
+import { SummaryPage } from '../summary/summary';
+import { QuestionsPage } from "../questions/questions";
 import { saveAs } from "file-saver/FileSaver";
-import { ImportComponent } from "./import/import";
-import { RiskReportPage } from "./risk-report/risk-report";
+import { ImportComponent } from "../import/import";
+import { RiskReportPage } from "../risk-report/risk-report";
 import {RouterModule, ActivatedRoute} from "@angular/router";
 
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
-import {AssessmentslistComponent} from "./assessmentslist/assessmentslist";
+import {AssessmentslistComponent} from "./assessmentslist/assessmentslist.component";
 
 var assessmentQuery = gql`
 query assessment($_id: String)
@@ -82,7 +82,7 @@ query assessment($_id: String)
 `
 
 @Component({
-  selector: 'app-views',
+  selector: 'views',
   templateUrl: './views.component.html',
   styleUrls: ['./views.component.scss'],
 })
@@ -108,6 +108,8 @@ export class ViewsComponent implements OnInit {
     // this.assessmentId = navParams.data.assessmentId;
     this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
    }
+
+   ngOnInit(){}
 
    handleSave() {
      this.apollo.watchQuery<any>({

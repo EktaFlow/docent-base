@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, ViewController } from '@ionic/angular';
-import { AssessmentService } from "./assessment.service";
+import { AssessmentService } from "../assessment.service";
 import { HttpClient } from '@angular/common/http';
-import { AuthUrl } from "./constants";
+import { AuthUrl } from "../constants";
 
 @Component({
   selector: 'add-team-members-pop-over',

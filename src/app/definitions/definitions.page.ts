@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 
 
 @Component({

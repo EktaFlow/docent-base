@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "./topbar/topbar";
+import { TopbarComponent } from "../topbar/topbar";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
-import {JsonUploadPopoverComponent} from "./json-upload-popover/json-upload-popover";
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import {JsonUploadPopoverComponent} from "../json-upload-popover/json-upload-popover";
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { RouterModule} from "@angular/router";
 
 

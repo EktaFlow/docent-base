@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "./topbar/topbar";
+import { TopbarComponent } from "../topbar/topbar";
 import { HttpClient } from '@angular/common/http';
-import { AssessmentService } from './assessment.service';
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
+import { AssessmentService } from '../assessment.service';
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 
 
 import { QuestionsPage } from '../questions/questions';

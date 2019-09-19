@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, PopoverController, NavController, NavParams, ToastController } from '@ionic/angular';
-import { AssessmentService } from './assessment.service';
-import { Helpers } from './helpers';
+import { AssessmentService } from '../assessment.service';
+import { Helpers } from '../helpers/docentHelpers';
 import { RouterModule, ActivatedRoute} from "@angular/router"
-import { UserDashboardPage } from './user-dashboard';
-import { AuthService } from "./auth.service";
-import { FileDeleteComponent } from './file-delete/file-delete';
+import { UserDashboardPage } from '../user-dashboard/user-dashboard';
+import { AuthService } from "../auth.service";
+import { FileDeleteComponent } from '../file-delete/file-delete';
 
 @Component({
   selector: 'app-edit-assessment',

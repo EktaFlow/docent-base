@@ -1,21 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PopoverController, NavController } from "@ionic/angular";
-import { ViewsComponent } from "./views/views";
-import { HomePage } from "./home/home";
-import { LoginPage } from './login/login';
-import { NavigatePage} from "./navigate/navigate";
-import { AuthService } from "./auth.service";
-import { HelpmenuComponent } from "./helpmenu/helpmenu";
-import { SubthreadPopupComponent } from "./subthread-popup/subthread-popup";
-import { UserDashboardPage } from "./user-dashboard/user-dashboard";
-import { ThreadPopupComponent} from "./thread-popup/thread-popup";
-import { AssessmentScopePopoverComponent } from "./assessment-scope-popover/assessment-scope-popover";
-import { MobileNavPopoverComponent } from './mobile-nav-popover/mobile-nav-popover';
-import {QuestionHistoryPopoverComponent} from './question-history-popover/question-history-popover';
-import {QuestionsPage} from './questions/questions';
+import { ViewsComponent } from "../views/views";
+import { HomePage } from "../home/home";
+import { LoginPage } from '../login/login';
+import { NavigatePage} from "../navigate/navigate";
+import { AuthService } from "../auth.service";
+import { HelpmenuComponent } from "../helpmenu/helpmenu";
+import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
+import { UserDashboardPage } from "../user-dashboard/user-dashboard";
+import { ThreadPopupComponent} from "../thread-popup/thread-popup";
+import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
+import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
+import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
+import {QuestionsPage} from '../questions/questions';
 import { RouterModule } from '@angular/router';
 
-import { AssessmentService } from "./assessment.service";
+import { AssessmentService } from "../assessment.service";
 
 
 import { Apollo } from "apollo-angular";
@@ -32,7 +32,7 @@ query assessment($_id: String!) {
 `
 
 @Component({
-  selector: 'app-topbar',
+  selector: 'topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
 })

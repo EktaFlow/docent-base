@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "./topbar/topbar";
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
-import { LegendPopoverComponent } from './legend-popover/legend-popover';
-import { QuestionsPage } from "./questions/questions";
-import { ReportInfoCardComponent } from "./report-info-card/report-info-card";
+import { TopbarComponent } from "../topbar/topbar";
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { LegendPopoverComponent } from '../legend-popover/legend-popover';
+import { QuestionsPage } from "../questions/questions";
+import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
 import { ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
 
@@ -44,7 +44,7 @@ query assessment($_id: String) {
 }
 `
 @Component({
-  selector: 'app-summary',
+  selector: 'summary',
   templateUrl: './summary.page.html',
   styleUrls: ['./summary.page.scss'],
 })

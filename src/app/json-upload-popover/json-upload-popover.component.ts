@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ToastController } from '@ionic/angular';
-import { UploadService } from "./upload";
+import { UploadService } from "../upload";
 
 @Component({
   selector: 'app-json-upload-popover',

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../auth.service';
 import { NavController } from '@ionic/angular';
-import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard';
+import { UserDashboardPage } from '../user-dashboard/user-dashboard';
 
 @Component({
   selector: 'do-reset',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
-import { AcronymPopoverComponent } from './acronym-popover/acronym-popover';
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { AcronymPopoverComponent } from '../acronym-popover/acronym-popover';
 import { ActivatedRoute } from  "@angular/router"
 
 @Component({
