@@ -13,7 +13,7 @@ import { AddTeamMembersPopOverComponent } from "../add-team-members-pop-over/add
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { ImportComponent } from "../import/import";
 import { saveAs } from "file-saver/FileSaver";
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
@@ -139,7 +139,7 @@ export class UserDashboardPage implements OnInit {
 							private auth: AuthService,
               private assessmentService: AssessmentService,
 							public popOver: PopoverController,
-              public router: RouterModule,
+              public router: Router,
               private activatedRoute: ActivatedRoute) {
 							// this.assessmentId = navParams.data.assessmentId;
               this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
@@ -200,7 +200,7 @@ export class UserDashboardPage implements OnInit {
 
 
 	launchImportPopover() {
-		this.popOver.create(ImportComponent)
+		this.popOver.create({component: ImportComponent})
 								.then(popover => popover.present());
 	}
 
@@ -338,8 +338,13 @@ export class UserDashboardPage implements OnInit {
       }
     });
 
-    this.popOver.create(FileDeleteComponent, {emitter: emitter, typeToDelete: 'assessment'})
-                .then(popover => popover.present());
+    this.popOver.create({
+      component: FileDeleteComponent,
+      componentProps: {
+        emitter: emitter,
+        typeToDelete: 'assessment'
+      }
+    }).then(popover => popover.present());
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
@@ -351,11 +356,14 @@ export class UserDashboardPage implements OnInit {
 		console.log(this.assessments[assIndex]);
 		});
 
-		this.popOver.create(
-      AddTeamMembersPopOverComponent,
-			{assessmentId: assessmentId, emitter: myEmitter},
-			{cssClass: 'team-popover'}
-    ).then(popover => popover.present());
+		this.popOver.create({
+      component: AddTeamMembersPopOverComponent,
+			componentProps: {
+        assessmentId: assessmentId,
+        emitter: myEmitter,
+      },
+			cssClass: 'team-popover'
+    }).then(popover => popover.present());
 
 
 	}

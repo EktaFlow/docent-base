@@ -7,7 +7,7 @@ import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
 // import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
-import {RouterModule} from "@angular/router"
+import {Router, ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
 
 import { QuestionsPage } from '../questions/questions';
@@ -280,8 +280,8 @@ constructor( private apollo: Apollo,
 						 public navParams: NavParams,
 						 public popOver: PopoverController,
 						 private assessmentService: AssessmentService,
-					 	 public router: RouterModule,
-					 	 private activatedRoute: RouterModule) {
+					 	 public router: Router,
+					 	 private activatedRoute: ActivatedRoute) {
 								this.assessmentIdFromParams = this.activatedRoute.snapshot.paramMap.get('assessmentId');
 								console.log(this.assessmentIdFromParams);
 							}

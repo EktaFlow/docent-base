@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -102,14 +102,67 @@ import {ViewsComponent} from './views/views';
     RiskPopoverComponent,
     FileDeleteComponent,
     DoResetComponent,
-    ReportInfoCardComponent
+    ReportInfoCardComponent,
+		RouterModule
 		// ComponentsModule
   ],
   entryComponents: [
 		AppComponent,
 		HomePage
 	],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+		BrowserModule,
+		IonicModule.forRoot(),
+		AppRoutingModule,
+		IonicStorageModule.forRoot(),
+		HttpClientModule,
+		HttpLinkModule,
+		ApolloModule,
+		FormsModule,
+		AcronymsPageModule,
+		QuestionsPageModule,
+		LoginPageModule,
+		DefinitionsPageModule,
+		FaqsPageModule,
+		ReviewPageModule,
+		SummaryPageModule,
+		DashboardPageModule,
+		NavigatePageModule,
+		NotapplicablePageModule,
+		ActionitemsPageModule,
+		CriteriaPageModule,
+		UserDashboardPageModule,
+		SettingsPageModule,
+		NewAssessmentPageModule,
+		EditAssessmentPageModule,
+		RiskReportPageModule,
+		ViewsComponent,
+		AssessmentslistComponent,
+		ThreadsListComponent,
+		HelpmenuComponent,
+		ContactsDropdownComponent,
+		FaqDropdownComponent,
+		FileUploadPopoverComponent,
+		TopbarComponent,
+		ImportComponent,
+		SubthreadPopupComponent,
+		ThreadPopupComponent,
+		RegisterComponent,
+		PasswordResetComponent,
+		AddTeamMembersPopOverComponent,
+		JsonUploadPopoverComponent,
+		AssessmentScopePopoverComponent,
+		MobileNavPopoverComponent,
+		LegendPopoverComponent,
+		AcronymPopoverComponent,
+		QuestionHistoryPopoverComponent,
+		RiskPopoverComponent,
+		FileDeleteComponent,
+		DoResetComponent,
+		ReportInfoCardComponent,
+		BrowserModule,
+		RouterModule
+	],
   providers: [
     StatusBar,
     SplashScreen,

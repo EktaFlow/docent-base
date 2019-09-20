@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/a
 import { TopbarComponent } from "../topbar/topbar";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
-import { RouterModule, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 
 import { QuestionsPage } from '../questions/questions';
@@ -52,8 +52,8 @@ export class NavigatePage implements OnInit {
 							 public navCtrl: 			 NavController,
 							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
-							 public router: RouterModule,
-							 private activatedRoute: RouterModule
+							 public router: Router,
+							 private activatedRoute: ActivatedRoute
 							 ) {
 		this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
 		this.expandAllFromQs = activatedRoute.snapshot.paramMap.get('expandAllFromQs');

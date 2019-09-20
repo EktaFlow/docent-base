@@ -4,7 +4,7 @@ import { QuestionsPage } from '../questions/questions';
 import { AssessmentService } from "../assessment.service";
 import {AuthService} from "../auth.service";
 import { AuthUrl } from "../constants";
-import { RouterModule, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 
 @Component({
@@ -54,7 +54,7 @@ export class QuestionHistoryPopoverComponent implements OnInit {
     public navParams: 		 NavParams,
     private assessmentService: AssessmentService,
     private auth: AuthService,
-    public router: RouterModule,
+    public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
     // this.assessmentId = navParams.data.assessmentId;

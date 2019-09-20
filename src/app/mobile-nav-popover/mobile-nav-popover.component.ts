@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController, ViewController} from '@ionic/angular'
 import { AuthService } from "../auth.service";
-import {RouterModule, ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import { HomePage } from '../home/home';
 import { ReviewPage } from '../review/review';
 import { DashboardPage } from '../dashboard/dashboard';
@@ -38,8 +38,8 @@ export class MobileNavPopoverComponent implements OnInit {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public auth: AuthService,
-    public router: RouterModule
-    // private activatedRoute: RouterModule
+    public router: Router
+    // private activatedRoute: ActivatedRoute
   ) {
     this.assessmentId = navParams.data.assessmentId;
     this.userName = navParams.data.userName;

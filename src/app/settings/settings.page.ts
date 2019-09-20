@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
 import {JsonUploadPopoverComponent} from "../json-upload-popover/json-upload-popover";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { RouterModule} from "@angular/router";
+import { Router} from "@angular/router";
 
 
 
@@ -18,11 +18,10 @@ import { RouterModule} from "@angular/router";
 export class SettingsPage implements OnInit {
 
   constructor(public navCtrl: NavController,
-	            private popoverController: PopoverController,
                     public navParams: NavParams,
                     private http: HttpClient,
                   public popover: PopoverController,
-                public router: RouterModule ) {
+                public router: Router ) {
                       this.user = navParams.data.user;
                       console.log(navParams.data.user);
 
@@ -66,13 +65,13 @@ export class SettingsPage implements OnInit {
         console.log(this.files);
 			});
 
-			this.popover
-				.create(JsonUploadPopoverComponent,
-					{
-						emitter: myEmitter
-					},
-					{	cssClass: "json-upload-popover"})
-				.then(popover => popover.present());
+        this.popover.create({
+          component: JsonUploadPopoverComponent,
+          componentProps: {
+            emitter: myEmitter,
+          },
+          cssClass: "json-upload-popover"
+        }).then(popover => popover.present());
 
         console.log("emitter");
 	}

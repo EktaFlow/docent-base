@@ -12,13 +12,14 @@ import { QuestionsPage } from "../questions/questions";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
 import { RiskReportPage } from "../risk-report/risk-report";
-import {RouterModule, ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import {AppRoutingModule} from "../app-routing.module"
 
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
-import {AssessmentslistComponent} from "./assessmentslist/assessmentslist.component";
+import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
 
 var assessmentQuery = gql`
 query assessment($_id: String)
@@ -102,7 +103,7 @@ export class ViewsComponent implements OnInit {
   	public navParams: NavParams,
   	public viewCtrl: ViewController,
   	private apollo: Apollo,
-    public router: RouterModule,
+    public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
     // this.assessmentId = navParams.data.assessmentId;
@@ -192,15 +193,18 @@ export class ViewsComponent implements OnInit {
 
    launchImportPopover() {
      console.log("hi");
-     this.popOver.create(ImportComponent)
+     this.popOver.create({component: ImportComponent})
                  .then(popover => popover.present());
    }
 
  showAssessmentsList(myEvent) {
- this.popOver.create(
-   AssessmentslistComponent,
-   {assessments: this.assessments}
- ).then(popover => popover.present({ev: myEvent}));
+ this.popOver.create({
+   component: AssessmentslistComponent,
+   componentProps: {
+     assessments: this.assessments,
+   },
+   event: myEvent
+ }).then(popover => popover.present());
 
  }
 

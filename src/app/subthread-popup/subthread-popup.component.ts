@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/a
 import { QuestionsPage } from '../questions/questions';
 import { AssessmentService } from "../assessment.service";
 import { Apollo } from "apollo-angular";
-import { RouterModule } from "@angular/router";
+import { Router } from "@angular/router";
 import gql from "graphql-tag";
 
 var assessmentQuery = gql`
@@ -39,7 +39,7 @@ export class SubthreadPopupComponent implements OnInit {
   	public navCtrl: 			 NavController,
   	public navParams: 		 NavParams,
   	private assessmentService: AssessmentService,
-    public router: RouterModule
+    public router: Router
   ) {
     this.assessmentId = navParams.data.assessmentId;
    this.subTitle = navParams.data.subTitle;

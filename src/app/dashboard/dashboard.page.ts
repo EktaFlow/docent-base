@@ -9,7 +9,7 @@ import { ActionitemsPage } from '../actionitems/actionitems';
 import { LegendPopoverComponent } from '../legend-popover/legend-popover';
 import {QuestionsPage} from '../questions/questions';
 import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
-import { RouterModule, ActivatedRoute} from "@angular/router"
+import { Router, ActivatedRoute} from "@angular/router"
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -59,8 +59,8 @@ export class DashboardPage implements OnInit {
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService,
-						 	 public router: RouterModule,
-						 	private activatedRoute: RouterModule) {
+						 	 public router: Router,
+						 	private activatedRoute: ActivatedRoute) {
 
 								 this.assessmentIdFromParams = activatedRoute.snapshot.paramMap.get('assessmentId');
 								 console.log(this.assessmentIdFromParams);
@@ -196,19 +196,23 @@ export class DashboardPage implements OnInit {
 
 
   presentViewsPop(event){
-    this.popOver.create(
-			ViewsComponent
-		).then(
-			popover => popover.present({ev: event})
+		this.popOver.create({
+			component: ViewsComponent,
+			event: event
+		})
+		.then(
+			popover => popover.present()
 		);
   }
 
 	presentLegend(event){
-		this.popOver.create(
-			LegendPopoverComponent,
-			{cssClass: 'legendpop'}
-		).then(
-			popover => popover.present({ev: event})
+		this.popOver.create({
+			component: LegendPopoverComponent,
+			cssClass: 'legendpop',
+			event: event
+		})
+		.then(
+			popover => popover.present()
 		);
 	}
 

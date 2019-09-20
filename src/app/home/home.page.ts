@@ -8,7 +8,7 @@ import { AuthService } from "../auth.service";
 import { AssessmentService } from "../assessment.service";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { LoginPage } from '../login/login';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 import { Apollo } from "apollo-angular";
@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
               private http: HttpClient,
 							private loadingCtrl: LoadingController,
 							private toastCtrl: ToastController,
-							public router: RouterModule) {}
+							public router: Router) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -241,8 +241,10 @@ export class HomePage implements OnInit {
 	// TODO:  abstract general popover logic<01-08-18, mpf> //
 
     handleResetClick() {
-      this.popOver.create( PasswordResetComponent, {}, {cssClass: 'password-reset'})
-                    .then(popover => popover.present());
+			this.popOver.create({
+				component: PasswordResetComponent,
+				cssClass: 'password-reset',
+			}).then(popover => popover.present());
     }
 
 

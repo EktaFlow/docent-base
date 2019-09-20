@@ -13,7 +13,7 @@ import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/ass
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
 import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
 import {QuestionsPage} from '../questions/questions';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AssessmentService } from "../assessment.service";
 
@@ -66,7 +66,7 @@ export class TopbarComponent implements OnInit {
 		public navCtrl: NavController,
 		private apollo: Apollo,
 		private assessmentService: AssessmentService,
-		public router: RouterModule
+		public router: Router
 	) { }
 
 		async ngOnInit() {
@@ -86,19 +86,29 @@ export class TopbarComponent implements OnInit {
 		}
 
 		toggleScopeSelected(event) {
-			this.popOver.create(
-				AssessmentScopePopoverComponent,
-				{scopeText: this.scope},
-				{cssClass: 'scope-popover'}
-			).then(popover => popover.present({ev: event}));
+
+			this.popOver.create({
+				component: AssessmentScopePopoverComponent,
+				componentProps: {
+						scopeText: this.scope,
+				},
+				cssClass: 'scope-popover',
+				event: event
+			})
+			.then(popover => popover.present());
 		}
 
 		toggleInfo(event) {
-			this.popOver.create(
-				AssessmentScopePopoverComponent,
-				{scopeText: this.scope, targetMRL: this.targetMRL, targetDate: this.targetDate},
-				{cssClass: 'scope-popover'}
-			).then(popover => popover.present({ev: event}));
+			this.popOver.create({
+				component: AssessmentScopePopoverComponent,
+				componentProps: {
+					scopeText: this.scope,
+					targetMRL: this.targetMRL,
+					targetDate: this.targetDate,
+				},
+				cssClass: 'scope-popover',
+				event: event
+			}).then(popover => popover.present());
 
 		}
 
@@ -119,17 +129,23 @@ export class TopbarComponent implements OnInit {
 		}
 
 	  presentViewsPop(event){
-			this.popOver.create(
-				ViewsComponent,
-				{assessmentId: this.assessmentId}
-			).then(popover => popover.present({ev: event}));
+			this.popOver.create({
+				component: ViewsComponent,
+				componentProps: {
+					assessmentId: this.assessmentId,
+				},
+				event: event
+			}).then(popover => popover.present());
 	  }
 
 		showHelp(event) {
-			this.popOver.create(
-				HelpmenuComponent,
-				{assessmentId: this.assessmentId}
-			).then(popover => popover.present({ev: event}));
+			this.popOver.create({
+				component: HelpmenuComponent,
+				componentProps: {
+					assessmentId: this.assessmentId,
+				},
+				event: event
+			}).then(popover => popover.present());
 
 		}
 		handleContinue(){
@@ -203,13 +219,18 @@ export class TopbarComponent implements OnInit {
 				_id:     this.assessmentId,
 				questionId: this.questionId
 			}
-			let stpopover = this.popOver.create(
-				SubthreadPopupComponent,
-				{assessmentId: this.assessmentId, subTitle: this.subTitle, updateInfo: updateInfo},
-				{cssClass: 'sub-thread-popup'}
-			);
+			let stpopover = this.popOver.create({
+				component: SubthreadPopupComponent,
+				componentProps: {
+					assessmentId: this.assessmentId,
+					subTitle: this.subTitle,
+					updateInfo: updateInfo,
+				},
+				event: event
+				cssClass: 'sub-thread-popup'
+			});
 				if (mobileness == "false"){
-					stpopover.then(popover => popover.present({ev: event}));
+					stpopover.then(popover => popover.present());
 				} else {
 					stpopover.then(popover => popover.present());
 				}
@@ -221,26 +242,45 @@ export class TopbarComponent implements OnInit {
 				_id:     this.assessmentId,
 				questionId: this.questionId
 			}
-			var tpopover = this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
-				updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+			var tpopover = this.popOver.create({
+				component: ThreadPopupComponent,
+				componentProps: {
+					assessmentId: this.assessmentId,
+					updateInfo: updateInfo,
+				},
+				event: event
+				cssClass: 'thread-popup'
+			});
 			if (mobileness == "false"){
-				tpopover.then(popover => popover.present({ev: event}));
+				tpopover.then(popover => popover.present());
 			} else {
 				tpopover.then(popover => popover.present());
 			}
 		}
 
 		toggleQuestionHistory(){
-			this.popOver.create(QuestionHistoryPopoverComponent, {assessmentId: this.assessmentId,
-				questionId: this.questionId}, {cssClass: 'question-history-popup'})
-			.then(popover => popover.present());
+			this.popOver.create({
+				component: QuestionHistoryPopoverComponent,
+				componentProps: {
+					assessmentId: this.assessmentId,
+					questionId: this.questionId,
+				},
+				cssClass: 'question-history-popup'
+			}).then(popover => popover.present());
 		}
 
 		openMobileNav(){
 			console.log(this.noSecondBar);
 			var userName = this.auth.currentUser().name;
-			this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
-			.then(popover => popover.present());
+			this.popOver.create({
+				component: MobileNavPopoverComponent,
+				componentProps: {
+					assessmentId: this.assessmentId,
+					userName: userName,
+					noSecondBar: this.noSecondBar,
+				},
+				cssClass: 'mobile-nav-pop'
+			}).then(popover => popover.present());
 		}
 
 		// toggleTopbarInfo(){

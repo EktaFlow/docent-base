@@ -6,7 +6,7 @@ import { AcronymsPage } from '../acronyms/acronyms';
 import { DefinitionsPage } from '../definitions/definitions';
 import { FaqsPage } from '../faqs/faqs';
 import { CriteriaPage } from '../criteria/criteria';
-import { RouterModule, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-helpmenu',
@@ -21,7 +21,7 @@ export class HelpmenuComponent implements OnInit {
     public navCtrl: NavController,
     public navParams: 		 NavParams,
   	public viewCtrl: ViewController,
-    public router: RouterModule,
+    public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
     this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');

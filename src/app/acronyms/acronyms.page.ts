@@ -48,14 +48,16 @@ this.http.get('assets/json/acronyms.json')
 
 
 presentFullAcronym(fullText, event){
-  this.popOver.create(
-    AcronymPopoverComponent,
-    {fullText: fullText},
-    {cssClass: 'acro-popup'})
+  this.popOver.create({
+    component: AcronymPopoverComponent,
+    event: event,
+    componentProps: {
+      fullText: fullText,
+    },
+    cssClass: 'acro-popup'
+  })
   .then(
-    popover => popover.present({
-      ev: event
-    })
+    popover => popover.present()
   );
 }
 

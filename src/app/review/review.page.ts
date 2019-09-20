@@ -4,7 +4,7 @@ import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { TopbarComponent } from '../topbar/topbar';
 import { QuestionsPage } from "../questions/questions";
 import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
-import { RouterModule, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import * as XLSX from 'xlsx';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -60,7 +60,7 @@ export class ReviewPage implements OnInit {
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
-						 	 public router: RouterModule,
+						 	 public router: Router,
 						 	 private activatedRoute: ActivatedRoute) {
 								 this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
 		// this.assessmentId = navParams.data.assessmentId;
