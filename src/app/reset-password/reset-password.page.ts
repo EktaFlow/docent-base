@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-reset-password',
@@ -16,6 +16,10 @@ userEmail: string = this.navParams.get('email');
 userToken: string = this.navParams.get('token');
 userInput: any    = {};
 errors:    string[] = [];
+
+ngOnInit(){
+ 
+}
 
 submitReset() {
 /*

@@ -12,6 +12,8 @@ export class FaqDropdownComponent implements OnInit {
 
   constructor() { }
 
+  ngOnInit(){}
+
   toggleFaq(){
     this.faqOpen ? this.faqOpen = false : this.faqOpen = true;
   }

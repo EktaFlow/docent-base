@@ -1,13 +1,13 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController, PopoverController, LoadingController, ToastController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { QuestionsPage } from '../questions/questions';
-import { ThreadsListComponent } from "../threads-list/threads-list";
-import { PasswordResetComponent } from '../password-reset/password-reset';
+import { QuestionsPage } from '../questions/questions.page';
+import { ThreadsListComponent } from "../threads-list/threads-list.component";
+import { PasswordResetComponent } from '../password-reset/password-reset.component';
 import { AuthService } from "../auth.service";
 import { AssessmentService } from "../assessment.service";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { LoginPage } from '../login/login';
+import { LoginPage } from '../login/login.page';
 import { Router } from '@angular/router';
 
 
@@ -65,19 +65,18 @@ export class HomePage implements OnInit {
 		return fields.every(field => this.assForm[field])
 	}
 
-	presentLoadingDefault() {
-	  let loading = this.loadingCtrl.create({
+	async presentLoadingDefault() {
+	  let loading = await this.loadingCtrl.create({
 		  spinner: 'crescent',
-		  content: 'Assessment Loading In, Please Wait',
-		  dismissOnPageChange: true
+		  message: 'Assessment Loading In, Please Wait',
+		  // dismissOnPageChange: true
 	  });
 
-
-	  loading.present();
+	  await loading.present();
   }
 
-  invalidInputToast() {
-	  var toast = this.toastCtrl.create({
+  async invalidInputToast() {
+	  var toast = await this.toastCtrl.create({
 	    message: 'Please ensure your assessment has a name and target MR Level',
 	    duration: 4500,
       showCloseButton: true,
@@ -85,7 +84,7 @@ export class HomePage implements OnInit {
       cssClass: 'error-toast'
 	  });
 
-    toast.present();
+    await toast.present();
   }
 
 	async createAssessment(event) {
@@ -272,17 +271,14 @@ export class HomePage implements OnInit {
 		this.presentToast();
   }
 
-	presentToast() {
-	  let toast = this.toastCtrl.create({
+	async presentToast() {
+	  let toast = await this.toastCtrl.create({
 	    message: 'Member added to assessment and emailed',
 	    duration: 2500,
 	    position: 'top'
 	  });
-	  toast.onDidDismiss(() => {
-	    console.log('Dismissed toast');
-	  });
 
-	  toast.present();
+	  await toast.present();
 }
 
   removeMember(memEmail){

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from '../questions/questions';
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { QuestionsPage } from '../questions/questions.page';
 import { AssessmentService } from "../assessment.service";
 import {AuthService} from "../auth.service";
 import { AuthUrl } from "../constants";

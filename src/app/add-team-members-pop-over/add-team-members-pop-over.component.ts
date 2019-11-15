@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, ViewController } from '@ionic/angular';
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
 import { AssessmentService } from "../assessment.service";
 import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../constants";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'add-team-members-pop-over',
@@ -22,12 +23,14 @@ export class AddTeamMembersPopOverComponent implements OnInit {
       public navParams: NavParams,
       public assessmentService: AssessmentService,
 			public http: HttpClient,
-			public viewCtrl: ViewController
+			public viewCtrl: PopoverController,
+			private activatedRoute: ActivatedRoute
   ) {
-
-    this.assessmentId = navParams.data.assessmentId;
-		this.emitter = navParams.data.emitter;
+    this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
+		this.emitter = activatedRoute.snapshot.paramMap.get('emitter');
   }
+
+	ngOnInit(){ }
 
   async addNewMember() {
     //access assessment

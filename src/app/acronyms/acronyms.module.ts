@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { AcronymPopoverComponent } from '../../app/acronym-popover/acronym-popover.component';
+
 
 import { IonicModule } from '@ionic/angular';
 
@@ -19,7 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AcronymPopoverComponent
   ],
   declarations: [AcronymsPage]
 })

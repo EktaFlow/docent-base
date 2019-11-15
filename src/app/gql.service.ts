@@ -1,9 +1,9 @@
 import gql from "graphql-tag";
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 
 export var assessmentQuery = gql`
 query assessments($userId: String) {

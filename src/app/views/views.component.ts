@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, NavController, NavParams, PopoverController } from '@ionic/angular'
+import { NavController, NavParams, PopoverController } from '@ionic/angular'
 
-import { HomePage } from '../home/home';
-import { ReviewPage } from '../review/review';
-import { DashboardPage } from '../dashboard/dashboard';
-import { NavigatePage } from '../navigate/navigate';
+import { HomePage } from '../home/home.page';
+import { ReviewPage } from '../review/review.page';
+import { DashboardPage } from '../dashboard/dashboard.page';
+import { NavigatePage } from '../navigate/navigate.page';
 // import { NotapplicablePage } from './notapplicable/notapplicable';
-import { ActionitemsPage } from '../actionitems/actionitems';
-import { SummaryPage } from '../summary/summary';
-import { QuestionsPage } from "../questions/questions";
+import { ActionItemsPage } from '../action-items/action-items.page';
+import { SummaryPage } from '../summary/summary.page';
+import { QuestionsPage } from "../questions/questions.page";
 import { saveAs } from "file-saver/FileSaver";
-import { ImportComponent } from "../import/import";
-import { RiskReportPage } from "../risk-report/risk-report";
+import { ImportComponent } from "../import/import.component";
+import { RiskReportPage } from "../risk-report/risk-report.page";
 import {Router, ActivatedRoute} from "@angular/router";
 import {AppRoutingModule} from "../app-routing.module"
 
@@ -19,7 +19,7 @@ import {AppRoutingModule} from "../app-routing.module"
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
-import {AssessmentslistComponent} from "../assessmentslist/assessmentslist";
+// import {AssessmentslistComponent} from "../assessmentslist/assessmentslist.component";
 
 var assessmentQuery = gql`
 query assessment($_id: String)
@@ -93,7 +93,7 @@ export class ViewsComponent implements OnInit {
   reviewPage = ReviewPage;
   dashboardPage = DashboardPage;
   navigatePage = NavigatePage;
-  actionitemsPage = ActionitemsPage;
+  actionitemsPage = ActionItemsPage;
 	assessments: any;
 	assessmentId: any;
 
@@ -101,10 +101,10 @@ export class ViewsComponent implements OnInit {
     public navCtrl: NavController,
   	public popOver: PopoverController,
   	public navParams: NavParams,
-  	public viewCtrl: ViewController,
   	private apollo: Apollo,
     public router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+
   ) {
     // this.assessmentId = navParams.data.assessmentId;
     this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
@@ -188,7 +188,7 @@ export class ViewsComponent implements OnInit {
 
 
    close() {
-   this.viewCtrl.dismiss();
+   this.popOver.dismiss();
    }
 
    launchImportPopover() {
@@ -197,15 +197,15 @@ export class ViewsComponent implements OnInit {
                  .then(popover => popover.present());
    }
 
- showAssessmentsList(myEvent) {
- this.popOver.create({
-   component: AssessmentslistComponent,
-   componentProps: {
-     assessments: this.assessments,
-   },
-   event: myEvent
- }).then(popover => popover.present());
-
- }
+ // showAssessmentsList(myEvent) {
+ // this.popOver.create({
+ //   component: AssessmentslistComponent,
+ //   componentProps: {
+ //     assessments: this.assessments,
+ //   },
+ //   event: myEvent
+ // }).then(popover => popover.present());
+ //
+ // }
 
 }

@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController, ViewController} from '@ionic/angular'
+import { NavController, NavParams, PopoverController} from '@ionic/angular'
 import { AuthService } from "../auth.service";
 import {Router, ActivatedRoute} from "@angular/router";
-import { HomePage } from '../home/home';
-import { ReviewPage } from '../review/review';
-import { DashboardPage } from '../dashboard/dashboard';
-import { NavigatePage } from '.../navigate/navigate';
-// import { NotapplicablePage } from '../notapplicable/notapplicable';
-import { ActionitemsPage } from '../actionitems/actionitems';
-import { QuestionsPage } from "../questions/questions";
-import { UserDashboardPage } from "../user-dashboard/user-dashboard";
-import { DefinitionsPage } from '../definitions/definitions';
-import { FaqsPage } from '../faqs/faqs';
-import { CriteriaPage } from '../criteria/criteria';
-import { SettingsPage } from '../settings/settings';
-import { AcronymsPage } from '../acronyms/acronyms';
-import { SummaryPage } from '../summary/summary';
-import { RiskReportPage } from '../risk-report/risk-report';
+import { HomePage } from '../home/home.page';
+import { ReviewPage } from '../review/review.page';
+import { DashboardPage } from '../dashboard/dashboard.page';
+import { NavigatePage } from '../navigate/navigate.page';
+// import { NotapplicablePage } from '../../app/notapplicable/notapplicable';
+import { ActionItemsPage } from '../action-items/action-items.page';
+import { QuestionsPage } from "../questions/questions.page";
+import { UserDashboardPage } from "../user-dashboard/user-dashboard.page";
+import { DefinitionsPage } from '../definitions/definitions.page';
+import { FaqsPage } from '../faqs/faqs.page';
+import { CriteriaPage } from '../criteria/criteria.page';
+import { SettingsPage } from '../settings/settings.page';
+import { AcronymsPage } from '../acronyms/acronyms.page';
+import { SummaryPage } from '../summary/summary.page';
+import { RiskReportPage } from '../risk-report/risk-report.page';
 
 @Component({
   selector: 'mobile-nav-popover',
@@ -31,25 +31,29 @@ export class MobileNavPopoverComponent implements OnInit {
   assessmentId: any;
   assessmentShow: boolean = false;
   userName: any;
-  noSecondBar: boolean = false;
+  noSecondBar: any = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public viewCtrl: ViewController,
+    public popOver: PopoverController,
     public auth: AuthService,
-    public router: Router
+    public router: Router,
+    private activatedRoute: ActivatedRoute
     // private activatedRoute: ActivatedRoute
   ) {
-    this.assessmentId = navParams.data.assessmentId;
-    this.userName = navParams.data.userName;
-    if (navParams.data.noSecondBar){
-      this.noSecondBar = navParams.data.noSecondBar;
+    this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
+    	this.userName = activatedRoute.snapshot.paramMap.get('userName');
+    if (activatedRoute.snapshot.paramMap.get('noSecondBar')){
+    this.noSecondBar = activatedRoute.snapshot.paramMap.get('noSecondBar');
     }
-
     console.log(this.noSecondBar);
     console.log(this.assessmentId);
     console.log(this.userName);
+   }
+
+   ngOnInit(){
+
    }
 
    goBack(){
@@ -79,17 +83,18 @@ export class MobileNavPopoverComponent implements OnInit {
    }
 
    closeNav(){
-     this.viewCtrl.dismiss();
+     this.popOver.dismiss();
    }
 
    ///ROUTING FUNCTIONS
    handleLogout(){
      this.auth.logout();
-     this.navCtrl.setRoot(HomePage);
-     this.navCtrl.popToRoot();
+     // this.navCtrl.setRoot(HomePage);
+     // this.navCtrl.popToRoot();
+     this.router.navigate(["/user-dashboard"]);
    }
 
-   handleUserDash = () => 		this.router.navigate(["/user-dashboard", {assessmentId: this.assessmentId}]);
+   handleUserDash = () => 	this.router.navigate(["/user-dashboard", {assessmentId: this.assessmentId}]);
    handleContinue = () => this.router.navigate(["/questions", {assessmentId: this.assessmentId}]);
    handleStartNew = () => this.router.navigate(["/startNew"]);
    handleDashboard = () => this.router.navigate(["/dashboard", {assessmentId: this.assessmentId}]);

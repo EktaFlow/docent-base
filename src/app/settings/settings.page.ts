@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../topbar/topbar";
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { TopbarComponent } from "../../app/topbar/topbar.component";
+import {JsonUploadPopoverComponent} from "../../app/json-upload-popover/json-upload-popover.component";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
-import {JsonUploadPopoverComponent} from "../json-upload-popover/json-upload-popover";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { Router} from "@angular/router";
 
@@ -34,6 +34,10 @@ export class SettingsPage implements OnInit {
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("settings");
+  }
+
+  ngOnInit(){
+
   }
 
   // goBackToUser(){

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController } from '@ionic/angular'
-import { NavController, NavParams, IonicPage } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular'
+import { NavController, NavParams } from '@ionic/angular';
 
-import { AcronymsPage } from '../acronyms/acronyms';
-import { DefinitionsPage } from '../definitions/definitions';
-import { FaqsPage } from '../faqs/faqs';
-import { CriteriaPage } from '../criteria/criteria';
+import { AcronymsPage } from '../acronyms/acronyms.page';
+import { DefinitionsPage } from '../definitions/definitions.page';
+import { FaqsPage } from '../faqs/faqs.page';
+import { CriteriaPage } from '../criteria/criteria.page';
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -20,15 +20,17 @@ export class HelpmenuComponent implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: 		 NavParams,
-  	public viewCtrl: ViewController,
+  	public popOver: PopoverController,
     public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
     this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
   }
 
+  ngOnInit(){}
+
   close() {
-	this.viewCtrl.dismiss();
+	this.popOver.dismiss();
   }
   handleCriteria(){
     this.router.navigate(["/questions", {assessmentId: this.assessmentId}]);

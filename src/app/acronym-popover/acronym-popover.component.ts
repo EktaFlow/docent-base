@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController } from '@ionic/angular';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'acronym-popover',
@@ -11,11 +11,12 @@ export class AcronymPopoverComponent implements OnInit {
   text: string;
   constructor(
     public navParams: NavParams,
-    public viewCtrl: ViewController
   ) {
     console.log('Hello AcronymPopoverComponent Component');
     this.text = navParams.data.fullText;
   }
+
+  ngOnInit(){}
 
 
 

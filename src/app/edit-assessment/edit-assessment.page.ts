@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { IonicPage, PopoverController, NavController, NavParams, ToastController } from '@ionic/angular';
+import { PopoverController, NavController, NavParams, ToastController } from '@ionic/angular';
 import { AssessmentService } from '../assessment.service';
-import { Helpers } from '../helpers/docentHelpers';
+import { Helpers } from '../helpers/helpers';
 import { Router, ActivatedRoute} from "@angular/router"
-import { UserDashboardPage } from '../user-dashboard/user-dashboard';
-import { AuthService } from "../auth.service";
-import { FileDeleteComponent } from '../file-delete/file-delete';
+import { UserDashboardPage } from '../../app/user-dashboard/user-dashboard.page';
+import { AuthService } from "../../app/auth.service";
+import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
 
 @Component({
   selector: 'app-edit-assessment',
@@ -207,18 +207,18 @@ async updateAssessment() {
   updatedAssessment.subscribe(a => {
     this.launchToast();
     this.router.navigate(["/user-dashboard"]);
-    this.navCtrl.push(UserDashboardPage);
   });
 }
 
-launchToast() {
-  this.toast.create({
+async launchToast() {
+  let toast = await this.toast.create({
     message: 'assessment updated',
     duration: 3000,
     position: 'top',
     showCloseButton: true,
     closeButtonText: 'ok'
-  }).present();
+  });
+  await toast.present();
 }
 
 async createAssessment() {
@@ -301,27 +301,25 @@ async removeMember(memEmail){
     .then(popover => popover.present());
 }
 
-launchRemoveTeamMemberToast(removedEmail) {
-  var toast = this.toast.create({
+async launchRemoveTeamMemberToast(removedEmail) {
+  var toast = await this.toast.create({
     message: removedEmail + ' has been removed from this assessment',
     duration: 3000,
     position: 'top'
-  })
-  toast.present();
+  });
+  await toast.present();
 }
 
 
-presentToast() {
-  let toast = this.toast.create({
+async presentToast() {
+  let toast = await this.toast.create({
     message: 'Member added to assessment and emailed',
     duration: 3000,
     position: 'top'
   }).then( toast => toast.present());
-  toast.onDidDismiss(() => {
-    console.log('Dismissed toast');
-  });
 
-  // toast.present();
+
+  // await toast.present();
 }
 
 

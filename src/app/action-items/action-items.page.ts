@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from '../topbar/topbar';
-import { AssessmentService } from '../assessment.service';
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { TopbarComponent } from '../../app/topbar/topbar.component';
+import { AssessmentService } from '../../app/assessment.service';
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
+import { ReportInfoCardComponent } from "../../app/report-info-card/report-info-card.component";
 // import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 import {Router, ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
 
-import { QuestionsPage } from '../questions/questions';
+import { QuestionsPage } from '../../app/questions/questions.page';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -308,9 +307,6 @@ getAttachments(q) {
 
 navToQuestion(questionId) {
 	this.router.navigate(["/questions", {assessmentId: this.assessmentId, questionId: questionId}]);
-	this.navCtrl.push(QuestionsPage, {
-		questionId: questionId
-	});
 }
 
 

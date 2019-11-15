@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NavController } from '@ionic/angular';
-import { UserDashboardPage } from '../user-dashboard/user-dashboard';
+import { UserDashboardPage } from '../user-dashboard/user-dashboard.page';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'do-reset',
@@ -18,14 +19,15 @@ export class DoResetComponent implements OnInit {
   passwd2: string = ''
   resetDone: boolean = false;
 
-  constructor( private auth: AuthService, private navCtrl: NavController ) { }
+  constructor( private auth: AuthService, private navCtrl: NavController, public router: Router ) { }
+  ngOnInit(){}
   async handleResetClick() {
     console.log('we resettin');
 
     var resetResult = await this.auth.doPasswordReset(this.passwd);
     this.resetDone = true;
 
-    setTimeout(() => window.location.replace(Url), 1200);
+    setTimeout(() => this.router.navigate(["/user-dashboard"]), 1200);
   }
 
   // ngOnInit() {}

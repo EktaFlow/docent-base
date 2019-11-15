@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { AuthService } from "../auth.service";
-import { HomePage } from "../home/home";
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { AuthService } from "../../app/auth.service";
+import { HomePage } from "../../app/home/home.page";
 import { NavController } from "@ionic/angular";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 
@@ -24,6 +24,10 @@ export class RegisterComponent implements OnInit {
 
   ionViewWillEnter() {
 		GoogleAnalytics.trackView("register");
+	}
+
+	ngOnInit(){
+
 	}
 
 	submitRegistration() {

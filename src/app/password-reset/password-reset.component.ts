@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { ToastController, ViewController } from '@ionic/angular';
+import { ToastController, PopoverController } from '@ionic/angular';
 
 
 @Component({
@@ -18,8 +18,12 @@ export class PasswordResetComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private toast: ToastController,
-    private viewCtrl: ViewController
+    private popOver: PopoverController
   ) { }
+
+  ngOnInit(){
+
+  }
 
   handleResetClick() {
     try {
@@ -35,30 +39,32 @@ export class PasswordResetComponent implements OnInit {
     this.toggleClicked.emit('login');
   }
 
-  showNoTextToast() {
-    this.toast.create({
+  async showNoTextToast() {
+    let noText = await this.toast.create({
       message: 'You must enter some email address',
       duration: 5000,
       position: 'top',
       showCloseButton: true,
       closeButtonText: 'ok'
-    }).present();
+    });
+    await noText.present();
   }
 
   resetPassword() {
     this.auth.resetPassword(this.emailInput);
     this.showSuccessToast(this.emailInput);
-    this.viewCtrl.dismiss();
+    this.popOver.dismiss();
   }
 
-  showSuccessToast(email) {
-    this.toast.create({
+  async showSuccessToast(email) {
+    let success = await this.toast.create({
       message: 'Success, if you have a Docent account, reset information will be sent to ' + email,
       duration: 5000,
       position: 'top',
       showCloseButton: true,
       closeButtonText: 'ok'
-    }).present();
+    });
+    await success.present();
   }
 
 }

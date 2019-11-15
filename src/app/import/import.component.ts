@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, ViewController, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from "../questions/questions";
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { QuestionsPage } from "../../app/questions/questions.page";
 import {AuthService} from "../auth.service";
 import { AuthUrl } from "../constants";
 import { AssessmentService } from '../assessment.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -27,12 +28,15 @@ export class ImportComponent implements OnInit {
 	file: any;
 
   constructor(
-    private viewController: ViewController,
+    private popOver: PopoverController,
     private assessmentService: AssessmentService,
     private apollo: Apollo,
     public navController: NavController,
-    private auth: AuthService
+    private auth: AuthService,
+    public router: Router
   ) { }
+
+  ngOnInit(){}
 
   async uploadFile(event) {
     var file = (<HTMLInputElement>document.getElementById("qwerty")).files[0];
@@ -62,8 +66,9 @@ export class ImportComponent implements OnInit {
     }).subscribe( data => {
         console.log(data.data.importAssessment._id);
         this.assessmentService.setCurrentAssessmentId(data.data.importAssessment._id)
-        this.viewController.dismiss();
-        this.navController.push(QuestionsPage, { data: data.data.importAssessment._id })
+        this.popOver.dismiss();
+        // this.navController.push(QuestionsPage, { data: data.data.importAssessment._id })
+        this.router.navigate(["/questions", {data: data.data.importAssessment._id}]);
       })
 
   }

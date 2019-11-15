@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import {Router, ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -11,7 +12,7 @@ import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 })
 export class DefinitionsPage implements OnInit {
 
-  mainTitle: String;
+    mainTitle: String;
     assessmentId: any;
     noSecondBar: boolean = false;
     pageName: any = "Definitions";
@@ -19,8 +20,9 @@ export class DefinitionsPage implements OnInit {
 
   constructor(public navCtrl: NavController,
   public navParams: NavParams,
-  public http: HttpClient) {
-        this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
+  public http: HttpClient,
+  private activatedRoute: ActivatedRoute) {
+      this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
     }
 
 private definitions: any = [];

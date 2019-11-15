@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ToastController } from '@ionic/angular';
 import { UploadService } from "../upload";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-json-upload-popover',
@@ -19,13 +20,13 @@ export class JsonUploadPopoverComponent implements OnInit {
   constructor(
     public upload: UploadService,
   	public navParams: NavParams,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+		private activatedRoute: ActivatedRoute
   ) {
     var {navParams} = this;
-
-		this.questionId		= navParams.get("questionId");
-		this.assessmentId = navParams.get("assessmentId");
-		this.emitter			= navParams.data.emitter;
+			this.questionId = activatedRoute.snapshot.paramMap.get('questionId');
+			this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
+			this.emitter = activatedRoute.snapshot.paramMap.get('emitter');
   }
 
   setFile(e) {
@@ -48,8 +49,8 @@ export class JsonUploadPopoverComponent implements OnInit {
 	}
 
 
-  invalidJSONToast() {
-	  var toast = this.toastCtrl.create({
+  async invalidJSONToast() {
+	  var toast = await this.toastCtrl.create({
 	    message: 'It appears this file is not valid JSON',
 	    duration: 4500,
       showCloseButton: true,
@@ -57,11 +58,11 @@ export class JsonUploadPopoverComponent implements OnInit {
       cssClass: 'error-toast'
 	  });
 
-    toast.present();
+    await toast.present();
   }
 
-  unknownErrorToast() {
-	  var toast = this.toastCtrl.create({
+  async unknownErrorToast() {
+	  var toast = await this.toastCtrl.create({
 	    message: 'Unknown error',
 	    duration: 4500,
       showCloseButton: true,
@@ -69,7 +70,7 @@ export class JsonUploadPopoverComponent implements OnInit {
       cssClass: 'error-toast'
 	  });
 
-    toast.present();
+    await toast.present();
   }
 
   async uploadJSON(event){
@@ -81,7 +82,7 @@ export class JsonUploadPopoverComponent implements OnInit {
 
     try {
 			var finalFile = {
-				file: JSON.parse(fileReader.result),
+				file: JSON.parse(<string>(fileReader.result)),
 				fileName: this.file.name
 		}
 

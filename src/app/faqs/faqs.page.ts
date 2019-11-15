@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import { ActivatedRoute } from '@angular/router';
 
-import { ContactsDropdownComponent } from './contacts-dropdown/contacts-dropdown';
-import { FaqDropdownComponent } from './faq-dropdown/faq-dropdown';
+import { ContactsDropdownComponent } from '../../app/contacts-dropdown/contacts-dropdown.component';
+import { FaqDropdownComponent } from '../../app/faq-dropdown/faq-dropdown.component';
 
 @Component({
   selector: 'app-faqs',

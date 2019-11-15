@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../topbar/topbar";
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { TopbarComponent } from "../topbar/topbar.component";
 import { HttpClient } from '@angular/common/http';
 import { AssessmentService } from '../assessment.service';
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 
-
-import { QuestionsPage } from '../questions/questions';
+import { QuestionsPage } from '../questions/questions.page';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";

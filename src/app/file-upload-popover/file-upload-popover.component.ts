@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import { UploadService } from "../upload";
 import { AuthService } from "../auth.service";
 import { AuthUrl } from "../constants";
@@ -20,7 +20,7 @@ export class FileUploadPopoverComponent implements OnInit {
   constructor(
     public upload: UploadService,
   	public navParams: NavParams,
-    private viewCtrl: ViewController
+    private popOver: PopoverController
   ) {
     var {navParams} = this;
 
@@ -63,7 +63,7 @@ export class FileUploadPopoverComponent implements OnInit {
 		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
 
 		this.emitter.emit(uploadedFile);
-		this.viewCtrl.dismiss()
+		this.popOver.dismiss()
 	}
 
 }

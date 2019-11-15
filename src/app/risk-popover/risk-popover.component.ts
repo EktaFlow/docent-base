@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'risk-popover',
@@ -13,7 +13,7 @@ export class RiskPopoverComponent implements OnInit {
 
   constructor(
     public navParams: NavParams,
-    public viewCtrl: ViewController,
+    public popOver: PopoverController,
 		private activatedRoute: ActivatedRoute
   ) {
     console.log(this.navParams.get('highlight'));
@@ -21,6 +21,10 @@ export class RiskPopoverComponent implements OnInit {
 		this.chartView = this.activatedRoute.snapshot.paramMap.get('highlight');
 
   }
+
+	ngOnInit(){
+
+	}
 
   toggleDescriptionTable(type){
     this.chartView = type
@@ -38,7 +42,7 @@ export class RiskPopoverComponent implements OnInit {
 	}
 
 	closePopover(){
-		this.viewCtrl.dismiss();
+		this.popOver.dismiss();
 	}
 
 }

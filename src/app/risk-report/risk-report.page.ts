@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from '@ionic/angular';
-import { TopbarComponent } from "../topbar/topbar";
-import { GoogleAnalytics } from './helpers/GoogleAnalytics';
-import {ReportInfoCardComponent} from '../report-info-card/report-info-card';
+import { NavController, NavParams } from '@ionic/angular';
+import { TopbarComponent } from "../../app/topbar/topbar.component";
+import {ReportInfoCardComponent} from '../../app/report-info-card/report-info-card.component';
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import {ActivatedRoute, Router} from "@angular/router"
 import * as XLSX from 'xlsx';
 import { Apollo } from "apollo-angular";

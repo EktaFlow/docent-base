@@ -20,6 +20,8 @@ export class AssessmentScopePopoverComponent implements OnInit {
     console.log(this.scope);
   }
 
+  ngOnInit(){}
+
 
 
 }

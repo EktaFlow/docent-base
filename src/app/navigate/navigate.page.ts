@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../topbar/topbar";
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { ReportInfoCardComponent } from "../report-info-card/report-info-card.component"; 
+import { TopbarComponent } from "../topbar/topbar.component";
+import { QuestionsPage } from '../questions/questions.page';
+
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
 import { Router, ActivatedRoute } from "@angular/router";
-
-
-import { QuestionsPage } from '../questions/questions';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -45,7 +44,7 @@ export class NavigatePage implements OnInit {
 	expandAllFromQs: any = false;
 	targetLevel: any;
 	mrlArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	autoFilter: false;
+	autoFilter: any = false;
 	pageName: any = "Questions List";
 
 	constructor( private apollo: 			 Apollo,

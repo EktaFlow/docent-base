@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { TopbarComponent } from "../../app/topbar/topbar.component";
+import {JsonUploadPopoverComponent} from "../../app/json-upload-popover/json-upload-popover.component";
 
 import { IonicModule } from '@ionic/angular';
 
@@ -19,6 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    TopbarComponent,
+    JsonUploadPopoverComponent,
     RouterModule.forChild(routes)
   ],
   declarations: [SettingsPage]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams,ViewController } from '@ionic/angular';
+import { NavParams } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'threads-list',
@@ -11,16 +12,21 @@ export class ThreadsListComponent implements OnInit {
 	chosen = [];
 	emitter: any;
 	threadsSelected: any;
+	threads: any;
+	assessmentId: any;
 
   constructor(
 		public navParams: NavParams,
-		public viewController:  ViewController
+		private activatedRoute: ActivatedRoute
 	) {
-		this.threads = this.navParams.get("allThreads");
-		this.emitter = this.navParams.data.emitter;
-		this.threadsSelected = this.navParams.data.threadsSelected;
-		console.log(this.threadsSelected);
+		 this.threads = this.activatedRoute.snapshot.paramMap.get('allThreads');
+		 this.emitter = this.activatedRoute.snapshot.paramMap.get('emitter');
+		 this.assessmentId = this.activatedRoute.snapshot.paramMap.get('threadsSelected');
   }
+
+	ngOnInit(){
+
+	}
 
 	dismiss(item) {
 		this.chosen.push(item);

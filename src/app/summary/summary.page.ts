@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../topbar/topbar";
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { LegendPopoverComponent } from '../legend-popover/legend-popover';
-import { QuestionsPage } from "../questions/questions";
-import { ReportInfoCardComponent } from "../report-info-card/report-info-card";
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { TopbarComponent } from "../../app/topbar/topbar.component";
+import { LegendPopoverComponent } from '../../app/legend-popover/legend-popover.component';
+import { QuestionsPage } from "../../app/questions/questions.page";
+import { ReportInfoCardComponent } from "../../app/report-info-card/report-info-card.component";
 import { ActivatedRoute} from "@angular/router"
+import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
 import * as XLSX from 'xlsx';
 
 import { Apollo } from "apollo-angular";

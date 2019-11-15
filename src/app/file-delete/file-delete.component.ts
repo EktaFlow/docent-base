@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController, ToastController } from '@ionic/angular';
+import { NavParams, PopoverController, ToastController } from '@ionic/angular';
 import { AssessmentService } from '../assessment.service';
 
 
@@ -19,7 +19,7 @@ export class FileDeleteComponent implements OnInit {
 
   constructor(
     private navParams: NavParams,
-    private viewController: ViewController,
+    private popOver: PopoverController,
     private assessmentService: AssessmentService,
     private toastController: ToastController
   ) {
@@ -29,6 +29,8 @@ export class FileDeleteComponent implements OnInit {
     this.typeToDelete = this.navParams.get('typeToDelete');
     this.teamMemberEmail = this.navParams.get('teamMemberEmail');
    }
+
+   ngOnInit(){}
 
    async deleteTeamMember() {
      var removedTeamMember = await this.assessmentService.removeTeamMember(this.assessmentId, this.teamMemberEmail)
@@ -56,17 +58,18 @@ export class FileDeleteComponent implements OnInit {
    }
 
    closePopover() {
-     this.viewController.dismiss();
+     this.popOver.dismiss();
    }
 
-   launchToast() {
-     this.toastController.create({
+   async launchToast() {
+     let toast = await this.toastController.create({
        message: 'file deleted',
        duration: 3000,
        position: 'top',
        showCloseButton: true,
        closeButtonText: 'ok'
-     }).present();
+     });
+     await toast.present();
    }
 
   // ngOnInit() {}

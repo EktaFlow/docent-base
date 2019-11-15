@@ -1,20 +1,22 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from '@ionic/angular';
-import { AuthService } from "./auth.service";
-import { AssessmentService } from "./assessment.service";
-import { TopbarComponent } from "../topbar/topbar.component";
-import { FileDeleteComponent } from '../file-delete/file-delete';
-import { SettingsPage } from "../settings/settings";
-import { QuestionsPage } from "../questions/questions";
-import { DashboardPage } from "../dashboard/dashboard";
-import { ActionitemsPage } from "../actionitems/actionitems";
-import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
-import { AddTeamMembersPopOverComponent } from "../add-team-members-pop-over/add-team-members-pop-over";
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
+
+import { AuthService } from "../../app/auth.service";
+import { AssessmentService } from "../../app/assessment.service";
+import { TopbarComponent } from "../../app/topbar/topbar.component";
+import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
+import { SettingsPage } from "../../app/settings/settings.page";
+import { QuestionsPage } from "../../app/questions/questions.page";
+import { DashboardPage } from "../../app/dashboard/dashboard.page";
+import { ActionItemsPage } from "../../app/action-items/action-items.page";
+import { EditAssessmentPage } from '../../app/edit-assessment/edit-assessment.page';
+import { AddTeamMembersPopOverComponent } from "../../app/add-team-members-pop-over/add-team-members-pop-over.component";
+import { HomePage } from "../../app/home/home.page";
+import { ImportComponent } from "../../app/import/import.component";
+
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { ImportComponent } from "../import/import";
 import { saveAs } from "file-saver/FileSaver";
 import { Router, ActivatedRoute } from '@angular/router';
-import { HomePage } from "../home/home";
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -261,7 +263,7 @@ export class UserDashboardPage implements OnInit {
     } else {
       this.currentAssessment = assessmentId;
     }
-		window.setTimeout(this.scrollToElement(assessmentId), 500);
+		setTimeout(() => this.scrollToElement(assessmentId), 500);
 
 		// target.scrollIntoView();
   }

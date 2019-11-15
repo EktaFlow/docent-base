@@ -1,18 +1,18 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { IonicPage, NavParams, PopoverController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { NavParams, PopoverController } from '@ionic/angular';
+import { Storage } from '@ionic/storage'; 
 
-import { ReviewPage } from '../review/review';
-import { ViewsComponent } from '../views/views';
-import { AssessmentService } from "../assessment.service";
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { AuthService } from "../auth.service";
-import { Helpers } from '../helpers/helpers';
+import { ReviewPage } from '../../app/review/review.page';
+import { ViewsComponent } from '../../app/views/views.component';
+import { AssessmentService } from "../../app/assessment.service";
+import { AuthService } from "../../app/auth.service";
+import {FileUploadPopoverComponent} from "../../app/file-upload-popover/file-upload-popover.component";
+import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
+import { RiskPopoverComponent } from '../../app/risk-popover/risk-popover.component';
 
-import {FileUploadPopoverComponent} from "../file-upload-popover/file-upload-popover";
-import { FileDeleteComponent } from '../file-delete/file-delete';
-import { RiskPopoverComponent } from '../risk-popover/risk-popover';
 import { ActivatedRoute } from "@angular/router"
+import { Helpers } from '../helpers/helpers';
+import { GoogleAnalytics } from '../../app/helpers/GoogleAnalytics';
 
 @Component({
   selector: 'app-questions',
@@ -45,7 +45,7 @@ constructor(public navParams:          NavParams,
             private popoverController: PopoverController,
             private assessmentService: AssessmentService,
             private auth: AuthService,
-            private activatedRoute: RouterModule) {
+            private activatedRoute: ActivatedRoute) {
 
   // QUESTION - SAVE THIS IN LOCAL MEMORY?
   this.referringQuestionId = this.activatedRoute.snapshot.paramMap.get('questionId');

@@ -1,21 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PopoverController, NavController } from "@ionic/angular";
-import { ViewsComponent } from "../views/views";
-import { HomePage } from "../home/home";
-import { LoginPage } from '../login/login';
-import { NavigatePage} from "../navigate/navigate";
-import { AuthService } from "../auth.service";
-import { HelpmenuComponent } from "../helpmenu/helpmenu";
-import { SubthreadPopupComponent } from "../subthread-popup/subthread-popup";
-import { UserDashboardPage } from "../user-dashboard/user-dashboard";
-import { ThreadPopupComponent} from "../thread-popup/thread-popup";
-import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
-import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
-import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
-import {QuestionsPage} from '../questions/questions';
+import { PopoverController, NavController, IonicModule } from "@ionic/angular";
+import { ViewsComponent } from "../../app/views/views.component";
+import { HomePage } from "../../app/home/home.page";
+import { LoginPage } from '../../app/login/login.page';
+import { NavigatePage} from "../../app/navigate/navigate.page";
+import { AuthService } from "../../app/auth.service";
+import { HelpmenuComponent } from "../../app/helpmenu/helpmenu.component";
+import { SubthreadPopupComponent } from "../../app/subthread-popup/subthread-popup.component";
+import { UserDashboardPage } from "../../app/user-dashboard/user-dashboard.page";
+import { ThreadPopupComponent} from "../../app/thread-popup/thread-popup.component";
+import { AssessmentScopePopoverComponent } from "../../app/assessment-scope-popover/assessment-scope-popover.component";
+import { MobileNavPopoverComponent } from '../../app/mobile-nav-popover/mobile-nav-popover.component';
+import {QuestionHistoryPopoverComponent} from '../../app/question-history-popover/question-history-popover.component';
+import {QuestionsPage} from '../../app/questions/questions.page';
 import { Router } from '@angular/router';
 
-import { AssessmentService } from "../assessment.service";
+import { AssessmentService } from "../../app/assessment.service";
 
 
 import { Apollo } from "apollo-angular";
@@ -159,8 +159,9 @@ export class TopbarComponent implements OnInit {
 			//TO DO
 			//handle this situtation - need to set route correctly in app-routing.module
 			this.auth.logout();
-			this.navCtrl.setRoot(LoginPage);
-			this.navCtrl.popToRoot();
+			// this.navCtrl.setRoot(LoginPage);
+			// this.navCtrl.popToRoot();
+			this.router.navigate(["/home"]);
 		}
 
 		async goToNavExpand(){
@@ -226,7 +227,7 @@ export class TopbarComponent implements OnInit {
 					subTitle: this.subTitle,
 					updateInfo: updateInfo,
 				},
-				event: event
+				event: event,
 				cssClass: 'sub-thread-popup'
 			});
 				if (mobileness == "false"){
@@ -248,7 +249,7 @@ export class TopbarComponent implements OnInit {
 					assessmentId: this.assessmentId,
 					updateInfo: updateInfo,
 				},
-				event: event
+				event: event,
 				cssClass: 'thread-popup'
 			});
 			if (mobileness == "false"){
