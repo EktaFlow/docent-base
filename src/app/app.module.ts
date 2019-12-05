@@ -1,6 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { FormsModule } from "@angular/forms";
+import { Keyboard } from '@ionic-native/keyboard';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+
+
+// Apollo
+import { ApolloModule, Apollo } from "apollo-angular";
+import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+
+// solo functions
+import 'rxjs/add/operator/map'
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -16,26 +29,24 @@ import { QuestionsPage } from '../app/questions/questions.page';
 import { LoginPage } from '../app/login/login.page';
 import { DashboardPage } from '../app/dashboard/dashboard.page';
 import { NavigatePage } from '../app/navigate/navigate.page';
-import { ActionitemsPage } from '../app/actionitems/actionitems.page';
+import { ActionItemsPage } from '../app/action-items/action-items.page';
 import { CriteriaPage } from '../app/criteria/criteria.page';
 import { UserDashboardPage } from '../app/user-dashboard/user-dashboard.page';
 import { SettingsPage } from '../app/settings/settings.page';
-import { NewAssessmentPage } from '../app/new-assessment/new-assessment.page';
-// import { ResetPage } from '../app/reset/reset.page';
 import { EditAssessmentPage } from '../app/edit-assessment/edit-assessment.page';
 import { SummaryPage } from '../app/summary/summary.page';
 import {RiskReportPage} from '../app/risk-report/risk-report.page';
-import { AppRouting } from '../app/app-routing.module';
+import { AppRoutingModule } from '../app/app-routing.module';
 
-import {AcronymnPopoverComponent} from '../app/acronymn-popover/acronym-popover.component';
-import {AddTeamMembersPopoverComponent} from '../app/add-team-members-popover/add-team-members-popover.component';
-import {AssessmentScopePopoverComponent} from '../app/asssessment-scope-popover/assessment-scope-popover.component';
+import {AcronymPopoverComponent} from '../app/acronym-popover/acronym-popover.component';
+import {AddTeamMembersPopOverComponent} from '../app/add-team-members-pop-over/add-team-members-pop-over.component';
+import {AssessmentScopePopoverComponent} from '../app/assessment-scope-popover/assessment-scope-popover.component';
 import {ContactsDropdownComponent} from '../app/contacts-dropdown/contacts-dropdown.component';
 import {DoResetComponent} from '../app/do-reset/do-reset.component';
 import {FaqDropdownComponent} from '../app/faq-dropdown/faq-dropdown.component';
 import {FileDeleteComponent} from '../app/file-delete/file-delete.component';
 import {FileUploadPopoverComponent} from '../app/file-upload-popover/file-upload-popover.component';
-import {HelpMenuComponent} from '../app/help-menu/help-menu.component';
+import {HelpmenuComponent} from '../app/helpmenu/helpmenu.component';
 import {ImportComponent} from '../app/import/import.component';
 import {JsonUploadPopoverComponent} from '../app/json-upload-popover/json-upload-popover.component';
 import {LegendPopoverComponent} from '../app/legend-popover/legend-popover.component';
@@ -54,13 +65,6 @@ import {ViewsComponent} from '../app/views/views.component';
 @NgModule({
   declarations: [
     AppComponent,
-    BrowserModule,
-		IonicModule.forRoot(AppComponent),
-    IonicStorageModule.forRoot(),
-		HttpClientModule,
-		HttpLinkModule,
-		ApolloModule,
-		FormsModule,
 		AcronymsPage,
 		QuestionsPage,
     LoginPage,
@@ -70,16 +74,13 @@ import {ViewsComponent} from '../app/views/views.component';
 		SummaryPage,
 		DashboardPage,
 		NavigatePage,
-		NotapplicablePage,
-		ActionitemsPage,
+		ActionItemsPage,
 		CriteriaPage,
 		UserDashboardPage,
 		SettingsPage,
-		NewAssessmentPage,
     EditAssessmentPage,
 		RiskReportPage,
 		ViewsComponent,
-    AssessmentslistComponent,
     ThreadsListComponent,
 		HelpmenuComponent,
 		ContactsDropdownComponent,
@@ -102,8 +103,6 @@ import {ViewsComponent} from '../app/views/views.component';
     FileDeleteComponent,
     DoResetComponent,
     ReportInfoCardComponent,
-		RouterModule
-		// ComponentsModule
   ],
   entryComponents: [
 		AppComponent,
@@ -117,47 +116,6 @@ import {ViewsComponent} from '../app/views/views.component';
 		HttpLinkModule,
 		ApolloModule,
 		FormsModule,
-		AcronymsPage,
-		QuestionsPage,
-		LoginPage,
-		DefinitionsPage,
-		FaqsPage,
-		ReviewPage,
-		SummaryPage,
-		DashboardPage,
-		NavigatePage,
-		NotapplicablePage,
-		ActionitemsPage,
-		CriteriaPage,
-		UserDashboardPage,
-		SettingsPage,
-		NewAssessmentPage,
-		EditAssessmentPage,
-		RiskReportPage,
-		ViewsComponent,
-		AssessmentslistComponent,
-		ThreadsListComponent,
-		HelpmenuComponent,
-		ContactsDropdownComponent,
-		FaqDropdownComponent,
-		FileUploadPopoverComponent,
-		TopbarComponent,
-		ImportComponent,
-		SubthreadPopupComponent,
-		ThreadPopupComponent,
-		RegisterComponent,
-		PasswordResetComponent,
-		AddTeamMembersPopOverComponent,
-		JsonUploadPopoverComponent,
-		AssessmentScopePopoverComponent,
-		MobileNavPopoverComponent,
-		LegendPopoverComponent,
-		AcronymPopoverComponent,
-		QuestionHistoryPopoverComponent,
-		RiskPopoverComponent,
-		FileDeleteComponent,
-		DoResetComponent,
-		ReportInfoCardComponent,
 		BrowserModule,
 		RouterModule
 	],
