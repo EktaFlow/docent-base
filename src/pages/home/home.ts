@@ -42,7 +42,7 @@ export class HomePage {
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
 	private mobileRegister: boolean = false;
-	public deskbookVersions: any = ["2017", "2016"];
+	public deskbookVersions: any = ["2018", "2017", "2016"];
   private threadsShown: boolean = false;
   private threads: any;
   private threadsSelectButton: string = 'Unselect All';
@@ -196,7 +196,7 @@ export class HomePage {
         // uses the default included schemas.
         // Checks a user to see if they have custom schemas.
 	async getSchema(deskbook) {
-		if (deskbook == '2016' || deskbook == '2017'){
+		if (deskbook == '2016' || deskbook == '2017' || deskbook == '2018'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
 			var schema = await this.http.get(deskbookPath).toPromise();
                         this.schema = schema;
