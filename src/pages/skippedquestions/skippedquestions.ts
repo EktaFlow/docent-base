@@ -109,7 +109,7 @@ export class SkippedquestionsPage {
 				]
 		})
 
-		var worksheet = [headers, ...values];
+		var worksheet = [header, ...values];
 
 		var ws = XLSX.utils.aoa_to_sheet(worksheet);
 		var wb = XLSX.utils.book_new();
