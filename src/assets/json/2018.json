@@ -1131,7 +1131,7 @@
                         "questionId": "123",
                         "questionText": "Is the cost model up-to-date?",
                         "order": "1"
-                      }
+                    },
                       {
                         "questionId": "124",
                         "questionText": "In addition to prior elements, does the updated cost model include the results of systems and/or sub-systems produced in a production representative environment, the production plant layout and design, and solutions to obsolescence risks and issues?",

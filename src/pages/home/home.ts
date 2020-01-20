@@ -199,7 +199,7 @@ export class HomePage {
 		if (deskbook == '2016' || deskbook == '2017' || deskbook == '2018'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
 			var schema = await this.http.get(deskbookPath).toPromise();
-                        this.schema = schema;
+			this.schema = schema;
 		} else {
 			var user = await this.auth.currentUser();
 			var files = [];
