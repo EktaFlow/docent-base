@@ -3857,11 +3857,11 @@
                         "questionText": "Have additional tooling, test and inspection equipment requirements been identified for Low Rate Initial Production (LRIP)?",
                         "order": "2"
                       },
-		{
-		"questionId": "423",
-		"questionText": "Have maintenance process and procedures for manufacturing equipment (including tooling, Special Test Equipment, and/or Special Inspection Equipment) been demonstrated on pilot line?",
-		"order": "3"
-		},
+                  		{
+                  		"questionId": "423",
+                  		"questionText": "Have maintenance process and procedures for manufacturing equipment (including tooling, Special Test Equipment, and/or Special Inspection Equipment) been demonstrated on pilot line?",
+                  		"order": "3"
+                  		},
                       {
                         "questionId": "424",
                         "questionText": "Have all Special Test Equipment (STE) / Special Inspection equipment (SIE) been validated as part of pilot line validation In Accordance With (IAW) validation plan?",
@@ -3891,10 +3891,10 @@
                         "order": "3"
                       },
 		{
-          		"questionId": "428",
-          		"questionText": "Has validation of Special Test Equipment, and/or Special Inspection Equipment (STE/SIE) been maintained during Low Rate Initial Production (LRIP)?",
-          		"order": "4"
-		},
+                  		"questionId": "428",
+                  		"questionText": "Has validation of Special Test Equipment, and/or Special Inspection Equipment (STE/SIE) been maintained during Low Rate Initial Production (LRIP)?",
+                  		"order": "4"
+		}
                     ]
                   },
                   {
@@ -3913,11 +3913,11 @@
                         "questionText": "Has a planned equipment maintenance schedule been achieved?",
                         "order": "2"
                       },
-		{
-			"questionId": "431",
-			"questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) validation been maintained as necessary?",
-			"order": "3"
-		},
+                  		{
+                  			"questionId": "431",
+                  			"questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) validation been maintained as necessary?",
+                  			"order": "3"
+                  		}
                     ]
                   }
                 ]
