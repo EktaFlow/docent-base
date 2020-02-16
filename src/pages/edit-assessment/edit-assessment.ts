@@ -9,6 +9,7 @@ import { AssessmentService } from '../../services/assessment.service';
 import { Helpers } from '../../services/helpers';
 
 import { UserDashboardPage } from '../user-dashboard/user-dashboard';
+import { AuthService } from "../../services/auth.service";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete';
 
 @IonicPage()
@@ -30,6 +31,7 @@ export class EditAssessmentPage {
       targetMRL
       targetDate
       location
+      deskbookVersion
       name
       targetDate
       threads
@@ -50,6 +52,7 @@ export class EditAssessmentPage {
   constructor(public navCtrl: NavController,
               private assessmentService: AssessmentService,
               private popovers: PopoverController,
+              private auth: AuthService,
               public navParams: NavParams,
               public help: Helpers, private toast: ToastController )
   {
@@ -76,16 +79,39 @@ export class EditAssessmentPage {
     // handle this when there is nope assId
     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
     if (this.page == 'edit') {
-      this.getExistingAssessment();
+      await this.getExistingAssessment();
     }
   }
 
-  async getCustomDeskbooks() {
-  // var user = await this.auth.currentUser();  
-    // what do we actually need with the Custom Deskbooks?
-    // -- the name of the assessment 
-    // -- the threads
-    // that's all initially
+  
+  async updateThreads() {
+    var selectedDeskbookName = this.assessment.deskbookVersion;
+    console.log(this.assessment); 
+    // go from the name of the deskbook to an array of the threads.
+    if ( selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+      var cool = await this.assessmentService.getDefaultThreads()
+      cool.subscribe( threads => this.threads = threads );
+      return null;
+    }
+
+			var user = await this.auth.currentUser();
+			var files = [];
+
+			for (let file of user.jsonFiles){
+				var newFile = JSON.parse(file);
+        if (typeof newFile == 'string' ) {
+          newFile = JSON.parse(newFile);
+        }
+
+				files.push(newFile);
+			}
+
+			var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
+			var selectedDeskbook  = deskbookFile[0].file;
+    
+      var threads = selectedDeskbook.map(t => t.name)
+                      .filter(tname => tname.length > 0);
+      this.threads = threads;
   }
 
   /**
@@ -100,6 +126,7 @@ export class EditAssessmentPage {
 
     // this is needed to get the targetDate into the HTML5 format 
     // threads are coming in as string... change that.
+    console.log('we above coolness');
     existingAssessment.subscribe(data => {
       var assessment = data.data.assessment
 			// if the targetDate on the assessment is null, we want to keep it null,
@@ -110,7 +137,9 @@ export class EditAssessmentPage {
       var extensibleTeamMembers = JSON.parse(JSON.stringify(assessment.teamMembers));
       var formattedAssessment = Object.assign({}, assessment, { teamMembers: extensibleTeamMembers,threads: numberThreads, targetDate: formattedDate });
 
+      console.log('we got assesssment');
       this.assessment = formattedAssessment;
+      this.updateThreads();
     })
 
   }

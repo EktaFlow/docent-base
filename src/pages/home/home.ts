@@ -33,7 +33,6 @@ query {
 })
 export class HomePage {
 	loading: boolean;
-	allThreads: any;
 	assessments: any;
   schema: any;
 	twentySeventeen: any;
@@ -42,7 +41,7 @@ export class HomePage {
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
 	private mobileRegister: boolean = false;
-	public deskbookVersions: any = ["2017", "2016"];
+	public deskbookVersions: any = ['2018', "2017", "2016"];
   private threadsShown: boolean = false;
   private threads: any;
   private threadsSelectButton: string = 'Unselect All';
@@ -71,17 +70,15 @@ export class HomePage {
 	}
 
 	presentLoadingDefault() {
-	let loading = this.loadingCtrl.create({
-		spinner: 'crescent',
-		content: 'Assessment Loading In, Please Wait',
-		dismissOnPageChange: true
-	});
+	  let loading = this.loadingCtrl.create({
+		  spinner: 'crescent',
+		  content: 'Assessment Loading In, Please Wait',
+		  dismissOnPageChange: true
+	  });
 
 
-	loading.present();
-
-
-}
+	  loading.present();
+  }
 
   invalidInputToast() {
 	  var toast = this.toastCtrl.create({
@@ -99,32 +96,19 @@ export class HomePage {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
       this.invalidInputToast();
-    //alert("please fill out all the fields");
 			return null;
 		}
 
 		await this.getSchema(this.assForm.deskBookVersion);
-		console.log(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
-		console.log(variables);
+    console.log(variables);
 		this.presentLoadingDefault();
-		//  debug what is getting passed into the mutation:
-		// console.log(variables);
-
-		//do we want / need to remove team members out of variables before sending it to the back?
-		//do we need to use teamMembersInput
-		//need to clarify the process - is it very similar to AnswerInputs / Answer Objects?
-
-		// var createInfo = {
-		//
-		// }
-
-		console.log(variables);
 
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+              console.log(d);
 
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
@@ -137,24 +121,18 @@ export class HomePage {
 
 	}
 
-	developmentVariables() {
-		// add this if we want to bring back the quick way to start assessments for dev.
-	}
-
 	formatAssessmentVariables() {
-		//here on line 107 (assigning team members) we need to assign the whole team members object
-		//or input it in another section?
 		var formValues = this.assForm;
 		return {
-			threads:          formValues.threads,
-			location:         formValues.location,
-			targetMRL:        formValues.targetMRL,
-			name:             formValues.name,
-			levelSwitching:   formValues.levelSwitching,
-			deskBookVersion:  formValues.deskBookVersion,
-			teamMembersUpdates:      formValues.teamMembers,
-			userId:						this.auth.currentUser()._id,
-			userEmail: 		this.auth.currentUser().email,
+			threads:            formValues.threads,
+			location:           formValues.location,
+			targetMRL:          formValues.targetMRL,
+			name:               formValues.name,
+			levelSwitching:     formValues.levelSwitching,
+			deskbookVersion:    formValues.deskBookVersion,
+			teamMembersUpdates: formValues.teamMembers,
+			userId:						  this.auth.currentUser()._id,
+			userEmail: 		      this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
 			schema: 					JSON.stringify(this.schema)
@@ -201,7 +179,6 @@ export class HomePage {
 			 .valueChanges
 			 .subscribe(({data, loading}) => {
 
-      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
 					this.setUpDeskbookArray();
 			 });
 
@@ -209,10 +186,38 @@ export class HomePage {
 
 	}
 
+  async updateThreads() {
+    var selectedDeskbookName = this.assForm.deskBookVersion;
+    console.log(this.assForm.deskBookVersion);
+    // go from the name of the deskbook to an array of the threads.
+    if ( selectedDeskbookName == '2018' || selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+      var cool = await this.assessmentService.getDefaultThreads()
+      cool.subscribe( threads => this.threads = threads );
+      return null;
+    }
+
+			var user = await this.auth.currentUser();
+			var files = [];
+
+			for (let file of user.jsonFiles){
+				var newFile = JSON.parse(file);
+        if (typeof newFile == 'string' ) {
+          newFile = JSON.parse(newFile);
+        }
+
+				files.push(newFile);
+			}
+
+			var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
+			var selectedDeskbook  = deskbookFile[0].file;
+    
+      var threads = selectedDeskbook.map(t => t.name)
+                      .filter(tname => tname.length > 0);
+      this.threads = threads;
+  }
 
 
-        // uses the default included schemas.
-        // Checks a user to see if they have custom schemas.
+
 	async getSchema(deskbook) {
 		if (deskbook == '2016' || deskbook == '2017'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
@@ -223,10 +228,11 @@ export class HomePage {
 			var files = [];
 
 			for (let file of user.jsonFiles){
+        console.log(file);
 				var newFile = JSON.parse(file);
-				if ( typeof newFile == 'string' ) {
-					newFile = JSON.parse(newFile);
-				}
+        if (typeof newFile == 'string') {
+          newFile = JSON.parse(newFile);
+        }
 				files.push(newFile);
 			}
 
@@ -293,7 +299,6 @@ export class HomePage {
   }
 
   newLogin() {
-    console.log('hi');
     this.navCtrl.push(LoginPage);
   }
 
@@ -301,10 +306,11 @@ export class HomePage {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
 		for (let file of user.jsonFiles){
+      console.log(file);
 			var newFile = JSON.parse(file);
-			if ( typeof newFile == 'string' ) {
-				newFile = JSON.parse(newFile);
-			}
+      if ( typeof newFile == 'string' ) {
+        newFile = JSON.parse(newFile);
+      }
 			this.deskbookVersions.push(newFile.fileName);
 		}
 	}
@@ -316,7 +322,6 @@ export class HomePage {
       this.assForm.threads.splice(index, 1);
     } else {
       this.assForm.threads.push(threadIndex);
-
 
       // using the indices to ID the threads relies on them being sorted.
       this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );

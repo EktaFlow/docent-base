@@ -121,19 +121,4 @@ constructor(private http: HttpClient) {}
 		// return true
 	}
 
-	public uploadJSON(jsonFile, userEmail){
-		var jsonRoute = AuthUrl + "uploadJSON"
-		var fileInfo = {
-			file: jsonFile,
-			email: userEmail
-		}
-		console.log(fileInfo);
-		console.log(jsonRoute);
-		this.http.post(jsonRoute, fileInfo).subscribe(a => {
-			var user = localStorage.getItem('docent-token');
-			user = JSON.parse(user);
-			(<any>user).user = a;
-			localStorage.setItem('docent-token', JSON.stringify(user));
-		});
-	}
 }
