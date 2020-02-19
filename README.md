@@ -1,28 +1,51 @@
-# Docent front-end ionic application
+#Docent Base
+>
+> The front end application built with ionic.
 
-**Quick Instructions:**
-1. Install dependencies:
-sudo apt install git nodejs npm
+----
+## Dependencies
 
-2. get code: 
-git clone https://github.com/EktaFlow/docent-base.git
-cd docent-base 
+* Android studio
+* Ionic
+* Cordova
+* Node.js
+* TypeScript
+* npm
+* java jdk 8
 
-3. Install code dependencies:
-npm install
+----
+## Installation 
+1. git clone https://github.com/EktaFlow/docent-base.git cd docent-base
+2. npm install
+3. npm install -g cordova ionic (alternative use system package manager for installing these system wide.)
+4. Install Android studio + jdk8
 
-(note that some systems needs these three lines executed independently)
-sudo npm install -g cordova
-sudo npm install -g ionic
-npm install node-sass
+### For local testing purposes
+>
+> Configure src/services/constants.js: 
 
-4. Configure src/services/constants.js:
-export const DocentStorageAccount =  "example-storage-account"
-export const SAS                  = "example-connecting-string"
-export const BackUrl              =  "http://localhost:4000"
+> 1. export const DocentStorageAccount = "example-storage-account" 
+> 2. export const SAS = "example-connecting-string" 
+> 3. export const BackUrl = "http://localhost:4000/"
 
-5. Build and/or run
-ionic build
-ionic serve
+> Configure config.xml
 
+> Modify config.xml: widget id="com.ionic.docent"
 
+----
+
+## Usage 
+### Build for android/ios
+> ionic build
+
+### Build for Desktop Electron
+> TODO
+
+### Run
+> ionic serve
+
+----
+## Additional Notes
+* Active dev branch -> add/2018-deskbook
+* add/2018-deskbook is the branch used for ios build & android.
+* desktop builds require a different branch.
