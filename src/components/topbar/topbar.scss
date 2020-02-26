@@ -9,7 +9,7 @@ topbar {
 
   .toolbar-class{
     header{
-        color:#000;
+        color: #000;
     }
     img{
         margin-left: 10px;
@@ -56,13 +56,7 @@ topbar {
   .subheader {
     position: relative;
     min-height: 80px;
-    div {
-      p {
-        span {
-          text-decoration: underline;
-        }
-      }
-      }
+
 
       .scope-show {
         position: absolute;
@@ -81,9 +75,42 @@ topbar {
         }
 
         .show-all {
-          text-decoration: underline;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
 
+        .thread-pop-link {
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+
+        .subthread-pop-link {
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+
+        }
+
+        .question-pop-link {
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+
+    }
+
+    .scope-link {
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
 
     .container-tbbuttons-mobile {
@@ -96,12 +123,30 @@ topbar {
       // border-top: 1px solid white;
     }
 
+    .desktop {
+
+    }
+
+    .mobile {
+      display: none;
+    }
+
+
+
 
     // @media screen and (max-width: 800px){
     //
     // }
 
     @media screen and (max-width: 1024px){
+
+      .desktop {
+        display: none;
+      }
+
+      .mobile {
+        display: inherit;
+      }
 
 
     .main-title {
@@ -159,16 +204,24 @@ topbar {
             color: white;
             // width: 30px;
 
+            .hamburger-nav {
+              font-size: 3em;
+            }
 
 
+
+
+        }
+        .mobile-link {
+          font-weight: bold;
         }
 
         .subheader {
           .number-info {
             display: inline;
-            .q-number {
-              text-decoration: none;
-            }
+            // .q-number {
+            //   text-decoration: none;
+            // }
           }
           .targets-scope {
           display: none;
@@ -181,6 +234,8 @@ topbar {
 
           }
         }
+
+
 
 
 

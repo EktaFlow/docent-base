@@ -11,7 +11,11 @@ query assessments($userId: String) {
      location
      name
 		 id
-		 teamMembers
+			teamMembers {
+				name
+				email
+				role
+			}
 	}
 }
 `
@@ -28,7 +32,7 @@ export var createAssessmentMutation = gql`
 		 $levelSwitching: Boolean
 		 $userId: String
 		 $userEmail: String
-		 $teamMembers: [String]
+		 $teamMembersUpdates: [TeamMemberInput]
 		 $schema: String
    ) {
      createAssessment(
@@ -42,12 +46,12 @@ export var createAssessmentMutation = gql`
        targetDate: $targetDate,
        deskbookVersion: $deskbookVersion,
 			 name: $name,
-			 teamMembers: $teamMembers,
+			 teamMembersUpdates: $teamMembersUpdates,
 			 levelSwitching: $levelSwitching,
 			 schema: $schema
      ) {
           _id
-
+          deskbookVersion
        }
      }
 `
@@ -88,11 +92,14 @@ query assessment($_id: String)
 			documentation
 			assumptionsNA
 			notesNA
+			revertedBy
 		}
   }
 	targetMRL
+  threads
 	currentMRL
 	levelSwitching
+	deskbookVersion
 	files {
     id,
 		url,
@@ -130,9 +137,11 @@ query {
 `
 
 export var updateTeamMembersMutation = gql`
-	mutation addTeamMember($_id: String, $_teamMember: String) {
-		addTeamMember(_id: $_id,  _teamMember: $_teamMember) {
-			teamMembers
+	mutation addTeamMember($assessmentId: String, $teamMember: TeamMemberInput) {
+		addTeamMember(assessmentId: $assessmentId,  teamMemberUpdates: $teamMember) {
+			name
+			email
+			role
 		}
 	}
 `
@@ -140,7 +149,7 @@ export var updateTeamMembersMutation = gql`
 export var deleteFileMutation = gql`
   mutation deleteFile($assessmentId: String, $fileId: String) {
     deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
-      name  
+      name
     }
   }
 `

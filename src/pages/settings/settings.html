@@ -5,16 +5,21 @@
   <div class="wrapper">
     <h1>User's Settings:</h1>
 
-    <p>Allow user to change password</p>
+    <!-- <p>Allow user to change password</p> -->
 
-    <a ion-button small color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</a>
-    <button ion-button small color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</button>
+    <button ion-button small class="desktop" color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</button>
+    <button ion-button small class="desktop" color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</button>
+
+    <button ion-button small class="mobile" disabled color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</button>
+    <button ion-button small class="mobile" disabled color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</button>
+    <p class="mobile">Go onto web.mfgdocent.com to Upload and Download Deskbook Versions</p>
+
 
     <div class="desktop">
-      <button ion-button small (click)="goBackToUser()">Go Back To Dashboard</button>
+      <button ion-button small (click)="goBackToUser()" color="buttonBlue">Go Back To Dashboard</button>
     </div>
 
-    <p>List of Deskbook Version the user has uploaded</p>
+    <p>Your new deskbooks will appear in the Deskbook Version dropdown on the Start New Assessment Page</p>
   </div>
 
 </ion-content>

@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, ViewController, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { QuestionsPage } from "../../pages/questions/questions";
+import {AuthService} from "../../services/auth.service";
+import { AuthUrl } from "../../services/constants";
+import { AssessmentService } from '../../services/assessment.service';
+
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
 var load = gql`
-mutation importAssessment($import: String) {
-	importAssessment(import: $import) {
+mutation importAssessment($import: String, $userId: String, $userEmail: String) {
+	importAssessment(import: $import, userId: $userId, userEmail: $userEmail) {
 		_id
 	}
 }
@@ -22,7 +27,7 @@ export class ImportComponent {
   text: string;
 	file: any;
 
-  constructor( private apollo: Apollo, public navController: NavController) {
+  constructor(private viewController: ViewController, private assessmentService: AssessmentService, private apollo: Apollo, public navController: NavController, private auth: AuthService) {
     console.log('Hello ImportComponent Component');
   }
 
@@ -41,15 +46,22 @@ export class ImportComponent {
 													 // 		console.log(assessmentObject);
 	}
 
-	loadAssessment(assessment) {
-	this.apollo.mutate({
-		mutation: load,
-		variables: {
-			import: assessment	
-		}
-		}).subscribe( data => { 
+	async loadAssessment(assessment) {
+		var user = await this.auth.currentUser();
+		console.log(user);
+		await this.apollo.mutate({
+			mutation: load,
+			variables: {
+				import: assessment,
+				userId: user._id,
+				userEmail: user.email
+			}
+		}).subscribe( data => {
 				console.log(data.data.importAssessment._id);
-				this.navController.push(QuestionsPage, { data: data.data.importAssessment._id })})
+				this.assessmentService.setCurrentAssessmentId(data.data.importAssessment._id)
+				this.viewController.dismiss();
+				this.navController.push(QuestionsPage, { data: data.data.importAssessment._id })
+			})
 
 	}
 
@@ -58,7 +70,7 @@ export class ImportComponent {
 
 		var fileObject = {
 			size: file.size,
-			name: file.name, 
+			name: file.name,
 			lastModified: file.lastModifiedDate
 		}
 

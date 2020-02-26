@@ -1,3 +1,19 @@
 add-team-members-pop-over {
+  .new-button {
+    margin: 3px;
+    background-color: darkslateblue;
+  }
 
+
+
+  @media screen and (max-width: 1024px){
+    .new-button {
+      margin: 8px 0 0 1px;
+      // margin-top: 8px;
+    }
+
+    label, input {
+      margin: 5px 0;
+    }
+  }
 }

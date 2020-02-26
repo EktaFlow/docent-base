@@ -3,8 +3,13 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+// import { Ng2TableModule } from 'ng2-table/ng2-table';
+// import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
+
 
 import * as XLSX from 'xlsx';
+
 
 import { QuestionsPage } from '../questions/questions';
 
@@ -70,23 +75,23 @@ export class ActionitemsPage {
 			.subscribe(data => {
                                         console.log(data);
 					this.no = (<any>data.data).assessment.questions.filter( a => {
-                                                if (a.answers.length > 0 ) { 
-                                                        return a.answers[a.answers.length - 1].answer == "No" 
+                                                if (a.answers.length > 0 ) {
+                                                        return a.answers[a.answers.length - 1].answer == "No"
                                                 }
-                                                
+
                                         });
 					this.attachments = (<any>data.data).assessment.files;
 
                                         var newData:Array<any> = [];
-        
-                                        this.no.forEach( (element) => { 
+
+                                        this.no.forEach( (element) => {
                                             var newObj:any = {};
                                             newObj.threadName = "" + element.threadName;
                                             newObj.subThreadName = "" + element.subThreadName;
                                             newObj.questionText = "" + element.questionText;
-                                            newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
+                                            // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
                                             newObj.what = "" + element.answers[element.answers.length - 1].what;
-                                            newObj.when = "" + element.answers[element.answers.length - 1].when;
+                                            newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
                                             newObj.who = "" + element.answers[element.answers.length - 1].who;
 
                                             var cur = element.answers[element.answers.length - 1];
@@ -102,17 +107,30 @@ console.log(element);
 			});
 	}
 
+  /**
+  *   @purpose: format data as a sortable string for table
+  *   @input: date: a new Date() parsable string
+  *   @output: string, format YYYY-MM-DD
+  */
+  formatDate(date){
+    if ( date ) {
+      return new Date(date).toISOString().substr(0,10);
+    } else {
+      return '';
+    }
+  }
+
 
   public rows:Array<any> = [];
   public columns:Array<any> = [
     {title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
     {title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
     {title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
-    {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
+    // {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
     {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
     {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
     {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
-    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by owner'}}
+    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
   ];
 
 
@@ -140,7 +158,7 @@ console.log(element);
                         nq.threadName,
                         nq.subThreadName,
                         nq.questionText,
-                        nq.answers[nq.answers.length - 1].answer,
+                        // nq.answers[nq.answers.length - 1].answer,
                         nq.answers[nq.answers.length - 1].what,
                         nq.answers[nq.answers.length - 1].when,
                         nq.answers[nq.answers.length - 1].who,
@@ -257,12 +275,16 @@ console.log(element);
 	assessmentId: any;
 	private attachments: any;
 	pageName: any = "Action Items";
+	assessmentIdFromParams: any;
+
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService) {
+								 	this.assessmentIdFromParams = navParams.data.assessmentId;
+									console.log(this.assessmentIdFromParams);
                 }
 
 	unique = (item, index, array) => array.indexOf(item) == index
@@ -293,8 +315,8 @@ console.log(element);
 
 
   public calculateRiskScore(likelihood, consequence) {
-    // preventing off by one errors, with nulls. 
-    // values should always be 1-5  
+    // preventing off by one errors, with nulls.
+    // values should always be 1-5
     var riskMatrix = [
       [ null ],
       [ null, 1, 3,  5,  8,  12],
@@ -308,12 +330,12 @@ console.log(element);
     if ( likelihood && consequence ) {
       // value is the same as the index, b/c we put nulls in the matrix
       var likelihoodIndex  = Number(likelihood);
-      var consequenceIndex = Number(consequence);   
-      
+      var consequenceIndex = Number(consequence);
+
       // var name = selectedBox.className.replace(/ selected/g, '')
       // selectedBox.className = `${name} selected`;
 
-      return riskMatrix[likelihoodIndex][consequenceIndex]; 
+      return riskMatrix[likelihoodIndex][consequenceIndex];
     } else {
       return "";
     }

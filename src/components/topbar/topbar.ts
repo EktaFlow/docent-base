@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PopoverController, NavController } from "ionic-angular";
 import { ViewsComponent } from "../views/views";
 import { HomePage } from "../../pages/home/home";
+import { LoginPage } from '../../pages/login/login';
 import { NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
@@ -11,6 +12,7 @@ import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
 import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
+import {QuestionsPage} from '../../pages/questions/questions';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -56,7 +58,7 @@ export class TopbarComponent {
 	@Input() public pageName: any;
 	@Input() private questionId: any;
 	public popUpButtonClicked: any;
-	infoShow: boolean = true;
+	// infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
 
 
@@ -125,12 +127,15 @@ constructor( public popOver: PopoverController,
 		this.popOver.create(HelpmenuComponent, {assessmentId: this.assessmentId})
 		            .present({ev: event});
 	}
+	handleContinue(){
+		this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
+	}
 
 	// registerNav() { this.navCtrl.push( this.registerPage ); }
 	// loginNav() { this.navCtrl.push( this.loginPage ); }
 	handleLogout() {
 		this.auth.logout();
-		this.navCtrl.setRoot(HomePage);
+		this.navCtrl.setRoot(LoginPage);
 		this.navCtrl.popToRoot();
 	}
 
@@ -150,7 +155,7 @@ constructor( public popOver: PopoverController,
 
 
 	async handleUserDash() {
-		if (this.assessmentId && this.values && this.questionId) {
+		if (this.assessmentId ) {
     /* Removing this feature -- we now have the save button -ask if we want to keep it?
 			var updateInfo = {
 				updates: this.values,
@@ -179,26 +184,34 @@ constructor( public popOver: PopoverController,
 
 
 
-	presentSubThreadPop(event){
+	presentSubThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
-			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
-    .present({ev: event});
+		var popover = this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'sub-thread-popup'});
+			if (mobileness == "false"){
+				popover.present({ev: event});
+			} else {
+				popover.present();
+			}
   }
 
-	presentThreadPop(event){
+	presentThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
-			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
-		.present({ev: event});
+		var popover = this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
+			updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+		if (mobileness == "false"){
+			popover.present({ev: event});
+		} else {
+			popover.present();
+		}
 	}
 
 	toggleQuestionHistory(){
@@ -208,14 +221,15 @@ constructor( public popOver: PopoverController,
 	}
 
 	openMobileNav(){
+		console.log(this.noSecondBar);
 		var userName = this.auth.currentUser().name;
-		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
+		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
 		.present();
 	}
 
-	toggleTopbarInfo(){
-		this.infoShow = !this.infoShow;
-	}
+	// toggleTopbarInfo(){
+	// 	this.infoShow = !this.infoShow;
+	// }
 
 
 }

@@ -8,6 +8,7 @@ import { GoogleAnalytics } from "../application/helpers/GoogleAnalytics";
 
 import { HomePage } from '../pages/home/home';
 import { UserDashboardPage } from "../pages/user-dashboard/user-dashboard";
+import { LoginPage } from '../pages/login/login';
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -21,17 +22,22 @@ export class MyApp {
               splashScreen: SplashScreen,
               auth:         AuthService,
             keyboard: Keyboard) {
+    console.log('when do we run???');
     platform.ready().then(() => {
-		if (auth.isLoggedIn()) {
+    if (window.location.href.includes('reset')) {
+      auth.setReset(window.location.href);
+			this.rootPage = LoginPage;
+    }
+		else if (auth.isLoggedIn()) {
 			this.rootPage = UserDashboardPage;
 		}
 		else {
-			this.rootPage = HomePage;
+			this.rootPage = LoginPage;
 		}
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
-      statusBar.styleBlackTranslucent();
+      // statusBar.styleBlackTranslucent();
       splashScreen.hide();
       keyboard.hideFormAccessoryBar(false);
       GoogleAnalytics.initialize();

@@ -1,6 +1,13 @@
 page-questions {
-$input-backgroud:#fbfbfb;
-$input-border:#dcdcdc;
+
+  ion-content{
+    margin-top: 220px;
+  }
+  $input-backgroud:#fbfbfb; $input-border:#dcdcdc;
+
+
+$basic-cell-size: 4vw;
+
 %input-style{
     width: 100%;
     height: 100%;
@@ -14,11 +21,125 @@ $input-border:#dcdcdc;
     background-color:$input-backgroud;
     border-color: $input-border;
 }
+
+.file-link {
+  &:hover {
+    text-decoration: underline;
+  }
+  margin-bottom: 0;
+  margin-right: 1em;
+}
+
 .risk select {
     @extend %input-style;
     height: 30px;
     width: 9vw;
 }
+
+.matrix-top-wrapper {
+        display: flex;
+}
+
+.matrix-bottom-wrapper {
+        display: flex;
+        width: 100%;
+        // easiest way to offset bottom div by size of y-axis label and arrow
+        padding-left: 4em;
+        justify-content: flex-end;
+}
+
+.x-axis-wrapper {
+}
+
+.x-axis-label-wrapper {
+        width: 5* $basic-cell-size;
+        display:flex;
+        justify-content: center;
+}
+
+.x-axis-arrow-wrapper {
+        width: 100%;
+        margin-top: 1em;
+        height: 2em;
+}
+
+.y-axis-wrapper {
+        display: flex;
+        height: 100%;
+        align-items: center;
+}
+
+.y-axis-label {
+        width: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h4 {
+          transform: rotate(-90deg);
+          height: 1em;
+        }
+}
+
+$arrow-width: 1em;
+.y-axis-arrow-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: flex-start;
+        width: 2em;
+        height: 5 * $basic-cell-size;
+        margin-right: 1em;
+}
+
+.y-axis-arrow-body {
+        background: black;
+        width: .75em;
+        height: 96%;
+}
+
+.y-axis-arrow-head-wrapper {
+        width: 100%;
+        height: $arrow-width;
+}
+
+.y-axis-arrow-head {
+  width: 0;
+  height: 0;
+  border-left: $arrow-width solid transparent;
+  border-right: $arrow-width solid transparent;
+  border-bottom: $arrow-width solid black;
+
+}
+
+.x-axis-arrow-wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items:center;
+        justify-content: flex-start;
+        height: 2em;
+        width: 5 * $basic-cell-size;
+        margin-right: 1em;
+}
+
+.x-axis-arrow-body {
+        background: black;
+        height: .75em;
+        width: 96%;
+}
+
+.x-axis-arrow-head-wrapper {
+        height: 2em;
+}
+
+.x-axis-arrow-head {
+  width: 0;
+  height: 0;
+  border-top: $arrow-width solid transparent;
+  border-bottom: $arrow-width solid transparent;
+  border-left: $arrow-width solid black;
+}
+
+
 %down-arrow{
     background-position: right 50%;
     background-repeat: no-repeat;
@@ -63,6 +184,11 @@ $input-border:#dcdcdc;
         @extend %input-style;
         @extend %down-arrow;
         -webkit-appearance: none;
+    }
+
+    .help-button {
+      width: 98%;
+      margin-left: 0;
     }
 }
 .choose-one{
@@ -215,7 +341,7 @@ $input-border:#dcdcdc;
 }
   .qspacer {
     font-size: 0;
-    height: 250px;
+    height: 220px;
     line-height: 0;
     border: 0px;
     /* testing only */
@@ -250,7 +376,13 @@ $input-border:#dcdcdc;
         padding: 10px;
     }
     .acronymHere {
-        color: gray;
+        color: #305194;
+        &:hover {
+          // text-decoration: underline;
+          font-style: italic;
+          // border: .5px solid #305194;
+          // padding: 1px;
+        }
     }
 
   }
@@ -258,40 +390,26 @@ $input-border:#dcdcdc;
   .nav-q-buttons {
     // display: flex;
     // margin: 0;
-    position: fixed;
+    position: absolute;
     right: 10px;
-    top: 240px;
-  }
-
-  .nav-previous-qs {
-      position: fixed;
-      right: 10px;
-      bottom: 10px;
-      width: 300px;
-      height: 250px;
-      background-color: #DCDCDC;
-      border-radius: 5px;
-      text-align: center;
-      padding-top: 10px;
-
-      p {
-    background-color: #B4B4B4;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    padding: 10px 0 10px 10px;
-    margin: 0;
+    // top: 220px;
+    margin-top: 10px;
+    -webkit-transform: translateZ(0);
+    // background-color: white;
+    z-index: 100000;
 
   }
 
-h6 {
-  color: #494949;
-}
+  .bottom-q-buttons {
+    // display: none;
+    position: absolute;
+    right: 10px;
+    bottom: -100px;
 
-a {
-color: black;
-
-}
   }
+
+
+
 
   .guiding-text {
       display:flex;
@@ -315,6 +433,7 @@ color: black;
 
   .page-wrapper {
       width: 100%;
+      height: 100vh;
       // border: 1px solid red;
   }
 
@@ -329,12 +448,12 @@ color: black;
 
 .risk-wrapper {
 
-    width: 45%;
+    width: 50%;
     // border: 1px solid blue;
     display: inline-block;
-    padding: 10px;
+    padding: 5px;
     float: right;
-    margin-right: 60px;
+    // margin-right: 60px;
     .risk {
       width: 100%;
       display:flex;
@@ -342,10 +461,10 @@ color: black;
       align-items: flex-start;
 
       .dev-border {
-          width: 24vw;
+          width: 50%;
 
           h5 {
-              padding: 1vw;
+              padding: 0 1vw;
           }
 
           .likelihood-wrapper {
@@ -355,14 +474,42 @@ color: black;
           }
       }
 
+      .risk-part-2-wrapper {
+        .risk-part-2{
+          display: flex;
+          justify-content: space-between;
+          padding: 1vw;
+
+          .greatest-impact {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .risk-response {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+
+        .mmp-summary {
+          margin-left: 1vw;
+          height: 400px;
+        }
+      }
+
       .matrix-wrapper {
           display: flex;
+          flex-direction: column;
           align-items:center;
           justify-content: center;
-          width: 22vw;
-          height: 22vw;
+          width: 25vw;
+          height: 25vw;
       }
     }
+}
+
+.mobile {
+  display: none !important;
 }
 
 
@@ -371,9 +518,17 @@ color: black;
 
   @media screen and (max-width: 1024px){
     ion-content {
-        margin-top: 50px;
-        margin-bottom: 100px;
+        margin-top: 200px;
+        // margin-bottom: 300px;
 
+    }
+
+    .desktop {
+      display: none !important;
+    }
+
+    .mobile {
+      display: inherit !important;
     }
 
     .nav {
@@ -391,7 +546,8 @@ color: black;
         right: 0;
         top: 0;
         width: 95%;
-        margin: 0 auto;
+        margin: 10px auto;
+        padding-left: 10px;
         // display: flex;
         // flex-direction: column;
         margin-bottom: 15px;
@@ -408,9 +564,25 @@ color: black;
             display: block;
 
             button {
-                width: 95%;
+                width: 98%;
             }
         }
+    }
+
+    .bottom-q-buttons {
+      display: inherit;
+      position: static;
+      right: 0;
+      bottom: 0;
+      width: 95%;
+      margin: 0 auto;
+      padding-left: 20px;
+      // display: flex;
+      // flex-direction: column;
+      margin-bottom: 15px;
+      button {
+          width: 30%;
+      }
     }
 
     .yes {
@@ -438,7 +610,7 @@ color: black;
 
             .who-when{
                 width: 100%;
-                margin: 5px;
+                // margin: 5px;
                 margin-top: 0px;
                 .who {
                     display: block !important;
@@ -527,26 +699,16 @@ color: black;
 
     .qspacer {
         background-color: transparent;
-        height: 160px;
+        height: 200px;
 
     }
 
-    .risk {
-        width: 100%;
 
-        .dev-border {
-            width: 45%;
-        }
-
-        .matrix-wrapper {
-            margin-right: 50px;
-        }
-
-    }
 
     .page-wrapper {
             display: flex;
             flex-direction: column;
+            height: auto;
     }
 
     .full-fields-wrapper {
@@ -554,15 +716,88 @@ color: black;
     }
 
     //  a more specific rule eg. .risk-wrapper .risk .dev-border was overriding the media query
-    .risk-wrapper {
-            display: flex;
-            width: 90vw;
-            .risk {
-            .dev-border {
-                    width: 48vw;
+  .risk-wrapper {
+  display: flex;
+  width: 90vw;
+
+  .risk {
+    width: 100%;
+
+    .dev-border {
+      width: 100%;
+
+      .likelihood, .consequence {
+        width: 45%;
+
+        select {
+          width: 100%;
+        }
+      }
+
+    }
+
+    .matrix-wrapper {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 7px 0;
+
+      table {
+        float: none;
+        width: 90%;
+        height: 300px;
+        margin: 0 auto;
+
+      }
+    }
+
+    .risk-part-2-wrapper {
+        width: 100%;
+        margin-top: 20px;
+
+        .risk-part-2 {
+
+          .greatest-impact, .risk-response {
+            width: 45%;
+
+            select {
+              width: 100%;
             }
+
+          }
+        }
+
+        .mmp-summary {
+          height: 200px;
+        }
     }
-    }
+  }
+}
+
+.x-axis-wrapper {
+  width: 100%;
+}
+
+.x-axis-arrow-wrapper{
+  width: 100%;
+}
+
+.x-axis-label-wrapper {
+  width: 100%;
+}
+
+.y-axis-wrapper {
+  height: 300px;
+}
+
+.y-axis-label {
+  height: 300px;
+}
+
+.y-axis-arrow-wrapper {
+  height: 300px;
+}
+
 
 
 
@@ -575,7 +810,34 @@ color: black;
 
 @media screen and (min-width: 421px) and (max-width: 1024px){
     ion-content {
-        margin-top: 70px;
+        margin-top: 230px;
+    }
+
+    .risk-wrapper {
+      .risk {
+        .matrix-wrapper {
+          table {
+            width: 80%;
+            height: 500px;
+          }
+        }
+      }
+    }
+
+    .x-axis-arrow-wrapper {
+      height: 5em;
+    }
+
+    .y-axis-wrapper {
+      height: 500px;
+    }
+
+    .y-axis-label {
+      height: 500px;
+    }
+
+    .y-axis-arrow-wrapper {
+      height: 500px;
     }
 }
 }
@@ -604,7 +866,9 @@ color: black;
 	}
 
   .selected {
-    border: 7px solid black;
+    // border: 7px solid black;
+    font-size: 1.8em;
+    filter: brightness(75%);
   }
 
   .file-item {

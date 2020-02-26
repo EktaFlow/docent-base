@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { TopbarComponent } from '../../components/topbar/topbar';
 import { QuestionsPage } from "../questions/questions";
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
+import * as XLSX from 'xlsx';
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -22,7 +26,6 @@ query assessment($_id: String) {
     answers {
       answer
 		  notesNo
-      # skipped
 		  objectiveEvidence
     }
 	}
@@ -92,30 +95,54 @@ export class ReviewPage {
                             var questions = assessment.questions;
 
 
-                            var answeredOrSkipped = [];
+                            var answeredQuestions = [];
                             questions.forEach(q => {
-                                if ( q.currentAnswer == 'skipped' ) {
-                                    answeredOrSkipped.push(q);
-                               }
-                                  if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+                              if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
                                  var drilledQuestion = {
                                       questionId: q.questionId,
-                                   questionText: q.questionText,
+                                   		questionText: q.questionText,
                                       currentAnswer: q.answers[q.answers.length - 1].answer,
                                       objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
-                                    }
-                                    answeredOrSkipped.push(drilledQuestion);
-                                  }
+                                 }
+
+                                 answeredQuestions.push(drilledQuestion);
+                              }
                           });
 
                   // all questions is an array of answered questions.
                   // preserving the names to leave markup the same.
-                  this.allQuestions = answeredOrSkipped; 
+                  this.allQuestions = answeredQuestions;
 					this.targetMRL = assessment.targetMRL;
 					this.targetDate = assessment.targetDate;
 					this.location = assessment.location;
 					this.files = assessment.files;
 		});
+	}
+
+	saveXLS(){
+		var headers = [
+			"Question Text",
+			"Current Answer",
+			"Objective Evidence"
+		];
+
+		var values = this.allQuestions.map(q => {
+
+			return [
+				q.questionText,
+				q.currentAnswer,
+				q.objectiveEvidence
+			];
+		})
+
+		var worksheet = [headers, ...values];
+
+		var ws = XLSX.utils.aoa_to_sheet(worksheet);
+		var wb = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, 'Review Page');
+
+		/* save to file */
+		XLSX.writeFile(wb, 'review.xlsx');
 	}
 
 }

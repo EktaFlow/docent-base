@@ -1,25 +1,22 @@
 <topbar [assessmentId]="assessmentId" [pageName]="pageName" class="mobile"></topbar>
-<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" class="desktop"></topbar>
+<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [pageName]="pageName" class="desktop"></topbar>
 
 
 
 <ion-content>
-  <div class="first-bar">
-    <!-- user's name -->
+  <!-- <div class="first-bar">
+
     <div class="user-info">
       <h1 id="users-name">{{user.name}}</h1>
       <div class="info">
-        <!-- email -->
         <p><b>email:</b> {{user.email}}</p>
-        <!-- organization don't currently have a concept of organization for users-->
-        <!-- <p><b>organization:</b> {{fakeUser.organization}}</p> -->
       </div>
     </div>
     <div class="buttons">
       <button ion-button color="buttonBlue" small (click)="handleSettings()">Settings</button>
       <button ion-button color="buttonBlue" small (click)="redirectToCreate()" id="start-new-desktop">Start New Assessment</button>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -38,21 +35,36 @@
         <div class="box-title mobile">
           <h3 (click)="toggleMine()"><b>My Assessments</b></h3>
         </div>
+        <div class="assessment-links">
+          <div class="buttons">
+            <button ion-button small color="light" (click)="redirectToCreate()">Start New</button>
+            <button ion-button small color="light" (click)="handleImport()">Import</button>
+            <button ion-button small color="light" (click)="handleSettings()">Settings</button>
+          </div>
+        </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">
-            <div class="accordion-tab metrics">
-              <p>You currently have {{assessments.length}} assessments</p>
-            </div>
             <div *ngFor="let assessment of assessments">
-              <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
-                <b>Assessment:</b> {{assessment.name}}
+              <div class="accordion-tab desktop" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
+                <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
+                <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
+                <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+
               </div>
-              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
+
+              <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)" >
+                <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
+                <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
+                <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+              </div>
+              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
                   <p><b>Name: </b>{{assessment.name}}</p>
-                  <p><b>MRLevel: </b> {{assessment.targetMRL}}</p>
+                  <p><b>MRL: </b> {{assessment.targetMRL}}</p>
                   <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
-                  <p><b>Scope: </b>{{assessment.scope}}</p>
+                  <p><b>Additional Information: </b>{{assessment.scope}}</p>
                   <p><b>Location: </b> {{assessment.location}}</p>
 		  <ng-container *ngIf="assessment.levelSwitching">
                       <p><b>Level Switching?: </b> Yes </p>
@@ -60,15 +72,17 @@
 		  <ng-container *ngIf="!assessment.levelSwitching">
                       <p><b>Level Switching?: </b> No </p>
 	          </ng-container>
-                  <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}  </span></p>
+
                 </div>
                 <div class="assNav">
-                  <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
-                  <button (click)="openDashboard(assessment.id)">Dashboard</button>
+                  <button (click)="continueAssessment(assessment.id)">Continue</button>
+                  <button (click)="openDashboard(assessment.id)">MRL Summary</button>
                   <button (click)="openActionItems(assessment.id)">Action Items</button>
-                  <button (click)="presentAddTeamMembersPopOver(assessment.id)">Add Team Members</button>
+                  <button (click)="presentAddTeamMembersPopOver(assessment.id)">Invite</button>
                   <button (click)="handleEditAssessmentClick(assessment.id)">Edit</button>
                   <button (click)="handleDeleting(assessment.id)">Delete</button>
+                  <button (click)="handleSave(assessment.id)" class="desktop">Export</button>
                 </div>
               </div>
             </div>
@@ -81,35 +95,45 @@
         <div class="box-title desktop">
           <h3><b>Assessments Shared With Me</b></h3>
         </div>
+        <div class="assessment-links">
 
+        </div>
         <div class="box-title mobile">
           <h3 (click)="toggleShared()"><b>Assessments Shared With Me</b></h3>
         </div>
         <div *ngIf="showShared">
           <div *ngIf="this.sharedAssessments.length >= 1">
-            <div class="accordion-tab metrics">
-              <p>You currently have {{sharedAssessments.length}} assessments</p>
-            </div> <!-- close 19 -->
             <div *ngIf="this.sharedAssessments.length > 0">
               <div *ngFor="let assessment of sharedAssessments">
-                <div class="accordion-tab" (click)="expandAssessment(assessment.id)">
-                  <b>Assessment:</b> {{assessment.name}}
+                <div class="accordion-tab desktop" (click)="expandAssessment(assessment.id)"  id="{{assessment.id}}">
+                  <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
+                  <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
+                  <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                  <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                </div>
+
+                <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)"  >
+                  <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
+                  <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
+                  <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                  <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
                 </div>
                 <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
                   <div class="details">
                     <p><b>Name: </b>{{assessment.name}}</p>
-                    <p><b>MRLevel: </b> {{assessment.targetMRL}}</p>
+                    <p><b>MRL: </b> {{assessment.targetMRL}}</p>
                     <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
-                    <p><b>Scope: </b>{{assessment.scope}}</p>
+                    <p><b>Additional Information: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
                     <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-                    <p><b>Team Members: </b> {{assessment.teamMembers}}</p>
+                    <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}  </span></p>
                     <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
                   </div>
                   <div class="assNav">
-                    <button (click)="continueAssessment(assessment.id)">Continue Assessment</button>
-                    <button (click)="openDashboard(assessment.id)">Dashboard</button>
+                    <button (click)="continueAssessment(assessment.id)">Continue</button>
+                    <button (click)="openDashboard(assessment.id)">MRL Summary</button>
                     <button (click)="openActionItems(assessment.id)">Action Items</button>
+                    <button (click)="handleSave(assessment.id)" class="desktop">Export</button>
                     <!-- <button>Add Team Members</button> -->
                   </div>
                 </div>
@@ -121,14 +145,15 @@
     </div>
 
 
-  <div class="mobile-to-reports">
-    <div class="box-title">
-      <h3><b>View Reports</b></h3>
-    </div>
-  </div>
+    <!-- <div class="mobile-to-reports">
+      <div class="box-title">
+        <h3><b>View Reports</b></h3>
+      </div>
+    </div> -->
 
-    <div class="qspacer"></div>
 </div>
+<div class="qspacer"></div>
+
 
 
 

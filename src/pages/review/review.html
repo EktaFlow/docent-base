@@ -3,16 +3,13 @@
 
 
 <ion-content padding>
-  <!-- <br><br><br><br><br><br><br><br><br> -->
-  <div class = "page-one-info">
-    <p>
-      <b>Target MRL: </b>{{targetMRL}}<br/><br>
-      <b>Target Date: </b> {{targetDate}}<br/><br>
-      <b>Location: </b>{{location}}<br/><br>
-      <b>Team Members: </b>{{team}}<br/><br>
-    </p>
-    <hr>
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+  <div class="export-toolbar">
+    <button ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</button>
   </div>
+
   <div class = "survey-info">
     <li *ngFor = "let question of allQuestions">
       <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
@@ -46,7 +43,7 @@
         <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
         <p class = "box"><b>Yes</b></p>
         <p>
-				<b>Evidence:</b> {{question.objectiveEvidence}} </p>
+				<b>Objective Evidence:</b> {{question.objectiveEvidence}} </p>
           <b>Attachments:</b>
 					<ul>
 					<ng-container *ngFor = "let file of files">
@@ -58,7 +55,12 @@
         <hr>
       </div>
 
-      <div *ngIf = "question.currentAnswer == 'skipped'" class = "skipped">
+      <!-- Some dicussion here, we won't see questions that haven't been answered
+           in the review page, which seems like the right behavior
+           should we decide otherwise, we can include them in the allQuestions var
+           and display them like below:
+      -->
+      <div *ngIf = "!question.currentAnswer" class = "not-answered">
         <p (click)="goToQuestion(question.questionId)" style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
         <p class="box"><b>Unanswered</b></p>
         <p>

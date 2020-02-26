@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SkippedquestionsPage } from './skippedquestions';
+import { LoginPage } from './login';
 import { ComponentsModule } from '../../components/components.module';
+
+
 
 @NgModule({
   declarations: [
-    SkippedquestionsPage,
+    LoginPage,
   ],
   imports: [
-    IonicPageModule.forChild(SkippedquestionsPage),
-		ComponentsModule
+    IonicPageModule.forChild(LoginPage),
+    ComponentsModule
   ],
   entryComponents: [
-    SkippedquestionsPage
+    LoginPage
   ],
   exports: [
-    SkippedquestionsPage
+    LoginPage
   ]
 })
-export class SkippedquestionsPageModule {}
+export class LoginPageModule {}

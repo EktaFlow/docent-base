@@ -3,11 +3,20 @@
 
 <ion-content padding >
 
-  <div class="desktop">
-          <br><br><br><br><br><br>
-  </div>
 
-  <div class="desktop">
+
+
+  <!-- <div class="desktop">
+          <br><br><br><br><br><br><br>
+  </div> -->
+
+    <report-info-card [assessmentId]="assessmentIdFromParams"></report-info-card>
+    <ng-container class="desktop">
+      <button *ngIf="!imageDownloading" ion-button color="buttonBlue" (click)="downloadPNG()"> Download Image</button>
+      <button *ngIf="imageDownloading" ion-button color="buttonBlue" [disabled]="true"> Download Image</button>
+    </ng-container>
+
+  <div id="desktoper" class="desktop">
   	<div class="legend" style="display:flex; align-items: center; "> <span>subthread passed: </span>
   					<div class="yes dashbox">
             <img class="dashpic" src="assets/imgs/check-mark-256.png">
@@ -31,8 +40,8 @@
       <hr>
       <div *ngFor = "let answer of question.questions" class="questions">
         <div class="header">
-          <p *ngIf="answer.subheader!= 'MR Levels'"class = "subtitle">{{answer.subheader}}</p>
-          <h5 *ngIf="answer.subheader == 'MR Levels'"> MR Levels</h5>
+          <p *ngIf="answer.subheader!= 'MR Levels'"class = "subtitle" (click)="goToQuestion(answer.subheader)">{{answer.subheader}}</p>
+          <h5 *ngIf="answer.subheader == 'MR Levels'"> MRLs</h5>
         </div>
         <div *ngFor ="let response of answer.answers" class="answers">
                 <div *ngIf="isHeader(response)">
@@ -97,8 +106,10 @@
 
       <div class="links">
         <button (click)="handleActionItems()" ion-button color="darkSlateBlue">Action Items</button>
+        <!-- commenting this out b/c not sure if this should exist, haven't had an N/A page available for a bit
+                regardless, this is a mobile thing
         <button (click)="handleNa()" ion-button color="darkSlateBlue">Not Applicable</button>
-        <button (click)="handleSkipped()" ion-button color="darkSlateBlue">Skipped Questions</button>
+        -->
       </div>
 
 

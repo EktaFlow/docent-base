@@ -85,10 +85,11 @@ export class SubthreadPopupComponent {
 	 // stay on the questions page and change the current question variable
   async navToQuestion(questionId) {
 		var update = await this.assessmentService.updateQuestion(this.updateInfo);
-		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
-			assessmentId: 			this.assessmentId,
-			questionId: questionId
-		}));
+		this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
+		// update.subscribe(data => this.navCtrl.push(QuestionsPage, {
+		// 	assessmentId: 			this.assessmentId,
+		// 	questionId: questionId
+		// }));
 
 	}
 

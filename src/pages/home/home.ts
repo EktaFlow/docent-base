@@ -5,7 +5,7 @@
 */
 
 import { Component, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, LoadingController, ToastController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions';
 import { ThreadsListComponent } from "../../components/threads-list/threads-list";
@@ -13,6 +13,7 @@ import { PasswordResetComponent } from '../../components/password-reset/password
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { LoginPage } from '../login/login';
 
 
 import { Apollo } from "apollo-angular";
@@ -32,23 +33,28 @@ query {
 })
 export class HomePage {
 	loading: boolean;
-	allThreads: any;
 	assessments: any;
   schema: any;
 	twentySeventeen: any;
-	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: []};
+	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
 	private mobileRegister: boolean = false;
-	public deskbookVersions: any = ["2017", "2016"];
+	public deskbookVersions: any = ['2018', "2017", "2016"];
+  private threadsShown: boolean = false;
+  private threads: any;
+  private threadsSelectButton: string = 'Unselect All';
+	assessment: any;
 
   constructor(public navCtrl: NavController,
 							public popOver: PopoverController,
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,
-              private http: HttpClient) {}
+              private http: HttpClient,
+							private loadingCtrl: LoadingController,
+							private toastCtrl: ToastController) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -57,33 +63,57 @@ export class HomePage {
 	validateAssessment() {
 		var fields = [
 			"name",
-			"targetMRL",
-      "scope",
-      "location",
-			"targetDate",
+			"targetMRL"
 		];
 
 		return fields.every(field => this.assForm[field])
 	}
 
+	presentLoadingDefault() {
+	  let loading = this.loadingCtrl.create({
+		  spinner: 'crescent',
+		  content: 'Assessment Loading In, Please Wait',
+		  dismissOnPageChange: true
+	  });
+
+
+	  loading.present();
+  }
+
+  invalidInputToast() {
+	  var toast = this.toastCtrl.create({
+	    message: 'Please ensure your assessment has a name and target MR Level',
+	    duration: 4500,
+      showCloseButton: true,
+      position: 'top',
+      cssClass: 'error-toast'
+	  });
+
+    toast.present();
+  }
+
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
-			alert("please fill out all the fields");
+      this.invalidInputToast();
 			return null;
 		}
 
 		await this.getSchema(this.assForm.deskBookVersion);
 
 		var variables = this.formatAssessmentVariables();
-		//  debug what is getting passed into the mutation:
-		// console.log(variables);
+    console.log(variables);
+		this.presentLoadingDefault();
+
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
+              console.log(d);
+
               var assessmentId = d.data.createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
+
             })
             .catch(e => {
               alert('invalid JSON');
@@ -91,22 +121,18 @@ export class HomePage {
 
 	}
 
-	developmentVariables() {
-		// add this if we want to bring back the quick way to start assessments for dev.
-	}
-
 	formatAssessmentVariables() {
 		var formValues = this.assForm;
 		return {
-			threads:          this.threadsSelected,
-			location:         formValues.location,
-			targetMRL:        formValues.targetMRL,
-			name:             formValues.name,
-			levelSwitching:   formValues.levelSwitching,
-			deskBookVersion:  formValues.deskBookVersion,
-			teamMembers:      formValues.teamMembers.map(a => a.email),
-			userId:						this.auth.currentUser()._id,
-			userEmail: 		this.auth.currentUser().email,
+			threads:            formValues.threads,
+			location:           formValues.location,
+			targetMRL:          formValues.targetMRL,
+			name:               formValues.name,
+			levelSwitching:     formValues.levelSwitching,
+			deskbookVersion:    formValues.deskBookVersion,
+			teamMembersUpdates: formValues.teamMembers,
+			userId:						  this.auth.currentUser()._id,
+			userEmail: 		      this.auth.currentUser().email,
 			scope:            formValues.scope,
 			targetDate:       formValues.targetDate,
 			schema: 					JSON.stringify(this.schema)
@@ -117,7 +143,8 @@ export class HomePage {
 		var teamMembers = this.assForm.teamMembers.map(mem => mem.email);
 
 		// move this to constants when we decide it's home.
-		var url = "http://localhost:4002/share";
+		var url = "https://web.mfgdocent.com/auth/share";
+
 	// this makes sense in auth b/c we probably do want some user checking here, right?
 		fetch(url, {
 			method: "POST",
@@ -144,23 +171,53 @@ export class HomePage {
 	  tmp ? tmp.value = "2017" : null;
 
 		if (this.auth.currentUser()) {
+      var cool = await this.assessmentService.getDefaultThreads()
+      cool.subscribe( threads => this.threads = threads );
 		this.apollo.watchQuery<any>({
 			query: threadsQuery
 			})
 			 .valueChanges
 			 .subscribe(({data, loading}) => {
-					this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
-					this.setUpDeskbookArray();
-					
-			 });
 
+					this.setUpDeskbookArray();
+			 });
 
 			 }
 
 	}
 
-        // uses the default included schemas.
-        // Checks a user to see if they have custom schemas.
+  async updateThreads() {
+    var selectedDeskbookName = this.assForm.deskBookVersion;
+    console.log(this.assForm.deskBookVersion);
+    // go from the name of the deskbook to an array of the threads.
+    if ( selectedDeskbookName == '2018' || selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+      var cool = await this.assessmentService.getDefaultThreads()
+      cool.subscribe( threads => this.threads = threads );
+      return null;
+    }
+
+			var user = await this.auth.currentUser();
+			var files = [];
+
+			for (let file of user.jsonFiles){
+				var newFile = JSON.parse(file);
+        if (typeof newFile == 'string' ) {
+          newFile = JSON.parse(newFile);
+        }
+
+				files.push(newFile);
+			}
+
+			var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
+			var selectedDeskbook  = deskbookFile[0].file;
+    
+      var threads = selectedDeskbook.map(t => t.name)
+                      .filter(tname => tname.length > 0);
+      this.threads = threads;
+  }
+
+
+
 	async getSchema(deskbook) {
 		if (deskbook == '2016' || deskbook == '2017'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
@@ -171,7 +228,11 @@ export class HomePage {
 			var files = [];
 
 			for (let file of user.jsonFiles){
+        console.log(file);
 				var newFile = JSON.parse(file);
+        if (typeof newFile == 'string') {
+          newFile = JSON.parse(newFile);
+        }
 				files.push(newFile);
 			}
 
@@ -195,36 +256,41 @@ export class HomePage {
 	}
 
 	showThreads(myEvent) {
-		myEvent.preventDefault();
-
-		let myEmitter = new EventEmitter<any>();
-		myEmitter.subscribe( v =>  this.toggleThread(v.index));
-
-		var popoverClick = this.popOver.create(ThreadsListComponent, {allThreads: this.allThreads, emitter: myEmitter, threadsSelected: this.threadsSelected});
-      popoverClick.present({
-        ev: myEvent
-      });
+    this.threadsShown = !this.threadsShown;
 	}
 
-	toggleThread(thread) {
-		var {threadsSelected} = this;
-		if ( threadsSelected.includes(thread) ) {
-			threadsSelected = threadsSelected.filter(a => a !== thread)
-		}
-		else { threadsSelected.push(thread) }
-
-		threadsSelected.sort((a,b) => a-b);
-	}
-
-  addMember(emailIn:string,roleIn:string){
-    var newMember = {email: emailIn, role: roleIn};
+  addMember(nameIn:string,emailIn:string,roleIn:string){
+    var newMember = {name: nameIn, email: emailIn, role: roleIn};
     this.members.push(newMember);
     this.assForm.teamMembers.push(newMember);
+
+		var name = <any>(document.getElementById("memName"));
+		name.value = "";
+		var email = <any>(document.getElementById("memEmail"));
+		email.value = "";
+		var role = <any>(document.getElementById("memRole"));
+		role.value = "";
+		this.presentToast();
   }
 
-  removeMember(){
-    this.members.pop();
-    this.assForm.teamMembers.pop();
+	presentToast() {
+	  let toast = this.toastCtrl.create({
+	    message: 'Member added to assessment and emailed',
+	    duration: 2500,
+	    position: 'top'
+	  });
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
+
+	  toast.present();
+}
+
+  removeMember(memEmail){
+		this.members = this.members.filter(m => m.email != memEmail);
+		this.assForm.teamMembers = this.assForm.teamMembers.filter(m => m.email != memEmail);
+    // this.members.pop();
+    // this.assForm.teamMembers.pop();
   }
 
   async startAssessment(_id){
@@ -232,15 +298,48 @@ export class HomePage {
     this.navCtrl.push(QuestionsPage);
   }
 
+  newLogin() {
+    this.navCtrl.push(LoginPage);
+  }
+
 	async setUpDeskbookArray() {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
 		for (let file of user.jsonFiles){
+      console.log(file);
 			var newFile = JSON.parse(file);
+      if ( typeof newFile == 'string' ) {
+        newFile = JSON.parse(newFile);
+      }
 			this.deskbookVersions.push(newFile.fileName);
 		}
 	}
 
+  toggleThread(event, threadName) {
+    var threadIndex = this.threads.indexOf(threadName) + 1;
+    if ( this.assForm.threads.includes(threadIndex) ) {
+      var index = this.assForm.threads.indexOf(threadIndex);
+      this.assForm.threads.splice(index, 1);
+    } else {
+      this.assForm.threads.push(threadIndex);
 
+      // using the indices to ID the threads relies on them being sorted.
+      this.assForm.threads = this.assForm.threads.sort((a,b) => a - b );
+    }
+  }
+
+  toggleAllThreads() {
+    this.threadsSelectButton == 'Unselect All' ? this.unselectAll() : this.selectAll()
+  }
+
+  unselectAll() {
+    this.assForm.threads = [];
+    this.threadsSelectButton = 'Select All';
+  }
+
+  selectAll() {
+    this.assForm.threads = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    this.threadsSelectButton = 'Unselect All';
+  }
 
 }

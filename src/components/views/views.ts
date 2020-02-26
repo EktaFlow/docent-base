@@ -6,12 +6,12 @@ import { ReviewPage } from '../../pages/review/review';
 import { DashboardPage } from '../../pages/dashboard/dashboard';
 import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
-import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { SummaryPage } from '../../pages/summary/summary';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { saveAs } from "file-saver/FileSaver";
 import { ImportComponent } from "../import/import";
+import { RiskReportPage } from "../../pages/risk-report/risk-report";
 
 
 
@@ -38,7 +38,6 @@ query assessment($_id: String)
 	questions{
 		questionText
 	  currentAnswer
-    skipped
 		questionId
     threadName
     subThreadName
@@ -113,20 +112,19 @@ export class ViewsComponent {
 		})
 			.valueChanges
 			.subscribe( ({data, loading}) => {
+        console.log('we firin up a save')
+        console.log(event.target);
 				var title = data.assessment.name;
 				title ? null : title = "untitled"
 				var assessment = JSON.stringify(data);
 				saveAs(new Blob([assessment], { type: "text/plain" }), title + ".mra")
+        this.close();
 			})
+
 		}
 
 		handleImport() {
 			this.launchImportPopover();
-		}
-
-		handleSkipped() {
-			this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
-			this.close();
 		}
 		handleNa()	{
 			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
@@ -136,6 +134,7 @@ export class ViewsComponent {
 			this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 			this.close();
 		}
+
 		handleActions(){
 			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
 			this.close();
@@ -145,7 +144,7 @@ export class ViewsComponent {
 			this.close();
 		}
 		handleNavigate(){
-			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 			this.close();
 		}
 		handleDashboard(){
@@ -159,6 +158,10 @@ export class ViewsComponent {
 			this.navCtrl.push(this.homePage);
 			this.close();
 		}
+    handleRiskReport(){
+      this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
+      this.close();
+    }
 
 
 

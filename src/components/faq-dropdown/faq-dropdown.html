@@ -1,4 +1,4 @@
-<div class="faq-question-container">
+<div class="faq-question-container desktop">
   <div (click)="toggleFaq()" class="faq-question-header" >
 		<div *ngIf="!faqOpen" class="arrow-down"></div>
 		<div *ngIf="faqOpen" class="arrow-up"></div>
@@ -19,5 +19,11 @@
       <br><br>
     </ng-container> -->
 
+  </div>
+</div>
+
+<div class="mobile faq-q-container">
+  <div class="header">
+    <h3 class="title">{{faq.help_title}} <ion-icon  *ngIf="!faqOpen" name="arrow-dropdown" class="down-arrow"></ion-icon><ion-icon *ngIf="faqOpen" class="up-arrow" name="arrow-dropup"></ion-icon></h3>
   </div>
 </div>
