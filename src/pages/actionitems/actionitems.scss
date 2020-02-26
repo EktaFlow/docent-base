@@ -1,0 +1,104 @@
+page-actionitems {
+  ion-content{
+    margin-top: 120px;
+  }
+    .toolbar-class{
+        header{
+            color:#000;
+        }
+
+        img{
+            margin-left: 10px;
+            margin-top: 10px
+        }
+        hr {
+            height: 1px !important;
+            width: 98% !important;
+            background:grey!important;
+            display: block !important;
+            font-size: 2em !important;
+            visibility: visible !important;
+            }
+    }
+
+    .row {
+        // justify-content: space-between;
+        margin: 5px 10px;
+    input{
+        width: 40%;
+        display: inline-block;
+
+    }
+
+        button {
+            width: auto;
+            display: inline-block;
+            float: left;
+        }
+    }
+    .subheader{
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        margin-left:13px;
+    }
+
+    .qspacer {
+      font-size: 0;
+      height: 220px;
+      line-height: 0;
+      border: 0px;
+      /* testing only */
+       // border: 1px solid red;
+       width: 100%;
+    }
+
+    @media screen and (max-width: 1024px){
+          ion-content {
+              // margin-top: 10px;
+          }
+
+          .desktop {
+            display: none !important;
+          }
+
+        .table-wrapper {
+            width: 100%;
+            overflow: scroll;
+        }
+      }
+
+      .list-wrapper {
+        width: 100%;
+
+        .action-items-list {
+          .item-wrapper {
+              margin: 5px;
+              border: 1px solid black;
+              padding: 5px;
+
+              .top {
+                h2 {
+                  text-decoration: underline;
+                }
+              }
+
+              .bottom {
+                border-top: .5px solid black;
+                display: block;
+                padding-top: 15px;
+
+                p {
+                  font-size: 20px;
+                }
+              }
+          }
+        }
+      }
+
+  @media screen and (min-width: 420px) and (max-width: 1024px){
+    ion-content{
+      margin-top: 160px;
+    }
+  }
+}

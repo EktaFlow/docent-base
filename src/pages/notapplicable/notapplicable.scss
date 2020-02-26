@@ -1,0 +1,43 @@
+page-notapplicable {
+  ion-content {
+    margin-top: 130px;
+  }
+    .toolbar-class{
+        header{
+            color:#000;
+        }
+        img{
+            margin-left: 10px;
+            margin-top: 10px
+        }
+        hr {
+            height: 1px !important;
+            width: 98% !important;
+            background:grey!important;
+            display: block !important;
+            font-size: 2em !important;
+            visibility: visible !important;
+            }
+    }
+    .subheader{
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        margin-left:13px;
+    }
+    .questions{
+        display: flex;
+    }
+
+    @media screen and (max-width: 420px){
+          ion-content {
+              // margin-top: 40px;
+          }
+      }
+
+      @media screen and (min-width: 420px) and (max-width: 1024px){
+        ion-content {
+          margin-top: 150px;
+        }
+      }
+}

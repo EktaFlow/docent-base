@@ -1,0 +1,27 @@
+<topbar [assessmentId]="assessmentId" [pageName]="pageName"></topbar>
+
+<ion-content padding>
+<!-- <br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/> -->
+
+
+	<ion-grid>
+		<ion-row *ngFor="let definition of definitions">
+			<ion-card>
+				<ion-card-header>
+					<b>{{definition.term}}</b> <!-- not sure why we have to add <b> here... -->
+				</ion-card-header>
+				<ion-card-content [innerHTML]="definition.definition">
+				</ion-card-content>
+			</ion-card>
+		</ion-row>
+	</ion-grid>
+
+	<div class="qspacer"></div>
+
+</ion-content>

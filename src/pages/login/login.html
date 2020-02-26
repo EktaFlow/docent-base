@@ -1,0 +1,27 @@
+<div id="public-page-container">
+        <!-- Public Topbar-->
+        <div id="public-topbar">
+        <div id="left">
+                <img src="assets/imgs/logo-crop.png" />
+        </div>
+        <div id="right">
+        </div>
+        </div>
+        <div id="public-main">
+            <div *ngIf="componentShown == 'doreset'">
+                <do-reset></do-reset>
+            </div>
+            <div *ngIf="componentShown == 'login'" id="login-container">
+                <login (toggleClicked)="onToggle($event)">
+                </login>
+            </div>
+            <div *ngIf="componentShown == 'register'">
+                <register (toggleClicked)="onToggle($event)"></register>
+            </div>
+            <div *ngIf="componentShown == 'reset'">
+                <password-reset (toggleClicked)="onToggle($event)"></password-reset>
+
+            </div>
+        </div>
+
+</div>

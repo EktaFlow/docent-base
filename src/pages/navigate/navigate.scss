@@ -1,0 +1,215 @@
+page-navigate {
+
+    .wrapper {
+        margin-top: 120px;
+    }
+    .toolbar-class{
+        header{
+            color:#000;
+        }
+        img{
+            margin-left: 10px;
+            margin-top: 10px
+        }
+        hr {
+            height: 1px !important;
+            width: 98% !important;
+            background:grey !important;
+            display: block !important;
+            font-size: 2em !important;
+            visibility: visible !important;
+            }
+
+    }
+
+    .status-button {
+        width: 100px;
+        text-transform: uppercase;
+    }
+    .subheader{
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        margin-left:13px;
+        //flex-direction: row-reverse;
+    }
+    .downArrow{
+        height:14;
+        width:14;
+        cursor: pointer;
+    }
+    .question{
+
+    }
+    .mrl{
+        margin-left:40px;
+        margin-top:10px;
+    }
+    .subtitle{
+        margin-left:20px;
+        margin-top:10px;
+    }
+    .navigate-links {
+      color: blue;
+      cursor: pointer;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
+    }
+
+    .filter-toolbar {
+        list-style-type: none;
+        height: 70px;
+        // background-color: blue;
+        // position: absolute;
+        // top: 150px;
+        // left: 0;
+        width: 98%;
+        z-index: 9999;
+        padding-left: 20px;
+        padding-top: 15px;
+        border-bottom: .5px solid lightgray;
+
+        button {
+            display: inline-block;
+            width: 20%;
+        }
+
+        .filter-list {
+            width: 60%;
+            list-style-type: none;
+            display: inline-block;
+            vertical-align: middle;
+             p {
+                display: inline;
+                vertical-align: middle;
+                width: 10%;
+                margin-left: 10px;
+            }
+            select {
+                width: 50%;
+                vertical-align: middle;
+                // margin: 0 5px;
+            }
+
+
+            .filter-buttons {
+                margin: 0 5px;
+                width: 10%;
+                vertical-align: middle;
+            }
+
+         }
+
+        }
+
+        .qspacer {
+          font-size: 0;
+          height: 250px;
+          line-height: 0;
+          border: 0px;
+          /* testing only */
+           // border: 1px solid red;
+           width: 100%;
+        }
+
+        .mobile {
+          display: none;
+        }
+
+        @media screen and (max-width: 1024px){
+          .desktop {
+            display: none;
+          }
+
+          .mobile {
+            display: inherit;
+            margin-top: 10px;
+            width: 100%;
+          }
+
+
+
+          .thread-name {
+              padding: 15px 0px 10px 5px;
+              border-bottom: .5px solid lightgray;
+              border-top: .5px solid lightgray;
+              width: 100%;
+
+          }
+
+          .subthread-name {
+              padding: 20px 0px 10px 5px;
+              // border-bottom: .5px solid lightgray;
+              background-color: #F3F3F3;
+              width: 100%;
+
+          }
+
+          .downArrow{
+              vertical-align: middle;
+              padding-bottom: 3px;
+              width: 12px;
+              height: 12px;
+          }
+
+          .mrl {
+              margin: 0;
+              padding-left: 5px;
+              padding-top: 10px;
+          }
+
+
+
+            .wrapper {
+                margin-top: 120px;
+
+                .filter-toolbar {
+                    padding-top: 0;
+                    margin-top: 0;
+                    padding-bottom: 10px;
+                    padding-left: 10px;
+                    margin-bottom: 0;
+                    height: auto;
+                    // margin-bottom: 80px;
+                    border: none;
+                    button {
+                        width: 30%;
+                        padding: 5px;
+                    }
+                    .filter-list {
+                        width: 65%;
+                        margin-left: 8px;
+
+                        select {
+                            width: 45%;
+                            border: .5px solid lightgray;
+
+                        }
+
+                        .filter-buttons {
+                          width: 45%;
+                          margin: 5px;
+                        }
+                    }
+                }
+
+                .qspacer {
+                    display: inherit;
+                    font-size: 0;
+                    height: 250px;
+                    line-height: 0;
+                    border: 0px;
+                    /* testing only */
+                     // border: 1px solid red;
+                     width: 100%;
+              }
+            }
+        }
+
+        @media screen and (min-width: 420px) and (max-width: 1024px){
+          .wrapper {
+            margin-top: 160px;
+          }
+        }
+}

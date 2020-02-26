@@ -1,0 +1,27 @@
+# customary not to include node_modules directory
+# this will save a huge amount of space
+node_modules
+www
+plugins
+platforms
+.sourcemaps
+
+# caching dirs
+.temp
+.sass-cache
+www
+
+# editor temp files
+*.swp
+*.swo
+
+# log files
+*.log
+
+ # mac silliness
+*.DS_Store
+
+# Docker and Jenkins
+Dockerfile
+Jenkinsfile
+

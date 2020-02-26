@@ -1,0 +1,22 @@
+<div class="upload-popover">
+	<h2>Choose a File to Upload</h2>
+	<form>
+<div style="display: flex; flex-direction: column">
+<ng-container *ngIf="!file">
+<label ion-button color="buttonBlue" for="asdf" class="custom-file-upload">
+    Select File
+</label>
+</ng-container>
+<ng-container *ngIf="file">
+<label ion-button color="buttonBlue" for="asdf" class="custom-file-upload">
+    Select Different File
+</label>
+</ng-container>
+	<input id="asdf" type="file" (change)="test($event)" placeholder="Choose File">
+	<p *ngIf="file">filename:  {{file.name}}</p>
+	<p *ngIf="file">size:  {{file.size}}</p>
+	<p *ngIf="file">last modified:  {{file.lastModified}}</p>
+	<button *ngIf="file" ion-button color="buttonBlue"(click)="uploadFile($event)" type="submit">Upload</button>
+</div>
+	</form>
+</div>
