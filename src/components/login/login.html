@@ -7,30 +7,32 @@
   </div>
 
   <div>
-	  <div id="login-container">
+    <div id="login-container">
       <div>
-			  <h5>Email</h5>
-        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="email" name="emaial" [(ngModel)]="user.email">
+        <h5>Email</h5>
+        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="email" name="emaial"
+          [(ngModel)]="user.email">
       </div>
 
-      <div> 
+      <div>
         <div style="display: flex; justify-content: space-between; align-items: flex-end">
-          <h5>Password</h5> 
+          <h5>Password</h5>
         </div>
-		  	<input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd" [(ngModel)]="user.passwd">
-		  </div>
+        <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd"
+          [(ngModel)]="user.passwd">
+      </div>
 
       <div id="button-container">
-		    <button ion-button color="buttonBlue" (click)="submitLogin()">Login</button>
+        <button ion-button color="buttonBlue" (click)="submitLogin()">Login</button>
       </div>
       <div id="notes-container">
         <p>
-          If you have issues registering or logging into the Docent tool, please contact 
+          If you have issues registering or logging into the Docent tool, please contact
 
-        <a href="mailto:support@mfgdocent.com?Subject=Support%20Request" target="_top">support@mfgdocent.com.</a>
+          <a href="mailto:support@mfgdocent.com?Subject=Support%20Request" target="_top">support@mfgdocent.com.</a>
         </p>
       </div>
-      
+
       <div>
 
       </div>
