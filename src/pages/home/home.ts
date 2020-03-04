@@ -15,10 +15,8 @@ import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 import { LoginPage } from '../login/login';
 
-
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-
 
 var threadsQuery = gql`
 query {
@@ -219,7 +217,7 @@ export class HomePage {
 
 
 	async getSchema(deskbook) {
-		if (deskbook == '2016' || deskbook == '2017'){
+		if (deskbook == '2016' || deskbook == '2017' || deskbook == '2018'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
 			var schema = await this.http.get(deskbookPath).toPromise();
                         this.schema = schema;
