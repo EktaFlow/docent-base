@@ -3862,13 +3862,13 @@
                 "questionText": "Have additional tooling, test and inspection equipment requirements been identified for Low Rate Initial Production (LRIP)?",
                 "order": "2"
               },
-{
-"questionId": "424",
-"questionText": "Have maintenance process and procedures for manufacturing equipment (including tooling, Special Test Equipment, and/or Special Inspection Equipment) been demonstrated on pilot line?",
-"order": "3"
-},
-              {
+                {
                 "questionId": "425",
+                "questionText": "Have maintenance process and procedures for manufacturing equipment (including tooling, Special Test Equipment, and/or Special Inspection Equipment) been demonstrated on pilot line?",
+                "order": "3"
+                },
+              {
+                "questionId": "426",
                 "questionText": "Have all Special Test Equipment (STE) / Special Inspection equipment (SIE) been validated as part of pilot line validation In Accordance With (IAW) validation plan?",
                 "order": "4"
               }
@@ -3881,37 +3881,37 @@
             "criteriaText": "All tooling, test and inspection equipment proven in LRIP and additional requirements identified for FRP.  Mfg equipment maintenance schedule demonstrated.",
             "questions": [
               {
-                "questionId": "426",
+                "questionId": "427",
                 "questionText": "Has all tooling, test, and inspection equipment (i.e., STE/SIE) been proven in the Low Rate Initial Production (LRIP)?",
                 "order": "1"
               },
               {
-                "questionId": "427",
+                "questionId": "428",
                 "questionText": "Have additional tooling, test, and inspection equipment (i.e., STE/SIE) requirements been identified for Full Rate Production (FRP)?",
                 "order": "2"
               },
               {
-                "questionId": "428",
+                "questionId": "429",
                 "questionText": "Have maintenance process and procedures for manufacturing equipment (including tooling, Special Test Equipment, and/or Special Inspection Equipment) been demonstrated during Low Rate Initial Production (LRIP)?",
                 "order": "3"
               },
 {
-"questionId": "429",
+"questionId": "430",
 "questionText": "Has validation of Special Test Equipment, and/or Special Inspection Equipment (STE/SIE) been maintained during Low Rate Initial Production (LRIP)?",
 "order": "4"
 },
 {
-"questionId": "430",
+"questionId": "431",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) revalidation been completed as necessary?",
 "order": "5"
 },
             {
-"questionId": "431",
+"questionId": "432",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) validation been maintained as necessary? ",
 "order": "6"
 },
             {
-"questionId": "432",
+"questionId": "433",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) revalidation been completed as necessary?",
 "order": "7"
 }
@@ -3924,32 +3924,32 @@
             "criteriaText": "Proven tooling, test and inspection equipment in place to support maximum FRP.  Planned equipment maintenance schedule achieved.",
             "questions": [
               {
-                "questionId": "433",
+                "questionId": "434",
                 "questionText": "Is all tooling, test, and inspection equipment (i.e., STE/SIE) for Full Rate Production (FRP) in place? ",
                 "order": "1"
               },
               {
-                "questionId": "434",
+                "questionId": "435",
                 "questionText": "Has a planned equipment maintenance schedule been achieved?",
                 "order": "2"
               },
 {
-"questionId": "435",
+"questionId": "436",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) validation been maintained as necessary?",
 "order": "3"
 },
 {
-"questionId": "436",
+"questionId": "437",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) revalidation been completed as necessary?",
 "order": "4"
 },
             {
-"questionId": "437",
+"questionId": "438",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) validation been maintained as necessary? ",
 "order": "5"
 },
             {
-"questionId": "438",
+"questionId": "439",
 "questionText": "Has Special Test Equipment (STE) / Special Inspection equipment (SIE) revalidation been completed as necessary?",
 "order": "6"
 }
@@ -3982,7 +3982,7 @@
             "criteriaText": "Specialized facility requirements/needs identified.",
             "questions": [
               {
-                "questionId": "439",
+                "questionId": "440",
                 "questionText": "Have specialized facility requirements/needs been identified? ",
                 "order": "1"
               }
@@ -3995,12 +3995,12 @@
             "criteriaText": "Availability of manufacturing facilities for prototype development and production evaluated as part of AoA.",
             "questions": [
               {
-                "questionId": "440",
+                "questionId": "441",
                 "questionText": "As part of the Analysis of Alternatives, have the requirements for availability of manufacturing facilities for prototype development and production been evaluated?",
                 "order": "1"
             },
               {
-                "questionId": "441",
+                "questionId": "442",
                 "questionText": "Has human factors & ergonomics and safety requirements for manufacturing (personnel, processes & equipment) been identified?",
                 "order": "2"
               }
@@ -4013,17 +4013,17 @@
             "criteriaText": "Manufacturing facilities identified and plans developed to produce prototypes.",
             "questions": [
               {
-                "questionId": "442",
+                "questionId": "443",
                 "questionText": "Have manufacturing facilities that meet requirements to produce prototypes been identified?",
                 "order": "1"
               },
               {
-                "questionId": "443",
+                "questionId": "444",
                 "questionText": "Have plans to produce prototypes in identified facilities been developed?",
                 "order": "2"
             },
               {
-                "questionId": "444",
+                "questionId": "445",
                 "questionText": "Have requirements for human factors and ergonomics for manufacturing personnel, processes, and equipment in identified facilities been assessed?",
                 "order": "3"
               }
@@ -4036,17 +4036,17 @@
             "criteriaText": "Manufacturing facilities identified and plans developed to produce pilot line build.",
             "questions": [
               {
-                "questionId": "445",
+                "questionId": "446",
                 "questionText": "Have manufacturing facilities that meet requirements for pilot line been identified?",
                 "order": "1"
               },
               {
-                "questionId": "446",
+                "questionId": "447",
                 "questionText": "Have plans for building pilot line in identified facilities been developed?",
                 "order": "2"
             },
               {
-                "questionId": "447",
+                "questionId": "448",
                 "questionText": "Have requirements for human factors and ergonomics for manufacturing personnel, processes, and equipment been verified in a production relevant environment?",
                 "order": "3"
               }
@@ -4059,22 +4059,22 @@
             "criteriaText": "Manufacturing facilities identified and plans developed to produce LRIP build.",
             "questions": [
               {
-                "questionId": "448",
+                "questionId": "449",
                 "questionText": "Have manufacturing facilities been identified to produce the Low Rate Initial Production (LRIP) build?",
                 "order": "1"
               },
               {
-                "questionId": "449",
+                "questionId": "450",
                 "questionText": "Have plans for the identified manufacturing facilities been developed to produce the Low Rate Initial Production (LRIP) build?",
                 "order": "2"
             },
               {
-                "questionId": "450",
+                "questionId": "451",
                 "questionText": "Have requirements for human factors and ergonomics for manufacturing personnel, processes, and equipment been validated in a production representative environment?",
                 "order": "3"
             },
               {
-                "questionId": "451",
+                "questionId": "452",
                 "questionText": "Have safety requirements for manufacturing personnel, processes, and equipment been validated in a production representative environment?",
                 "order": "4"
               }
@@ -4087,32 +4087,32 @@
             "criteriaText": "Pilot line facilities demonstrated. Mfg facilities adequate to begin LRIP.  Plans in place to support transition to FRP.   Workplace safety is adequate.",
             "questions": [
               {
-                "questionId": "452",
+                "questionId": "453",
                 "questionText": "Have pilot line facilities been successfully demonstrated?",
                 "order": "1"
               },
               {
-                "questionId": "453",
+                "questionId": "454",
                 "questionText": "Are manufacturing facilities adequate and ready to begin Low Rate Initial Production (LRIP)?",
                 "order": "2"
               },
               {
-                "questionId": "454",
+                "questionId": "455",
                 "questionText": "Are plans in place to support manufacturing facilities transition to Full Rate Production (FRP)?",
                 "order": "3"
               },
               {
-                "questionId": "455",
+                "questionId": "456",
                 "questionText": "Is workplace safety meeting requirements (i.e., adequate)?",
                 "order": "4"
             },
               {
-                "questionId": "456",
+                "questionId": "457",
                 "questionText": "Have human factors and ergonomics for manufacturing personnel, processes, and equipment been demonstrated on a pilot line?",
                 "order": "5"
             },
               {
-                "questionId": "457",
+                "questionId": "458",
                 "questionText": "Have safety requirements for manufacturing personnel, processes, and equipment been demonstrated on a pilot line?",
                 "order": "6"
               }
@@ -4125,22 +4125,22 @@
             "criteriaText": "Mfg facilities in place and demonstrated in LRIP.   Capacity plans adequate to support FRP.",
             "questions": [
               {
-                "questionId": "458",
+                "questionId": "459",
                 "questionText": "Have manufacturing facilities been successfully demonstrated in Low Rate Initial Production (LRIP)? ",
                 "order": "1"
               },
               {
-                "questionId": "459",
+                "questionId": "460",
                 "questionText": "Are manufacturing facility capacity plans adequate to meet the requirements for Full Rate Production (FRP)? ",
                 "order": "2"
             },
               {
-                "questionId": "460",
+                "questionId": "461",
                 "questionText": "Have human factors and ergonomics for manufacturing personnel, processes, and equipment been demonstrated during LRIP?",
                 "order": "3"
             },
               {
-                "questionId": "461",
+                "questionId": "462",
                 "questionText": "Have safety requirements for manufacturing personnel, processes, and equipment been demonstrated during LRIP?",
                 "order": "4"
               }
@@ -4153,22 +4153,22 @@
             "criteriaText": "Production facilities in place and capacity demonstrated to meet maximum FRP requirements.",
             "questions": [
               {
-                "questionId": "462",
+                "questionId": "463",
                 "questionText": "Are the production facilities in place to meet Full Rate Production (FRP) requirements?",
                 "order": "1"
               },
               {
-                "questionId": "463",
+                "questionId": "464",
                 "questionText": "Has the capacity of the production facilities been demonstrated to meet maximum Full Rate Production (FRP) requirements?",
                 "order": "2"
             },
               {
-                "questionId": "464",
+                "questionId": "465",
                 "questionText": "Have human factors and ergonomics for manufacturing personnel, processes, and equipment been demonstrated during FRP?",
                 "order": "3"
             },
               {
-                "questionId": "465",
+                "questionId": "466",
                 "questionText": "Have safety requirements for manufacturing personnel, processes, and equipment been demonstrated during FRP?",
                 "order": "4"
               }
@@ -4216,12 +4216,12 @@
             "criteriaText": "Mfg. strategy developed and integrated with acquisition strategy. Prototype schedule risk mitigation efforts incorporated into Acquisition Strategy (AS).",
             "questions": [
               {
-                "questionId": "466",
+                "questionId": "467",
                 "questionText": "Has the manufacturing strategy been developed and integrated with into the Acquisition Strategy (AS)?",
                 "order": "1"
               },
               {
-                "questionId": "467",
+                "questionId": "468",
                 "questionText": "Have prototype schedule risk mitigation efforts been incorporated into the Acquisition Strategy (AS)?",
                 "order": "2"
               }
@@ -4234,12 +4234,12 @@
             "criteriaText": "Mfg. strategy refined based upon preferred concept.  Prototype schedule risk mitigation efforts initiated.",
             "questions": [
               {
-                "questionId": "468",
+                "questionId": "469",
                 "questionText": "Based upon the preferred concept, has the manufacturing strategy been refined?",
                 "order": "1"
               },
               {
-                "questionId": "469",
+                "questionId": "470",
                 "questionText": "Have mitigation efforts concerning schedule risk of prototypes (i.e., testing and delivery schedules) been initiated?",
                 "order": "2"
               }
@@ -4252,17 +4252,17 @@
             "criteriaText": "Initial mfg. approach developed.  All system design related mfg events included in Integrated Master Plan/Schedule (IMP/S).  Mfg. risk mitigation approach for pilot line or technology insertion programs defined.",
             "questions": [
               {
-                "questionId": "470",
+                "questionId": "471",
                 "questionText": "Has the initial manufacturing approach for the next phase (EMD) been developed?",
                 "order": "1"
               },
               {
-                "questionId": "471",
+                "questionId": "472",
                 "questionText": "Are all system design related manufacturing events included in the Integrated Master Plan/Schedule (IMP/IMS)?",
                 "order": "2"
               },
               {
-                "questionId": "472",
+                "questionId": "473",
                 "questionText": "For either the pilot line and/or technology insertion, has a mitigation approach for manufacturing risks and issues been defined?",
                 "order": "3"
               }
@@ -4275,27 +4275,27 @@
             "criteriaText": "Initial mfg. plan developed. Mfg planning included in IMP/S. Mfg risks integrated into risk mitigation plans.   Initial work instructions developed.  Effective production control system in place to support pilot line.",
             "questions": [
               {
-                "questionId": "473",
+                "questionId": "474",
                 "questionText": "Has the initial manufacturing plan been developed?",
                 "order": "1"
               },
               {
-                "questionId": "474",
+                "questionId": "475",
                 "questionText": "Have manufacturing events from the initial Manufacturing Plan been included in the Integrated Master Plan and/or the Integrated Master Schedule?",
                 "order": "2"
               },
               {
-                "questionId": "475",
+                "questionId": "476",
                 "questionText": "Have manufacturing risks and issues been integrated into program mitigation plans?",
                 "order": "3"
               },
               {
-                "questionId": "476",
+                "questionId": "477",
                 "questionText": "Have initial work instructions been developed? ",
                 "order": "4"
               },
               {
-                "questionId": "477",
+                "questionId": "478",
                 "questionText": "Is an effective production control system in place to support the pilot line? ",
                 "order": "5"
               }
@@ -4308,27 +4308,27 @@
             "criteriaText": "Mfg. plan updated for LRIP.  All key manufacturing risks are identified and assessed with approved mitigation plans in place. Work instructions finalized. Effective production control system in place to support LRIP.",
             "questions": [
               {
-                "questionId": "478",
+                "questionId": "479",
                 "questionText": "Has the manufacturing plan been updated for Low Rate Initial Production (LRIP)?",
                 "order": "1"
               },
               {
-                "questionId": "479",
+                "questionId": "480",
                 "questionText": "Have all manufacturing risks and issues been identified and assessed?",
                 "order": "2"
               },
               {
-                "questionId": "480",
+                "questionId": "481",
                 "questionText": "Do all identified manufacturing risks and issues have approved mitigation plans in place?",
                 "order": "3"
               },
               {
-                "questionId": "481",
+                "questionId": "482",
                 "questionText": "Have work instructions been finalized?",
                 "order": "4"
             },
               {
-                "questionId": "482",
+                "questionId": "483",
                 "questionText": "Is an effective production control system in place to support Low Rate Initial Production (LRIP)?",
                 "order": "5"
               }
@@ -4341,17 +4341,17 @@
             "criteriaText": "Mfg. plan updated for FRP.  All manufacturing risks tracked and mitigated.  Effective production control system in place to support FRP.",
             "questions": [
               {
-                "questionId": "483",
+                "questionId": "484",
                 "questionText": "Has the manufacturing plan been updated for Full Rate Production (FRP)?",
                 "order": "1"
               },
               {
-                "questionId": "484",
+                "questionId": "485",
                 "questionText": "Are all manufacturing risks and issues being managed?",
                 "order": "2"
               },
               {
-                "questionId": "485",
+                "questionId": "486",
                 "questionText": "Is an effective production control system in place to support Full Rate Production (FRP)?",
                 "order": "3"
               }
@@ -4364,7 +4364,7 @@
             "criteriaText": "All manufacturing risks mitigated.",
             "questions": [
               {
-                "questionId": "486",
+                "questionId": "487",
                 "questionText": "Are all manufacturing risks and issues being managed?",
                 "order": "1"
               }
@@ -4404,7 +4404,7 @@
             "criteriaText": "Technology development article component list developed with associated lead time estimates.",
             "questions": [
               {
-                "questionId": "487",
+                "questionId": "488",
                 "questionText": "Has the technology development article component list, with associated lead time estimates, been developed?",
                 "order": "1"
               }
@@ -4417,17 +4417,17 @@
             "criteriaText": "Technology development part list maturing, Make/buy evaluations begin, and include production considerations reflecting Pilot line, LRIP, and FRP needs. Lead times and other risks identified.",
             "questions": [
               {
-                "questionId": "488",
+                "questionId": "489",
                 "questionText": "Have make or buy evaluations been initiated?",
                 "order": "1"
               },
               {
-                "questionId": "489",
+                "questionId": "490",
                 "questionText": "Do the make or buy evaluations include requirements and considerations for pilot line, initial production (LRIP), and rate production (FRP)? ",
                 "order": "2"
               },
               {
-                "questionId": "490",
+                "questionId": "491",
                 "questionText": "Have lead times and other materials risks and issues been identified?",
                 "order": "3"
               }
@@ -4440,22 +4440,22 @@
             "criteriaText": "Most material decisions complete (make/buy), material risks identified and mitigation plans developed.  Bill of Materials (BOM) initiated.",
             "questions": [
               {
-                "questionId": "491",
+                "questionId": "492",
                 "questionText": "Have most make or buy trade studies been completed?",
                 "order": "1"
               },
               {
-                "questionId": "492",
+                "questionId": "493",
                 "questionText": "Have materials risks and issues been assessed (identified)? ",
                 "order": "2"
               },
               {
-                "questionId": "493",
+                "questionId": "494",
                 "questionText": "Have mitigation plans for the identified materials risks and issues been developed?",
                 "order": "3"
               },
               {
-                "questionId": "494",
+                "questionId": "495",
                 "questionText": "Has the Bill of Materials (BOM) been initiated?",
                 "order": "4"
               }
@@ -4468,17 +4468,17 @@
             "criteriaText": "Make/Buy decisions and BOM complete for pilot line build.  Material planning systems in place for pilot line build.",
             "questions": [
               {
-                "questionId": "495",
+                "questionId": "496",
                 "questionText": "Have all the make or buy decisions been completed for pilot line build?",
                 "order": "1"
               },
               {
-                "questionId": "496",
+                "questionId": "497",
                 "questionText": "Is the Bill of Materials completed for pilot line build?",
                 "order": "2"
             },
               {
-                "questionId": "497",
+                "questionId": "498",
                 "questionText": "Are material planning systems in place for the pilot line build?",
                 "order": "3"
               }
@@ -4491,17 +4491,17 @@
             "criteriaText": "Make/Buy decisions and BOM complete to support LRIP.  Material planning systems proven on pilot line for LRIP build.",
             "questions": [
               {
-                "questionId": "498",
+                "questionId": "499",
                 "questionText": "Based on the pilot line, are there any changes to the make or buy decisions for initial production (LRIP)?  ",
                 "order": "1"
               },
               {
-                "questionId": "499",
+                "questionId": "500",
                 "questionText": "Based on pilot line, are there any changes to the Bill of Materials for initial production (LRIP)?",
                 "order": "2"
             },
               {
-                "questionId": "500",
+                "questionId": "501",
                 "questionText": "Have material planning systems (i.e., MRP II, ERP, etc.) been proven on the pilot line and are ready for Low Rate Initial Production (LRIP) build?",
                 "order": "3"
               }
@@ -4514,22 +4514,22 @@
             "criteriaText": "Make/Buy decisions and BOM complete to support FRP.  Material planning systems proven in LRIP and sufficient for  FRP.",
             "questions": [
               {
-                "questionId": "501",
+                "questionId": "502",
                 "questionText": "Based on initial production, are there any changes to the make or buy decisions for Full Rate Production (FRP)?",
                 "order": "1"
               },
               {
-                "questionId": "502",
+                "questionId": "503",
                 "questionText": "Based on initial production, are there any changes to the Bill of Materials for Full Rate Production (FRP)?",
                 "order": "2"
             },
               {
-                "questionId": "503",
+                "questionId": "504",
                 "questionText": "Have material planning systems (i.e., MRP II, ERP, etc.) been proven in LRIP?",
                 "order": "3"
             },
               {
-                "questionId": "504",
+                "questionId": "505",
                 "questionText": "Is the material planning systems (i.e., MRP II, ERP, etc.) sufficient for Full Rate Production (FRP)?",
                 "order": "4"
               }
@@ -4542,7 +4542,7 @@
             "criteriaText": "Material planning systems validated on FRP build.",
             "questions": [
               {
-                "questionId": "505",
+                "questionId": "506",
                 "questionText": "Have the material planning systems (i.e., MRP II, ERP, etc.) been validated by FRP?",
                 "order": "1"
               }
