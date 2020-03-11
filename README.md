@@ -1,5 +1,5 @@
-#Docent Base
->
+# Docent Base
+
 > The front end application built with ionic.
 
 ----
@@ -21,7 +21,7 @@
 4. Install Android studio + jdk8
 
 ### For local testing purposes
->
+
 > Configure src/services/constants.js: 
 
 > 1. export const DocentStorageAccount = "example-storage-account" 
@@ -34,12 +34,20 @@
 
 ----
 
+## Preparation
+> 1. Restore any modifications to config.xml
+
 ## Usage 
-### Build for android/ios
-> ionic build
+### Build for android
+
+> Read: https://ionicframework.com/docs/v3/intro/deploying/
 
 ### Build for Desktop Electron
-> TODO
+> 1. Navigate to  docent-base project folder.
+> 2. Run ionic build which will generate new static files in docent-base/www
+> 3. Download: https://docentpublic.blob.core.windows.net/desktop-docent/docent201.zip
+> 5. Unzip into location of choice.
+> 6. copy & overwrite content of docent-base/www into unzipped electron app docent/resources/app/www
 
 ### Run
 > ionic serve
