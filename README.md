@@ -32,6 +32,10 @@
 
 > Modify config.xml: widget id="com.ionic.docent"
 
+### E2E Testing
+
+> run: npm run cypress
+
 ----
 
 ## Preparation
