@@ -25,3 +25,4 @@ www
 Dockerfile
 Jenkinsfile
 
+cypress.env.json
