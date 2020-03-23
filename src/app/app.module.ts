@@ -82,7 +82,7 @@ import { Helpers } from '../services/helpers';
     EditAssessmentPageModule,
     //ResetPageModule,
 		RiskReportPageModule,
-		ComponentsModule
+		ComponentsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

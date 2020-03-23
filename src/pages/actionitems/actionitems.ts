@@ -51,18 +51,60 @@ query assessment($_id: String) {
 }
 `
 
-
-
-
 @IonicPage()
 @Component({
   selector: 'page-actionitems',
   templateUrl: 'actionitems.html',
 })
 
-
 export class ActionitemsPage {
-        public data:any;
+  public data:any;
+	public rows:Array<any> = [];
+  public columns:Array<any> = [
+    {title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
+    {title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
+    {title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
+    {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
+    {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
+    {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
+    {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
+    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
+  ];
+
+  public page:number = 1;
+  public itemsPerPage:number = 10;
+  public maxSize:number = 5;
+  public numPages:number = 1;
+  public length:number = 0;
+	no: any;
+	assessmentId: any;
+	private attachments: any;
+	pageName: any = "Action Items";
+	assessmentIdFromParams: any;
+
+
+  public config:any = {
+    paging: true,
+    sorting: {columns: this.columns},
+    filtering: {filterString: ''},
+    className: ['table-striped', 'table-bordered']
+  };
+
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
+							 public popOver: PopoverController,
+               private assessmentService: AssessmentService) {
+								 	this.assessmentIdFromParams = navParams.data.assessmentId;
+									console.log(this.assessmentIdFromParams);
+                }
+
+	unique = (item, index, array) => array.indexOf(item) == index
+
+	ionViewWillEnter() {
+            GoogleAnalytics.trackPage("actionitems");
+        }
+
 
 	async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -73,37 +115,33 @@ export class ActionitemsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-                                        console.log(data);
+          console.log(data);
 					this.no = (<any>data.data).assessment.questions.filter( a => {
                                                 if (a.answers.length > 0 ) {
                                                         return a.answers[a.answers.length - 1].answer == "No"
                                                 }
-
                                         });
 					this.attachments = (<any>data.data).assessment.files;
+          var newData:Array<any> = [];
+          this.no.forEach( (element) => {
+              var newObj:any = {};
+              newObj.threadName = "" + element.threadName;
+              newObj.subThreadName = "" + element.subThreadName;
+              newObj.questionText = "" + element.questionText;
+              // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
+              newObj.what = "" + element.answers[element.answers.length - 1].what;
+              newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
+              newObj.who = "" + element.answers[element.answers.length - 1].who;
 
-                                        var newData:Array<any> = [];
-
-                                        this.no.forEach( (element) => {
-                                            var newObj:any = {};
-                                            newObj.threadName = "" + element.threadName;
-                                            newObj.subThreadName = "" + element.subThreadName;
-                                            newObj.questionText = "" + element.questionText;
-                                            // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
-                                            newObj.what = "" + element.answers[element.answers.length - 1].what;
-                                            newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
-                                            newObj.who = "" + element.answers[element.answers.length - 1].who;
-
-                                            var cur = element.answers[element.answers.length - 1];
-console.log(element);
-                                            newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
-                                            newData.push(newObj);
-                                        });
-
-                                        this.data = newData;
-                                        console.log(this.data);
-                                        this.length = this.data.length;
-                                        this.onChangeTable(this.config);
+              var cur = element.answers[element.answers.length - 1];
+              newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
+              newData.push(newObj);
+        	});
+					console.log(newData)
+          this.data = newData;
+          this.length = this.data.length;
+					console.log(this.config);
+          this.onChangeTable(this.config);
 			});
 	}
 
@@ -119,37 +157,6 @@ console.log(element);
       return '';
     }
   }
-
-
-  public rows:Array<any> = [];
-  public columns:Array<any> = [
-    {title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
-    {title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
-    {title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
-    // {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
-    {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
-    {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
-    {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
-    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
-  ];
-
-
-
-
-  public page:number = 1;
-  public itemsPerPage:number = 10;
-  public maxSize:number = 5;
-  public numPages:number = 1;
-  public length:number = 0;
-
-  public config:any = {
-    paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
-  };
-
-
 
   public saveXLS() {
         var headers = this.columns.map(c => c.title);
@@ -173,6 +180,24 @@ console.log(element);
 
         /* save to file */
         XLSX.writeFile(wb, 'action_items.xlsx');
+  }
+
+	public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
+    if (config.filtering) {
+      Object.assign(this.config.filtering, config.filtering);
+    }
+
+    if (config.sorting) {
+      Object.assign(this.config.sorting, config.sorting);
+    }
+
+    let filteredData = this.changeFilter(this.data, this.config);
+		console.log(filteredData);
+    let sortedData = this.changeSort(filteredData, this.config);
+		console.log(sortedData);
+    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
+		console.log(this.rows);
+    this.length = sortedData.length;
   }
 
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
@@ -213,14 +238,21 @@ console.log(element);
   }
 
   public changeFilter(data:any, config:any):any {
+		console.log(data);
     let filteredData:Array<any> = data;
+		console.log(filteredData);
     this.columns.forEach((column:any) => {
+			console.log(column);
       if (column.filtering) {
         filteredData = filteredData.filter((item:any) => {
-          return item[column.name].match(column.filtering.filterString);
+					if (item[column.name] !== undefined){
+						return item[column.name].match(column.filtering.filterString);
+					}
         });
       }
     });
+
+		console.log(filteredData);
 
     if (!config.filtering) {
       return filteredData;
@@ -248,51 +280,11 @@ console.log(element);
     return filteredData;
   }
 
-  public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
-    if (config.filtering) {
-      Object.assign(this.config.filtering, config.filtering);
-    }
 
-    if (config.sorting) {
-      Object.assign(this.config.sorting, config.sorting);
-    }
-
-    let filteredData = this.changeFilter(this.data, this.config);
-    let sortedData = this.changeSort(filteredData, this.config);
-    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
-    this.length = sortedData.length;
-  }
 
   public onCellClick(data: any): any {
     console.log(data);
   }
-
-
-
-
-
-	no: any;
-	assessmentId: any;
-	private attachments: any;
-	pageName: any = "Action Items";
-	assessmentIdFromParams: any;
-
-
-	constructor( private apollo: Apollo,
-							 public navCtrl: NavController,
-							 public navParams: NavParams,
-							 public popOver: PopoverController,
-               private assessmentService: AssessmentService) {
-								 	this.assessmentIdFromParams = navParams.data.assessmentId;
-									console.log(this.assessmentIdFromParams);
-                }
-
-	unique = (item, index, array) => array.indexOf(item) == index
-
-	ionViewWillEnter() {
-            GoogleAnalytics.trackPage("actionitems");
-        }
-
 
 	displayRisks(q) {
 				var risks = [];
