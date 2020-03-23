@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { NgModule, Component, OnInit } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 import { TopbarComponent } from '../../app/topbar/topbar.component';
 import { AssessmentService } from '../../app/assessment.service';
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
@@ -51,6 +51,7 @@ query assessment($_id: String) {
 
 
 
+@NgModule()
 @Component({
   selector: 'app-action-items',
   templateUrl: './action-items.page.html',
@@ -276,7 +277,6 @@ assessmentIdFromParams: any;
 
 constructor( private apollo: Apollo,
 						 public navCtrl: NavController,
-						 public navParams: NavParams,
 						 public popOver: PopoverController,
 						 private assessmentService: AssessmentService,
 					 	 public router: Router,

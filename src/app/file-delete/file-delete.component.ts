@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavParams, PopoverController, ToastController } from '@ionic/angular';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { PopoverController, ToastController } from '@ionic/angular';
 import { AssessmentService } from '../assessment.service';
 
 
+@NgModule()
 @Component({
   selector: 'file-delete',
   templateUrl: './file-delete.component.html',
@@ -18,16 +19,17 @@ export class FileDeleteComponent implements OnInit {
   typeToDelete: string;
 
   constructor(
-    private navParams: NavParams,
     private popOver: PopoverController,
     private assessmentService: AssessmentService,
     private toastController: ToastController
   ) {
+		/*
     this.assessmentId = this.navParams.get('assessmentId');
     this.fileId       = this.navParams.get('fileId');
     this.emitter      = this.navParams.get('emitter');
     this.typeToDelete = this.navParams.get('typeToDelete');
     this.teamMemberEmail = this.navParams.get('teamMemberEmail');
+		 */
    }
 
    ngOnInit(){}

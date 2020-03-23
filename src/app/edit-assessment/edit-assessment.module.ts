@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserDashboardPage } from '../../app/user-dashboard/user-dashboard.page';
 import { AuthService } from "../../app/auth.service";
 import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
+import { Helpers } from '../helpers/helpers';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -27,6 +28,7 @@ const routes: Routes = [
     FileDeleteComponent,
     RouterModule.forChild(routes)
   ],
-  declarations: [EditAssessmentPage]
+	declarations: [EditAssessmentPage],
+	providers: [Helpers]
 })
 export class EditAssessmentPageModule {}

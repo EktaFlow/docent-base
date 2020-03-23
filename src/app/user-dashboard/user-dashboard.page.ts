@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 
 import { AuthService } from "../../app/auth.service";
 import { AssessmentService } from "../../app/assessment.service";
-import { TopbarComponent } from "../../app/topbar/topbar.component";
+//import { TopbarComponent } from "../../app/topbar/topbar.component";
 import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
 import { SettingsPage } from "../../app/settings/settings.page";
 import { QuestionsPage } from "../../app/questions/questions.page";
@@ -107,6 +107,7 @@ query assessment($_id: String)
 }
 }
 `
+@NgModule()
 @Component({
   selector: 'user-dashboard',
   templateUrl: './user-dashboard.page.html',
@@ -136,14 +137,12 @@ export class UserDashboardPage implements OnInit {
 	assessmentsBox: any;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,
 							public popOver: PopoverController,
               public router: Router,
               private activatedRoute: ActivatedRoute) {
-							// this.assessmentId = navParams.data.assessmentId;
               this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
               }
 

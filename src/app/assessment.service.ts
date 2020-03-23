@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { AuthService } from "./auth.service";
 import { Storage } from '@ionic/storage';
@@ -17,6 +17,7 @@ import 'rxjs/add/operator/catch';
 import { Observable, of } from 'rxjs';
 
 
+@NgModule()
 @Injectable()
 export class AssessmentService {
 

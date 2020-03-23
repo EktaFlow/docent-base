@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'navigate', loadChildren: './navigate/navigate.module#NavigatePageModule' },
   { path: 'new-assessment', loadChildren: './new-assessment/new-assessment.module#NewAssessmentPageModule' },
-  { path: 'questions', loadChildren: './questions/questions.module#QuestionsPageModule' },
+	{ path: 'questions', loadChildren: () => import('./questions/questions.module').then( m => m.QuestionsPageModule) },
   { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'review', loadChildren: './review/review.module#ReviewPageModule' },
   { path: 'risk-report', loadChildren: './risk-report/risk-report.module#RiskReportPageModule' },

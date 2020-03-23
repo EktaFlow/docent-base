@@ -1,5 +1,5 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 import { TopbarComponent } from "../../app/topbar/topbar.component";
 import {JsonUploadPopoverComponent} from "../../app/json-upload-popover/json-upload-popover.component";
 //import {saveAs} from 'file-saver/FileSaver';
@@ -10,6 +10,7 @@ import { Router} from "@angular/router";
 
 
 
+@NgModule()
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -18,12 +19,9 @@ import { Router} from "@angular/router";
 export class SettingsPage implements OnInit {
 
   constructor(public navCtrl: NavController,
-                    public navParams: NavParams,
                     private http: HttpClient,
                   public popover: PopoverController,
                 public router: Router ) {
-                      this.user = navParams.data.user;
-                      console.log(navParams.data.user);
 
   }
 
@@ -39,11 +37,6 @@ export class SettingsPage implements OnInit {
   ngOnInit(){
 
   }
-
-  // goBackToUser(){
-  //   this.router.navigate(["/user", {assessmentId: this.assessmentId}]);
-  //
-  // };
 
   async saveDownJSON(){
   		this.http.get('assets/json/pretty_2017.json')

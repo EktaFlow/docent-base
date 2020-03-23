@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { PopoverController, NavController, IonicModule } from "@ionic/angular";
 import { ViewsComponent } from "../../app/views/views.component";
 import { HomePage } from "../../app/home/home.page";
@@ -31,6 +31,7 @@ query assessment($_id: String!) {
 }
 `
 
+@NgModule()
 @Component({
   selector: 'topbar',
   templateUrl: './topbar.component.html',

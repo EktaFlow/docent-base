@@ -1,5 +1,6 @@
-import { Injectable } from "@angular/core";
+import { NgModule, Injectable } from "@angular/core";
 
+@NgModule()
 @Injectable()
 export class Helpers {
 

@@ -31,7 +31,7 @@ const routes: Routes = [
     IonicModule,
     AuthService,
     AssessmentService,
-    TopbarComponent,
+		//TopbarComponent,
     FileDeleteComponent,
     SettingsPage,
     QuestionsPage,
@@ -43,6 +43,6 @@ const routes: Routes = [
     ImportComponent,
     RouterModule.forChild(routes)
   ],
-  declarations: [UserDashboardPage]
+	declarations: [UserDashboardPage, TopbarComponent],
 })
 export class UserDashboardPageModule {}

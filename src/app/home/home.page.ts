@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController, PopoverController, LoadingController, ToastController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions.page';
 import { ThreadsListComponent } from "../threads-list/threads-list.component";
-import { PasswordResetComponent } from '../password-reset/password-reset.component';
+import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
 import { AuthService } from "../auth.service";
 import { AssessmentService } from "../assessment.service";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
@@ -20,6 +20,7 @@ query {
 	allThreadNames
 }
 `
+@NgModule()
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',

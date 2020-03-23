@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { NgModule, Component, OnInit } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 import { ViewsComponent } from '../views/views.component';
 import { TopbarComponent } from "../topbar/topbar.component";
 import { AssessmentService } from '../assessment.service';
@@ -36,6 +36,7 @@ query assessment($_id: String) {
 }
 `
 
+@NgModule()
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -55,7 +56,6 @@ export class DashboardPage implements OnInit {
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
-							 public navParams: NavParams,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService,
 						 	 public router: Router,

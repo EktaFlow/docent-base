@@ -9,6 +9,7 @@ import { AuthService } from "../../app/auth.service";
 import {FileUploadPopoverComponent} from "../../app/file-upload-popover/file-upload-popover.component";
 import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
 import { RiskPopoverComponent } from '../../app/risk-popover/risk-popover.component';
+import { TopbarComponent } from "../../app/topbar/topbar.component";
 
 import { IonicModule } from '@ionic/angular';
 
@@ -35,6 +36,6 @@ const routes: Routes = [
     FileUploadPopoverComponent,
     RouterModule.forChild(routes)
   ],
-  declarations: [QuestionsPage]
+  declarations: [QuestionsPage, TopbarComponent]
 })
 export class QuestionsPageModule {}

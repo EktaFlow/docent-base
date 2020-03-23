@@ -1,12 +1,12 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { PopoverController, NavController, NavParams, ToastController } from '@ionic/angular';
 import { AssessmentService } from '../assessment.service';
-import { Helpers } from '../helpers/helpers';
 import { Router, ActivatedRoute} from "@angular/router"
 import { UserDashboardPage } from '../../app/user-dashboard/user-dashboard.page';
 import { AuthService } from "../../app/auth.service";
 import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
 
+@NgModule()
 @Component({
   selector: 'app-edit-assessment',
   templateUrl: './edit-assessment.page.html',
@@ -48,8 +48,6 @@ constructor(
             private assessmentService: AssessmentService,
             private popOver: PopoverController,
             private auth: AuthService,
-            public navParams: NavParams,
-            public help: Helpers,
             private toast: ToastController,
             public router: Router,
             private activatedRoute: ActivatedRoute)
@@ -130,7 +128,7 @@ async getExistingAssessment() {
     // if the targetDate on the assessment is null, we want to keep it null,
     // if it is a date, we want to format it to the HTML 5 input standard
     var formattedDate;
-    if ( assessment.targetDate ) formattedDate = this.help.formatDate(assessment.targetDate);
+		//    if ( assessment.targetDate ) formattedDate = this.help.formatDate(assessment.targetDate);
     var numberThreads = assessment.threads.map(number => Number(number));
     var extensibleTeamMembers = JSON.parse(JSON.stringify(assessment.teamMembers));
     var formattedAssessment = Object.assign({}, assessment, { teamMembers: extensibleTeamMembers,threads: numberThreads, targetDate: formattedDate });

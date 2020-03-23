@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
-import {LoginComponent} from './login.component'
 
 @Component({
   selector: 'app-login',
@@ -12,7 +11,7 @@ export class LoginPage implements OnInit {
 
   componentShown: string = 'login';
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, auth: AuthService) {
+    constructor(public navCtrl: NavController, auth: AuthService) {
       if (auth.reset) {
         this.componentShown = 'doreset';
       }

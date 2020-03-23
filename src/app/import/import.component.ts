@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule, Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular';
 import { QuestionsPage } from "../../app/questions/questions.page";
 import {AuthService} from "../auth.service";
@@ -17,6 +17,7 @@ mutation importAssessment($import: String, $userId: String, $userEmail: String) 
 }
 `
 
+@NgModule()
 @Component({
   selector: 'import',
   templateUrl: './import.component.html',

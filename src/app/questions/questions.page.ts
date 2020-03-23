@@ -1,5 +1,5 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { NavParams, PopoverController } from '@ionic/angular';
+import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { Storage } from '@ionic/storage'; 
 
 import { ReviewPage } from '../../app/review/review.page';
@@ -11,9 +11,9 @@ import { FileDeleteComponent } from '../../app/file-delete/file-delete.component
 import { RiskPopoverComponent } from '../../app/risk-popover/risk-popover.component';
 
 import { ActivatedRoute } from "@angular/router"
-import { Helpers } from '../helpers/helpers';
 import { GoogleAnalytics } from '../../app/helpers/GoogleAnalytics';
 
+@NgModule()
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.page.html',
@@ -39,9 +39,7 @@ currentQPos: any;
 public getAssessmentId = true;
 noSecondBar: boolean = true;
 
-constructor(public navParams:          NavParams,
-            public help: Helpers,
-            private storage: Storage,
+constructor( private storage: Storage,
             private popoverController: PopoverController,
             private assessmentService: AssessmentService,
             private auth: AuthService,

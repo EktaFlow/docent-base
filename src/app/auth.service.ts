@@ -1,9 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 import { HttpClient } from "@angular/common/http"
 import { tap } from "rxjs/operators";
 
 import { AuthUrl } from "./constants";
 
+@NgModule()
 @Injectable({
   providedIn: 'root',
 })

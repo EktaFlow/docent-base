@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { NgModule, Component, OnInit } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 import { AssessmentService } from "../assessment.service";
 import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../constants";
-import {Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute} from "@angular/router";
 
+@NgModule()
 @Component({
   selector: 'add-team-members-pop-over',
   templateUrl: './add-team-members-pop-over.component.html',
@@ -20,7 +21,6 @@ export class AddTeamMembersPopOverComponent implements OnInit {
 
   constructor(
       public navCtrl: NavController,
-      public navParams: NavParams,
       public assessmentService: AssessmentService,
 			public http: HttpClient,
 			public viewCtrl: PopoverController,
