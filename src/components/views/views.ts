@@ -126,21 +126,21 @@ export class ViewsComponent {
 		handleImport() {
 			this.launchImportPopover();
 		}
-		handleNa()	{
-			this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
-			this.close();
-		}
+		// handleNa()	{
+		// 	this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
+		// 	this.close();
+		// }
 		handleContinue(){
 			this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
 			this.close();
 		}
 
 		handleActions(){
-			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
+			this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId, autoFilter: true});
 			this.close();
 		}
 		handleReview(){
-			this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
+			this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId, autoFilter: true});
 			this.close();
 		}
 		handleNavigate(){
@@ -152,14 +152,14 @@ export class ViewsComponent {
 			this.close();
 		}
 		handleSummary(){
-			this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
+			this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId, autoFilter: true});
 		}
 		handleNewAssessment() {
 			this.navCtrl.push(this.homePage);
 			this.close();
 		}
     handleRiskReport(){
-      this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
+      this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId, autoFilter: true});
       this.close();
     }
 

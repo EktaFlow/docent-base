@@ -47,16 +47,19 @@ export class ReviewPage {
 
 	assessmentId: any;
 	allQuestions: any;
-        targetMRL: any;
-        targetDate: any;
-        location: any;
-        team: any;
-        survey: any;
-        surveyResults: any;
-        reviewResults = [];
+  targetMRL: any;
+  targetDate: any;
+  location: any;
+  team: any;
+  survey: any;
+  surveyResults: any;
+  reviewResults = [];
+	autoFilter = false;
 	pageName: any = "Review";
-        response;
+  response;
 	files;
+	filterList: any = {};
+	unfilteredQuestions: any;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -64,6 +67,7 @@ export class ReviewPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
+		this.autoFilter = navParams.data.autoFilter;
         }
 
 	ionViewWillEnter() {
@@ -96,27 +100,60 @@ export class ReviewPage {
 
 
                             var answeredQuestions = [];
+														// console.log(questions);
                             questions.forEach(q => {
                               if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
                                  var drilledQuestion = {
                                       questionId: q.questionId,
                                    		questionText: q.questionText,
                                       currentAnswer: q.answers[q.answers.length - 1].answer,
-                                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence
+                                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence,
+																			level: q.mrLevel
                                  }
-
                                  answeredQuestions.push(drilledQuestion);
                               }
-                          });
+                          	});
+
+										if (this.autoFilter){
+											this.filterList.filterMRL = assessment.targetMRL;
+											this.allQuestions = answeredQuestions.filter(question => {
+												if (question.level == assessment.targetMRL){
+													return question;
+												}
+											});
+									 } else {
+										 this.allQuestions = answeredQuestions;
+									 }
 
                   // all questions is an array of answered questions.
                   // preserving the names to leave markup the same.
-                  this.allQuestions = answeredQuestions;
-					this.targetMRL = assessment.targetMRL;
-					this.targetDate = assessment.targetDate;
-					this.location = assessment.location;
-					this.files = assessment.files;
+									this.unfilteredQuestions = answeredQuestions;
+									this.targetMRL = assessment.targetMRL;
+									this.targetDate = assessment.targetDate;
+									this.location = assessment.location;
+									this.files = assessment.files;
 		});
+	}
+
+	filterTheList(){
+		console.log(this.filterList.filterMRL)
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.unfilteredQuestions.filter(question => {
+				if (question.level == this.filterList.filterMRL) {
+					console.log('here')
+					return question
+				}
+			});
+			console.log(filteredQuestions);
+			this.allQuestions = filteredQuestions;
+		} else {
+			this.allQuestions = this.unfilteredQuestions;
+		}
+	}
+
+	clearFilter() {
+			this.filterList.filterMRL = 0;
+			this.filterTheList();
 	}
 
 	saveXLS(){

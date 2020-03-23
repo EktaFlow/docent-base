@@ -50,7 +50,7 @@ export class NavigatePage {
 	expandAllFromQs: any = false;
 	targetLevel: any;
 	mrlArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	autoFilter: false;
+	autoFilter = false;
 	pageName: any = "Questions List";
 
 	constructor( private apollo: 			 Apollo,
