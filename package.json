@@ -11,7 +11,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve --address 0.0.0.0 --port 8100",
     "cypress": "cypress open"
-  ,
+  },
   "dependencies": {
     "@angular/animations": "6.0.9",
     "@angular/common": "6.0.9",
@@ -63,10 +63,7 @@
   "devDependencies": {
     "@angular/cli": "^6.0.8",
     "@ionic/app-scripts": "^3.2.4",
-<<<<<<< HEAD
-=======
     "cypress": "^4.1.0",
->>>>>>> master
     "typescript": "2.7.2"
   },
   "description": "An Ionic project",
