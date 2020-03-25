@@ -5,8 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { Keyboard } from '@ionic-native/keyboard';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { TestComponent } from './components/components/test/test.component';
-import { ComponentsModule } from './components/components.module';
+// import { TestComponent } from './components/components/test/test.component';
 
 
 // Apollo
@@ -63,6 +62,7 @@ import {SubthreadPopupComponent} from '../app/subthread-popup/subthread-popup.co
 import {ThreadPopupComponent} from '../app/thread-popup/thread-popup.component';
 import {ThreadsListComponent} from '../app/threads-list/threads-list.component';
 import {ViewsComponent} from '../app/views/views.component';
+import { BackUrl } from  "./constants";
 
 
 @NgModule({
@@ -122,7 +122,6 @@ import {ViewsComponent} from '../app/views/views.component';
 		FormsModule,
 		BrowserModule,
 		RouterModule,
-    ComponentsModule
 	],
   providers: [
     StatusBar,
@@ -132,4 +131,11 @@ import {ViewsComponent} from '../app/views/views.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(apollo: Apollo, httpLink: HttpLink) {
+  	apollo.create({
+    	link: httpLink.create({uri: BackUrl}),
+    	cache: new InMemoryCache()
+    })
+  }
+}

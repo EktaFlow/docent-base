@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { QuestionsPage } from '../../app/questions/questions.page';
 import { ThreadsListComponent } from "../../app/threads-list/threads-list.component";
-import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
+import { PasswordResetComponent } from '../password-reset/password-reset.component';
 import { AuthService } from "../../app/auth.service";
 import { AssessmentService } from "../../app/assessment.service";
 import { LoginPage } from '../../app/login/login.page';

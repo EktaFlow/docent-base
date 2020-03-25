@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from '../components/login/login.component';
-import { DoResetComponent } from '../components/do-reset/do-reset.component';
-import { RegisterComponent } from '../components/register/register.component';
-import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
+import { LoginComponent } from '../login/login.component';
+import { DoResetComponent } from '../do-reset/do-reset.component';
+import { RegisterComponent } from '../register/register.component';
+import { PasswordResetComponent } from '../password-reset/password-reset.component';
 
 import { IonicModule } from '@ionic/angular';
 

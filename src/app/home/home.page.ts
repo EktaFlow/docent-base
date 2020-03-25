@@ -3,7 +3,7 @@ import { NavController, PopoverController, LoadingController, ToastController } 
 import { HttpClient } from '@angular/common/http';
 import { QuestionsPage } from '../questions/questions.page';
 import { ThreadsListComponent } from "../threads-list/threads-list.component";
-import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
+import { PasswordResetComponent } from '../password-reset/password-reset.component';
 import { AuthService } from "../auth.service";
 import { AssessmentService } from "../assessment.service";
 import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
