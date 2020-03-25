@@ -62,12 +62,8 @@
   },
   "devDependencies": {
     "@angular/cli": "^6.0.8",
-<<<<<<< HEAD
-    "@ionic/app-scripts": "3.2.3",
-=======
     "@ionic/app-scripts": "^3.2.4",
     "cypress": "^4.1.0",
->>>>>>> dcca8781b398984f0e7bdf17973d3de874882bbb
     "typescript": "2.7.2"
   },
   "description": "An Ionic project",
