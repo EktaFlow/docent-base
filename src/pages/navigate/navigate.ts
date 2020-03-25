@@ -50,7 +50,7 @@ export class NavigatePage {
 	expandAllFromQs: any = false;
 	targetLevel: any;
 	mrlArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	autoFilter: false;
+	autoFilter = false;
 	pageName: any = "Questions List";
 
 	constructor( private apollo: 			 Apollo,
@@ -140,12 +140,6 @@ export class NavigatePage {
 	}
 
 	filterTheList() {
-		// var filtered = this.schema.map((thread) => {
-		// 	return thread.subheader.map((subthread) => {
-		// 		return subthread.questions.filter(question => question.mrl == this.filterList.filterMRL);
-		// 	});
-		// 	return thread;
-		// });
 		console.log("in filterthelist")
 		console.log(this.filterList.filterMRL);
 
@@ -157,10 +151,6 @@ export class NavigatePage {
 			this.filteredSchema = this.createSchemaObject(this.allQuestions);
 		}
 
-
-		console.log("post")
-		// console.log(filtered);
-		// this.filteredSchema = filtered;
 	}
 
 expandAllThreads() {
