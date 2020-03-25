@@ -142,11 +142,16 @@ export class QuestionsPage {
 			this.currentQuestion = getQuestion(this.referringQuestionId);
 		}
 		else {
-      // var noNulls = this.surveyQuestions.map(q => q)
+	  // var noNulls = this.surveyQuestions.map(q => q)
 			var noAnswer = this.surveyQuestions.find( qId => {
 				return getQuestion(qId).answers.length == 0;
 			})
-			this.currentQuestion = getQuestion(noAnswer);
+			if (noAnswer){
+				this.currentQuestion = getQuestion(noAnswer);
+			}else{
+				let latestQuestion = this.surveyQuestions[this.surveyQuestions.length-1]
+				this.currentQuestion = getQuestion(latestQuestion);
+			}
 		}
 	}
 
