@@ -140,7 +140,7 @@ export class ReviewPage {
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.unfilteredQuestions.filter(question => {
 				if (question.level == this.filterList.filterMRL) {
-					console.log('here')
+					// console.log('here')
 					return question
 				}
 			});

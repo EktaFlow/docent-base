@@ -56,7 +56,7 @@ query assessment($_id: String)
   teamMembers {
     name
     email
-    role 
+    role
   }
   levelSwitching
   targetDate
@@ -301,7 +301,7 @@ export class UserDashboardPage {
 	async openActionItems(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
-     this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});
+     this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId, autoFilter: true});
 	}
 
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
