@@ -71,9 +71,14 @@ export class RiskReportPage {
   nonLevelSchema: any;
   extraQuestions: any;
   noExtraQuestions: boolean = true;
+	filterList: any = {};
+	unfilteredQuestions: any;
+	autoFilter = false;
+	filteredSchema: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apollo: Apollo) {
     this.assessmentId = navParams.data.assessmentId;
+		this.autoFilter = navParams.data.autoFilter;
   }
 
   ionViewWillEnter() {
@@ -88,8 +93,7 @@ export class RiskReportPage {
       }).valueChanges
       .subscribe(data => {
         var assessment = (<any>data.data).assessment;
-        var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
-	this.questions = questions;
+        this.unfilteredQuestions = assessment.questions;
         this.targetMRL = assessment.targetMRL;
         var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
         for (let question of extraQuestions){
@@ -98,7 +102,16 @@ export class RiskReportPage {
         extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
         this.extraQuestions = extraQuestions;
 
-        this.schema = this.createSchemaObject(questions);
+        this.schema = this.createSchemaObject(this.unfilteredQuestions);
+				this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
+				this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
+				if (this.autoFilter){
+					this.filterList.filterMRL = this.targetMRL;
+					this.filterTheList();
+					this.filterList.filterTitle = this.targetMRL;
+				}
+
 
         if (extraQuestions.length > 0){
           this.noExtraQuestions = false;
@@ -131,6 +144,28 @@ export class RiskReportPage {
      		return {header: a, subheader: subThreadNames};
      	})
 		return subThreadNames
+	}
+
+	filterTheList() {
+		// console.log("in filterthelist")
+		// console.log(this.filterList.filterMRL);
+
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.unfilteredQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
+			this.filteredSchema = this.createSchemaObject(filteredQuestions);
+			this.filterList.filterTitle = this.filterList.filterMRL;
+			// console.log(this.filteredSchema);
+		} else {
+			this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
+			this.filterList.filterTitle = '';
+		}
+
+	}
+
+	clearFilter() {
+			this.filterList.filterMRL = 0;
+			this.filterTheList();
+			this.filterList.filterTitle = '';
 	}
 
   filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)

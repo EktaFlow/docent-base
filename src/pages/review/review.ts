@@ -54,12 +54,12 @@ export class ReviewPage {
   survey: any;
   surveyResults: any;
   reviewResults = [];
-	autoFilter = false;
 	pageName: any = "Review";
   response;
 	files;
 	filterList: any = {};
 	unfilteredQuestions: any;
+	autoFilter = false;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
