@@ -123,7 +123,6 @@ export class ActionitemsPage {
                         return a.answers[a.answers.length - 1].answer == "No"
                 }
 					});
-					console.log(data.data.assessment);
 					var targetMRL = (<any>data.data).assessment.targetMRL;
 					this.attachments = (<any>data.data).assessment.files;
           var newData:Array<any> = [];
