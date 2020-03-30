@@ -415,9 +415,10 @@ export class QuestionsPage {
 					this.moveCurrentQuestion(1);
 				}
 				else {
-					let lowerMRL = this.currentQuestion.mrLevel - 1
-					// console.log(lowerMRL);
-					alert(`You have failed this subthread, you will be shown questions from this subthread at the next lowest level ${lowerMRL}`);
+					let mrLevel = this.currentQuestion.mrLevel -1;
+					alert(`You have failed this subthread, you will be shown questions from this subthread at the next lowest level ${mrLevel}`);
+					this.launchLevelSwitchModal();
+				}
 	}
 
 	// FUNCTIONS to handle the different branches on level-switching
