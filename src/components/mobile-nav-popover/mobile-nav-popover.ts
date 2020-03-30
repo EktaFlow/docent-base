@@ -108,7 +108,7 @@ export class MobileNavPopoverComponent {
   handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
   goToDoD = () => window.location.href = "http://dodmrl.com";
-  goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2018.pdf"
+  goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2018.pdf";
   handleRiskReport = () => this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
   // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
