@@ -415,9 +415,9 @@ export class QuestionsPage {
 					this.moveCurrentQuestion(1);
 				}
 				else {
-					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
-					this.launchLevelSwitchModal();
-				}
+					let lowerMRL = this.currentQuestion.mrLevel - 1
+					// console.log(lowerMRL);
+					alert(`You have failed this subthread, you will be shown questions from this subthread at the next lowest level ${lowerMRL}`);
 	}
 
 	// FUNCTIONS to handle the different branches on level-switching
