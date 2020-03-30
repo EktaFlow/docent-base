@@ -238,6 +238,11 @@ export class QuestionsPage {
 		this.findAmtOfQs();
 	}
 
+	async handleOnFinishedClick() {
+		this.setValues();
+		alert("You have finished the assesment")
+	}
+
   handleSave() {
 		this.setValues();
 		alert("This question has been saved");
