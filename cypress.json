@@ -1,1 +1,10 @@
-{}
+{
+  "baseUrl": "http://localhost:8100",
+  "env": {
+    "username": "jack",
+    "email": "test@example.com",
+    "password": ""
+  },
+  "viewportWidth": 1400,
+  "viewportHeight": 900
+}
