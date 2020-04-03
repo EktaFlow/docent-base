@@ -1,5 +1,4 @@
-describe("determine MR Level is same as Target MRL", function() {
-  const value = 9;
+describe("validates DOD Resource link", function() {
 
   beforeEach(() => {
     const email = Cypress.env("email");
