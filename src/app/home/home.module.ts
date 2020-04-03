@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { QuestionsPage } from '../../app/questions/questions.page';
-import { ThreadsListComponent } from "../../app/threads-list/threads-list.component";
+import { QuestionsPage } from '../questions/questions.page';
+import { ThreadsListComponent } from "../threads-list/threads-list.component";
 import { PasswordResetComponent } from '../password-reset/password-reset.component';
 import { AuthService } from "../../app/auth.service";
 import { AssessmentService } from "../../app/assessment.service";
@@ -25,14 +25,14 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    QuestionsPage,
-    ThreadsListComponent,
-    PasswordResetComponent,
     AuthService,
     AssessmentService,
-    LoginPage,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomePage]
+  declarations: [
+    HomePage,
+    QuestionsPage,
+    
+  ]
 })
 export class HomePageModule {}
