@@ -9,6 +9,8 @@ describe("validates DOD Resource link", function() {
 
 
 
+
+
   it("finds proper link for MRL Desktop", () => {
     cy.location("pathname").should("eq", "/");
 
