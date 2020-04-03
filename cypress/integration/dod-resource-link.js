@@ -14,10 +14,11 @@ describe("validates DOD Resource link", function() {
   it("finds proper link for MRL Desktop", () => {
     cy.location("pathname").should("eq", "/");
 
-    cy.get(
-      "topbar.desktop > .toolbar-class > :nth-child(1) > .docent-header > .toolbar > .toolbar-content > .container-toolbar > .container-tbbuttons > #help-open-button > .button-inner"
-    ).click();
+    const helpButton = `topbar.desktop > .toolbar-class > :nth-child(1) >
+                        .docent-header > .toolbar > .toolbar-content > .container-toolbar >
+                        .container-tbbuttons > #help-open-button > .button-inner`;
 
+    cy.get(helpButton).click();
     cy.get("#mrl-resources-button").should(
       "have.attr",
       "href",
