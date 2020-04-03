@@ -1,0 +1,70 @@
+<div class="toolbar-class">
+  <div>
+    <h1>{{this.mainTitle}}</h1>
+    <ion-header no-border class="docent-header">
+      <ion-toolbar color="dark" hideBackButton="true">
+        <div class = "container-toolbar">
+          <img class="toolbar-logo" src="assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
+          <div *ngIf="!blank" class = "container-tbbuttons">
+            <button [routerLink]="'/user-dashboard'" color="dark" ion-button id="user-dash-button">
+              Home
+            </button>
+            <button (click)="handleContinue()" *ngIf="this.assessmentId && !noSecondBar" ion-button color="dark" id="continue-assessment-button">
+        			Continue Assessment
+        		</button>
+            <button ion-button *ngIf="this.assessmentId" (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
+                Reports
+            </button>
+            <button (click)="showHelp($event)" ion-button color="dark" id="help-open-button">
+                Help
+            </button>
+            <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark" id="logout-button">
+								Logout
+            </button>
+          </div>
+
+          <div *ngIf="!blank" class="container-tbbuttons-mobile">
+            <button ion-button (click)="openMobileNav()" color="dark">
+              <ion-icon name="menu" class="hamburger-nav"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <hr>
+
+        <!-- TODO: use an ngif for if there is an assessmentId -->
+        <!-- (click)="toggleTopbarInfo()" -->
+        <div *ngIf="mainTitle" >
+	        <h1 class="main-title" ><font color="white">&nbsp;&nbsp;&nbsp;{{this.mainTitle}}</font></h1>
+        </div>
+
+        <div *ngIf="pageName">
+          <h1 class="page-name" id="page-name">{{pageName}}</h1>
+        </div>
+
+        <!-- <div *ngIf="userDash">
+          <h1 class="page-name"></h1>
+        </div> -->
+
+        <div *ngIf="assessmentId && noSecondBar != false && !pageName" class="subheader">
+          <div *ngIf="mainTitle">
+            <p class="mobile"><span (click)="presentThreadPop($event, 'true')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'true')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
+            <p class="desktop"><span (click)="presentThreadPop($event, 'false')" title="This takes you to the navigate page showing all questions" id="open-thread-popover" class="thread-pop-link mobile-link">Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'false')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
+            <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile mobile-link" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
+            <p><span (click)="goToNavExpand()" class="show-all mobile-link" id="show-all-questions">Show All Questions</span> | <span (click)="toggleQuestionHistory()" class="question-pop-link mobile-link">Show Question History</span></p>
+          </div>
+
+            <div class="targets-scope">
+              <p>Target MRL: {{targetMRL}} | Target Date: {{targetDate | date:'mediumDate'}}</p>
+              <p class="scope-link" (click)="toggleScopeSelected($event)">Show Additional Information</p>
+              <!-- <p class="pointer" (click)="toggleQuestionHistory()"><u>Show Question History</u></p> -->
+            </div>
+          </div>
+      </ion-toolbar>
+    </ion-header>
+
+
+  <!-- <div *ngIf="popUpButtonClicked">
+    <subthread-popup [assessmentId] = "assessmentId"
+                                  [subTitle] = "this.subTitle"></subthread-popup>
+  </div> -->
+</div>

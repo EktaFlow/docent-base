@@ -1,0 +1,174 @@
+<title>Docent</title>
+
+<topbar [blank]="true"></topbar>
+	<ng-container *ngIf="auth.isLoggedIn()">
+		<topbar></topbar>
+	</ng-container>
+
+
+<ion-content padding class="home-wrapper">
+<ng-container *ngIf="!auth.isLoggedIn()">
+	<ng-container *ngIf="auth.unverified()">
+	You must verify your Docent registration via email before logging on.
+	</ng-container>
+
+    <ng-container *ngIf="!mobileRegister">
+    	<login></login>
+  </ng-container>
+  <h6 (click)="newLogin()"> CLICK HERE LOGIN PAGE </h6>
+<div *ngIf="!showRegister" class="register-container">
+        <h4>Forgot Password?</h4>
+        <div>
+            <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset Password</button>
+        </div>
+</div>
+
+	<div *ngIf="!showRegister" class="register-container">
+		<h4>Not registered?</h4>
+		<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
+	</div>
+
+	<div *ngIf="!showRegister" class="mobile-register-container" >
+		<h6 (click)="mobileRegisterForm()">sign up</h6>
+	</div>
+
+</ng-container>
+
+<ng-container *ngIf="showRegister">
+	<register></register>
+</ng-container>
+
+<ng-container *ngIf="auth.isLoggedIn()">
+
+
+
+
+
+  <h1>Start New Assessment</h1>
+  <font color="grey">Please fill in required fields denoted by the <sup>*</sup>  (asterisk)</font>
+  <br><br>
+			<h6 class="assessment-name headers">Assessment Name<sup>*</sup></h6>
+      <small class="ass-name-count assessment-name"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
+	<div class="topmost" style="z-index: 100;">
+      <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
+	</div>
+
+<!-- Save for auth -->
+<h6 class="team-members-title">Team Members</h6>
+  <form class="member-form">
+    <div class="member-list">
+      <li *ngFor = "let member of members" >
+        <b>{{member.name}}</b> at <b>{{member.email}}</b> as <b>{{member.role}}</b>
+        <ion-icon color="danger" name="remove-circle" (click)="removeMember(member.email)" class="removeMember"></ion-icon>
+        <!-- <span id="memberToast" style="color:secondary"> </span> -->
+      </li>
+    </div>
+    <div class="members">
+      <div class="member-inputs">
+        <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
+        <input type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
+        <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
+        <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
+        <button ion-button small color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</button>
+
+      </div>
+    </div>
+    <!-- <div class = "buttons">
+      <button  style="background-color:white">
+      </button>
+    </div> -->
+  </form>
+
+  <div class = "mid-first-page">
+    <div class="scope">
+
+      <h6 class="headers">Additional Information</h6>
+      <small class="add-info-count"><span *ngIf="!assForm.scope">0</span><span *ngIf="assForm.scope">{{assForm.scope.length}}</span> / 200</small>
+      <textarea name="scope" maxlength="200" placeholder = "Enter Additional Information Here" id="assessment-scope-input"[(ngModel)]="assForm.scope"></textarea>
+
+    </div>
+    <div class ="target-level-date">
+      <div class = "target-level">
+        <div style = "width:45%;">
+          <h6>Target MRL<sup>*</sup></h6>
+          <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select">
+            <option value="" disabled selected>Select One...</option>
+            <option value = "1">1</option>
+            <option value = "2">2</option>
+            <option value = "3">3</option>
+            <option value = "4">4</option>
+            <option value = "5">5</option>
+            <option value = "6">6</option>
+            <option value = "7">7</option>
+            <option value = "8">8</option>
+            <option value = "9">9</option>
+            <option value = "10">10</option>
+          </select>
+        </div>
+        <div style = "width:45%;">
+          <div style="display: flex;">
+            <h6>Level Switching</h6>
+      <button class="tooltip" style="background: white;">
+				<!-- TODO: pull this text out of html -->
+  			<span class="tooltiptext left">When on Docent will present questions above and below your selected level. This is to find the ceiling or floor of your MRL, if you pass or fail a level. When off, you will only see questions at your target level</span>
+        <img src="assets/imgs/qmark.png" width="15" height="15">
+      </button>
+          </div>
+          <select id="level-switching-select"[(ngModel)]="assForm.levelSwitching">
+            <option value="true">On</option>
+            <option value="false" selected="selected">Off</option>
+          </select>
+        </div>
+      </div>
+      <h6>Date to Achieve Target MRL</h6>
+      <input  type="date" name="dateAchieve" id="date-to-achieve-input" placeholder = "mm/dd/yyyy" [(ngModel)]="assForm.targetDate">
+    </div>
+  </div>
+  <div class = "bottom">
+		<div>
+      <h6>Location</h6>
+      <ion-input name="location" id="location-input" placeholder = "Enter Location" [(ngModel)]="assForm.location" ></ion-input>
+    </div>
+    <div>
+      <h6>Deskbook Version<sup>*</sup></h6>
+      <select id="deskbook-select" (change)="updateThreads()" name="version" [(ngModel)]="assForm.deskBookVersion">
+        <option value="" disabled selected>Select One...</option>
+				<ng-container *ngFor="let deskbook of deskbookVersions">
+        	<option value="{{deskbook}}">{{deskbook}}</option>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+  <div class = "thread-start">
+
+      <div class = "choose-threads">
+        <div class="choose-threads-header">
+          <h6>Choose Threads</h6>
+          <button style="background: white;"(click)="showThreads($event)">
+            <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
+          </button>
+        </div>
+        <div class="choose-threads-thread-list" *ngIf="threadsShown">
+          <font color="grey">
+            Unselecting a thread will remove it from your MRA. Typically, all threads are selected.
+          </font>
+                <div class="thread-row" *ngFor="let thread of threads">
+                  <input type="checkbox" (click)="toggleThread($event, thread)" [checked]="assForm.threads.includes((threads.indexOf(thread)) + 1)"/>
+                  <h6>{{thread}}</h6>
+                </div>
+          <div>
+                  <button style="border: 1px solid blue; padding:1em; padding-top: .5em; padding-bottom: .5em; background: white; margin-bottom: .4em; width: 106px" (click)="toggleAllThreads()">{{threadsSelectButton}}</button>
+          </div>
+        </div>
+      </div>
+
+    <div>
+      <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+        Start
+      </button>
+    </div>
+  </div>
+  <div class="qspacer"></div>
+</ng-container>
+
+</ion-content>

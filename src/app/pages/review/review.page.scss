@@ -1,0 +1,160 @@
+ion-content {
+    margin-top: 120px;
+  }
+
+  $input-backgroud:#fbfbfb;
+  $input-border:#dcdcdc;
+  %input-style{
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      line-height: 1.42857;
+      font-size: 14px;
+      padding: 6px 12px;
+      background-color:$input-backgroud;
+      border-color: $input-border;
+  }
+  %down-arrow{
+      background-position: right 50%;
+      background-repeat: no-repeat;
+      background-image:url('../../assets/imgs/if_icon-arrow-down.png');
+      padding: .5em;
+      padding-right: 1.5em;
+  }
+  %page-info{
+      font-size: 18px;
+      margin: 100px 0px 0px 100px;
+      hr{
+          margin-right: 100px;
+      }
+  }
+  .toolbar-class{
+      header{
+          color:#000;
+      }
+      img{
+          margin-left: 10px;
+          margin-top: 10px
+      }
+      p{
+          visibility: visible !important;
+      }
+      hr {
+          height: 1px !important;
+          width: 98% !important;
+          background:grey!important;
+          display: block !important;
+          font-size: 2em !important;
+          visibility: visible !important;
+      }
+  }
+  .subheader{
+      display: flex;
+      justify-content: space-between;
+      color:white;
+      margin-left:13px;
+  }
+  .page-one-info{
+      @extend %page-info;
+  }
+  .survey-info{
+      @extend %page-info;
+      margin-top:0px;
+      li{
+          list-style-type: none;
+      }
+  }
+  .yes{
+      .box{
+          background-color:green;
+          color:white;
+          border-radius:3px;
+          width:5%;
+          text-align: center;
+      }
+  }
+  .no{
+      .box{
+          background-color:red;
+          color:white;
+          border-radius:3px;
+          width:5%;
+          text-align: center;
+      }
+  }
+  .na{
+      .box{
+          background-color:darkgrey;
+          color:white;
+          border-radius:3px;
+          width:5%;
+          text-align: center;
+      }
+  }
+  .not-answered{
+      .box{
+          background-color:lightgrey;
+          color:white;
+          border-radius:3px;
+          width:15%;
+          text-align: center;
+      }
+  }
+
+  .qspacer {
+  font-size: 0;
+  height: 250px;
+  line-height: 0;
+  border: 0px;
+  /* testing only */
+   // border: 1px solid red;
+   width: 100%;
+}
+
+  @media screen and (max-width: 1024px){
+
+    .export-toolbar {
+      display: none;
+    }
+
+      .page-one-info {
+          margin-left: 0px;
+          margin-top: 0px;
+      }
+    .survey-info {
+      margin-left: 0px;
+    }
+
+    .not-answered {
+        .box {
+            width: 100%;
+        }
+    }
+
+    .no {
+        .box {
+            width: 100%;
+        }
+    }
+
+    .yes {
+        .box {
+            width: 100%;
+        }
+    }
+
+    .na {
+        .box {
+            width: 100%;
+        }
+    }
+  }
+
+  @media screen and (min-width: 420px) and (max-width: 1024px){
+    ion-content {
+      margin-top: 160px;
+    }
+  }

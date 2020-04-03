@@ -1,0 +1,52 @@
+<!-- Generated template for the QuestionHistoryPopoverComponent component -->
+<div class="wrapper">
+  <div class="header">
+    <h2>This Question's History:</h2>
+  </div>
+  <div class="answers-list">
+    <div class="no-answers" *ngIf="noAnswers">
+      <h2>You have not answered this question yet.</h2>
+    </div>
+    <div class="top-and-block" *ngFor="let answer of answersSorted" >
+      <!-- Can use truthiness of answer.answer if we don't have skipped -->
+      <ng-container *ngIf="answer.answer">
+      <div class="top" (click)="toggleAnswer(answer.updatedAt)">
+        <h3>{{answer.answer}} | <span><small>Answered On: {{answer.updatedAt | date:'medium'}} | <u>Open</u></small></span></h3>
+      </div>
+      <div class="block" *ngIf="answerToShow == answer.updatedAt">
+          <div class="fields">
+            <ng-container *ngIf="answer.answer == 'Yes' ">
+              <p><b>Answer:</b> {{answer.answer}}</p>
+              <p><b>Objective Evidence:</b> {{answer.objectiveEvidence}}</p>
+              <p><b>Assumptions:</b> {{answer.assumptionsYes}}</p>
+              <p><b>Notes:</b> {{answer.notesYes}}</p>
+            </ng-container>
+            <ng-container *ngIf="answer.answer == 'No' ">
+              <p><b>Answer:</b> {{answer.answer}}</p>
+              <p><b>Owner:</b> {{answer.who}}</p>
+              <p><b>Due Date:</b> {{answer.when}}</p>
+              <p><b>Action Item:</b> {{answer.what}}</p>
+              <p><b>Reason:</b> {{answer.reason}}</p>
+              <p><b>Assumptions:</b> {{answer.assumptionsNo}}</p>
+              <p><b>Notes:</b> {{answer.notesNo}}</p>
+            </ng-container>
+            <ng-container *ngIf="answer.answer == 'N/A' ">
+              <p><b>Answer:</b> {{answer.answer}}</p>
+              <p><b>Documentation:</b> {{answer.documentation}}</p>
+              <p><b>Assumptions:</b> {{answer.assumptionsNA}}</p>
+              <p><b>Notes:</b> {{answer.notesNA}}</p>
+            </ng-container>
+            <p><b>User Who Answered:</b> {{emails[answer.userId]}}</p>
+            <p><b>Answered At:</b> {{answer.updatedAt | date:'medium'}}</p>
+            <p *ngIf="answer.revertedBy"><b>Answer Reverted By:</b> {{emails[answer.revertedBy]}}</p>
+          </div>
+          <div class="action-buttons">
+              <button ion-button color="darkslateblue" (click)="revertBack(answer)">Revert Back</button>
+          </div>
+      </div>
+      </ng-container>
+
+
+    </div>
+  </div>
+</div>
