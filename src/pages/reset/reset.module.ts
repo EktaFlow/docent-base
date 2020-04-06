@@ -1,3 +1,4 @@
+/*
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ResetPage } from './reset';
@@ -11,3 +12,4 @@ import { ResetPage } from './reset';
   ],
 })
 export class ResetPageModule {}
+*/

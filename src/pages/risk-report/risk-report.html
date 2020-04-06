@@ -1,0 +1,111 @@
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
+
+<ion-content>
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+
+  <div class="wrapper">
+
+    <div class="risk-header">
+      <h2 *ngIf="filterList && filterList.filterMRL && filterList.filterMRL > 0 && filterList.filterTitle">Risk Report for MRL Level {{filterList.filterTitle}}</h2>
+      <h2 *ngIf="!filterList || !filterList.filterMRL || !filterList.filterTitle || filterList.filterMRL == 0">Risk Report</h2>
+      <div class="filter-toolbar">
+        <button ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</button>
+        <div class="filter-list">
+          <p>Filter MR Level: </p>
+          <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
+            <option value="" disabled selected>Select One...</option>
+            <option value = "1">1</option>
+            <option value = "2">2</option>
+            <option value = "3">3</option>
+            <option value = "4">4</option>
+            <option value = "5">5</option>
+            <option value = "6">6</option>
+            <option value = "7">7</option>
+            <option value = "8">8</option>
+            <option value = "9">9</option>
+            <option value = "10">10</option>
+          </select>
+          <button class="filter-buttons" (click)="filterTheList()" ion-button small color="buttonBlue">Filter</button>
+          <button class="filter-buttons" ion-button small (click)="clearFilter()" color="buttonBlue">Clear</button>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="thread-object" *ngFor="let thread of filteredSchema">
+      <hr>
+      <h2>{{thread.header}}</h2>
+      <hr>
+      <div *ngFor="let subthread of thread.subheader" class="subthread">
+
+        <h4>{{subthread.subheader}}</h4>
+
+        <div *ngFor="let questionGroup of subthread.questions" class="questions-wrapper">
+          <div *ngFor="let question of questionGroup.questionSet" class="question">
+
+            <h6>{{question.text}}</h6>
+            <div *ngIf="question.latestAnswer">
+              <p *ngIf="question.latestAnswer.notesYes != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesYes}}</p>
+              <p *ngIf="question.latestAnswer.notesNo != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNo}}</p>
+              <p *ngIf="question.latestAnswer.notesNA != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNA}}</p>
+              <p [style.color]="pickRiskColor(question.latestAnswer)"><b>Risk Score: </b>{{calculateRiskScore(question.latestAnswer)}}</p>
+
+              <div *ngIf="calculateRiskScore(question.latestAnswer) > 11" class="extra-risk">
+                <p><b>Greatest Impact: </b>{{question.latestAnswer.greatestImpact}}</p>
+                <p><b>Risk Response: </b>{{question.latestAnswer.riskResponse}}</p>
+                <p><b>MMP Summary: </b>{{question.latestAnswer.mmpSummary}}</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="risk-header" *ngIf="!noExtraQuestions">
+      <h2>Risk Report for Non Target MRL Questions</h2>
+    </div>
+
+    <div class="thread-object" *ngFor="let thread of nonLevelSchema">
+      <hr>
+      <h2>{{thread.header}}</h2>
+      <hr>
+      <div *ngFor="let subthread of thread.subheader" class="subthread">
+
+        <h4>{{subthread.subheader}}</h4>
+
+        <div *ngFor="let questionGroup of subthread.questions" class="questions-wrapper">
+          <div *ngFor="let question of questionGroup.questionSet" class="question">
+
+            <h6>{{question.text}}</h6>
+            <h6>MRL: {{question.mrl}}</h6>
+            <div *ngIf="question.latestAnswer">
+              <p *ngIf="question.latestAnswer.notesYes != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesYes}}</p>
+              <p *ngIf="question.latestAnswer.notesNo != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNo}}</p>
+              <p *ngIf="question.latestAnswer.notesNA != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNA}}</p>
+              <p [style.color]="pickRiskColor(question.latestAnswer)"><b>Risk Score: </b>{{calculateRiskScore(question.latestAnswer)}}</p>
+
+              <div *ngIf="calculateRiskScore(question.latestAnswer) > 11" class="extra-risk">
+                <p><b>Greatest Impact: </b>{{question.latestAnswer.greatestImpact}}</p>
+                <p><b>Risk Response: </b>{{question.latestAnswer.riskResponse}}</p>
+                <p><b>MMP Summary: </b>{{question.latestAnswer.mmpSummary}}</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="qspacer"></div>
+
+</ion-content>

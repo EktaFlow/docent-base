@@ -48,35 +48,23 @@ contacts-dropdown {
     .mobile {
       display: inherit;
     }
-    .feedback-dropdown-container {
-      background-color: lightgray;
-      height: auto;
-      padding-bottom: 1px;
-    }
-    .feedback-dropdown-header {
-      border: 5px solid lightgray;
+
+    .feedback-container {
       width: 100%;
+      border: 2px solid #e5e5e5;
       background-color: white;
       padding: 10px;
+      margin: 20px 0;
 
-    }
-
-    .feedback-dropdown-content {
-      padding: 8px;
-      font-size: 1.3em;
-      margin: 3px 5px 3px 5px;
-      width: auto;
-      height: auto;
-      background-color: white;
+      h3{
+        text-decoration: underline;
+      }
 
       .contact {
-        width: 100%;
-        margin: 20px;
-
-        .email {
-          font-size: .8em;
-        }
+        padding: 5px;
       }
+
+
     }
 
 

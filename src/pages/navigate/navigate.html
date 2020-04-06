@@ -6,14 +6,16 @@
 
   <!-- <br><br><br><br><br><br><br><br><br><br> -->
 
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+
 <div class="filter-toolbar">
-  <button *ngIf="!showAll" ion-button (click)="expandAllThreads()">Expand All</button>
-  <button *ngIf="showAll" ion-button (click)="expandAllThreads()">Close All</button>
+  <button *ngIf="!showAll" ion-button (click)="expandAllThreads()" color="buttonBlue">Expand All</button>
+  <button *ngIf="showAll" ion-button (click)="expandAllThreads()" color="buttonBlue">Close All</button>
   <div class="filter-list">
     <p>Filter MR Level: </p>
     <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
       <option value="" disabled selected>Select One...</option>
-      <option value="0">All</option>
       <option value = "1">1</option>
       <option value = "2">2</option>
       <option value = "3">3</option>
@@ -25,9 +27,8 @@
       <option value = "9">9</option>
       <option value = "10">10</option>
     </select>
-    <button class="filter-it" (click)="filterTheList()" ion-button small>Filter</button>
-
-
+    <button class="filter-buttons" (click)="filterTheList()" ion-button small color="buttonBlue">Filter</button>
+    <button class="filter-buttons" ion-button small (click)="clearFilter()" color="buttonBlue">Clear</button>
 
   </div>
 </div>

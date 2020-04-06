@@ -25,18 +25,19 @@ import { DefinitionsPageModule } from '../pages/definitions/definitions.module';
 import { FaqsPageModule } from '../pages/faqs/faqs.module';
 import { ReviewPageModule } from '../pages/review/review.module';
 import { QuestionsPageModule } from '../pages/questions/questions.module';
+import { LoginPageModule } from '../pages/login/login.module';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { NavigatePageModule } from '../pages/navigate/navigate.module';
 import { NotapplicablePageModule } from '../pages/notapplicable/notapplicable.module';
-import { SkippedquestionsPageModule } from '../pages/skippedquestions/skippedquestions.module';
 import { ActionitemsPageModule } from '../pages/actionitems/actionitems.module';
 import { CriteriaPageModule } from '../pages/criteria/criteria.module';
 import { UserDashboardPageModule } from '../pages/user-dashboard/user-dashboard.module';
 import { SettingsPageModule } from '../pages/settings/settings.module';
 import { NewAssessmentPageModule } from '../pages/new-assessment/new-assessment.module';
-import { ResetPageModule } from '../pages/reset/reset.module';
-
-
+// import { ResetPageModule } from '../pages/reset/reset.module';
+import { EditAssessmentPageModule } from '../pages/edit-assessment/edit-assessment.module';
+import { SummaryPageModule } from '../pages/summary/summary.module';
+import {RiskReportPageModule} from '../pages/risk-report/risk-report.module';
 
 // components
 import { ComponentsModule } from '../components/components.module';
@@ -47,6 +48,7 @@ import { UploadService } from "../services/upload";
 import { httpInterceptorsProviders } from "../services/interceptors";
 import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
+import { Helpers } from '../services/helpers';
 
 @NgModule({
   declarations: [
@@ -64,59 +66,32 @@ import { BackUrl } from  "../services/constants";
 		FormsModule,
 		AcronymsPageModule,
 		QuestionsPageModule,
+    LoginPageModule,
 		DefinitionsPageModule,
 		FaqsPageModule,
 		ReviewPageModule,
+		SummaryPageModule,
 		DashboardPageModule,
 		NavigatePageModule,
 		NotapplicablePageModule,
-		SkippedquestionsPageModule,
 		ActionitemsPageModule,
 		CriteriaPageModule,
 		UserDashboardPageModule,
 		SettingsPageModule,
 		NewAssessmentPageModule,
-                ResetPageModule,
+    EditAssessmentPageModule,
+    //ResetPageModule,
+		RiskReportPageModule,
 		ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-
-		//QuestionsPage,
-		//AcronymsPage,
-		//DefinitionsPage,
-		//FaqsPage,
-		//AcronymsPage,
-		//ReviewPage,
-		//RegisterPage,
-		//LoginPage,
-		//HelpmenuComponent,
-		//ContactsDropdownComponent,
-		//FaqDropdownComponent,
-		//AssessmentslistComponent,
-		//ThreadsListComponent,
-		//FileUploadPopoverComponent,
-		//DashboardPage,
-		//NavigatePage,
-		//NotapplicablePage,
-		//SkippedquestionsPage,
-		//CriteriaPage,
-		//ActionitemsPage,
-		//UserDashboardPage,
-		//SettingsPage,
-		//NewAssessmentPage,
-		//ViewsComponent,
-		//ImportComponent,
-		//TopbarComponent,
-		//SubthreadPopupComponent,
-		//ThreadPopupComponent,
-		//LoginComponent,
-		//RegisterComponent
     HomePage
   ],
   providers: [
     StatusBar,
+    Helpers,
 		AuthService,
 		AssessmentService,
 		UploadService,

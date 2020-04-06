@@ -1,5 +1,9 @@
 page-dashboard {
+  ion-content{
+    margin-top: 120px;
+  }
     .toolbar-class{
+
         header{
             color:#000;
         }
@@ -37,6 +41,10 @@ page-dashboard {
         justify-content: space-between;
     }
     .subtitle{
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
     .answers{
         flex-basis: 5%;
@@ -182,5 +190,14 @@ page-dashboard {
         ion-content {
           margin-top: 160px;
         }
+      }
+      .legend {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              div {
+                      margin-right: 1vw;
+                      margin-left: 1vw;
+              }
       }
 }

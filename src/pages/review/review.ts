@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
-
-
 import { TopbarComponent } from '../../components/topbar/topbar';
-
 import { QuestionsPage } from "../questions/questions";
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card";
+
+import * as XLSX from 'xlsx';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -23,9 +23,11 @@ query assessment($_id: String) {
 		threadName
 		subThreadName
 		currentAnswer
-		notesNo
-		skipped
-		objectiveEvidence
+    answers {
+      answer
+		  notesNo
+		  objectiveEvidence
+    }
 	}
 	files {
 		name
@@ -55,6 +57,9 @@ export class ReviewPage {
 	pageName: any = "Review";
   response;
 	files;
+	filterList: any = {};
+	unfilteredQuestions: any;
+	autoFilter = false;
 
 	constructor( private apollo: Apollo,
 							 public navCtrl: NavController,
@@ -62,11 +67,12 @@ export class ReviewPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
-  }
+		this.autoFilter = navParams.data.autoFilter;
+        }
 
 	ionViewWillEnter() {
-    GoogleAnalytics.trackPage("review");
-  }
+            GoogleAnalytics.trackPage("review");
+        }
 
 
 	goToQuestion(questionId) {
@@ -89,13 +95,91 @@ export class ReviewPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-					var assessment = (<any>data.data).assessment;
-					this.allQuestions = assessment.questions;
-					this.targetMRL = assessment.targetMRL;
-					this.targetDate = assessment.targetDate;
-					this.location = assessment.location;
-					this.files = assessment.files;
+                            var assessment = (<any>data.data).assessment;
+                            var questions = assessment.questions;
+
+
+                            var answeredQuestions = [];
+														// console.log(questions);
+                            questions.forEach(q => {
+                              if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+                                 var drilledQuestion = {
+                                      questionId: q.questionId,
+                                   		questionText: q.questionText,
+                                      currentAnswer: q.answers[q.answers.length - 1].answer,
+                                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence,
+																			level: q.mrLevel
+                                 }
+                                 answeredQuestions.push(drilledQuestion);
+                              }
+                          	});
+
+										if (this.autoFilter){
+											this.filterList.filterMRL = assessment.targetMRL;
+											this.allQuestions = answeredQuestions.filter(question => {
+												if (question.level == assessment.targetMRL){
+													return question;
+												}
+											});
+									 } else {
+										 this.allQuestions = answeredQuestions;
+									 }
+
+                  // all questions is an array of answered questions.
+                  // preserving the names to leave markup the same.
+									this.unfilteredQuestions = answeredQuestions;
+									this.targetMRL = assessment.targetMRL;
+									this.targetDate = assessment.targetDate;
+									this.location = assessment.location;
+									this.files = assessment.files;
+		});
+	}
+
+	filterTheList(){
+		console.log(this.filterList.filterMRL)
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.unfilteredQuestions.filter(question => {
+				if (question.level == this.filterList.filterMRL) {
+					// console.log('here')
+					return question
+				}
 			});
+			console.log(filteredQuestions);
+			this.allQuestions = filteredQuestions;
+		} else {
+			this.allQuestions = this.unfilteredQuestions;
+		}
+	}
+
+	clearFilter() {
+			this.filterList.filterMRL = 0;
+			this.filterTheList();
+	}
+
+	saveXLS(){
+		var headers = [
+			"Question Text",
+			"Current Answer",
+			"Objective Evidence"
+		];
+
+		var values = this.allQuestions.map(q => {
+
+			return [
+				q.questionText,
+				q.currentAnswer,
+				q.objectiveEvidence
+			];
+		})
+
+		var worksheet = [headers, ...values];
+
+		var ws = XLSX.utils.aoa_to_sheet(worksheet);
+		var wb = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, 'Review Page');
+
+		/* save to file */
+		XLSX.writeFile(wb, 'review.xlsx');
 	}
 
 }

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>Docent</title>
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
 
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
+
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/glyphicons.css" rel="stylesheet">
+  <link href="assets/css/prism-okaidia.css" rel="stylesheet">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/jquery.dataTables.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,32 +27,33 @@
   <script src="cordova.js"></script>
 
   <!-- <meta http-equiv="Content-Security-Policy" -->
-<meta content="default-src" 'self' www.google-analytics.com www.googletagmanager.com data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src  www.googletagmanager.com www.google-analytics.com;">
+
+  <meta content="default-src" 'self' www.google-analytics.com www.googletagmanager.com data: gap:
+    https://ssl.gstatic.com 'unsafe-eval' ; style-src 'self' 'unsafe-inline' ; media-src *; connect-src
+    www.googletagmanager.com www.google-analytics.com;">
+
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126482277-2"></script>
 
-  <!-- <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+  <!-- IE11 compabilitiy-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    gtag('config', 'UA-126482277-2');
-  </script> -->
+  <!-- Allow fetch polyfill-->
+  <script src="https://cdn.polyfill.io/v2/polyfill.js?features=fetch,Array.prototype.includes,Array.prototype.forEach">
+  </script>
 
-  <!-- un-comment this code to enable service worker
+  <!-- Custom polyfill script to replace nodelist-->
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('service worker installed'))
-        .catch(err => console.error('Error', err));
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = Array.prototype.forEach;
     }
-  </script>-->
-
+  </script>
   <link href="build/main.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/x-icon" href="/assets/icon/docent.ico">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
@@ -61,4 +71,5 @@
   <script src="build/main.js"></script>
 
 </body>
+
 </html>

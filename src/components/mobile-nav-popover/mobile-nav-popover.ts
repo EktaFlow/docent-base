@@ -7,7 +7,6 @@ import { ReviewPage } from '../../pages/review/review';
 import { DashboardPage } from '../../pages/dashboard/dashboard';
 import { NavigatePage } from '../../pages/navigate/navigate';
 import { NotapplicablePage } from '../../pages/notapplicable/notapplicable';
-import { SkippedquestionsPage } from '../../pages/skippedquestions/skippedquestions';
 import { ActionitemsPage } from '../../pages/actionitems/actionitems';
 import { QuestionsPage } from "../../pages/questions/questions";
 import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
@@ -15,7 +14,9 @@ import { DefinitionsPage } from '../../pages/definitions/definitions';
 import { FaqsPage } from '../../pages/faqs/faqs';
 import { CriteriaPage } from '../../pages/criteria/criteria';
 import { SettingsPage } from '../../pages/settings/settings';
-import { AcronymsPage} from '../../pages/acronyms/acronyms';
+import { AcronymsPage } from '../../pages/acronyms/acronyms';
+import { SummaryPage } from '../../pages/summary/summary';
+import { RiskReportPage } from '../../pages/risk-report/risk-report';
 
 
 
@@ -37,6 +38,7 @@ export class MobileNavPopoverComponent {
   assessmentId: any;
   assessmentShow: boolean = false;
   userName: any;
+  noSecondBar: boolean = false;
 
 
   constructor(public navCtrl: NavController,
@@ -45,6 +47,12 @@ export class MobileNavPopoverComponent {
                     public auth: AuthService) {
     this.assessmentId = navParams.data.assessmentId;
     this.userName = navParams.data.userName;
+    if (navParams.data.noSecondBar){
+      this.noSecondBar = navParams.data.noSecondBar;
+    }
+
+    console.log(this.noSecondBar);
+    console.log(this.assessmentId);
     console.log(this.userName);
   }
 
@@ -89,15 +97,19 @@ export class MobileNavPopoverComponent {
   handleContinue = () => this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId});
   handleStartNew = () => this.navCtrl.push(HomePage);
   handleDashboard = () => this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
-  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId});
+  handleNavigate = () => this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
   handleReview = () => this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
   handleActionItems = () => this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
-  handleSkipped = () => this.navCtrl.push(SkippedquestionsPage, {assessmentId: this.assessmentId});
   handleNA = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
   handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
   handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
   handleFaqs = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
   handleSettings = () => this.navCtrl.push(SettingsPage, {assessmentId: this.assessmentId});
+  handleSummary = () => this.navCtrl.push(SummaryPage, {assessmentId: this.assessmentId});
   handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+  goToDoD = () => window.location.href = "http://dodmrl.com";
+  goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2017.pdf"
+  handleRiskReport = () => this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
+  // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
 
 }

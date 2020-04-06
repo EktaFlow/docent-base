@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PopoverController, NavController } from "ionic-angular";
 import { ViewsComponent } from "../views/views";
 import { HomePage } from "../../pages/home/home";
+import { LoginPage } from '../../pages/login/login';
 import { NavigatePage} from "../../pages/navigate/navigate";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../helpmenu/helpmenu";
@@ -10,6 +11,8 @@ import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard";
 import { ThreadPopupComponent} from "../thread-popup/thread-popup";
 import { AssessmentScopePopoverComponent } from "../assessment-scope-popover/assessment-scope-popover";
 import { MobileNavPopoverComponent } from '../mobile-nav-popover/mobile-nav-popover';
+import {QuestionHistoryPopoverComponent} from '../question-history-popover/question-history-popover';
+import {QuestionsPage} from '../../pages/questions/questions';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -41,7 +44,6 @@ export class TopbarComponent {
 	public scopeSelected: any;
 	public loggedIn: boolean = false;
 	@Input() public assessmentId: any;
-	@Input() public questionId: number;
 	// the question info is only relevant for the questions page. whereas the assessments info is relevant for all the pages.
 	@Input() private mainTitle: any;
 	@Input() private subTitle: any;
@@ -54,8 +56,9 @@ export class TopbarComponent {
 	@Input() private values: any;
 	@Input() private getAssessmentId: any;
 	@Input() public pageName: any;
+	@Input() private questionId: any;
 	public popUpButtonClicked: any;
-	infoShow: boolean = true;
+	// infoShow: boolean = true;
 	// getAssessmentIdOnQuestions: boolean = false;
 
 
@@ -68,9 +71,7 @@ constructor( public popOver: PopoverController,
 
 	async ngOnInit() {
 
-		console.log(this.getAssessmentId);
 		if (this.getAssessmentId) {
-			console.log()
 			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 			this.getAssessmentData();
 
@@ -79,19 +80,14 @@ constructor( public popOver: PopoverController,
 		}
 
 		this.loggedIn = this.auth.isLoggedIn();
-		// console.log(this.values);
 
-		console.log(this.targetMRL);
 
-		// console.log(this.assessmentId);
 
 	}
 
 	toggleScopeSelected(event) {
-		// console.log("fire!");
 		// this.scopeSelected = !this.scopeSelected;
 		let popover = this.popOver.create(AssessmentScopePopoverComponent, {scopeText: this.scope}, {cssClass: 'scope-popover'});
-		console.log(this.scope);
 		popover.present({
 			ev: event
 		})
@@ -114,7 +110,6 @@ constructor( public popOver: PopoverController,
 			}
 		}).valueChanges
 			.subscribe( ({data, loading}) => {
-				console.log(data.assessment);
 				this.scope	= data.assessment.scope;
 				this.targetMRL  = data.assessment.targetMRL;
 				this.targetDate = data.assessment.targetDate;
@@ -132,12 +127,15 @@ constructor( public popOver: PopoverController,
 		this.popOver.create(HelpmenuComponent, {assessmentId: this.assessmentId})
 		            .present({ev: event});
 	}
+	handleContinue(){
+		this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
+	}
 
 	// registerNav() { this.navCtrl.push( this.registerPage ); }
 	// loginNav() { this.navCtrl.push( this.loginPage ); }
 	handleLogout() {
 		this.auth.logout();
-		this.navCtrl.setRoot(HomePage);
+		this.navCtrl.setRoot(LoginPage);
 		this.navCtrl.popToRoot();
 	}
 
@@ -148,25 +146,27 @@ constructor( public popOver: PopoverController,
 			questionId: this.questionId
 		}
 
+    /*
 		var update = await this.assessmentService.updateQuestion(updateInfo);
-		update.subscribe(data =>
-			this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}));
-
+		update.subscribe(data => );
+    */
+    this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
 	}
 
 
 	async handleUserDash() {
-		if (this.assessmentId && this.values && this.questionId) {
+		if (this.assessmentId ) {
+    /* Removing this feature -- we now have the save button -ask if we want to keep it?
 			var updateInfo = {
 				updates: this.values,
 				_id:     this.assessmentId,
 				questionId: this.questionId
 			}
 
-			console.log("trouble spot");
-			console.log(this.assessmentId);
 			var update = await this.assessmentService.updateQuestion(updateInfo);
 			update.subscribe(data => this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId}));
+      */
+      this.navCtrl.push(this.userDashPage, {assessmentId: this.assessmentId})
 		} else {
 			this.navCtrl.push(this.userDashPage);
 		}
@@ -184,38 +184,52 @@ constructor( public popOver: PopoverController,
 
 
 
-	presentSubThreadPop(event){
+	presentSubThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
-			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'subthread-popup'})
-    .present({ev: event});
+		var popover = this.popOver.create(SubthreadPopupComponent, {assessmentId: this.assessmentId,
+			subTitle: this.subTitle, updateInfo: updateInfo}, {cssClass: 'sub-thread-popup'});
+			if (mobileness == "false"){
+				popover.present({ev: event});
+			} else {
+				popover.present();
+			}
   }
 
-	presentThreadPop(event){
+	presentThreadPop(event, mobileness){
 		var updateInfo = {
 			updates: this.values,
 			_id:     this.assessmentId,
 			questionId: this.questionId
 		}
-		this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
-			updateInfo: updateInfo}, {cssClass: 'thread-popup'})
-		.present({ev: event});
+		var popover = this.popOver.create(ThreadPopupComponent, {assessmentId: this.assessmentId,
+			updateInfo: updateInfo}, {cssClass: 'thread-popup'});
+		if (mobileness == "false"){
+			popover.present({ev: event});
+		} else {
+			popover.present();
+		}
 	}
 
-	openMobileNav(){
-		var userName = this.auth.currentUser().name;
-		console.log(userName);
-		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName}, {cssClass: 'mobile-nav-pop'})
+	toggleQuestionHistory(){
+		this.popOver.create(QuestionHistoryPopoverComponent, {assessmentId: this.assessmentId,
+			questionId: this.questionId}, {cssClass: 'question-history-popup'})
 		.present();
 	}
 
-	toggleTopbarInfo(){
-		this.infoShow = !this.infoShow;
+	openMobileNav(){
+		console.log(this.noSecondBar);
+		var userName = this.auth.currentUser().name;
+		this.popOver.create(MobileNavPopoverComponent, {assessmentId: this.assessmentId, userName: userName, noSecondBar: this.noSecondBar}, {cssClass: 'mobile-nav-pop'})
+		.present();
 	}
+
+	// toggleTopbarInfo(){
+	// 	this.infoShow = !this.infoShow;
+	// }
 
 
 }

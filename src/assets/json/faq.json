@@ -60,12 +60,12 @@
   },
   {
     "help_title": "How can I find questions I skipped?",
-    "help_text": ["Select the 'Skipped Questions' option from the 'Assessment' menu."
+    "help_text": ["Navigate to Questions List page"
     ]
   },
   {
     "help_title": "How can I find questions I marked 'not applicable'?",
-    "help_text": ["Select the 'N/A Questions' option from the 'Assessment' menu."
+    "help_text": ["Navigate to the Questions List page"
     ]
   }
 ]

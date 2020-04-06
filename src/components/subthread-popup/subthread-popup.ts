@@ -44,9 +44,9 @@ export class SubthreadPopupComponent {
 	// @Input() private subTitle: any;
 
   constructor(private apollo: 			 Apollo,
-							 public navCtrl: 			 NavController,
-							 public navParams: 		 NavParams,
-						 	private assessmentService: AssessmentService) {
+							 			public navCtrl: 			 NavController,
+							 			public navParams: 		 NavParams,
+						 				private assessmentService: AssessmentService) {
 								 this.assessmentId = navParams.data.assessmentId;
 								this.subTitle = navParams.data.subTitle;
 								this.updateInfo = navParams.data.updateInfo;
@@ -85,10 +85,11 @@ export class SubthreadPopupComponent {
 	 // stay on the questions page and change the current question variable
   async navToQuestion(questionId) {
 		var update = await this.assessmentService.updateQuestion(this.updateInfo);
-		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
-			assessmentId: 			this.assessmentId,
-			questionId: questionId
-		}));
+		this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
+		// update.subscribe(data => this.navCtrl.push(QuestionsPage, {
+		// 	assessmentId: 			this.assessmentId,
+		// 	questionId: questionId
+		// }));
 
 	}
 

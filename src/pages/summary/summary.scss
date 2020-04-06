@@ -1,0 +1,233 @@
+page-summary {
+
+  ion-content{
+    margin-top: 120px;
+  }
+
+  table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: outset;
+      border-color: gray;
+      border-collapse: separate;
+      background-color: white;
+  }
+
+  table td {
+      border-width: 1px;
+      padding: 1px;
+      border-color: gray;
+      background-color: white;
+      // -moz-border-radius: ;
+  }
+
+  table th {
+      border-width: 1px;
+      padding: 1px;
+      border-color: gray;
+      background-color: white;
+      // -moz-border-radius: ;
+  }
+
+  .filter-toolbar {
+      list-style-type: none;
+      height: 70px;
+      // background-color: blue;
+      // position: absolute;
+      // top: 150px;
+      // left: 0;
+      width: 98%;
+      z-index: 9999;
+      padding-left: 20px;
+      padding-top: 15px;
+      border-bottom: .5px solid lightgray;
+
+      button {
+          display: inline-block;
+          width: 20%;
+      }
+
+      .filter-list {
+          width: 60%;
+          list-style-type: none;
+          display: inline-block;
+          vertical-align: middle;
+           p {
+              display: inline;
+              vertical-align: middle;
+              width: 10%;
+              margin-left: 10px;
+          }
+          select {
+              width: 50%;
+              vertical-align: middle;
+              // margin: 0 5px;
+          }
+
+
+          .filter-buttons {
+              margin: 0 5px;
+              width: 10%;
+              vertical-align: middle;
+          }
+
+       }
+
+      }
+
+
+    $input-backgroud:#fbfbfb;
+    $input-border:#dcdcdc;
+    %input-style{
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        line-height: 1.42857;
+        font-size: 14px;
+        padding: 6px 12px;
+        background-color:$input-backgroud;
+        border-color: $input-border;
+    }
+    %down-arrow{
+        background-position: right 50%;
+        background-repeat: no-repeat;
+        background-image:url('../../assets/imgs/if_icon-arrow-down.png');
+        padding: .5em;
+        padding-right: 1.5em;
+    }
+    %page-info{
+        font-size: 18px;
+        margin: 100px 0px 0px 100px;
+        hr{
+            margin-right: 100px;
+        }
+    }
+    .toolbar-class{
+        header{
+            color:#000;
+        }
+        img{
+            margin-left: 10px;
+            margin-top: 10px
+        }
+        p{
+            visibility: visible !important;
+        }
+        hr {
+            height: 1px !important;
+            width: 98% !important;
+            background:grey!important;
+            display: block !important;
+            font-size: 2em !important;
+            visibility: visible !important;
+        }
+    }
+    .subheader{
+        display: flex;
+        justify-content: space-between;
+        color:white;
+        margin-left:13px;
+    }
+    .page-one-info{
+        @extend %page-info;
+    }
+    .survey-info{
+        @extend %page-info;
+        margin-top:0px;
+        li{
+            list-style-type: none;
+        }
+    }
+    .yes{
+        .box{
+            background-color:green;
+            color:white;
+            border-radius:3px;
+            width:5%;
+            text-align: center;
+        }
+    }
+    .no{
+        .box{
+            background-color:red;
+            color:white;
+            border-radius:3px;
+            width:5%;
+            text-align: center;
+        }
+    }
+    .na{
+        .box{
+            background-color:darkgrey;
+            color:white;
+            border-radius:3px;
+            width:5%;
+            text-align: center;
+        }
+    }
+
+    .qspacer {
+      font-size: 0;
+      height: 220px;
+      line-height: 0;
+      border: 0px;
+      /* testing only */
+       // border: 1px solid red;
+       width: 100%;
+    }
+
+    @media screen and (max-width: 1024px){
+      .export-toolbar  {
+        display: none;
+      }
+
+      .table-wrapper {
+        width: 100%;
+        overflow: scroll;
+      }
+
+        .page-one-info {
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+      .survey-info {
+        margin-left: 0px;
+      }
+
+      .skipped {
+          .box {
+              width: 100%;
+          }
+      }
+
+      .no {
+          .box {
+              width: 100%;
+          }
+      }
+
+      .yes {
+          .box {
+              width: 100%;
+          }
+      }
+
+      .na {
+          .box {
+              width: 100%;
+          }
+      }
+    }
+
+    @media screen and (min-width: 420px) and (max-width: 1024px){
+      ion-content {
+        margin-top: 160px;
+      }
+    }
+    .table-wrapper {
+            padding-bottom: 12px;
+    }
+}

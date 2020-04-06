@@ -2,9 +2,9 @@
 <div>
   <div class='icons'>
     <ng-container *ngIf="assessmentShow || helpShow">
-      <ion-icon  name="arrow-dropleft" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
+      <ion-icon  name="arrow-back" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
     </ng-container>
-    <ion-icon name="close-circle-outline" (click)="closeNav()" class="close"></ion-icon>
+    <ion-icon name="close" (click)="closeNav()" class="close"></ion-icon>
   </div>
   <ng-container *ngIf="regularNavShow">
     <button ion-button color="dark" disabled class="user-name">
@@ -14,13 +14,16 @@
         Logout
     </button>
     <button (click)="handleUserDash()" ion-button color="dark">
-        User Dash
+        Home
     </button>
-    <button (click)="handleStartNew()" ion-button color="dark">
+    <button (click)="handleStartNew()" *ngIf="!assessmentId" ion-button color="dark">
         Start New Assessment
     </button>
+    <button (click)="handleContinue()" *ngIf="assessmentId && !noSecondBar" ion-button color="dark">
+        Continue Assessment
+    </button>
     <button *ngIf="assessmentId" (click)="showAssessment()" ion-button color="dark">
-      Assessment
+      Reports
     </button>
     <button (click)="showHelp()" ion-button color="dark">
         Help Menu
@@ -34,14 +37,12 @@
   </ng-container>
 
   <ng-container *ngIf="assessmentShow && assessmentId" class="assessment-links" >
-      <button (click)="handleContinue()" ion-button color="dark">
-          Continue Assessment
-      </button>
+
       <button (click)="handleDashboard()" ion-button color="dark">
-          Dashboard
+          MRL Summary
       </button>
       <button (click)="handleNavigate()" ion-button color="dark">
-          Navigate
+          Questions List
       </button>
       <button (click)="handleReview()" ion-button color="dark">
           Review
@@ -49,11 +50,11 @@
       <button (click)="handleActionItems()" ion-button color="dark">
           Action Items
       </button>
-      <button (click)="handleSkipped()" ion-button color="dark">
-          Skipped Questions
+      <button (click)="handleSummary()" ion-button color="dark">
+          MRL Risk Summary
       </button>
-      <button (click)="handleNA()" ion-button color="dark">
-          N/A Questions
+      <button (click)="handleRiskReport()" ion-button color="dark">
+        Detailed Risk Report
       </button>
       <!-- <button (click)="closeAssessment()" ion-button color="dark">
           Back
@@ -73,10 +74,10 @@
     <button (click)="handleFaqs()" ion-button color="dark">
         FAQs
     </button>
-    <button ion-button color="dark">
+    <button ion-button color="dark" (click)="goToDoD()">
         User Guide
     </button>
-    <button ion-button color="dark">
+    <button ion-button color="dark" (click)="goToDeskbook()">
         MRL Deskbook
     </button>
     <!-- <button (click)="closeHelp()" ion-button color="dark">

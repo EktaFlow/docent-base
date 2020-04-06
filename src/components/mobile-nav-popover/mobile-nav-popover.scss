@@ -1,6 +1,6 @@
 mobile-nav-popover {
   // padding-top: 0px;
-  button {
+  button, a {
     width: 100%;
     display: block;
   }
@@ -36,8 +36,11 @@ mobile-nav-popover {
       right: 1px;
       font-size: 3em;
       padding: 10px;
+      opacity: 1;
+
     }
   }
+
 
 
 }

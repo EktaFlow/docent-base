@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { TopbarComponent } from "../../components/topbar/topbar";
+import { FileDeleteComponent } from '../../components/file-delete/file-delete';
 import { SettingsPage } from "../settings/settings";
 import { QuestionsPage } from "../questions/questions";
 import { DashboardPage } from "../dashboard/dashboard";
 import { ActionitemsPage } from "../actionitems/actionitems";
+import { EditAssessmentPage } from '../edit-assessment/edit-assessment';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over";
 import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
+import { ImportComponent } from "../../components/import/import";
+import { saveAs } from "file-saver/FileSaver";
+
+
 
 
 import { HomePage } from "../home/home";
@@ -28,10 +34,79 @@ query getShared($assessments: [String]) {
     location
     name
 		id
-		teamMembers
+		teamMembers {
+			name
+			email
+			role
+		}
 		userId
 		userEmail
 	}
+}
+`
+
+var assessmentQuery = gql`
+query assessment($_id: String)
+{
+ assessment(_id: $_id)  {
+  userId
+  userEmail
+  scope
+  targetMRL
+  teamMembers {
+    name
+    email
+    role
+  }
+  levelSwitching
+  targetDate
+  location
+  deskbookVersion
+  name
+  threads
+	questions{
+		questionText
+	  currentAnswer
+		questionId
+    threadName
+    subThreadName
+    mrLevel
+		questionId
+    helpText
+    criteriaText
+    answers {
+      userId
+      updatedAt
+      answer
+      likelihood
+      consequence
+      greatestImpact
+      riskResponse
+      mmpSummary
+  		objectiveEvidence
+  		assumptionsYes
+  		notesYes
+  		who
+  		when
+  		what
+  		reason
+  		assumptionsNo
+  		notesNo
+  		documentation
+  		assumptionsNA
+  		notesNA
+      assumptionsSkipped
+      notesSkipped
+    }
+  }
+	files {
+    id
+    caption
+    name
+    questionId
+		url
+	}
+}
 }
 `
 
@@ -61,6 +136,7 @@ export class UserDashboardPage {
 
 	showMine: boolean = false;
 	showShared: boolean = false;
+	assessmentsBox: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -87,13 +163,18 @@ export class UserDashboardPage {
 		this.user = user;
 
 		var observe =  await this.assessmentService.getAssessments(user);
-		observe.subscribe(({data}) => this.assessments = data.assessments);
-		// console.log(this.currentAssessment);
-		// console.log(window.screen.width);
+		observe.subscribe(({data}) => {
+			this.assessments = data.assessments;
+			this.assessments = JSON.parse(JSON.stringify(this.assessments));
+			console.log(this.assessments);
+		});
 		if (window.screen.width > 440) {
 			this.showMine = true;
 			this.showShared = true;
 		}
+
+
+
   }
 
 
@@ -113,11 +194,26 @@ export class UserDashboardPage {
 			.then(a => a.json())
 			.then(a => this.sharedAssessmentIds = a )
 			.catch(e => console.log(e));
-		}
+			} else {
+			console.log('we not in auth.currentU');
+			}
+
+	}
+
+
+
+	launchImportPopover() {
+		this.popOver.create(ImportComponent)
+								.present();
+	}
+
+	handleImport() {
+		this.launchImportPopover();
 	}
 
 	pullSharedAssessments() {
-		console.log(this.sharedAssessmentIds);
+	console.log(this.sharedAssessmentIds);
+
 		this.apollo.watchQuery<any>({
       query: sharedQuery,
       variables: {
@@ -127,10 +223,39 @@ export class UserDashboardPage {
     .valueChanges
     .subscribe(({data, loading}) => {
 		  // TODO, make this a better fix else where...
-			data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
+			var noNulls = data.getShared.filter( id => id);
+			this.sharedAssessments = noNulls;
+			// data.getShared.every( a => a ) ? this.sharedAssessments = data.getShared : null
     });
 
 	}
+
+	handleSave(assessmentId) {
+		this.apollo.watchQuery<any>({
+		query: assessmentQuery,
+		fetchPolicy: "network-only",
+		variables: {_id: assessmentId}
+	})
+		.valueChanges
+		.subscribe( ({data, loading}) => {
+			console.log('we firin up a save')
+			console.log(event.target);
+			var title = data.assessment.name;
+			title ? null : title = "untitled"
+			var assessment = JSON.stringify(data);
+			saveAs(new Blob([assessment], { type: "text/plain" }), title + ".mra")
+			// this.close();
+		})
+
+	}
+
+	public truncate(value: string, limit = 30, completeWords = true, ellipsis = '…') {
+  let lastindex = limit;
+  if (completeWords) {
+    lastindex = value.substr(0, limit).lastIndexOf(' ');
+  }
+  return `${value.substr(0, limit)}${ellipsis}`;
+}
 
   expandAssessment(assessmentId) {
     // this.expand = !this.expand;
@@ -139,7 +264,23 @@ export class UserDashboardPage {
     } else {
       this.currentAssessment = assessmentId;
     }
+		window.setTimeout(this.scrollToElement(assessmentId), 500);
+
+		// target.scrollIntoView();
   }
+
+	expandAssessmentMobile(assessmentId){
+		if (this.currentAssessment == assessmentId) {
+      this.currentAssessment = null;
+    } else {
+      this.currentAssessment = assessmentId;
+    }
+	}
+
+	scrollToElement(assessmentId){
+		var target = document.getElementById(assessmentId);
+		target.scrollIntoView({behavior: "smooth", block: "center"});
+	}
 
 	// the navigation functions from within an assessment, should each set the new global assessment service Id
 	// set Assessment and Navigate
@@ -152,31 +293,70 @@ export class UserDashboardPage {
 
 	async openDashboard(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
+		console.log(assessmentId);
 
-	  this.navCtrl.push(DashboardPage);
+	  this.navCtrl.push(DashboardPage, {assessmentId: assessmentId});
 	}
 
 	async openActionItems(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
 
-     this.navCtrl.push(ActionitemsPage);
+     this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId, autoFilter: true});
 	}
 
 	redirectToCreate(){	this.navCtrl.push(HomePage);	}
 
   handleSettings(){ this.navCtrl.push(SettingsPage);}
 
+  async handleEditAssessmentClick(assessmentId) {
+    await this.assessmentService.setCurrentAssessmentId(assessmentId);
+
+    // Go to page to edit assessment.
+    this.navCtrl.push(EditAssessmentPage, {page: 'edit'});
+  }
+
 	toggleMine = () => {this.showMine = !this.showMine;}
 	toggleShared = () => {this.showShared = !this.showShared;}
 
+  /**
+  *   launch delete popover, pass assessment type
+  *   create an emitter to recieve user response from popover,
+  *   if emitter returns truthy, go use assessment service delete,
+  *   & remove from view
+  *   assessmentId: the assessmentId of the assessment to be deleted
+  */
 	async handleDeleting(assessmentId){
-		var observe =  await this.assessmentService.deleteAssessment(assessmentId);
-		observe.subscribe((data => this.removeAssessmentFromPage(assessmentId)) );
+    var emitter =  new EventEmitter<any>();
+    emitter.subscribe(deleteFile => {
+      if (deleteFile) {
+        this.assessmentService.deleteAssessment(assessmentId)
+        .then(a => a.toPromise())
+        .catch( err => console.error('cant resolve to Promise'))
+        .then(p => this.removeAssessmentFromPage(assessmentId))
+        .catch( err => console.error('cant remove from page'));
+      }
+    });
+
+    this.popOver.create(FileDeleteComponent, {emitter: emitter, typeToDelete: 'assessment'})
+                .present();
 	}
 
 	presentAddTeamMembersPopOver(assessmentId){
-		this.popOver.create(AddTeamMembersPopOverComponent, {assessmentId: assessmentId}, {cssClass: 'team-popover'})
-		.present();
+		let myEmitter = new EventEmitter<any>();
+		myEmitter.subscribe( data =>  {
+		console.log(data);
+		var assIndex= this.assessments.findIndex(a => a.id == assessmentId);
+		this.assessments[assIndex].teamMembers.push(data.data.addTeamMember);
+		console.log(this.assessments[assIndex]);
+		});
+
+		this.popOver.create(AddTeamMembersPopOverComponent,
+			{assessmentId: assessmentId,
+			emitter: myEmitter},
+			{cssClass: 'team-popover'})
+				.present();
+
+
 	}
 
 	removeAssessmentFromPage(assessmentId){

@@ -4,6 +4,8 @@ import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 import { DocentStorageAccount, SAS } from "./constants";
 import { AuthService } from "./auth.service";
+import { HttpClient } from "@angular/common/http"
+import { AuthUrl } from "./constants";
 
 
 var createFileMutation = gql`
@@ -30,8 +32,8 @@ export class UploadService {
 	sas:         string = SAS;
 
 	constructor(private apollo: Apollo,
-											private auth: AuthService) {
-												// console.log(auth);
+											private auth: AuthService,
+                      private http: HttpClient) {
 											}
 
 
@@ -52,9 +54,14 @@ export class UploadService {
 	}
 
 	uploadJSON(file){
-		console.log(this);
 		var user = this.auth.currentUser();
-		this.auth.uploadJSON(file, user.email);
+		var jsonRoute = AuthUrl + "uploadJSON"
+
+		var fileInfo = {
+			file: file,
+			email: user.email
+		}
+		return this.http.post(jsonRoute, fileInfo);
 	}
 
 	generateUrl(name) {

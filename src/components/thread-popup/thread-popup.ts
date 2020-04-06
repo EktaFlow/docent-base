@@ -53,7 +53,7 @@ export class ThreadPopupComponent {
 		var styling = `
 		width: 300px;
 		`
-		var test = document.getElementsByClassName("popover-content")
+		var test = document.getElementsByClassName("popover-content");
 
 		var	newVar = test[test.length - 1] as HTMLElement;
 		newVar.style.cssText = styling;
@@ -103,13 +103,16 @@ export class ThreadPopupComponent {
 
 	 createThreadsObject(questionsArray) {
 		 console.log(questionsArray);
-		 var threadNames = questionsArray.map(a => a.threadName)
+
+		 var filteredQuestions = questionsArray.filter(question => question.mrLevel == this.targetMRL);
+
+		 var threadNames = filteredQuestions.map(a => a.threadName)
 	 					  											 .filter(this.unique);
 	 		var subThreadNames = threadNames.map( a => {
-	 		var allSubheaders = questionsArray.filter(b => b.threadName == a)
+	 		var allSubheaders = filteredQuestions.filter(b => b.threadName == a)
 	 		var subThreadNames = this.filterUnique(allSubheaders, "subThreadName")
 	 				.map(sName => {
-	 					var questions = questionsArray.filter(m => m.subThreadName == sName);
+	 					var questions = filteredQuestions.filter(m => m.subThreadName == sName);
 	 					var mrLevels = this.filterByProperty(questions, "mrLevel");
 	 					var a = mrLevels.map(f => {
 	 						var questionSet = questions.filter(s => s.mrLevel == f)
@@ -131,23 +134,23 @@ export class ThreadPopupComponent {
    }
 
 	 navToQuestionFromSchema(questionsArray){
-		 console.log("hello");
-		 console.log(this.targetMRL);
-		 var correctQsByMRL = questionsArray.filter(q => q.mrl == this.targetMRL);
-		 console.log(correctQsByMRL);
-		 this.navToQuestion(correctQsByMRL[0].questionSet[0].questionId);
+		 // console.log("hello");
+		 // console.log(this.targetMRL);
+		 // console.log(questionsArray);
+		 // var correctQsByMRL = questionsArray.filter(q => q.mrl == this.targetMRL);
+		 // console.log(correctQsByMRL);
+		 this.navToQuestion(questionsArray[0].questionSet[0].questionId);
 	 }
 
 
-
-
-
   async navToQuestion(questionId) {
-		var update = await this.assessmentService.updateQuestion(this.updateInfo);
-		update.subscribe(data => this.navCtrl.push(QuestionsPage, {
-			assessmentId: 			this.assessmentId,
-			questionId: questionId
-		}));
+		console.log(this.updateInfo);
+		this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
+		// var update = await this.assessmentService.updateQuestion(this.updateInfo);
+		// update.subscribe(data => this.navCtrl.push(QuestionsPage, {
+		// 	assessmentId: 			this.assessmentId,
+		// 	questionId: questionId
+		// }));
 
 	}
 }

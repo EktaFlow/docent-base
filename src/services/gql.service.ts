@@ -11,13 +11,14 @@ query assessments($userId: String) {
      location
      name
 		 id
-		 teamMembers
+			teamMembers {
+				name
+				email
+				role
+			}
 	}
 }
 `
-
-
-
 export var createAssessmentMutation = gql`
  mutation createAssessment(
      $threads:     [Int],
@@ -31,7 +32,7 @@ export var createAssessmentMutation = gql`
 		 $levelSwitching: Boolean
 		 $userId: String
 		 $userEmail: String
-		 $teamMembers: [String]
+		 $teamMembersUpdates: [TeamMemberInput]
 		 $schema: String
    ) {
      createAssessment(
@@ -45,12 +46,12 @@ export var createAssessmentMutation = gql`
        targetDate: $targetDate,
        deskbookVersion: $deskbookVersion,
 			 name: $name,
-			 teamMembers: $teamMembers,
+			 teamMembersUpdates: $teamMembersUpdates,
 			 levelSwitching: $levelSwitching,
 			 schema: $schema
      ) {
           _id
-
+          deskbookVersion
        }
      }
 `
@@ -66,40 +67,56 @@ query assessment($_id: String)
     mrLevel
 		questionId
 		questionText
-		objectiveEvidence
-		assumptionsYes
-		notesYes
-		notesSkipped
-		assumptionsSkipped
-		who
-		when
-		technical
-		cost
-		schedule
-		what
-		reason
-		assumptionsNo
-		notesNo
-		documentation
-		assumptionsNA
-		notesNA
 		helpText
+		answers {
+			userId
+			updatedAt
+			answer
+			objectiveEvidence
+			assumptionsYes
+			notesYes
+			notesSkipped
+			assumptionsSkipped
+			likelihood
+			consequence
+			greatestImpact
+			riskResponse
+			mmpSummary
+			risk
+			who
+			when
+			what
+			reason
+			assumptionsNo
+			notesNo
+			documentation
+			assumptionsNA
+			notesNA
+			revertedBy
+		}
   }
 	targetMRL
+  threads
 	currentMRL
 	levelSwitching
+	deskbookVersion
 	files {
+    id,
 		url,
-                questionId,
-                name
+    questionId,
+    name
 	}
 }
 }
 `
 
+//needs to change to something like 'addAnAnswerToAQuestionMutation'
+//included userId in args for the new Answer
+//not sure what else to change currently
+//probably want to return answers array /// most recent answer
 export var updateQuestionMutation = gql`
-mutation updateAssessment($_id: String!, $questionId: Int, $updates: QuestionUpdate) {
-	updateAssessment(_id: $_id, questionId: $questionId, updates: $updates) {
+mutation updateAssessment($_id: String!, $questionId: Int, $questionUpdates: QuestionInput, $answerUpdates: AnswerInput) {
+	updateAssessment(_id: $_id, questionId: $questionId, questionUpdates: $questionUpdates, answerUpdates: $answerUpdates) {
 		scope
     location
 	}
@@ -120,9 +137,19 @@ query {
 `
 
 export var updateTeamMembersMutation = gql`
-	mutation addTeamMember($_id: String, $_teamMember: String) {
-		addTeamMember(_id: $_id,  _teamMember: $_teamMember) {
-			teamMembers
+	mutation addTeamMember($assessmentId: String, $teamMember: TeamMemberInput) {
+		addTeamMember(assessmentId: $assessmentId,  teamMemberUpdates: $teamMember) {
+			name
+			email
+			role
 		}
 	}
+`
+
+export var deleteFileMutation = gql`
+  mutation deleteFile($assessmentId: String, $fileId: String) {
+    deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
+      name
+    }
+  }
 `

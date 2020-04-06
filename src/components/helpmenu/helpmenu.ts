@@ -32,11 +32,23 @@ export class HelpmenuComponent {
   close() {
 	this.viewCtrl.dismiss();
   }
+  handleCriteria(){
+    this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
+    this.close();
+  }
+  handleDefinitions(){
+    this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
+    this.close();
+  }
+  handleAcronyms(){
+    this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+    this.close();
+  }
+  handleFAQ(){
+    this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
+    this.close();
+  }
 
-  handleCriteria = () => this.navCtrl.push(CriteriaPage, {assessmentId: this.assessmentId});
-  handleDefinitions = () => this.navCtrl.push(DefinitionsPage, {assessmentId: this.assessmentId});
-  handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
-  handleFAQ = () => this.navCtrl.push(FaqsPage, {assessmentId: this.assessmentId});
 
 
 }

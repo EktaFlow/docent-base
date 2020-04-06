@@ -3,12 +3,21 @@
 
 <ion-content padding >
 
-  <div class="desktop">
-    <br><br><br><br><br><br><br><br><br><br>
-  </div>
 
-  <div class="desktop">
-  	<div> <span>subthread passed: </span>
+
+
+  <!-- <div class="desktop">
+          <br><br><br><br><br><br><br>
+  </div> -->
+
+    <report-info-card [assessmentId]="assessmentIdFromParams"></report-info-card>
+    <ng-container class="desktop">
+      <button *ngIf="!imageDownloading" ion-button color="buttonBlue" (click)="downloadPNG()"> Download Image</button>
+      <button *ngIf="imageDownloading" ion-button color="buttonBlue" [disabled]="true"> Download Image</button>
+    </ng-container>
+
+  <div id="desktoper" class="desktop">
+  	<div class="legend" style="display:flex; align-items: center; "> <span>subthread passed: </span>
   					<div class="yes dashbox">
             <img class="dashpic" src="assets/imgs/check-mark-256.png">
   					</div>
@@ -25,30 +34,20 @@
             <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden">
   					</div>
   	</div>
-    <div class="top">
-        <p>Completion Date</p>
-        <p>10</p>
-        <p>9</p>
-        <p>8</p>
-        <p>7</p>
-        <p>6</p>
-        <p>5</p>
-        <p>4</p>
-        <p>3</p>
-        <p>2</p>
-        <p>1</p>
-    </div>
-    <br><br><br>
     <div *ngFor = "let question of questionSet">
       <hr>
         <p><b>{{question.header}}</b></p>
       <hr>
       <div *ngFor = "let answer of question.questions" class="questions">
         <div class="header">
-          <p class = "subtitle">{{answer.subheader}}</p>
+          <p *ngIf="answer.subheader!= 'MR Levels'"class = "subtitle" (click)="goToQuestion(answer.subheader)">{{answer.subheader}}</p>
+          <h5 *ngIf="answer.subheader == 'MR Levels'"> MRLs</h5>
         </div>
         <div *ngFor ="let response of answer.answers" class="answers">
-          <div *ngIf = "response == true" class = "yes dashbox">
+                <div *ngIf="isHeader(response)">
+                        {{response}}
+                </div>
+          <div *ngIf = "response == true && !isHeader(response)" class = "yes dashbox">
             <img class="dashpic" src="assets/imgs/check-mark-256.png">
           </div>
           <div *ngIf = "response == false" class = "no dashbox">
@@ -60,9 +59,6 @@
           <div *ngIf = "response == null" class = "na dashbox">
             <img class="dashpic" src="assets/imgs/x-mark-256.ico" style="visibility:hidden;">
           </div>
-        </div>
-        <div class = "date">
-          <p>Date</p>
         </div>
       </div>
     </div>
@@ -110,8 +106,10 @@
 
       <div class="links">
         <button (click)="handleActionItems()" ion-button color="darkSlateBlue">Action Items</button>
+        <!-- commenting this out b/c not sure if this should exist, haven't had an N/A page available for a bit
+                regardless, this is a mobile thing
         <button (click)="handleNa()" ion-button color="darkSlateBlue">Not Applicable</button>
-        <button (click)="handleSkipped()" ion-button color="darkSlateBlue">Skipped Questions</button>
+        -->
       </div>
 
 
