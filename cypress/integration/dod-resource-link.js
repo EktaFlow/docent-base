@@ -7,7 +7,6 @@ describe("validates DOD Resource link", function() {
   });
 
   it("finds proper link for dodmrl website", () => {
-    cy.location("pathname").should("eq", "/");
     const helpButton = `topbar.desktop > .toolbar-class > :nth-child(1) >
                         .docent-header > .toolbar > .toolbar-content > .container-toolbar >
                         .container-tbbuttons > #help-open-button > .button-inner`;
