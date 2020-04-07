@@ -1,7 +1,5 @@
 
-describe("determine MR Level is same as Target MRL", function () {
-
-  const value = 1;
+describe("determine finish button and pop up indicator", function () {
 
   beforeEach(() => {
     const email = Cypress.env("email");
@@ -33,203 +31,70 @@ describe("determine MR Level is same as Target MRL", function () {
     cy.location("pathname").should("eq", "/");
   });
 
-  it("clicks Start New", () => {
+  it("start test", () => {
+    const value = 1;
 
-    cy.get(
-      ".buttons > :nth-child(1) > .button-inner"
-    ).click();
-
+    cy.get(".buttons > :nth-child(1) > .button-inner").click();
     // finds and fills assessment name field
-    cy.get("#assessment-name-input")
-      .type("test")
-      .should("have.value", "test");
-
+    cy.get("#assessment-name-input").type("test").should("have.value", "test");
     //  sets Target MRL from dropdown menu to value
-    cy.get("#target-mrl-select")
-      .select(`${value}`)
-      .should("have.value", `${value}`);
-
+    cy.get("#target-mrl-select").select(`${value}`).should("have.value", `${value}`);
     // finds Level Switching to be false
-    cy.get(
-      "#level-switching-select > option[value='false']"
-    ).should("have.value", "false");
-
+    cy.get("#level-switching-select > option[value='false']").should("have.value", "false");
     // sets Level Switching to be on
-    cy.get("#level-switching-select ").select(
-      "On"
-    );
-
+    cy.get("#level-switching-select ").select("On");
     // finds and clicks start button
-    cy.get(
-      "#assessment-start > .button-inner"
-    ).click();
+    cy.get("#assessment-start > .button-inner").click();
 
 
-    /// todo: loop
+    // first time
+    let qArr;
+    let qPos;
+    let qFinish;
+
+    //Initial run so we have access to question # in set
+    cy.get("#select-answer").select("Yes");
+    cy.get("#likelihood-input").select("1");
+    cy.get("#consequence-input").select("1");
+    cy.get("#impact-input").select("Cost");
+    cy.get("#response-input").select("Accept");
+    cy.get(".nav-q-buttons > #next-skip-button > .button-inner").click();
+
+    cy.get("#question-number-in-set").then(($q) => {
+      {force: true;}
+      cy.log($q.text());
+      qArr = $q.text().match(/\d+/g); // [2,5]
+      qPos = qArr[0];
+      qFinish = qArr[1];
+    });
+
+    //question form
+    const formLoop = () => {
+      cy.get("#select-answer").select("Yes");
+      cy.get("#likelihood-input").select("1");
+      cy.get("#consequence-input").select("1");
+      cy.get("#impact-input").select("Cost");
+      cy.get("#response-input").select("Accept");
+      cy.get(".nav-q-buttons > #next-skip-button > .button-inner").click();
+      qPos++;
+    };
 
     cy.get("ion-nav").within(($page) => {
-
-      let qArr;
-      let qStart;
-      let qFinish;
-      let aCount;
-
-
-      //Questions form
-      cy.get(
-        "#select-answer"
-      ).select('Yes');
-
-      cy.get(
-        "#likelihood-input"
-      ).select('1');
-
-      cy.get(
-        "#consequence-input"
-      ).select('1');
-
-      cy.get(
-        "#impact-input"
-      ).select('Cost');
-
-      cy.get(
-        "#response-input"
-      ).select('Accept');
-
-      // next
-      cy.get(
-        ".nav-q-buttons > #next-skip-button > .button-inner"
-      ).click();
-
-
-      cy.get(
-        "#question-number-in-set"
-      ).then(($q) => {
-        { force: true }
-        cy.log($q.text());
-        qArr = $q.text().match(/\d+/g);
-        qStart = qArr[0]
-        qFinish = qArr[1]
-        aCount = qStart
-      });
-
-      ////
-      ////
-      //question answer
-      cy.get(
-        "#select-answer"
-      ).select('Yes');
-
-      cy.get(
-        "#likelihood-input"
-      ).select('1');
-
-      cy.get(
-        "#consequence-input"
-      ).select('1');
-
-      cy.get(
-        "#impact-input"
-      ).select('Cost');
-
-      cy.get(
-        "#response-input"
-      ).select('Accept');
-
-      // next
-      cy.get(
-        ".nav-q-buttons > #next-skip-button > .button-inner"
-      ).click();
-
-      ////
-      ////
-      //question answer
-      cy.get(
-        "#select-answer"
-      ).select('Yes');
-
-      cy.get(
-        "#likelihood-input"
-      ).select('1');
-
-      cy.get(
-        "#consequence-input"
-      ).select('1');
-
-      cy.get(
-        "#impact-input"
-      ).select('Cost');
-
-      cy.get(
-        "#response-input"
-      ).select('Accept');
-
-      // next
-      cy.get(
-        ".nav-q-buttons > #next-skip-button > .button-inner"
-      ).click();
-
-      ////
-      ////
-      //question answer
-      cy.get(
-        "#select-answer"
-      ).select('Yes');
-
-      cy.get(
-        "#likelihood-input"
-      ).select('1');
-
-      cy.get(
-        "#consequence-input"
-      ).select('1');
-
-      cy.get(
-        "#impact-input"
-      ).select('Cost');
-
-      cy.get(
-        "#response-input"
-      ).select('Accept');
-
-      // next
-      cy.get(
-        ".nav-q-buttons > #next-skip-button > .button-inner"
-      ).click();
-
-      ////
-      ////
-      //question answer
-      cy.get(
-        "#select-answer"
-      ).select('Yes');
-
-      cy.get(
-        "#likelihood-input"
-      ).select('1');
-
-      cy.get(
-        "#consequence-input"
-      ).select('1');
-
-      cy.get(
-        "#impact-input"
-      ).select('Cost');
-
-      cy.get(
-        "#response-input"
-      ).select('Accept');
-
-      cy.on('window:alert', cy.stub().as('alert'))
-
-
-      cy.get('#finish-button > .button-inner').click()
-      cy.get('@alert').should('have.been.calledWithExactly', 'You have finished the assesment')
-
-    })
-
+      while (qPos < qFinish - 1) {
+        formLoop();
+      }
+      // Last run
+      formLoop();
+      if (qPos == qFinish) {
+        cy.on("window:alert", cy.stub().as("alert"));
+        cy.get("#finish-button > .button-inner").click();
+        cy.get("@alert").should(
+          "have.been.calledWithExactly",
+          "You have finished the assesment"
+        );
+      }
+    });
   })
-
 });
 
 
