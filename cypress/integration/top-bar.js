@@ -26,7 +26,7 @@ describe("determine MR Level is same as Target MRL", function() {
     cy.location("pathname").should("eq", "/");
   });
 
-  it("clicks Start New", () => {
+  it("compares target to current mrl", () => {
     const value = 9;
     let targetMrl;
     let mrLevel;
