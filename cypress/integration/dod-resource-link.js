@@ -10,12 +10,9 @@ describe("validates DOD Resource link", function() {
     const helpButton = `topbar.desktop > .toolbar-class > :nth-child(1) >
                         .docent-header > .toolbar > .toolbar-content > .container-toolbar >
                         .container-tbbuttons > #help-open-button > .button-inner`;
-    cy.get(helpButton).click();
-    cy.get("#mrl-resources-button").should(
-      "have.attr",
-      "href",
-      "http://dodmrl.com/"
-    );
-  });
+    const urlLink = "http://dodmrl.com/";
 
+    cy.get(helpButton).click();
+    cy.get("#mrl-resources-button").should("have.attr","href",urlLink);
+  });
 });
