@@ -1,6 +1,5 @@
 describe("determine MR Level is same as Target MRL", function() {
-  const value = 9;
-  const deskbookVersion = "2018";
+
 
   beforeEach(() => {
     const email = Cypress.env("email");
@@ -29,11 +28,9 @@ describe("determine MR Level is same as Target MRL", function() {
   });
 
   it("validates deskbook version in dropdown", () => {
+    let deskbookVersion = "2018";
 
-    // advance initial page
     cy.get(".buttons > :nth-child(1) > .button-inner").click();
-
-    cy.get("#deskbook-select")
-      .contains(deskbookVersion);
-    });
+    cy.get("#deskbook-select").contains(deskbookVersion);
+  });
   });
