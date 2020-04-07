@@ -1,12 +1,10 @@
 
-describe("determine MR Level is same as Target MRL", function() {
-  const value = 9;
+describe("Validates MRL Deskbook version", function() {
 
   beforeEach(() => {
     const email = Cypress.env("email");
     const password = Cypress.env("password");
     const baseUrl = Cypress.env("baseUrl");
-
     cy.visit(baseUrl);
 
     // it is ok for the email to be visible in the Command Log
@@ -29,18 +27,13 @@ describe("determine MR Level is same as Target MRL", function() {
     cy.get(".button").click();
   });
 
-
   it("finds proper link for MRL Desktop", () => {
+    let urlLink = "http://www.dodmrl.com/MRL_Deskbook_2018.pdf";
+    let helpButton =
+      "topbar.desktop > .toolbar-class > :nth-child(1) > .docent-header > .toolbar > .toolbar-content > .container-toolbar > .container-tbbuttons > #help-open-button > .button-inner";
+
     cy.location("pathname").should("eq", "/");
-
-    cy.get(
-      "topbar.desktop > .toolbar-class > :nth-child(1) > .docent-header > .toolbar > .toolbar-content > .container-toolbar > .container-tbbuttons > #help-open-button > .button-inner"
-      ).click()
-
-    cy.get("#mrl-deskbook-button").should(
-      "have.attr",
-      "href",
-      "http://www.dodmrl.com/MRL_Deskbook_2018.pdf"
-    );
+    cy.get(helpButton).click()
+    cy.get("#mrl-deskbook-button").should("have.attr","href",urlLink);
   });
 });
