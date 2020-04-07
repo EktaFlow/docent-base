@@ -5,6 +5,7 @@ www
 plugins
 platforms
 .sourcemaps
+cypress.env.json
 
 # caching dirs
 .temp
@@ -24,5 +25,3 @@ www
 # Docker and Jenkins
 Dockerfile
 Jenkinsfile
-
-cypress.env.json
