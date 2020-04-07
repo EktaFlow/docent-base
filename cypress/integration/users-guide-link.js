@@ -1,5 +1,4 @@
-describe("determine MR Level is same as Target MRL", function() {
-  const value = 9;
+describe("A downloadable link for User's Guide", function() {
 
   beforeEach(() => {
     const email = Cypress.env("email");
@@ -29,16 +28,12 @@ describe("determine MR Level is same as Target MRL", function() {
   });
 
   it("finds proper link for MRL Desktop", () => {
+    const helpButton =
+      "topbar.desktop > .toolbar-class > :nth-child(1) > .docent-header > .toolbar > .toolbar-content > .container-toolbar > .container-tbbuttons > #help-open-button > .button-inner";
+    const urlLink = "http://www.dodmrl.com/Users_Guide_2018_Version1.xlsm";
+
     cy.location("pathname").should("eq", "/");
-
-    cy.get(
-      "topbar.desktop > .toolbar-class > :nth-child(1) > .docent-header > .toolbar > .toolbar-content > .container-toolbar > .container-tbbuttons > #help-open-button > .button-inner"
-    ).click();
-
-    cy.get("#users-guide-button").should(
-      "have.attr",
-      "href",
-      "http://www.dodmrl.com/Users_Guide_2018_Version1.xlsm"
-    );
+    cy.get(helpButton).click();
+    cy.get("#users-guide-button").should("have.attr","href",urlLink);
   });
 });
