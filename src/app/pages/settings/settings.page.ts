@@ -1,18 +1,18 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../../app/topbar/topbar.component";
-import {JsonUploadPopoverComponent} from "../../app/json-upload-popover/json-upload-popover.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";
+import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover.component";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Router} from "@angular/router";
 
 
 
 @NgModule()
 @Component({
-  selector: 'app-settings',
+  selector: 'settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })

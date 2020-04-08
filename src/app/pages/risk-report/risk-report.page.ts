@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
-import { TopbarComponent } from "../../app/topbar/topbar.component";
-import {ReportInfoCardComponent} from '../../app/report-info-card/report-info-card.component';
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { TopbarComponent } from "../../components/topbar/topbar.component";
+import {ReportInfoCardComponent} from '../../components/report-info-card/report-info-card.component';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import {ActivatedRoute, Router} from "@angular/router"
 import * as XLSX from 'xlsx';
 import { Apollo } from "apollo-angular";
@@ -46,7 +46,7 @@ query assessment($_id: String) {
 }
 `
 @Component({
-  selector: 'app-risk-report',
+  selector: 'risk-report',
   templateUrl: './risk-report.page.html',
   styleUrls: ['./risk-report.page.scss'],
 })

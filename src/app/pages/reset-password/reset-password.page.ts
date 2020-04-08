@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 
 @Component({
-  selector: 'app-reset-password',
+  selector: 'reset-password',
   templateUrl: './reset-password.page.html',
   styleUrls: ['./reset-password.page.scss'],
 })
@@ -18,7 +18,7 @@ userInput: any    = {};
 errors:    string[] = [];
 
 ngOnInit(){
- 
+
 }
 
 submitReset() {

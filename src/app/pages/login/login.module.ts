@@ -2,12 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from '../login/login.component';
-import { DoResetComponent } from '../do-reset/do-reset.component';
-import { RegisterComponent } from '../register/register.component';
-import { PasswordResetComponent } from '../password-reset/password-reset.component';
-
 import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../../components/components.module';
 
 import { LoginPage } from './login.page';
 
@@ -23,8 +19,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LoginPage, PasswordResetComponent, LoginComponent, DoResetComponent, RegisterComponent]
+  declarations: [LoginPage],
+  exports: [LoginPage]
 })
 export class LoginPageModule {}

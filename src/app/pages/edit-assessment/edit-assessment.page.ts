@@ -1,14 +1,14 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { PopoverController, NavController, NavParams, ToastController } from '@ionic/angular';
-import { AssessmentService } from '../assessment.service';
+import { AssessmentService } from '../../services/assessment.service';
 import { Router, ActivatedRoute} from "@angular/router"
-import { UserDashboardPage } from '../../app/user-dashboard/user-dashboard.page';
-import { AuthService } from "../../app/auth.service";
-import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
+import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard.page';
+import { AuthService } from "../../services/auth.service";
+import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 
 @NgModule()
 @Component({
-  selector: 'app-edit-assessment',
+  selector: 'edit-assessment',
   templateUrl: './edit-assessment.page.html',
   styleUrls: ['./edit-assessment.page.scss'],
 })

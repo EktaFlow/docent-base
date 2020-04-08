@@ -2,12 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { TopbarComponent } from '../../app/topbar/topbar.component';
-import { AssessmentService } from '../../app/assessment.service';
-import { ReportInfoCardComponent } from "../../app/report-info-card/report-info-card.component";
-import { QuestionsPage } from '../../app/questions/questions.page';
-
 import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../../components/components.module';
+
 
 import { ActionItemsPage } from './action-items.page';
 
@@ -23,12 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    QuestionsPage,
-    TopbarComponent,
-    AssessmentService,
-    ReportInfoCardComponent,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ActionItemsPage]
+  declarations: [ActionItemsPage],
+  exports: [ActionItemsPage]
 })
 export class ActionItemsPageModule {}

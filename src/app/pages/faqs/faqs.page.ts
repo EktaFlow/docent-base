@@ -1,24 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { ActivatedRoute } from '@angular/router';
 
-import { ContactsDropdownComponent } from '../../app/contacts-dropdown/contacts-dropdown.component';
-import { FaqDropdownComponent } from '../../app/faq-dropdown/faq-dropdown.component';
+import { ContactsDropdownComponent } from '../../components/contacts-dropdown/contacts-dropdown.component';
+import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown.component';
 
 @Component({
-  selector: 'app-faqs',
+  selector: 'faqs',
   templateUrl: './faqs.page.html',
   styleUrls: ['./faqs.page.scss'],
 })
 export class FaqsPage implements OnInit {
 
   mainTitle: String;
-      assessmentId: any;
-      noSecondBar: boolean = false;
-      pageName: any = "Faqs";
-      currentQ: any = "";
+  assessmentId: any;
+  noSecondBar: boolean = false;
+  pageName: any = "Faqs";
+  currentQ: any = "";
+  private faqInfoStandalone: any;
+  private faqInfoWeb:        any;
+  private faqInfoIOS:        any;
+  private faqInfoAndroid:    any;
+  private feedbackContacts: any;
 
 
   constructor( public navCtrl:   NavController,
@@ -31,13 +36,7 @@ export class FaqsPage implements OnInit {
           this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
   }
 
-  private faqInfoStandalone: any;
-  private faqInfoWeb:        any;
-  private faqInfoIOS:        any;
-  private faqInfoAndroid:    any;
 
-
-  private feedbackContacts: any;
 
 
   getFaqInfo() {

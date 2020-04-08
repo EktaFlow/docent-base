@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../topbar/topbar.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { HttpClient } from '@angular/common/http';
-import { AssessmentService } from '../assessment.service';
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { AssessmentService } from '../../services/assessment.service';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 
-import { QuestionsPage } from '../questions/questions.page';
+import { QuestionsPage } from '../../pages/questions/questions.page';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -25,7 +25,7 @@ query assessment($_id: String) {
 }
 `
 @Component({
-  selector: 'app-criteria',
+  selector: 'criteria',
   templateUrl: './criteria.page.html',
   styleUrls: ['./criteria.page.scss'],
 })

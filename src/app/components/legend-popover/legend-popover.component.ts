@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-legend-popover',
+  selector: 'legend-popover',
   templateUrl: './legend-popover.component.html',
   styleUrls: ['./legend-popover.component.scss'],
 })

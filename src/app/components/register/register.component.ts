@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { AuthService } from "../auth.service";
-import { HomePage } from "../home/home.page";
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { AuthService } from "../../services/auth.service";
+import { HomePage } from "../../pages/home/home.page";
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 
 @Component({
-  selector: 'app-register',
+  selector: 'register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })

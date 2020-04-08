@@ -1,26 +1,26 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 
-import { AuthService } from "../../app/auth.service";
-import { AssessmentService } from "../../app/assessment.service";
-//import { TopbarComponent } from "../../app/topbar/topbar.component";
-import { FileDeleteComponent } from '../../app/file-delete/file-delete.component';
-import { SettingsPage } from "../../app/settings/settings.page";
-import { QuestionsPage } from "../../app/questions/questions.page";
-import { DashboardPage } from "../../app/dashboard/dashboard.page";
-import { ActionItemsPage } from "../../app/action-items/action-items.page";
-import { EditAssessmentPage } from '../../app/edit-assessment/edit-assessment.page';
-import { AddTeamMembersPopOverComponent } from "../../app/add-team-members-pop-over/add-team-members-pop-over.component";
-import { HomePage } from "../../app/home/home.page";
-import { ImportComponent } from "../../app/import/import.component";
+import { AuthService } from "../../services/auth.service";
+import { AssessmentService } from "../../services/assessment.service";
+import { TopbarComponent } from "../../components/topbar/topbar.component";
+import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
+import { SettingsPage } from "../../pages/settings/settings.page";
+import { QuestionsPage } from "../../pages/questions/questions.page";
+import { DashboardPage } from "../../pages/dashboard/dashboard.page";
+import { ActionItemsPage } from "../../pages/action-items/action-items.page";
+import { EditAssessmentPage } from '../../pages/edit-assessment/edit-assessment.page';
+import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over.component";
+import { HomePage } from "../../pages/home/home.page";
+import { ImportComponent } from "../../components/import/import.component";
 
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { saveAs } from "file-saver/FileSaver";
 import { Router, ActivatedRoute } from '@angular/router';
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-import { AuthUrl } from "../constants";
+import { AuthUrl } from "../../services/constants";
 
 var sharedQuery = gql`
 query getShared($assessments: [String]) {

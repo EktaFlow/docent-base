@@ -1,19 +1,18 @@
 import { NgModule, Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
-import { ViewsComponent } from '../views/views.component';
-import { TopbarComponent } from "../topbar/topbar.component";
-import { AssessmentService } from '../assessment.service';
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { ActionItemsPage } from '../action-items/action-items.page';
-import { LegendPopoverComponent } from '../legend-popover/legend-popover.component';
-import {QuestionsPage} from '../questions/questions.page';
-import { ReportInfoCardComponent } from "../report-info-card/report-info-card.component";
+import { ViewsComponent } from '../../components/views/views.component';
+import { TopbarComponent } from "../../components/topbar/topbar.component";
+import { AssessmentService } from '../../services/assessment.service';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
+import { ActionItemsPage } from '../../pages/action-items/action-items.page';
+import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover.component';
+import {QuestionsPage} from '../../pages/questions/questions.page';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
 import { Router, ActivatedRoute} from "@angular/router"
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 // import html2canvas from 'html2canvas';
-
 import { saveAs } from "file-saver/FileSaver";
 
 var assessmentQuery = gql`
@@ -38,7 +37,7 @@ query assessment($_id: String) {
 
 @NgModule()
 @Component({
-  selector: 'app-dashboard',
+  selector: 'dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })

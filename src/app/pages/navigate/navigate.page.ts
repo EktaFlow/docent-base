@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { ReportInfoCardComponent } from "../report-info-card/report-info-card.component"; 
-import { TopbarComponent } from "../topbar/topbar.component";
-import { QuestionsPage } from '../questions/questions.page';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
+import { TopbarComponent } from "../../components/topbar/topbar.component";
+import { QuestionsPage } from '../../pages/questions/questions.page';
 
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { Apollo } from "apollo-angular";
@@ -29,7 +29,7 @@ query assessment($_id: String) {
 }
 `
 @Component({
-  selector: 'app-navigate',
+  selector: 'navigate',
   templateUrl: './navigate.page.html',
   styleUrls: ['./navigate.page.scss'],
 })

@@ -1,25 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular'
 
-import { HomePage } from '../home/home.page';
-import { ReviewPage } from '../review/review.page';
-import { DashboardPage } from '../dashboard/dashboard.page';
-import { NavigatePage } from '../navigate/navigate.page';
-// import { NotapplicablePage } from './notapplicable/notapplicable';
-import { ActionItemsPage } from '../action-items/action-items.page';
-import { SummaryPage } from '../summary/summary.page';
-import { QuestionsPage } from "../questions/questions.page";
-import { saveAs } from "file-saver/FileSaver";
-import { ImportComponent } from "../import/import.component";
-import { RiskReportPage } from "../risk-report/risk-report.page";
+import { HomePage } from '../../pages/home/home.page';
+import { ReviewPage } from '../../pages/review/review.page';
+import { DashboardPage } from '../../pages/dashboard/dashboard.page';
+import { NavigatePage } from '../../pages/navigate/navigate.page';
+import { ActionItemsPage } from '../../pages/action-items/action-items.page';
+import { SummaryPage } from '../../pages/summary/summary.page';
+import { QuestionsPage } from "../../pages/questions/questions.page";
+import { ImportComponent } from "../../components/import/import.component";
+import { RiskReportPage } from "../../pages/risk-report/risk-report.page";
+
 import {Router, ActivatedRoute} from "@angular/router";
-import {AppRoutingModule} from "../app-routing.module"
-
-
+import { saveAs } from "file-saver/FileSaver";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
-// import {AssessmentslistComponent} from "../assessmentslist/assessmentslist.component";
 
 var assessmentQuery = gql`
 query assessment($_id: String)

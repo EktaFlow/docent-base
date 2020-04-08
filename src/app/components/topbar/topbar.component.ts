@@ -1,21 +1,21 @@
 import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { PopoverController, NavController, IonicModule } from "@ionic/angular";
-import { ViewsComponent } from "../../app/views/views.component";
-import { HomePage } from "../../app/home/home.page";
-import { LoginPage } from '../../app/login/login.page';
-import { NavigatePage} from "../../app/navigate/navigate.page";
-import { AuthService } from "../../app/auth.service";
-import { HelpmenuComponent } from "../../app/helpmenu/helpmenu.component";
-import { SubthreadPopupComponent } from "../../app/subthread-popup/subthread-popup.component";
-import { UserDashboardPage } from "../../app/user-dashboard/user-dashboard.page";
-import { ThreadPopupComponent} from "../../app/thread-popup/thread-popup.component";
-import { AssessmentScopePopoverComponent } from "../../app/assessment-scope-popover/assessment-scope-popover.component";
-import { MobileNavPopoverComponent } from '../../app/mobile-nav-popover/mobile-nav-popover.component';
-import {QuestionHistoryPopoverComponent} from '../../app/question-history-popover/question-history-popover.component';
-import {QuestionsPage} from '../../app/questions/questions.page';
+import { ViewsComponent } from "../../components/views/views.component";
+import { HomePage } from "../../pages/home/home.page";
+import { LoginPage } from '../../pages/login/login.page';
+import { NavigatePage} from "../../pages/navigate/navigate.page";
+import { AuthService } from "../../services/auth.service";
+import { HelpmenuComponent } from "../../components/helpmenu/helpmenu.component";
+import { SubthreadPopupComponent } from "../../components/subthread-popup/subthread-popup.component";
+import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard.page";
+import { ThreadPopupComponent} from "../../components/thread-popup/thread-popup.component";
+import { AssessmentScopePopoverComponent } from "../../components/assessment-scope-popover/assessment-scope-popover.component";
+import { MobileNavPopoverComponent } from '../../components/mobile-nav-popover/mobile-nav-popover.component';
+import {QuestionHistoryPopoverComponent} from '../../components/question-history-popover/question-history-popover.component';
+import {QuestionsPage} from '../../pages/questions/questions.page';
 import { Router } from '@angular/router';
 
-import { AssessmentService } from "../../app/assessment.service";
+import { AssessmentService } from "../../services/assessment.service";
 
 
 import { Apollo } from "apollo-angular";

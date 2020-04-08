@@ -1,9 +1,9 @@
 import { NgModule, Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from "../../app/questions/questions.page";
-import {AuthService} from "../auth.service";
-import { AuthUrl } from "../constants";
-import { AssessmentService } from '../assessment.service';
+import { QuestionsPage } from "../../pages/questions/questions.page";
+import {AuthService} from "../../services/auth.service";
+import { AuthUrl } from "../../services/constants";
+import { AssessmentService } from '../../services/assessment.service';
 import {Router, ActivatedRoute} from "@angular/router";
 
 import { Apollo } from "apollo-angular";

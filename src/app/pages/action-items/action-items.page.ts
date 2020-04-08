@@ -1,15 +1,16 @@
 import { NgModule, Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from '../../app/topbar/topbar.component';
-import { AssessmentService } from '../../app/assessment.service';
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
-import { ReportInfoCardComponent } from "../../app/report-info-card/report-info-card.component";
+import { TopbarComponent } from '../../components/topbar/topbar.component';
+import { AssessmentService } from '../../services/assessment.service';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
+import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
+import { QuestionsPage } from '../../pages/questions/questions.page';
+
 // import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 import {Router, ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
 
-import { QuestionsPage } from '../../app/questions/questions.page';
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -53,7 +54,7 @@ query assessment($_id: String) {
 
 @NgModule()
 @Component({
-  selector: 'app-action-items',
+  selector: 'action-items',
   templateUrl: './action-items.page.html',
   styleUrls: ['./action-items.page.scss'],
 })

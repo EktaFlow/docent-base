@@ -5,8 +5,8 @@ import { FormsModule } from "@angular/forms";
 import { Keyboard } from '@ionic-native/keyboard';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { CommonModule } from '@angular/common';
 // import { TestComponent } from './components/components/test/test.component';
-
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -20,96 +20,39 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AssessmentService } from '../app/assessment.service';
-import { AppComponent } from '../app/app.component';
-import { HomePage } from '../app/home/home.page';
-import { AcronymsPage } from '../app/acronyms/acronyms.page';
-import { DefinitionsPage } from '../app/definitions/definitions.page';
-import { FaqsPage } from '../app/faqs/faqs.page';
-import { ReviewPage } from '../app/review/review.page';
-import { QuestionsPage } from '../app/questions/questions.page';
-import { LoginPage } from '../app/login/login.page';
-import { DashboardPage } from '../app/dashboard/dashboard.page';
-import { NavigatePage } from '../app/navigate/navigate.page';
-import { ActionItemsPage } from '../app/action-items/action-items.page';
-import { CriteriaPage } from '../app/criteria/criteria.page';
-import { UserDashboardPage } from '../app/user-dashboard/user-dashboard.page';
-import { SettingsPage } from '../app/settings/settings.page';
-import { EditAssessmentPage } from '../app/edit-assessment/edit-assessment.page';
-import { SummaryPage } from '../app/summary/summary.page';
-import {RiskReportPage} from '../app/risk-report/risk-report.page';
-import { AppRoutingModule } from '../app/app-routing.module';
+import { AssessmentService } from './services/assessment.service';
 
-import {AcronymPopoverComponent} from '../app/acronym-popover/acronym-popover.component';
-import {AddTeamMembersPopOverComponent} from '../app/add-team-members-pop-over/add-team-members-pop-over.component';
-import {AssessmentScopePopoverComponent} from '../app/assessment-scope-popover/assessment-scope-popover.component';
-import {ContactsDropdownComponent} from '../app/contacts-dropdown/contacts-dropdown.component';
-//import {DoResetComponent} from '../app/do-reset/do-reset.component';
-import {FaqDropdownComponent} from '../app/faq-dropdown/faq-dropdown.component';
-import {FileDeleteComponent} from '../app/file-delete/file-delete.component';
-import {FileUploadPopoverComponent} from '../app/file-upload-popover/file-upload-popover.component';
-import {HelpmenuComponent} from '../app/helpmenu/helpmenu.component';
-import {ImportComponent} from '../app/import/import.component';
-import {JsonUploadPopoverComponent} from '../app/json-upload-popover/json-upload-popover.component';
-import {LegendPopoverComponent} from '../app/legend-popover/legend-popover.component';
-import {MobileNavPopoverComponent} from '../app/mobile-nav-popover/mobile-nav-popover.component';
-//import {PasswordResetComponent} from '../app/password-reset/password-reset.component';
-import {QuestionHistoryPopoverComponent} from '../app/question-history-popover/question-history-popover.component';
-//import {RegisterComponent} from '../app/register/register.component';
-import {ReportInfoCardComponent} from '../app/report-info-card/report-info-card.component';
-import {RiskPopoverComponent} from '../app/risk-popover/risk-popover.component';
-import {SubthreadPopupComponent} from '../app/subthread-popup/subthread-popup.component';
-import {ThreadPopupComponent} from '../app/thread-popup/thread-popup.component';
-import {ThreadsListComponent} from '../app/threads-list/threads-list.component';
-import {ViewsComponent} from '../app/views/views.component';
-import { BackUrl } from  "./constants";
+import { MyApp } from '../app/app.component';
+
+import { HomePageModule } from './pages/home/home.module';
+import { AcronymsPageModule } from './pages/acronyms/acronyms.module';
+import { DefinitionsPageModule } from './pages/definitions/definitions.module';
+import { FaqsPageModule } from './pages/faqs/faqs.module';
+import { ReviewPageModule } from './pages/review/review.module';
+import { QuestionsPageModule } from './pages/questions/questions.module';
+import { LoginPageModule } from './pages/login/login.module';
+import { DashboardPageModule } from './pages/dashboard/dashboard.module';
+import { NavigatePageModule } from './pages/navigate/navigate.module';
+import { ActionItemsPageModule } from './pages/action-items/action-items.module';
+import { CriteriaPageModule } from './pages/criteria/criteria.module';
+import { UserDashboardPageModule } from './pages/user-dashboard/user-dashboard.module';
+import { SettingsPageModule } from './pages/settings/settings.module';
+import { EditAssessmentPageModule } from './pages/edit-assessment/edit-assessment.module';
+import { SummaryPageModule } from './pages/summary/summary.module';
+import { RiskReportPageModule } from './pages/risk-report/risk-report.module';
+
+import { ComponentsModule } from './components/components.module'
+
+import { AppRoutingModule } from '../app/app-routing.module';
+import { BackUrl } from  "./services/constants";
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-		AcronymsPage,
-		//QuestionsPage,
-		//LoginPage,
-		//DefinitionsPage,
-		//FaqsPage,
-		//ReviewPage,
-		//SummaryPage,
-		//DashboardPage,
-		//NavigatePage,
-		//ActionItemsPage,
-		//CriteriaPage,
-		//UserDashboardPage,
-		//SettingsPage,
-		//EditAssessmentPage,
-		//RiskReportPage,
-		ViewsComponent,
-    ThreadsListComponent,
-		HelpmenuComponent,
-		ContactsDropdownComponent,
-		FaqDropdownComponent,
-    FileUploadPopoverComponent,
-    ImportComponent,
-    SubthreadPopupComponent,
-    ThreadPopupComponent,
-		//    RegisterComponent,
-		//PasswordResetComponent,
-    AddTeamMembersPopOverComponent,
-    JsonUploadPopoverComponent,
-    AssessmentScopePopoverComponent,
-    MobileNavPopoverComponent,
-    LegendPopoverComponent,
-    AcronymPopoverComponent,
-    QuestionHistoryPopoverComponent,
-    RiskPopoverComponent,
-    FileDeleteComponent,
-		//    DoResetComponent,
-    ReportInfoCardComponent,
+    MyApp,
   ],
   entryComponents: [
-		AppComponent,
-
-		//		TestComponent
+		MyApp,
 	],
   imports: [
 		BrowserModule,
@@ -121,7 +64,24 @@ import { BackUrl } from  "./constants";
 		ApolloModule,
 		FormsModule,
 		BrowserModule,
+    CommonModule,
 		RouterModule,
+    AcronymsPageModule,
+		QuestionsPageModule,
+    LoginPageModule,
+		DefinitionsPageModule,
+		FaqsPageModule,
+		ReviewPageModule,
+		SummaryPageModule,
+		DashboardPageModule,
+		NavigatePageModule,
+		ActionItemsPageModule,
+		CriteriaPageModule,
+		UserDashboardPageModule,
+		SettingsPageModule,
+    EditAssessmentPageModule,
+		RiskReportPageModule,
+		ComponentsModule
 	],
   providers: [
     StatusBar,
@@ -129,7 +89,7 @@ import { BackUrl } from  "./constants";
 		AssessmentService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [MyApp]
 })
 export class AppModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {

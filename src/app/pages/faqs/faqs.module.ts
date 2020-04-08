@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { ContactsDropdownComponent } from '../../app/contacts-dropdown/contacts-dropdown.component';
-import { FaqDropdownComponent } from '../../app/faq-dropdown/faq-dropdown.component';
-
 import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../../components/components.module';
 
 import { FaqsPage } from './faqs.page';
 
@@ -21,10 +19,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ContactsDropdownComponent,
-    FaqDropdownComponent,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [FaqsPage]
+  declarations: [FaqsPage],
+  exports: [FaqsPage]
 })
 export class FaqsPageModule {}

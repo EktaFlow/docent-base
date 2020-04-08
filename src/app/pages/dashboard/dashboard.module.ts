@@ -2,15 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { ViewsComponent } from '../../app/views/views.component';
-import { TopbarComponent } from "../../app/topbar/topbar.component";
-import { AssessmentService } from '../../app/assessment.service';
-import { ActionItemsPage } from '../../app/action-items/action-items.page';
-import { LegendPopoverComponent } from '../../app/legend-popover/legend-popover.component';
-import { QuestionsPage } from '../../app/questions/questions.page';
-import { ReportInfoCardComponent } from "../../app/report-info-card/report-info-card.component";
-
 import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../../components/components.module';
+
 
 import { DashboardPage } from './dashboard.page';
 
@@ -26,15 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewsComponent,
-    TopbarComponent,
-    AssessmentService,
-    ActionItemsPage,
-    LegendPopoverComponent,
-    QuestionsPage,
-    ReportInfoCardComponent,
+    ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardPage]
+  declarations: [DashboardPage],
+  exports: [DashboardPage]
 })
 export class DashboardPageModule {}

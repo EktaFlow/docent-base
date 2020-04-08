@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import {Router, ActivatedRoute} from "@angular/router";
 
 
 @Component({
-  selector: 'app-definitions',
+  selector: 'definitions',
   templateUrl: './definitions.page.html',
   styleUrls: ['./definitions.page.scss'],
 })

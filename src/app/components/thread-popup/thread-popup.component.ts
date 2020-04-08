@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from '../../app/questions/questions.page';
-import { AssessmentService } from "../../app/assessment.service";
+import { QuestionsPage } from '../../pages/questions/questions.page';
+import { AssessmentService } from "../../services/assessment.service";
 import { Apollo } from "apollo-angular";
 import { Router } from "@angular/router";
 import gql from "graphql-tag";

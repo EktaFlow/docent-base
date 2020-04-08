@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ToastController } from '@ionic/angular';
-import { UploadService } from "../upload";
+import { UploadService } from "../../services/upload";
 import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-json-upload-popover',
+  selector: 'json-upload-popover',
   templateUrl: './json-upload-popover.component.html',
   styleUrls: ['./json-upload-popover.component.scss'],
 })

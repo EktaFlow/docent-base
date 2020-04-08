@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { AuthService } from "../auth.service";
-import { UserDashboardPage } from "../user-dashboard/user-dashboard.page";
-import { GoogleAnalytics } from '../helpers/GoogleAnalytics';
+import { AuthService } from "../../services/auth.service";
+import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard.page";
+import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

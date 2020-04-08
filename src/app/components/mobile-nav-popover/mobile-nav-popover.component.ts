@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController} from '@ionic/angular'
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../services/auth.service";
 import {Router, ActivatedRoute} from "@angular/router";
-import { HomePage } from '../home/home.page';
-import { ReviewPage } from '../review/review.page';
-import { DashboardPage } from '../dashboard/dashboard.page';
-import { NavigatePage } from '../navigate/navigate.page';
+import { HomePage } from '../../pages/home/home.page';
+import { ReviewPage } from '../../pages/review/review.page';
+import { DashboardPage } from '../../pages/dashboard/dashboard.page';
+import { NavigatePage } from '../../pages/navigate/navigate.page';
 // import { NotapplicablePage } from '../../app/notapplicable/notapplicable';
-import { ActionItemsPage } from '../action-items/action-items.page';
-import { QuestionsPage } from "../questions/questions.page";
-import { UserDashboardPage } from "../user-dashboard/user-dashboard.page";
-import { DefinitionsPage } from '../definitions/definitions.page';
-import { FaqsPage } from '../faqs/faqs.page';
-import { CriteriaPage } from '../criteria/criteria.page';
-import { SettingsPage } from '../settings/settings.page';
-import { AcronymsPage } from '../acronyms/acronyms.page';
-import { SummaryPage } from '../summary/summary.page';
-import { RiskReportPage } from '../risk-report/risk-report.page';
+import { ActionItemsPage } from '../../pages/action-items/action-items.page';
+import { QuestionsPage } from "../../pages/questions/questions.page";
+import { UserDashboardPage } from "../../pages/user-dashboard/user-dashboard.page";
+import { DefinitionsPage } from '../../pages/definitions/definitions.page';
+import { FaqsPage } from '../../pages/faqs/faqs.page';
+import { CriteriaPage } from '../../pages/criteria/criteria.page';
+import { SettingsPage } from '../../pages/settings/settings.page';
+import { AcronymsPage } from '../../pages/acronyms/acronyms.page';
+import { SummaryPage } from '../../pages/summary/summary.page';
+import { RiskReportPage } from '../../pages/risk-report/risk-report.page';
 
 @Component({
   selector: 'mobile-nav-popover',

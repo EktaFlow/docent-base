@@ -1,6 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { PopoverController, ToastController } from '@ionic/angular';
-import { AssessmentService } from '../assessment.service';
+import { AssessmentService } from '../../services/assessment.service';
 
 
 @NgModule()

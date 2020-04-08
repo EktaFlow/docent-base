@@ -1,6 +1,6 @@
-<ion-list>
-	<ion-item class="thread-select" *ngFor="let name of threads" (click)="handleClick(name, $event)">
-	<ion-label *ngIf="!name.selected">{{name.name}}</ion-label>
-	<ion-label *ngIf="name.selected"><del>{{name.name}}</del></ion-label>
-	</ion-item>
-</ion-list>
+<div>
+	<li class="thread-select" *ngFor="let name of threads" (click)="handleClick(name, $event)">
+	<span *ngIf="!name.selected">{{name.name}}</span>
+	<span *ngIf="name.selected"><del>{{name.name}}</del></span>
+	</li>
+</div>
