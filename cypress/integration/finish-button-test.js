@@ -3,6 +3,8 @@ describe("determine finish button and pop up indicator", function () {
   const email = Cypress.env("email");
   const password = Cypress.env("password");
   const baseUrl = Cypress.env("baseUrl");
+  const viewportWidth = Cypress.env("viewportWidth");
+  const viewportHeight = Cypress.env("viewportHeight");
   const value = 1;
 
   // New assessment vars
@@ -41,22 +43,22 @@ describe("determine finish button and pop up indicator", function () {
   };
 
   beforeEach(() => {
-    cy.viewport(1400, 900);
+    cy.viewport(viewportWidth, viewportHeight);
     cy.visit(baseUrl);
-    cy.login(email,password)
+    cy.login(email,password);
   });
 
-  it("starts new assesment, gives passing assesment answers, finds finish button at end", () => {
+  it("validates completion of assessment", () => {
 
     let questionArray = [];
     let questionPosition;
     let lastQuestion;
     let findQuestionNumberRegex = /\d+/g;
 
-    const determinQuestionPositionBlock = () => {
-      cy.get(questionNumberInSet).then(($q) => {
+    const getTestQuestionLoopVars = () => {
+      cy.get(questionNumberInSet).then(($questionDisplay) => {
         { force: true; }
-        questionArray = $q.text().match(findQuestionNumberRegex);
+        questionArray = $questionDisplay.text().match(findQuestionNumberRegex);
         questionPosition = questionArray[0];
         lastQuestion = questionArray[1];
       });
@@ -65,7 +67,7 @@ describe("determine finish button and pop up indicator", function () {
     beginNewAssesment();
     questionFormBlock();
     questionPosition++;
-    determinQuestionPositionBlock()
+    getTestQuestionLoopVars()
 
     cy.get(mainPageNavWrapper).within(($page) => {
       while (questionPosition < lastQuestion) {
