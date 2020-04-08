@@ -1,93 +1,80 @@
 
 describe("determine finish button and pop up indicator", function () {
+  const email = Cypress.env("email");
+  const password = Cypress.env("password");
+  const baseUrl = Cypress.env("baseUrl");
+  const value = 1;
+
+  // New assessment vars
+  const startNewButton = ".buttons > :nth-child(1) > .button-inner";
+  const assessmentNameField = "#assessment-name-input";
+  const mrlDropdown = "#target-mrl-select";
+  const levelSwitchDropdown = "#level-switching-select";
+  const mainAssessmentStartButton = "#assessment-start > .button-inner";
+
+  // Question page form vars
+  const selectAnswer = "#select-answer";
+  const likelihoodInput = "#likelihood-input";
+  const consequenceInput = "#consequence-input";
+  const impactInput = "#impact-input";
+  const responseInput = "#response-input";
+  const questionPageNextButton = ".nav-q-buttons > #next-skip-button > .button-inner";
+  const questionNumberInSet = "#question-number-in-set";
+  const mainPageNavWrapper = "ion-nav";
+  const finishButton = "#finish-button > .button-inner";
+
+  const beginNewAssesment = () => {
+    cy.get(startNewButton).click();
+    cy.get(assessmentNameField).type("test");
+    cy.get(mrlDropdown).select(`${value}`);
+    cy.get(levelSwitchDropdown).select("On");
+    cy.get(mainAssessmentStartButton).click();
+  }
+
+  const questionFormBlock = () => {
+    cy.get(selectAnswer).select("Yes");
+    cy.get(likelihoodInput).select("1");
+    cy.get(consequenceInput).select("1");
+    cy.get(impactInput).select("Cost");
+    cy.get(responseInput).select("Accept");
+    cy.get(questionPageNextButton).click();
+  };
 
   beforeEach(() => {
-    const email = Cypress.env("email");
-    const password = Cypress.env("password");
-    const baseUrl = Cypress.env("baseUrl");
+    cy.viewport(1400, 900);
     cy.visit(baseUrl);
-
-    // it is ok for the email to be visible in the Command Log
-    expect(email, "email was set").to.be.a("string").and.not.be.empty;
-    // but the password value should not be shown
-    if (typeof password !== "string" || !password) {
-      throw new Error("Missing password value, set using CYPRESS_password=...");
-    }
-
-    cy.get('input[name="emaial"]')
-      .type(email)
-      .should("have.value", email);
-
-
-    cy.get("[name=passwd]")
-      .type(password, { log: false })
-      .should(el$ => {
-        if (el$.val() !== password) {
-          throw new Error("Different value of typed password");
-        }
-      });
-
-    cy.get(".button").click();
-    cy.location("pathname").should("eq", "/");
+    cy.login(email,password)
   });
 
-  it("start test", () => {
-    const value = 1;
+  it("starts new assesment, gives passing assesment answers, finds finish button at end", () => {
 
-    cy.get(".buttons > :nth-child(1) > .button-inner").click();
-    // finds and fills assessment name field
-    cy.get("#assessment-name-input").type("test").should("have.value", "test");
-    //  sets Target MRL from dropdown menu to value
-    cy.get("#target-mrl-select").select(`${value}`).should("have.value", `${value}`);
-    // finds Level Switching to be false
-    cy.get("#level-switching-select > option[value='false']").should("have.value", "false");
-    // sets Level Switching to be on
-    cy.get("#level-switching-select ").select("On");
-    // finds and clicks start button
-    cy.get("#assessment-start > .button-inner").click();
+    let questionArray = [];
+    let questionPosition;
+    let lastQuestion;
+    let findQuestionNumberRegex = /\d+/g;
 
+    const determinQuestionPositionBlock = () => {
+      cy.get(questionNumberInSet).then(($q) => {
+        { force: true; }
+        questionArray = $q.text().match(findQuestionNumberRegex);
+        questionPosition = questionArray[0];
+        lastQuestion = questionArray[1];
+      });
+    }
 
-    // first time
-    let qArr;
-    let qPos;
-    let qFinish;
+    beginNewAssesment();
+    questionFormBlock();
+    questionPosition++;
+    determinQuestionPositionBlock()
 
-    //Initial run so we have access to question # in set
-    cy.get("#select-answer").select("Yes");
-    cy.get("#likelihood-input").select("1");
-    cy.get("#consequence-input").select("1");
-    cy.get("#impact-input").select("Cost");
-    cy.get("#response-input").select("Accept");
-    cy.get(".nav-q-buttons > #next-skip-button > .button-inner").click();
-
-    cy.get("#question-number-in-set").then(($q) => {
-      {force: true;}
-      cy.log($q.text());
-      qArr = $q.text().match(/\d+/g); // [2,5]
-      qPos = qArr[0];
-      qFinish = qArr[1];
-    });
-
-    //question form
-    const formLoop = () => {
-      cy.get("#select-answer").select("Yes");
-      cy.get("#likelihood-input").select("1");
-      cy.get("#consequence-input").select("1");
-      cy.get("#impact-input").select("Cost");
-      cy.get("#response-input").select("Accept");
-      cy.get(".nav-q-buttons > #next-skip-button > .button-inner").click();
-      qPos++;
-    };
-
-    cy.get("ion-nav").within(($page) => {
-      while (qPos < qFinish - 1) {
-        formLoop();
+    cy.get(mainPageNavWrapper).within(($page) => {
+      while (questionPosition < lastQuestion) {
+        questionFormBlock();
+        questionPosition++;
       }
-      // Last run
-      formLoop();
-      if (qPos == qFinish) {
+      if (questionPosition == lastQuestion) {
         cy.on("window:alert", cy.stub().as("alert"));
-        cy.get("#finish-button > .button-inner").click();
+        cy.get(finishButton).click();
         cy.get("@alert").should(
           "have.been.calledWithExactly",
           "You have finished the assesment"
