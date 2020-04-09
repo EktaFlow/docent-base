@@ -10,17 +10,12 @@
 //
 //
 // -- This is a parent command --
-  Cypress.Commands.add("login", (email, password) => {
-    expect(email, "email was set").to.be.a("string").and.not.be.empty;
-    if (typeof password !== "string" || !password) {
-      throw new Error(
-        "Missing password value, set using CYPRESS_password= or in cypress env file..."
-      );
-    }
-    cy.get('input[name="emaial"]').type(email);
-    cy.get("[name=passwd]").type(password, { log: false });
-    cy.get(".button").click();
-  });
+Cypress.Commands.add("login", (email, password) => {
+  expect(email, "email was set").to.be.a("string").and.not.be.empty;
+  cy.get('input[name="emaial"]').type(email);
+  cy.get("[name=passwd]").type(password, { log: false });
+  cy.get(".button").click();
+});
 //
 //
 // -- This is a child command --
