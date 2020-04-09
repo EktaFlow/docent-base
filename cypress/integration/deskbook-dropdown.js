@@ -1,36 +1,21 @@
 describe("Update deskbook version to 2018 ", function() {
-
+  const email = Cypress.env("email");
+  const password = Cypress.env("password");
+  const baseUrl = Cypress.env("baseUrl");
+  const viewportWidth = Cypress.env("viewportWidth");
+  const viewportHeight = Cypress.env("viewportHeight");
+  const deskbookVersion = "2018";
+  const helpButton = ".buttons > :nth-child(1) > .button-inner";
+  const deskbookDropdown = "#deskbook-select";
 
   beforeEach(() => {
-    const email = Cypress.env("email");
-    const password = Cypress.env("password");
-    cy.visit("localhost:8100");
-
-    // it is ok for the email to be visible in the Command Log
-    expect(email, "email was set").to.be.a("string").and.not.be.empty;
-    // but the password value should not be shown
-    if (typeof password !== "string" || !password) {
-      throw new Error("Missing password value, set using CYPRESS_password=...");
-    }
-
-    cy.get('input[name="emaial"]')
-      .type(email)
-      .should("have.value", email);
-    cy.get("[name=passwd]")
-      .type(password, { log: false })
-      .should(el$ => {
-        if (el$.val() !== password) {
-          throw new Error("Different value of typed password");
-        }
-      });
-    cy.get(".button").click();
-    cy.location("pathname").should("eq", "/");
+    cy.visit(baseUrl);
+    cy.viewport(viewportWidth, viewportHeight);
+    cy.login(email, password);
   });
 
   it("validates deskbook version in dropdown", () => {
-    let deskbookVersion = "2018";
-
-    cy.get(".buttons > :nth-child(1) > .button-inner").click();
-    cy.get("#deskbook-select").contains(deskbookVersion);
+    cy.get(helpButton).click();
+    cy.get(deskbookDropdown).contains(deskbookVersion);
   });
-  });
+});
