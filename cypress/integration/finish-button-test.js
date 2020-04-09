@@ -5,7 +5,7 @@ describe("determine finish button and pop up indicator", function () {
   const baseUrl = Cypress.env("baseUrl");
   const viewportWidth = Cypress.env("viewportWidth");
   const viewportHeight = Cypress.env("viewportHeight");
-  const value = 1;
+  const mrLevel = 1;
 
   // New assessment vars
   const startNewButton = ".buttons > :nth-child(1) > .button-inner";
@@ -28,7 +28,7 @@ describe("determine finish button and pop up indicator", function () {
   const beginNewAssesment = () => {
     cy.get(startNewButton).click();
     cy.get(assessmentNameField).type("test");
-    cy.get(mrlDropdown).select(`${value}`);
+    cy.get(mrlDropdown).select(`${mrLevel}`);
     cy.get(levelSwitchDropdown).select("On");
     cy.get(mainAssessmentStartButton).click();
   }
