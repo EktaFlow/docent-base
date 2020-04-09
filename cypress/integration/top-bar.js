@@ -1,59 +1,51 @@
 describe("determine MR Level is same as Target MRL", function() {
+  const email = Cypress.env("email");
+  const password = Cypress.env("password");
+  const baseUrl = Cypress.env("baseUrl");
+  const viewportWidth = Cypress.env("viewportWidth");
+  const viewportHeight = Cypress.env("viewportHeight");
+  const value = 9;
+
+  // New assessment vars
+  const startNewButton = ".buttons > :nth-child(1) > .button-inner";
+  const assessmentNameField = "#assessment-name-input";
+  const mrlDropdown = "#target-mrl-select";
+  const levelSwitchDropdown = "#level-switching-select";
+  const mainAssessmentStartButton = "#assessment-start > .button-inner";
+
+  const currentMrlLevel = ".desktop > #open-thread-popover";
+  const targetMrlLevel = ".targets-scope > :nth-child(1)";
+
+  const beginNewAssesment = () => {
+    cy.get(startNewButton).click();
+    cy.get(assessmentNameField).type("test");
+    cy.get(mrlDropdown).select(`${value}`);
+    cy.get(levelSwitchDropdown).select("On");
+    cy.get(mainAssessmentStartButton).click();
+  };
 
   beforeEach(() => {
-    const email = Cypress.env("email");
-    const password = Cypress.env("password");
-    cy.visit("localhost:8100");
-
-    // it is ok for the email to be visible in the Command Log
-    expect(email, "email was set").to.be.a("string").and.not.be.empty;
-    // but the password value should not be shown
-    if (typeof password !== "string" || !password) {
-      throw new Error("Missing password value, set using CYPRESS_password=...");
-    }
-
-    cy.get('input[name="emaial"]')
-      .type(email)
-      .should("have.value", email);
-    cy.get("[name=passwd]")
-      .type(password, { log: false })
-      .should(el$ => {
-        if (el$.val() !== password) {
-          throw new Error("Different value of typed password");
-        }
-      });
-    cy.get(".button").click();
-    cy.location("pathname").should("eq", "/");
+    cy.viewport(viewportWidth, viewportHeight);
+    cy.visit(baseUrl);
+    cy.login(email, password);
   });
 
   it("compares target to current mrl", () => {
-    const value = 9;
     let targetMrl;
     let mrLevel;
+    let findElementNumberRegex = /\d+/g;
 
-    cy.get(".buttons > :nth-child(1) > .button-inner").click();
-    // finds and fills assessment name field
-    cy.get("#assessment-name-input").type("test").should("have.value", "test");
-    //  sets Target MRL from dropdown menu to value
-    cy.get("#target-mrl-select").select(`${value}`).should("have.value", `${value}`);
-    // finds Level Switching to be false
-    cy.get("#level-switching-select > option[value='false']").should("have.value","false");
-    // sets Level Switching to be on
-    cy.get("#level-switching-select ").select("On");
-    // finds and clicks start button
-    cy.get("#assessment-start > .button-inner").click();
-    // finds and validates MR Level to be ${value}
-    cy.get(".desktop > #open-thread-popover").should($s => {
-      expect($s).to.contain.text(`Current MR Level: ${value}`);
-      mrLevel = $s.text().match(/\d+/g)[0];
+    beginNewAssesment();
+
+    cy.get(currentMrlLevel).should($element => {
+      expect($element).to.contain.text(`Current MR Level: ${value}`);
+      mrLevel = $element.text().match(findElementNumberRegex)[0];
     });
-    // finds and validates Target MRL to be ${value}
-    cy.get(".targets-scope > :nth-child(1)").should($p => {
-      expect($p).to.contain.text(`Target MRL: ${value}`);
-      targetMrl = $p.text().match(/\d+/g)[0]
+
+    cy.get(targetMrlLevel).should(($target) => {
+      expect($target).to.contain.text(`Target MRL: ${value}`);
+      targetMrl = $target.text().match(findElementNumberRegex)[0];
       expect(mrLevel).to.equal(targetMrl);
     });
-
     });
   });
-
