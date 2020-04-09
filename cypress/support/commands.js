@@ -11,25 +11,9 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("login", (email, password) => {
-  // it is ok for the email to be visible in the Command Log
   expect(email, "email was set").to.be.a("string").and.not.be.empty;
-  // but the password value should not be shown
-  if (typeof password !== "string" || !password) {
-    throw new Error(
-      "Missing password value, set using CYPRESS_password= or in cypress env file..."
-    );
-  }
-
   cy.get('input[name="emaial"]').type(email);
-
-  cy.get("[name=passwd]")
-    .type(password, { log: false })
-    .should(($password) => {
-      if ($password.val() !== password) {
-        throw new Error("Different value of typed password");
-      }
-    });
-
+  cy.get("[name=passwd]").type(password, { log: false });
   cy.get(".button").click();
 });
 //
