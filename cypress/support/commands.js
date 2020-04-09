@@ -11,21 +11,11 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("login", (email, password) => {
-    expect(email, "email was set").to.be.a("string").and.not.be.empty;
-    if (typeof password !== "string" || !password) {
-      throw new Error("Missing password value, set using CYPRESS_password=...");
-    }
-    cy.get('input[name="emaial"]')
-      .type(email);
-    cy.get("[name=passwd]")
-      .type(password, { log: false })
-      .should($password => {
-        if ($password.val() !== password) {
-          throw new Error("Different value of typed password");
-        }
-      });
-    cy.get(".button").click();
- })
+  expect(email, "email was set").to.be.a("string").and.not.be.empty;
+  cy.get('input[name="emaial"]').type(email);
+  cy.get("[name=passwd]").type(password, { log: false });
+  cy.get(".button").click();
+});
 //
 //
 // -- This is a child command --
