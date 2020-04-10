@@ -5,6 +5,8 @@ page-login {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    height: 100vh;
+    overflow-y: auto;
   }
 
   #public-topbar {
@@ -31,6 +33,16 @@ page-login {
   }
 
   #login-container {
+  }
+
+  .qspacer {
+    font-size: 0;
+    height: 250px;
+    line-height: 0;
+    border: 0px;
+    /* testing only */
+     // border: 1px solid red;
+     width: 100%;
   }
 
 }
