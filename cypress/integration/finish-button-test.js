@@ -69,7 +69,7 @@ describe("determine finish button and pop up indicator", function () {
     questionPosition++;
     getTestQuestionLoopVars()
 
-    cy.get(mainPageNavWrapper).within(($page) => {
+    cy.get(mainPageNavWrapper).within((_) => {
       while (questionPosition < lastQuestion) {
         questionFormBlock();
         questionPosition++;
