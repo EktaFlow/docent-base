@@ -15,8 +15,6 @@ def branchName = "${env.BRANCH_NAME}"
 if (branchName == 'master') {
         branchName = 'prod'
 }
-//  def dockerSuffix = "dev"
-//  def kubectlNamespace = "dev"
 
 podTemplate(label: 'back', 
     containers: [
@@ -34,12 +32,6 @@ podTemplate(label: 'back',
                         
                         try {
                                 stage ('setup') {
-/*
-          if (!branchName == "dev") {
-                                                  echo 'How did you get here you clever dog?'
-              // throw some cool error and kick them out. 
-          }
-*/
           checkout scm
           repo = getRepoName()
           serviceName = getServiceName(repo)
@@ -85,7 +77,6 @@ String getServiceName(String repoName) {
   matchingMap["docent-back"] = "back"
   matchingMap["docent-base"] = "front"
   matchingMap["auth_service"] = "auth"
-
 
   return matchingMap[repoName]
 }
