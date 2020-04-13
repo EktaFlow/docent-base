@@ -1,3 +1,4 @@
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -16,7 +17,6 @@ Cypress.Commands.add("login", (email, password) => {
   cy.get("[name=passwd]").type(password, { log: false });
   cy.get(".button").click();
 });
-//
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
