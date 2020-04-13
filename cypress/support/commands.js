@@ -18,6 +18,7 @@ Cypress.Commands.add("login", (email, password) => {
   cy.get(".button").click();
 });
 //
+
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
 //
