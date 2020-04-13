@@ -19,6 +19,7 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
+		targetMRL
 	questions {
 		mrLevel
 		questionText
@@ -62,7 +63,51 @@ query assessment($_id: String) {
 
 
 export class ActionitemsPage {
-        public data:any;
+  public data:any;
+	filterList: any = {};
+	unfilteredQuestions: any;
+	autoFilter = false;
+	public rows:Array<any> = [];
+	public columns:Array<any> = [
+		{title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
+		{title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
+		{title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
+		// {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
+		{title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
+		{title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
+		{title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
+		{title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
+	];
+
+	public page:number = 1;
+	public itemsPerPage:number = 10;
+	public maxSize:number = 5;
+	public numPages:number = 1;
+	public length:number = 0;
+
+	public config:any = {
+		paging: true,
+		sorting: {columns: this.columns},
+		filtering: {filterString: ''},
+		className: ['table-striped', 'table-bordered']
+	};
+	no: any;
+	assessmentId: any;
+	private attachments: any;
+	pageName: any = "Action Items";
+	assessmentIdFromParams: any;
+
+
+	constructor( private apollo: Apollo,
+							 public navCtrl: NavController,
+							 public navParams: NavParams,
+							 public popOver: PopoverController,
+               private assessmentService: AssessmentService) {
+								 	this.assessmentIdFromParams = navParams.data.assessmentId;
+									console.log(this.assessmentIdFromParams);
+									this.autoFilter = navParams.data.autoFilter;
+                }
+
 
 	async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -73,37 +118,50 @@ export class ActionitemsPage {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-                                        console.log(data);
 					this.no = (<any>data.data).assessment.questions.filter( a => {
-                                                if (a.answers.length > 0 ) {
-                                                        return a.answers[a.answers.length - 1].answer == "No"
-                                                }
-
-                                        });
+                if (a.answers.length > 0 ) {
+                        return a.answers[a.answers.length - 1].answer == "No"
+                }
+					});
+					var targetMRL = (<any>data.data).assessment.targetMRL;
 					this.attachments = (<any>data.data).assessment.files;
+          var newData:Array<any> = [];
+					console.log(this.no);
+          this.no.forEach( (element) => {
+              var newObj:any = {};
+              newObj.threadName = "" + element.threadName;
+              newObj.subThreadName = "" + element.subThreadName;
+              newObj.questionText = "" + element.questionText;
+              // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
+              newObj.what = "" + element.answers[element.answers.length - 1].what;
+              newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
+              newObj.who = "" + element.answers[element.answers.length - 1].who;
+							newObj.level = "" + element.mrLevel;
+              var cur = element.answers[element.answers.length - 1];
+              newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
+              newData.push(newObj);
+          });
+					this.data = newData;
+					this.unfilteredQuestions = newData;
 
-                                        var newData:Array<any> = [];
+					if (this.autoFilter){
+						console.log('here');
+						this.filterList.filterMRL = targetMRL;
+						console.log(targetMRL)
+						this.data = this.unfilteredQuestions.filter(question => {
+							if (question.level == targetMRL){
+								return question;
+							}
+						});
 
-                                        this.no.forEach( (element) => {
-                                            var newObj:any = {};
-                                            newObj.threadName = "" + element.threadName;
-                                            newObj.subThreadName = "" + element.subThreadName;
-                                            newObj.questionText = "" + element.questionText;
-                                            // newObj.currentAnswer = "" + element.answers[element.answers.length - 1].answer;
-                                            newObj.what = "" + element.answers[element.answers.length - 1].what;
-                                            newObj.when = this.formatDate( element.answers[element.answers.length - 1].when);
-                                            newObj.who = "" + element.answers[element.answers.length - 1].who;
+				 } else {
+					 this.data = this.unfilteredQuestions;
+				 }
 
-                                            var cur = element.answers[element.answers.length - 1];
-console.log(element);
-                                            newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
-                                            newData.push(newObj);
-                                        });
 
-                                        this.data = newData;
-                                        console.log(this.data);
-                                        this.length = this.data.length;
-                                        this.onChangeTable(this.config);
+          // console.log(this.data);
+          // this.length = this.data.length;
+          // this.onChangeTable(this.config);
 			});
 	}
 
@@ -120,36 +178,26 @@ console.log(element);
     }
   }
 
+	filterTheList(){
+		console.log(this.filterList.filterMRL)
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.unfilteredQuestions.filter(question => {
+				if (question.level == this.filterList.filterMRL) {
+					// console.log('here')
+					return question
+				}
+			});
+			console.log(filteredQuestions);
+			this.data = filteredQuestions;
+		} else {
+			this.data = this.unfilteredQuestions;
+		}
+	}
 
-  public rows:Array<any> = [];
-  public columns:Array<any> = [
-    {title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
-    {title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
-    {title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
-    // {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
-    {title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
-    {title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
-    {title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
-    {title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
-  ];
-
-
-
-
-  public page:number = 1;
-  public itemsPerPage:number = 10;
-  public maxSize:number = 5;
-  public numPages:number = 1;
-  public length:number = 0;
-
-  public config:any = {
-    paging: true,
-    sorting: {columns: this.columns},
-    filtering: {filterString: ''},
-    className: ['table-striped', 'table-bordered']
-  };
-
-
+	clearFilter() {
+			this.filterList.filterMRL = 0;
+			this.filterTheList();
+	}
 
   public saveXLS() {
         var headers = this.columns.map(c => c.title);
@@ -266,26 +314,6 @@ console.log(element);
   public onCellClick(data: any): any {
     console.log(data);
   }
-
-
-
-
-
-	no: any;
-	assessmentId: any;
-	private attachments: any;
-	pageName: any = "Action Items";
-	assessmentIdFromParams: any;
-
-
-	constructor( private apollo: Apollo,
-							 public navCtrl: NavController,
-							 public navParams: NavParams,
-							 public popOver: PopoverController,
-               private assessmentService: AssessmentService) {
-								 	this.assessmentIdFromParams = navParams.data.assessmentId;
-									console.log(this.assessmentIdFromParams);
-                }
 
 	unique = (item, index, array) => array.indexOf(item) == index
 

@@ -71,6 +71,10 @@ export class SummaryPage {
         bgColor = "green";
         schema: any;
         nonLevelSchema: any;
+				filterList: any = {};
+				unfilteredQuestions: any;
+				autoFilter = false;
+				filteredSchema: any;
         noExtraQuestions: boolean;
 
 
@@ -90,6 +94,7 @@ export class SummaryPage {
 							 public popOver: PopoverController) {
 
 		this.assessmentId = navParams.data.assessmentId;
+		this.autoFilter = navParams.data.autoFilter;
   }
 
 	ngOnInit() {
@@ -101,12 +106,12 @@ export class SummaryPage {
 			.subscribe(data => {
                             var assessment = (<any>data.data).assessment;
                             var questions = assessment.questions;
-			    this.allQuestions = assessment.questions;
+			    									this.allQuestions = assessment.questions;
                             // console.log(this.questions);
                             questions = questions.filter(q => q.threadName.length > 1);
                             this.targetMRL = assessment.targetMRL;
 
-                var mainQuestions = questions.filter(q => q.mrLevel == this.targetMRL);
+                this.unfilteredQuestions = questions;
 
                 var extraQuestions = questions.filter(q => q.answers.length > 0);
                 for (let question of extraQuestions){
@@ -116,8 +121,14 @@ export class SummaryPage {
 
 
 
-                this.schema = this.grabRiskScores(mainQuestions);
+                this.schema = this.grabRiskScores(this.unfilteredQuestions);
+								this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
                 console.log(this.schema);
+								if (this.autoFilter){
+									this.filterList.filterMRL = this.targetMRL;
+									this.filterList.filterTitle = this.targetMRL;
+									this.filterTheList();
+								}
 
                 this.noExtraQuestions = true;
 
@@ -129,6 +140,27 @@ export class SummaryPage {
 
 
 		});
+	}
+	filterTheList() {
+		// console.log("in filterthelist")
+		// console.log(this.filterList.filterMRL);
+
+		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+			var filteredQuestions = this.unfilteredQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
+			this.filteredSchema = this.grabRiskScores(filteredQuestions);
+			this.filterList.filterTitle = this.filterList.filterMRL;
+			// console.log(this.filteredSchema);
+		} else {
+			this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
+			this.filterList.filterTitle = '';
+		}
+
+	}
+
+	clearFilter() {
+			this.filterList.filterMRL = 0;
+			this.filterTheList();
+			this.filterList.filterTitle = '';
 	}
 
   unique = (item, index, array) => array.indexOf(item) == index
@@ -148,15 +180,7 @@ export class SummaryPage {
       //also use arrays because that is how .html file can iterate
       var threads = {};
       var threadsArr = [];
-
-
-
-
       var schema = this.createThreadsObject(questionsObj);
-
-
-
-
       for (let question of questionsObj){
         //only need latest answer
         var answer = question.answers[question.answers.length - 1];
