@@ -1,3 +1,6 @@
+///
+/// TODO: Create clean up function to delete assessment after testing
+///
 
 describe("determine finish button and pop up indicator", function () {
   const email = Cypress.env("email");
@@ -6,7 +9,9 @@ describe("determine finish button and pop up indicator", function () {
   const viewportWidth = Cypress.env("viewportWidth");
   const viewportHeight = Cypress.env("viewportHeight");
 
+  ///
   /// TODO: Randomize mrLevel variable through given assessment mrLevels
+  ///
   const mrLevel = 1;
 
   // New assessment vars
