@@ -5,6 +5,8 @@ describe("determine finish button and pop up indicator", function () {
   const baseUrl = Cypress.env("baseUrl");
   const viewportWidth = Cypress.env("viewportWidth");
   const viewportHeight = Cypress.env("viewportHeight");
+
+  /// TODO: Randomize mrLevel variable through given assessment mrLevels
   const mrLevel = 1;
 
   // New assessment vars
