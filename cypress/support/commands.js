@@ -14,10 +14,9 @@
 Cypress.Commands.add("login", (email, password) => {
   expect(email, "email was set").to.be.a("string").and.not.be.empty;
   cy.get('input[name="emaial"]').type(email);
-  cy.get("[name=passwd]").type(password, { log: false })
+  cy.get("[name=passwd]").type(password, { log: false });
   cy.get(".button").click();
- })
-//
+});
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
