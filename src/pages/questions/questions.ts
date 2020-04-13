@@ -415,7 +415,8 @@ export class QuestionsPage {
 					this.moveCurrentQuestion(1);
 				}
 				else {
-					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
+					let mrLevel = this.currentQuestion.mrLevel -1;
+					alert(`You have failed this subthread, you will be shown questions from this subthread at the next lowest level ${mrLevel}`);
 					this.launchLevelSwitchModal();
 				}
 	}
