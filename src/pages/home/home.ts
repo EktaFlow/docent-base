@@ -34,7 +34,7 @@ export class HomePage {
 	assessments: any;
   schema: any;
 	twentySeventeen: any;
-	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
+	assForm: any = {deskBookVersion: "2018", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	private showRegister: boolean = false;
@@ -208,7 +208,7 @@ export class HomePage {
 
 			var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
 			var selectedDeskbook  = deskbookFile[0].file;
-    
+
       var threads = selectedDeskbook.map(t => t.name)
                       .filter(tname => tname.length > 0);
       this.threads = threads;

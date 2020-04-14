@@ -238,6 +238,11 @@ export class QuestionsPage {
 		this.findAmtOfQs();
 	}
 
+	async handleOnFinishedClick() {
+		this.setValues();
+		alert("You have finished the assesment")
+	}
+
   handleSave() {
 		this.setValues();
 		alert("This question has been saved");
@@ -415,7 +420,8 @@ export class QuestionsPage {
 					this.moveCurrentQuestion(1);
 				}
 				else {
-					alert("You have failed this subthread, you will be shown questions from this subthread at the next lowest level");
+					let mrLevel = this.currentQuestion.mrLevel -1;
+					alert(`You have failed this subthread, you will be shown questions from this subthread at the next lowest level ${mrLevel}`);
 					this.launchLevelSwitchModal();
 				}
 	}
