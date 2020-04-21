@@ -15,8 +15,8 @@
                 <do-reset></do-reset>
             </div>
             <div *ngIf="componentShown == 'login'" id="login-container">
-                <app-login (toggleClicked)="onToggle($event)">
-                </app-login>
+                <login-component (toggleClicked)="onToggle($event)">
+                </login-component>
             </div>
             <div *ngIf="componentShown == 'register'">
                 <register (toggleClicked)="onToggle($event)"></register>

@@ -14,6 +14,7 @@ import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover
 import { ActivatedRoute } from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 
+
 @NgModule()
 @Component({
   selector: 'questions',
