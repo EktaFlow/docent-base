@@ -1,47 +1,47 @@
 <div class="wrapper">
 
-  <!-- <button (click)="handleNewAssessment()" ion-button color="dark">Start New Assessment</button>
+  <!-- <button (click)="handleNewAssessment()" color="dark">Start New Assessment</button>
   <ng-container *ngIf="assessmentId">
-		<button (click)="handleContinue()" ion-button color="dark" id="continue-assessment-button">
+		<button (click)="handleContinue()" color="dark" id="continue-assessment-button">
 			Continue Assessment
 		</button>
-		<button (click)="handleSave()" ion-button color="dark" class="export-import" id="export-button">
+		<button (click)="handleSave()" color="dark" class="export-import" id="export-button">
 			Export
 		</button>
 	</ng-container >
-	<button (click)="handleImport()" ion-button color="dark" class="export-import" id="import-button">
+	<button (click)="handleImport()" color="dark" class="export-import" id="import-button">
 		Import Assessment
 	</button> -->
 	<ng-container *ngIf="assessmentId">
 	<!-- We're auto-saving on updates now.
-  <button ion-button color="dark">
+  <button color="dark">
     Continue
   </button>
 	 Can leave this for when/if we output to a desktop format.
-  <button ion-button color="dark">
+  <button color="dark">
     Save
   </button>
 	-->
   <!-- <hr> -->
-  <button (click)="handleDashboard()" ion-button color="dark" id="dashboard-button">
+  <ion-button expand="full" (click)="handleDashboard()" color="dark" id="dashboard-button">
     MRL Summary
-  </button>
-  <button (click)="handleNavigate()" ion-button color="dark" id="navigate-button">
+  </ion-button>
+  <ion-button expand="full" (click)="handleNavigate()" color="dark" id="navigate-button">
     Questions List
-  </button>
-  <button (click)="handleReview()" ion-button color="dark" id="review-button">
+  </ion-button>
+  <ion-button expand="full" (click)="handleReview()" color="dark" id="review-button">
     Review
-  </button>
+  </ion-button>
 
-  <button (click)="handleActions()" ion-button color="dark" id="action-items-button">
+  <ion-button expand="full" (click)="handleActions()" color="dark" id="action-items-button">
     Action Items
-  </button>
-  <button (click)="handleSummary()" ion-button color="dark" id="summary-button">
+  </ion-button>
+  <ion-button expand="full" (click)="handleSummary()" color="dark" id="summary-button">
     MRL Risk Summary
-  </button>
-  <button (click)="handleRiskReport()" ion-button color="dark" id="risk-report-button">
+  </ion-button>
+  <ion-button expand="full" (click)="handleRiskReport()" color="dark" id="risk-report-button">
     Detailed Risk Report
-  </button>
+  </ion-button>
 
 
 

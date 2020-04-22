@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
+import {LoginComponent} from '../../components/login/login.component'
 
 @Component({
   selector: 'login',
@@ -11,7 +12,7 @@ export class LoginPage implements OnInit {
 
   componentShown: string = 'login';
 
-    constructor(public navCtrl: NavController, auth: AuthService) {
+    constructor(auth: AuthService) {
       if (auth.reset) {
         this.componentShown = 'doreset';
       }

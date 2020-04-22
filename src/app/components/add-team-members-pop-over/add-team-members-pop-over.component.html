@@ -12,7 +12,7 @@
     <label for="role">Role: </label>
     <input type="text" name="role" [(ngModel)]="newMember.role">
 
-    <button *ngIf="!memberAdding" (click)="addNewMember()" ion-button small class="new-button">Invite Team Member</button>
-    <button *ngIf="memberAdding" [disabled]="true" ion-button small class="new-button">Invite Team Member</button>
+    <ion-button *ngIf="!memberAdding" (click)="addNewMember()" size="small" class="new-button">Invite Team Member</ion-button>
+    <ion-button *ngIf="memberAdding" [disabled]="true" size="small" class="new-button">Invite Team Member</ion-button>
   </div>
 </div>

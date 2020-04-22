@@ -33,11 +33,11 @@
           <h3 (click)="toggleMine()"><b>My Assessments</b></h3>
         </div>
         <div class="assessment-links">
-          <div class="buttons">
-            <button ion-button small color="light" [routerLink]="'/startNew'">Start New</button>
-            <button ion-button small color="light" (click)="handleImport()">Import</button>
-            <button ion-button small color="light" [routerLink]="['/settings']">Settings</button>
-          </div>
+          <!-- <div class="buttons"> -->
+            <ion-button size="small" color="light" [routerLink]="'/startNew'">Start New</ion-button>
+            <ion-button size="small" color="light" (click)="handleImport()">Import</ion-button>
+            <ion-button size="small" color="light" [routerLink]="['/settings']">Settings</ion-button>
+          <!-- </div> -->
         </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">

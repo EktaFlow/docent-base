@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
 import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { QuestionsPage } from '../../pages/questions/questions.page';
@@ -49,7 +49,6 @@ export class NavigatePage implements OnInit {
 
 	constructor( private apollo: 			 Apollo,
 							 public navCtrl: 			 NavController,
-							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
 							 public router: Router,
 							 private activatedRoute: ActivatedRoute

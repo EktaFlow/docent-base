@@ -54,7 +54,6 @@ export class DashboardPage implements OnInit {
   private assessmentName: string;
 
 	constructor( private apollo: Apollo,
-							 public navCtrl: NavController,
 							 public popOver: PopoverController,
                private assessmentService: AssessmentService,
 						 	 public router: Router,

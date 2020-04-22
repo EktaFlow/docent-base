@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
 import {ActivatedRoute} from "@angular/router";
+
 @Component({
   selector: 'risk-popover',
   templateUrl: './risk-popover.component.html',

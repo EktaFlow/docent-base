@@ -1,32 +1,32 @@
 <div class="toolbar-class">
   <div>
-    <h1>{{this.mainTitle}}</h1>
+    <!-- <h1>{{this.mainTitle}}</h1> -->
     <ion-header no-border class="docent-header">
       <ion-toolbar color="dark" hideBackButton="true">
         <div class = "container-toolbar">
           <img class="toolbar-logo" src="assets/imgs/docent-logo-f-n-l-1.jpg" onclick='document.location="https://web.mfgdocent.com/"'>
           <div *ngIf="!blank" class = "container-tbbuttons">
-            <button [routerLink]="'/user-dashboard'" color="dark" ion-button id="user-dash-button">
+            <ion-button [routerLink]="'/user-dashboard'" color="dark" id="user-dash-button">
               Home
-            </button>
-            <button (click)="handleContinue()" *ngIf="this.assessmentId && !noSecondBar" ion-button color="dark" id="continue-assessment-button">
+            </ion-button>
+            <ion-button (click)="handleContinue()" *ngIf="this.assessmentId && !noSecondBar" color="dark" id="continue-assessment-button">
         			Continue Assessment
-        		</button>
-            <button ion-button *ngIf="this.assessmentId" (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
+        		</ion-button>
+            <ion-button *ngIf="this.assessmentId" (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
                 Reports
-            </button>
-            <button (click)="showHelp($event)" ion-button color="dark" id="help-open-button">
+            </ion-button>
+            <ion-button (click)="showHelp($event)" color="dark" id="help-open-button">
                 Help
-            </button>
-            <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark" id="logout-button">
+            </ion-button>
+            <ion-button *ngIf="auth.isLoggedIn()" (click)="handleLogout()" color="dark" id="logout-button">
 								Logout
-            </button>
+            </ion-button>
           </div>
 
           <div *ngIf="!blank" class="container-tbbuttons-mobile">
-            <button ion-button (click)="openMobileNav()" color="dark">
+            <ion-button (click)="openMobileNav()" color="dark">
               <ion-icon name="menu" class="hamburger-nav"></ion-icon>
-            </button>
+            </ion-button>
           </div>
         </div>
         <hr>

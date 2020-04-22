@@ -82,8 +82,6 @@ ionViewWillEnter() {
 
 
 constructor( private apollo: Apollo,
-             public navCtrl: NavController,
-             public navParams: NavParams,
              public popOver: PopoverController,
             private activatedRoute: ActivatedRoute) {
                this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');

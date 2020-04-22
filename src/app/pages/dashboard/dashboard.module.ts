@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../../components/components.module';
-
+// import {TopbarComponent} from '../../components/topbar/topbar.component'
+// console.log(TopbarComponent);
 
 import { DashboardPage } from './dashboard.page';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    // TopbarComponent,
     ComponentsModule,
     RouterModule.forChild(routes)
   ],

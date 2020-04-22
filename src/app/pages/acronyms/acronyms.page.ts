@@ -21,8 +21,6 @@ export class AcronymsPage implements OnInit {
 
 
 constructor(
-  public navCtrl: NavController,
-  public navParams: NavParams,
   public http: HttpClient,
   public popOver: PopoverController,
   public activatedRoute: ActivatedRoute

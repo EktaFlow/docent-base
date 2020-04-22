@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../../services/constants";
 import { Router, ActivatedRoute} from "@angular/router";
 
-@NgModule()
 @Component({
   selector: 'add-team-members-pop-over',
   templateUrl: './add-team-members-pop-over.component.html',

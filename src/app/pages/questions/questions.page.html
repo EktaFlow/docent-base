@@ -1,4 +1,4 @@
-<!-- <topbar     [subTitle] = "currentQuestion.subThreadName"
+<topbar     [subTitle] = "currentQuestion.subThreadName"
             [getAssessmentId] = "getAssessmentId"
     	      [mainTitle]   = "currentQuestion.threadName"
           	[questionLevel] = "currentQuestion.mrLevel"
@@ -6,8 +6,7 @@
             [currentQSetAmt] = "this.currentQSetAmt"
     	      [values]="getQuestionValues()"
     	      [questionId]="currentQuestion.questionId"
-            [noSecondBar]="noSecondBar"> </topbar> -->
-            <!-- <topbar></topbar> -->
+            [noSecondBar]="noSecondBar"> </topbar>
 
 
 <ion-content padding>
@@ -16,10 +15,10 @@
   <div class = "nav">
 
     <div class="nav-q-buttons">
-        <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
-        <button ion-button color="buttonBlue" *ngIf="currentQPos != currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
-        <button ion-button color="buttonBlue" disabled *ngIf="currentQPos == currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
-        <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
+        <ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</ion-button>
+        <ion-button color="buttonBlue" *ngIf="currentQPos != currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</ion-button>
+        <ion-button color="buttonBlue" disabled *ngIf="currentQPos == currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</ion-button>
+        <ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</ion-button>
     </div>
 
 		<div class="guiding-text">
@@ -35,7 +34,7 @@
 			<option value="N/A">N/A</option>
 		</select>
 		</div>
-    <button class="help-button" *ngIf="currentQuestion.helpText" ion-button small color="buttonBlue" (click)="onHelpClicked()">Explanation Text</button>
+    <ion-button class="help-button" *ngIf="currentQuestion.helpText"  size="small" color="buttonBlue" (click)="onHelpClicked()">Explanation Text</ion-button>
 
 
       <div *ngIf="helpClicked" class="helpTextDiv">
@@ -158,7 +157,7 @@
     <!-- files display -->
   <div class="display-files">
         <div class="attach">
-            <button id="no-attach-file-button" (click)="showFileUpload($event)" ion-button color="dark">Attach File</button>
+            <ion-button id="no-attach-file-button" (click)="showFileUpload($event)" color="dark">Attach File</ion-button>
         </div>
   	<h6>Attachments</h6>
     <div class="file">
@@ -404,9 +403,9 @@
             </div>
           </div>
           <div class="bottom-q-buttons">
-              <button ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</button>
-              <button ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</button>
-              <button ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</button>
+              <ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</ion-button>
+              <ion-button color="buttonBlue" (click) = "handleNextPageClick()" id="next-skip-button">Next</ion-button>
+              <ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</ion-button>
           </div>
           </div>
 

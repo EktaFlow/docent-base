@@ -10,8 +10,8 @@
 
 
 <div class="filter-toolbar">
-  <button *ngIf="!showAll" ion-button (click)="expandAllThreads()" color="buttonBlue">Expand All</button>
-  <button *ngIf="showAll" ion-button (click)="expandAllThreads()" color="buttonBlue">Close All</button>
+  <ion-button *ngIf="!showAll" (click)="expandAllThreads()" color="buttonBlue">Expand All</ion-button>
+  <ion-button *ngIf="showAll" (click)="expandAllThreads()" color="buttonBlue">Close All</ion-button>
   <div class="filter-list">
     <p>Filter MR Level: </p>
     <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
@@ -27,8 +27,8 @@
       <option value = "9">9</option>
       <option value = "10">10</option>
     </select>
-    <button class="filter-buttons" (click)="filterTheList()" ion-button small color="buttonBlue">Filter</button>
-    <button class="filter-buttons" ion-button small (click)="clearFilter()" color="buttonBlue">Clear</button>
+    <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
+    <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
 
 
 
@@ -53,13 +53,14 @@
             <b>MR Level {{question.mrl}}:</b>
             <div *ngFor="let title of question.questionSet" class="question">
 
-              <p class="navigate-links"  
-							   (click)="navToQuestion(title.questionId)" 
-								 id={{title.questionId}}> 
-										<span *ngIf="title.questionStatus"> 
-											< ion-button small [color]="pickColor(title.questionStatus)" class="status-button">
+              <p class="navigate-links"
+							   (click)="navToQuestion(title.questionId)"
+								 id={{title.questionId}}>
+										<span *ngIf="title.questionStatus">
+											<ion-button size="small" [color]="pickColor(title.questionStatus)" class="status-button">
 											{{title.questionStatus}}
-										</span> 
+                      </ion-button>
+										</span>
 										{{title.text}}
 							</p>
 
@@ -89,11 +90,12 @@
             <div *ngFor="let question of sub.questions" class="mrl">
               <b>MR Level {{question.mrl}}:</b>
               <div *ngFor="let title of question.questionSet" class="question">
-                <p class="navigate-links"  (click)="navToQuestion(title.questionId)"> 
-										<span *ngIf="title.questionStatus"> 
-											< ion-button small [color]="pickColor(title.questionStatus)" class="status-button">
+                <p class="navigate-links"  (click)="navToQuestion(title.questionId)">
+										<span *ngIf="title.questionStatus">
+											<ion-button size="small" [color]="pickColor(title.questionStatus)" class="status-button">
 														{{title.questionStatus}}
-										</span> 
+                        </ion-button>
+										</span>
 										{{title.text}}
 								</p>
               </div>

@@ -44,7 +44,6 @@ private errors: any = [];
 private newMember: any = {};
 
 constructor(
-            public navCtrl: NavController,
             private assessmentService: AssessmentService,
             private popOver: PopoverController,
             private auth: AuthService,

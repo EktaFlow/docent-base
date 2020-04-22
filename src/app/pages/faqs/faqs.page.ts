@@ -26,8 +26,7 @@ export class FaqsPage implements OnInit {
   private feedbackContacts: any;
 
 
-  constructor( public navCtrl:   NavController,
-               public navParams: NavParams,
+  constructor( 
                public http:      HttpClient,
                private activatedRoute: ActivatedRoute)
   {

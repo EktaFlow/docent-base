@@ -3,7 +3,6 @@ import { PopoverController, ToastController } from '@ionic/angular';
 import { AssessmentService } from '../../services/assessment.service';
 
 
-@NgModule()
 @Component({
   selector: 'file-delete',
   templateUrl: './file-delete.component.html',

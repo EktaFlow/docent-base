@@ -2,7 +2,14 @@ ion-content {
   margin-top: 0;
 }
 
+.assessment-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ion-button {
 
+  }
+}
 
 .accordion-tab {
 width: 97.5%;
@@ -15,13 +22,7 @@ vertical-align: middle;
 position: relative;
 
 p {
-  // width: 70%;
-  // height: 20px;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
-  // display: block;
-
-
+  margin: 0;
 }
 
 .dropdown {
@@ -46,7 +47,7 @@ p {
   // top: 200px;
   // left: 40px;
   margin: 0 auto;
-  margin-top: 200px;
+  margin-top: 180px;
   vertical-align: top;
   padding-left: 100px;
 
@@ -107,7 +108,7 @@ p {
   .an-assessment {
     display: block;
     width: 97.5%;
-    margin: 15px 6px 35px 6px;
+    margin: 15px 6px 20px 6px;
     // background-color: white;
     // border-top: 1px solid white;
     // border-bottom: 1px solid white;

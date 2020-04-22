@@ -31,7 +31,7 @@ query assessment($_id: String!) {
 }
 `
 
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'topbar',
   templateUrl: './topbar.component.html',

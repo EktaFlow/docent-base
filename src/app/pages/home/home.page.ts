@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
   private threadsSelectButton: string = 'Unselect All';
 	assessment: any;
 
-  constructor(public navCtrl: NavController,
+  constructor(
 							public popOver: PopoverController,
 							private apollo: Apollo,
 							private auth: AuthService,

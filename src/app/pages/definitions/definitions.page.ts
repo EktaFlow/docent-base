@@ -18,8 +18,7 @@ export class DefinitionsPage implements OnInit {
     pageName: any = "Definitions";
 
 
-  constructor(public navCtrl: NavController,
-  public navParams: NavParams,
+  constructor(
   public http: HttpClient,
   private activatedRoute: ActivatedRoute) {
       this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');

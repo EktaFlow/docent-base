@@ -40,8 +40,6 @@ export class CriteriaPage implements OnInit {
 	pageName: any = "Criteria";
 
 	constructor( private apollo: 			 Apollo,
-							 public navCtrl: 			 NavController,
-							 public navParams: 		 NavParams,
 							 public popOver: 			 PopoverController,
 							 private http: HttpClient,
                private assessmentService: AssessmentService

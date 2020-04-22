@@ -7,16 +7,16 @@
 
     <!-- <p>Allow user to change password</p> -->
 
-    <button ion-button small class="desktop" color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</button>
-    <button ion-button small class="desktop" color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</button>
+    <ion-button size="small" class="desktop" color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</ion-button>
+    <ion-button size="small" class="desktop" color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</ion-button>
 
-    <button ion-button small class="mobile" disabled color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</button>
-    <button ion-button small class="mobile" disabled color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</button>
+    <ion-button size="small" class="mobile" disabled color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</ion-button>
+    <ion-button size="small" class="mobile" disabled color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</ion-button>
     <p class="mobile">Go onto web.mfgdocent.com to Upload and Download Deskbook Versions</p>
 
 
     <div class="desktop">
-      <button ion-button small [routerLink]="['/user-dashboard']"  color="buttonBlue">Go Back To Dashboard</button>
+      <ion-button size="small" [routerLink]="['/user-dashboard']"  color="buttonBlue">Go Back To Dashboard</ion-button>
     </div>
 
     <p>Your new deskbooks will appear in the Deskbook Version dropdown on the Start New Assessment Page</p>

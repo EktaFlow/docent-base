@@ -136,7 +136,7 @@ export class UserDashboardPage implements OnInit {
 	showShared: boolean = false;
 	assessmentsBox: any;
 
-  constructor(public navCtrl: NavController,
+  constructor(
 							private apollo: Apollo,
 							private auth: AuthService,
               private assessmentService: AssessmentService,

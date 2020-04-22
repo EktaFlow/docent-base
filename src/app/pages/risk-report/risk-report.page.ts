@@ -62,8 +62,6 @@ export class RiskReportPage implements OnInit {
   noExtraQuestions: boolean = true;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
     private apollo: Apollo,
     private router: Router,
     private activatedRoute: ActivatedRoute) {

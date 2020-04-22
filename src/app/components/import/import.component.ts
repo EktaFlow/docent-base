@@ -17,7 +17,6 @@ mutation importAssessment($import: String, $userId: String, $userEmail: String) 
 }
 `
 
-@NgModule()
 @Component({
   selector: 'import',
   templateUrl: './import.component.html',

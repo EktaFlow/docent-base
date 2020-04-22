@@ -18,7 +18,7 @@ import { Router} from "@angular/router";
 })
 export class SettingsPage implements OnInit {
 
-  constructor(public navCtrl: NavController,
+  constructor(
                     private http: HttpClient,
                   public popover: PopoverController,
                 public router: Router ) {

@@ -66,6 +66,7 @@ import { BackUrl } from  "./services/constants";
 		BrowserModule,
     CommonModule,
 		RouterModule,
+    ComponentsModule,
     AcronymsPageModule,
 		QuestionsPageModule,
     LoginPageModule,
@@ -81,7 +82,7 @@ import { BackUrl } from  "./services/constants";
 		SettingsPageModule,
     EditAssessmentPageModule,
 		RiskReportPageModule,
-		ComponentsModule
+
 	],
   providers: [
     StatusBar,

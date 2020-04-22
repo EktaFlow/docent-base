@@ -49,7 +49,7 @@
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
         <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
-        <button ion-button small color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</button>
+        <ion-button size="small" color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</ion-button>
 
       </div>
     </div>
@@ -138,12 +138,12 @@
         </div>
       </div>
       <div>
-        <button *ngIf="page == 'new'" ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+        <ion-button *ngIf="page == 'new'" color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
           Start
-        </button>
-        <button *ngIf="page == 'edit'" ion-button color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
+        </ion-button>
+        <ion-button *ngIf="page == 'edit'" color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
           Update Assessment
-        </button>
+        </ion-button>
       </div>
     </div>
 

@@ -1,6 +1,6 @@
 <title>Docent</title>
 
-<topbar [blank]="true"></topbar>
+<!-- <topbar [blank]="true"></topbar> -->
 	<ng-container *ngIf="auth.isLoggedIn()">
 		<topbar></topbar>
 	</ng-container>
@@ -13,7 +13,7 @@
 	</ng-container>
 
     <ng-container *ngIf="!mobileRegister">
-    	<login></login>
+    	<login-component></login-component>
   </ng-container>
   <h6 (click)="newLogin()"> CLICK HERE LOGIN PAGE </h6>
 <div *ngIf="!showRegister" class="register-container">
@@ -163,9 +163,9 @@
       </div>
 
     <div>
-      <button ion-button color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+      <ion-button color="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
         Start
-      </button>
+      </ion-button>
     </div>
   </div>
   <div class="qspacer"></div>

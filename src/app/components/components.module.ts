@@ -87,6 +87,32 @@ import { ReportInfoCardComponent } from './report-info-card/report-info-card.com
     FileDeleteComponent,
     DoResetComponent,
     ReportInfoCardComponent
+  ],
+  entryComponents: [
+    ViewsComponent,
+    ThreadsListComponent,
+		HelpmenuComponent,
+		ContactsDropdownComponent,
+		FaqDropdownComponent,
+    FileUploadPopoverComponent,
+    TopbarComponent,
+    ImportComponent,
+    SubthreadPopupComponent,
+    ThreadPopupComponent,
+    LoginComponent,
+    RegisterComponent,
+    PasswordResetComponent,
+    AddTeamMembersPopOverComponent,
+    JsonUploadPopoverComponent,
+    AssessmentScopePopoverComponent,
+    MobileNavPopoverComponent,
+    LegendPopoverComponent,
+    AcronymPopoverComponent,
+    QuestionHistoryPopoverComponent,
+    RiskPopoverComponent,
+    FileDeleteComponent,
+    DoResetComponent,
+    ReportInfoCardComponent
   ]
 })
 export class ComponentsModule { }

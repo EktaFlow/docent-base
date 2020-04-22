@@ -7,82 +7,82 @@
     <ion-icon name="close" (click)="closeNav()" class="close"></ion-icon>
   </div>
   <ng-container *ngIf="regularNavShow">
-    <button ion-button color="dark" disabled class="user-name">
+    <ion-button color="dark" expand="full" disabled class="user-name">
       {{this.userName}}
-    </button>
-    <button *ngIf="auth.isLoggedIn()" ion-button (click)="handleLogout()" color="dark">
+    </ion-button>
+    <ion-button *ngIf="auth.isLoggedIn()"  expand="full" (click)="handleLogout()" color="dark">
         Logout
-    </button>
-    <button (click)="handleUserDash()" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleUserDash()" color="dark">
         Home
-    </button>
-    <button (click)="handleStartNew()" *ngIf="!assessmentId" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleStartNew()" *ngIf="!assessmentId" color="dark">
         Start New Assessment
-    </button>
-    <button (click)="handleContinue()" *ngIf="assessmentId && !noSecondBar" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleContinue()" *ngIf="assessmentId && !noSecondBar" color="dark">
         Continue Assessment
-    </button>
-    <button *ngIf="assessmentId" (click)="showAssessment()" ion-button color="dark">
+    </ion-button>
+    <ion-button *ngIf="assessmentId" expand="full" (click)="showAssessment()" color="dark">
       Reports
-    </button>
-    <button (click)="showHelp()" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="showHelp()" color="dark">
         Help Menu
-    </button>
-    <button (click)="handleSettings()" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleSettings()" color="dark">
         Settings
-    </button>
-    <!-- <button (click)="closeNav()" ion-button color="dark">
+    </ion-button>
+    <!-- <ion-button expand="full" (click)="closeNav()" ion-button color="dark">
         Close
-    </button> -->
+    </ion-button> -->
   </ng-container>
 
   <ng-container *ngIf="assessmentShow && assessmentId" class="assessment-links" >
 
-      <button (click)="handleDashboard()" ion-button color="dark">
+      <ion-button expand="full" (click)="handleDashboard()" color="dark">
           MRL Summary
-      </button>
-      <button (click)="handleNavigate()" ion-button color="dark">
+      </ion-button>
+      <ion-button expand="full" (click)="handleNavigate()" color="dark">
           Questions List
-      </button>
-      <button (click)="handleReview()" ion-button color="dark">
+      </ion-button>
+      <ion-button expand="full" (click)="handleReview()" color="dark">
           Review
-      </button>
-      <button (click)="handleActionItems()" ion-button color="dark">
+      </ion-button>
+      <ion-button expand="full" (click)="handleActionItems()" color="dark">
           Action Items
-      </button>
-      <button (click)="handleSummary()" ion-button color="dark">
+      </ion-button>
+      <ion-button expand="full" (click)="handleSummary()" color="dark">
           MRL Risk Summary
-      </button>
-      <button (click)="handleRiskReport()" ion-button color="dark">
+      </ion-button>
+      <ion-button expand="full" (click)="handleRiskReport()" color="dark">
         Detailed Risk Report
-      </button>
-      <!-- <button (click)="closeAssessment()" ion-button color="dark">
+      </ion-button>
+      <!-- <ion-button expand="full" (click)="closeAssessment()" ion-button color="dark">
           Back
-      </button> -->
+      </ion-button> -->
   </ng-container>
 
   <ng-container class="help-links" *ngIf="helpShow">
-    <button (click)="handleCriteria()" ion-button color="dark">
+    <ion-button expand="full" (click)="handleCriteria()" color="dark">
         Criteria
-    </button>
-    <button (click)="handleDefinitions()" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleDefinitions()" color="dark">
         Definitions
-    </button>
-    <button (click)="handleAcronyms()" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleAcronyms()" color="dark">
         Acronyms
-    </button>
-    <button (click)="handleFaqs()" ion-button color="dark">
+    </ion-button>
+    <ion-button expand="full" (click)="handleFaqs()" color="dark">
         FAQs
-    </button>
-    <button ion-button color="dark" (click)="goToDoD()">
+    </ion-button>
+    <ion-button color="dark" expand="full" (click)="goToDoD()">
         User Guide
-    </button>
-    <button ion-button color="dark" (click)="goToDeskbook()">
+    </ion-button>
+    <ion-button color="dark" expand="full" (click)="goToDeskbook()">
         MRL Deskbook
-    </button>
-    <!-- <button (click)="closeHelp()" ion-button color="dark">
+    </ion-button>
+    <!-- <ion-button (click)="closeHelp()" ion-button color="dark">
         Back
-    </button> -->
+    </ion-button> -->
   </ng-container>
 
 </div>
