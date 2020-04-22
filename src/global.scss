@@ -27,6 +27,15 @@
 
 // http://ionicframework.com/docs/theming/
 
+.ion-color-buttonBlue {
+--ion-color-base: var(--ion-color-buttonBlue) !important;
+--ion-color-base-rgb: var(--ion-color-buttonBlue-rgb) !important;
+--ion-color-contrast: var(--ion-color-buttonBlue-contrast) !important;
+--ion-color-contrast-rgb: var(--ion-color-buttonBlue-contrast-rgb) !important;
+--ion-color-shade: var(--ion-color-buttonBlue-shade) !important;
+--ion-color-tint: var(--ion-color-buttonBlue-tint) !important;
+}
+
 
 body {
 -webkit-user-select: auto;
