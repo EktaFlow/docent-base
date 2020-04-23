@@ -113,11 +113,6 @@ export class RiskReportPage {
 				}
 
 
-        if (extraQuestions.length > 0){
-          this.noExtraQuestions = false;
-          this.nonLevelSchema = this.createSchemaObject(extraQuestions);
-        }
-
       });
   }
 
@@ -225,7 +220,7 @@ export class RiskReportPage {
           "Risk Response",
           "MMP Summary"
         ]
-        var values = this.questions.map(q => {
+        var values = this.unfilteredQuestions.map(q => {
           return this.returnValues(q);
         });
 
