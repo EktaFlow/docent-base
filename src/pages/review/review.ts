@@ -65,10 +65,9 @@ export class ReviewPage {
 							 public navCtrl: NavController,
 							 public navParams: NavParams,
 							 public popOver: PopoverController) {
-
 		this.assessmentId = navParams.data.assessmentId;
 		this.autoFilter = navParams.data.autoFilter;
-        }
+  }
 
 	ionViewWillEnter() {
             GoogleAnalytics.trackPage("review");
@@ -124,7 +123,6 @@ export class ReviewPage {
 									 } else {
 										 this.allQuestions = answeredQuestions;
 									 }
-
                   // all questions is an array of answered questions.
                   // preserving the names to leave markup the same.
 									this.unfilteredQuestions = answeredQuestions;
@@ -158,19 +156,21 @@ export class ReviewPage {
 
 	saveXLS(){
 		var headers = [
+			"MRL",
 			"Question Text",
 			"Current Answer",
 			"Objective Evidence"
 		];
 
-		var values = this.allQuestions.map(q => {
+		var values = this.unfilteredQuestions.map(q => {
 
 			return [
+				q.level,
 				q.questionText,
 				q.currentAnswer,
 				q.objectiveEvidence
 			];
-		})
+		});
 
 		var worksheet = [headers, ...values];
 

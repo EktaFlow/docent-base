@@ -246,6 +246,7 @@ export class SummaryPage {
 
 saveXLS(){
   var headers = [
+		"MRL",
     "Thread Name",
     "Subthread Name",
     "Criteria 1",
@@ -255,7 +256,7 @@ saveXLS(){
     "Criteria 5"
   ]
 
-  var values = this.settingValues(this.schema, false)
+  var values = this.settingValues(this.schema, true)
 
   var newVals = []
   for (let arr of values) {

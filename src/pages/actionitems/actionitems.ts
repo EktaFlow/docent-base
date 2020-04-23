@@ -69,6 +69,7 @@ export class ActionitemsPage {
 	autoFilter = false;
 	public rows:Array<any> = [];
 	public columns:Array<any> = [
+		{title: 'MRL', name: 'mrLevel', filtering: {filterString: '', placeholder: 'Filter by MRL'}},
 		{title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
 		{title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
 		{title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
@@ -202,15 +203,17 @@ export class ActionitemsPage {
   public saveXLS() {
         var headers = this.columns.map(c => c.title);
         var values = this.no.map(nq => {
+							console.log(nq);
                 return [
-                        nq.threadName,
-                        nq.subThreadName,
-                        nq.questionText,
-                        // nq.answers[nq.answers.length - 1].answer,
-                        nq.answers[nq.answers.length - 1].what,
-                        nq.answers[nq.answers.length - 1].when,
-                        nq.answers[nq.answers.length - 1].who,
-                        this.calculateRiskScore(nq.answers[nq.answers.length - 1].likelihood, nq.answers[nq.answers.length - 1].consequence)
+									nq.mrLevel,
+                  nq.threadName,
+                  nq.subThreadName,
+                  nq.questionText,
+                  // nq.answers[nq.answers.length - 1].answer,
+                  nq.answers[nq.answers.length - 1].what,
+                  nq.answers[nq.answers.length - 1].when,
+                  nq.answers[nq.answers.length - 1].who,
+                  this.calculateRiskScore(nq.answers[nq.answers.length - 1].likelihood, nq.answers[nq.answers.length - 1].consequence)
                 ];
         })
         var worksheet = [headers, ...values];
