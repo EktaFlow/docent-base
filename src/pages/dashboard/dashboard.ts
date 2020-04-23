@@ -13,7 +13,7 @@ import { ReportInfoCardComponent } from "../../components/report-info-card/repor
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-//import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';
 
 import { saveAs } from "file-saver/FileSaver";
 
@@ -96,7 +96,6 @@ export class DashboardPage {
 	}
 
   downloadPNG() {
-		/*
     var image = document.getElementById('desktoper');
     this.imageDownloading = true;
 
@@ -107,7 +106,6 @@ export class DashboardPage {
         });
     })
     .catch(e => console.error(e));
-		 */
   }
 
   isHeader(response) { return typeof response == 'number'; }
