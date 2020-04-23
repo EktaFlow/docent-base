@@ -48,9 +48,9 @@
               <div class="accordion-tab desktop" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
                 <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
                 <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
+                <span>{{assessment.percentage}}% complete</span>
                 <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
                 <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
-
               </div>
 
               <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)" >
@@ -62,6 +62,7 @@
               <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
                   <p><b>Name: </b>{{assessment.name}}</p>
+                  <p><b>{{assessment.answered}} out of {{assessment.possible}}</b> questions answered</p>
                   <p><b>MRL: </b> {{assessment.targetMRL}}</p>
                   <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
                   <p><b>Additional Information: </b>{{assessment.scope}}</p>
@@ -73,6 +74,7 @@
                       <p><b>Level Switching?: </b> No </p>
 	          </ng-container>
                   <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}  </span></p>
+
 
                 </div>
                 <div class="assNav">

@@ -11,6 +11,12 @@ query assessments($userId: String) {
      location
      name
 		 id
+		 questions {
+			 mrLevel
+			 answers {
+				 answer
+			 }
+		 }
 			teamMembers {
 				name
 				email
