@@ -89,18 +89,19 @@ p {
     border-bottom: 1px solid white;
     width: 100%;
     height: 40px;
-    .buttons {
-      width: 99%;
-      margin: 0 auto;
-      button {
-        display: inline-block;
-        width: 30%;
-        // padding: 0 7px;
-        margin: 0 10px;
-        font-size: .7em;
-        // padding: 3px;
-      }
+    ion-button {
+      display: inline-block;
+      width: 33.333333333%;
+      // padding: 0 7px;
+      margin: 0 10px;
+      font-size: .7em;
+      // padding: 3px;
     }
+    // .buttons {
+    //   width: 99%;
+    //   margin: 0 auto;
+    //
+    // }
 
   }
 

@@ -2,6 +2,15 @@ ion-content {
   margin-top: 120px;
 }
 
+hr {
+    height: 1px !important;
+    width: 100% !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    display: block !important;
+    font-size: 2em !important;
+    visibility: visible !important;
+}
+
 .wrapper {
   margin-top: 0px;
   width: 100%;

@@ -1,5 +1,5 @@
-<topbar></topbar>
-
+<topbar [assessmentId]="assessmentId" [pageName]="pageName" class="mobile"></topbar>
+<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [pageName]="pageName" class="desktop"></topbar>
 <ion-content>
   <!-- <div class="first-bar">
 
@@ -34,9 +34,9 @@
         </div>
         <div class="assessment-links">
           <!-- <div class="buttons"> -->
-            <ion-button size="small" color="light" [routerLink]="'/startNew'">Start New</ion-button>
-            <ion-button size="small" color="light" (click)="handleImport()">Import</ion-button>
-            <ion-button size="small" color="light" [routerLink]="['/settings']">Settings</ion-button>
+            <ion-button size="small" color="light" expand="full" [routerLink]="'/startNew'">Start New</ion-button>
+            <ion-button size="small" color="light" expand="full" (click)="handleImport()">Import</ion-button>
+            <ion-button size="small" color="light" expand="full" [routerLink]="['/settings']">Settings</ion-button>
           <!-- </div> -->
         </div>
         <div *ngIf="showMine">
