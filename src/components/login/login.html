@@ -1,48 +1,38 @@
 <div id="page-container">
-
   <div id="top-container">
     <h1 id="header">Login</h1>
-    <h6 *ngIf="this.errors.length > 0" class="error">incorrect username password combination</h6>
-    <h6 *ngIf="this.errors.length == 0" class="blank">there are errors with your registration</h6>
   </div>
-
   <div>
     <div id="login-container">
       <div>
         <h5>Email</h5>
+        <p *ngIf="checkError('invalid_email')" class="error">enter valid email</p>
+        <p *ngIf="checkError('email')" class="error">enter an email</p>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="email" name="emaial"
           [(ngModel)]="user.email">
       </div>
-
       <div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+        <div>
           <h5>Password</h5>
         </div>
+        <p *ngIf="checkError('invalid_passwd')" class="error">enter valid password</p>
+        <p *ngIf="checkError('passwd')" class="error">enter a password</p>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd"
           [(ngModel)]="user.passwd">
       </div>
-
       <div id="button-container">
         <button ion-button color="buttonBlue" (click)="submitLogin()">Login</button>
       </div>
       <div id="notes-container">
         <p>
           If you have issues registering or logging into the Docent tool, please contact
-
           <a href="mailto:support@mfgdocent.com?Subject=Support%20Request" target="_top">support@mfgdocent.com.</a>
         </p>
-      </div>
-
-      <div>
-
       </div>
     </div>
     <div style="display: flex; align-items: flex-end; flex-direction:column;">
       <h6 (click)="showRegister()" id="register-link"> Register for Docent </h6>
       <h6 (click)="showPasswordReset()" id="forgot-password"> Forgot Password?</h6>
-
-
     </div>
-
   </div>
 </div>
