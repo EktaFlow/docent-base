@@ -11,35 +11,35 @@
         <div>
           <div>
             <h5>Name</h5>
-            <p *ngIf="checkError('name')" class="register-error">enter a name</p>
+            <p *ngIf="checkError('name')" class="register-error" id="registration-name-blank">enter a name</p>
           </div>
           <input type="text" name="name" [(ngModel)]="user.name">
         </div>
         <div>
           <div>
             <h5>Email</h5>
-            <p *ngIf="checkError('email')" class="register-error">enter an email</p>
-            <p *ngIf="checkError('invalid_email')" class="register-error">enter a valid email</p>
-            <p *ngIf="checkError('dupe')" class="register-error">that email is in use</p>
+            <p *ngIf="checkError('email')" class="register-error" id="registration-email-blank">enter an email</p>
+            <p *ngIf="checkError('invalid_email')" class="register-error" id="registration-email-invalid">enter a valid email</p>
+            <p *ngIf="checkError('dupe')" class="register-error" id="registration-email-duplicate">that email is in use</p>
           </div>
           <input type="email" name="emaial" [(ngModel)]="user.email">
         </div>
         <div>
           <div>
             <h5>Password *</h5>
-            <p *ngIf="checkError('invalid_passwd') && !checkError('passwd')" class="register-error">enter a valid
+            <p *ngIf="checkError('passwd')" class="register-error" id="registration-password-blank">enter a password</p>
+            <p *ngIf="checkError('invalid_passwd')" class="register-error" id="registration-password-invalid">enter a valid
               password</p>
-            <p *ngIf="checkError('no_match')" class="register-error">passwords don't match</p>
-            <p *ngIf="checkError('passwd')" class="register-error">enter a password</p>
+            <p *ngIf="checkError('no_match')" class="register-error" id="registration-password-duplicate">passwords don't match</p>
           </div>
-          <input type="password" name="passwd" [(ngModel)]="user.passwd">
+          <input type="password" name="passwd" [(ngModel)]="user.passwd" id="pw1">
         </div>
         <div>
           <div>
             <h5>Repeat Password</h5>
-            <p *ngIf="checkError('passwd2')" class="register-error">enter a password</p>
+            <p *ngIf="checkError('passwd2')" class="register-error" id="registration-password2-blank">enter a password</p>
           </div>
-          <input type="password" name="passwd" [(ngModel)]="user.passwd2">
+          <input type="password" name="passwd" [(ngModel)]="user.passwd2" id="pw2">
         </div>
         <div id="button-container">
           <button ion-button color="buttonBlue" (click)="submitRegistration()">Register</button>

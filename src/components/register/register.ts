@@ -41,7 +41,7 @@ export class RegisterComponent {
 	}
 
   checkError(errorType) {
-    return this.errors.includes(errorType);  
+    return this.errors.includes(errorType);
   }
 
 	validateInput() {
@@ -51,7 +51,7 @@ export class RegisterComponent {
 		this.checkPresence(user);
 		this.checkPasswords(user);
 		this.checkEmail((<any>user).email);
-    
+
             console.log(this.errors);
 
 		return this.errors == false
@@ -75,14 +75,14 @@ export class RegisterComponent {
     var regEx = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,72}$/;
     var test = regEx.test(passwd);
 
-    !test ? this.errors.push('invalid_passwd') : null 
+    !test ? this.errors.push('invalid_passwd') : null
 	}
 
 	checkEmail(email) {
 		var regEx = /\S+@\S+\.\S+/;
 	  var test = regEx.test(email);
 
-		!test ? this.errors.push("Invalid Email Format") : null
+		!test ? this.errors.push("invalid_email") : null
 	}
 
   removeErrors() {
