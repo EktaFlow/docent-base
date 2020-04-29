@@ -6,8 +6,10 @@
     <div id="login-container">
       <div>
         <h5>Email</h5>
-        <p *ngIf="checkError('invalid_email')" class="error" id="email-invalid">enter valid email</p>
-        <p *ngIf="checkError('email')" class="error" id="email-blank">enter an email</p>
+        <p *ngIf="checkError('email'); else email" class="error" id="email-blank">enter an email</p>
+        <ng-template #email>
+          <p *ngIf="checkError('invalid_email')" class="error" id="email-invalid">enter valid email</p>
+        </ng-template>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="email" name="emaial"
           [(ngModel)]="user.email">
       </div>
@@ -15,8 +17,10 @@
         <div>
           <h5>Password</h5>
         </div>
-        <p *ngIf="checkError('invalid_passwd')" class="error" id="password-invalid">enter valid password</p>
-        <p *ngIf="checkError('passwd')" class="error" id="password-blank">enter a password</p>
+        <p *ngIf="checkError('passwd'); else pass" class="error" id="password-blank">enter a password</p>
+        <ng-template #pass>
+          <p *ngIf="checkError('invalid_passwd')" class="error" id="password-invalid">enter valid password</p>
+        </ng-template>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd"
           [(ngModel)]="user.passwd">
       </div>
