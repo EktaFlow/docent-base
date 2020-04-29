@@ -7,10 +7,14 @@ describe("Error validations on Login page should be visible ", function () {
   const emailInvalid = "j#j.com";
   const passwordInvalid = "111";
 
-  const emailInvalidId = "#email-invalid";
   const emailBlankId = "#email-blank";
-  const passwordInvalidId = "#password-invalid";
   const passwordBlankId = "#password-blank";
+  const emailInvalidId = "#email-invalid";
+  const passwordInvalidId = "#password-invalid";
+  const nameInput = 'input[name="emaial"]';
+  const passwordInput = "[name=passwd]";
+  const submitButton = ".button";
+
 
   const emailInvalidMessage = "enter valid email";
   const emailBlankMessage = "enter an email";
@@ -23,31 +27,24 @@ describe("Error validations on Login page should be visible ", function () {
   });
 
   it("displays proper validation erros if submitted form is blank ", () => {
-    cy.get(".button").click();
+    cy.get(submitButton).click();
     cy.get(emailBlankId).should(($error) => {
       expect($error).to.contain.text(emailBlankMessage);
-    });
-    cy.get(emailInvalidId).should(($error) => {
-      expect($error).to.contain.text(emailInvalidMessage);
     });
     cy.get(passwordBlankId).should(($error) => {
       expect($error).to.contain.text(passwordBlankMessage);
     });
-    cy.get(passwordInvalidId).should(($error) => {
-      expect($error).to.contain.text(passwordInvalidMessage);
-    });
-  }
-  )
+  });
 
   it("displays proper validation errors if submitted form is partial ", () => {
-    cy.get('input[name="emaial"]').type(emailInvalid);
-    cy.get("[name=passwd]").type(passwordInvalid);
-    cy.get(".button").click();
+    cy.get(nameInput).type(emailInvalid);
+    cy.get(passwordInput).type(passwordInvalid);
+    cy.get(submitButton).click();
 
-    cy.get("#email-invalid").should(($error) => {
+    cy.get(emailInvalidId).should(($error) => {
       expect($error).to.contain.text(emailInvalidMessage);
     });
-    cy.get("#password-invalid").should(($error) => {
+    cy.get(passwordInvalidId).should(($error) => {
       expect($error).to.contain.text(passwordInvalidMessage);
     });
   });
