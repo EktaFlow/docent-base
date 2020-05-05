@@ -66,8 +66,8 @@
       </li>
     </div>
         <div class="error-container">
-          <p class="error" *ngIf="this.errors.includes('no-email')">You must enter an email address for the team member</p>
-          <p class="error" *ngIf="this.errors.includes('dupe')">This assessment is already shared with the user at this email
+          <p class="error-message" *ngIf="this.errors.includes('no-email')">You must enter an email address for the team member</p>
+          <p class="error-message" *ngIf="this.errors.includes('dupe')">This assessment is already shared with the user at this email
             address</p>
         </div>
     <div class="members">
