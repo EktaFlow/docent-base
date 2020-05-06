@@ -33,9 +33,6 @@ this.http.get('assets/json/definitions.json')
         });
 }
 
-ionViewDidLoad() {
-this.getDefinitions();
-}
 
 ionViewWillEnter() {
 GoogleAnalytics.trackPage("definitions");
@@ -43,6 +40,7 @@ GoogleAnalytics.trackPage("definitions");
 
 ngOnInit() {
 this.mainTitle = "Definitions";
+this.getDefinitions();
 }
 
 }

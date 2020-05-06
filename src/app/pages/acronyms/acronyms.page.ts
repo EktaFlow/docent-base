@@ -27,7 +27,6 @@ constructor(
 ) {
         this.mainTitle = "Acronyms";
         this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-
 }
 
 ionViewWillEnter() {
@@ -60,14 +59,10 @@ presentFullAcronym(fullText, event){
 }
 
 
-ionViewDidLoad() {
-console.log('ionViewDidLoad AcronymsPage');
-this.getAcronyms();
-console.log(this.acronyms);
-}
-
-ngOnInit() {
-this.mainTitle = "Acronyms";
-}
+  ngOnInit() {
+    this.mainTitle = "Acronyms";
+    this.getAcronyms();
+    console.log(this.acronyms);
+  }
 
 }
