@@ -30,8 +30,32 @@
 </ng-table>
 </div> -->
 
+<div class="filter-toolbar">
+  <button ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</button>
+  <div class="filter-list">
+    <p>Filter MR Level: </p>
+    <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
+      <option value="" disabled selected>Select One...</option>
+      <option value = "1">1</option>
+      <option value = "2">2</option>
+      <option value = "3">3</option>
+      <option value = "4">4</option>
+      <option value = "5">5</option>
+      <option value = "6">6</option>
+      <option value = "7">7</option>
+      <option value = "8">8</option>
+      <option value = "9">9</option>
+      <option value = "10">10</option>
+    </select>
+    <button class="filter-buttons" (click)="filterTheList()" ion-button small color="buttonBlue">Filter</button>
+    <button class="filter-buttons" ion-button small (click)="clearFilter()" color="buttonBlue">Clear</button>
+
+  </div>
+</div>
+
 <div class="list-wrapper">
   <div class="action-items-list">
+    <h3 *ngIf="data && data.length == 0" style="padding: 10px;">There are no action items on this MRL.</h3>
     <div *ngFor="let item of data" class="item-wrapper">
         <div class="top">
         <h2>Question: {{item.questionText}}</h2>

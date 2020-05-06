@@ -61,6 +61,42 @@ query assessment($_id: String) {
 export class ActionItemsPage implements OnInit {
 
 	public data:any;
+	public rows:Array<any> = [];
+	public columns:Array<any> = [
+		{title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
+		{title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
+		{title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
+		// {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
+		{title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
+		{title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
+		{title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
+		{title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
+	];
+	public page:number = 1;
+	public itemsPerPage:number = 10;
+	public maxSize:number = 5;
+	public numPages:number = 1;
+	public length:number = 0;
+	public config:any = {
+		paging: true,
+		sorting: {columns: this.columns},
+		filtering: {filterString: ''},
+		className: ['table-striped', 'table-bordered']
+	};
+	no: any;
+	assessmentId: any;
+	private attachments: any;
+	pageName: any = "Action Items";
+	assessmentIdFromParams: any;
+
+	constructor( private apollo: Apollo,
+							 public popOver: PopoverController,
+							 private assessmentService: AssessmentService,
+						 	 public router: Router,
+						 	 private activatedRoute: ActivatedRoute) {
+									this.assessmentIdFromParams = this.activatedRoute.snapshot.paramMap.get('assessmentId');
+									console.log(this.assessmentIdFromParams);
+								}
 
 async ngOnInit() {
 	this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -117,37 +153,6 @@ formatDate(date){
 		return '';
 	}
 }
-
-
-public rows:Array<any> = [];
-public columns:Array<any> = [
-	{title: 'Thread', name: 'threadName', filtering: {filterString: '', placeholder: 'Filter by thread'}},
-	{title: 'Subthread', name: 'subThreadName', filtering: {filterString: '', placeholder: 'Filter by subthread'}},
-	{title: 'Question', name: 'questionText', filtering: {filterString: '', placeholder: 'Filter by question'}},
-	// {title: 'Answer', name: 'currentAnswer', filtering: {filterString: '', placeholder: 'Filter by answer'}},
-	{title: 'Action', name: 'what', filtering: {filterString: '', placeholder: 'Filter by action'}},
-	{title: 'Due', name: 'when', filtering: {filterString: '', placeholder: 'Filter by due date'}, sort: 'asc'},
-	{title: 'Owner', name: 'who', filtering: {filterString: '', placeholder: 'Filter by owner'}},
-	{title: 'Risk Level', name: 'risk', filtering: {filterString: '', placeholder: 'Filter by risk level'}}
-];
-
-
-
-
-public page:number = 1;
-public itemsPerPage:number = 10;
-public maxSize:number = 5;
-public numPages:number = 1;
-public length:number = 0;
-
-public config:any = {
-	paging: true,
-	sorting: {columns: this.columns},
-	filtering: {filterString: ''},
-	className: ['table-striped', 'table-bordered']
-};
-
-
 
 public saveXLS() {
 			var headers = this.columns.map(c => c.title);
@@ -264,26 +269,6 @@ public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this
 public onCellClick(data: any): any {
 	console.log(data);
 }
-
-
-
-
-
-no: any;
-assessmentId: any;
-private attachments: any;
-pageName: any = "Action Items";
-assessmentIdFromParams: any;
-
-
-constructor( private apollo: Apollo,
-						 public popOver: PopoverController,
-						 private assessmentService: AssessmentService,
-					 	 public router: Router,
-					 	 private activatedRoute: ActivatedRoute) {
-								this.assessmentIdFromParams = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-								console.log(this.assessmentIdFromParams);
-							}
 
 unique = (item, index, array) => array.indexOf(item) == index
 
