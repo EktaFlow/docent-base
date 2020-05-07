@@ -10,7 +10,7 @@ import { GoogleAnalytics } from "../../application/helpers/GoogleAnalytics";
 })
 export class LoginComponent {
   user: any = {};
-  counter: any = 0;
+  counter: number = 0;
   private errors: any = [];
   @Output() toggleClicked = new EventEmitter<string>();
 
