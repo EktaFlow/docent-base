@@ -33,20 +33,28 @@ describe("Error validations on Registration page should be visible ", function (
     cy.get(registerLink).click();
   });
 
-  it("displays proper validation erros if submitted form is blank ", () => {
+  it("displays proper validation errors for name if submitted form is blank ", () => {
     cy.get(submitButton).click();
     cy.get(nameBlankId).should(($error) => {
       expect($error).to.contain.text(nameBlankMessage);
     });
+  });
+
+  it("displays proper validation errors for email if submitted form is blank ", () => {
+    cy.get(submitButton).click();
     cy.get(emailBlankId).should(($error) => {
       expect($error).to.contain.text(emailBlankMessage);
     });
+  });
+
+  it("displays proper validation errors for password if submitted form is blank ", () => {
+    cy.get(submitButton).click();
     cy.get(passwordBlankId).should(($error) => {
       expect($error).to.contain.text(passwordBlankMessage);
     });
   });
 
-  it("displays proper validation errors if submitted form is partial ", () => {
+  it("displays proper validation errors for email if submitted form is partial ", () => {
     cy.get(nameInput).type(name);
     cy.get(emailInput).type(emailInvalid);
     cy.get(password1Id).type(passwordInvalid);
@@ -56,6 +64,16 @@ describe("Error validations on Registration page should be visible ", function (
     cy.get(emailInvalidId).should(($error) => {
       expect($error).to.contain.text(emailInvalidMessage);
     });
+  });
+
+
+  it("displays proper validation errors for password if submitted form is partial ", () => {
+    cy.get(nameInput).type(name);
+    cy.get(emailInput).type(emailInvalid);
+    cy.get(password1Id).type(passwordInvalid);
+    cy.get(password2Id).type(repeatPasswordInvalid);
+    cy.get(submitButton).click();
+
     cy.get(passwordDuplicateId).should(($error) => {
       expect($error).to.contain.text(passwordNoMatchMessage);
     });
