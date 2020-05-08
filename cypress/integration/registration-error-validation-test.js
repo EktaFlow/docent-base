@@ -16,8 +16,37 @@ describe("Error validations on Registration page should be visible ", function (
   const password2Id = "#pw2";
   const submitButton = ".button";
 
-  const name = "j";
-  const emailInvalid = "j#j.com";
+  const emailJoinSymbolList = ['%', '@', '&', '*', '$', ''];
+
+  randomEmailGenerator = (size) => {
+    for (a = '', b = 36; a.length < size;) a += (Math.random() * b | 0).toString(b)
+    return a;
+  }
+
+  randomNumberGenerator = () => {
+    let random = parseInt(Math.random() * 10, 10)
+    if (random === 0) {
+      randomNumberGenerator()
+    }
+    return random;
+  }
+
+  emailGenerator = () => {
+    let email = '';
+    let randomNess = randomEmailGenerator(randomNumberGenerator());
+    let secondPart = shuffle(emailJoinSymbolList)[0];
+    email.concat(randomNess + secondPart + randomNess + "." + 'com')
+    console.log(email);
+
+    return email;
+  }
+
+
+
+
+
+  let emailInvalid = emailGenerator();
+
   const passwordInvalid = "111";
   const repeatPasswordInvalid = "222";
 
@@ -55,10 +84,8 @@ describe("Error validations on Registration page should be visible ", function (
   });
 
   it("displays proper validation errors for email if submitted form is partial ", () => {
-    cy.get(nameInput).type(name);
+
     cy.get(emailInput).type(emailInvalid);
-    cy.get(password1Id).type(passwordInvalid);
-    cy.get(password2Id).type(repeatPasswordInvalid);
     cy.get(submitButton).click();
 
     cy.get(emailInvalidId).should(($error) => {
@@ -68,8 +95,6 @@ describe("Error validations on Registration page should be visible ", function (
 
 
   it("displays proper validation errors for password if submitted form is partial ", () => {
-    cy.get(nameInput).type(name);
-    cy.get(emailInput).type(emailInvalid);
     cy.get(password1Id).type(passwordInvalid);
     cy.get(password2Id).type(repeatPasswordInvalid);
     cy.get(submitButton).click();
@@ -78,4 +103,6 @@ describe("Error validations on Registration page should be visible ", function (
       expect($error).to.contain.text(passwordNoMatchMessage);
     });
   });
+
+
 });
