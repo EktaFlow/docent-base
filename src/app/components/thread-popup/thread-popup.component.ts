@@ -31,9 +31,9 @@ export class ThreadPopupComponent implements OnInit {
 	public questions: any;
 	public currentQuestions: any;
 	public assessmentId: any;
-	private subTitle: any;
-	private schema: any;
-	private updateInfo: any;
+	public subTitle: any;
+	public schema: any;
+	public updateInfo: any;
   constructor(
 		private apollo: Apollo,
 		public navCtrl: NavController,

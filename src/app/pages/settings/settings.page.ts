@@ -37,7 +37,7 @@ export class SettingsPage implements OnInit {
   ngOnInit(){
 
   }
-  goBackToUser(){ this.navCtrl.pop()};
+  goBackToUser(){ this.router.navigate(["/user-dashboard"]);};
 
   async saveDownJSON(){
   		this.http.get('assets/json/pretty_2017.json')

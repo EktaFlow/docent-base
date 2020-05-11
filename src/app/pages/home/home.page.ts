@@ -34,12 +34,12 @@ export class HomePage implements OnInit {
 	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	private showRegister: boolean = false;
-	private mobileRegister: boolean = false;
+	public showRegister: boolean = false;
+	public mobileRegister: boolean = false;
 	public deskbookVersions: any = ['2018', "2017", "2016"];
-  private threadsShown: boolean = false;
-  private threads: any;
-  private threadsSelectButton: string = 'Unselect All';
+  public threadsShown: boolean = false;
+  public threads: any;
+  public threadsSelectButton: string = 'Unselect All';
 	assessment: any;
 
   constructor(
@@ -105,9 +105,9 @@ export class HomePage implements OnInit {
             .then( d => {
               console.log(d);
 
-              var assessmentId = d.data.createAssessment._id;
-              this.sendEmailsToTeamMembers(assessmentId);
-              this.startAssessment(assessmentId);
+              // var assessmentId = d.data.createAssessment._id;
+              // this.sendEmailsToTeamMembers(assessmentId);
+              // this.startAssessment(assessmentId);
 
             })
             .catch(e => {

@@ -124,8 +124,8 @@ export class UserDashboardPage implements OnInit {
   assessments: any;
 	sharedAssessments: any = [];
   loading: boolean;
-  private querySubscription: Subscription;
-	private sharedAssessmentIds = [];
+  public querySubscription: Subscription;
+	public sharedAssessmentIds = [];
 	expand: any = false;
   currentAssessment: any = null;
 	noSecondBar: boolean = false;

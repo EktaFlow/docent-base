@@ -13,6 +13,7 @@ import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover
 
 import { ActivatedRoute } from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
+import { Helpers } from '../../services/helpers/helpers';
 
 
 @NgModule()
@@ -22,18 +23,18 @@ import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
   styleUrls: ['./questions.page.scss'],
 })
 export class QuestionsPage implements OnInit {
-	private vals: any = {};
+	public vals: any = {};
 	assessmentId: any;
-	private assessment: any;
+	public assessment: any;
 	public helpClicked: boolean = false;
-	private questionId: any;
+	public questionId: any;
 	files = [];
-	private allQuestions;
-	private referringQuestionId: any;
-	private targetMRL;
-	private currentTargetMRL: any;
-	private currentQuestion: any = {};
-	private surveyQuestions;
+	public allQuestions;
+	public referringQuestionId: any;
+	public targetMRL;
+	public currentTargetMRL: any;
+	public currentQuestion: any = {};
+	public surveyQuestions;
 	currentQSet: any;
 	currentQSetAmt: any;
 	currentQPos: any;
@@ -157,26 +158,34 @@ export class QuestionsPage implements OnInit {
 
 	////////////////// CLICK HANDLERS //////////////////////////////////
 	/////////////////////////// popover creator(s) /////////////////////
-	showFileUpload() {
+	async showFileUpload() {
 			let myEmitter = new EventEmitter<any>();
 			myEmitter.subscribe( v =>  {
 			var files = JSON.parse(JSON.stringify(this.files));
 			files.push(v)
 			this.files = files;
 			});
-
-			this.popoverController.create(FileUploadPopoverComponent,
-					{
-						emitter: myEmitter,
-						questionId: this.currentQuestion.questionId,
-						assessmentId: this.assessmentId
-					},
-					{	cssClass: "upload-popover"})
-				.present();
+      const fileUpload = await this.popoverController.create({
+        component: FileUploadPopoverComponent,
+        componentProps: {
+          emitter: myEmitter,
+          questionId: this.currentQuestion.questionId,
+          assessmentId: this.assessmentId
+        },
+        cssClass: "upload-popover"
+      });
+      return await fileUpload.present();
 	}
 
-  showRiskPopover(highlight) {
-        this.popoverController.create(RiskPopoverComponent, {highlight: highlight}, {cssClass: 'risk-popover'}).present();
+  async showRiskPopover(highlight) {
+        var pop = await this.popoverController.create({
+          component: RiskPopoverComponent,
+          componentProps: {
+            highlight: highlight
+          },
+          cssClass: "risk-popover"
+        });
+        return await pop.present();
   }
 
   /**
@@ -186,7 +195,7 @@ export class QuestionsPage implements OnInit {
   * - delete happens on FileDelete / or doesn't
   * - update DOM, assessment Object if file deleted
   */
-  handleRemoveFileClick(event, fileId) {
+  async handleRemoveFileClick(event, fileId) {
     var removeFileEmitter = new EventEmitter();
     removeFileEmitter.subscribe( event => {
       // remove the file from the view after its been deleted from db
@@ -201,9 +210,17 @@ export class QuestionsPage implements OnInit {
       assessmentId: this.assessmentId,
       fileId:       fileId
     }
+    var pop = await this.popoverController.create({
+      component: FileDeleteComponent,
+      componentProps: {
+        emitter: removeFileEmitter,
+        typeToDelete: 'file',
+        assessmentId: this.assessmentId,
+        fileId: fileId
+      }
+    });
+    return await pop.present();
 
-    this.popoverController.create(FileDeleteComponent, fileDeleteData)
-                          .present({ev: event});
   }
 
   /**

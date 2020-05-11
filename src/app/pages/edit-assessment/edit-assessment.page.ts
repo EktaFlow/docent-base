@@ -32,16 +32,16 @@ export class EditAssessmentPage implements OnInit {
     levelSwitching
   }
 `
-private members: any = [];
-private page: String = 'edit';
-private assessmentId: String;
-private assessment: any = {};
-private threads: any;
-private customThreads: any = {};
-private threadsShown: boolean = false;
-private threadsSelectButton: string = 'Unselect All';
-private errors: any = [];
-private newMember: any = {};
+public members: any = [];
+public page: String = 'edit';
+public assessmentId: String;
+public assessment: any = {};
+public threads: any;
+public customThreads: any = {};
+public threadsShown: boolean = false;
+public threadsSelectButton: string = 'Unselect All';
+public errors: any = [];
+public newMember: any = {};
 
 constructor(
             private assessmentService: AssessmentService,

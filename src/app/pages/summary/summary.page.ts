@@ -49,14 +49,6 @@ query assessment($_id: String) {
   styleUrls: ['./summary.page.scss'],
 })
 export class SummaryPage implements OnInit {
-
-
-
-
-
-
-
-
 	assessmentId: any;
 	allQuestions: any;
         targetMRL: any;
@@ -77,7 +69,7 @@ export class SummaryPage implements OnInit {
         nonLevelSchema: any;
 				filterList: any = {};
 				unfilteredQuestions: any;
-				autoFilter = false;
+				autoFilter = true;
 				filteredSchema: any;
         noExtraQuestions: boolean;
 
@@ -90,7 +82,7 @@ export class SummaryPage implements OnInit {
 	             public popOver: PopoverController,
 	            private activatedRoute: ActivatedRoute) {
 	               this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-								 this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');;
+								 // this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');;
 	}
 
 
@@ -277,72 +269,9 @@ saveXLS(){
   XLSX.writeFile(wb, 'mrl_risk_summary.xlsx');
 }
 
-saveXLSExtra(){
-  var headers = [
-    "MRL",
-    "Thread Name",
-    "Subthread Name",
-    "Criteria 1",
-    "Criteria 2",
-    "Criteria 3",
-    "Criteria 4",
-    "Criteria 5"
-  ];
-
-  var values = this.settingValues(this.nonLevelSchema, true)
-
-  var newVals = []
-  for (let arr of values) {
-    if (arr.length > 1) {
-      for (let arr2 of arr){
-        newVals.push(arr2);
-      }
-    } else {
-        newVals.push(arr[0]);
-    }
-  }
-
-
-  var worksheet = [headers, ...newVals];
-
-  var ws = XLSX.utils.aoa_to_sheet(worksheet);
-  var wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'MRL Risk Summary Non Level');
-
-  /* save to file */
-  XLSX.writeFile(wb, 'mrl_risk_summary_extra.xlsx');
-
-
-}
 
 settingValues(currentSchema, mrlOn){
-<<<<<<< HEAD
-var subThreadNames = this.allQuestions.map(q => q.subThreadName);
-
-return currentSchema.map(t => {
-  var threads = [];
-  for (var i =0; i < t.subheaders.length; i++){
-    if (mrlOn){
-      threads.push([
-        t.subheaders[i].mrl,
-        t.header,
-        t.subheaders[i].subThreadName,
-        ...t.subheaders[i].riskScores
-      ]);
-    } else {
-      threads.push([
-        t.header,
-        t.subheaders[i].subThreadName,
-        ...t.subheaders[i].riskScores
-        ]);
-    }
-
-
-  }
-  return [...threads]
-});
-=======
-  var subThreadNames = this.allQuestions.map(q => q.subThreadName);
+	var subThreadNames = this.allQuestions.map(q => q.subThreadName);
 
   return currentSchema.map(t => {
     var threads = [];
@@ -366,53 +295,8 @@ return currentSchema.map(t => {
     }
     return [...threads]
   });
->>>>>>> 5ea6ac4e3aac7da6e0b8ba8ff1622f1cf5ec3ed9
 }
 
-
-
-<<<<<<< HEAD
-public calculateRiskScore(likelihood, consequence) {
-  // preventing off by one errors, with nulls.
-  // values should always be 1-5
-  var riskMatrix = [
-    [ null ],
-    [ null, 1, 3,  5,  8,  12],
-    [ null, 2, 7,  11, 14, 17],
-    [ null, 4, 10, 15, 19, 21],
-    [ null, 6, 12, 18, 22, 24],
-    [ null, 9, 16, 20, 23, 25]
-  ];
-
-
-  if ( likelihood && consequence ) {
-    // value is the same as the index, b/c we put nulls in the matrix
-    var likelihoodIndex  = Number(likelihood);
-    var consequenceIndex = Number(consequence);
-
-    // var name = selectedBox.className.replace(/ selected/g, '')
-    // selectedBox.className = `${name} selected`;
-
-    return riskMatrix[likelihoodIndex][consequenceIndex];
-  } else {
-    return "";
-  }
-}
-
-  public getRiskColor(score) {
-      if (score<=0) {
-          return "white";
-      } else if (score <= 11) {
-          return "lightgreen";
-      } else if (score <= 20) {
-          return "yellow";
-      } else if (score <= 25) {
-          return "#F75D59";
-      } else {
-          return "white";
-      }
-  }
-=======
   public calculateRiskScore(likelihood, consequence) {
     // preventing off by one errors, with nulls.
     // values should always be 1-5
@@ -455,6 +339,5 @@ public calculateRiskScore(likelihood, consequence) {
     }
 
 
->>>>>>> 5ea6ac4e3aac7da6e0b8ba8ff1622f1cf5ec3ed9
 
 }

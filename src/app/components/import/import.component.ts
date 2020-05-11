@@ -64,10 +64,11 @@ export class ImportComponent implements OnInit {
 				userEmail: user.email
 			}
 		}).subscribe( data => {
-				console.log(data.data.importAssessment._id);
-				this.assessmentService.setCurrentAssessmentId(data.data.importAssessment._id)
+			console.log(data);
+				// console.log(data.data.importAssessment._id);
+				// this.assessmentService.setCurrentAssessmentId(data.data.importAssessment._id)
 				this.popOver.dismiss();
-        this.router.navigate(["/questions", {data: data.data.importAssessment._id}]);
+        // this.router.navigate(["/questions", {data: data.data.importAssessment._id}]);
 			})
 
 	}

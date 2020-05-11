@@ -10,9 +10,9 @@ import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 })
 export class RegisterComponent implements OnInit {
 
-	private user = {};
-	private errors: any = [];
-	private submitted: boolean = false;
+	public user = {};
+	public errors: any = [];
+	public submitted: boolean = false;
   @Output() toggleClicked = new EventEmitter<string>();
 
   constructor( private auth: AuthService) {}

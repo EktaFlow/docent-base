@@ -88,6 +88,9 @@ export class ActionItemsPage implements OnInit {
 	private attachments: any;
 	pageName: any = "Action Items";
 	assessmentIdFromParams: any;
+	autoFilter: any;
+	unfilteredQuestions: any;
+	filterList: any;
 
 
 		constructor( private apollo: Apollo,
@@ -97,7 +100,7 @@ export class ActionItemsPage implements OnInit {
 								 private activatedRoute: ActivatedRoute) {
 										this.assessmentIdFromParams = this.activatedRoute.snapshot.paramMap.get('assessmentId');
 										console.log(this.assessmentIdFromParams);
-										this.autoFilter = this.activatedRoute.snapshot.param.get('autoFilter');
+										this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
 	                }
 
 

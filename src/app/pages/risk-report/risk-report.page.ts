@@ -62,7 +62,7 @@ export class RiskReportPage implements OnInit {
   noExtraQuestions: boolean = true;
 	filterList: any = {};
 	unfilteredQuestions: any;
-	autoFilter = false;
+	autoFilter = true;
 	filteredSchema: any;
 
   constructor(
@@ -70,7 +70,6 @@ export class RiskReportPage implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute) {
       this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-			this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
   }
 
   ionViewWillEnter() {
@@ -211,12 +210,9 @@ export class RiskReportPage implements OnInit {
           "Greatest Impact",
           "Risk Response",
           "MMP Summary"
-        ]
-<<<<<<< HEAD
-        var values = this.questions.map(q => {
-=======
+        ];
+
         var values = this.unfilteredQuestions.map(q => {
->>>>>>> 5ea6ac4e3aac7da6e0b8ba8ff1622f1cf5ec3ed9
           return this.returnValues(q);
         });
 

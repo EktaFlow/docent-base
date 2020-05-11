@@ -16,7 +16,7 @@ export class DoResetComponent implements OnInit {
   @Input() email;
   @Input() token;
   text: string;
-  private errors  = [];
+  public errors  = [];
   passwd: string  = '';
   passwd2: string = ''
   resetDone: boolean = false;

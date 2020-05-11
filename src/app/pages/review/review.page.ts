@@ -64,7 +64,7 @@ export class ReviewPage implements OnInit {
 						 	 public router: Router,
 						 	 private activatedRoute: ActivatedRoute) {
 								 this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-								 this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
+								 // this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
         }
 
 	ionViewWillEnter() {

@@ -9,9 +9,9 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ['./password-reset.component.scss']
 })
 export class PasswordResetComponent implements OnInit {
-  private emailInput: string = null;
-  private errors = [];
-  private user: any = {};
+  public emailInput: string = null;
+  public errors = [];
+  public user: any = {};
   @Output() toggleClicked = new EventEmitter<string>();
 
   constructor( private auth: AuthService,

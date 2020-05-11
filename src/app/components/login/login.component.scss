@@ -1,6 +1,6 @@
 	input {
 		width: 15vw;
-		height: inherit
+		height: inherit;
 	}
 
   button {
@@ -107,7 +107,9 @@
 
 	@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
 
-  background-color: white;
+		body {
+			background-color: white;
+		}
 
 	input {
 		width: 80vw;

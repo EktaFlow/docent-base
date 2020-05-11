@@ -12,7 +12,7 @@ import { Router, ActivatedRoute} from "@angular/router"
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
-// import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';
 import { saveAs } from "file-saver/FileSaver";
 
 var assessmentQuery = gql`

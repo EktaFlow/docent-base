@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
 	user: any = {};
-	private errors: any = [];
+	public errors: any = [];
   @Output() toggleClicked = new EventEmitter<string>();
 
 	constructor( private auth: AuthService,

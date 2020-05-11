@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'reset-password',
@@ -8,13 +9,17 @@ import { NavController, NavParams } from '@ionic/angular';
 })
 export class ResetPasswordPage implements OnInit {
 
-  userEmail: string = this.navParams.get('email');
-  userToken: string = this.navParams.get('token');
+  userEmail: string;
+  userToken: string;
   userInput: any    = {};
   errors:    string[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(this.navParams);
+  constructor(private route: Router, private activatedRoute: ActivatedRoute) {
+    this.userEmail = activatedRoute.snapshot.paramMap.get('email');
+    this.userToken = activatedRoute.snapshot.paramMap.get('token');
+  }
+
+  ngOnInit() {
 
   }
 

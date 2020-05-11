@@ -31,8 +31,8 @@ export class SubthreadPopupComponent implements OnInit {
   public questions: any;
   public currentQuestions: any;
   public assessmentId: any;
-  private subTitle: any;
-  private updateInfo: any;
+  public subTitle: any;
+  public updateInfo: any;
 
   constructor(
     private apollo: 			 Apollo,
