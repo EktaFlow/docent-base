@@ -79,7 +79,6 @@ export class HomePage implements OnInit {
 	  var toast = await this.toastCtrl.create({
 	    message: 'Please ensure your assessment has a name and target MR Level',
 	    duration: 4500,
-      showCloseButton: true,
       position: 'top',
       cssClass: 'error-toast'
 	  });

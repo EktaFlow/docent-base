@@ -212,8 +212,6 @@ async launchToast() {
     message: 'assessment updated',
     duration: 3000,
     position: 'top',
-    showCloseButton: true,
-    closeButtonText: 'ok'
   });
   await toast.present();
 }

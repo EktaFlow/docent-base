@@ -40,8 +40,6 @@ export class PasswordResetComponent implements OnInit {
       message: 'You must enter some email address',
       duration: 5000,
       position: 'top',
-      showCloseButton: true,
-      closeButtonText: 'ok'
     });
 
     await toast.present();
@@ -57,8 +55,6 @@ export class PasswordResetComponent implements OnInit {
       message: 'Success, if you have a Docent account, reset information will be sent to ' + email,
       duration: 5000,
       position: 'top',
-      showCloseButton: true,
-      closeButtonText: 'Ok'
     });
     await toast.present();
   }

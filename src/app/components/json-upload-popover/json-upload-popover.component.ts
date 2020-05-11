@@ -51,7 +51,6 @@ export class JsonUploadPopoverComponent implements OnInit {
 	  var toast = await this.toastCtrl.create({
 	    message: 'It appears this file is not valid JSON',
 	    duration: 4500,
-      showCloseButton: true,
       position: 'top',
       cssClass: 'error-toast'
 	  });
@@ -63,7 +62,6 @@ export class JsonUploadPopoverComponent implements OnInit {
 	  var toast = await this.toastCtrl.create({
 	    message: 'Unknown error',
 	    duration: 4500,
-      showCloseButton: true,
       position: 'top',
       cssClass: 'error-toast'
 	  });

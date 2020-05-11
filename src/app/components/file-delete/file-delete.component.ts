@@ -67,8 +67,6 @@ export class FileDeleteComponent implements OnInit {
        message: 'file deleted',
        duration: 3000,
        position: 'top',
-       showCloseButton: true,
-       closeButtonText: 'ok'
      });
      await toast.present();
    }
