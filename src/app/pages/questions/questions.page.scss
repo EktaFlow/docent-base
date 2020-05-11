@@ -1,0 +1,348 @@
+$input-backgroud : #fbfbfb;
+$input-border    : #dcdcdc;
+$basic-cell-size : 4vw;
+$arrow-width     : 1em;
+
+%input-style {
+  display          : inline-block;
+  box-sizing       : border-box;
+  width            : 100%;
+  height           : 100%;
+  padding          : 6px 12px;
+  border           : 1px solid #ccc;
+  border-color     : $input-border;
+  border-radius    : 2px;
+  background-color : $input-backgroud;
+  font-size        : 14px;
+  line-height      : 1.42857;
+}
+
+%down-arrow {
+  padding             : .5em;
+  padding-right       : 1.5em;
+  background-image    : url('../../assets/imgs/if_icon-arrow-down.png');
+  background-repeat   : no-repeat;
+  background-position : right 50%;
+}
+
+ion-content {
+  margin-top : 220px;
+}
+
+.file-link {
+  margin-right  : 1em;
+  margin-bottom : 0;
+
+  &:hover {
+    text-decoration : underline;
+  }
+}
+
+.risk select {
+  @extend   %input-style;
+  width   : 9vw;
+  height  : 30px;
+}
+
+.matrix-top-wrapper {
+  display : flex;
+}
+
+.matrix-bottom-wrapper {
+  display         : flex;
+  width           : 100%;
+  padding-left    : 4em;
+  justify-content : flex-end;
+  // easiest way to offset bottom div by size of y-axis label and arrow
+}
+
+.x-axis-wrapper {}
+
+.x-axis-label-wrapper {
+  display         : flex;
+  width           : 5* $basic-cell-size;
+  justify-content : center;
+}
+
+.x-axis-arrow-wrapper {
+  width      : 100%;
+  height     : 2em;
+  margin-top : 1em;
+}
+
+.y-axis-wrapper {
+  display     : flex;
+  height      : 100%;
+  align-items : center;
+}
+
+.y-axis-label {
+  display         : flex;
+  width           : 1em;
+  align-items     : center;
+  justify-content : center;
+
+  h4 {
+    height    : 1em;
+    transform : rotate(-90deg);
+  }
+}
+
+.y-axis-arrow-wrapper {
+  display         : flex;
+  width           : 2em;
+  height          : 5 * $basic-cell-size;
+  margin-right    : 1em;
+  align-items     : center;
+  flex-direction  : column;
+  justify-content : flex-start;
+}
+
+.y-axis-arrow-body {
+  width      : .75em;
+  height     : 96%;
+  background : black;
+}
+
+.y-axis-arrow-head-wrapper {
+  width  : 100%;
+  height : $arrow-width;
+}
+
+.y-axis-arrow-head {
+  width         : 0;
+  height        : 0;
+  border-right  : $arrow-width solid transparent;
+  border-bottom : $arrow-width solid black;
+  border-left   : $arrow-width solid transparent;
+}
+
+.x-axis-arrow-wrapper {
+  display         : flex;
+  width           : 5 * $basic-cell-size;
+  height          : 2em;
+  margin-right    : 1em;
+  align-items     : center;
+  flex-direction  : row-reverse;
+  justify-content : flex-start;
+}
+
+.x-axis-arrow-body {
+  width      : 96%;
+  height     : .75em;
+  background : black;
+}
+
+.x-axis-arrow-head-wrapper {
+  height : 2em;
+}
+
+.x-axis-arrow-head {
+  width         : 0;
+  height        : 0;
+  border-top    : $arrow-width solid transparent;
+  border-bottom : $arrow-width solid transparent;
+  border-left   : $arrow-width solid black;
+}
+
+.toolbar-class {
+  header {
+    color : #000;
+  }
+
+  img {
+    margin-top  : 10px;
+    margin-left : 10px;
+  }
+
+  p {
+    visibility : visible !important;
+  }
+
+  hr {
+    display    : block !important;
+    visibility : visible !important;
+    width      : 98% !important;
+    height     : 1px !important;
+    background : grey!important;
+    font-size  : 2em !important;
+  }
+}
+
+.subheader {
+  display         : flex;
+  margin-left     : 13px;
+  color           : white;
+  justify-content : space-between;
+}
+
+.nav {
+  display         : flex;
+  width           : 45%;
+  margin-bottom   : 10px;
+  justify-content : space-between;
+
+  select {
+    @extend              %input-style;
+    @extend              %down-arrow;
+    -webkit-appearance : none;
+    width              : 100%;
+    margin-bottom      : 10px;
+  }
+
+  .help-button {
+    width       : 98%;
+    margin-left : 0;
+  }
+}
+
+.choose-one {
+  width   : 48%;
+  padding : 10px 0px 30px 0px;
+
+  select {
+    @extend              %input-style;
+    @extend              %down-arrow;
+    -webkit-appearance : none;
+  }
+}
+
+.yes {
+  display         : flex;
+  height          : 100%;
+  flex-direction  : column;
+  justify-content : space-between;
+
+  textarea {
+    @extend   %input-style;
+    resize  : none;
+    // width: 48%;
+  }
+
+  textarea:focus {
+    border-color : #9ecaed;
+    outline      : none;
+    box-shadow   : 0 0 10px #9ecaed;
+  }
+}
+
+.no {
+  display         : flex;
+  height          : 80%;
+  flex-direction  : column;
+  justify-content : space-between;
+
+  ion-icon {
+    font-size : 20px;
+  }
+
+  h3 {
+    margin-top : 30px;
+  }
+
+  input {
+    @extend   %input-style;
+    width   : 100%;
+    height  : 100%;
+  }
+
+  textarea {
+    @extend   %input-style;
+    height  : 100%;
+    resize  : none;
+    // width: 48%;
+  }
+
+  textarea:focus {
+    border-color : #9ecaed;
+    outline      : none;
+    box-shadow   : 0 0 10px #9ecaed;
+  }
+
+  .who-when {
+    display         : flex;
+    height          : 100%;
+    flex-direction  : row;
+    justify-content : space-between;
+    list-style-type : none;
+    // width:48%;
+    // margin-left: -10px;
+
+    .who {
+      display        : flex;
+      flex-direction : column;
+
+      #no-who-input {
+        width  : 150%;
+        height : 40px;
+      }
+    }
+
+    .when {
+      display        : flex;
+      flex-direction : column;
+
+      #no-when-input {
+        height : 40px;
+        // padding: 15px;
+      }
+    }
+  }
+
+  .what {
+    margin-top : 10px;
+  }
+
+  .reason {
+    margin-top : 10px;
+  }
+
+  .no-assumptions {
+    margin-top : 10px;
+  }
+
+  .no-notes {
+    margin-top : 10px;
+  }
+
+  .up-btn {
+    width : 10%;
+  }
+}
+
+.na {
+  display         : flex;
+  height          : 100%;
+  flex-direction  : column;
+  justify-content : space-evenly;
+
+  textarea {
+    @extend   %input-style;
+    resize  : none;
+    // width: 48%;
+  }
+
+  textarea:focus {
+    border-color : #9ecaed;
+    outline      : none;
+    box-shadow   : 0 0 10px #9ecaed;
+  }
+}
+
+// .risk{
+
+// display: flex;
+
+// align-items: center;
+
+// width: 25%;
+
+// margin:20px;
+
+// .label {
+
+// text-align: right;
+
+//
+
+//

@@ -1,5 +1,14 @@
 {
+<<<<<<< HEAD
   "name": "docent-v4",
   "integrations": {},
   "type": "angular"
 }
+=======
+  "name": "docent-v1",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
+>>>>>>> 5ea6ac4e3aac7da6e0b8ba8ff1622f1cf5ec3ed9

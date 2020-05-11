@@ -1,0 +1,40 @@
+<!-- TODO -->
+<div class="feedback-dropdown-container desktop">
+		<div class="feedback-dropdown-header">
+			<div *ngIf="!feedbackOpen" class="arrow-down"></div>
+			<div *ngIf="feedbackOpen" class="arrow-up"></div>
+			<h2 (click)="toggleFeedback()">Feedback</h2>
+		</div>
+		<div *ngIf="feedbackOpen" id="feedback-dropdown-content" class="feedback-dropdown-content">
+			<ion-grid>
+				<ion-row>
+					<ion-col col-4 *ngFor="let contact of contacts" class="contact desktop">
+            <font size="4">
+						<p><b>{{contact.name}}</b></p>
+						<p>{{contact.organization}}</p>
+						<p class="email">{{contact.email}}</p>
+            </font>
+				  </ion-col>
+
+					<ion-col col-8 *ngFor="let contact of contacts" class="contact mobile">
+            <font size="4">
+						<p><b>{{contact.name}}</b></p>
+						<p>{{contact.organization}}</p>
+						<p class="email">{{contact.email}}</p>
+            </font>
+				  </ion-col>
+				</ion-row>
+      </ion-grid>
+		</div>
+
+
+</div>
+
+<div class="mobile feedback-container">
+	<h3>Feedback Contacts</h3>
+	<div *ngFor="let contact of contacts" class="contact">
+		<h6>{{contact.name}}</h6>
+		<p>{{contact.organization}}</p>
+		<p>{{contact.email}}</p>
+	</div>
+</div>

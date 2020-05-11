@@ -1,0 +1,89 @@
+
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
+
+
+
+
+<ion-content padding>
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+<div class="table-wrapper" >
+
+
+  <div class="filter-toolbar">
+    <ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</ion-button>
+    <div class="filter-list">
+      <p>Filter MR Level: </p>
+      <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
+        <option value="" disabled selected>Select One...</option>
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+        <option value = "6">6</option>
+        <option value = "7">7</option>
+        <option value = "8">8</option>
+        <option value = "9">9</option>
+        <option value = "10">10</option>
+      </select>
+      <ion-button class="filter-buttons" (click)="filterTheList()" small color="buttonBlue">Filter</ion-button>
+      <ion-button class="filter-buttons" small (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
+
+    </div>
+  </div>
+
+
+<table>
+    <tr>
+        <th *ngIf="filterList && filterList.filterMRL && filterList.filterMRL > 0 && filterList.filterTitle" colspan="7" style="width:100%; text-align: center; border-color: 1px solid black;">
+            MRL {{filterList.filterTitle}} Criteria Summary
+        </th>
+        <th *ngIf="!filterList || !filterList.filterMRL || !filterList.filterTitle || filterList.filterMRL == 0" colspan="7" style="width:100%; text-align: center; border-color: 1px solid black;">
+            MRL Criteria Summary
+        </th>
+    </tr>
+
+    <tr>
+        <th style="border: 1px solid black;" width="20%">Threads</th>
+        <th style="border: 1px solid black;" width="40%">Subthreads</th>
+        <th style="border: 1px solid black;">Criteria 1</th>
+        <th style="border: 1px solid black;">Criteria 2</th>
+        <th style="border: 1px solid black;">Criteria 3</th>
+        <th style="border: 1px solid black;">Criteria 4</th>
+        <th style="border: 1px solid black;">Criteria 5</th>
+    </tr>
+
+  <ng-container *ngFor="let thread of filteredSchema">
+    <tr *ngFor = "let subThread of thread.subheaders" style="border-width 1px; border-spacing: 2px; border-color: black;" width="100%">
+
+<!--        <tr *ngFor = "let subthread of threads[thread]['subThreads']" style="border-width 1px; border-spacing: 2px; border-color: black;" width="100%"> -->
+
+
+
+            <td style="border: 1px solid black;"><font color="black">{{thread.header}}</font></td>
+            <td style="border: 1px solid black;"><font color="black">{{subThread.subThreadName}}</font></td>
+
+            <td *ngFor="let score of subThread.riskScores" [ngStyle]="{'background-color': setRiskColor(score)}" style="border: 1px solid black; text-align: center">{{score}}</td>
+
+            <ng-container *ngIf="subThread.riskScores.length < 5">
+              <td *ngFor="let item of extraFields(subThread.riskScores.length)" [ngStyle]="{'background-color': setRiskColor('')}" style="border: 1px solid black; text-align: center"> </td>
+            </ng-container>
+
+    </tr>
+    </ng-container>
+
+
+
+</table>
+
+
+</div>
+
+
+
+<div class="qspacer"></div>
+
+</ion-content>

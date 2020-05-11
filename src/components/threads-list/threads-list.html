@@ -1,6 +1,0 @@
-<div>
-	<li class="thread-select" *ngFor="let name of threads" (click)="handleClick(name, $event)">
-	<span *ngIf="!name.selected">{{name.name}}</span>
-	<span *ngIf="name.selected"><del>{{name.name}}</del></span>
-	</li>
-</div>
