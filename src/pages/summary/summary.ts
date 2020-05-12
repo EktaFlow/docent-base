@@ -255,7 +255,7 @@ saveXLS(){
     "Criteria 5"
   ]
 
-  var values = this.settingValues(this.schema, false)
+  var values = this.settingValues(this.filteredSchema)
 
   var newVals = []
   for (let arr of values) {
@@ -267,7 +267,6 @@ saveXLS(){
         newVals.push(arr[0]);
     }
   }
-
 
   var worksheet = [headers, ...newVals];
 
@@ -317,28 +316,15 @@ saveXLSExtra(){
 
 }
 
-settingValues(currentSchema, mrlOn){
-  var subThreadNames = this.allQuestions.map(q => q.subThreadName);
-
-  return currentSchema.map(t => {
+settingValues(currentSchema){
+  return currentSchema.map(thread => {
     var threads = [];
-    for (var i =0; i < t.subheaders.length; i++){
-      if (mrlOn){
+    for (var i =0; i < thread.subheaders.length; i++){
         threads.push([
-          t.subheaders[i].mrl,
-          t.header,
-          t.subheaders[i].subThreadName,
-          ...t.subheaders[i].riskScores
+          thread.header,
+          thread.subheaders[i].subThreadName,
+          ...thread.subheaders[i].riskScores
         ]);
-      } else {
-        threads.push([
-          t.header,
-          t.subheaders[i].subThreadName,
-          ...t.subheaders[i].riskScores
-          ]);
-      }
-
-
     }
     return [...threads]
   });
