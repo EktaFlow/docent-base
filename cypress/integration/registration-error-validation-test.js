@@ -16,37 +16,28 @@ describe("Error validations on Registration page should be visible ", function (
   const password2Id = "#pw2";
   const submitButton = ".button";
 
-  const emailJoinSymbolList = ['%', '@', '&', '*', '$', ''];
 
-  randomEmailGenerator = (size) => {
-    for (a = '', b = 36; a.length < size;) a += (Math.random() * b | 0).toString(b)
-    return a;
-  }
+  // TODO: Implement randomness validity test
+  const invalidEmailList = [
+  "#@%^%#$@#$ @#.com",
+  "@example.com",
+  "Joe Smith < email@example.com>",
+  "email.example.com",
+  "email@example @example.com",
+  ".email @example.com",
+  "email.@example.com",
+  "email..email@example.com",
+  "あいうえお@example.com",
+  "email@example.com(Joe Smith)",
+  "email@example",
+  "email@-example.com",
+  "email@example.web",
+  "email@111.222.333.44444",
+  "email@example..com",
+  "Abc..123@example.com"
+  ]
 
-  randomNumberGenerator = () => {
-    let random = parseInt(Math.random() * 10, 10)
-    if (random === 0) {
-      randomNumberGenerator()
-    }
-    return random;
-  }
-
-  emailGenerator = () => {
-    let email = '';
-    let randomNess = randomEmailGenerator(randomNumberGenerator());
-    let secondPart = shuffle(emailJoinSymbolList)[0];
-    email.concat(randomNess + secondPart + randomNess + "." + 'com')
-    console.log(email);
-
-    return email;
-  }
-
-
-
-
-
-  let emailInvalid = emailGenerator();
-
+  const emailInvalid = "j#k.com";
   const passwordInvalid = "111";
   const repeatPasswordInvalid = "222";
 
@@ -55,6 +46,7 @@ describe("Error validations on Registration page should be visible ", function (
   const emailInvalidMessage = "enter a valid email";
   const passwordBlankMessage = "enter a password";
   const passwordNoMatchMessage = "passwords don't match";
+
 
   beforeEach(() => {
     cy.viewport(viewportWidth, viewportHeight);
@@ -83,26 +75,22 @@ describe("Error validations on Registration page should be visible ", function (
     });
   });
 
-  it("displays proper validation errors for email if submitted form is partial ", () => {
 
+  it("displays proper validation errors if email is invalid ", () => {
     cy.get(emailInput).type(emailInvalid);
     cy.get(submitButton).click();
-
     cy.get(emailInvalidId).should(($error) => {
       expect($error).to.contain.text(emailInvalidMessage);
     });
   });
 
-
   it("displays proper validation errors for password if submitted form is partial ", () => {
     cy.get(password1Id).type(passwordInvalid);
     cy.get(password2Id).type(repeatPasswordInvalid);
     cy.get(submitButton).click();
-
     cy.get(passwordDuplicateId).should(($error) => {
       expect($error).to.contain.text(passwordNoMatchMessage);
     });
   });
-
 
 });
