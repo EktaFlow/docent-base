@@ -11,7 +11,7 @@ describe("Error validations on Login page should be visible ", function () {
   const passwordBlankId = "#password-blank";
   const emailInvalidId = "#email-invalid";
   const passwordInvalidId = "#password-invalid";
-  const nameInput = 'input[name="emaial"]';
+  const emailInput = 'input[name="emaial"]';
   const passwordInput = "[name=passwd]";
   const submitButton = ".button";
 
@@ -34,7 +34,7 @@ describe("Error validations on Login page should be visible ", function () {
   });
 
   it("displays proper email validation errors if submitted form is partial ", () => {
-    cy.get(nameInput).type(emailInvalid);
+    cy.get(emailInput).type(emailInvalid);
     cy.get(submitButton).click();
     cy.get(emailInvalidId).should(($error) => {
       expect($error).to.contain.text(emailInvalidMessage);
