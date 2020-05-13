@@ -49,11 +49,13 @@ import { httpInterceptorsProviders } from "../services/interceptors";
 import { AssessmentService } from "../services/assessment.service";
 import { BackUrl } from  "../services/constants";
 import { Helpers } from '../services/helpers';
+import { ResetPasswordPage} from '../pages/reset-password/reset-password';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+		HomePage,
+		ResetPasswordPage
 
   ],
   imports: [
@@ -87,7 +89,8 @@ import { Helpers } from '../services/helpers';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+		HomePage,
+		ResetPasswordPage
   ],
   providers: [
     StatusBar,
