@@ -26,7 +26,7 @@ describe("Error validations on Login page should be visible ", function () {
     cy.viewport(viewportWidth, viewportHeight);
   });
 
-  it("displays proper email validation erros if submitted form is blank ", () => {
+  it("displays proper email validation errors if submitted form is blank ", () => {
     cy.get(submitButton).click();
     cy.get(emailBlankId).should(($error) => {
       expect($error).to.contain.text(emailBlankMessage);
@@ -41,7 +41,7 @@ describe("Error validations on Login page should be visible ", function () {
     });
   });
 
-  it("displays proper password validation erros if submitted form is blank ", () => {
+  it("displays proper password validation errors if submitted form is blank ", () => {
     cy.get(submitButton).click();
     cy.get(passwordBlankId).should(($error) => {
       expect($error).to.contain.text(passwordBlankMessage);
