@@ -11,7 +11,7 @@ import { AuthService } from "./services/auth.service";
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class MyApp {
+export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

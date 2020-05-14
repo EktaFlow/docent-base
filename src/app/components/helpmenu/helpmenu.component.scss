@@ -1,5 +1,5 @@
 ion-button {
-  width: 100%;
+  width: 99%;
 }
 
 .wrapper {
@@ -8,6 +8,7 @@ ion-button {
   flex-direction: column;
   background-color: black;
   align-items: flex-start;
+  justify-content: flex-start;
   padding: 10px 0;
   button, a {
     margin-left: 30px;

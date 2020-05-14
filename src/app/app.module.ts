@@ -22,7 +22,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AssessmentService } from './services/assessment.service';
 
-import { MyApp } from '../app/app.component';
+import { AppComponent } from '../app/app.component';
 
 import { HomePageModule } from './pages/home/home.module';
 import { AcronymsPageModule } from './pages/acronyms/acronyms.module';
@@ -41,7 +41,8 @@ import { EditAssessmentPageModule } from './pages/edit-assessment/edit-assessmen
 import { SummaryPageModule } from './pages/summary/summary.module';
 import { RiskReportPageModule } from './pages/risk-report/risk-report.module';
 
-import { ComponentsModule } from './components/components.module'
+import { ComponentsModule } from './components/components.module';
+import { Helpers } from './services/helpers/helpers';
 
 import { AppRoutingModule } from '../app/app-routing.module';
 import { BackUrl } from  "./services/constants";
@@ -49,10 +50,10 @@ import { BackUrl } from  "./services/constants";
 
 @NgModule({
   declarations: [
-    MyApp,
+    AppComponent,
   ],
   entryComponents: [
-		MyApp,
+		AppComponent,
 	],
   imports: [
 		BrowserModule,
@@ -88,9 +89,10 @@ import { BackUrl } from  "./services/constants";
     StatusBar,
     SplashScreen,
 		AssessmentService,
+    Helpers,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [MyApp]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
