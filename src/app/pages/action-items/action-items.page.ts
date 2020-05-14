@@ -88,7 +88,7 @@ export class ActionItemsPage implements OnInit {
 	private attachments: any;
 	pageName: any = "Action Items";
 	assessmentIdFromParams: any;
-	autoFilter: boolean = true;
+	autoFilter: any = true;
 	unfilteredQuestions: any;
 	filterList: any = {};
 	filterMRL: any;
@@ -101,7 +101,7 @@ export class ActionItemsPage implements OnInit {
 								 private activatedRoute: ActivatedRoute) {
 										this.assessmentIdFromParams = this.activatedRoute.snapshot.paramMap.get('assessmentId');
 										console.log(this.assessmentIdFromParams);
-										this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
+										// this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
 	                }
 
 
