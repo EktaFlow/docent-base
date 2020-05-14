@@ -48,7 +48,7 @@ export class HomePage {
   private threads: any;
   private threadsSelectButton: string = "Unselect All";
 	assessment: any;
-	private errors: any = [];
+  private errors: any = [];
 
   constructor(
     public navCtrl: NavController,
@@ -267,18 +267,18 @@ export class HomePage {
   addMember(nameIn: string, emailIn: string, roleIn: string) {
 		var newMember = { name: nameIn, email: emailIn, role: roleIn };
 		if ( this.validMemberInput(emailIn) ) {
-    this.members.push(newMember);
-    this.assForm.teamMembers.push(newMember);
+      this.members.push(newMember);
+      this.assForm.teamMembers.push(newMember);
 
-    var name = <any>document.getElementById("memName");
-    name.value = "";
-    var email = <any>document.getElementById("memEmail");
-    email.value = "";
-    var role = <any>document.getElementById("memRole");
-    role.value = "";
-    this.presentToast();
-	};
-}
+      var name = <any>document.getElementById("memName");
+      name.value = "";
+      var email = <any>document.getElementById("memEmail");
+      email.value = "";
+      var role = <any>document.getElementById("memRole");
+      role.value = "";
+      this.presentToast();
+    };
+  }
 
   // all that is required is an email
   // space this correctly!!!!
