@@ -8,7 +8,7 @@
   <report-info-card [assessmentId]="assessmentIdFromParams"></report-info-card>
 
 <div class="filter-toolbar">
-  <button ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</button>
+  <ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</ion-button>
   <div class="filter-list">
     <p>Filter MR Level: </p>
     <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
@@ -24,8 +24,8 @@
       <option value = "9">9</option>
       <option value = "10">10</option>
     </select>
-    <button class="filter-buttons" (click)="filterTheList()" ion-button small color="buttonBlue">Filter</button>
-    <button class="filter-buttons" ion-button small (click)="clearFilter()" color="buttonBlue">Clear</button>
+    <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
+    <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
 
   </div>
 </div>

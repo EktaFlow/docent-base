@@ -88,9 +88,10 @@ export class ActionItemsPage implements OnInit {
 	private attachments: any;
 	pageName: any = "Action Items";
 	assessmentIdFromParams: any;
-	autoFilter: any;
+	autoFilter: boolean = true;
 	unfilteredQuestions: any;
-	filterList: any;
+	filterList: any = {};
+	filterMRL: any;
 
 
 		constructor( private apollo: Apollo,
