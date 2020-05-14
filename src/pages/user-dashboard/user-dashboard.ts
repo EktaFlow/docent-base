@@ -39,6 +39,12 @@ query getShared($assessments: [String]) {
 			email
 			role
 		}
+		questions{
+	    mrLevel
+	    answers {
+	      answer
+	    }
+	  }
 		userId
 		userEmail
 	}
@@ -65,38 +71,9 @@ query assessment($_id: String)
   name
   threads
 	questions{
-		questionText
-	  currentAnswer
-		questionId
-    threadName
-    subThreadName
     mrLevel
-		questionId
-    helpText
-    criteriaText
     answers {
-      userId
-      updatedAt
       answer
-      likelihood
-      consequence
-      greatestImpact
-      riskResponse
-      mmpSummary
-  		objectiveEvidence
-  		assumptionsYes
-  		notesYes
-  		who
-  		when
-  		what
-  		reason
-  		assumptionsNo
-  		notesNo
-  		documentation
-  		assumptionsNA
-  		notesNA
-      assumptionsSkipped
-      notesSkipped
     }
   }
 	files {
@@ -166,6 +143,16 @@ export class UserDashboardPage {
 		observe.subscribe(({data}) => {
 			this.assessments = data.assessments;
 			this.assessments = JSON.parse(JSON.stringify(this.assessments));
+			console.log(this.assessments);
+			for (var assessment of this.assessments) {
+				var answeredQuestions = assessment.questions.filter((q: any) => q.answers.length > 0 && q.mrLevel == assessment.targetMRL);
+				var lengthOfAssessment = assessment.questions.filter((q:any) => q.mrLevel == assessment.targetMRL);
+				var answered = answeredQuestions.length;
+				var possible = lengthOfAssessment.length;
+				assessment["answered"] = answered;
+				assessment["possible"] = possible;
+				assessment["percentage"] = Math.round((answered / possible) * 100);
+			}
 			console.log(this.assessments);
 		});
 		if (window.screen.width > 440) {

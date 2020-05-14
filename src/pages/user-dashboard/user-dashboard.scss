@@ -15,15 +15,17 @@ page-user-dashboard {
   margin: 6px;
   vertical-align: middle;
   position: relative;
+  display: flex;
+  align-items: center;
 
   p {
-    // width: 70%;
-    // height: 20px;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // display: block;
+    width: 60%;
+    margin: 0;
+    margin-bottom: 0;
+  }
 
-
+  span {
+    width: 30%;
   }
 
   .dropdown {
