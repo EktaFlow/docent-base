@@ -79,7 +79,7 @@ export class RegisterComponent {
 	}
 
 	checkEmail(email) {
-		var regEx = /\S+@\S+\.\S+/;
+		var regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	  var test = regEx.test(email);
 
 		!test ? this.errors.push("invalid_email") : null
