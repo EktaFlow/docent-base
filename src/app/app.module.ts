@@ -54,8 +54,8 @@ import { ResetPasswordPage} from '../pages/reset-password/reset-password';
 @NgModule({
   declarations: [
     MyApp,
-		HomePage,
-		ResetPasswordPage
+    HomePage,
+    ResetPasswordPage
 
   ],
   imports: [
