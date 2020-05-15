@@ -1,3 +1,4 @@
+import { ResetPasswordPage } from './../reset-password/reset-password';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { TopbarComponent } from "../../components/topbar/topbar";
@@ -21,6 +22,7 @@ import { GoogleAnalytics } from '../../application/helpers/GoogleAnalytics';
 })
 export class SettingsPage {
   // public popoverController: PopoverController
+   public pushResetPage: any;
 
   constructor(public navCtrl: NavController,
 	            private popoverController: PopoverController,
@@ -29,6 +31,8 @@ export class SettingsPage {
                   public popover: PopoverController ) {
                       this.user = navParams.data.user;
                       console.log(navParams.data.user);
+                      this.pushResetPage = ResetPasswordPage;
+
 
   }
 
@@ -42,6 +46,10 @@ export class SettingsPage {
   }
 
   goBackToUser(){ this.navCtrl.pop()};
+
+  goToReset(){
+    this.navCtrl.push(this.pushResetPage)
+  };
 
   async saveDownJSON(){
   		this.http.get('assets/json/pretty_2017.json')
