@@ -265,8 +265,8 @@ export class HomePage {
   }
 
   addMember(nameIn: string, emailIn: string, roleIn: string) {
-		var newMember = { name: nameIn, email: emailIn, role: roleIn };
-		if ( this.validMemberInput(emailIn) ) {
+    var newMember = { name: nameIn, email: emailIn, role: roleIn };
+    if ( this.validMemberInput(emailIn) ) {
       this.members.push(newMember);
       this.assForm.teamMembers.push(newMember);
 
