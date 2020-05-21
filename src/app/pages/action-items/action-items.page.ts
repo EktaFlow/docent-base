@@ -18,6 +18,7 @@ import gql from "graphql-tag";
 var assessmentQuery = gql`
 query assessment($_id: String) {
 	assessment(_id: $_id) {
+	targetMRL
 	questions {
 		mrLevel
 		questionText
@@ -88,7 +89,7 @@ export class ActionItemsPage implements OnInit {
 	private attachments: any;
 	pageName: any = "Action Items";
 	assessmentIdFromParams: any;
-	autoFilter: any = true;
+	autoFilter: boolean = true;
 	unfilteredQuestions: any;
 	filterList: any = {};
 	filterMRL: any;
@@ -119,6 +120,7 @@ export class ActionItemsPage implements OnInit {
 	                        return a.answers[a.answers.length - 1].answer == "No"
 	                }
 						});
+						console.log(data);
 						var targetMRL = (<any>data.data).assessment.targetMRL;
 						this.attachments = (<any>data.data).assessment.files;
 	          var newData:Array<any> = [];

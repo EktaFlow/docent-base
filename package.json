@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
+  "description": "an Ionic project",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -89,8 +90,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
-    "cypress": "^4.1.0",
-  },
-  "description": "An Ionic project"
+    "typescript": "~3.4.3",
+    "cypress": "^4.1.0"
+  }
 }
