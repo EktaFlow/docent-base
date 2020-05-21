@@ -10,7 +10,6 @@ describe("Error validations on Registration page should be visible ", function (
   const emailBlankId = "#registration-email-blank";
   const passwordBlankId = "#registration-password-blank";
   const passwordDuplicateId = "#registration-password-duplicate";
-  const nameInput = 'input[name="name"]';
   const emailInput = 'input[name="emaial"]';
   const password1Id = "#pw1";
   const password2Id = "#pw2";
@@ -28,14 +27,29 @@ describe("Error validations on Registration page should be visible ", function (
     "email@example.com(Joe Smith)",
     "email@example",
     "email@-example.com",
-    "email@example.web",
     "email@111.222.333.44444",
     "email@example..com",
-    "Abc..123@example.com"
+    "Abc..123@example.com",
+    '”(),: ;<>[\]@example.com',
+    'just”not”right@example.com',
+    'this\ is"really"not\allowed@example.com',
   ]
 
 
-  const emailValid = "j@k.com";
+  const validEmailList = [
+  'email@example.com',
+  'firstname.lastname@example.com',
+  'email@subdomain.example.com',
+  'email@123.123.123.123',
+  'email@example.com',
+  '1234567890@example.com',
+  'email@example-one.com',
+  '_______@example.com',
+  'email@example.co.jp',
+  'firstname-lastname@example.com'
+  ];
+
+
   const passwordInvalid = "111";
   const repeatPasswordInvalid = "222";
 
@@ -76,7 +90,6 @@ describe("Error validations on Registration page should be visible ", function (
 
   it("displays proper validation errors if email is invalid ", () => {
     const invalidEmailListLength = invalidEmailList.length;
-
     for (let i = 0; i < invalidEmailListLength; i++) {
       cy.get(emailInput).type(invalidEmailList[i]);
       cy.get(submitButton).click();
@@ -86,14 +99,18 @@ describe("Error validations on Registration page should be visible ", function (
     }
   });
 
-  it("displays no validation errors if email is valid ", () => {
-      cy.get(emailInput).type(emailValid);
+
+  it("displays errors if email is valid", () => {
+    const validEmailListLength = validEmailList.length;
+    for (let i = 0; i < validEmailListLength; i++) {
+      cy.get(emailInput).type(validEmailList[i]);
       cy.get(submitButton).click();
       cy.get(emailInvalidId).should(($error) => {
         expect($error).not.to.contain.text(emailInvalidMessage);
       });
+      cy.get(emailInput).clear();
+    }
   });
-
 
   it("displays proper validation errors for password if submitted form is partial ", () => {
     cy.get(password1Id).type(passwordInvalid);
