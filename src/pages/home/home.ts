@@ -287,7 +287,7 @@ export class HomePage {
       this.errors = ["no-email"];
       return false;
     } else if (
-      this.assessment.teamMembers.map((a) => a.email).includes(emailInput)
+      this.assessment.teamMembers.map((teamMember) => teamMember.email).includes(emailInput)
     ) {
       this.errors = ["dupe"];
       return false;
