@@ -47,7 +47,7 @@ export class HomePage {
   private threadsShown: boolean = false;
   private threads: any;
   private threadsSelectButton: string = "Unselect All";
-	assessment: any;
+  assessment: any;
   private errors: any = [];
 
   constructor(
