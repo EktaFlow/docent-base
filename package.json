@@ -6,7 +6,7 @@
   "description": "an Ionic project",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --port 8100",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
