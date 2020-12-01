@@ -6,4 +6,4 @@ RUN npm install -g ionic
 
 COPY . .
 EXPOSE 8100
-CMD ionic serve
+CMD npm run start

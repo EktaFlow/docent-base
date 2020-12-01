@@ -6,12 +6,20 @@
  */
 
 .h1, .h2, .h3, h1, h2, h3 {
+<<<<<<< HEAD
+  margin-top: 15px;
+=======
   margin-top: 20px;
+>>>>>>> 5ea6ac4e3aac7da6e0b8ba8ff1622f1cf5ec3ed9
   margin-bottom: 10px;
 }
 
 .h1, h1 {
+<<<<<<< HEAD
+  font-size: 32px;
+=======
   font-size: 36px;
+>>>>>>> 5ea6ac4e3aac7da6e0b8ba8ff1622f1cf5ec3ed9
 }
 
 .btn-group-lg > .btn, .btn-lg {
