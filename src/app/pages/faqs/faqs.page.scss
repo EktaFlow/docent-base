@@ -1,0 +1,93 @@
+ion-content {
+  margin-top: 120px;
+}
+
+.mobile {
+  display: none;
+}
+@media screen and (max-width: 1024px){
+  .desktop {
+    display: none;
+  }
+
+  .qspacer {
+              display: inherit;
+              font-size: 0;
+              height: 250px;
+              line-height: 0;
+              border: 0px;
+              /* testing only */
+               // border: 1px solid red;
+               width: 100%;
+        }
+
+.mobile {
+  display: inherit;
+
+}
+
+.faqs-container {
+  width: 100%;
+  padding: 8px;
+  background-color: #e5e5e5;
+
+  .header {
+    width: 98%;
+    padding: 5px;
+    background-color: #FFFFFF;
+    margin: 3px 3px 7px 3px;
+    position: relative;
+
+    h3 {
+      font-size: 19px;
+      padding: 3px;
+      width: 90%;
+      margin: 0;
+    }
+
+    .arrow {
+      font-size: medium;
+      position: absolute;
+      top: 30%;
+      right: 10px;
+    }
+  }
+
+  .answer-text {
+    width: 98%;
+    padding: 6px;
+
+  }
+}
+
+.feedback-container {
+  width: 100%;
+  border: 10px solid #e5e5e5;
+  background-color: white;
+  padding: 10px;
+  margin: 20px 0;
+
+  h3{
+    text-decoration: underline;
+  }
+
+  .contact {
+    padding: 5px;
+  }
+
+
+}
+
+}
+
+@media screen and (min-width: 420px) and (max-width: 1024px){
+  ion-content {
+    margin-top: 145px;
+  }
+
+  .faqs-container {
+    .header {
+      width: 99%;
+    }
+  }
+}

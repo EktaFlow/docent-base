@@ -1,0 +1,27 @@
+<!-- TODO: style this to look more like the dropdown -->
+<!-- move the inline styles to the .scss -->
+<div class="wrapper">
+	<!--
+                <button ion-button color="dark">
+			Criteria
+		</button>
+        -->
+		<ion-button expand="full" (click)="handleCriteria()" color="dark" id="criteria-button">
+			Criteria
+		</ion-button>
+		<ion-button expand="full" (click)="handleDefinitions()" color="dark" id="definitions-button">
+			Definitions
+		</ion-button>
+		<ion-button expand="full" (click)="handleAcronyms()" color="dark" id="acronyms-button">
+			Acronyms
+		</ion-button>
+		<ion-button expand="full" (click)="handleFAQ()" color="dark" id="faqs-button">
+			FAQs
+		</ion-button>
+		<ion-button expand="full"  href="http://www.dodmrl.com/MRL_Deskbook_2017.pdf" color="dark" id="users-guide-button">
+				User's Guide
+		</ion-button>
+		<ion-button expand="full"  href="http://dodmrl.com/" color="dark" id="mrl-deskbook-button">
+			MRL Deskbook
+		</ion-button>
+</div>

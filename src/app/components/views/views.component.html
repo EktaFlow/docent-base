@@ -1,0 +1,49 @@
+<div class="wrapper">
+
+  <!-- <button (click)="handleNewAssessment()" color="dark">Start New Assessment</button>
+  <ng-container *ngIf="assessmentId">
+		<button (click)="handleContinue()" color="dark" id="continue-assessment-button">
+			Continue Assessment
+		</button>
+		<button (click)="handleSave()" color="dark" class="export-import" id="export-button">
+			Export
+		</button>
+	</ng-container >
+	<button (click)="handleImport()" color="dark" class="export-import" id="import-button">
+		Import Assessment
+	</button> -->
+	<ng-container *ngIf="assessmentId">
+	<!-- We're auto-saving on updates now.
+  <button color="dark">
+    Continue
+  </button>
+	 Can leave this for when/if we output to a desktop format.
+  <button color="dark">
+    Save
+  </button>
+	-->
+  <!-- <hr> -->
+  <ion-button expand="full" (click)="handleDashboard()" color="dark" id="dashboard-button">
+    MRL Summary
+  </ion-button>
+  <ion-button expand="full" (click)="handleNavigate()" color="dark" id="navigate-button">
+    Questions List
+  </ion-button>
+  <ion-button expand="full" (click)="handleReview()" color="dark" id="review-button">
+    Review
+  </ion-button>
+
+  <ion-button expand="full" (click)="handleActions()" color="dark" id="action-items-button">
+    Action Items
+  </ion-button>
+  <ion-button expand="full" (click)="handleSummary()" color="dark" id="summary-button">
+    MRL Risk Summary
+  </ion-button>
+  <ion-button expand="full" (click)="handleRiskReport()" color="dark" id="risk-report-button">
+    Detailed Risk Report
+  </ion-button>
+
+
+
+	</ng-container>
+</div>

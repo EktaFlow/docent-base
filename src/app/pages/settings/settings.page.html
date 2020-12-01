@@ -1,0 +1,25 @@
+<topbar [pageName]="pageName"></topbar>
+
+<ion-content class="ion-padding">
+
+  <div class="wrapper">
+    <h1>User's Settings:</h1>
+
+    <!-- <p>Allow user to change password</p> -->
+
+    <ion-button size="small" class="desktop" color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</ion-button>
+    <ion-button size="small" class="desktop" color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</ion-button>
+
+    <ion-button size="small" class="mobile" disabled color="buttonBlue"  (click)="saveDownJSON()">Download 2017 Deskbook</ion-button>
+    <ion-button size="small" class="mobile" disabled color="buttonBlue" (click)="showFileUpload($event)" id="asdf">Upload Deskbook Version</ion-button>
+    <p class="mobile">Go onto web.mfgdocent.com to Upload and Download Deskbook Versions</p>
+
+
+    <div class="desktop">
+      <ion-button size="small" [routerLink]="['/user-dashboard']"  color="buttonBlue">Go Back To Dashboard</ion-button>
+    </div>
+
+    <p>Your new deskbooks will appear in the Deskbook Version dropdown on the Start New Assessment Page</p>
+  </div>
+
+</ion-content>

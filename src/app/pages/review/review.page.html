@@ -1,0 +1,100 @@
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
+
+
+<ion-content class="ion-padding">
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+
+  <div class="filter-toolbar">
+    <ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</ion-button>
+    <div class="filter-list">
+      <p>Filter MR Level: </p>
+      <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
+        <option value="" disabled selected>Select One...</option>
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+        <option value = "6">6</option>
+        <option value = "7">7</option>
+        <option value = "8">8</option>
+        <option value = "9">9</option>
+        <option value = "10">10</option>
+      </select>
+      <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
+      <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
+
+    </div>
+  </div>
+
+  <div class = "survey-info">
+    <ng-container *ngIf = "allQuestions && allQuestions.length == 0">
+      <h3 style="padding: 10px;">No answered questions for this filter. Please clear your filter or try another filter.</h3>
+    </ng-container>
+    <li *ngFor = "let question of allQuestions">
+      <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
+				<!-- TODO: These question Text p tags can be re-used <01-08-18, mpf> -->
+        <p (click)="goToQuestion(question.questionId)"style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p style="font-size: 13px;">MRLevel: {{question.level}}</p>
+        <p class = "box"><b>N/A</b></p>
+          <b>Attachments:</b> {{question.attatchements}}
+					<ul>
+					<ng-container *ngFor = "let file of files">
+						<ng-container *ngIf = "file.questionId == question.questionId">
+							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+						</ng-container>
+					</ng-container>
+					</ul>
+        <hr>
+      </div>
+      <div *ngIf = "question.currentAnswer == 'No'" class = "no">
+        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p style="font-size: 13px;">MRLevel: {{question.level}}</p>
+        <p class = "box"><b>No</b></p>
+          <b>Attachments:</b>
+					<ul>
+					<ng-container *ngFor = "let file of files">
+						<ng-container *ngIf = "file.questionId == question.questionId">
+							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+						</ng-container>
+					</ng-container>
+					</ul>
+        <hr>
+      </div>
+      <div *ngIf = "question.currentAnswer == 'Yes'" class = "yes">
+        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
+        <p style="font-size: 13px;">MRLevel: {{question.level}}</p>
+        <p class = "box"><b>Yes</b></p>
+        <p>
+				<b>Objective Evidence:</b> {{question.objectiveEvidence}} </p>
+          <b>Attachments:</b>
+					<ul>
+					<ng-container *ngFor = "let file of files">
+						<ng-container *ngIf = "file.questionId == question.questionId">
+							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+						</ng-container>
+					</ng-container>
+					</ul>
+        <hr>
+      </div>
+
+      <!-- Some dicussion here, we won't see questions that haven't been answered
+           in the review page, which seems like the right behavior
+           should we decide otherwise, we can include them in the allQuestions var
+           and display them like below:
+      -->
+      <div *ngIf = "!question.currentAnswer" class = "not-answered">
+        <p (click)="goToQuestion(question.questionId)" style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
+        <p class="box"><b>Unanswered</b></p>
+        <p>
+        </p>
+        <hr>
+      </div>
+    </li>
+  </div>
+
+  <div class='qspacer'></div>
+</ion-content>

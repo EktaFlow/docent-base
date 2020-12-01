@@ -1,0 +1,23 @@
+ion-button {
+  width: 99%;
+}
+
+.wrapper {
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 0;
+  // margin-left: 50px;
+  button {
+    margin-left: 30px;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .export-import {
+    display: none;
+  }
+}
