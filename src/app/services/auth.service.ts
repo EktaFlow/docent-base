@@ -73,6 +73,7 @@ constructor(private http: HttpClient) {}
 
 	public logout() {
 		localStorage.removeItem("docent-token");
+    return 'token removed'
 	}
 
 	public currentUser() {
