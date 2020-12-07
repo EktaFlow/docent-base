@@ -69,7 +69,7 @@ export class HomePage implements OnInit {
 	  let loading = await this.loadingCtrl.create({
 		  spinner: 'crescent',
 		  message: 'Assessment Loading In, Please Wait',
-		  // dismissOnPageChange: true
+		  duration: 1000 
 	  });
 
 	  await loading.present();
@@ -104,9 +104,9 @@ export class HomePage implements OnInit {
             .then( d => {
               console.log(d);
 
-              // var assessmentId = d.data.createAssessment._id;
-              // this.sendEmailsToTeamMembers(assessmentId);
-              // this.startAssessment(assessmentId);
+              var assessmentId = d.data.createAssessment._id;
+              this.sendEmailsToTeamMembers(assessmentId);
+              this.startAssessment(assessmentId);
 
             })
             .catch(e => {
