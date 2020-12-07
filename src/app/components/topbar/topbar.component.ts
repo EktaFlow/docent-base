@@ -163,7 +163,9 @@ export class TopbarComponent implements OnInit {
 			this.auth.logout();
 			// this.navCtrl.setRoot(LoginPage);
 			// this.navCtrl.popToRoot();
+			console.log('logout')
 			this.router.navigate(["/home"]);
+			window.location.reload();
 		}
 
 		async goToNavExpand(){
