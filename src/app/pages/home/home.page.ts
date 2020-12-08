@@ -127,7 +127,7 @@ export class HomePage implements OnInit {
             .then( d => {
               console.log(d);
 
-              var assessmentId = d.data.createAssessment._id;
+              var assessmentId = d.data;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
 
