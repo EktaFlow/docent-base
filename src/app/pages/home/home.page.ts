@@ -61,23 +61,40 @@ export class HomePage implements OnInit {
 			"name",
 			"targetMRL"
 		];
+		console.log(this.assForm);
 
 		return fields.every(field => this.assForm[field])
+	}
+
+	checkFor0Qs(variables){
+		console.log(this.schema);
+		var pass = true;
+		for (let thread of variables.threads){
+			var schema = JSON.parse(variables.schema);
+			for (let subT of schema[thread - 1].subThreads) {
+				if (subT.subThreadLevels[variables.targetMRL - 1].questions.length == 0){
+					pass = false;
+				} else {
+					pass = true;
+				}
+			}
+		}
+		return pass
 	}
 
 	async presentLoadingDefault() {
 	  let loading = await this.loadingCtrl.create({
 		  spinner: 'crescent',
 		  message: 'Assessment Loading In, Please Wait',
-		  duration: 1000 
+		  duration: 1000
 	  });
 
 	  await loading.present();
   }
 
-  async invalidInputToast() {
+  async invalidInputToast(msg) {
 	  var toast = await this.toastCtrl.create({
-	    message: 'Please ensure your assessment has a name and target MR Level',
+	    message: msg,
 	    duration: 4500,
       position: 'top',
       cssClass: 'error-toast'
@@ -89,14 +106,20 @@ export class HomePage implements OnInit {
 	async createAssessment(event) {
 		event.preventDefault();
 		if (!this.validateAssessment()) {
-      this.invalidInputToast();
+      this.invalidInputToast("Please ensure your assessment has a name and target MR Level");
 			return null;
 		}
 
 		await this.getSchema(this.assForm.deskBookVersion);
+		console.log(this.assForm)
 
 		var variables = this.formatAssessmentVariables();
     console.log(variables);
+		if (!this.checkFor0Qs(variables)) {
+      this.invalidInputToast("Please select more threads, the threads you have selected do not have questions in your Target MRL.");
+			return null;
+		}
+		console.log(this.schema)
 		this.presentLoadingDefault();
 
 		var newAssessment = await this.assessmentService.createAssessment(variables);
