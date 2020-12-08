@@ -72,10 +72,14 @@ export class HomePage implements OnInit {
 		for (let thread of variables.threads){
 			var schema = JSON.parse(variables.schema);
 			for (let subT of schema[thread - 1].subThreads) {
+				console.log(subT);
 				if (subT.subThreadLevels[variables.targetMRL - 1].questions.length == 0){
+					console.log('false')
 					pass = false;
 				} else {
+					console.log('true')
 					pass = true;
+					return true
 				}
 			}
 		}
@@ -127,7 +131,8 @@ export class HomePage implements OnInit {
             .then( d => {
               console.log(d);
 
-              var assessmentId = d.data.createAssessment._id;
+              // var assessmentId = d.data.createAssessment._id;
+							var assessmentId = (d.data as any).createAssessment._id;
               this.sendEmailsToTeamMembers(assessmentId);
               this.startAssessment(assessmentId);
 
