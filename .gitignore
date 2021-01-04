@@ -1,27 +1,35 @@
-# customary not to include node_modules directory
-# this will save a huge amount of space
-node_modules
-www
-plugins
-platforms
-.sourcemaps
-cypress.env.json
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
 
-# caching dirs
-.temp
-.sass-cache
-www
-
-# editor temp files
-*.swp
-*.swo
-
-# log files
+*~
+*.sw[mnpcod]
 *.log
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace
+.vscode/
+npm-debug.log*
 
- # mac silliness
-*.DS_Store
+.idea/
+.ionic/
+.sourcemaps/
+.sass-cache/
+.tmp/
+.versions/
+coverage/
+www/
+dist/
+node_modules/
+tmp/
+temp/
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
+$RECYCLE.BIN/
 
-# Docker and Jenkins
-Dockerfile
-Jenkinsfile
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
