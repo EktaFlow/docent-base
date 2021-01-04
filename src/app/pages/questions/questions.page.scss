@@ -50,6 +50,8 @@ $basic-cell-size: 4vw;
 .main-wrapper {
   display: flex;
   width: 100%;
+  flex-wrap:wrap;
+
   // margin-top: 20px;
 }
 
@@ -655,25 +657,6 @@ $arrow-width: 1em;
             }
 
 
-        // .risk-text{
-        //     margin-top: 100px;
-        //     display: block;
-        // }
-        //
-        // .risk {
-        //     width: 100%;
-        //     margin-top: 20px;
-        //     margin-left: 0;
-        //     margin-right: 0;
-        //     padding-right: 20px;
-        //     .label {
-        //         text-align: center;
-        //         padding: 0;
-        //         margin: 0;
-        //         width: 30%;
-        //     }
-        //
-        // }
 
     }
 
@@ -719,6 +702,7 @@ $arrow-width: 1em;
 
 
     .page-wrapper {
+            width: 100%;
             display: flex;
             flex-direction: column;
             height: auto;
@@ -733,6 +717,8 @@ $arrow-width: 1em;
   .risk-wrapper {
   display: flex;
   width: 90vw;
+  margin-top: 10px;
+  margin-left: 5px;
 
   .risk {
     width: 100%;
