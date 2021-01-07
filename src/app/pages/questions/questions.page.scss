@@ -47,6 +47,14 @@ $basic-cell-size: 4vw;
         justify-content: flex-end;
 }
 
+.main-wrapper {
+  display: flex;
+  width: 100%;
+  flex-wrap:wrap;
+
+  // margin-top: 20px;
+}
+
 .x-axis-wrapper {
 }
 
@@ -177,13 +185,6 @@ $arrow-width: 1em;
     width: 45%;
     justify-content: space-between;
     margin-bottom: 10px;
-    select{
-        margin-bottom: 10px;
-        width:100%;
-        @extend %input-style;
-        @extend %down-arrow;
-        -webkit-appearance: none;
-    }
 
     .help-button {
       width: 98%;
@@ -363,6 +364,7 @@ $arrow-width: 1em;
     height: 35px;
 }
 
+
 .helpTextDiv {
     // display: flex;
     background-color: #ededed;
@@ -419,7 +421,7 @@ $arrow-width: 1em;
   }
 
   .full-fields-wrapper {
-      width: 45%;
+      width: 100%;
       display: inline-block;
       // border: 1px solid green;
       padding: 5px;
@@ -434,9 +436,16 @@ $arrow-width: 1em;
   }
 
   .page-wrapper {
-      width: 100%;
+      width: 45%;
       height: 100vh;
       // border: 1px solid red;
+      select{
+          margin-bottom: 10px;
+          width:100%;
+          @extend %input-style;
+          @extend %down-arrow;
+          -webkit-appearance: none;
+      }
   }
 
   .display-files{
@@ -455,6 +464,9 @@ $arrow-width: 1em;
     display: inline-block;
     padding: 5px;
     float: right;
+    margin-top: 75px;
+    margin-left: 15px;
+    // position: fixed;
     // margin-right: 60px;
     .risk {
       width: 100%;
@@ -645,25 +657,6 @@ $arrow-width: 1em;
             }
 
 
-        // .risk-text{
-        //     margin-top: 100px;
-        //     display: block;
-        // }
-        //
-        // .risk {
-        //     width: 100%;
-        //     margin-top: 20px;
-        //     margin-left: 0;
-        //     margin-right: 0;
-        //     padding-right: 20px;
-        //     .label {
-        //         text-align: center;
-        //         padding: 0;
-        //         margin: 0;
-        //         width: 30%;
-        //     }
-        //
-        // }
 
     }
 
@@ -709,9 +702,11 @@ $arrow-width: 1em;
 
 
     .page-wrapper {
+            width: 100%;
             display: flex;
             flex-direction: column;
             height: auto;
+
     }
 
     .full-fields-wrapper {
@@ -722,6 +717,8 @@ $arrow-width: 1em;
   .risk-wrapper {
   display: flex;
   width: 90vw;
+  margin-top: 10px;
+  margin-left: 5px;
 
   .risk {
     width: 100%;
