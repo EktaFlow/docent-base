@@ -39,7 +39,8 @@ export class SubthreadPopupComponent implements OnInit {
   	public navCtrl: 			 NavController,
   	public navParams: 		 NavParams,
   	private assessmentService: AssessmentService,
-    public router: Router
+    public router: Router,
+		private popOver: PopoverController
   ) {
     this.assessmentId = navParams.data.assessmentId;
    this.subTitle = navParams.data.subTitle;
@@ -79,8 +80,8 @@ export class SubthreadPopupComponent implements OnInit {
   // stay on the questions page and change the current question variable
  async navToQuestion(questionId) {
    var update = await this.assessmentService.updateQuestion(this.updateInfo);
-   this.router.navigate(["/edit-assessment", {assessmentId: this.assessmentId, questionId: questionId}]);
-
+   this.router.navigate(["/questions", {assessmentId: this.assessmentId, questionId: questionId}]);
+	 this.popOver.dismiss();
    // this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
    // update.subscribe(data => this.navCtrl.push(QuestionsPage, {
    // 	assessmentId: 			this.assessmentId,
