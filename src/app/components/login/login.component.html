@@ -2,22 +2,29 @@
 
   <div id="top-container">
     <h1 id="header">Login</h1>
-    <h6 *ngIf="this.errors.length > 0" class="error">incorrect username password combination</h6>
-    <h6 *ngIf="this.errors.length == 0" class="blank">there are errors with your registration</h6>
+    <h6 *ngIf="this.errors.length > 0" class="error">Incorrect username and password combination. Please try again.</h6>
   </div>
 
   <div>
     <div id="login-container">
       <div>
         <h5>Email</h5>
+        <p *ngIf="checkError('email'); else email" class="error" id="email-blank">Please enter an email</p>
+        <ng-template #email>
+          <p *ngIf="checkError('invalid_email')" class="error" id="email-invalid">Please enter valid email</p>
+        </ng-template>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="email" name="emaial"
           [(ngModel)]="user.email">
       </div>
 
       <div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-end">
+        <div>
           <h5>Password</h5>
         </div>
+        <p *ngIf="checkError('passwd'); else pass" class="error" id="password-blank">Please enter a password</p>
+        <ng-template #pass>
+          <p *ngIf="checkError('invalid_passwd')" class="error" id="password-invalid">Please enter a valid password</p>
+        </ng-template>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd"
           [(ngModel)]="user.passwd">
       </div>
@@ -32,11 +39,8 @@
           <a href="mailto:support@mfgdocent.com?Subject=Support%20Request" target="_top">support@mfgdocent.com.</a>
         </p>
       </div>
-
-      <div>
-
-      </div>
     </div>
+
     <div style="display: flex; align-items: flex-end; flex-direction:column;">
       <h6 (click)="showRegister()" id="register-link"> Register for Docent </h6>
       <h6 (click)="showPasswordReset()" id="forgot-password"> Forgot Password?</h6>
