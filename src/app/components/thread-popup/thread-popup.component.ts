@@ -39,8 +39,7 @@ export class ThreadPopupComponent implements OnInit {
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		private assessmentService: AssessmentService,
-		public router: Router,
-		private popOver: PopoverController
+		public router: Router
 	) {
 		this.assessmentId = navParams.data.assessmentId;
 	 this.subTitle = navParams.data.subTitle;
@@ -145,7 +144,7 @@ export class ThreadPopupComponent implements OnInit {
  async navToQuestion(questionId) {
 	 console.log(this.updateInfo);
 	 this.router.navigate(["/questions", {assessmentId: this.assessmentId, questionId: questionId}]);
-	 this.popOver.dismiss();
+
 	 // this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});
 	 // var update = await this.assessmentService.updateQuestion(this.updateInfo);
 	 // update.subscribe(data => this.navCtrl.push(QuestionsPage, {
