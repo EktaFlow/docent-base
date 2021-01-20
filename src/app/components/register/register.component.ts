@@ -1,96 +1,98 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { HomePage } from "../../pages/home/home.page";
-import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
+import { GoogleAnalytics } from "../../services/helpers/GoogleAnalytics";
 
 @Component({
-  selector: 'register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: "register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
-
-	public user = {};
-	public errors: any = [];
-	public submitted: boolean = false;
+  public user = {};
+  public errors: any = [];
+  public submitted: boolean = false;
   @Output() toggleClicked = new EventEmitter<string>();
 
-  constructor( private auth: AuthService) {}
-  ngOnInit(){}
+  constructor(private auth: AuthService) {}
+  ngOnInit() {}
 
-	ionViewWillEnter() {
-		GoogleAnalytics.trackView("register");
-	}
+  ionViewWillEnter() {
+    GoogleAnalytics.trackView("register");
+  }
 
-	submitRegistration() {
-		var isValid = this.validateInput();
+  submitRegistration() {
+    var isValid = this.validateInput();
 
-		if ( isValid ) {
-				this.errors = [];
-				this.auth.registerUser(this.user)
-				.subscribe( user => {
+    if (isValid) {
+      this.errors = [];
+      this.auth.registerUser(this.user).subscribe(
+        (user) => {
           console.log(user);
-          this.submitted = true
-          },
+          this.submitted = true;
+        },
 
-          // error handling taking the text of the error directly.
-           ( {error} ) => {
-           console.log(error);
+        // error handling taking the text of the error directly.
+        ({ error }) => {
+          console.log(error);
           this.errors.push(error.error);
-        });
-		}
-	}
+        }
+      );
+    }
+  }
 
   checkError(errorType) {
     return this.errors.includes(errorType);
   }
 
-	validateInput() {
-		var { user } = this;
-		this.errors = [];
+  validateInput() {
+    var { user } = this;
+    this.errors = [];
 
-		this.checkPresence(user);
-		this.checkPasswords(user);
-		this.checkEmail((<any>user).email);
+    this.checkPresence(user);
+    this.checkPasswords(user);
+    this.checkEmail((<any>user).email);
 
-            console.log(this.errors);
+    console.log(this.errors);
 
-		return this.errors == false
-	}
+    return this.errors == false;
+  }
 
-	checkPresence(input) {
-		if (!input.name)    this.errors.push('name');
-		if (!input.email)   this.errors.push('email');
-		if (!input.passwd)  this.errors.push('passwd');
-		if (!input.passwd2) this.errors.push('passwd2');
-	}
+  checkPresence(input) {
+    if (!input.name) this.errors.push("name");
+    if (!input.email) this.errors.push("email");
+    if (!input.passwd) this.errors.push("passwd");
+    if (!input.passwd2) this.errors.push("passwd2");
+  }
 
-	checkPasswords(input) {
-		if (input.passwd !== input.passwd2 && input.passwd && input.passwd2) {
-			this.errors.push("no_match");
-		}
-		else { this.checkPasswordRules(input.passwd) }
-	}
+  checkPasswords(input) {
+    if (input.passwd !== input.passwd2 && input.passwd && input.passwd2) {
+      this.errors.push("no_match");
+    } else {
+      this.checkPasswordRules(input.passwd);
+    }
+  }
 
-	checkPasswordRules(passwd) {
-    var regEx = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,72}$/;
-    var test = regEx.test(passwd);
+  checkPasswordRules(passwd) {
+    let regexPass = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])(?=.{8,})/;
+	let validPass= regexPass.test(passwd);
 
-    !test ? this.errors.push('invalid_passwd') : null
-	}
+    !validPass ? this.errors.push("invalid_passwd")
+ : null;
+  }
 
-	checkEmail(email) {
-		var regEx = /\S+@\S+\.\S+/;
-	  var test = regEx.test(email);
+  checkEmail(email) {
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let validEmail = regexEmail.test(email);
 
-		!test ? this.errors.push("Invalid Email Format") : null
-	}
+    !validEmail ? this.errors.push("invalid_email") : null;
+  }
 
   removeErrors() {
     this.errors = [];
   }
 
   toggle() {
-    this.toggleClicked.emit('login');
+    this.toggleClicked.emit("login");
   }
 }
