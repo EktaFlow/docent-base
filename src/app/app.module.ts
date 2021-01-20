@@ -6,6 +6,8 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { CommonModule } from '@angular/common';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 // import { TestComponent } from './components/components/test/test.component';
 
 // Apollo
@@ -66,6 +68,7 @@ import { BackUrl } from  "./services/constants";
 		FormsModule,
 		BrowserModule,
     CommonModule,
+    NgxDatatableModule,
 		RouterModule,
     ComponentsModule,
     AcronymsPageModule,
