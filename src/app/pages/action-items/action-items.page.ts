@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
+import { NgModule, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
 import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { AssessmentService } from '../../services/assessment.service';
@@ -61,6 +61,7 @@ query assessment($_id: String) {
   selector: 'action-items',
   templateUrl: './action-items.page.html',
   styleUrls: ['./action-items.page.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class ActionItemsPage implements OnInit {
 
@@ -80,7 +81,7 @@ export class ActionItemsPage implements OnInit {
 
   temp:any = [];
 
-  columns:any = [{name: 'MRL'}, { name: 'Thread' }, { name: 'Subthread' }, {name: 'Question'}, {name: 'Answer'}, {name: 'Action'}, {name: 'Due'}, {name: 'Owner'}, {name: 'RiskLevel'}];
+  columns:any = [{name: 'MRL'}, { name: 'Thread' }, { name: 'Subthread' }, {name: 'Question'}, {name: 'Answer'}, {name: 'Action'}, {name: 'Due'}, {name: 'Owner'}, {name: 'Risk'}];
 
   // @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -129,25 +130,27 @@ export class ActionItemsPage implements OnInit {
 	              newObj.due = this.formatDate( element.answers[element.answers.length - 1].when);
 	              newObj.owner = "" + element.answers[element.answers.length - 1].who;
 	              var cur = element.answers[element.answers.length - 1];
-	              newObj.RiskLevel = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
+	              newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
+								console.log(newObj.risk)
 	              newData.push(newObj);
 	          });
 						this.data = newData;
 						this.unfilteredQuestions = newData;
 						this.rows = newData;
+						console.log(this.rows);
 
 						if (this.autoFilter){
 							console.log('here');
 							this.filterList.filterMRL = targetMRL;
 							console.log(targetMRL)
-							this.data = this.unfilteredQuestions.filter(question => {
-								if (question.level == targetMRL){
+							this.rows = this.unfilteredQuestions.filter(question => {
+								if (question.mrl == targetMRL){
 									return question;
 								}
 							});
 
 					 } else {
-						 this.data = this.unfilteredQuestions;
+						 this.rows = this.unfilteredQuestions;
 					 }
 
 
@@ -174,15 +177,15 @@ export class ActionItemsPage implements OnInit {
 			console.log(this.filterList.filterMRL)
 			if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 				var filteredQuestions = this.unfilteredQuestions.filter(question => {
-					if (question.level == this.filterList.filterMRL) {
+					if (question.mrl == this.filterList.filterMRL) {
 						// console.log('here')
 						return question
 					}
 				});
 				console.log(filteredQuestions);
-				this.data = filteredQuestions;
+				this.rows = filteredQuestions;
 			} else {
-				this.data = this.unfilteredQuestions;
+				this.rows = this.unfilteredQuestions;
 			}
 		}
 
