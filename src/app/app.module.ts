@@ -21,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AssessmentService } from './services/assessment.service';
+import { UploadService } from './services/upload';
 
 import { AppComponent } from '../app/app.component';
 
@@ -90,6 +91,7 @@ import { BackUrl } from  "./services/constants";
     SplashScreen,
 		AssessmentService,
     Helpers,
+    UploadService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
