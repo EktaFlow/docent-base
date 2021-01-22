@@ -6,6 +6,8 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { CommonModule } from '@angular/common';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 // import { TestComponent } from './components/components/test/test.component';
 
 // Apollo
@@ -21,6 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AssessmentService } from './services/assessment.service';
+import { UploadService } from './services/upload';
 
 import { AppComponent } from '../app/app.component';
 
@@ -66,6 +69,7 @@ import { BackUrl } from  "./services/constants";
 		FormsModule,
 		BrowserModule,
     CommonModule,
+    NgxDatatableModule,
 		RouterModule,
     ComponentsModule,
     AcronymsPageModule,
@@ -90,6 +94,7 @@ import { BackUrl } from  "./services/constants";
     SplashScreen,
 		AssessmentService,
     Helpers,
+    UploadService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
