@@ -30,51 +30,75 @@
   </div>
 </div>
 
-<div class="list-wrapper">
-  <div class="action-items-list">
-    <h3 *ngIf="data && data.length == 0" style="padding: 10px;">There are no action items on this MRL.</h3>
-    <div *ngFor="let item of data" class="item-wrapper">
-        <div class="top">
-        <h2>Question: {{item.questionText}}</h2>
-        <h4>Thread Name: {{item.threadName}}</h4>
-        <h4>Sub Thread Name: {{item.subThreadName}}</h4>
-        </div>
+    <!-- <input
+        type="text"
+        style="padding:8px;margin:15px auto;width:30%;"
+        placeholder="Type to filter the name column..."
+        (keyup)="updateFilter($event)"
+      /> -->
+      <ngx-datatable
+        class="material"
+        [columns]="columns"
+        [rows]="rows"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        rowHeight="auto"
+        [limit]="10"
+        [columnMode]="'force'"
+        
+      >
+      <!-- Row Detail Template -->
+        <!-- <ngx-datatable-row-detail [rowHeight]="50" #myDetailRow (toggle)="onDetailToggle($event)">
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+            <div style="padding-left:60px; font-size:14px">
+              <div>{{ row.thread }}, {{ row.subthread }}, {{row.question}}, {{row.answer}}</div>
+            </div>
+          </ng-template>
+        </ngx-datatable-row-detail>
+        <ngx-datatable-column
+          [width]="50"
+          [resizeable]="false"
+          [sortable]="false"
+          [draggable]="false"
+          [canAutoResize]="false"
+        >
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <a
+              href="#"
+              [class.datatable-icon-right]="!expanded"
+              [class.datatable-icon-down]="expanded"
+              title="Expand/Collapse Row"
+              (click)="toggleExpandRow(row)"
+              class="desktop-hidden"
+            >
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Gender" [flexGrow]="1">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span class="mobile-hidden">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{ value }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Age" [flexGrow]="1">
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span class="mobile-hidden">{{ column.name }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span class="mobile-hidden">{{ value }}</span>
+          </ng-template>
+        </ngx-datatable-column> -->
+      </ngx-datatable>
 
-        <div class="bottom">
-          <p><b>Action Item: </b>{{item.what}}</p>
-          <p><b>Due Date: </b>{{item.when}}</p>
-          <p><b>Owner: </b>{{item.who}}</p>
-          <p><b>Risk: </b>{{item.risk}}</p>
-        </div>
-
-    </div>
-
-  </div>
-</div>
 
 <div class="qspacer">
 </div>
 
 </ion-content>
-
-
-
-<!-- <div><h2>Action Items not available currently on native applications</h2></div> -->
-
-<!-- <div class="row">
-  <div class="toolbar">
-    <input *ngIf="config.filtering" placeholder="Filter all columns"
-           [ngTableFiltering]="config.filtering"
-           class="form-control"
-           (tableChanged)="onChangeTable(config)"/>
-  <button ion-button color="buttonBlue" (click)="saveXLS()" id="previous-button" class="desktop">Export to .XLS</button>
-  </div>
-</div>
-<br>
-<div class="table-wrapper">
-<ng-table [config]="config"
-          (tableChanged)="onChangeTable(config)"
-          (cellClicked)="onCellClick($event)"
-          [rows]="rows" [columns]="columns">
-</ng-table>
-</div> -->

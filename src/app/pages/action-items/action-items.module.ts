@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../../components/components.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 import { ActionItemsPage } from './action-items.page';
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ComponentsModule,
+    NgxDatatableModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ActionItemsPage],
