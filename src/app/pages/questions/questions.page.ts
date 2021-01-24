@@ -43,7 +43,7 @@ export class QuestionsPage implements OnInit {
 
 	constructor(public help: Helpers,
               private storage: Storage,
-							private popoverController: PopoverController,
+							public popOver: PopoverController,
 						  private assessmentService: AssessmentService,
 							private auth: AuthService,
               private activatedRoute: ActivatedRoute) {
@@ -165,7 +165,7 @@ export class QuestionsPage implements OnInit {
 			files.push(v)
 			this.files = files;
 			});
-      const fileUpload = await this.popoverController.create({
+      const fileUpload = await this.popOver.create({
         component: FileUploadPopoverComponent,
         componentProps: {
           emitter: myEmitter,
@@ -178,14 +178,15 @@ export class QuestionsPage implements OnInit {
 	}
 
   async showRiskPopover(highlight) {
-        var pop = await this.popoverController.create({
-          component: RiskPopoverComponent,
-          componentProps: {
-            highlight: highlight
-          },
-          cssClass: "risk-popover"
-        });
-        return await pop.present();
+      console.log(highlight)
+      var pop = await this.popOver.create({
+        component: RiskPopoverComponent,
+        componentProps: {
+          highlight: highlight
+        },
+        cssClass: "risk-popover"
+      });
+      return await pop.present();
   }
 
   /**
@@ -210,7 +211,7 @@ export class QuestionsPage implements OnInit {
       assessmentId: this.assessmentId,
       fileId:       fileId
     }
-    var pop = await this.popoverController.create({
+    var pop = await this.popOver.create({
       component: FileDeleteComponent,
       componentProps: {
         emitter: removeFileEmitter,
