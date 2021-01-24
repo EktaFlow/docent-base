@@ -57,13 +57,16 @@ export class QuestionHistoryPopoverComponent implements OnInit {
     public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    // this.assessmentId = navParams.data.assessmentId;
-    // this.questionId = navParams.data.questionId;
-    this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-    this.questionId = this.activatedRoute.snapshot.paramMap.get('questionId');
+    this.assessmentId = navParams.data.assessmentId;
+    this.questionId = navParams.data.questionId;
+    // console.log(this.activatedRoute.snapshot.paramMap)
+    // this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
+    // this.questionId = this.activatedRoute.snapshot.paramMap.get('questionId');
    }
 
    async ngOnInit(){
+     console.log(this.activatedRoute.snapshot.paramMap.getAll())
+     console.log(this.questionId);
        var cool = await this.assessmentService.queryQuestion(this.questionId, this.assessmentId, this.questionQuery)
        cool.subscribe(a => {
        	this.currentQ = JSON.parse(JSON.stringify(a.data.question));
