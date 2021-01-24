@@ -8,12 +8,12 @@
   <div class="axis-labels-more-info">
     <h6 class="toggle-header">View Rating Descriptions</h6>
     <div id="buttons-container">
-      <button ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable('likelihood')">
+      <ion-button color="buttonBlue" id="ratings-toggle1" (click) = "toggleDescriptionTable('likelihood')">
         Likelihood
-      </button>
-      <button ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable('consequence')">
+      </ion-button>
+      <ion-button color="buttonBlue" id="ratings-toggle2" (click) = "toggleDescriptionTable('consequence')">
         Consequence
-      </button>
+      </ion-button>
     </div>
   </div>
 </div>
@@ -103,7 +103,7 @@
     <div id="color-code-cell2">Medium Risk</div>
     <div id="color-code-cell3">High Risk</div>
   </div>
-  <div *ngIf="this.chartView =='likelihood'" class="explainer">
+  <div *ngIf="chartView =='likelihood'" class="explainer">
     <table class="criteria-table">
       <tr>
         <h4 class="explainer-heading">Likelihood</h4>
