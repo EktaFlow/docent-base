@@ -17,14 +17,11 @@ export class RiskPopoverComponent implements OnInit {
     public popOver: PopoverController,
 		private activatedRoute: ActivatedRoute
   ) {
-    console.log(this.navParams.get('highlight'));
-    // this.chartView = this.navParams.get('highlight');
-		this.chartView = this.activatedRoute.snapshot.paramMap.get('highlight');
-
+    this.chartView = navParams.data.highlight;
+		// this.chartView = this.activatedRoute.snapshot.paramMap.get('highlight');
   }
 
 	ngOnInit(){
-
 	}
 
   toggleDescriptionTable(type){

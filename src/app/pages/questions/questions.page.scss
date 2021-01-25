@@ -31,7 +31,7 @@ $basic-cell-size: 4vw;
 
 .risk select {
     @extend %input-style;
-    height: 30px;
+    height: 40px;
     width: 9vw;
 }
 
@@ -484,7 +484,7 @@ $arrow-width: 1em;
           .likelihood-wrapper {
               display: flex;
               justify-content: space-between;
-              padding: 1vw;
+              padding: 0 1vw;
           }
       }
 
@@ -492,7 +492,7 @@ $arrow-width: 1em;
         .risk-part-2{
           display: flex;
           justify-content: space-between;
-          padding: 1vw;
+          padding: 0 1vw;
 
           .greatest-impact {
             display: flex;
