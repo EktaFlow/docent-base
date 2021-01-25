@@ -1,17 +1,26 @@
-<div class="info-card-wrapper">
-  <div class="info-card-header">
-    <h3>Assessment Information</h3>
-  </div>
+<ion-card class="info-card-wrapper">
+  <ion-card-header>
+    <ion-card-title>Assessment Information</ion-card-title>
+  </ion-card-header>
 
-  <div class="info-card-content">
-    <p class="longer"><b>Assessment Name:</b> {{name}}</p>
+  <ion-card-content class="info-card-content">
+    <p><b>Assessment Name:</b> {{name}}</p>
     <p><b>Target MRL:</b> {{targetMRL}}</p>
     <p><b>Target Date:</b> {{targetDate | date: 'mediumDate'}}</p>
-    <p class="longer"><b>Location:</b> {{location}}</p>
+    <p><b>Location:</b> {{location}}</p>
+    <p><b>Team Members:</b>
+      <span *ngFor="let member of teamMembers">
+        <ng-container *ngIf="member.role">
+          {{member.name}} at {{member.email}} as {{member.role}}
+        </ng-container>
+        <ng-container *ngIf="!member.role">
+          {{member.name}} at {{member.email}}
+        </ng-container>
+      </span>
+    </p>
     <!-- <p><b>Additional Information:</b> {{scope}}</p> -->
-    <ul><b>Team Members:</b>
-      <li *ngFor="let member of teamMembers">{{member.name}} at {{member.email}} as {{member.role}}</li>
-
+    <ul>
+      <li ></li>
     </ul>
-  </div>
-</div>
+  </ion-card-content>
+</ion-card>
