@@ -30,70 +30,36 @@
     </div>
   </div>
 
-  <div class = "survey-info">
+  <div class="survey-info">
     <ng-container *ngIf = "allQuestions && allQuestions.length == 0">
       <h3 style="padding: 10px;">No answered questions for this filter. Please clear your filter or try another filter.</h3>
     </ng-container>
-    <li *ngFor = "let question of allQuestions">
-      <div *ngIf = "question.currentAnswer == 'N/A'" class = "na">
-				<!-- TODO: These question Text p tags can be re-used <01-08-18, mpf> -->
-        <p (click)="goToQuestion(question.questionId)"style="color:blue;cursor: pointer;">{{question.questionText}}</p>
-        <p style="font-size: 13px;">MRLevel: {{question.level}}</p>
-        <p class = "box"><b>N/A</b></p>
-          <b>Attachments:</b> {{question.attatchements}}
-					<ul>
-					<ng-container *ngFor = "let file of files">
-						<ng-container *ngIf = "file.questionId == question.questionId">
-							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
-						</ng-container>
-					</ng-container>
+    <ion-card *ngFor="let question of allQuestions" class="review-card">
+        <ion-card-header>
+          <ion-card-title>{{question.questionText}}</ion-card-title>
+          <ion-card-subtitle *ngIf="question.currentAnswer == 'N/A'" class="box na"><b>N/A</b></ion-card-subtitle>
+          <ion-card-subtitle *ngIf="question.currentAnswer == 'No'" class="box no"><b>No</b></ion-card-subtitle>
+          <ion-card-subtitle *ngIf="question.currentAnswer == 'Yes'" class="box yes"><b>Yes</b></ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <h4>Thread: {{question.threadName}} | SubThread: {{question.subThreadName}}</h4>
+          <h4>MRLevel: {{question.level}}</h4>
+          <h2 *ngIf="question.currentAnswer == 'Yes' && question.objectiveEvidence"><b>Objective Evidence:</b> {{question.objectiveEvidence}} </h2>
+          <h2 *ngIf="question.currentAnswer == 'Yes' && !question.objectiveEvidence">
+            <b>Objective Evidence:</b> No objective evidence given
+          </h2>
+          <h2 *ngIf="question.attachments"><b>Attachments:</b> {{question.attatchements}}</h2>
+          <h2 *ngIf="!question.attachments"><b>Attachments:</b> No file attached to this question</h2>
+					<ul *ngIf="question.attachments">
+  					<ng-container *ngFor="let file of files">
+  						<ng-container *ngIf="file.questionId == question.questionId">
+  							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+  						</ng-container>
+  					</ng-container>
 					</ul>
-        <hr>
-      </div>
-      <div *ngIf = "question.currentAnswer == 'No'" class = "no">
-        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
-        <p style="font-size: 13px;">MRLevel: {{question.level}}</p>
-        <p class = "box"><b>No</b></p>
-          <b>Attachments:</b>
-					<ul>
-					<ng-container *ngFor = "let file of files">
-						<ng-container *ngIf = "file.questionId == question.questionId">
-							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
-						</ng-container>
-					</ng-container>
-					</ul>
-        <hr>
-      </div>
-      <div *ngIf = "question.currentAnswer == 'Yes'" class = "yes">
-        <p (click)="goToQuestion(question.questionId)" style="color:blue;cursor: pointer;">{{question.questionText}}</p>
-        <p style="font-size: 13px;">MRLevel: {{question.level}}</p>
-        <p class = "box"><b>Yes</b></p>
-        <p>
-				<b>Objective Evidence:</b> {{question.objectiveEvidence}} </p>
-          <b>Attachments:</b>
-					<ul>
-					<ng-container *ngFor = "let file of files">
-						<ng-container *ngIf = "file.questionId == question.questionId">
-							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
-						</ng-container>
-					</ng-container>
-					</ul>
-        <hr>
-      </div>
-
-      <!-- Some dicussion here, we won't see questions that haven't been answered
-           in the review page, which seems like the right behavior
-           should we decide otherwise, we can include them in the allQuestions var
-           and display them like below:
-      -->
-      <div *ngIf = "!question.currentAnswer" class = "not-answered">
-        <p (click)="goToQuestion(question.questionId)" style="color:#0000EE;cursor: pointer;">{{question.questionText}}</p>
-        <p class="box"><b>Unanswered</b></p>
-        <p>
-        </p>
-        <hr>
-      </div>
-    </li>
+          <ion-button size="small" color="buttonBlue" (click)="goToQuestion(question.questionId)">Go To Question</ion-button>
+        </ion-card-content>
+    </ion-card>
   </div>
 
   <div class='qspacer'></div>

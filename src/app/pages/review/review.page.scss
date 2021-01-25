@@ -1,6 +1,7 @@
 
     ion-content {
       margin-top: 120px;
+
     }
 
     $input-backgroud:#fbfbfb;
@@ -26,7 +27,7 @@
         padding-right: 1.5em;
     }
     %page-info{
-        font-size: 18px;
+        font-size: 20px;
         margin: 100px 0px 0px 100px;
         hr{
             margin-right: 100px;
@@ -82,7 +83,7 @@
                 margin-left: 10px;
             }
             select {
-                width: 50%;
+                width: 40%;
                 vertical-align: middle;
                 // margin: 0 5px;
             }
@@ -107,48 +108,51 @@
         @extend %page-info;
     }
     .survey-info{
-        @extend %page-info;
-        margin-top:0px;
-        li{
-            list-style-type: none;
+        // @extend %page-info;
+        background-color: #F5F5F5;
+        padding: 10px 0;
+        width: 100%;
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+          color: rgb(200, 200, 200);
         }
+    }
+    .review-card {
+      margin: 15px auto;
+      width: 50%;
+      .card-content-md {
+        h2, h4 {
+          padding: 5px 0;
+        }
+      }
+    }
+    .box {
+      border-radius:3px;
+      width: fit-content;
+      padding: 4px 6px;
+      text-align: center;
     }
     .yes{
-        .box{
-            background-color:green;
-            color:white;
-            border-radius:3px;
-            width:5%;
-            text-align: center;
-        }
+      background-color:green;
+      color:white;
+
     }
     .no{
-        .box{
-            background-color:red;
-            color:white;
-            border-radius:3px;
-            width:5%;
-            text-align: center;
-        }
+      background-color:red;
+      color:white;
     }
     .na{
-        .box{
-            background-color:darkgrey;
-            color:white;
-            border-radius:3px;
-            width:5%;
-            text-align: center;
-        }
+      background-color:darkgrey;
+      color:white;
     }
-    .not-answered{
-        .box{
-            background-color:lightgrey;
-            color:white;
-            border-radius:3px;
-            width:15%;
-            text-align: center;
-        }
-    }
+    // .not-answered{
+    //     .box{
+    //         background-color:lightgrey;
+    //         color:white;
+    //         border-radius:3px;
+    //         width:15%;
+    //         text-align: center;
+    //     }
+    // }
 
     .qspacer {
     font-size: 0;
