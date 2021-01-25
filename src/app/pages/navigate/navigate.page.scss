@@ -116,6 +116,21 @@
           display: none;
         }
 
+        .desktop {
+          background-color: #F5F5F5;
+          width: 100%;
+          padding: 10px 0;
+        }
+
+        .thread-card {
+          width: 60%;
+          margin: 15px auto;
+          .subthread-card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+        }
+
         @media screen and (max-width: 1024px){
           .desktop {
             display: none;

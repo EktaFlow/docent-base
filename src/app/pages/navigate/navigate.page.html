@@ -41,19 +41,23 @@
 
   <div class="desktop">
 
-  <div *ngFor="let segment of filteredSchema">
-      <img src="assets/imgs/if_icon-arrow-down.png" (click)="changeState(segment)" class= "downArrow" >
-      {{segment.header}}
+  <ion-card *ngFor="let segment of filteredSchema" class="thread-card">
+    <ion-card-header>
+      <ion-card-title><img src="assets/imgs/if_icon-arrow-down.png" (click)="changeState(segment)" class= "downArrow" > {{segment.header}}</ion-card-title>
+    </ion-card-header>
     <div *ngIf="segment.cool || showAll">
-      <div *ngFor="let sub of segment.subheader">
-          <img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle">
-          {{sub.subheader}}
+      <ion-card *ngFor="let sub of segment.subheader" class="subthread-card">
+        <ion-card-header>
+          <ion-card-title><img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle"> {{sub.subheader}}</ion-card-title>
+        </ion-card-header>
         <div *ngIf="sub.sweet || showAll">
-          <div *ngFor="let question of sub.questions" class="mrl">
-            <b>MR Level {{question.mrl}}:</b>
-            <div *ngFor="let title of question.questionSet" class="question">
-
-              <p class="navigate-links"
+          <ion-card *ngFor="let question of sub.questions" class="mrl">
+            <ion-card-header>
+              <ion-card-title>MR Level {{question.mrl}}</ion-card-title>
+            </ion-card-header>
+            <ion-card *ngFor="let title of question.questionSet" class="question">
+              <ion-card-header>
+              <ion-card-title class="navigate-links"
 							   (click)="navToQuestion(title.questionId)"
 								 id={{title.questionId}}>
 										<span *ngIf="title.questionStatus">
@@ -62,15 +66,15 @@
                       </ion-button>
 										</span>
 										{{title.text}}
-							</p>
-
-            </div>
-          </div>
+							</ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-card>
         </div>
-      </div>
+      </ion-card>
     </div>
-    <hr>
-  </div>
+    <!-- <hr> -->
+  </ion-card>
   </div>
 
   <div class="mobile">
