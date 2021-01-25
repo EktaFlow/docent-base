@@ -35,19 +35,22 @@
       </div>
 
     </div>
-    <div class="thread-object" *ngFor="let thread of filteredSchema">
-      <hr>
-      <h2>{{thread.header}}</h2>
-      <hr>
-      <div *ngFor="let subthread of thread.subheader" class="subthread">
+    <div class="card-wrapper">
+    <ion-card class="thread-object" *ngFor="let thread of filteredSchema">
+      <ion-card-header>
+        <ion-card-title>Thread: {{thread.header}}</ion-card-title>
+      </ion-card-header>
+      <ion-card *ngFor="let subthread of thread.subheader" class="subthread">
+        <ion-card-header>
+          <ion-card-title>{{subthread.subheader}}</ion-card-title>
+        </ion-card-header>
 
-        <h4>{{subthread.subheader}}</h4>
-
-        <div *ngFor="let questionGroup of subthread.questions" class="questions-wrapper">
-          <div *ngFor="let question of questionGroup.questionSet" class="question">
-
-            <h6>{{question.text}}</h6>
-            <div *ngIf="question.latestAnswer">
+        <ng-container *ngFor="let questionGroup of subthread.questions" class="questions-wrapper">
+          <ion-card *ngFor="let question of questionGroup.questionSet" class="question">
+            <ion-card-header>
+              <ion-card-title>{{question.text}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content *ngIf="question.latestAnswer">
               <p *ngIf="question.latestAnswer.notesYes != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesYes}}</p>
               <p *ngIf="question.latestAnswer.notesNo != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNo}}</p>
               <p *ngIf="question.latestAnswer.notesNA != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNA}}</p>
@@ -58,13 +61,14 @@
                 <p><b>Risk Response: </b>{{question.latestAnswer.riskResponse}}</p>
                 <p><b>MMP Summary: </b>{{question.latestAnswer.mmpSummary}}</p>
               </div>
-            </div>
+            </ion-card-content>
 
-          </div>
+          </ion-card>
 
-        </div>
-      </div>
+        </ng-container>
+      </ion-card>
 
+    </ion-card>
     </div>
 
   </div>
