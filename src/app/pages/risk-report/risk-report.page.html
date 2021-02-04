@@ -12,8 +12,11 @@
       <h2 *ngIf="filterList && filterList.filterMRL && filterList.filterMRL > 0 && filterList.filterTitle">Risk Report for MRL Level {{filterList.filterTitle}}</h2>
       <h2 *ngIf="!filterList || !filterList.filterMRL || !filterList.filterTitle || filterList.filterMRL == 0">Risk Report</h2>
       <div class="filter-toolbar">
-        <ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</ion-button>
+        <ion-button *ngIf="!showAll" (click)="expand()" color="buttonBlue">Expand All</ion-button>
+        <ion-button *ngIf="showAll" (click)="expand()" color="buttonBlue">Close All</ion-button>
+        <div class="extraspace"></div>
         <div class="filter-list">
+          <div class="extraspace"></div>
           <p>Filter MR Level: </p>
           <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
             <option value="" disabled selected>Select One...</option>
@@ -28,9 +31,8 @@
             <option value = "9">9</option>
             <option value = "10">10</option>
           </select>
-          <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
-          <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
-
+          <ion-button class="filter-buttons" (click)="filter()" size="small" color="buttonBlue">Filter</ion-button>
+          <ion-button class="filter-buttons" size="small" (click)="clear()" color="buttonBlue">Clear</ion-button>
         </div>
       </div>
 
@@ -42,15 +44,15 @@
       </ion-card-header>
       <ion-card *ngFor="let subthread of thread.subheader" class="subthread">
         <ion-card-header>
-          <ion-card-title>{{subthread.subheader}}</ion-card-title>
+          <ion-card-title>Subthread: {{subthread.subheader}}</ion-card-title>
         </ion-card-header>
 
         <ng-container *ngFor="let questionGroup of subthread.questions" class="questions-wrapper">
-          <ion-card *ngFor="let question of questionGroup.questionSet" class="question">
-            <ion-card-header>
-              <ion-card-title>{{question.text}}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content *ngIf="question.latestAnswer">
+          <div *ngFor="let question of questionGroup.questionSet" class="question">
+            <div>
+              <h4>{{question.text}}</h4>
+            </div>
+            <div *ngIf="question.latestAnswer">
               <p *ngIf="question.latestAnswer.notesYes != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesYes}}</p>
               <p *ngIf="question.latestAnswer.notesNo != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNo}}</p>
               <p *ngIf="question.latestAnswer.notesNA != undefined"><b>Comments/Rationale: </b>{{question.latestAnswer.notesNA}}</p>
@@ -61,9 +63,10 @@
                 <p><b>Risk Response: </b>{{question.latestAnswer.riskResponse}}</p>
                 <p><b>MMP Summary: </b>{{question.latestAnswer.mmpSummary}}</p>
               </div>
-            </ion-card-content>
+            </div>
+            <hr/>
 
-          </ion-card>
+          </div>
 
         </ng-container>
       </ion-card>
