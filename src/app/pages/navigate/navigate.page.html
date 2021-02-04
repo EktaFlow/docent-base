@@ -8,37 +8,30 @@
 
   <report-info-card [assessmentId]="assessmentId"></report-info-card>
 
-
-<div class="filter-toolbar">
-  <ion-button *ngIf="!showAll" (click)="expandAllThreads()" color="buttonBlue">Expand All</ion-button>
-  <ion-button *ngIf="showAll" (click)="expandAllThreads()" color="buttonBlue">Close All</ion-button>
-  <div class="filter-list">
-    <p>Filter MR Level: </p>
-    <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
-      <option value="" disabled selected>Select One...</option>
-      <option value = "1">1</option>
-      <option value = "2">2</option>
-      <option value = "3">3</option>
-      <option value = "4">4</option>
-      <option value = "5">5</option>
-      <option value = "6">6</option>
-      <option value = "7">7</option>
-      <option value = "8">8</option>
-      <option value = "9">9</option>
-      <option value = "10">10</option>
-    </select>
-    <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
-    <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
-
-
-
+  <div class="filter-toolbar">
+    <ion-button *ngIf="!showAll" (click)="expand()" color="buttonBlue">Expand All</ion-button>
+    <ion-button *ngIf="showAll" (click)="expand()" color="buttonBlue">Close All</ion-button>
+    <div class="extraspace"></div>
+    <div class="filter-list">
+      <div class="extraspace"></div>
+      <p>Filter MR Level: </p>
+      <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
+        <option value="" disabled selected>Select One...</option>
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+        <option value = "6">6</option>
+        <option value = "7">7</option>
+        <option value = "8">8</option>
+        <option value = "9">9</option>
+        <option value = "10">10</option>
+      </select>
+      <ion-button class="filter-buttons" (click)="filter()" size="small" color="buttonBlue">Filter</ion-button>
+      <ion-button class="filter-buttons" size="small" (click)="clear()" color="buttonBlue">Clear</ion-button>
+    </div>
   </div>
-</div>
-
-    <!-- <br><br><br><br><br> -->
-      <!-- <br><br><br><br><br><br><br><br><br><br> -->
-  <!-- <hr> -->
-
   <div class="desktop">
 
   <ion-card *ngFor="let segment of filteredSchema" class="thread-card">
@@ -51,25 +44,19 @@
           <ion-card-title><img src="assets/imgs/if_icon-arrow-down.png" class= "downArrow" (click)="changeSubState(sub)" class="subtitle"> {{sub.subheader}}</ion-card-title>
         </ion-card-header>
         <div *ngIf="sub.sweet || showAll">
-          <ion-card *ngFor="let question of sub.questions" class="mrl">
-            <ion-card-header>
-              <ion-card-title>MR Level {{question.mrl}}</ion-card-title>
-            </ion-card-header>
-            <ion-card *ngFor="let title of question.questionSet" class="question">
-              <ion-card-header>
-              <ion-card-title class="navigate-links"
-							   (click)="navToQuestion(title.questionId)"
-								 id={{title.questionId}}>
-										<span *ngIf="title.questionStatus">
-											<ion-button size="small" [color]="pickColor(title.questionStatus)" class="status-button">
-											{{title.questionStatus}}
+          <div *ngFor="let question of sub.questions" class="mrl">
+            <h6><b>MR Level {{question.mrl}}:</b></h6>
+            <div *ngFor="let title of question.questionSet" class="question">
+              <h5 class="navigate-links"  (click)="navToQuestion(title.questionId)">
+                  <span *ngIf="title.questionStatus">
+                    <ion-button size="small" [color]="pickColor(title.questionStatus)" class="status-button">
+                          {{title.questionStatus}}
                       </ion-button>
-										</span>
-										{{title.text}}
-							</ion-card-title>
-              </ion-card-header>
-            </ion-card>
-          </ion-card>
+                  </span>
+                  {{title.text}}
+              </h5>
+            </div>
+          </div>
         </div>
       </ion-card>
     </div>

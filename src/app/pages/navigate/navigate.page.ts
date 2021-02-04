@@ -50,7 +50,7 @@ export class NavigatePage implements OnInit {
 	constructor( private apollo: 			 Apollo,
 							 public popOver: 			 PopoverController,
 							 public router: Router,
-							 private activatedRoute: ActivatedRoute
+							 private activatedRoute: ActivatedRoute,
 							 ) {
 		this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
 		this.expandAllFromQs = activatedRoute.snapshot.paramMap.get('expandAllFromQs');
@@ -139,6 +139,7 @@ export class NavigatePage implements OnInit {
 			});
 			return thread;
 		});
+
 		console.log("in filterthelist")
 		console.log(this.filterList.filterMRL);
 
@@ -152,9 +153,9 @@ export class NavigatePage implements OnInit {
 
 	}
 
-expandAllThreads() {
-	this.showAll = !this.showAll;
-}
+	expandAllThreads() {
+		this.showAll = !this.showAll;
+	}
 
 	clearFilter() {
 			this.filterList.filterMRL = 0;
