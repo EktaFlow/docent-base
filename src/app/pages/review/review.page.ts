@@ -101,7 +101,9 @@ export class ReviewPage implements OnInit {
                                    		questionText: q.questionText,
                                       currentAnswer: q.answers[q.answers.length - 1].answer,
                                       objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence,
-																			level: q.mrLevel
+																			level: q.mrLevel,
+																			subThreadName: q.subThreadName,
+																			threadName: q.threadName
                                  }
                                  answeredQuestions.push(drilledQuestion);
                               }

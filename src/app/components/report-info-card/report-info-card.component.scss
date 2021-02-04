@@ -1,50 +1,29 @@
 .info-card-wrapper {
-  width: 60%;
-  border: 1px solid black;
+  width: 30%;
   margin: 10px;
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: rgb(200, 200, 200);
+  }
+}
 
-  .info-card-header {
-    margin: 10px auto;
-    width: 50%;
-    padding: 5px;
-    // border: 1px solid black;
-    text-decoration: underline;
-    text-align: center;
-
-    h3 {
-      vertical-align: middle;
-      margin: 0;
-
-    }
+.info-card-content {
+  width: 100%;
+  // border: 1px solid green;
+  margin: 5px auto;
+  p {
+    font-size: 16px;
   }
 
-  .info-card-content {
-    width: 95%;
-    // border: 1px solid green;
-    margin: 5px auto;
+  ul {
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+    padding: 10px;
 
-    p {
-      display: inline-block;
-      width: 20%;
-      padding: 10px;
-      vertical-align: top;
-    }
-
-    .longer {
-      width: 40%;
-    }
-
-    ul {
-      list-style-type: none;
-      display: inline-block;
-      vertical-align: top;
-      width: 45%;
-      padding: 10px;
-
-      margin-left: 50px;
-      li {
-        padding-left: 8px;
-      }
+    margin-left: 50px;
+    li {
+      padding-left: 8px;
     }
   }
 }
@@ -53,16 +32,17 @@
   .info-card-wrapper {
     width: 95%;
 
-    .info-card-content {
-      p {
-        width: 90%;
-        padding: 2px;
-      }
-      ul {
-        width: 90%;
-        margin-left: 0;
-        padding: 2px;
-      }
+
+  }
+  .info-card-content {
+    p {
+      width: 90%;
+      padding: 2px;
+    }
+    ul {
+      width: 90%;
+      margin-left: 0;
+      padding: 2px;
     }
   }
 }

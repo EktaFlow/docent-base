@@ -96,6 +96,7 @@ export class RiskReportPage implements OnInit {
         this.schema = this.createSchemaObject(this.unfilteredQuestions);
 				this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
 				this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+				console.log(this.filteredSchema)
 
 				if (this.autoFilter){
 					this.filterList.filterMRL = this.targetMRL;
