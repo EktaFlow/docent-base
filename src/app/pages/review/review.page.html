@@ -8,8 +8,11 @@
 
 
   <div class="filter-toolbar">
-    <ion-button (click)="saveXLS()" color="buttonBlue" class="desktop">Export to .XLS</ion-button>
+    <ion-button *ngIf="!showAll" (click)="expand()" color="buttonBlue">Expand All</ion-button>
+    <ion-button *ngIf="showAll" (click)="expand()" color="buttonBlue">Close All</ion-button>
+    <div class="extraspace"></div>
     <div class="filter-list">
+      <div class="extraspace"></div>
       <p>Filter MR Level: </p>
       <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
         <option value="" disabled selected>Select One...</option>
@@ -24,9 +27,8 @@
         <option value = "9">9</option>
         <option value = "10">10</option>
       </select>
-      <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
-      <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
-
+      <ion-button class="filter-buttons" (click)="filter()" size="small" color="buttonBlue">Filter</ion-button>
+      <ion-button class="filter-buttons" size="small" (click)="clear()" color="buttonBlue">Clear</ion-button>
     </div>
   </div>
 
@@ -41,7 +43,7 @@
           <ion-card-subtitle *ngIf="question.currentAnswer == 'No'" class="box no"><b>No</b></ion-card-subtitle>
           <ion-card-subtitle *ngIf="question.currentAnswer == 'Yes'" class="box yes"><b>Yes</b></ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content class="review-card-content">
           <h4>Thread: {{question.threadName}} | SubThread: {{question.subThreadName}}</h4>
           <h4>MRLevel: {{question.level}}</h4>
           <h2 *ngIf="question.currentAnswer == 'Yes' && question.objectiveEvidence"><b>Objective Evidence:</b> {{question.objectiveEvidence}} </h2>
