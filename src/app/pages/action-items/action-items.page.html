@@ -8,8 +8,7 @@
   <report-info-card [assessmentId]="assessmentIdFromParams"></report-info-card>
 
   <div class="filter-toolbar">
-    <ion-button *ngIf="!showAll" (click)="expand()" color="buttonBlue">Expand All</ion-button>
-    <ion-button *ngIf="showAll" (click)="expand()" color="buttonBlue">Close All</ion-button>
+    <ion-button (click)="saveXLS()" color="buttonBlue">Export As XLS</ion-button>
     <div class="extraspace"></div>
     <div class="filter-list">
       <div class="extraspace"></div>
@@ -27,8 +26,8 @@
         <option value = "9">9</option>
         <option value = "10">10</option>
       </select>
-      <ion-button class="filter-buttons" (click)="filter()" size="small" color="buttonBlue">Filter</ion-button>
-      <ion-button class="filter-buttons" size="small" (click)="clear()" color="buttonBlue">Clear</ion-button>
+      <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
+      <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
     </div>
   </div>
 
