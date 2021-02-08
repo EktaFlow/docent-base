@@ -245,7 +245,7 @@ saveXLS(){
     "Criteria 5"
   ]
 
-  var values = this.settingValues(this.schema, true)
+  var values = this.settingValues(this.filteredSchema)
 
   var newVals = []
   for (let arr of values) {
@@ -267,35 +267,21 @@ saveXLS(){
 
   /* save to file */
   XLSX.writeFile(wb, 'mrl_risk_summary.xlsx');
-}
+  }
 
-
-settingValues(currentSchema, mrlOn){
-	var subThreadNames = this.allQuestions.map(q => q.subThreadName);
-
-  return currentSchema.map(t => {
-    var threads = [];
-    for (var i =0; i < t.subheaders.length; i++){
-      if (mrlOn){
-        threads.push([
-          t.subheaders[i].mrl,
-          t.header,
-          t.subheaders[i].subThreadName,
-          ...t.subheaders[i].riskScores
-        ]);
-      } else {
-        threads.push([
-          t.header,
-          t.subheaders[i].subThreadName,
-          ...t.subheaders[i].riskScores
+  settingValues(currentSchema){
+    return currentSchema.map(thread => {
+      var threads = [];
+      for (var i =0; i < thread.subheaders.length; i++){
+          threads.push([
+            thread.header,
+            thread.subheaders[i].subThreadName,
+            ...thread.subheaders[i].riskScores
           ]);
-      }
-
-
-    }
-    return [...threads]
-  });
-}
+        }
+          return [...threads]
+    });
+  }
 
   public calculateRiskScore(likelihood, consequence) {
     // preventing off by one errors, with nulls.
