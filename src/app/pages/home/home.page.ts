@@ -31,12 +31,12 @@ export class HomePage implements OnInit {
 	assessments: any;
   schema: any;
 	twentySeventeen: any;
-	assForm: any = {deskBookVersion: "2017", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
+	assForm: any = {deskBookVersion: "2020", levelSwitching: false, teamMembers: [], threads: [1,2,3,4,5,6,7,8,9,10]};
   members = [];
 	threadsSelected: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	public showRegister: boolean = false;
 	public mobileRegister: boolean = false;
-	public deskbookVersions: any = ['2018', "2017", "2016"];
+	public deskbookVersions: any = ['2020','2018', "2017", "2016"];
   public threadsShown: boolean = false;
   public threads: any;
   public threadsSelectButton: string = 'Unselect All';
@@ -190,7 +190,7 @@ export class HomePage implements OnInit {
     var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
     tmp ? tmp.value = "" : null
     tmp = <HTMLInputElement>document.getElementById("deskbook-select");
-	  tmp ? tmp.value = "2017" : null;
+	  tmp ? tmp.value = "2020" : null;
 
 		if (this.auth.currentUser()) {
       var cool = await this.assessmentService.getDefaultThreads()
@@ -212,7 +212,7 @@ export class HomePage implements OnInit {
     var selectedDeskbookName = this.assForm.deskBookVersion;
     console.log(this.assForm.deskBookVersion);
     // go from the name of the deskbook to an array of the threads.
-    if ( selectedDeskbookName == '2018' || selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+    if ( selectedDeskbookName == '2020' || selectedDeskbookName == '2018' || selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
       var cool = await this.assessmentService.getDefaultThreads()
       cool.subscribe( threads => this.threads = threads );
       return null;
@@ -241,10 +241,10 @@ export class HomePage implements OnInit {
 
 
 	async getSchema(deskbook) {
-		if (deskbook == '2016' || deskbook == '2017' || deskbook == '2018'){
+		if (deskbook == '2016' || deskbook == '2017' || deskbook == '2018' || deskbook == '2020'){
 			var deskbookPath = 'assets/json/' + deskbook + '.json'
-			var schema = await this.http.get(deskbookPath).toPromise();
-                        this.schema = schema;
+			var schema = await this.http.get(deskbookPath).toPromise()
+      this.schema = schema;
 		} else {
 			var user = await this.auth.currentUser();
 			var files = [];
