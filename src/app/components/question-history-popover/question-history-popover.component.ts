@@ -65,7 +65,6 @@ export class QuestionHistoryPopoverComponent implements OnInit {
    }
 
    async ngOnInit(){
-     console.log(this.activatedRoute.snapshot.paramMap.getAll())
      console.log(this.questionId);
        var cool = await this.assessmentService.queryQuestion(this.questionId, this.assessmentId, this.questionQuery)
        cool.subscribe(a => {
