@@ -15,6 +15,9 @@ import { ApolloModule, Apollo } from "apollo-angular";
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
+import LogRocket from 'logrocket';
+LogRocket.init('wdcszb/mfg-docent');
+
 // solo functions
 import 'rxjs/add/operator/map'
 
