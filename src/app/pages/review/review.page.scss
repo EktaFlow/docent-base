@@ -185,6 +185,41 @@
       .export-toolbar {
         display: none;
       }
+      .review-card {
+        width: 95%;
+      }
+      .extraspace {
+        visibility: hidden;
+      }
+      .filter-toolbar {
+        flex-wrap: wrap;
+        padding-left: 5px;
+        height: auto;
+        float: none;
+        .extraspace {
+          visibility: hidden;
+        }
+        .button {
+          width: 100%;
+        }
+        .filter-list{
+          width: 100%;
+          flex-wrap: wrap;
+          justify-content: center;
+          p {
+           margin: 5px 0;
+            width: 50%;
+          }
+          select {
+            margin: 5px;
+            width: 40%;
+          }
+          .filter-buttons {
+            margin: 5px;
+            width: 45%;
+          }
+        }
+      }
 
         .page-one-info {
             margin-left: 0px;
