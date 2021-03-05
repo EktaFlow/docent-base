@@ -42,12 +42,12 @@ export class SettingsPage implements OnInit {
   goBackToUser(){ this.router.navigate(["/user-dashboard"]);};
 
   async saveDownJSON(){
-  		this.http.get('assets/json/pretty_2017.json')
+  		this.http.get('assets/json/2020.json')
   					.subscribe( data => {
   						console.log(data);
               //get data and then save down file
               var json = JSON.stringify(data, null, '\t');
-              saveAs(new Blob([json], { type: "text/plain" }), "2017.json");
+              saveAs(new Blob([json], { type: "text/plain" }), "2020.json");
   					});
   }
 
