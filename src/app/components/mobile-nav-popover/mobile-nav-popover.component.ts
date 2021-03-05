@@ -39,8 +39,7 @@ export class MobileNavPopoverComponent implements OnInit {
     public popOver: PopoverController,
     public auth: AuthService,
     public router: Router,
-    private activatedRoute: ActivatedRoute
-    // private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
     this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
     	this.userName = activatedRoute.snapshot.paramMap.get('userName');
@@ -94,25 +93,64 @@ export class MobileNavPopoverComponent implements OnInit {
      this.router.navigate(["/user-dashboard"]);
    }
 
-   handleUserDash = () => 	this.router.navigate(["/user-dashboard", {assessmentId: this.assessmentId}]);
-   handleContinue = () => this.router.navigate(["/questions", {assessmentId: this.assessmentId}]);
-   handleStartNew = () => this.router.navigate(["/startNew"]);
-   handleDashboard = () => this.router.navigate(["/dashboard", {assessmentId: this.assessmentId}]);
-   //expandAllFromQs = true & autoFilter = true vvvv
-   handleNavigate = () => this.router.navigate(["/navigate", {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}]);
-   handleReview = () => this.router.navigate(["/review", {assessmentId: this.assessmentId}]);
-   handleActionItems = () => this.router.navigate(["/action-items", {assessmentId: this.assessmentId}]);
-   // handleNA = () => this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
-   handleCriteria = () => this.router.navigate(["/critieria", {assessmentId: this.assessmentId}]);
-   handleDefinitions = () => this.router.navigate(["/definitions", {assessmentId: this.assessmentId}]);
-   handleFaqs = () => this.router.navigate(["/faqs", {assessmentId: this.assessmentId}]);
-   handleSettings = () => this.router.navigate(["/settings", {assessmentId: this.assessmentId}]);
-   handleSummary = () => this.router.navigate(["/summary", {assessmentId: this.assessmentId}]);
-   handleAcronyms = () => this.router.navigate(["/acronyms", {assessmentId: this.assessmentId}]);
+   handleUserDash(){
+     this.router.navigate(["/user-dashboard", {assessmentId: this.assessmentId}])
+     this.popOver.dismiss();
+   };
+   handleContinue() {
+     this.router.navigate(["/questions", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss();
+   };
+   handleStartNew(){
+     this.router.navigate(["/startNew"]);
+     this.popOver.dismiss();
+   }
+   handleDashboard(){
+     this.router.navigate(["/dashboard", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleNavigate(){
+     this.router.navigate(["/navigate", {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}]);
+     this.popOver.dismiss()
+   };
+   handleReview(){
+     this.router.navigate(["/review", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleActionItems(){
+     this.router.navigate(["/action-items", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleCriteria(){
+     this.router.navigate(["/critieria", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleDefinitions(){
+     this.router.navigate(["/definitions", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleFaqs(){
+     this.router.navigate(["/faqs", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleSettings(){
+     this.router.navigate(["/settings", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleSummary(){
+     this.router.navigate(["/summary", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
+   handleAcronyms(){
+     this.router.navigate(["/acronyms", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
    goToDoD = () => window.location.href = "http://dodmrl.com";
    goToDeskbook = () => window.location.href = "http://www.dodmrl.com/MRL_Deskbook_2017.pdf"
-   handleRiskReport = () => this.router.navigate(["/risk-report", {assessmentId: this.assessmentId}]);
-   // handleAcronyms = () => this.navCtrl.push(AcronymsPage, {assessmentId: this.assessmentId});
+   handleRiskReport(){
+     this.router.navigate(["/risk-report", {assessmentId: this.assessmentId}]);
+     this.popOver.dismiss()
+   }
 
 
 }
