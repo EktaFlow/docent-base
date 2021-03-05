@@ -1,21 +1,33 @@
-<div >
+<div class="wrapper">
 	<h2>Choose an Assessment File to Import</h2>
 	<form>
-<div style="display: flex; flex-direction: column">
+<div style="display: flex; flex-direction: column; justify-content: center;">
 <ng-container *ngIf="!file">
-<label ion-button color="buttonBlue" for="qwerty" class="custom-file-upload">
-    Select File
-</label>
+	<ion-button color="buttonBlue">
+	<label  for="qwerty" class="custom-file-upload">
+	    Select File
+	</label>
+	</ion-button>
+	<ion-item-divider>
+		<label style="margin-top: 10px;">
+			This is a way to import assessments from other versions of Docent. Please make sure the file you are uploading is a <b>.mra</b> file.
+			</label>
+	</ion-item-divider>
 </ng-container>
 <ng-container *ngIf="file">
-<label ion-button color="buttonBlue" for="qwerty" class="custom-file-upload">
-    Select Different File
-</label>
+	<ion-button color="buttonBlue">
+		<label for="qwerty" class="custom-file-upload">
+		    Select A Different File
+		</label>
+	</ion-button>
 </ng-container>
 	<input id="qwerty" type="file" (change)="test($event)" placeholder="Choose File">
-  <hr *ngIf="file" />
-  <h6 *ngIf="file">{{file.name}}</h6>
-	<button *ngIf="file" ion-button color="buttonBlue"(click)="uploadFile($event)" type="submit">Upload</button>
+  <!-- <hr *ngIf="file" /> -->
+	<ion-item-divider  *ngIf="file">
+	</ion-item-divider>
+	<h5 *ngIf="file">Selected File</h5>
+  <p *ngIf="file">{{file.name}}</p>
+	<ion-button *ngIf="file" (click)="uploadFile($event)" type="submit">Upload</ion-button>
 	<div id="inputTextToSave">
 
 	</div>

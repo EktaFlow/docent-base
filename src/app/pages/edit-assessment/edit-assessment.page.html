@@ -1,6 +1,6 @@
 <title>Docent</title> <topbar></topbar>
 <ion-content class="ion-padding">
-    <ion-icon name="close-outline" (click)="closePopover()" class="close"></ion-icon>
+    <ion-icon src="assets/imgs/close-outline.svg" (click)="closePopover()" class="close"></ion-icon>
 
     <!-- new assessment -->
     <div *ngIf="page == 'new'">
@@ -28,7 +28,7 @@
     <div class="member-list">
       <li *ngFor = "let member of assessment.teamMembers" >
         <b>{{member.name}}</b> at <b>{{member.email}}</b> as <b>{{member.role}}</b>
-        <ion-icon color="danger" name="remove-circle" (click)="removeMember(member.email)" class="removeMember"></ion-icon>
+        <ion-icon color="danger" src="assets/imgs/remove-circle-outline.svg" (click)="removeMember(member.email)" class="removeMember"></ion-icon>
         <!-- <span id="memberToast" style="color:secondary"> </span> -->
       </li>
     </div>
@@ -46,7 +46,7 @@
         <input type="text" name="memName" placeholder="Member Name" #memName id="memName">
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="text" name="memEmail" placeholder = "Member Email" #memEmail id="memEmail">
         <input type="text" name="memRole" placeholder = "Member Role" #memRole id="memRole">
-        <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" name="add-circle" color = "secondary" class="addMember desktop"></ion-icon>
+        <ion-icon (click)="addMember(memName.value, memEmail.value,memRole.value)" src="assets/img/add-circle-outline.svg" color = "secondary" class="addMember desktop"></ion-icon>
         <ion-button size="small" color="secondary" (click)="addMember(memName.value, memEmail.value,memRole.value)" class="addMember mobile">Add Team Member</ion-button>
 
       </div>

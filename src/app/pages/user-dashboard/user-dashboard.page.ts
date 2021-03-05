@@ -188,7 +188,7 @@ export class UserDashboardPage implements OnInit {
 
 
 	launchImportPopover() {
-		this.popOver.create({component: ImportComponent})
+		this.popOver.create({component: ImportComponent, cssClass: "import-popover"})
 								.then(popover => popover.present());
 	}
 

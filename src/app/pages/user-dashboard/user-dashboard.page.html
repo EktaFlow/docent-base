@@ -31,15 +31,15 @@
                 <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
                 <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
                 <span>{{assessment.percentage}}% complete</span>
-                <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
               </div>
 
               <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)" >
                 <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
                 <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
-                <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
               </div>
               <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
                 <div class="details">
@@ -92,15 +92,15 @@
                 <div class="accordion-tab desktop" (click)="expandAssessment(assessment.id)"  id="{{assessment.id}}">
                   <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
                   <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
-                  <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                  <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                  <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                  <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
                 </div>
 
                 <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)"  >
                   <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
                   <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
-                  <ion-icon name="arrow-dropdown" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                  <ion-icon name="arrow-dropup" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                  <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
+                  <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
                 </div>
                 <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
                   <div class="details">

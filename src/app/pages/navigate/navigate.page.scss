@@ -158,7 +158,9 @@
             width: 100%;
           }
 
-
+          .thread-card {
+            width: 100%;
+          }
 
           .thread-name {
               padding: 15px 0px 10px 5px;
@@ -190,40 +192,43 @@
               // padding-bottom: 10px;
           }
 
+          .extraspace {
+            visibility: hidden;
+          }
+          .filter-toolbar {
+            flex-wrap: wrap;
+            padding-left: 5px;
+            height: auto;
+            float: none;
+            .extraspace {
+              visibility: hidden;
+            }
+            .button {
+              width: 100%;
+            }
+            .filter-list{
+              width: 100%;
+              flex-wrap: wrap;
+              justify-content: center;
+              p {
+               margin: 5px 0;
+                width: 50%;
+              }
+              select {
+                margin: 5px;
+                width: 40%;
+              }
+              .filter-buttons {
+                margin: 5px;
+                width: 45%;
+              }
+            }
+          }
+
 
 
             .wrapper {
                 margin-top: 120px;
-
-                .filter-toolbar {
-                    padding-top: 0;
-                    margin-top: 0;
-                    padding-bottom: 10px;
-                    padding-left: 10px;
-                    margin-bottom: 0;
-                    height: auto;
-                    // margin-bottom: 80px;
-                    border: none;
-                    button {
-                        width: 30%;
-                        padding: 5px;
-                    }
-                    .filter-list {
-                        width: 65%;
-                        margin-left: 8px;
-
-                        select {
-                            width: 45%;
-                            border: .5px solid lightgray;
-
-                        }
-
-                        .filter-buttons {
-                          width: 45%;
-                          margin: 5px;
-                        }
-                    }
-                }
 
                 .qspacer {
                     display: inherit;

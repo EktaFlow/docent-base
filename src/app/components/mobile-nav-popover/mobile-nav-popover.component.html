@@ -2,9 +2,12 @@
 <div>
   <div class='icons'>
     <ng-container *ngIf="assessmentShow || helpShow">
-      <ion-icon  name="arrow-back" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
+      <!-- <ion-button (click)="goBack()" color="dark" class="arrow-back">Go Back</ion-button> -->
+      <ion-icon  src="assets/imgs/arrow-back-outline.svg" (click)="goBack()" class="arrow-back" id="ARROW"></ion-icon>
     </ng-container>
-    <ion-icon name="close" (click)="closeNav()" class="close"></ion-icon>
+    <!-- <ion-button (click)="closeNav()" color="dark" class="close">Close</ion-button> -->
+
+    <ion-icon src="assets/imgs/close-outline.svg" (click)="closeNav()" class="close"></ion-icon>
   </div>
   <ng-container *ngIf="regularNavShow">
     <ion-button color="dark" expand="full" disabled class="user-name">
