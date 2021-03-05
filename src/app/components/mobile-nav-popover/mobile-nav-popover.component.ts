@@ -122,7 +122,11 @@ export class MobileNavPopoverComponent implements OnInit {
      this.popOver.dismiss()
    }
    handleCriteria(){
-     this.router.navigate(["/critieria", {assessmentId: this.assessmentId}]);
+     if (this.assessmentId == undefined){
+       this.router.navigate(["/criteria"]);
+     } else {
+       this.router.navigate(["/critieria", {assessmentId: this.assessmentId}]);
+     }
      this.popOver.dismiss()
    }
    handleDefinitions(){
