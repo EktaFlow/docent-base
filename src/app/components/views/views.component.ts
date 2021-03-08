@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular'
 
 import { HomePage } from '../../pages/home/home.page';
-import { ReviewPage } from '../../pages/review/review.page';
-import { DashboardPage } from '../../pages/dashboard/dashboard.page';
-import { NavigatePage } from '../../pages/navigate/navigate.page';
-import { ActionItemsPage } from '../../pages/action-items/action-items.page';
-import { SummaryPage } from '../../pages/summary/summary.page';
-import { QuestionsPage } from "../../pages/questions/questions.page";
 import { ImportComponent } from "../../components/import/import.component";
-import { RiskReportPage } from "../../pages/risk-report/risk-report.page";
 
 import {Router, ActivatedRoute} from "@angular/router";
 import { saveAs } from "file-saver/FileSaver";
@@ -86,10 +79,6 @@ query assessment($_id: String)
 export class ViewsComponent implements OnInit {
   //vars
   homePage = HomePage;
-  reviewPage = ReviewPage;
-  dashboardPage = DashboardPage;
-  navigatePage = NavigatePage;
-  actionitemsPage = ActionItemsPage;
 	assessments: any;
 	assessmentId: any;
 
@@ -130,38 +119,29 @@ export class ViewsComponent implements OnInit {
    handleImport() {
      this.launchImportPopover();
    }
-   // handleNa()	{
-   //   this.navCtrl.push(NotapplicablePage, {assessmentId: this.assessmentId});
-   //   this.close();
-   // }
    handleContinue(){
      this.router.navigate(["/questions", {assessmentId: this.assessmentId}]);
-     // this.navCtrl.push(QuestionsPage, { assessmentId: this.assessmentId});
      this.close();
    }
 
    handleActions(){
      this.router.navigate(["/action-items", {assessmentId: this.assessmentId}]);
 
-     // this.navCtrl.push(ActionitemsPage, {assessmentId: this.assessmentId});
      this.close();
    }
    handleReview(){
      this.router.navigate(["/review", {assessmentId: this.assessmentId}]);
 
-     // this.navCtrl.push(ReviewPage, {assessmentId: this.assessmentId});
      this.close();
    }
    handleNavigate(){
      this.router.navigate(["/navigate", {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true}]);
 
-     // this.navCtrl.push(NavigatePage, {assessmentId: this.assessmentId, expandAllFromQs: true, autoFilter: true});
      this.close();
    }
    handleDashboard(){
      this.router.navigate(["/dashboard", {assessmentId: this.assessmentId}]);
 
-     // this.navCtrl.push(DashboardPage, {assessmentId: this.assessmentId});
      this.close();
    }
    handleSummary(){
@@ -176,7 +156,6 @@ export class ViewsComponent implements OnInit {
    handleRiskReport(){
      this.router.navigate(["/risk-report", {assessmentId: this.assessmentId}]);
 
-     // this.navCtrl.push(RiskReportPage, {assessmentId: this.assessmentId});
      this.close();
    }
 
