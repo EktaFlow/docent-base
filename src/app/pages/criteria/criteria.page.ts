@@ -36,7 +36,7 @@ export class CriteriaPage implements OnInit {
  	schema: any;
 	filterList: any = {};
 	filteredSchema: any;
-	showAll: any;
+	showAll: any = true;
 	pageName: any = "Criteria";
 
 	constructor( private apollo: 			 Apollo,
@@ -55,7 +55,6 @@ export class CriteriaPage implements OnInit {
 
 	async ngOnInit() {
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-
 		this.apollo.watchQuery({
 			query: assessmentQuery,
 			variables: {_id: this.assessmentId},

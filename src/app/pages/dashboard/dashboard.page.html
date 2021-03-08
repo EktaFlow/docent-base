@@ -63,16 +63,16 @@
     <div class="mobile-wrapper">
       <div class="dash-toolbar">
         <ng-container *ngIf="!showAll">
-          <ion-button (click)="expandAll()" color="darkSlateBlue">Expand All</ion-button>
+          <ion-button (click)="expandAll()" color="buttonBlue">Expand All</ion-button>
         </ng-container>
         <ng-container *ngIf="showAll">
-          <ion-button (click)="expandAll()" color="darkSlateBlue">Close All</ion-button>
+          <ion-button (click)="expandAll()" color="buttonBlue">Close All</ion-button>
         </ng-container>
 
-        <ion-button (click)="presentLegend($event)" color="darkSlateBlue">Legend</ion-button>
+        <ion-button (click)="presentLegend($event)" color="buttonBlue">Legend</ion-button>
       </div>
       <div *ngFor="let question of questionSet" class="single-thread">
-        <h3>{{question.header}}            <span><img src="assets/imgs/if_icon-arrow-down.png" (click)="toggleSubThread(question)" class="downArrow">
+        <h3>{{question.header}}<span><img src="assets/imgs/if_icon-arrow-down.png" (click)="toggleSubThread(question)" class="downArrow" />
         </span></h3>
         <div *ngIf="question.show || showAll">
           <div *ngFor="let answer of question.questions" class="questions">

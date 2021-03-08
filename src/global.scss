@@ -214,8 +214,14 @@ ion-icon {
         max-width: 99vh;
 
 }
+.import-popover .popover-content {
+  width: 500px;
+  padding: 40px;
+  text-align: center;
 
-.thread-popup .popover-content, .sub-thread-popup .popover-content {
+}
+
+.thread-popup .popover-content, .sub-thread-popup, .import-popover .popover-content {
     padding: 10px;
     width: 320px !important;
 }

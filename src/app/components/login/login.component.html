@@ -26,11 +26,11 @@
           <p *ngIf="checkError('invalid_passwd')" class="error" id="password-invalid">Please enter a valid password</p>
         </ng-template>
         <input [ngClass]="(errors.length > 0) ? 'errors-input' : null" type="password" name="passwd"
-          [(ngModel)]="user.passwd">
+          [(ngModel)]="user.passwd" (keyup.enter)="submitLogin()">
       </div>
 
       <div id="button-container">
-        <ion-button color="buttonBlue" (click)="submitLogin()">Login</ion-button>
+        <ion-button color="buttonBlue" (click)="submitLogin()" >Login</ion-button>
       </div>
       <div id="notes-container">
         <p>

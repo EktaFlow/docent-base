@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { saveAs } from "file-saver/FileSaver";
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 
 
@@ -17,35 +18,36 @@ import { Router} from "@angular/router";
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-
-  constructor(
-                    private http: HttpClient,
-                  public popover: PopoverController,
-                public router: Router ) {
-
-  }
-
   downloadJsonHref: any;
   files: any;
-  user: any;
+  user: any = {};
   pageName: any = "Settings";
+
+  constructor(
+    private http: HttpClient,
+    public popover: PopoverController,
+    public router: Router,
+    private auth: AuthService
+  ) {}
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("settings");
   }
 
-  ngOnInit(){
-
+  async ngOnInit(){
+    this.user = await this.auth.currentUser();
+    console.log(this.user)
   }
+
   goBackToUser(){ this.router.navigate(["/user-dashboard"]);};
 
   async saveDownJSON(){
-  		this.http.get('assets/json/pretty_2017.json')
+  		this.http.get('assets/json/2020.json')
   					.subscribe( data => {
   						console.log(data);
               //get data and then save down file
               var json = JSON.stringify(data, null, '\t');
-              saveAs(new Blob([json], { type: "text/plain" }), "2017.json");
+              saveAs(new Blob([json], { type: "text/plain" }), "2020.json");
   					});
   }
 
