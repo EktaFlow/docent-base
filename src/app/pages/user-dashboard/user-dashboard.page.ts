@@ -1,5 +1,6 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController, PopoverController } from '@ionic/angular';
+import { Intercom } from 'ng-intercom';
 
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
@@ -119,7 +120,9 @@ export class UserDashboardPage implements OnInit {
               private assessmentService: AssessmentService,
 							public popOver: PopoverController,
               public router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+							public intercom: Intercom
+						) {
               this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
               }
 
@@ -136,6 +139,16 @@ export class UserDashboardPage implements OnInit {
 
 		var user = this.auth.currentUser();
 		this.user = user;
+
+		this.intercom.boot({
+      app_id: "olfft7tm",
+			email: this.user.email,
+			name: this.user.name,
+      // Supports all optional configuration.
+      widget: {
+        "activator": "#intercom"
+      }
+    });
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => {

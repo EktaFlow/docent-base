@@ -11,7 +11,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 // import { TestComponent } from './components/components/test/test.component';
 
 import LogRocket from 'logrocket';
-LogRocket.init('wdcszb/mfg-docent');
+// LogRocket.init('wdcszb/mfg-docent');
+
+import { IntercomModule } from 'ng-intercom';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
@@ -90,6 +92,10 @@ import { BackUrl } from  "./services/constants";
 		SettingsPageModule,
     EditAssessmentPageModule,
 		RiskReportPageModule,
+    IntercomModule.forRoot({
+      appId: "olfft7tm", // from your Intercom config
+      updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
+    })
 
 	],
   providers: [
