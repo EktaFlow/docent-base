@@ -10,7 +10,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // import { TestComponent } from './components/components/test/test.component';
 
-import LogRocket from 'logrocket';
+import { LogRocket } from 'logrocket/setup';
 LogRocket.init('wdcszb/mfg-docent');
 
 import { IntercomModule } from 'ng-intercom';
