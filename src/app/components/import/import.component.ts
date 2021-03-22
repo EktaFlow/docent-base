@@ -50,12 +50,10 @@ export class ImportComponent implements OnInit {
 
 		var cool = reader.readAsText(file, "UTF-8")
 													 //		var assessmentObject = JSON.parse(cool);
-													 // 		console.log(assessmentObject);
 	}
 
 	async loadAssessment(assessment) {
 		var user = await this.auth.currentUser();
-		console.log(user);
 		await this.apollo.mutate({
 			mutation: load,
 			variables: {
@@ -64,8 +62,6 @@ export class ImportComponent implements OnInit {
 				userEmail: user.email
 			}
 		}).subscribe( data => {
-			console.log(data);
-				// console.log(data.data.importAssessment._id);
 				// this.assessmentService.setCurrentAssessmentId(data.data.importAssessment._id)
 				this.popOver.dismiss();
         // this.router.navigate(["/questions", {data: data.data.importAssessment._id}]);

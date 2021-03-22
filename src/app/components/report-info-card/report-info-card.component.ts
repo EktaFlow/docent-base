@@ -42,7 +42,6 @@ export class ReportInfoCardComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    console.log(this.assessmentId);
     this.apollo.watchQuery({
       query: assessmentQuery,
       variables: {_id: this.assessmentId},
@@ -51,7 +50,6 @@ export class ReportInfoCardComponent implements OnInit {
       .subscribe(data => {
         var assessment = (<any>data.data).assessment;
         var questions = assessment.questions;
-        console.log(assessment);
 
         this.targetMRL = assessment.targetMRL;
         this.targetDate = assessment.targetDate;

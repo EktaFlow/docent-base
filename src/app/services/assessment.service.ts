@@ -58,7 +58,6 @@ export class AssessmentService {
   }
 
   async removeTeamMember(assessmentId, teamMemberEmail) {
-    console.log(teamMemberEmail);
     var mutation = gql`
       mutation removeTeamMember($assessmentId: String, $teamMemberEmail: String) {
         removeTeamMember(assessmentId: $assessmentId, teamMemberEmail: $teamMemberEmail)  {
@@ -79,7 +78,6 @@ export class AssessmentService {
   }
 
   async removeAssessmentFromAuth(assessmentId, teamMemberEmail) {
-    console.log('we in remove assessmen form auth');
     var url = AuthUrl + 'remove-shared';
     fetch(url, {
       method: 'POST',
@@ -97,7 +95,6 @@ export class AssessmentService {
   }
 
   async queryAssessment(assessmentId, query) {
-  console.log(query);
     var ok = gql`
       query assessment($_id: String) {
         ${query}
@@ -130,8 +127,6 @@ export class AssessmentService {
   *   return: Observable
   */
   async getAssessment(query, assessmentId: String) {
-  // console.log('we in get Assessment');
-    //  console.log(query, assessmentId);
 
     return await this.apollo.watchQuery<any>({
             query: query,
@@ -153,8 +148,6 @@ export class AssessmentService {
 	}
 
 	async createAssessment(variables) {
-		console.log(variables);
-
 	return await this.apollo.mutate({
 			mutation: createAssessmentMutation,
 			variables: variables
@@ -261,7 +254,6 @@ export class AssessmentService {
   }
 
 	async updateTeamMembers(assessmentId, memberInfo){
-		console.log("are we getting to this point?");
     this.emailSharedAssessment(assessmentId, memberInfo.email)
 		return await this.apollo.mutate<any>({
 			mutation: updateTeamMembersMutation,
@@ -293,7 +285,6 @@ export class AssessmentService {
   }
 
   async deleteFile(assessmentId, fileId) {
-    console.log('we in delete file in ass service');
     return await this.apollo.mutate<any>({
       mutation: deleteFileMutation,
       variables: {

@@ -26,8 +26,6 @@ export class DoResetComponent implements OnInit {
   ngOnInit() {}
 
   async handleResetClick() {
-    console.log('we resettin');
-
     var resetResult = await this.auth.doPasswordReset(this.passwd);
     this.resetDone = true;
 

@@ -39,12 +39,10 @@ export class AddTeamMembersPopOverComponent implements OnInit {
 			"email" : this.newMember.email,
 			"role" : this.newMember.role
 		}
-		console.log(this.assessmentId);
 
     var obser = await this.assessmentService.updateTeamMembers(this.assessmentId, updateTM);
 		obser.subscribe(member => {
       // TODO: ERORR HANDLING HERE.
-			console.log(member);
 			// this.sendEmailsToTeamMember(this.assessmentId);
 			this.emitter.emit(member);
 			this.viewCtrl.dismiss();

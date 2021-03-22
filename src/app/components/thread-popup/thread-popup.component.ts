@@ -71,21 +71,16 @@ export class ThreadPopupComponent implements OnInit {
 		 }
 	 }).valueChanges
 		 .subscribe( ({data, loading}) => {
-			 // console.log(data);
 			 this.targetMRL  = data.assessment.targetMRL;
 			 this.questions = data.assessment.questions;
-			 console.log(this.questions);
-			 // console.log(this.subTitle);
 			 this.schema = this.createThreadsObject(this.questions);
 			 // this.schema = this.myFunction(this.questions);
 
-			 console.log(this.schema);
 
 		 });
 	}
 
 	myFunction(questions) {
-		console.log(questions);
 	}
 
 	unique = (item, index, array) => array.indexOf(item) == index
@@ -101,7 +96,6 @@ export class ThreadPopupComponent implements OnInit {
 
 
 	createThreadsObject(questionsArray) {
-		console.log(questionsArray);
 
 		var filteredQuestions = questionsArray.filter(question => question.mrLevel == this.targetMRL);
 
@@ -133,17 +127,12 @@ export class ThreadPopupComponent implements OnInit {
 	}
 
 	navToQuestionFromSchema(questionsArray){
-		// console.log("hello");
-		// console.log(this.targetMRL);
-		// console.log(questionsArray);
 		// var correctQsByMRL = questionsArray.filter(q => q.mrl == this.targetMRL);
-		// console.log(correctQsByMRL);
 		this.navToQuestion(questionsArray[0].questionSet[0].questionId);
 	}
 
 
  async navToQuestion(questionId) {
-	 console.log(this.updateInfo);
 	 this.router.navigate(["/questions", {assessmentId: this.assessmentId, questionId: questionId}]);
 	 this.popOver.dismiss();
 	 // this.navCtrl.push(QuestionsPage, {assessmentId: this.assessmentId, questionId: questionId});

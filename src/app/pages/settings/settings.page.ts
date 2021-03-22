@@ -36,7 +36,6 @@ export class SettingsPage implements OnInit {
 
   async ngOnInit(){
     this.user = await this.auth.currentUser();
-    console.log(this.user)
   }
 
   goBackToUser(){ this.router.navigate(["/user-dashboard"]);};
@@ -44,7 +43,6 @@ export class SettingsPage implements OnInit {
   async saveDownJSON(){
   		this.http.get('assets/json/2020.json')
   					.subscribe( data => {
-  						console.log(data);
               //get data and then save down file
               var json = JSON.stringify(data, null, '\t');
               saveAs(new Blob([json], { type: "text/plain" }), "2020.json");
@@ -62,7 +60,6 @@ export class SettingsPage implements OnInit {
 			let myEmitter = new EventEmitter<any>();
 				myEmitter.subscribe( v =>  {
 				this.files.push(v);
-        console.log(this.files);
 			});
 
         this.popover.create({
@@ -72,8 +69,6 @@ export class SettingsPage implements OnInit {
           },
           cssClass: "json-upload-popover"
         }).then(popover => popover.present());
-
-        console.log("emitter");
 	}
 
 }

@@ -32,7 +32,6 @@ export class JsonUploadPopoverComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log("this has an on-init function");
 		var styling = `
 		padding: 30px;
     height: 400px;

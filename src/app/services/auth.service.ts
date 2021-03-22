@@ -40,11 +40,9 @@ constructor(private http: HttpClient) {}
   *
   */
   public setReset(url) {
-  console.log(url);
     this.reset = true;
     var tokenRegex = /=.+$/;
     var token = url.match(tokenRegex)[0].substring(1);
-    console.log(token);
     this.resetToken = token;
   }
 
@@ -57,9 +55,7 @@ constructor(private http: HttpClient) {}
 
     return this.http.post(AuthUrl + 'doreset', body)
       .subscribe(a => {
-      console.log(a);
         if (a == 'Success') {
-        console.log('wer succ');
           var userCreds = {
             email: this.resetEmail,
             passwd: newPassword
@@ -94,8 +90,6 @@ constructor(private http: HttpClient) {}
 	}
 
 	public fetchMultiple(ids){
-		console.log(ids);
-		console.log(JSON.stringify(ids));
 		var userInfo = {
 			"ids": ids
 		}
@@ -108,7 +102,6 @@ constructor(private http: HttpClient) {}
 
 	public unverified = () => {
 		var hasToken = localStorage.getItem("docent-token");
-		// console.log(JSON.parse(hasToken));
 		if (hasToken && JSON.parse(hasToken).user) {
 			return !JSON.parse(hasToken).user.verified
 		}

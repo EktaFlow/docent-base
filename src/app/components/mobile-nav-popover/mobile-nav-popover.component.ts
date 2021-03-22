@@ -46,9 +46,6 @@ export class MobileNavPopoverComponent implements OnInit {
     if (activatedRoute.snapshot.paramMap.get('noSecondBar')){
     this.noSecondBar = activatedRoute.snapshot.paramMap.get('noSecondBar');
     }
-    console.log(this.noSecondBar);
-    console.log(this.assessmentId);
-    console.log(this.userName);
    }
 
    ngOnInit(){
@@ -72,7 +69,6 @@ export class MobileNavPopoverComponent implements OnInit {
 
    showAssessment(){
      this.assessmentShow = true;
-     console.log(this.assessmentShow)
      this.regularNavShow = false;
    }
 

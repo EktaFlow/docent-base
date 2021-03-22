@@ -17,7 +17,6 @@ export class AssessmentScopePopoverComponent implements OnInit {
     this.scope = navParams.data.scopeText;
     this.targetMRL = navParams.data.targetMRL;
     this.targetDate = navParams.data.targetDate;
-    console.log(this.scope);
   }
 
   ngOnInit(){}

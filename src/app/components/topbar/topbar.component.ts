@@ -163,7 +163,6 @@ export class TopbarComponent implements OnInit {
 			this.auth.logout();
 			// this.navCtrl.setRoot(LoginPage);
 			// this.navCtrl.popToRoot();
-			console.log('logout')
 			this.router.navigate(["/home"]);
 			window.location.reload();
 		}
@@ -269,7 +268,6 @@ export class TopbarComponent implements OnInit {
 		}
 
 		async openMobileNav(){
-			console.log(this.noSecondBar);
 			var userName = this.auth.currentUser().name;
 			var pop = await this.popOver.create({
 				component: MobileNavPopoverComponent,

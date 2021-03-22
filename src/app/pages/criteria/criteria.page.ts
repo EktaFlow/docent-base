@@ -61,7 +61,6 @@ export class CriteriaPage implements OnInit {
 			fetchPolicy: "network-only"
 			}).valueChanges
 			.subscribe(data => {
-					console.log(data);
 					this.allQuestions = (<any>data.data).assessment.questions;
 					// this.schema = this.createSchemaObject(this.allQuestions);
 					this.filteredSchema = this.createSchemaObject(this.allQuestions);
@@ -112,13 +111,9 @@ export class CriteriaPage implements OnInit {
   }
 
 	filterTheList() {
-		console.log("in filterthelist")
-		console.log(this.filterList.filterMRL);
-
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
 			this.filteredSchema = this.createSchemaObject(filteredQuestions);
-			console.log(this.filteredSchema);
 		} else {
 			this.filteredSchema = this.createSchemaObject(this.allQuestions);
 		}

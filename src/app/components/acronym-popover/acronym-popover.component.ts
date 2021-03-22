@@ -12,7 +12,6 @@ export class AcronymPopoverComponent implements OnInit {
   constructor(
     public navParams: NavParams,
   ) {
-    console.log('Hello AcronymPopoverComponent Component');
     this.text = navParams.data.fullText;
   }
 

@@ -96,7 +96,6 @@ export class SummaryPage implements OnInit {
                             var assessment = (<any>data.data).assessment;
                             var questions = assessment.questions;
 			    									this.allQuestions = assessment.questions;
-                            // console.log(this.questions);
                             questions = questions.filter(q => q.threadName.length > 1);
                             this.targetMRL = assessment.targetMRL;
 
@@ -112,7 +111,6 @@ export class SummaryPage implements OnInit {
 
                 this.schema = this.grabRiskScores(this.unfilteredQuestions);
 								this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
-                console.log(this.schema);
 								if (this.autoFilter){
 									this.filterList.filterMRL = this.targetMRL;
 									this.filterList.filterTitle = this.targetMRL;
@@ -124,21 +122,16 @@ export class SummaryPage implements OnInit {
                 if (extraQuestions.length > 0){
                   this.noExtraQuestions = false;
                   this.nonLevelSchema = this.grabRiskScores(extraQuestions);
-                  console.log(this.nonLevelSchema);
                 }
 
 
 		});
 	}
 	filterTheList() {
-		// console.log("in filterthelist")
-		// console.log(this.filterList.filterMRL);
-
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.unfilteredQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
 			this.filteredSchema = this.grabRiskScores(filteredQuestions);
 			this.filterList.filterTitle = this.filterList.filterMRL;
-			// console.log(this.filteredSchema);
 		} else {
 			this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
 			this.filterList.filterTitle = '';
@@ -185,7 +178,6 @@ export class SummaryPage implements OnInit {
         }
       }
 
-      console.log(schema);
       return schema;
 
   }
@@ -214,7 +206,6 @@ export class SummaryPage implements OnInit {
 
   extraFields(length){
     var extras = 5 - length;
-    // console.log(Array(extras));
     return Array(extras);
   }
 

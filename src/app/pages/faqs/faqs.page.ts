@@ -41,7 +41,6 @@ export class FaqsPage implements OnInit {
   getFaqInfo() {
       this.http.get('assets/json/faq.json')
           .subscribe( data => {
-              console.log(data);
               this.faqInfoStandalone = this.filterAppType("standalone", data);
           });
   }
@@ -66,7 +65,6 @@ export class FaqsPage implements OnInit {
   }
 
   toggleFaq(help_title){
-    console.log(help_title);
     if (this.currentQ == "" || help_title != ''){
       this.currentQ = help_title;
     } else if (help_title == ''){
