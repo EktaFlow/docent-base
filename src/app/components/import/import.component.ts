@@ -1,10 +1,8 @@
-import { NgModule, Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from "../../pages/questions/questions.page";
+import { Component, OnInit } from '@angular/core';
+import { NavController, PopoverController } from '@ionic/angular';
 import {AuthService} from "../../services/auth.service";
-import { AuthUrl } from "../../services/constants";
 import { AssessmentService } from '../../services/assessment.service';
-import {Router, ActivatedRoute} from "@angular/router";
+import {Router} from "@angular/router";
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";

@@ -1,18 +1,11 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { Intercom } from 'ng-intercom';
 
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
-import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
-import { SettingsPage } from "../../pages/settings/settings.page";
-import { QuestionsPage } from "../../pages/questions/questions.page";
-import { DashboardPage } from "../../pages/dashboard/dashboard.page";
-import { ActionItemsPage } from "../../pages/action-items/action-items.page";
-import { EditAssessmentPage } from '../../pages/edit-assessment/edit-assessment.page';
 import { AddTeamMembersPopOverComponent } from "../../components/add-team-members-pop-over/add-team-members-pop-over.component";
-import { HomePage } from "../../pages/home/home.page";
 import { ImportComponent } from "../../components/import/import.component";
 
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';

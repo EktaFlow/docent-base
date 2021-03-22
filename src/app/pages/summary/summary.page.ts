@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../../components/topbar/topbar.component";
-import { LegendPopoverComponent } from '../../components/legend-popover/legend-popover.component';
-import { QuestionsPage } from "../../pages/questions/questions.page";
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
+import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute} from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import * as XLSX from 'xlsx';

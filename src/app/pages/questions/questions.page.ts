@@ -2,11 +2,8 @@ import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
-import { ReviewPage } from '../../pages/review/review.page';
-import { ViewsComponent } from '../../components/views/views.component';
 import { AssessmentService } from "../../services/assessment.service";
 import { AuthService } from "../../services/auth.service";
-import { TopbarComponent } from "../../components/topbar/topbar.component";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover.component";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover.component';

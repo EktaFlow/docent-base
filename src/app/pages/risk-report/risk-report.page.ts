@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
-import { TopbarComponent } from "../../components/topbar/topbar.component";
-import {ReportInfoCardComponent} from '../../components/report-info-card/report-info-card.component';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import {ActivatedRoute, Router} from "@angular/router"
 import * as XLSX from 'xlsx';

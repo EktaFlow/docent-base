@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { NavController } from '@ionic/angular';
-import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard.page';
 
 import { Url } from '../../services/constants';
 import { Router } from '@angular/router';

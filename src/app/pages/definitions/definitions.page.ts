@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
-import {Router, ActivatedRoute} from "@angular/router";
+import { ActivatedRoute} from "@angular/router";
 
 
 @Component({

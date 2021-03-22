@@ -1,13 +1,10 @@
-import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
-import { NavController, PopoverController, LoadingController, ToastController } from '@ionic/angular';
+import { NgModule, Component, OnInit } from '@angular/core';
+import { PopoverController, LoadingController, ToastController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { QuestionsPage } from '../../pages/questions/questions.page';
-import { ThreadsListComponent } from "../../components/threads-list/threads-list.component";
 import { PasswordResetComponent } from '../../components/password-reset/password-reset.component';
 import { AuthService } from "../../services/auth.service";
 import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
-import { LoginPage } from '../../pages/login/login.page';
 import { Router } from '@angular/router';
 
 

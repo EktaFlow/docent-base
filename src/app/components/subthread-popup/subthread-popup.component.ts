@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, PopoverController } from '@ionic/angular';
-import { QuestionsPage } from '../../pages/questions/questions.page';
 import { AssessmentService } from "../../services/assessment.service";
 import { Apollo } from "apollo-angular";
 import { Router } from "@angular/router";

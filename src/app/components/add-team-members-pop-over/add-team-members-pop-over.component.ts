@@ -1,9 +1,9 @@
-import { NgModule, Component, OnInit } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { AssessmentService } from "../../services/assessment.service";
 import { HttpClient } from '@angular/common/http';
 import { AuthUrl } from "../../services/constants";
-import { Router, ActivatedRoute} from "@angular/router";
+import { ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'add-team-members-pop-over',

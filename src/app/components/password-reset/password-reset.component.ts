@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ToastController } from '@ionic/angular';
-import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'password-reset',

@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
-import { HomePage } from "../../pages/home/home.page";
 import { GoogleAnalytics } from "../../services/helpers/GoogleAnalytics";
 
 @Component({
