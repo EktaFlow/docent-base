@@ -9,6 +9,8 @@ import { AssessmentService } from "../../services/assessment.service";
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { LoginPage } from '../../pages/login/login.page';
 import { Router } from '@angular/router';
+import { isElectron } from '../../services/constants';
+import { ElectronService } from '../../services/electron.service';
 
 
 import { Apollo } from "apollo-angular";

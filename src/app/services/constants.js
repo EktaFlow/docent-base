@@ -5,3 +5,4 @@ export const BackUrl              =  "https://web.mfgdocent.com/gql";
 export const AuthUrl              =  "https://web.mfgdocent.com/auth/";
 
 export const Url = 'https://web.mfgdocent.com/'
+export const isElectron = true;

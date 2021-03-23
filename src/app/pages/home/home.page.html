@@ -1,49 +1,52 @@
 <title>Docent</title>
 
 <!-- <topbar [blank]="true"></topbar> -->
-	<ng-container *ngIf="auth.isLoggedIn()">
-		<topbar></topbar>
+
+	<ng-container *ngIf="!isElectron">
+		<ng-container *ngIf="auth.isLoggedIn()">
+			<topbar></topbar>
+		</ng-container>
+	</ng-container>
+	<ng-container *ngIf="isElectron">
+		<topbar [pageName]="pageName" [noSecondBar]="noSecondBar"></topbar>
 	</ng-container>
 
 
 <ion-content class="home-wrapper ion-padding">
-<ng-container *ngIf="!auth.isLoggedIn()">
-	<ng-container *ngIf="auth.unverified()">
-	You must verify your Docent registration via email before logging on.
+	<ng-container *ngIf="isElectron">
+		<ng-container *ngIf="!auth.isLoggedIn()">
+			<ng-container *ngIf="auth.unverified()">
+			You must verify your Docent registration via email before logging on.
+			</ng-container>
+
+		    <ng-container *ngIf="!mobileRegister">
+		    	<login-component></login-component>
+		  </ng-container>
+		  <h6 (click)="newLogin()"> CLICK HERE LOGIN PAGE </h6>
+		<div *ngIf="!showRegister" class="register-container">
+		        <h4>Forgot Password?</h4>
+		        <div>
+		            <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset Password</button>
+		        </div>
+		</div>
+
+			<div *ngIf="!showRegister" class="register-container">
+				<h4>Not registered?</h4>
+				<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
+			</div>
+
+			<div *ngIf="!showRegister" class="mobile-register-container" >
+				<h6 (click)="mobileRegisterForm()">sign up</h6>
+			</div>
+
+		</ng-container>
+
+		<ng-container *ngIf="showRegister">
+			<register></register>
+		</ng-container>
 	</ng-container>
 
-    <ng-container *ngIf="!mobileRegister">
-    	<login-component></login-component>
-  </ng-container>
-  <h6 (click)="newLogin()"> CLICK HERE LOGIN PAGE </h6>
-<div *ngIf="!showRegister" class="register-container">
-        <h4>Forgot Password?</h4>
-        <div>
-            <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset Password</button>
-        </div>
-</div>
-
-	<div *ngIf="!showRegister" class="register-container">
-		<h4>Not registered?</h4>
-		<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
-	</div>
-
-	<div *ngIf="!showRegister" class="mobile-register-container" >
-		<h6 (click)="mobileRegisterForm()">sign up</h6>
-	</div>
-
-</ng-container>
-
-<ng-container *ngIf="showRegister">
-	<register></register>
-</ng-container>
-
-<ng-container *ngIf="auth.isLoggedIn()">
-
-
-
-
-
+<ng-container *ngIf="isElectron || auth.isLoggedIn()">
   <h1>Start New Assessment</h1>
   <font color="grey">Please fill in required fields denoted by the <sup>*</sup>  (asterisk)</font>
   <br><br>
