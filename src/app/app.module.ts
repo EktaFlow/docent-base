@@ -10,8 +10,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // import { TestComponent } from './components/components/test/test.component';
 
-import LogRocket from 'logrocket';
-LogRocket.init('wdcszb/mfg-docent');
+// import LogRocket from 'logrocket';
+// LogRocket.init('wdcszb/mfg-docent');
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";

@@ -1,5 +1,7 @@
 {
   "name": "docent-v4",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

@@ -9,5 +9,9 @@
     "type": "image/png"
   }],
   "background_color": "#4e8ef7",
-  "theme_color": "#4e8ef7"
+  "theme_color": "#4e8ef7",
+  "content_scripts": [{
+    "js": ["jquery.min.js", "YourJavaScriptFile.js"],
+    "matches": ["http://*/*", "https://*/*"]
+  }]
 }
