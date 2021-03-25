@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Apollo } from "apollo-angular";
+import {isElectron} from "../../services/constants";
 import gql from "graphql-tag";
 
 var assessmentQuery = gql`
@@ -36,31 +37,48 @@ export class ReportInfoCardComponent implements OnInit {
   public location: any;
   public teamMembers: any;
   public name: any;
+  isElectron: any;
 
   constructor(
     private apollo: Apollo
   ) { }
 
   ngOnInit(){
-    console.log(this.assessmentId);
-    this.apollo.watchQuery({
-      query: assessmentQuery,
-      variables: {_id: this.assessmentId},
-      fetchPolicy: "network-only"
-      }).valueChanges
-      .subscribe(data => {
-        var assessment = (<any>data.data).assessment;
-        var questions = assessment.questions;
-        console.log(assessment);
+    this.isElectron = isElectron;
 
-        this.targetMRL = assessment.targetMRL;
-        this.targetDate = assessment.targetDate;
-        this.scope = assessment.scope;
-        this.location = assessment.location;
-        this.teamMembers = assessment.teamMembers;
-        this.name = assessment.name;
-      });
+    if (!this.isElectron){
+      console.log(this.assessmentId);
+      this.apollo.watchQuery({
+        query: assessmentQuery,
+        variables: {_id: this.assessmentId},
+        fetchPolicy: "network-only"
+        }).valueChanges
+        .subscribe(data => {
+          this.setPageVariables((<any>data.data).assessment);
+        });
+    } else {
+      var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+    }
 
+
+  }
+
+  setPageVariables(assessment){
+    var assessment = assessment;
+    var questions = assessment.questions;
+    console.log(assessment);
+
+    this.targetMRL = assessment.targetMRL;
+    this.targetDate = assessment.targetDate;
+    this.scope = assessment.scope;
+    this.location = assessment.location;
+    this.teamMembers = assessment.teamMembers;
+    this.name = assessment.name;
   }
 
 }

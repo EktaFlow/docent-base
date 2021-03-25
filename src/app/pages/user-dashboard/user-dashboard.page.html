@@ -1,5 +1,6 @@
 <topbar [assessmentId]="assessmentId" [pageName]="pageName" class="mobile"></topbar>
-<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [pageName]="pageName" class="desktop"></topbar>
+<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [inAssessment]="inAssessment" [pageName]="pageName" class="desktop"></topbar>
+
 <ion-content class="ion-padding">
 
   <div class="mobile-wrapper">
@@ -9,8 +10,8 @@
       </div>
     </div>
 
-    <div class="assessment-boxes">
-      <div class="assessments user-assessments">
+    <div class="assessment-boxes" *ngIf="!isElectron">
+      <div class="assessments user-assessments" >
         <div class="box-title desktop">
           <h3><b>My Assessments</b></h3>
         </div>
@@ -75,7 +76,7 @@
       </div>
 
 
-      <div class="assessments shared-assessments">
+      <div class="assessments shared-assessments" >
         <div class="box-title desktop">
           <h3><b>Assessments Shared With Me</b></h3>
         </div>
@@ -136,8 +137,20 @@
     </div> -->
 
 </div>
-<div class="qspacer"></div>
 
+<div class="standalone-wrapper" *ngIf="isElectron">
+  <div class="button-wrapper">
+    <button class="large-button" ion-button color="buttonBlue" (click)="redirectToCreate()">Start New Assessment</button>
+    <button class="large-button" ion-button color="buttonBlue" (click)="showLoadIn()">Load in Assessment</button>
+  </div>
+  <div *ngIf="showLoad" class="load-in">
+    <label for="newAss">Select File</label>
+    <input type="file" id="newAss" placeholder="Choose File">
+    <button ion-button color="buttonBlue" (click)="handleLoadIn($event)" type="submit">Load in Assessment</button>
+  </div>
+
+</div>
+<div class="qspacer"></div>
 
 
 

@@ -1,0 +1,42 @@
+
+<topbar [assessmentId]="assessmentId" [pageName]="pageName" [inAssessment]="inAssessment"> </topbar>
+
+<ion-content padding>
+
+
+
+  <contacts-dropdown [contacts]="feedbackContacts" class="desktop">
+  </contacts-dropdown>
+
+  <div class="mobile feedback-container">
+  	<h3>Feedback Contacts</h3>
+  	<div *ngFor="let contact of feedbackContacts" class="contact">
+  		<h6>{{contact.name}}</h6>
+  		<p>{{contact.organization}}</p>
+  		<p>{{contact.email}}</p>
+  	</div>
+  </div>
+
+
+  <div id="faq-questions-container" *ngFor="let faq of faqInfoStandalone" class="desktop">
+    <faq-dropdown [faq]="faq">
+    </faq-dropdown>
+  </div>
+
+  <div class="mobile faqs-container">
+    <div *ngFor="let faq of faqInfoStandalone">
+      <div class="header">
+        <h3 class="title">{{faq.help_title}} </h3>
+        <ion-icon  *ngIf="currentQ != faq.help_title" name="arrow-dropdown" class="arrow" (click)="toggleFaq(faq.help_title)"></ion-icon>
+        <ion-icon *ngIf="currentQ == faq.help_title" name="arrow-dropup" class="arrow"(click)="toggleFaq('')"></ion-icon>
+      </div>
+      <div class="answer-text" *ngIf="currentQ == faq.help_title">
+        <p [innerHTML]="faq.help_text"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="qspacer"></div>
+
+</ion-content>

@@ -3,6 +3,7 @@ import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { ActivatedRoute } from '@angular/router';
+import {isElectron} from "../../services/constants";
 
 import { ContactsDropdownComponent } from '../../components/contacts-dropdown/contacts-dropdown.component';
 import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown.component';
@@ -24,7 +25,8 @@ export class FaqsPage implements OnInit {
   private faqInfoIOS:        any;
   private faqInfoAndroid:    any;
   private feedbackContacts: any;
-
+  isElectron: any;
+  inAssessment: any;
 
   constructor(
                public http:      HttpClient,
@@ -35,6 +37,16 @@ export class FaqsPage implements OnInit {
           this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
   }
 
+  ngOnInit() {
+      this.mainTitle = "Frequently Asked Questions";
+      this.isElectron = isElectron;
+      if (this.isElectron) {
+        var myStorage = window.localStorage;
+        if (myStorage.getItem('inAssessment') == 'true'){
+          this.inAssessment = true;
+        }
+      }
+  }
 
 
 
@@ -76,8 +88,6 @@ export class FaqsPage implements OnInit {
 
 
 
-  ngOnInit() {
-      this.mainTitle = "Frequently Asked Questions";
-  }
+
 
 }

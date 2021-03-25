@@ -6,6 +6,8 @@ import { QuestionsPage } from "../../pages/questions/questions.page";
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
 import { ActivatedRoute} from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
+import {isElectron} from "../../services/constants";
+
 import * as XLSX from 'xlsx';
 
 import { Apollo } from "apollo-angular";
@@ -72,6 +74,9 @@ export class SummaryPage implements OnInit {
 				autoFilter = true;
 				filteredSchema: any;
         noExtraQuestions: boolean;
+        isElectron: any;
+        inAssessment: any;
+
 
 	ionViewWillEnter() {
             GoogleAnalytics.trackPage("MRLSummary");
@@ -87,58 +92,66 @@ export class SummaryPage implements OnInit {
 
 
 	ngOnInit() {
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-                            var assessment = (<any>data.data).assessment;
-                            var questions = assessment.questions;
-			    									this.allQuestions = assessment.questions;
-                            // console.log(this.questions);
-                            questions = questions.filter(q => q.threadName.length > 1);
-                            this.targetMRL = assessment.targetMRL;
+    this.isElectron = isElectron;
 
-                this.unfilteredQuestions = questions;
+    if (!this.isElectron){
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
+				.subscribe(data => {
+          this.setPageVariables((<any>data.data).assessment)
+				});
+    } else {
+      var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+        this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+    }
 
-                var extraQuestions = questions.filter(q => q.answers.length > 0);
-                for (let question of extraQuestions){
-                  question = question.answers.filter(a => a.answer == null);
-                }
-                extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+	}
+
+  setPageVariables(assessment){
+    var assessment = assessment;
+    var questions = assessment.questions;
+    this.allQuestions = assessment.questions;
+        questions = questions.filter(q => q.threadName.length > 1);
+        this.targetMRL = assessment.targetMRL;
+
+    var mainQuestions = questions.filter(q => q.mrLevel == this.targetMRL);
+
+    var extraQuestions = questions.filter(q => q.answers.length > 0);
+    for (let question of extraQuestions){
+    question = question.answers.filter(a => a.answer == null);
+    }
+    extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+
+    this.schema = this.grabRiskScores(this.unfilteredQuestions);
+		this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
+    console.log(this.schema);
+		if (this.autoFilter){
+			this.filterList.filterMRL = this.targetMRL;
+			this.filterList.filterTitle = this.targetMRL;
+			this.filterTheList();
+		}
 
 
+    this.schema = this.grabRiskScores(mainQuestions);
+    console.log(this.schema);
 
-                this.schema = this.grabRiskScores(this.unfilteredQuestions);
-								this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
-                console.log(this.schema);
-								if (this.autoFilter){
-									this.filterList.filterMRL = this.targetMRL;
-									this.filterList.filterTitle = this.targetMRL;
-									this.filterTheList();
-								}
-
-                this.noExtraQuestions = true;
-
-                if (extraQuestions.length > 0){
-                  this.noExtraQuestions = false;
-                  this.nonLevelSchema = this.grabRiskScores(extraQuestions);
-                  console.log(this.nonLevelSchema);
-                }
-
+    this.noExtraQuestions = true;
 
 		});
 	}
 	filterTheList() {
-		// console.log("in filterthelist")
-		// console.log(this.filterList.filterMRL);
 
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.unfilteredQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
 			this.filteredSchema = this.grabRiskScores(filteredQuestions);
 			this.filterList.filterTitle = this.filterList.filterMRL;
-			// console.log(this.filteredSchema);
 		} else {
 			this.filteredSchema = this.grabRiskScores(this.unfilteredQuestions);
 			this.filterList.filterTitle = '';

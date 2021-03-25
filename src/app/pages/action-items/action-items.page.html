@@ -48,54 +48,6 @@
         [columnMode]="'force'"
 
       >
-      <!-- Row Detail Template -->
-        <!-- <ngx-datatable-row-detail [rowHeight]="50" #myDetailRow (toggle)="onDetailToggle($event)">
-          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
-            <div style="padding-left:60px; font-size:14px">
-              <div>{{ row.thread }}, {{ row.subthread }}, {{row.question}}, {{row.answer}}</div>
-            </div>
-          </ng-template>
-        </ngx-datatable-row-detail>
-        <ngx-datatable-column
-          [width]="50"
-          [resizeable]="false"
-          [sortable]="false"
-          [draggable]="false"
-          [canAutoResize]="false"
-        >
-          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <a
-              href="#"
-              [class.datatable-icon-right]="!expanded"
-              [class.datatable-icon-down]="expanded"
-              title="Expand/Collapse Row"
-              (click)="toggleExpandRow(row)"
-              class="desktop-hidden"
-            >
-            </a>
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
-          <ng-template let-value="value" ngx-datatable-cell-template>
-            {{ value }}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Gender" [flexGrow]="1">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-            <span class="mobile-hidden">{{ column.name }}</span>
-          </ng-template>
-          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <span class="mobile-hidden">{{ value }}</span>
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Age" [flexGrow]="1">
-          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-            <span class="mobile-hidden">{{ column.name }}</span>
-          </ng-template>
-          <ng-template let-value="value" ngx-datatable-cell-template>
-            <span class="mobile-hidden">{{ value }}</span>
-          </ng-template>
-        </ngx-datatable-column> -->
       </ngx-datatable>
 
 

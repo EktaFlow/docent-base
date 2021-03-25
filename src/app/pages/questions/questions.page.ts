@@ -10,6 +10,7 @@ import { TopbarComponent } from "../../components/topbar/topbar.component";
 import {FileUploadPopoverComponent} from "../../components/file-upload-popover/file-upload-popover.component";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover.component';
+import {isElectron} from "../../services/constants";
 
 import { ActivatedRoute } from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
@@ -40,6 +41,8 @@ export class QuestionsPage implements OnInit {
 	currentQPos: any;
   public getAssessmentId = true;
 	noSecondBar: boolean = true;
+	isElectron: any;
+	inAssessment: any;
 
 	constructor(public help: Helpers,
               private storage: Storage,
@@ -73,35 +76,44 @@ export class QuestionsPage implements OnInit {
 	/////////////////////////////////////////////////////////////////////
 	// INIT && related function
   async ngOnInit() {
+		this.isElectron = isElectron;
+		if (!isElectron){
+			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 
-		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+			// if we don't already have a loaded assessment.
+			var currentAssessment = await this.assessmentService
+															 .getQuestionPageAssessment(this.assessmentId)
 
-		// if we don't already have a loaded assessment.
-		var currentAssessment = await this.assessmentService
-														 .getQuestionPageAssessment(this.assessmentId)
+				currentAssessment.subscribe( ({data, loading}) => {
+					this.setPageVariables(data.assessment);
+			});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+				console.log(myStorage);
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				// console.log(fullAssessment);
+				// console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
 
-			currentAssessment.subscribe( ({data, loading}) => {
-				this.assessment = data.assessment;
-        this.files = data.assessment.files;
-				var {assessment} = this;
-				this.allQuestions = assessment.questions;
-				this.targetMRL = assessment.targetMRL;
-				this.currentTargetMRL = assessment.targetMRL;
-				this.surveyQuestions = this.setSurveyQuestions();
-				console.log(this.allQuestions);
-				console.log(this.surveyQuestions);
-				// add if no currentQuestionId
-				this.determineCurrentQuestion();
-
-				//pullLatestAnswer
-				//if there is no latestAnswer then return empty object
-				//put in latestAnswer into this.filterAnswerVals()
-        // call this setLatestAnswer
-				this.pullLatestAnswer(this.currentQuestion);
-				this.findAmtOfQs();
-		this.vals.when = this.formatDate();
-		})
   }
+
+	setPageVariables(assessment){
+		this.assessment = assessment;
+		this.files = this.assessment.files;
+		this.allQuestions = this.assessment.questions;
+		this.targetMRL = this.assessment.targetMRL;
+		this.currentTargetMRL = this.assessment.targetMRL;
+		this.surveyQuestions = this.setSurveyQuestions();
+		this.determineCurrentQuestion();
+		this.pullLatestAnswer(this.currentQuestion);
+		this.findAmtOfQs();
+		this.vals.when = this.formatDate();
+
+	}
 
 
   // @return - an array of ints
@@ -266,6 +278,8 @@ export class QuestionsPage implements OnInit {
 		alert("This question has been saved");
 	}
 
+
+
 	/////////////////////////////////////////////////////////////////////////
 	///////////// FUNCTIONS DEALING WITH VALUE SETTING /////////////////////
 
@@ -300,8 +314,11 @@ export class QuestionsPage implements OnInit {
 		var oldAssessment = this.allQuestions.map( q => Object.assign({}, q));
 		var newerQuestion = oldAssessment[this.currentQuestion.questionId - 1];
 
-		var currentUser = this.auth.currentUser();
-		values.userId = currentUser._id;
+		if (!isElectron){
+			var currentUser = this.auth.currentUser();
+			values.userId = currentUser._id;
+		}
+
 		values.updatedAt = new Date();
     // we're setting this earlier.
     //values.answer = values.currentAnswer;
@@ -336,8 +353,24 @@ export class QuestionsPage implements OnInit {
 				console.log('no offline answers');
 			}
 
-		var tempQuestion = {
-			"currentAnswer": newerQuestion.currentAnswer
+		if (!this.isElectron){
+			var tempQuestion = {
+				"currentAnswer": newerQuestion.currentAnswer
+			}
+
+			var updatedInfo = {
+				_id: this.assessmentId,
+				questionId: Number(this.currentQuestion.questionId),
+				questionUpdates: tempQuestion,
+				answerUpdates: values
+			};
+			var update = await this.assessmentService.updateQuestion(updatedInfo);
+			update.subscribe(data => null);
+		} else {
+			var myStorage = window.localStorage;
+			var oldAssessment = JSON.parse(myStorage.getItem('currentAssessment'));
+			oldAssessment.questions = this.allQuestions;
+			myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment));
 		}
 
 		var updatedInfo = {

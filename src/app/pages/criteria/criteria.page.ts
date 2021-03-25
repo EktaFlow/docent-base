@@ -4,6 +4,8 @@ import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { HttpClient } from '@angular/common/http';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
+import {isElectron} from "../../services/constants"
+
 
 import { QuestionsPage } from '../../pages/questions/questions.page';
 
@@ -38,6 +40,8 @@ export class CriteriaPage implements OnInit {
 	filteredSchema: any;
 	showAll: any = true;
 	pageName: any = "Criteria";
+	isElectron: any;
+	inAssessment: any;
 
 	constructor( private apollo: 			 Apollo,
 							 public popOver: 			 PopoverController,
@@ -54,20 +58,40 @@ export class CriteriaPage implements OnInit {
 	unique = (item, index, array) => array.indexOf(item) == index
 
 	async ngOnInit() {
-		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-					console.log(data);
-					this.allQuestions = (<any>data.data).assessment.questions;
-					// this.schema = this.createSchemaObject(this.allQuestions);
-					this.filteredSchema = this.createSchemaObject(this.allQuestions);
-					this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
-			});
+		this.isElectron = isElectron;
+
+		if (!this.isElectron){
+			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
+				.subscribe(data => {
+						this.setPageVariables((<any>data.data).assessment);
+				});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
+
 	}
+
+	setPageVariables(assessment){
+		this.allQuestions = assessment.questions;
+		// this.schema = this.createSchemaObject(this.allQuestions);
+		this.filteredSchema = this.createSchemaObject(this.allQuestions);
+		this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
+		console.log(this.schema);
+	}
+
 
 	filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)
 

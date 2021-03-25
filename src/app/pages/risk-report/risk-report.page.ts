@@ -4,6 +4,8 @@ import { TopbarComponent } from "../../components/topbar/topbar.component";
 import {ReportInfoCardComponent} from '../../components/report-info-card/report-info-card.component';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import {ActivatedRoute, Router} from "@angular/router"
+import {isElectron} from "../../services/constants";
+
 import * as XLSX from 'xlsx';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -64,6 +66,8 @@ export class RiskReportPage implements OnInit {
 	unfilteredQuestions: any;
 	autoFilter = true;
 	filteredSchema: any;
+	isElectron: any;
+  inAssessment: any;
 
   constructor(
     private apollo: Apollo,
@@ -77,39 +81,58 @@ export class RiskReportPage implements OnInit {
   }
 
   async ngOnInit(){
-    this.apollo.watchQuery({
-      query: assessmentQuery,
-      variables: {_id: this.assessmentId},
-      fetchPolicy: "network-only"
-      }).valueChanges
-      .subscribe(data => {
-        var assessment = (<any>data.data).assessment;
-        this.unfilteredQuestions = assessment.questions;
-        this.targetMRL = assessment.targetMRL;
-        var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
-        for (let question of extraQuestions){
-          question = question.answers.filter(a => a.answer == null);
-        }
-        extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
-        this.extraQuestions = extraQuestions;
+    this.isElectron = isElectron;
 
-        this.schema = this.createSchemaObject(this.unfilteredQuestions);
-				this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
-				this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
-				console.log(this.filteredSchema)
+    if(!this.isElectron){
+      this.apollo.watchQuery({
+        query: assessmentQuery,
+        variables: {_id: this.assessmentId},
+        fetchPolicy: "network-only"
+        }).valueChanges
+        .subscribe(data => {
+          this.setPageVariables((<any>data.data).assessment);
+        });
+    } else {
+      var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+        this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+    }
 
-				if (this.autoFilter){
-					this.filterList.filterMRL = this.targetMRL;
-					this.filterTheList();
-					this.filterList.filterTitle = this.targetMRL;
-				}
+  }
 
+  setPageVariables(assessment){
+    var assessment = assessment;
+    var questions = assessment.questions.filter(q => q.mrLevel == assessment.targetMRL);
+     this.questions = questions;
+    this.targetMRL = assessment.targetMRL;
+    var extraQuestions = assessment.questions.filter(q => q.answers.length > 0);
+    for (let question of extraQuestions){
+      question = question.answers.filter(a => a.answer == null);
+    }
+    extraQuestions = extraQuestions.filter(q => q.mrLevel != assessment.targetMRL);
+    this.extraQuestions = extraQuestions;
 
-      });
+    this.schema = this.createSchemaObject(questions);
+
+    if (extraQuestions.length > 0){
+      this.noExtraQuestions = false;
+      this.nonLevelSchema = this.createSchemaObject(extraQuestions);
+    }
+		this.schema = this.createSchemaObject(this.unfilteredQuestions);
+		this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
+		this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
+		if (this.autoFilter){
+			this.filterList.filterMRL = this.targetMRL;
+			this.filterTheList();
+			this.filterList.filterTitle = this.targetMRL;
+		}
   }
 
   createSchemaObject(questionsArray) {
-		console.log("im in heree")
 	   var threadNames = questionsArray.map(a => a.threadName)
 					  											 .filter(this.unique);
 

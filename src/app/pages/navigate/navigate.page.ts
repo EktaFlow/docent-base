@@ -3,6 +3,7 @@ import { NavController, PopoverController } from '@ionic/angular';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
 import { TopbarComponent } from "../../components/topbar/topbar.component";
 import { QuestionsPage } from '../../pages/questions/questions.page';
+import {isElectron} from "../../services/constants";
 
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Router, ActivatedRoute } from "@angular/router";
@@ -46,6 +47,9 @@ export class NavigatePage implements OnInit {
 	mrlArray: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	autoFilter: any = true;
 	pageName: any = "Questions List";
+	isElectron: any;
+	inAssessment: any;
+
 
 	constructor( private apollo: 			 Apollo,
 							 public popOver: 			 PopoverController,
@@ -65,36 +69,51 @@ export class NavigatePage implements OnInit {
   }
 
 	ngOnInit() {
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-					this.allQuestions = (<any>data.data).assessment.questions;
-					this.targetLevel = (<any>data.data).assessment.targetMRL;
-					this.schema = this.createSchemaObject(this.allQuestions);
-					this.filteredSchema = this.createSchemaObject(this.allQuestions);
-					this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+		this.isElectron = isElectron;
 
-					// filterTheList();
-
-					console.log(this.allQuestions);
-					console.log(this.schema);
-    			//this.state.fill(false);
-//    			this.create();
-
-					if (this.autoFilter){
-						this.filterList.filterMRL = this.targetLevel;
-						this.filterTheList();
-					}
-			});
+		if (!this.isElectron){
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
+				.subscribe(data => {
+					this.setPageVariables((<any>data.data).assessment);
+				});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
 
 			if (this.expandAllFromQs) {
 				this.expandAllThreads();
 			}
 
+	}
 
+	setPageVariables(assessment){
+		this.allQuestions = assessment.questions;
+		this.targetLevel = assessment.targetMRL;
+		this.schema = this.createSchemaObject(this.allQuestions);
+		this.filteredSchema = this.createSchemaObject(this.allQuestions);
+		this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
+
+		// filterTheList();
+
+		console.log(this.allQuestions);
+		console.log(this.schema);
+		//this.state.fill(false);
+//    			this.create();
+
+		if (this.autoFilter){
+			this.filterList.filterMRL = this.targetLevel;
+			this.filterTheList();
+		}
 	}
 
 	filterUnique = (array, property=null) => property ? this.filterByProperty(array, property) : this.filterByValue(array)

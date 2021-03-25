@@ -13,6 +13,7 @@ import { isElectron } from '../../services/constants';
 import { ElectronService } from '../../services/electron.service';
 
 
+
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
@@ -43,6 +44,9 @@ export class HomePage implements OnInit {
   public threads: any;
   public threadsSelectButton: string = 'Unselect All';
 	assessment: any;
+	isElectron: any;
+	pageName: any = "";
+	noSecondBar: any = false;
 
   constructor(
 							public popOver: PopoverController,
@@ -52,7 +56,9 @@ export class HomePage implements OnInit {
               private http: HttpClient,
 							private loadingCtrl: LoadingController,
 							private toastCtrl: ToastController,
-							public router: Router) {}
+							public router: Router,
+							private electron: ElectronService
+						) {}
 
 							ionViewWillEnter() {
 						    GoogleAnalytics.trackPage("home");
@@ -128,39 +134,69 @@ export class HomePage implements OnInit {
 		console.log(this.schema)
 		this.presentLoadingDefault();
 
-		var newAssessment = await this.assessmentService.createAssessment(variables);
-		newAssessment.toPromise()
-            .then( d => {
-              console.log(d);
+		if(isElectron){
+			var myStorage = window.localStorage;
+			console.log(variables);
+			console.log(JSON.parse(variables.schema));
 
-              // var assessmentId = d.data.createAssessment._id;
-							var assessmentId = (d.data as any).createAssessment._id;
-              this.sendEmailsToTeamMembers(assessmentId);
-              this.startAssessment(assessmentId);
 
-            })
-            .catch(e => {
-              alert('invalid JSON');
-            });
+			variables['questions'] = this.electron.drillQuestions(JSON.parse(variables.schema));
+			 delete variables.schema;
+			console.log(variables);
+			var newElectronAss = JSON.stringify(variables);
+			myStorage.setItem('currentAssessment', newElectronAss);
+			myStorage.setItem('inAssessment', 'true');
+			this.navCtrl.push(QuestionsPage);
+		}
+
+		if(!isElectron){
+			var newAssessment = await this.assessmentService.createAssessment(variables);
+			newAssessment.toPromise()
+	            .then( d => {
+	              console.log(d);
+
+	              // var assessmentId = d.data.createAssessment._id;
+								var assessmentId = (d.data as any).createAssessment._id;
+	              this.sendEmailsToTeamMembers(assessmentId);
+	              this.startAssessment(assessmentId);
+							});
+
+			}
 
 	}
 
 	formatAssessmentVariables() {
 		var formValues = this.assForm;
-		return {
-			threads:            formValues.threads,
-			location:           formValues.location,
-			targetMRL:          formValues.targetMRL,
-			name:               formValues.name,
-			levelSwitching:     formValues.levelSwitching,
-			deskbookVersion:    formValues.deskBookVersion,
-			teamMembersUpdates: formValues.teamMembers,
-			userId:						  this.auth.currentUser()._id,
-			userEmail: 		      this.auth.currentUser().email,
-			scope:            formValues.scope,
-			targetDate:       formValues.targetDate,
-			schema: 					JSON.stringify(this.schema)
-		};
+		if (!this.isElectron){
+			return {
+				threads:            formValues.threads,
+				location:           formValues.location,
+				targetMRL:          formValues.targetMRL,
+				name:               formValues.name,
+				levelSwitching:     formValues.levelSwitching,
+				deskbookVersion:    formValues.deskBookVersion,
+				teamMembersUpdates: formValues.teamMembers,
+				userId:						  this.auth.currentUser()._id,
+				userEmail: 		      this.auth.currentUser().email,
+				scope:            formValues.scope,
+				targetDate:       formValues.targetDate,
+				schema: 					JSON.stringify(this.schema)
+			};
+		} else {
+			return {
+				threads:          formValues.threads,
+				location:         formValues.location,
+				targetMRL:        formValues.targetMRL,
+				name:             formValues.name,
+				levelSwitching:   formValues.levelSwitching,
+				deskBookVersion:  formValues.deskBookVersion,
+				// teamMembersUpdates:      formValues.teamMembers,
+				scope:            formValues.scope,
+				targetDate:       formValues.targetDate,
+				schema: 					JSON.stringify(this.schema)
+			};
+		}
+
 	}
 
 	async sendEmailsToTeamMembers(assessmentId) {
@@ -187,6 +223,8 @@ export class HomePage implements OnInit {
 
 	// this function sets a couple default values and brings in the threads
 	async ngOnInit() {
+
+		this.isElectron = isElectron;
 	// setting defaults, ionic is weird with this.
   //have to cast to HTMLInputElement which contains value prop
     var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
@@ -194,19 +232,26 @@ export class HomePage implements OnInit {
     tmp = <HTMLInputElement>document.getElementById("deskbook-select");
 	  tmp ? tmp.value = "2020" : null;
 
-		if (this.auth.currentUser()) {
-      var cool = await this.assessmentService.getDefaultThreads()
-      cool.subscribe( threads => this.threads = threads );
-		this.apollo.watchQuery<any>({
-			query: threadsQuery
-			})
-			 .valueChanges
-			 .subscribe(({data, loading}) => {
+		if (!this.isElectron){
+			if (this.auth.currentUser()) {
+	      var cool = await this.assessmentService.getDefaultThreads()
+	      cool.subscribe( threads => this.threads = threads );
+				this.apollo.watchQuery<any>({
+					query: threadsQuery
+				})
+				 .valueChanges
+				 .subscribe(({data, loading}) => {
 
-					this.setUpDeskbookArray();
-			 });
+	      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+						this.setUpDeskbookArray();
+				 });
 
-			 }
+				 }
+		}
+
+				// 	this.setUpDeskbookArray();
+			 // });
+
 
 	}
 

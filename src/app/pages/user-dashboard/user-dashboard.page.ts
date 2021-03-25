@@ -17,6 +17,9 @@ import { ImportComponent } from "../../components/import/import.component";
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { saveAs } from "file-saver/FileSaver";
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { isElectron } from "../../services/constants";
+
 import {Subscription} from "rxjs";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -98,6 +101,9 @@ export class UserDashboardPage implements OnInit {
     id: ""
   };
 
+	isElectron: any;
+	inAssessment: any;
+
   assessments: any;
 	sharedAssessments: any = [];
   loading: boolean;
@@ -112,6 +118,7 @@ export class UserDashboardPage implements OnInit {
 	showMine: boolean = false;
 	showShared: boolean = false;
 	assessmentsBox: any;
+	showLoad: boolean = false;
 
   constructor(
 							private apollo: Apollo,
@@ -124,18 +131,41 @@ export class UserDashboardPage implements OnInit {
               }
 
 
-							ionViewWillEnter() {
-						    GoogleAnalytics.trackPage("user-dashboard");
-						  }
+							// ionViewWillEnter() {
+						  //   GoogleAnalytics.trackPage("user-dashboard");
+						  // }
 
   async ngOnInit() {
 
-		// TODO make this better
-		await this.getSharedAssessments();
-		this.pullSharedAssessments();
+		this.isElectron = isElectron;
 
-		var user = this.auth.currentUser();
-		this.user = user;
+		// TODO make this better
+		if (!this.isElectron){
+			await this.getSharedAssessments();
+			this.pullSharedAssessments();
+
+			var user = this.auth.currentUser();
+			this.user = user;
+
+			var observe =  await this.assessmentService.getAssessments(user);
+			observe.subscribe(({data}) => {
+				this.assessments = data.assessments;
+				this.assessments = JSON.parse(JSON.stringify(this.assessments));
+				console.log(this.assessments);
+			});
+			if (window.screen.width > 440) {
+				this.showMine = true;
+				this.showShared = true;
+			}
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem("inAssessment") == "true"){
+				if (myStorage.getItem("currentAssessment") == "undefined"){
+					myStorage.setItem("inAssessment", "false");
+					this.inAssessment = false;
+				} else {
+					this.inAssessment = true;
+				}
 
 		var observe =  await this.assessmentService.getAssessments(user);
 		observe.subscribe(({data}) => {
@@ -157,7 +187,6 @@ export class UserDashboardPage implements OnInit {
 			this.showMine = true;
 			this.showShared = true;
 		}
-
 
 
   }
@@ -360,4 +389,28 @@ export class UserDashboardPage implements OnInit {
 		this.assessments = newArr;
 	}
 
+	showLoadIn(){
+		// console.log(this.showLoad);
+		this.showLoad = !this.showLoad;
+		// console.log(this.showLoad);
+	}
+
+	handleLoadIn(event){
+		var file = (<HTMLInputElement>document.getElementById("newAss")).files[0];
+		var reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = (e) => {
+			var text = (<any>e.target).result;
+			var myStorage = window.localStorage;
+			var ass = JSON.parse(text);
+			if (ass.assessment){
+				var actual = ass.assessment;
+				myStorage.setItem('currentAssessment', JSON.stringify(actual));
+			} else {
+				myStorage.setItem('currentAssessment', JSON.stringify(ass));
+			}
+			myStorage.setItem('inAssessment', 'true');
+			this.navCtrl.push(QuestionsPage);
+		};
+	}
 }

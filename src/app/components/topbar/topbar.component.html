@@ -9,17 +9,20 @@
             <ion-button [routerLink]="'/user-dashboard'" color="dark" id="user-dash-button">
               Home
             </ion-button>
-            <ion-button (click)="handleContinue()" *ngIf="this.assessmentId && !noSecondBar" color="dark" id="continue-assessment-button">
+            <ion-button (click)="handleContinue()" *ngIf="(this.assessmentId && !noSecondBar) || (isElectron && inAssessment && !noSecondBar)" color="dark" id="continue-assessment-button">
         			Continue Assessment
         		</ion-button>
-            <ion-button *ngIf="this.assessmentId" (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
+            <ion-button *ngIf="this.assessmentId || (isElectron && inAssessment)" (click)="presentViewsPop($event)" color="dark" id="assessment-open-button">
                 Reports
             </ion-button>
             <ion-button (click)="showHelp($event)" color="dark" id="help-open-button">
                 Help
             </ion-button>
-            <ion-button *ngIf="auth.isLoggedIn()" (click)="handleLogout()" color="dark" id="logout-button">
+            <ion-button *ngIf="auth.isLoggedIn() && !isElectron" (click)="handleLogout()" color="dark" id="logout-button">
 								Logout
+            </ion-button>
+            <ion-button *ngIf="isElectron && inAssessment" (click)="handleSaveAssessment()" color="dark" id="save-ass-button">
+              Save Assessment
             </ion-button>
           </div>
 
@@ -47,12 +50,12 @@
           <h1 class="page-name"></h1>
         </div> -->
 
-        <div *ngIf="assessmentId && noSecondBar != false && !pageName" class="subheader">
+        <div *ngIf="(assessmentId && noSecondBar != false && !pageName) || (isElectron && !pageName && noSecondBar != false)" class="subheader">
           <div *ngIf="mainTitle">
             <p class="mobile"><span (click)="presentThreadPop($event, 'true')" title="This opens a pop up with the threads and subthreads in this assessment" id="open-thread-popover" class="thread-pop-link mobile-link">Current MR Level: {{this.questionLevel}} | Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'true')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link mobile-link">SubThread: {{this.subTitle}}</span></p>
             <p class="desktop"><span (click)="presentThreadPop($event, 'false')" title="This opens a pop up with the threads and subthreads in this assessment" id="open-thread-popover" class="thread-pop-link">Current MR Level: {{this.questionLevel}} | Thread: {{this.mainTitle}}</span> | <span (click)="presentSubThreadPop($event, 'false')" title="This opens a pop up with all questions in the subthread" id="open-subthread-popover" class="subthread-pop-link">SubThread: {{this.subTitle}}</span></p>
             <p class="number-info"><span class="q-number" id="question-number-in-set">Question {{this.currentQPos}} out of {{this.currentQSetAmt}} </span> <span class="assessment-info-mobile mobile-link" (click)="toggleInfo($event)">| Assessment Info</span>  </p>
-            <p><span (click)="goToNavExpand()" class="show-all mobile-link" id="show-all-questions">Show All Questions</span> | <span (click)="toggleQuestionHistory()" class="question-pop-link mobile-link">Show Question History</span></p>
+            <p><span (click)="goToNavExpand()" class="show-all mobile-link" id="show-all-questions">Show All Questions</span><span (click)="toggleQuestionHistory()" class="question-pop-link mobile-link" *ngIf="!isElectron"> | Show Question History</span></p>
           </div>
 
             <div class="targets-scope">
@@ -64,10 +67,4 @@
           </div>
       </ion-toolbar>
     </ion-header>
-
-
-  <!-- <div *ngIf="popUpButtonClicked">
-    <subthread-popup [assessmentId] = "assessmentId"
-                                  [subTitle] = "this.subTitle"></subthread-popup>
-  </div> -->
 </div>

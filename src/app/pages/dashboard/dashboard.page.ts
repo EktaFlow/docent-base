@@ -9,6 +9,8 @@ import { LegendPopoverComponent } from '../../components/legend-popover/legend-p
 import {QuestionsPage} from '../../pages/questions/questions.page';
 import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
 import { Router, ActivatedRoute} from "@angular/router"
+import {isElectron} from "../../services/constants";
+
 
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -53,6 +55,8 @@ export class DashboardPage implements OnInit {
 	assessmentIdFromParams: any;
   private imageDownloading: boolean = false;
   private assessmentName: string;
+	isElectron: any;
+	inAssessment: any;
 
 	constructor( private apollo: Apollo,
 							 public popOver: PopoverController,
@@ -72,25 +76,42 @@ export class DashboardPage implements OnInit {
   }
 
 	async ngOnInit() {
-		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+		this.isElectron = isElectron;
 
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-					this.allQuestions = (<any>data.data).assessment.questions;
-					// console.log((<any>data.data).assessment);
-					this.questionSet  = this.createQuestionSet(this.allQuestions);
-					this.targetMRL = (<any>data.data).assessment.targetMRL;
-					console.log(this.questionSet);
-          this.assessmentName =  (<any>data.data).assessment.name;
-					this.questionSet = this.questionSet.filter(s => s.header.length > 1);
-					if (window.innerWidth > 1024){
-						this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
-					}
-			});
+		if (!this.isElectron){
+			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
+				.subscribe(data => {
+						this.setPageVariables((<any>data.data).assessment);
+				});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+				this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				console.log(JSON.parse(fullAssessment));
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
+
+	}
+
+	setPageVariables(assessment){
+		this.allQuestions = assessment.questions;
+		// console.log((<any>data.data).assessment);
+		this.questionSet  = this.createQuestionSet(this.allQuestions);
+		this.targetMRL = assessment.targetMRL;
+		console.log(this.questionSet);
+		this.assessmentName =  assessment.name;
+		this.questionSet = this.questionSet.filter(s => s.header.length > 1);
+		if (window.innerWidth > 1024){
+			this.questionSet.unshift({questions: [{subheader: 'MR Levels', answers: [1,2,3,4,5,6,7,8,9,10]}]});
+		}
 	}
 
   downloadPNG() {

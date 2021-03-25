@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import * as XLSX from 'xlsx';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
+import {isElectron} from "../../services/constants";
+
 
 var assessmentQuery = gql`
 query assessment($_id: String) {
@@ -58,6 +60,8 @@ export class ReviewPage implements OnInit {
 	filterList: any = {};
 	unfilteredQuestions: any;
 	autoFilter = true;
+	isElectron: any;
+	inAssessment: any;
 
 	constructor( private apollo: Apollo,
 							 public popOver: PopoverController,
@@ -83,50 +87,64 @@ export class ReviewPage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.apollo.watchQuery({
-			query: assessmentQuery,
-			variables: {_id: this.assessmentId},
-			fetchPolicy: "network-only"
-			}).valueChanges
-			.subscribe(data => {
-                            var assessment = (<any>data.data).assessment;
-                            var questions = assessment.questions;
+		this.isElectron = isElectron;
 
+		if (!this.isElectron){
+			this.apollo.watchQuery({
+				query: assessmentQuery,
+				variables: {_id: this.assessmentId},
+				fetchPolicy: "network-only"
+				}).valueChanges
+				.subscribe(data => {
+	          var assessment = (<any>data.data).assessment;
+	          this.setPageVariables(assessment);
+			});
+		} else {
+			var myStorage = window.localStorage;
+			if (myStorage.getItem('inAssessment') == 'true'){
+        this.inAssessment = true;
+				var fullAssessment = myStorage.getItem('currentAssessment');
+				this.setPageVariables(JSON.parse(fullAssessment));
+			}
+		}
 
-                            var answeredQuestions = [];
-                            questions.forEach(q => {
-                              if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
-                                 var drilledQuestion = {
-                                      questionId: q.questionId,
-                                   		questionText: q.questionText,
-                                      currentAnswer: q.answers[q.answers.length - 1].answer,
-                                      objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence,
-																			level: q.mrLevel,
-																			subThreadName: q.subThreadName,
-																			threadName: q.threadName
-                                 }
-                                 answeredQuestions.push(drilledQuestion);
-                              }
-                          	});
+	}
 
-										if (this.autoFilter){
-											this.filterList.filterMRL = assessment.targetMRL;
-											this.allQuestions = answeredQuestions.filter(question => {
-												if (question.level == assessment.targetMRL){
-													return question;
-												}
-											});
-									 } else {
-										 this.allQuestions = answeredQuestions;
-									 }
-                  // all questions is an array of answered questions.
-                  // preserving the names to leave markup the same.
-									this.unfilteredQuestions = answeredQuestions;
-									this.targetMRL = assessment.targetMRL;
-									this.targetDate = assessment.targetDate;
-									this.location = assessment.location;
-									this.files = assessment.files;
+	setPageVariables(assessment){
+		var questions = assessment.questions;
+		var answeredQuestions = [];
+		questions.forEach(q => {
+			if ( q.answers.length > 0 && q.answers[q.answers.length - 1].answer ) {
+				 var drilledQuestion = {
+							questionId: q.questionId,
+							questionText: q.questionText,
+							currentAnswer: q.answers[q.answers.length - 1].answer,
+							objectiveEvidence: q.answers[q.answers.length - 1].objectiveEvidence,
+							level: q.mrLevel,
+							subThreadName: q.subThreadName,
+							threadName: q.threadName
+				 }
+				 answeredQuestions.push(drilledQuestion);
+			}
 		});
+
+		if (this.autoFilter){
+		this.filterList.filterMRL = assessment.targetMRL;
+		this.allQuestions = answeredQuestions.filter(question => {
+		if (question.level == assessment.targetMRL){
+			return question;
+		}
+		});
+		} else {
+		 this.allQuestions = answeredQuestions;
+		}
+		// all questions is an array of answered questions.
+		// preserving the names to leave markup the same.
+		this.unfilteredQuestions = answeredQuestions;
+		this.targetMRL = assessment.targetMRL;
+		this.targetDate = assessment.targetDate;
+		this.location = assessment.location;
+		this.files = assessment.files;
 	}
 
 	filterTheList(){

@@ -1,4 +1,4 @@
-<topbar [pageName]="mainTitle" [assessmentId]="assessmentId"></topbar>
+<topbar [pageName]="mainTitle" [assessmentId]="assessmentId"  [inAssessment]="inAssessment"></topbar>
 
 <ion-content class="ion-padding">
 
@@ -6,7 +6,7 @@
 		<ion-row *ngFor="let definition of definitions">
 			<ion-card>
 				<ion-card-header>
-					<b>{{definition.term}}</b> 
+					<b>{{definition.term}}</b>
 				</ion-card-header>
 				<ion-card-content [innerHTML]="definition.definition">
 				</ion-card-content>

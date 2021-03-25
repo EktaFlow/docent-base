@@ -6,7 +6,9 @@
             [currentQSetAmt] = "this.currentQSetAmt"
     	      [values]="getQuestionValues()"
     	      [questionId]="currentQuestion.questionId"
-            [noSecondBar]="noSecondBar"> </topbar>
+            [noSecondBar]="noSecondBar"
+            [inAssessment]="inAssessment">
+</topbar>
 
 
 <ion-content class="ion-padding">
@@ -18,7 +20,8 @@
         <ion-button color="buttonBlue" (click) = "handlePreviousPageClick()" id="previous-button">Previous</ion-button>
         <ion-button color="buttonBlue" *ngIf="currentQPos != currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</ion-button>
         <ion-button color="buttonBlue" *ngIf="currentQPos == currentQSetAmt" (click) = "handleOnFinishedClick()" id="finish-button">Finish</ion-button>
-        <ion-button color="buttonBlue" (click) = "handleSave()" id="save-button">Save</ion-button>
+        <ion-button color="buttonBlue" *ngIf="!isElectron" (click) = "handleSave()" id="save-button">Save</ion-button>
+        <ion-button color="buttonBlue" *ngIf="isElectron" (click) = "handleSave()" id="save-button">Save Question</ion-button>
     </div>
   </div>
 

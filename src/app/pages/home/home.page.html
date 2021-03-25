@@ -1,6 +1,5 @@
 <title>Docent</title>
 
-<!-- <topbar [blank]="true"></topbar> -->
 
 	<ng-container *ngIf="!isElectron">
 		<ng-container *ngIf="auth.isLoggedIn()">
@@ -57,6 +56,7 @@
 	</div>
 
 <!-- Save for auth -->
+<ng-container *ngIf="!isElectron">
 <h6 class="team-members-title">Team Members</h6>
   <form class="member-form">
     <div class="member-list">
@@ -81,6 +81,7 @@
       </button>
     </div> -->
   </form>
+  </ng-container>
 
   <div class = "mid-first-page">
     <div class="scope">
