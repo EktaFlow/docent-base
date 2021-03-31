@@ -146,7 +146,8 @@ export class HomePage implements OnInit {
 			var newElectronAss = JSON.stringify(variables);
 			myStorage.setItem('currentAssessment', newElectronAss);
 			myStorage.setItem('inAssessment', 'true');
-			this.navCtrl.push(QuestionsPage);
+			// this.navCtrl.push(QuestionsPage);
+			this.router.navigate(["/questions"]);
 		}
 
 		if(!isElectron){

@@ -138,6 +138,7 @@ export class UserDashboardPage implements OnInit {
   async ngOnInit() {
 
 		this.isElectron = isElectron;
+		console.log(this.isElectron);
 
 		// TODO make this better
 		if (!this.isElectron){
@@ -190,6 +191,8 @@ export class UserDashboardPage implements OnInit {
 
 
   }
+}
+}
 
 
 
@@ -317,7 +320,9 @@ export class UserDashboardPage implements OnInit {
      // this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});
 	}
 
-	// redirectToCreate(){	this.navCtrl.push(HomePage);	}
+	// redirectToCreate(){	
+	// 	this.navCtrl.push(HomePage);
+	// }
 
   // handleSettings(){ this.navCtrl.push(SettingsPage);}
 
@@ -410,7 +415,9 @@ export class UserDashboardPage implements OnInit {
 				myStorage.setItem('currentAssessment', JSON.stringify(ass));
 			}
 			myStorage.setItem('inAssessment', 'true');
-			this.navCtrl.push(QuestionsPage);
+			// this.navCtrl.push(QuestionsPage);
+			this.router.navigate(["/questions"]);
+
 		};
 	}
 }

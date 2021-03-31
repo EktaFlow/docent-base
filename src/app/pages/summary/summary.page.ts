@@ -144,7 +144,7 @@ export class SummaryPage implements OnInit {
 
     this.noExtraQuestions = true;
 
-		});
+		// });
 	}
 	filterTheList() {
 

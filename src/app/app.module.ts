@@ -52,7 +52,7 @@ import { Helpers } from './services/helpers/helpers';
 
 import { AppRoutingModule } from '../app/app-routing.module';
 import { BackUrl } from  "./services/constants";
-import {ElectronService} from "../services/electron.service"
+import {ElectronService} from "./services/electron.service"
 
 
 

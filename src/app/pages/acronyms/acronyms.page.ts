@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { AcronymPopoverComponent } from '../../components/acronym-popover/acronym-popover.component';
 import { ActivatedRoute } from  "@angular/router"
+import {isElectron} from "../../services/constants"
 
 @Component({
   selector: 'acronyms',
@@ -18,6 +19,8 @@ export class AcronymsPage implements OnInit {
   pageName: any = "Acronyms";
   private acronyms: any = {};
   private acronymsKeys: any = [];
+  isElectron: any;
+  inAssessment: any;
 
 
 constructor(
@@ -27,6 +30,19 @@ constructor(
 ) {
         this.mainTitle = "Acronyms";
         this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
+}
+
+ngOnInit() {
+  this.mainTitle = "Acronyms";
+  this.getAcronyms();
+  console.log(this.acronyms);
+  this.isElectron = isElectron;
+  if (this.isElectron){
+    var myStorage = window.localStorage;
+    if (myStorage.getItem('inAssessment') == 'true') {
+      this.inAssessment = true;
+    }
+  }
 }
 
 ionViewWillEnter() {
@@ -59,10 +75,6 @@ presentFullAcronym(fullText, event){
 }
 
 
-  ngOnInit() {
-    this.mainTitle = "Acronyms";
-    this.getAcronyms();
-    console.log(this.acronyms);
-  }
+
 
 }

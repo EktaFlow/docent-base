@@ -13,7 +13,10 @@ import { AssessmentScopePopoverComponent } from "../../components/assessment-sco
 import { MobileNavPopoverComponent } from '../../components/mobile-nav-popover/mobile-nav-popover.component';
 import {QuestionHistoryPopoverComponent} from '../../components/question-history-popover/question-history-popover.component';
 import {QuestionsPage} from '../../pages/questions/questions.page';
+import { EditAssessmentPage } from '../../pages/edit-assessment/edit-assessment.page';
 import { Router } from '@angular/router';
+import {isElectron} from '../../services/constants';
+import { saveAs } from 'file-saver';
 
 import { AssessmentService } from "../../services/assessment.service";
 
@@ -60,6 +63,8 @@ export class TopbarComponent implements OnInit {
 	@Input() public pageName: any;
 	@Input() public questionId: any;
 	public popUpButtonClicked: any;
+	isElectron: any;
+	@Input() public inAssessment: any;
 
 	constructor(
 		public popOver: PopoverController,
@@ -70,16 +75,25 @@ export class TopbarComponent implements OnInit {
 	) { }
 
 		async ngOnInit() {
-
-			if (this.getAssessmentId) {
-				this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-				this.getAssessmentData();
-
+			this.isElectron = isElectron;
+			if (!this.isElectron){
+				if (this.getAssessmentId) {
+					this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+					this.getAssessmentData();
+				} else {
+					this.assessmentId ? this.getAssessmentData() : null;
+				}
+				this.loggedIn = this.auth.isLoggedIn();
 			} else {
-				this.assessmentId ? this.getAssessmentData() : null;
+				var myStorage = window.localStorage;
+				if (myStorage.getItem('inAssessment') == 'true'){
+					var fullAssessment = myStorage.getItem('currentAssessment');
+					var parsedAssessment = JSON.parse(fullAssessment);
+					this.scope = parsedAssessment.scope;
+					this.targetMRL = parsedAssessment.targetMRL;
+					this.targetDate = parsedAssessment.targetDate;
+				}
 			}
-
-			this.loggedIn = this.auth.isLoggedIn();
 
 
 
@@ -181,6 +195,10 @@ export class TopbarComponent implements OnInit {
 
 		}
 
+		handleEditAssessmentClick() {
+			this.router.navigate(["/edit-assessment", {page: 'edit'}]);
+  	}
+
 
 		async handleUserDash() {
 			if (this.assessmentId ) {
@@ -281,6 +299,14 @@ export class TopbarComponent implements OnInit {
 				cssClass: 'mobile-nav-pop'
 			})
 			return await pop.present();
+		}
+
+		handleSaveAssessment(){
+			var myStorage = window.localStorage;
+			var assessment = JSON.parse(myStorage.getItem('currentAssessment'));
+			var date = new Date().toISOString();
+			var title = assessment.name + "_updated_" + date;
+			saveAs(new Blob([JSON.stringify(assessment)], {type: "text/plain"}), title + ".mra")
 		}
 
 

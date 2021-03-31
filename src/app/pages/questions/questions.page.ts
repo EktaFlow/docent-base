@@ -373,12 +373,12 @@ export class QuestionsPage implements OnInit {
 			myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment));
 		}
 
-		var updatedInfo = {
-			_id: this.assessmentId,
-			questionId: nice,
-			questionUpdates: tempQuestion,
-			answerUpdates: values
-		};
+		// var updatedInfo = {
+		// 	_id: this.assessmentId,
+		// 	questionId: nice,
+		// 	questionUpdates: tempQuestion,
+		// 	answerUpdates: values
+		// };
 		console.log('info going into update', updatedInfo);
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => {

@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from "./services/auth.service";
-import {isElectron} from "../services/constants";
+import {isElectron} from "./services/constants";
 
 
 @Component({
@@ -14,6 +14,7 @@ import {isElectron} from "../services/constants";
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  isElectron: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

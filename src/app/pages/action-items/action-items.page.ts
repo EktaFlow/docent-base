@@ -12,6 +12,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 // import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
 import {Router, ActivatedRoute} from "@angular/router"
+import {isElectron} from "../../services/constants"
 import * as XLSX from 'xlsx';
 
 
@@ -76,6 +77,8 @@ export class ActionItemsPage implements OnInit {
 	unfilteredQuestions: any;
 	filterList: any = {};
 	filterMRL: any;
+	isElectron: any;
+	inAssessment: any;
 
 	rows:any = [];
 
@@ -100,64 +103,69 @@ export class ActionItemsPage implements OnInit {
 
 
 		async ngOnInit() {
-			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-			// console.log(columns)
-			this.apollo.watchQuery({
-				query: assessmentQuery,
-				variables: {_id: this.assessmentId},
-				fetchPolicy: "network-only"
-				}).valueChanges
-				.subscribe(data => {
-						this.no = (<any>data.data).assessment.questions.filter( a => {
-	                if (a.answers.length > 0 ) {
-	                        return a.answers[a.answers.length - 1].answer == "No"
-	                }
-						});
-						console.log(data);
-						var targetMRL = (<any>data.data).assessment.targetMRL;
-						this.attachments = (<any>data.data).assessment.files;
-	          var newData:Array<any> = [];
-						console.log(this.no);
-	          this.no.forEach( (element) => {
-	              var newObj:any = {};
-								newObj.mrl = "" + element.mrLevel;
-	              newObj.thread = "" + element.threadName;
-	              newObj.subthread = "" + element.subThreadName;
-	              newObj.question = "" + element.questionText;
-								// newObj.answer = " ";
-	              newObj.answer = "" + element.answers[element.answers.length - 1].answer;
-	              newObj.action = "" + element.answers[element.answers.length - 1].what;
-	              newObj.due = this.formatDate( element.answers[element.answers.length - 1].when);
-	              newObj.owner = "" + element.answers[element.answers.length - 1].who;
-	              var cur = element.answers[element.answers.length - 1];
-	              newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
-								console.log(newObj.risk)
-	              newData.push(newObj);
-	          });
-						this.data = newData;
-						this.unfilteredQuestions = newData;
-						this.rows = newData;
-						console.log(this.rows);
+			this.isElectron = isElectron;
+			if (!isElectron) {
+				this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+				// console.log(columns)
+				this.apollo.watchQuery({
+					query: assessmentQuery,
+					variables: {_id: this.assessmentId},
+					fetchPolicy: "network-only"
+					}).valueChanges
+					.subscribe(data => {
+						this.setPageVariables((<any>data.data).assessment);
+					});
+			} else {
+				var myStorage = window.localStorage;
+				if (myStorage.getItem('inAssessment') == 'true'){
+					this.inAssessment = true;
+					var fullAssessment = myStorage.getItem('currentAssessment');
+					this.setPageVariables(JSON.parse(fullAssessment));
+				}
+			}
 
-						if (this.autoFilter){
-							console.log('here');
-							this.filterList.filterMRL = targetMRL;
-							console.log(targetMRL)
-							this.rows = this.unfilteredQuestions.filter(question => {
-								if (question.mrl == targetMRL){
-									return question;
-								}
-							});
+		}
 
-					 } else {
-						 this.rows = this.unfilteredQuestions;
-					 }
+		setPageVariables(assessment){
+			this.no = assessment.questions.filter( a => {
+						if (a.answers.length > 0 ) {
+										return a.answers[a.answers.length - 1].answer == "No"
+						}
+			});
+			var targetMRL = assessment.targetMRL;
+			this.attachments = assessment.files;
+			var newData:Array<any> = [];
+			this.no.forEach( (element) => {
+					var newObj:any = {};
+					newObj.mrl = "" + element.mrLevel;
+					newObj.thread = "" + element.threadName;
+					newObj.subthread = "" + element.subThreadName;
+					newObj.question = "" + element.questionText;
+					// newObj.answer = " ";
+					newObj.answer = "" + element.answers[element.answers.length - 1].answer;
+					newObj.action = "" + element.answers[element.answers.length - 1].what;
+					newObj.due = this.formatDate( element.answers[element.answers.length - 1].when);
+					newObj.owner = "" + element.answers[element.answers.length - 1].who;
+					var cur = element.answers[element.answers.length - 1];
+					newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
+					console.log(newObj.risk)
+					newData.push(newObj);
+			});
+			this.data = newData;
+			this.unfilteredQuestions = newData;
+			this.rows = newData;
 
-
-	          // console.log(this.data);
-	          // this.length = this.data.length;
-	          // this.onChangeTable(this.config);
+			if (this.autoFilter){
+				this.filterList.filterMRL = targetMRL;
+				this.rows = this.unfilteredQuestions.filter(question => {
+					if (question.mrl == targetMRL){
+						return question;
+					}
 				});
+
+		 } else {
+			 this.rows = this.unfilteredQuestions;
+		 }
 		}
 
 	  /**

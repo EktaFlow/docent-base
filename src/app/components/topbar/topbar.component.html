@@ -21,6 +21,9 @@
             <ion-button *ngIf="auth.isLoggedIn() && !isElectron" (click)="handleLogout()" color="dark" id="logout-button">
 								Logout
             </ion-button>
+            <ion-button *ngIf="isElectron && inAssessment" (click)="handleEditAssessmentClick()" color="dark" id="save-ass-button">
+              Edit Assessment
+            </ion-button>
             <ion-button *ngIf="isElectron && inAssessment" (click)="handleSaveAssessment()" color="dark" id="save-ass-button">
               Save Assessment
             </ion-button>

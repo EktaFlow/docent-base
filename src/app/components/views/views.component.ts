@@ -10,7 +10,7 @@ import { SummaryPage } from '../../pages/summary/summary.page';
 import { QuestionsPage } from "../../pages/questions/questions.page";
 import { ImportComponent } from "../../components/import/import.component";
 import { RiskReportPage } from "../../pages/risk-report/risk-report.page";
-
+import { isElectron } from "../../services/constants"
 import {Router, ActivatedRoute} from "@angular/router";
 import { saveAs } from "file-saver/FileSaver";
 import { Apollo } from "apollo-angular";
@@ -92,6 +92,8 @@ export class ViewsComponent implements OnInit {
   actionitemsPage = ActionItemsPage;
 	assessments: any;
 	assessmentId: any;
+  isElectron: any;
+  inAssessment: any;
 
   constructor(
     public navCtrl: NavController,
@@ -104,9 +106,18 @@ export class ViewsComponent implements OnInit {
   ) {
     // this.assessmentId = navParams.data.assessmentId;
     this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
+    console.log("we're in the right spot?????")
    }
 
-   ngOnInit(){}
+   ngOnInit(){
+     this.isElectron = isElectron;
+     if (this.isElectron){
+       var myStorage = window.localStorage;
+       if (myStorage.getItem('inAssessment') == 'true'){
+         this.inAssessment = true;
+       }
+     }
+   }
 
    handleSave() {
      this.apollo.watchQuery<any>({

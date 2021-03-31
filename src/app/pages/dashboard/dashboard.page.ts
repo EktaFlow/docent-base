@@ -94,7 +94,6 @@ export class DashboardPage implements OnInit {
 			if (myStorage.getItem('inAssessment') == 'true'){
 				this.inAssessment = true;
 				var fullAssessment = myStorage.getItem('currentAssessment');
-				console.log(JSON.parse(fullAssessment));
 				this.setPageVariables(JSON.parse(fullAssessment));
 			}
 		}

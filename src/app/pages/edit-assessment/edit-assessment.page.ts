@@ -5,6 +5,7 @@ import { Router, ActivatedRoute} from "@angular/router"
 import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard.page';
 import { AuthService } from "../../services/auth.service";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
+import {isElectron} from '../../services/constants';
 
 @NgModule()
 @Component({
@@ -42,6 +43,8 @@ public threadsShown: boolean = false;
 public threadsSelectButton: string = 'Unselect All';
 public errors: any = [];
 public newMember: any = {};
+public isElectron: any;
+public inAssessment: any;
 
 constructor(
             private assessmentService: AssessmentService,
@@ -66,47 +69,74 @@ constructor(
 async ngOnInit() {
 // the custom deskbooks only need to be loaded if the page is 'new'
   // getCustomDeskbooks()
+  this.isElectron = isElectron;
+  if (!this.isElectron) {
+    var cool = await this.assessmentService.getDefaultThreads()
+    cool.subscribe( threads => this.threads = threads );
+     // handle this when there is nope assId
+     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+     if (this.page == 'edit') {
+       await this.getExistingAssessment();
+     }
+  } else {
+    var myStorage = window.localStorage;
+    if (myStorage.getItem('inAssessment') == 'true'){
+      var fullAssessment = myStorage.getItem('currentAssessment');
+      var parsedAssessment = JSON.parse(fullAssessment);
+      this.assessmentId = parsedAssessment.id;
+      this.desktopGetAssessment(parsedAssessment);
+    }
+  }
 
   // bring in the normal threads by default. // since now the schema is coming in from the front, we don't need to make a call to the back to get the threads.
- var cool = await this.assessmentService.getDefaultThreads()
-    cool.subscribe( threads => this.threads = threads );
 
-  // handle this when there is nope assId
-  this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-  if (this.page == 'edit') {
-    await this.getExistingAssessment();
-  }
 }
 
 
 async updateThreads() {
-  var selectedDeskbookName = this.assessment.deskbookVersion;
-  console.log(this.assessment);
+  // var selectedDeskbookName = this.assessment.deskbookVersion;
+  // console.log(this.assessment);
   // go from the name of the deskbook to an array of the threads.
-  if ( selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+  if ( ['2020', '2018', '2017', '2016'].indexOf(this.assessment.deskBookVersion) +1) {
     var cool = await this.assessmentService.getDefaultThreads()
     cool.subscribe( threads => this.threads = threads );
     return null;
-  }
+  } else {
+    if (!this.isElectron) {
+      var user = await this.auth.currentUser();
+      var files = [];
 
-    var user = await this.auth.currentUser();
-    var files = [];
+      for (let file of user.jsonFiles){
+        var newFile = JSON.parse(file);
+        if (typeof newFile == 'string' ) {
+          newFile = JSON.parse(newFile);
+        }
 
-    for (let file of user.jsonFiles){
-      var newFile = JSON.parse(file);
-      if (typeof newFile == 'string' ) {
-        newFile = JSON.parse(newFile);
+        files.push(newFile);
       }
 
-      files.push(newFile);
+      var deskbookFile = files.filter(f => f.fileName == this.assessment.deskBookVersion);
+      var selectedDeskbook  = deskbookFile[0].file;
+
+      var threads = selectedDeskbook.map(t => t.name)
+                      .filter(tname => tname.length > 0);
+      this.threads = threads;
+    } else {
+      // console.log(selectedDeskbookName)
+      // var j = selectedDeskbookName == "2020" ? true : false
+      alert('Deskbook Not Found')
     }
+  }
 
-    var deskbookFile = files.filter(f => f.fileName == selectedDeskbookName);
-    var selectedDeskbook  = deskbookFile[0].file;
 
-    var threads = selectedDeskbook.map(t => t.name)
-                    .filter(tname => tname.length > 0);
-    this.threads = threads;
+  // if ( selectedDeskbookName == "2020" || selectedDeskbookName == '2018' || selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
+  //   var cool = await this.assessmentService.getDefaultThreads()
+  //   cool.subscribe( threads => this.threads = threads );
+  //   return null;
+  // } else {
+
+
+
 }
 
 /**
@@ -136,8 +166,18 @@ async getExistingAssessment() {
     this.assessment = formattedAssessment;
     this.updateThreads();
   })
-
 }
+
+  desktopGetAssessment(assessment){
+    console.log(assessment)
+    var formattedDate;
+    //    if ( assessment.targetDate ) formattedDate = this.help.formatDate(assessment.targetDate);
+    var numberThreads = assessment.threads.map(number => Number(number));
+    // var extensibleTeamMembers = JSON.parse(JSON.stringify(assessment.teamMembers));
+    var formattedAssessment = Object.assign({}, assessment, { teamMembers: [],threads: numberThreads, targetDate: formattedDate });
+    this.assessment = formattedAssessment;
+    this.updateThreads();
+  }
 
 
 // Click handlers

@@ -12,7 +12,7 @@
 	<button (click)="handleImport()" color="dark" class="export-import" id="import-button">
 		Import Assessment
 	</button> -->
-	<ng-container *ngIf="assessmentId">
+	<ng-container *ngIf="assessmentId || inAssessment">
 	<!-- We're auto-saving on updates now.
   <button color="dark">
     Continue
