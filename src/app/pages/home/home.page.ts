@@ -10,7 +10,7 @@ import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { LoginPage } from '../../pages/login/login.page';
 import { Router } from '@angular/router';
 import { isElectron } from '../../services/constants';
-import { ElectronService } from '../../services/electron.service';
+import { DocentElectronService } from '../../services/docent-electron.service';
 
 
 
@@ -57,7 +57,7 @@ export class HomePage implements OnInit {
 							private loadingCtrl: LoadingController,
 							private toastCtrl: ToastController,
 							public router: Router,
-							private electron: ElectronService
+							private docentElectron: DocentElectronService
 						) {}
 
 							ionViewWillEnter() {
@@ -134,13 +134,13 @@ export class HomePage implements OnInit {
 		console.log(this.schema)
 		this.presentLoadingDefault();
 
-		if(isElectron){
+		if(this.isElectron){
 			var myStorage = window.localStorage;
 			console.log(variables);
 			console.log(JSON.parse(variables.schema));
 
 
-			variables['questions'] = this.electron.drillQuestions(JSON.parse(variables.schema));
+			variables['questions'] = this.docentElectron.drillQuestions(JSON.parse(variables.schema));
 			 delete variables.schema;
 			console.log(variables);
 			var newElectronAss = JSON.stringify(variables);
@@ -150,7 +150,7 @@ export class HomePage implements OnInit {
 			this.router.navigate(["/questions"]);
 		}
 
-		if(!isElectron){
+		if(!this.isElectron){
 			var newAssessment = await this.assessmentService.createAssessment(variables);
 			newAssessment.toPromise()
 	            .then( d => {

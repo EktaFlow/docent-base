@@ -247,6 +247,14 @@ async updateAssessment() {
   });
 }
 
+formatElectronAssessment() {
+var assessment = Object.assign({}, this.assessment);
+  delete assessment.__typename;
+  // assessment.teamMembers.length > 0 ? assessment.teamMembers.forEach(tm => tm.__typename ? delete tm.__typename : null) : null
+  //    delete assessment.teamMembers;
+  return assessment;
+}
+
 updateAssessmentElectron(){
   var assessment = this.formatElectronAssessment();
   var myStorage = window.localStorage;

@@ -18,6 +18,8 @@ import { ApolloModule, Apollo } from "apollo-angular";
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
+
+
 // solo functions
 import 'rxjs/add/operator/map'
 
@@ -52,7 +54,8 @@ import { Helpers } from './services/helpers/helpers';
 
 import { AppRoutingModule } from '../app/app-routing.module';
 import { BackUrl } from  "./services/constants";
-import {ElectronService} from "./services/electron.service"
+import {DocentElectronService} from "./services/docent-electron.service";
+import { ElectronService } from 'ngx-electron';
 
 
 
@@ -101,6 +104,7 @@ import {ElectronService} from "./services/electron.service"
     Helpers,
     UploadService,
     ElectronService,
+    DocentElectronService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

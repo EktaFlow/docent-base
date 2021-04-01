@@ -3,7 +3,7 @@ import { NavParams, PopoverController } from '@ionic/angular';
 import { UploadService } from "../../services/upload";
 import { AuthService } from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
-import {ElectronService} from "npx-electron";
+import {ElectronService} from "ngx-electron";
 import {isElectron} from "../../services/constants";
 
 @Component({

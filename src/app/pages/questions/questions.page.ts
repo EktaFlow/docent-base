@@ -11,7 +11,7 @@ import {FileUploadPopoverComponent} from "../../components/file-upload-popover/f
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover.component';
 import {isElectron} from "../../services/constants";
-import { ElectronService } from 'ngx-electron'
+import { ElectronService } from 'ngx-electron';
 import { ActivatedRoute } from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Helpers } from '../../services/helpers/helpers';
@@ -51,10 +51,12 @@ export class QuestionsPage implements OnInit {
 							public popOver: PopoverController,
 						  private assessmentService: AssessmentService,
 							private auth: AuthService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private electron: ElectronService
+            ) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
-    this.exec = electron.remote.require('child_process').exec;
+    // this.exec = this.electron.remote.require('child_process').exec;
 		this.referringQuestionId = activatedRoute.snapshot.paramMap.get('questionId');
   }
 
@@ -198,9 +200,10 @@ export class QuestionsPage implements OnInit {
         oldAssessment.files = this.files;
         myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment));
 			});
+      var fileUpload;
 
       if (!this.isElectron) {
-        const fileUpload = await this.popOver.create({
+        fileUpload = await this.popOver.create({
           component: FileUploadPopoverComponent,
           componentProps: {
             emitter: myEmitter,
@@ -210,7 +213,7 @@ export class QuestionsPage implements OnInit {
           cssClass: "upload-popover"
         });
       } else {
-        const fileUpload = await this.popOver.create({
+        fileUpload = await this.popOver.create({
           component: FileUploadPopoverComponent,
           componentProps: {
             emitter: myEmitter,
@@ -272,7 +275,7 @@ export class QuestionsPage implements OnInit {
 
   }
 
-  handleRemoveFileClick(fileName){
+  handleElectronRemoveFileClick(fileName){
     var files = JSON.parse(JSON.stringify(this.files));
     files = files.filter(f => f.name != fileName);
     this.files = files;
@@ -290,7 +293,7 @@ export class QuestionsPage implements OnInit {
     if (!this.isElectron){
       window.open(url);
     } else {
-      this.exec(`"${url}"`)
+      // this.exec(`"${url}"`)
     }
   }
 
