@@ -139,7 +139,10 @@
         <ion-button *ngIf="page == 'new'" color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
           Start
         </ion-button>
-        <ion-button *ngIf="page == 'edit'" color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
+        <ion-button *ngIf="page == 'edit' && !this.isElectron" color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
+          Update Assessment
+        </ion-button>
+        <ion-button *ngIf="page == 'edit' && this.isElectron" color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
           Update Assessment
         </ion-button>
       </div>

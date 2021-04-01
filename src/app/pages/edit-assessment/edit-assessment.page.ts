@@ -247,6 +247,15 @@ async updateAssessment() {
   });
 }
 
+updateAssessmentElectron(){
+  var assessment = this.formatElectronAssessment();
+  var myStorage = window.localStorage;
+  // var oldAssessment = JSON.parse(myStorage.getItem('currentAssessment'));
+  // oldAssessment = assessment;
+  myStorage.setItem('currentAssessment', JSON.stringify(assessment));
+  this.router.navigate(["/user-dashboard"]);
+}
+
 async launchToast() {
   let toast = await this.toast.create({
     message: 'assessment updated',

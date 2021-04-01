@@ -3,6 +3,8 @@ import { NavParams, PopoverController } from '@ionic/angular';
 import { UploadService } from "../../services/upload";
 import { AuthService } from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
+import {ElectronService} from "npx-electron";
+import {isElectron} from "../../services/constants";
 
 @Component({
   selector: 'file-upload-popover',
@@ -16,17 +18,23 @@ export class FileUploadPopoverComponent implements OnInit {
 	emitter: any;
 	file: any;
 	user: any;
+  inAssessment: any;
+  isElectron: any;
+  assessmentName: any;
+  fs: any;
 
   constructor(
     public upload: UploadService,
   	public navParams: NavParams,
-    private popOver: PopoverController
+    private popOver: PopoverController,
+    private electronService: ElectronService
   ) {
     var {navParams} = this;
 
 		this.questionId		= navParams.get("questionId");
 		this.assessmentId = navParams.get("assessmentId");
 		this.emitter			= navParams.data.emitter;
+    this.assessmentName = navParams.get("assessmentName")
   }
 
   test(e) {
@@ -43,6 +51,7 @@ export class FileUploadPopoverComponent implements OnInit {
 
 	ngOnInit() {
 		console.log("this has an on-init function");
+    this.isElectron = isElectron;
 		// var styling = `
 		// padding: 30px;
     // height: 400px;
@@ -56,14 +65,33 @@ export class FileUploadPopoverComponent implements OnInit {
 	}
 
 	async uploadFile(event) {
-		var { assessmentId, questionId } = this;
+    if (!this.isElectron){
+      var { assessmentId, questionId } = this;
 
-		// boooooooooooooooooooo typescript
-		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
+  		// boooooooooooooooooooo typescript
+  		var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
+  		var uploadedFile = await this.upload.uploadFile(file, assessmentId, questionId);
 
-		this.emitter.emit(uploadedFile);
-		this.popOver.dismiss()
+  		this.emitter.emit(uploadedFile);
+  		this.popOver.dismiss()
+    } else {
+      var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
+      var filePath = file.path;
+      var fileName = file.name;
+      if (!this.fs.existsSync('./file/')) {this.fs.mkdirSync('./file/')}
+      var assessmentFileDir = `./file/${this.assessmentName}-${this.assessmentId.substr(0,5)}/`
+      if (!this.fs.existsSync(assessmentFileDir)){
+        this.fs.mkdirSync(assessmentFileDir);
+      }
+      this.fs.copyFile(filePath, assessmentFileDir + fileName, err => console.log(err));
+      var emitted = {
+        path: assessmentFileDir + fileName,
+        name: file.name
+      }
+      this.emitter.emit(emitted);
+      this.popOver.dismiss()
+    }
+
 	}
 
 }

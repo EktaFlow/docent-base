@@ -11,7 +11,7 @@ import {FileUploadPopoverComponent} from "../../components/file-upload-popover/f
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover.component';
 import {isElectron} from "../../services/constants";
-
+import { ElectronService } from 'ngx-electron'
 import { ActivatedRoute } from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Helpers } from '../../services/helpers/helpers';
@@ -43,6 +43,8 @@ export class QuestionsPage implements OnInit {
 	noSecondBar: boolean = true;
 	isElectron: any;
 	inAssessment: any;
+  private exec: any;
+
 
 	constructor(public help: Helpers,
               private storage: Storage,
@@ -52,6 +54,7 @@ export class QuestionsPage implements OnInit {
               private activatedRoute: ActivatedRoute) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
+    this.exec = electron.remote.require('child_process').exec;
 		this.referringQuestionId = activatedRoute.snapshot.paramMap.get('questionId');
   }
 
@@ -172,20 +175,53 @@ export class QuestionsPage implements OnInit {
 	/////////////////////////// popover creator(s) /////////////////////
 	async showFileUpload() {
 			let myEmitter = new EventEmitter<any>();
+      if (this.isElectron){
+        var assessment = JSON.parse(window.localStorage.getItem('currentAssessment'))
+        var assessmentName = assessment.name;
+      }
 			myEmitter.subscribe( v =>  {
-			var files = JSON.parse(JSON.stringify(this.files));
-			files.push(v)
-			this.files = files;
+			  var files = JSON.parse(JSON.stringify(this.files));
+        if (!this.isElectron){
+          files.push(v)
+        } else {
+          var fileInfo = {
+            name: v.name,
+            path: v.path,
+            questionId: this.currentQuestion.questionId
+          }
+          files.push(fileInfo)
+        }
+  			this.files = files;
+
+        var myStorage = window.localStorage;
+        var oldAssessment = JSON.parse(myStorage.getItem('currentAssessment'));
+        oldAssessment.files = this.files;
+        myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment));
 			});
-      const fileUpload = await this.popOver.create({
-        component: FileUploadPopoverComponent,
-        componentProps: {
-          emitter: myEmitter,
-          questionId: this.currentQuestion.questionId,
-          assessmentId: this.assessmentId
-        },
-        cssClass: "upload-popover"
-      });
+
+      if (!this.isElectron) {
+        const fileUpload = await this.popOver.create({
+          component: FileUploadPopoverComponent,
+          componentProps: {
+            emitter: myEmitter,
+            questionId: this.currentQuestion.questionId,
+            assessmentId: this.assessmentId
+          },
+          cssClass: "upload-popover"
+        });
+      } else {
+        const fileUpload = await this.popOver.create({
+          component: FileUploadPopoverComponent,
+          componentProps: {
+            emitter: myEmitter,
+            questionId: this.currentQuestion.questionId,
+            assessmentId: this.assessmentId,
+            assessmentName: assessmentName
+          },
+          cssClass: "upload-popover"
+        });
+      }
+
       return await fileUpload.present();
 	}
 
@@ -236,12 +272,26 @@ export class QuestionsPage implements OnInit {
 
   }
 
+  handleRemoveFileClick(fileName){
+    var files = JSON.parse(JSON.stringify(this.files));
+    files = files.filter(f => f.name != fileName);
+    this.files = files;
+    var myStorage = window.localStorage;
+    var oldAssessment = JSON.parse(myStorage.getItem('currentAssessment'));
+    oldAssessment.files = this.files;
+    myStorage.setItem('currentAssessment', JSON.stringify(oldAssessment))
+  }
+
   /**
   *  Simple handler to launch files in new tab/window rather than
   *  changing actual address url.
   */
   openFile(url) {
-    window.open(url);
+    if (!this.isElectron){
+      window.open(url);
+    } else {
+      this.exec(`"${url}"`)
+    }
   }
 
 	///////////////////////// next / prev / etc /////////////////////////////
