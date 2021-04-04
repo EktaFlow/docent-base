@@ -28,6 +28,9 @@ If you run into errors about unresolvable dependencies, you can try:
 # open capacitor
 `npx cap open @capacitor-community/electron`
 
+or just simply:
+`npx cap open electron`
+
 If you run into errors about the SUID sandbox, you should see a message saying `/path/to/chrome-sandbox` needs proper permissions.
 Try this: 
 `sudo chown root /path/to/chrome-sandbox`
@@ -46,6 +49,9 @@ If you hit dependency errors or see a white screen only, you may need additional
 `npm i @capacitor-community/electron`
 
 You may also need to edit `electron/preloader.js` and put in the absolute path for `electron-bridge.js`
+
+It may also be necessary to set electron as the build target
+`npx cap add electron`
 
 # build executable
 Make sure to substitute "11.1.0" with your installed version of electron
