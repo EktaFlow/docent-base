@@ -28,13 +28,11 @@ export class RegisterComponent implements OnInit {
       this.errors = [];
       this.auth.registerUser(this.user).subscribe(
         (user) => {
-          console.log(user);
           this.submitted = true;
         },
 
         // error handling taking the text of the error directly.
         ({ error }) => {
-          console.log(error);
           this.errors.push(error.error);
         }
       );
@@ -52,8 +50,6 @@ export class RegisterComponent implements OnInit {
     this.checkPresence(user);
     this.checkPasswords(user);
     this.checkEmail((<any>user).email);
-
-    console.log(this.errors);
 
     return this.errors == false;
   }

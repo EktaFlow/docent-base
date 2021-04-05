@@ -105,8 +105,6 @@ export class ViewsComponent implements OnInit {
    })
      .valueChanges
      .subscribe( ({data, loading}) => {
-       console.log('we firin up a save')
-       console.log(event.target);
        var title = data.assessment.name;
        title ? null : title = "untitled"
        var assessment = JSON.stringify(data);
@@ -167,7 +165,6 @@ export class ViewsComponent implements OnInit {
    }
 
    launchImportPopover() {
-     console.log("hi");
      this.popOver.create({component: ImportComponent})
                  .then(popover => popover.present());
    }

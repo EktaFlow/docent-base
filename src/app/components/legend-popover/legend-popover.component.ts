@@ -9,7 +9,6 @@ export class LegendPopoverComponent implements OnInit {
   text: string;
 
   constructor() {
-    console.log('Hello LegendPopoverComponent Component');
     this.text = 'Hello World';
    }
 

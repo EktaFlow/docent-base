@@ -154,7 +154,6 @@ export class UserDashboardPage implements OnInit {
 		observe.subscribe(({data}) => {
 			this.assessments = data.assessments;
 			this.assessments = JSON.parse(JSON.stringify(this.assessments));
-			console.log(this.assessments);
 			for (var assessment of this.assessments) {
 				var answeredQuestions = assessment.questions.filter((q: any) => q.answers.length > 0 && q.mrLevel == assessment.targetMRL);
 				var lengthOfAssessment = assessment.questions.filter((q:any) => q.mrLevel == assessment.targetMRL);
@@ -164,7 +163,6 @@ export class UserDashboardPage implements OnInit {
 				assessment["possible"] = possible;
 				assessment["percentage"] = Math.round((answered / possible) * 100);
 			}
-			console.log(this.assessments);
 		});
 		if (window.screen.width > 440) {
 			this.showMine = true;
@@ -193,7 +191,6 @@ export class UserDashboardPage implements OnInit {
 			.then(a => this.sharedAssessmentIds = a )
 			.catch(e => console.log(e));
 			} else {
-			console.log('we not in auth.currentU');
 			}
 
 	}
@@ -210,8 +207,6 @@ export class UserDashboardPage implements OnInit {
 	}
 
 	pullSharedAssessments() {
-	console.log(this.sharedAssessmentIds);
-
 		this.apollo.watchQuery<any>({
       query: sharedQuery,
       variables: {
@@ -236,8 +231,6 @@ export class UserDashboardPage implements OnInit {
 	})
 		.valueChanges
 		.subscribe( ({data, loading}) => {
-			console.log('we firin up a save')
-			console.log(event.target);
 			var title = data.assessment.name;
 			title ? null : title = "untitled"
 			var assessment = JSON.stringify(data);
@@ -292,7 +285,6 @@ export class UserDashboardPage implements OnInit {
 	async openDashboard(assessmentId) {
 		await this.assessmentService.setCurrentAssessmentId(assessmentId);
     this.router.navigate(["/dashboard", {assessmentId: this.assessmentId}]);
-		console.log(assessmentId);
 	}
 
 	async openActionItems(assessmentId) {
@@ -348,10 +340,8 @@ export class UserDashboardPage implements OnInit {
 	presentAddTeamMembersPopOver(assessmentId){
 		let myEmitter = new EventEmitter<any>();
 		myEmitter.subscribe( data =>  {
-		console.log(data);
 		var assIndex= this.assessments.findIndex(a => a.id == assessmentId);
 		this.assessments[assIndex].teamMembers.push(data.data.addTeamMember);
-		console.log(this.assessments[assIndex]);
 		});
 
 		this.popOver.create({

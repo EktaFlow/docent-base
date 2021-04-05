@@ -130,15 +130,12 @@ export class ReviewPage implements OnInit {
 	}
 
 	filterTheList(){
-		console.log(this.filterList.filterMRL)
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.unfilteredQuestions.filter(question => {
 				if (question.level == this.filterList.filterMRL) {
-					// console.log('here')
 					return question
 				}
 			});
-			console.log(filteredQuestions);
 			this.allQuestions = filteredQuestions;
 		} else {
 			this.allQuestions = this.unfilteredQuestions;

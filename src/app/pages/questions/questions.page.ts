@@ -88,8 +88,6 @@ export class QuestionsPage implements OnInit {
 				this.targetMRL = assessment.targetMRL;
 				this.currentTargetMRL = assessment.targetMRL;
 				this.surveyQuestions = this.setSurveyQuestions();
-				console.log(this.allQuestions);
-				console.log(this.surveyQuestions);
 				// add if no currentQuestionId
 				this.determineCurrentQuestion();
 
@@ -110,20 +108,13 @@ export class QuestionsPage implements OnInit {
 
     var threadNames = this.assessment.questions
     threadNames = threadNames.map( tn => tn.threadName);
-    console.log(threadNames);
     var distinctThreadNames = threadNames.filter((a, i) => threadNames[i + 1] != a && a.length > 0);
-    console.log(distinctThreadNames);
 
-	console.log(this.assessment );
   var selectedThreads = this.assessment.threads.map( threadNumber => distinctThreadNames[threadNumber - 1] )
-  console.log(selectedThreads);
 
 		var level1 = this.allQuestions.filter( q => q.mrLevel == this.assessment.targetMRL );
-		console.log(level1);
 			var level2 = level1.filter( q => selectedThreads.includes(q.threadName))
-			console.log(level2);
 			var level3 = 				level2.map( q => q.questionId);
-			console.log(level3);
 
 
 			return level3;
@@ -178,7 +169,6 @@ export class QuestionsPage implements OnInit {
 	}
 
   async showRiskPopover(highlight) {
-      console.log(highlight)
       var pop = await this.popOver.create({
         component: RiskPopoverComponent,
         componentProps: {
@@ -323,17 +313,13 @@ export class QuestionsPage implements OnInit {
 		var hasOfflineAnswers = await this.storage.get('offline');
 		// if it has offline answers...
 		if ( hasOfflineAnswers ) {
-			console.log('we have offline answers', hasOfflineAnswers);
 				var saveOffline = await this.assessmentService.updateQuestionSeries(hasOfflineAnswers);
 				if ( saveOffline ) {
-					console.log('we have successfully saved offline answers')
 					this.storage.remove('offline')
 					} else {
-					console.log('we were unable to save offline answers')
 					}
 
 			} else {
-				console.log('no offline answers');
 			}
 
 		var tempQuestion = {
@@ -346,16 +332,13 @@ export class QuestionsPage implements OnInit {
 			questionUpdates: tempQuestion,
 			answerUpdates: values
 		};
-		console.log('info going into update', updatedInfo);
 		var update = await this.assessmentService.updateQuestion(updatedInfo);
 		update.subscribe(data => {
 			// we're (almost?) always going to end up in here because we're catching the error in the service
       			// if the update is successful clear the offline object in Storage
 			// what is the data object on failure and on success??
 			// right now, we only want to handle the failure case -- no we want both because we want to store and / or delete.
-			console.log('in update subscribe in q page', data);
 			if ( (<any>data).data ) {
-				console.log('success gql');
 				// any successful gql response is going to have a key called 'data'
 				this.storage.remove('offline')
 					.then( p => {
@@ -365,10 +348,8 @@ export class QuestionsPage implements OnInit {
 			}
 
 			if ( (<any>data).error ) {
-				console.log('error was thrown');
 				var offlineAnswers = hasOfflineAnswers || [];
 				offlineAnswers.push( updatedInfo );
-				console.log('this is offlineAnswers object', offlineAnswers);
 				this.storage.set('offline', offlineAnswers);
 			}
 		});

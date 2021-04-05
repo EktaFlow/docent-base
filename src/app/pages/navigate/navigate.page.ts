@@ -78,9 +78,6 @@ export class NavigatePage implements OnInit {
 					this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
 
 					// filterTheList();
-
-					console.log(this.allQuestions);
-					console.log(this.schema);
     			//this.state.fill(false);
 //    			this.create();
 
@@ -108,7 +105,6 @@ export class NavigatePage implements OnInit {
 	}
 
 	createSchemaObject(questionsArray) {
-		console.log("im in heree")
 	var threadNames = questionsArray.map(a => a.threadName)
 					  											 .filter(this.unique);
 
@@ -140,13 +136,9 @@ export class NavigatePage implements OnInit {
 			return thread;
 		});
 
-		console.log("in filterthelist")
-		console.log(this.filterList.filterMRL);
-
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
 			this.filteredSchema = this.createSchemaObject(filteredQuestions);
-			console.log(this.filteredSchema);
 		} else {
 			this.filteredSchema = this.createSchemaObject(this.allQuestions);
 		}

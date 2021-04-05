@@ -66,12 +66,9 @@ export class SubthreadPopupComponent implements OnInit {
      }
    }).valueChanges
      .subscribe( ({data, loading}) => {
-       console.log(data);
        this.targetMRL  = data.assessment.targetMRL;
        this.questions = data.assessment.questions
        .filter(question => question.subThreadName == this.subTitle);
-       console.log(this.questions);
-       console.log(this.subTitle);
 
      });
   }

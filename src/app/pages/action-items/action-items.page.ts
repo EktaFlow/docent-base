@@ -94,14 +94,12 @@ export class ActionItemsPage implements OnInit {
 								 public router: Router,
 								 private activatedRoute: ActivatedRoute) {
 										this.assessmentIdFromParams = this.activatedRoute.snapshot.paramMap.get('assessmentId');
-										console.log(this.assessmentIdFromParams);
 										// this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
 	                }
 
 
 		async ngOnInit() {
 			this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
-			// console.log(columns)
 			this.apollo.watchQuery({
 				query: assessmentQuery,
 				variables: {_id: this.assessmentId},
@@ -113,11 +111,9 @@ export class ActionItemsPage implements OnInit {
 	                        return a.answers[a.answers.length - 1].answer == "No"
 	                }
 						});
-						console.log(data);
 						var targetMRL = (<any>data.data).assessment.targetMRL;
 						this.attachments = (<any>data.data).assessment.files;
 	          var newData:Array<any> = [];
-						console.log(this.no);
 	          this.no.forEach( (element) => {
 	              var newObj:any = {};
 								newObj.mrl = "" + element.mrLevel;
@@ -131,18 +127,14 @@ export class ActionItemsPage implements OnInit {
 	              newObj.owner = "" + element.answers[element.answers.length - 1].who;
 	              var cur = element.answers[element.answers.length - 1];
 	              newObj.risk = "" + this.calculateRiskScore(cur.likelihood, cur.consequence);
-								console.log(newObj.risk)
 	              newData.push(newObj);
 	          });
 						this.data = newData;
 						this.unfilteredQuestions = newData;
 						this.rows = newData;
-						console.log(this.rows);
 
 						if (this.autoFilter){
-							console.log('here');
 							this.filterList.filterMRL = targetMRL;
-							console.log(targetMRL)
 							this.rows = this.unfilteredQuestions.filter(question => {
 								if (question.mrl == targetMRL){
 									return question;
@@ -154,7 +146,6 @@ export class ActionItemsPage implements OnInit {
 					 }
 
 
-	          // console.log(this.data);
 	          // this.length = this.data.length;
 	          // this.onChangeTable(this.config);
 				});
@@ -174,15 +165,12 @@ export class ActionItemsPage implements OnInit {
 	  }
 
 		filterTheList(){
-			console.log(this.filterList.filterMRL)
 			if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 				var filteredQuestions = this.unfilteredQuestions.filter(question => {
 					if (question.mrl == this.filterList.filterMRL) {
-						// console.log('here')
 						return question
 					}
 				});
-				console.log(filteredQuestions);
 				this.rows = filteredQuestions;
 			} else {
 				this.rows = this.unfilteredQuestions;
@@ -197,7 +185,6 @@ export class ActionItemsPage implements OnInit {
 	  public saveXLS() {
 	        var headers = this.columns.map(c => c.title);
 	        var values = this.no.map(nq => {
-								console.log(nq);
 	                return [
 										nq.mrLevel,
 	                  nq.threadName,

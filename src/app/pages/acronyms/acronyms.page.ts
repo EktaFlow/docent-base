@@ -36,7 +36,6 @@ GoogleAnalytics.trackPage("acronyms");
 getAcronyms() {
 this.http.get('assets/json/acronyms.json')
       .subscribe( data => {
-        console.log(data);
         this.acronyms = data;
         this.acronymsKeys = Object.keys(data);
       });
@@ -62,7 +61,6 @@ presentFullAcronym(fullText, event){
   ngOnInit() {
     this.mainTitle = "Acronyms";
     this.getAcronyms();
-    console.log(this.acronyms);
   }
 
 }

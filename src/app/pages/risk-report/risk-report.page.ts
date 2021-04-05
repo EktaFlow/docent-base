@@ -96,7 +96,6 @@ export class RiskReportPage implements OnInit {
         this.schema = this.createSchemaObject(this.unfilteredQuestions);
 				this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
 				this.filteredSchema = this.filteredSchema.filter(s => s.header.length > 1);
-				console.log(this.filteredSchema)
 
 				if (this.autoFilter){
 					this.filterList.filterMRL = this.targetMRL;
@@ -109,7 +108,6 @@ export class RiskReportPage implements OnInit {
   }
 
   createSchemaObject(questionsArray) {
-		console.log("im in heree")
 	   var threadNames = questionsArray.map(a => a.threadName)
 					  											 .filter(this.unique);
 
@@ -134,14 +132,10 @@ export class RiskReportPage implements OnInit {
 	}
 
 	filterTheList() {
-		// console.log("in filterthelist")
-		// console.log(this.filterList.filterMRL);
-
 		if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
 			var filteredQuestions = this.unfilteredQuestions.filter(question => question.mrLevel == this.filterList.filterMRL);
 			this.filteredSchema = this.createSchemaObject(filteredQuestions);
 			this.filterList.filterTitle = this.filterList.filterMRL;
-			// console.log(this.filteredSchema);
 		} else {
 			this.filteredSchema = this.createSchemaObject(this.unfilteredQuestions);
 			this.filterList.filterTitle = '';
@@ -224,7 +218,6 @@ export class RiskReportPage implements OnInit {
         var finalValues = [...values, ...nonLevelValues];
 
         var worksheet = [headers, ...finalValues];
-        console.log(worksheet);
 
         var ws = XLSX.utils.aoa_to_sheet(worksheet);
         var wb = XLSX.utils.book_new();
@@ -242,8 +235,6 @@ export class RiskReportPage implements OnInit {
       if (latestAnswer.notesNo != undefined) { currentComments = latestAnswer.notesNo}
       if (latestAnswer.notesNA != undefined) { currentComments = latestAnswer.notesNA}
       var riskScore = this.calculateRiskScore(latestAnswer)
-      console.log(riskScore);
-
         return [
                 q.mrLevel,
                 q.threadName,

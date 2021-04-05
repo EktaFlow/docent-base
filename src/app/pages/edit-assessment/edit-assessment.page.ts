@@ -81,7 +81,6 @@ async ngOnInit() {
 
 async updateThreads() {
   var selectedDeskbookName = this.assessment.deskbookVersion;
-  console.log(this.assessment);
   // go from the name of the deskbook to an array of the threads.
   if ( selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
     var cool = await this.assessmentService.getDefaultThreads()
@@ -121,7 +120,6 @@ async getExistingAssessment() {
 
   // this is needed to get the targetDate into the HTML5 format
   // threads are coming in as string... change that.
-  console.log('we above coolness');
   existingAssessment.subscribe(data => {
     var assessment = data.data.assessment
     // if the targetDate on the assessment is null, we want to keep it null,
@@ -132,7 +130,6 @@ async getExistingAssessment() {
     var extensibleTeamMembers = JSON.parse(JSON.stringify(assessment.teamMembers));
     var formattedAssessment = Object.assign({}, assessment, { teamMembers: extensibleTeamMembers,threads: numberThreads, targetDate: formattedDate });
 
-    console.log('we got assesssment');
     this.assessment = formattedAssessment;
     this.updateThreads();
   })

@@ -81,10 +81,8 @@ export class DashboardPage implements OnInit {
 			}).valueChanges
 			.subscribe(data => {
 					this.allQuestions = (<any>data.data).assessment.questions;
-					// console.log((<any>data.data).assessment);
 					this.questionSet  = this.createQuestionSet(this.allQuestions);
 					this.targetMRL = (<any>data.data).assessment.targetMRL;
-					console.log(this.questionSet);
           this.assessmentName =  (<any>data.data).assessment.name;
 					this.questionSet = this.questionSet.filter(s => s.header.length > 1);
 					if (window.innerWidth > 1024){

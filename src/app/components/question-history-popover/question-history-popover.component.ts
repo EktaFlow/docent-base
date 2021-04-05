@@ -59,13 +59,11 @@ export class QuestionHistoryPopoverComponent implements OnInit {
   ) {
     this.assessmentId = navParams.data.assessmentId;
     this.questionId = navParams.data.questionId;
-    // console.log(this.activatedRoute.snapshot.paramMap)
     // this.assessmentId = this.activatedRoute.snapshot.paramMap.get('assessmentId');
     // this.questionId = this.activatedRoute.snapshot.paramMap.get('questionId');
    }
 
    async ngOnInit(){
-     console.log(this.questionId);
        var cool = await this.assessmentService.queryQuestion(this.questionId, this.assessmentId, this.questionQuery)
        cool.subscribe(a => {
        	this.currentQ = JSON.parse(JSON.stringify(a.data.question));
@@ -80,9 +78,7 @@ export class QuestionHistoryPopoverComponent implements OnInit {
          this.currentQ = allQuestions.filter(q => q.questionId == this.questionId);
          this.currentQ = this.currentQ[0];
          this.decideAnswersAction(this.currentQ);
-         console.log(this.answersSorted)
          this.getUserIds(this.answersSorted);
-         console.log(this.answersSorted[0]);
        });
        */
 
@@ -92,7 +88,6 @@ export class QuestionHistoryPopoverComponent implements OnInit {
 
    // async fetchUser(id){
    //   var userObject = await this.auth.fetchUser(id);
-   //   userObject.subscribe(a => console.log(a) );
    // }
 
    async getUserIds(answers){
@@ -138,7 +133,6 @@ export class QuestionHistoryPopoverComponent implements OnInit {
  }
 
    decideAnswersAction(question){
-     console.log('running decide ansers action', question.answers);
      if (question.answers.length > 0){
        question.answers = question.answers.filter(a => a.answer != null);
      }
@@ -180,7 +174,6 @@ export class QuestionHistoryPopoverComponent implements OnInit {
 
      async revertBack(newAnswer){
        var user = await this.auth.currentUser();
-       console.log(user);
        // var currentAnswer = this.currentQ.answers[0];
        //we have currentQ, currentAnswer and newAnswer
        //probably do not need currentAnswer unless we want to check reverting back to currentAnswer
@@ -199,7 +192,6 @@ export class QuestionHistoryPopoverComponent implements OnInit {
        // filteredAnswer.userId = await this.auth.currentUser().id;
        filteredAnswer.updatedAt = new Date();
        filteredAnswer.revertedBy = user._id;
-       console.log(filteredAnswer);
        var updateInfo = {
          _id: this.assessmentId,
          questionId: Number(this.currentQ.questionId),

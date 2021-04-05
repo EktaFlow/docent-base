@@ -61,23 +61,18 @@ export class HomePage implements OnInit {
 			"name",
 			"targetMRL"
 		];
-		console.log(this.assForm);
 
 		return fields.every(field => this.assForm[field])
 	}
 
 	checkFor0Qs(variables){
-		console.log(this.schema);
 		var pass = true;
 		for (let thread of variables.threads){
 			var schema = JSON.parse(variables.schema);
 			for (let subT of schema[thread - 1].subThreads) {
-				console.log(subT);
 				if (subT.subThreadLevels[variables.targetMRL - 1].questions.length == 0){
-					console.log('false')
 					pass = false;
 				} else {
-					console.log('true')
 					pass = true;
 					return true
 				}
@@ -115,21 +110,17 @@ export class HomePage implements OnInit {
 		}
 
 		await this.getSchema(this.assForm.deskBookVersion);
-		console.log(this.assForm)
 
 		var variables = this.formatAssessmentVariables();
-    console.log(variables);
 		if (!this.checkFor0Qs(variables)) {
       this.invalidInputToast("Please select more threads, the threads you have selected do not have questions in your Target MRL.");
 			return null;
 		}
-		console.log(this.schema)
 		this.presentLoadingDefault();
 
 		var newAssessment = await this.assessmentService.createAssessment(variables);
 		newAssessment.toPromise()
             .then( d => {
-              console.log(d);
 
               // var assessmentId = d.data.createAssessment._id;
 							var assessmentId = (d.data as any).createAssessment._id;
@@ -179,7 +170,7 @@ export class HomePage implements OnInit {
 				assessmentId
 			})
 		})
-		.then(a => console.log("okok"))
+		.then(a => console.log("success post"))
 		.catch(e => console.error(e));
 	}
 
@@ -210,7 +201,6 @@ export class HomePage implements OnInit {
 
   async updateThreads() {
     var selectedDeskbookName = this.assForm.deskBookVersion;
-    console.log(this.assForm.deskBookVersion);
     // go from the name of the deskbook to an array of the threads.
     if ( selectedDeskbookName == '2020' || selectedDeskbookName == '2018' || selectedDeskbookName == '2017' || selectedDeskbookName == '2016' ) {
       var cool = await this.assessmentService.getDefaultThreads()
@@ -250,7 +240,6 @@ export class HomePage implements OnInit {
 			var files = [];
 
 			for (let file of user.jsonFiles){
-        console.log(file);
 				var newFile = JSON.parse(file);
         if (typeof newFile == 'string') {
           newFile = JSON.parse(newFile);
@@ -328,7 +317,6 @@ export class HomePage implements OnInit {
 		var user = await this.auth.currentUser();
 		// this.deskbookVersions = ["2017", "2016"];
 		for (let file of user.jsonFiles){
-      console.log(file);
 			var newFile = JSON.parse(file);
       if ( typeof newFile == 'string' ) {
         newFile = JSON.parse(newFile);
