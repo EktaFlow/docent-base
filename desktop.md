@@ -2,15 +2,6 @@
 `git clone https://github.com/EktaFlow/docent-base.git`
 `cd docent-base`
 
-# updating existing build
-If you're just updating the build and/or want to see new code in the app, take this shortcut and skip to the "open capacitor" section below.
-`ionic build`
-
-`npm cap copy @capacitor-community/electron`
-
-`npm cap open @capacitor-community/electron`
-
-
 # install app dependencies and update ionic (it/s ionic/cli now)
 `npm install`
 
@@ -18,14 +9,21 @@ If you run into errors about unresolvable dependencies, you can try:
 `npm config set legacy-peer-deps true`
 `npm --legacy-peer-deps i`
 
-# build
+## install capacitor
+`npm i @capacitor-community/electron`
+
+# build ionic application
 `ionic build`
+
+# updating existing build
+If you're just updating the build and/or want to see new code in the app, take this shortcut and skip to the "open capacitor" section below.
+`npx cap copy @capacitor-community/electron`
+
+`npx cap open @capacitor-community/electron`
+
 
 # run ionic to test that it works
 `ionic serve` #open browser to localhost:8100 or whatever port your system defaults to
-
-# install capacitor
-`npm i @capacitor-community/electron`
 
 # open capacitor
 `npx cap open @capacitor-community/electron`
