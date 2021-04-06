@@ -5,7 +5,9 @@
 # updating existing build
 If you're just updating the build and/or want to see new code in the app, take this shortcut and skip to the "open capacitor" section below.
 `ionic build`
+
 `npm cap copy @capacitor-community/electron`
+
 `npm cap open @capacitor-community/electron`
 
 
