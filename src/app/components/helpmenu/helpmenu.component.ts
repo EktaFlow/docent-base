@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular'
 import { NavController, NavParams } from '@ionic/angular';
 
-import { AcronymsPage } from '../../pages/acronyms/acronyms.page';
-import { DefinitionsPage } from '../../pages/definitions/definitions.page';
-import { FaqsPage } from '../../pages/faqs/faqs.page';
-import { CriteriaPage } from '../../pages/criteria/criteria.page';
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({

@@ -1,8 +1,7 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
-import { PopoverController, NavController, NavParams, ToastController } from '@ionic/angular';
+import { PopoverController, ToastController } from '@ionic/angular';
 import { AssessmentService } from '../../services/assessment.service';
 import { Router, ActivatedRoute} from "@angular/router"
-import { UserDashboardPage } from '../../pages/user-dashboard/user-dashboard.page';
 import { AuthService } from "../../services/auth.service";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 

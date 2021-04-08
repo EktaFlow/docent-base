@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { ActivatedRoute } from '@angular/router';
 
-import { ContactsDropdownComponent } from '../../components/contacts-dropdown/contacts-dropdown.component';
-import { FaqDropdownComponent } from '../../components/faq-dropdown/faq-dropdown.component';
 
 @Component({
   selector: 'faqs',

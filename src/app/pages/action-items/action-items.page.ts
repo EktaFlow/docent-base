@@ -1,16 +1,12 @@
-import { NgModule, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from '../../components/topbar/topbar.component';
+import { NgModule, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { AssessmentService } from '../../services/assessment.service';
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
-import { ReportInfoCardComponent } from "../../components/report-info-card/report-info-card.component";
-import { QuestionsPage } from '../../pages/questions/questions.page';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-// import { DatatableComponent } from '@swimlane/ngx-datatable/src/lib/components/datatable.component';
-// import { ColumnMode } from '@swimlane/ngx-datatable/src/public-api';
 
-// import { Ng2TableModule } from 'ng2-table/ng2-table';
-// import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
+
+
+
+
 import {Router, ActivatedRoute} from "@angular/router"
 import * as XLSX from 'xlsx';
 

@@ -1,6 +1,5 @@
 import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
-import { NavController, PopoverController } from '@ionic/angular';
-import { TopbarComponent } from "../../components/topbar/topbar.component";
+import { PopoverController } from '@ionic/angular';
 import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover.component";
 //import {saveAs} from 'file-saver/FileSaver';
 import { HttpClient } from '@angular/common/http';

@@ -1,9 +1,6 @@
-import { Component, OnInit, Input, NgModule } from '@angular/core';
-import { PopoverController, NavController, IonicModule } from "@ionic/angular";
+import { Component, OnInit, Input } from '@angular/core';
+import { PopoverController } from "@ionic/angular";
 import { ViewsComponent } from "../../components/views/views.component";
-import { HomePage } from "../../pages/home/home.page";
-import { LoginPage } from '../../pages/login/login.page';
-import { NavigatePage} from "../../pages/navigate/navigate.page";
 import { AuthService } from "../../services/auth.service";
 import { HelpmenuComponent } from "../../components/helpmenu/helpmenu.component";
 import { SubthreadPopupComponent } from "../../components/subthread-popup/subthread-popup.component";
@@ -12,7 +9,6 @@ import { ThreadPopupComponent} from "../../components/thread-popup/thread-popup.
 import { AssessmentScopePopoverComponent } from "../../components/assessment-scope-popover/assessment-scope-popover.component";
 import { MobileNavPopoverComponent } from '../../components/mobile-nav-popover/mobile-nav-popover.component';
 import {QuestionHistoryPopoverComponent} from '../../components/question-history-popover/question-history-popover.component';
-import {QuestionsPage} from '../../pages/questions/questions.page';
 import { Router } from '@angular/router';
 
 import { AssessmentService } from "../../services/assessment.service";

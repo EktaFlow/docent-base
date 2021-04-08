@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
 import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
