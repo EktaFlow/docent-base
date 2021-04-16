@@ -1,11 +1,11 @@
 <topbar [assessmentId]="assessmentId" [pageName]="pageName" class="mobile"></topbar>
 <topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [pageName]="pageName" class="desktop"></topbar>
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" data-intercom-target="Tour Start">
 
   <div class="mobile-wrapper">
     <div class="mobile-to-start">
       <div class="box-title">
-        <h3 [routerLink]="'/startNew'"><b>Start New Assessment</b></h3>
+        <h3 [routerLink]="'/startNew'" data-intercom-target="Start Button"><b>Start New Assessment</b></h3>
       </div>
     </div>
 
