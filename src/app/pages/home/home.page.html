@@ -50,7 +50,7 @@
 			<h6 class="assessment-name headers">Assessment Name<sup>*</sup></h6>
       <small class="ass-name-count assessment-name"><span *ngIf="!assForm.name">0</span><span *ngIf="assForm.name">{{assForm.name.length}}</span> / 50</small>
 	<div class="topmost" style="z-index: 100;">
-      <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" >
+      <input type="text" maxlength="50" name="assessmentName" id="assessment-name-input" placeholder = "Assessment Name" [(ngModel)]="assForm.name" data-intercom-target="Fill Fields">
 	</div>
 
 <!-- Save for auth -->
@@ -91,7 +91,7 @@
       <div class = "target-level">
         <div style = "width:45%;">
           <h6>Target MRL<sup>*</sup></h6>
-          <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select">
+          <select name="targetMRL" [(ngModel)]="assForm.targetMRL" id="target-mrl-select" data-intercom-target="Target MRL">
             <option value="" disabled selected>Select One...</option>
             <option value = "1">1</option>
             <option value = "2">2</option>
@@ -131,7 +131,7 @@
     </div>
     <div>
       <h6>Deskbook Version<sup>*</sup></h6>
-      <select id="deskbook-select" (change)="updateThreads()" name="version" [(ngModel)]="assForm.deskBookVersion">
+      <select id="deskbook-select" (change)="updateThreads()" name="version" [(ngModel)]="assForm.deskBookVersion" data-intercom-target="Deskbook Version">
         <option value="" disabled selected>Select One...</option>
 				<ng-container *ngFor="let deskbook of deskbookVersions">
         	<option value="{{deskbook}}">{{deskbook}}</option>
@@ -144,7 +144,7 @@
       <div class = "choose-threads">
         <div class="choose-threads-header">
           <h6>Choose Threads</h6>
-          <button style="background: white;"(click)="showThreads($event)">
+          <button style="background: white;"(click)="showThreads($event)" data-intercom-target="Customization">
             <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
           </button>
         </div>
@@ -163,7 +163,7 @@
       </div>
 
     <div>
-      <ion-button color="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+      <ion-button color="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)" data-intercom-target="Start">
         Start
       </ion-button>
     </div>
