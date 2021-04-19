@@ -1,18 +1,17 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SubthreadPopupComponent } from './subthread-popup.component';
+import { SubthreadPopupComponent } from "./subthread-popup.component";
 
-describe('SubthreadPopupComponent', () => {
+describe("SubthreadPopupComponent", () => {
   let component: SubthreadPopupComponent;
   let fixture: ComponentFixture<SubthreadPopupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubthreadPopupComponent ],
+      declarations: [SubthreadPopupComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,7 +20,7 @@ describe('SubthreadPopupComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

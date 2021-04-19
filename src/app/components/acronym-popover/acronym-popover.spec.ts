@@ -1,18 +1,17 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AcronymPopoverComponent } from './acronym-popover.component';
+import { AcronymPopoverComponent } from "./acronym-popover.component";
 
-describe('AcronymPopoverComponent', () => {
+describe("AcronymPopoverComponent", () => {
   let component: AcronymPopoverComponent;
   let fixture: ComponentFixture<AcronymPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AcronymPopoverComponent ],
+      declarations: [AcronymPopoverComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,7 +20,7 @@ describe('AcronymPopoverComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

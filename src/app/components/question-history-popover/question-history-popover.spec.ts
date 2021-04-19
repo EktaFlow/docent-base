@@ -1,18 +1,17 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { QuestionHistoryPopoverComponent } from './question-history-popover.component';
+import { QuestionHistoryPopoverComponent } from "./question-history-popover.component";
 
-describe('QuestionHistoryPopoverComponent', () => {
+describe("QuestionHistoryPopoverComponent", () => {
   let component: QuestionHistoryPopoverComponent;
   let fixture: ComponentFixture<QuestionHistoryPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionHistoryPopoverComponent ],
+      declarations: [QuestionHistoryPopoverComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,7 +20,7 @@ describe('QuestionHistoryPopoverComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
