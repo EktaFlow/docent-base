@@ -1,4 +1,4 @@
-FROM node:13.10.1
+FROM node:15.11.0
 WORKDIR /user/src/front
 COPY package*.json ./
 RUN npm install
