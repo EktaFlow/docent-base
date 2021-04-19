@@ -1,17 +1,18 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileNavPopoverComponent } from "./mobile-nav-popover.component";
+import { MobileNavPopoverComponent } from './mobile-nav-popover.component';
 
-describe("MobileNavPopoverComponent", () => {
+describe('MobileNavPopoverComponent', () => {
   let component: MobileNavPopoverComponent;
   let fixture: ComponentFixture<MobileNavPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MobileNavPopoverComponent],
+      declarations: [ MobileNavPopoverComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe("MobileNavPopoverComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

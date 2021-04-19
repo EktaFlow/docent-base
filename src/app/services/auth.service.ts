@@ -1,42 +1,44 @@
 import { Injectable, NgModule } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http"
 import { tap } from "rxjs/operators";
 
 import { AuthUrl } from "./constants";
 
 @NgModule()
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
+
 export class AuthService {
-  constructor(private http: HttpClient) {}
+
+
+constructor(private http: HttpClient) {}
 
   reset: boolean = false;
-  resetToken: string = "";
-  resetEmail: string = "";
-  registerUrl = AuthUrl + "register";
-  loginUrl = AuthUrl + "login";
-  resetUrl = AuthUrl + "reset";
-  fetchUrl = AuthUrl + "fetchUser";
-  fetchMultipleUrl = AuthUrl + "fetchMultiple";
+  resetToken: string = '';
+  resetEmail: string = '';
+	registerUrl = AuthUrl + "register";
+	loginUrl    = AuthUrl + "login";
+        resetUrl    = AuthUrl + 'reset';
+				fetchUrl = AuthUrl + 'fetchUser';
+				fetchMultipleUrl = AuthUrl + 'fetchMultiple';
 
-  registerUser(user) {
-    return this.http.post(this.registerUrl, user);
-  }
+	registerUser(user) {
+		return this.http.post(this.registerUrl, user)
+	}
 
-  login(userCreds) {
-    return this.http.post(this.loginUrl, userCreds).pipe(
-      tap(
-        (data) => this.setSession(data),
-        (error) => console.log(error)
-      )
-    );
-  }
+	login(userCreds) {
+		return this.http.post(this.loginUrl, userCreds)
+		.pipe( tap( data => this.setSession(data),
+		            error => console.log(error)
+		          )
+		)
+	}
 
   /** purpose: grab info from url.
-   *
-   *
-   */
+  *
+  *
+  */
   public setReset(url) {
     this.reset = true;
     var tokenRegex = /=.+$/;
@@ -48,71 +50,71 @@ export class AuthService {
     var body = {
       newPassword: newPassword,
       email: this.resetEmail,
-      resetToken: this.resetToken,
+      resetToken: this.resetToken
     };
 
-    return this.http.post(AuthUrl + "doreset", body).subscribe((a) => {
-      if (a == "Success") {
-        var userCreds = {
-          email: this.resetEmail,
-          passwd: newPassword,
-        };
+    return this.http.post(AuthUrl + 'doreset', body)
+      .subscribe(a => {
+        if (a == 'Success') {
+          var userCreds = {
+            email: this.resetEmail,
+            passwd: newPassword
+          }
 
-        this.login(userCreds).subscribe((user) => console.log(user));
-      }
-    });
+          this.login(userCreds)
+            .subscribe(user => console.log(user));
+        }
+      });
   }
 
-  public logout() {
-    localStorage.removeItem("docent-token");
-  }
+	public logout() {
+		localStorage.removeItem("docent-token");
+	}
 
-  public currentUser() {
-    var ok = JSON.parse(localStorage.getItem("docent-token"));
-    ok ? (ok = ok.user) : null;
-    return ok;
-  }
+	public currentUser() {
+		var ok = JSON.parse(localStorage.getItem("docent-token"))
+		ok ? ok = ok.user : null
+		return ok
+	}
 
   public resetPassword(email) {
-    return this.http
-      .post(this.resetUrl, { email })
-      .pipe(
-        tap(
-          (data) => console.log(data),
-          (error) => console.log(error)
-        )
-      )
-      .subscribe((a) => console.log("of course"));
+    return this.http.post(this.resetUrl, {email})
+           .pipe(tap( data => console.log(data),
+                      error => console.log(error)
+                    ))
+           .subscribe(a => console.log('of course'));
   }
 
-  public fetchUser(id) {
-    return this.http.post(this.fetchUrl, id);
-  }
+	public fetchUser(id){
+		return this.http.post(this.fetchUrl, id);
+	}
 
-  public fetchMultiple(ids) {
-    var userInfo = {
-      ids: ids,
-    };
-    return this.http.post(this.fetchMultipleUrl, userInfo);
-  }
+	public fetchMultiple(ids){
+		var userInfo = {
+			"ids": ids
+		}
+		return this.http.post(this.fetchMultipleUrl, userInfo);
+	}
 
-  private setSession(isAuthed) {
-    localStorage.setItem("docent-token", JSON.stringify(isAuthed));
-  }
+	private setSession(isAuthed) {
+		localStorage.setItem("docent-token", JSON.stringify(isAuthed))
+	}
 
-  public unverified = () => {
-    var hasToken = localStorage.getItem("docent-token");
-    if (hasToken && JSON.parse(hasToken).user) {
-      return !JSON.parse(hasToken).user.verified;
-    }
-  };
+	public unverified = () => {
+		var hasToken = localStorage.getItem("docent-token");
+		if (hasToken && JSON.parse(hasToken).user) {
+			return !JSON.parse(hasToken).user.verified
+		}
 
-  public isLoggedIn = () => {
-    var hasToken = localStorage.getItem("docent-token");
-    if (hasToken && JSON.parse(hasToken).user) {
-      return JSON.parse(hasToken).user.verified;
-    }
+	}
 
-    // return true
-  };
+	public isLoggedIn = () => {
+		var hasToken = localStorage.getItem("docent-token");
+		if (hasToken && JSON.parse(hasToken).user) {
+			return JSON.parse(hasToken).user.verified
+		}
+
+		// return true
+	}
+
 }

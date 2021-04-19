@@ -1,17 +1,17 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { Routes, RouterModule } from "@angular/router";
-import { IonicModule } from "@ionic/angular";
-import { ComponentsModule } from "../../components/components.module";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../../components/components.module';
 
-import { ResetPasswordPage } from "./reset-password.page";
+import { ResetPasswordPage } from './reset-password.page';
 
 const routes: Routes = [
   {
-    path: "",
-    component: ResetPasswordPage,
-  },
+    path: '',
+    component: ResetPasswordPage
+  }
 ];
 
 @NgModule({
@@ -20,9 +20,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ComponentsModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   declarations: [ResetPasswordPage],
-  exports: [ResetPasswordPage],
+  exports: [ResetPasswordPage]
 })
 export class ResetPasswordPageModule {}

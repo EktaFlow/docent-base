@@ -1,17 +1,18 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DoResetComponent } from "./do-reset.component";
+import { DoResetComponent } from './do-reset.component';
 
-describe("DoResetComponent", () => {
+describe('DoResetComponent', () => {
   let component: DoResetComponent;
   let fixture: ComponentFixture<DoResetComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DoResetComponent],
+      declarations: [ DoResetComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe("DoResetComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

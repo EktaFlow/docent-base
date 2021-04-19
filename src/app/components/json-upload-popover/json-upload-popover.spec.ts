@@ -1,17 +1,18 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JsonUploadPopoverComponent } from "./json-upload-popover.component";
+import { JsonUploadPopoverComponent } from './json-upload-popover.component';
 
-describe("JsonUploadPopoverComponent", () => {
+describe('JsonUploadPopoverComponent', () => {
   let component: JsonUploadPopoverComponent;
   let fixture: ComponentFixture<JsonUploadPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonUploadPopoverComponent],
+      declarations: [ JsonUploadPopoverComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe("JsonUploadPopoverComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

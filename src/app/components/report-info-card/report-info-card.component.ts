@@ -1,30 +1,30 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 
 var assessmentQuery = gql`
-  query assessment($_id: String) {
-    assessment(_id: $_id) {
-      deskbookVersion
+query assessment($_id: String) {
+	assessment(_id: $_id) {
+    deskbookVersion
+    name
+		# id
+		teamMembers {
       name
-      # id
-      teamMembers {
-        name
-        email
-        role
-      }
-      targetMRL
-      targetDate
-      location
-      scope
+      email
+      role
     }
-  }
-`;
+    targetMRL
+    targetDate
+    location
+    scope
+	}
+}
+`
 
 @Component({
-  selector: "report-info-card",
-  templateUrl: "./report-info-card.component.html",
-  styleUrls: ["./report-info-card.component.scss"],
+  selector: 'report-info-card',
+  templateUrl: './report-info-card.component.html',
+  styleUrls: ['./report-info-card.component.scss'],
 })
 export class ReportInfoCardComponent implements OnInit {
   //vars
@@ -37,16 +37,17 @@ export class ReportInfoCardComponent implements OnInit {
   public teamMembers: any;
   public name: any;
 
-  constructor(private apollo: Apollo) {}
+  constructor(
+    private apollo: Apollo
+  ) { }
 
-  ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: assessmentQuery,
-        variables: { _id: this.assessmentId },
-        fetchPolicy: "network-only",
-      })
-      .valueChanges.subscribe((data) => {
+  ngOnInit(){
+    this.apollo.watchQuery({
+      query: assessmentQuery,
+      variables: {_id: this.assessmentId},
+      fetchPolicy: "network-only"
+      }).valueChanges
+      .subscribe(data => {
         var assessment = (<any>data.data).assessment;
         var questions = assessment.questions;
 
@@ -57,5 +58,7 @@ export class ReportInfoCardComponent implements OnInit {
         this.teamMembers = assessment.teamMembers;
         this.name = assessment.name;
       });
+
   }
+
 }

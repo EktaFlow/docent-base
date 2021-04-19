@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Output, OnInit } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
-import { ToastController } from "@ionic/angular";
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: "password-reset",
-  templateUrl: "password-reset.component.html",
-  styleUrls: ["./password-reset.component.scss"],
+  selector: 'password-reset',
+  templateUrl: 'password-reset.component.html',
+  styleUrls: ['./password-reset.component.scss']
 })
 export class PasswordResetComponent implements OnInit {
   public emailInput: string = null;
@@ -13,7 +13,8 @@ export class PasswordResetComponent implements OnInit {
   public user: any = {};
   @Output() toggleClicked = new EventEmitter<string>();
 
-  constructor(private auth: AuthService, private toastCtrl: ToastController) {}
+  constructor( private auth: AuthService,
+               private toastCtrl: ToastController ) {}
 
   ngOnInit() {
     //hello
@@ -21,22 +22,23 @@ export class PasswordResetComponent implements OnInit {
 
   handleResetClick() {
     try {
-      this.emailInput ? this.resetPassword() : this.showNoTextToast();
-    } catch (error) {
-      // todo - legit error handling
-      console.error(error);
+      this.emailInput ? this.resetPassword() : this.showNoTextToast()
+    }
+    catch(error) {
+       // todo - legit error handling
+       console.error(error);
     }
   }
 
   showLogin() {
-    this.toggleClicked.emit("login");
+    this.toggleClicked.emit('login');
   }
 
   async showNoTextToast() {
     var toast = await this.toastCtrl.create({
-      message: "You must enter some email address",
+      message: 'You must enter some email address',
       duration: 5000,
-      position: "top",
+      position: 'top',
     });
 
     await toast.present();
@@ -49,12 +51,12 @@ export class PasswordResetComponent implements OnInit {
 
   async showSuccessToast(email) {
     var toast = await this.toastCtrl.create({
-      message:
-        "Success, if you have a Docent account, reset information will be sent to " +
-        email,
+      message: 'Success, if you have a Docent account, reset information will be sent to ' + email,
       duration: 5000,
-      position: "top",
+      position: 'top',
     });
     await toast.present();
   }
+
+
 }
