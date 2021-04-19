@@ -9,7 +9,7 @@
     "start": "ng serve --host 0.0.0.0 --port 8100 --disable-host-check",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "eslint '**/*.ts' >> lint.log",
     "e2e": "ng e2e",
     "cypress:log": "node scripts/cypress.js",
     "cypress:open": "cypress open"
@@ -86,10 +86,13 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.4",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
     "angular": "^1.8.2",
     "codelyzer": "^5.2.1",
     "cypress": "^4.12.1",
     "cypress-multi-reporters": "^1.4.0",
+    "eslint-plugin-unused-imports": "^1.1.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -104,6 +107,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "^3.4.5"
   }
 }
