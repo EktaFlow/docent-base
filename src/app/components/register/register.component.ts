@@ -70,10 +70,9 @@ export class RegisterComponent implements OnInit {
 
   checkPasswordRules(passwd) {
     let regexPass = /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])(?=.{8,})/;
-	let validPass= regexPass.test(passwd);
+    let validPass = regexPass.test(passwd);
 
-    !validPass ? this.errors.push("invalid_passwd")
- : null;
+    !validPass ? this.errors.push("invalid_passwd") : null;
   }
 
   checkEmail(email) {
