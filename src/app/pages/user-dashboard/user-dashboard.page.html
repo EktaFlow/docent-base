@@ -5,7 +5,7 @@
   <div class="mobile-wrapper">
     <div class="mobile-to-start">
       <div class="box-title">
-        <h3 [routerLink]="'/startNew'" data-intercom-target="Start Button"><b>Start New Assessment</b></h3>
+        <h3 [routerLink]="'/startNew'" ><b>Start New Assessment</b></h3>
       </div>
     </div>
 
@@ -19,7 +19,7 @@
         </div>
         <div class="assessment-links">
           <!-- <div class="buttons"> -->
-            <ion-button size="small" class="a-button" color="light" expand="full" [routerLink]="'/startNew'">Start New</ion-button>
+            <ion-button size="small" class="a-button" color="light" expand="full" [routerLink]="'/startNew'" data-intercom-target="Start Button">Start New</ion-button>
             <ion-button size="small" class="a-button" color="light" expand="full" (click)="handleImport()">Import</ion-button>
             <ion-button size="small" class="a-button" color="light" expand="full" [routerLink]="['/settings']">Settings</ion-button>
           <!-- </div> -->
