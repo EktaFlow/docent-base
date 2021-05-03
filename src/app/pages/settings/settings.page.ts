@@ -1,20 +1,18 @@
-import { NgModule, Component, OnInit, EventEmitter } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
-import {JsonUploadPopoverComponent} from "../../components/json-upload-popover/json-upload-popover.component";
+import { NgModule, Component, OnInit, EventEmitter } from "@angular/core";
+import { PopoverController } from "@ionic/angular";
+import { JsonUploadPopoverComponent } from "../../components/json-upload-popover/json-upload-popover.component";
 //import {saveAs} from 'file-saver/FileSaver';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { saveAs } from "file-saver/FileSaver";
-import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
-import { Router} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
-
-
+import { GoogleAnalytics } from "../../services/helpers/GoogleAnalytics";
+import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @NgModule()
 @Component({
-  selector: 'settings',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
+  selector: "settings",
+  templateUrl: "./settings.page.html",
+  styleUrls: ["./settings.page.scss"],
 })
 export class SettingsPage implements OnInit {
   downloadJsonHref: any;
@@ -33,19 +31,20 @@ export class SettingsPage implements OnInit {
     GoogleAnalytics.trackPage("settings");
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.user = await this.auth.currentUser();
   }
 
-  goBackToUser(){ this.router.navigate(["/user-dashboard"]);};
+  goBackToUser() {
+    this.router.navigate(["/user-dashboard"]);
+  }
 
-  async saveDownJSON(){
-  		this.http.get('assets/json/2020.json')
-  					.subscribe( data => {
-              //get data and then save down file
-              var json = JSON.stringify(data, null, '\t');
-              saveAs(new Blob([json], { type: "text/plain" }), "2020.json");
-  					});
+  async saveDownJSON() {
+    this.http.get("assets/json/2020.json").subscribe((data) => {
+      //get data and then save down file
+      var json = JSON.stringify(data, null, "\t");
+      saveAs(new Blob([json], { type: "text/plain" }), "2020.json");
+    });
   }
 
   // generateDownloadJsonUri(json) {
@@ -55,19 +54,19 @@ export class SettingsPage implements OnInit {
   // }
 
   showFileUpload() {
+    let myEmitter = new EventEmitter<any>();
+    myEmitter.subscribe((v) => {
+      this.files.push(v);
+    });
 
-			let myEmitter = new EventEmitter<any>();
-				myEmitter.subscribe( v =>  {
-				this.files.push(v);
-			});
-
-        this.popover.create({
-          component: JsonUploadPopoverComponent,
-          componentProps: {
-            emitter: myEmitter,
-          },
-          cssClass: "json-upload-popover"
-        }).then(popover => popover.present());
-	}
-
+    this.popover
+      .create({
+        component: JsonUploadPopoverComponent,
+        componentProps: {
+          emitter: myEmitter,
+        },
+        cssClass: "json-upload-popover",
+      })
+      .then((popover) => popover.present());
+  }
 }

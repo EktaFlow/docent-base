@@ -1,18 +1,17 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { HelpmenuComponent } from './helpmenu.component';
+import { HelpmenuComponent } from "./helpmenu.component";
 
-describe('HelpmenuComponent', () => {
+describe("HelpmenuComponent", () => {
   let component: HelpmenuComponent;
   let fixture: ComponentFixture<HelpmenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HelpmenuComponent ],
+      declarations: [HelpmenuComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,7 +20,7 @@ describe('HelpmenuComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -3,13 +3,10 @@ import { NgModule, Injectable } from "@angular/core";
 @NgModule()
 @Injectable()
 export class Helpers {
-
   constructor() {}
 
   formatDate(date) {
-    return new Date(date)
-      .toISOString()
-      .slice(0,10);
+    return new Date(date).toISOString().slice(0, 10);
   }
 
   public threadMap: any = {
@@ -22,8 +19,7 @@ export class Helpers {
     "7": "Quality Management",
     "8": "Mfg Personnel",
     "9": "Facilities",
-    "10": "Mfg Management"
-
+    "10": "Mfg Management",
   };
 
   public threadMap2016: any = {
@@ -36,7 +32,6 @@ export class Helpers {
     "7": "F. Quality Management",
     "8": "G. Mfg Personnel",
     "9": "H. Facilities",
-    "10": "I. Mfg Management"
+    "10": "I. Mfg Management",
   };
-
 }

@@ -1,18 +1,17 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { FaqDropdownComponent } from './faq-dropdown.component';
+import { FaqDropdownComponent } from "./faq-dropdown.component";
 
-describe('FaqDropdownComponent', () => {
+describe("FaqDropdownComponent", () => {
   let component: FaqDropdownComponent;
   let fixture: ComponentFixture<FaqDropdownComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FaqDropdownComponent ],
+      declarations: [FaqDropdownComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,7 +20,7 @@ describe('FaqDropdownComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
