@@ -369,6 +369,8 @@
   <div class="bottom-q-buttons">
       <ion-button color="buttonBlue" (click)="handlePreviousPageClick()" id="previous-button">Previous</ion-button>
       <ion-button color="buttonBlue" (click)="handleNextPageClick()" id="next-skip-button">Next</ion-button>
+      <ion-button color="buttonBlue" *ngIf="currentQPos != currentQSetAmt" (click) = "handleNextPageClick()" id="next-skip-button">Next</ion-button>
+      <ion-button color="buttonBlue" *ngIf="currentQPos == currentQSetAmt" (click) = "handleOnFinishedClick()" id="finish-button">Finish</ion-button>
       <ion-button color="buttonBlue" (click)="handleSave()" id="save-button">Save</ion-button>
   </div>
 
