@@ -1,7 +1,7 @@
 FROM node:15.11.0
 WORKDIR /user/src/front
 COPY package*.json ./
-RUN npm install
+RUN npm install --force
 RUN npm install -g ionic
 
 COPY . .

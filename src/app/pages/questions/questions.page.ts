@@ -36,17 +36,29 @@ export class QuestionsPage implements OnInit {
 	currentQSetAmt: any;
 	currentQPos: any;
   public getAssessmentId = true;
-	noSecondBar: boolean = true;
+  noSecondBar: boolean = true;
 
-	constructor(public help: Helpers,
-              private storage: Storage,
-							public popOver: PopoverController,
-						  private assessmentService: AssessmentService,
-							private auth: AuthService,
-              private activatedRoute: ActivatedRoute) {
-
-		// QUESTION - SAVE THIS IN LOCAL MEMORY?
-		this.referringQuestionId = activatedRoute.snapshot.paramMap.get('questionId');
+  /**
+   * [On initialization, this object is populated with the following accessible properties.]
+   * @param help - Access to help page and support artifacts
+   * @param storage - Access to files
+   * @param popOver - Pop up/re-directing resources
+   * @param assessmentService - Access to assessment properties such as current assessment
+   * @param auth - User identification properties
+   * @param activatedRoute - Access to global router object
+   */
+  constructor(
+    public help: Helpers,
+    private storage: Storage,
+    public popOver: PopoverController,
+    private assessmentService: AssessmentService,
+    private auth: AuthService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    // QUESTION - SAVE THIS IN LOCAL MEMORY?
+    this.referringQuestionId = activatedRoute.snapshot.paramMap.get(
+      "questionId"
+    );
   }
 
 	ionViewWillEnter() {
@@ -54,21 +66,24 @@ export class QuestionsPage implements OnInit {
   }
 
   /////////////////////////// useful functions ///////////////////////
-	// return a question by its questionId
-	getQuestion = (id) => this.allQuestions[id - 1]
+  // return a question by its questionId
+  getQuestion = (id) => this.allQuestions[id - 1];
 
-	allSubthreadQuestions(question = this.currentQuestion) {
-		return this.allQuestions
-		           .filter(q => q.subThreadName == question.subThreadName);
-	}
+  allSubthreadQuestions(question = this.currentQuestion) {
+    return this.allQuestions.filter(
+      (q) => q.subThreadName == question.subThreadName
+    );
+  }
 
-	allSubthreadLevelQuestions(question = this.currentQuestion) {
-		return this.allQuestions
-		           .filter(q => q.subThreadName == question.subThreadName)
-		           .filter(q => q.mrLevel == question.mrLevel );
-	}
-	/////////////////////////////////////////////////////////////////////
-	// INIT && related function
+  allSubthreadLevelQuestions(question = this.currentQuestion) {
+    return this.allQuestions
+      .filter((q) => q.subThreadName == question.subThreadName)
+      .filter((q) => q.mrLevel == question.mrLevel);
+  }
+  /////////////////////////////////////////////////////////////////////
+  /**
+   * [Questions page initialization to load in current assessment]
+   */
   async ngOnInit() {
 
 		this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
@@ -219,6 +234,7 @@ export class QuestionsPage implements OnInit {
     window.open(url);
   }
 
+<<<<<<< Updated upstream
 	///////////////////////// next / prev / etc /////////////////////////////
 	async handleNextPageClick() {
 		// if (this.currentQPos == this.currentQSetAmt) return null;
@@ -226,6 +242,17 @@ export class QuestionsPage implements OnInit {
 		if ( this.assessment.levelSwitching ) { this.handleLevelSwitching() }
 		else { this.moveCurrentQuestion(1) }
 		this.vals = this.currentQuestion;
+=======
+  async handleNextPageClick() {
+    // if (this.currentQPos == this.currentQSetAmt) return null;
+    this.setValues();
+    if (this.assessment.levelSwitching) {
+      this.handleLevelSwitching();
+    } else {
+      this.moveCurrentQuestion(1);
+    }
+    this.vals = this.currentQuestion;
+>>>>>>> Stashed changes
     // this can replace the line above
 		this.pullLatestAnswer(this.currentQuestion);
 		this.vals.when = this.formatDate();
