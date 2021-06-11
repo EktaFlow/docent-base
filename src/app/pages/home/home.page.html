@@ -13,7 +13,7 @@
 
 <ion-content class="home-wrapper ion-padding">
 	<ng-container *ngIf="!isElectron">
-		<ng-container *ngIf="!auth.isLoggedIn()">
+		<ng-container *ngIf="!auth.isLoggedIn() && !isElectron">
 			<ng-container *ngIf="auth.unverified()">
 			You must verify your Docent registration via email before logging on.
 			</ng-container>
@@ -22,14 +22,14 @@
 		    	<login-component></login-component>
 		  </ng-container>
 		  <h6 (click)="newLogin()"> CLICK HERE LOGIN PAGE </h6>
-		<div *ngIf="!showRegister" class="register-container">
+		<div *ngIf="!showRegister && !isElectron" class="register-container">
 		        <h4>Forgot Password?</h4>
 		        <div>
 		            <button ion-button color="buttonBlue" (click)="handleResetClick()">Reset Password</button>
 		        </div>
 		</div>
 
-			<div *ngIf="!showRegister" class="register-container">
+			<div *ngIf="!showRegister && !isElectron" class="register-container">
 				<h4>Not registered?</h4>
 				<button ion-button color ="buttonBlue" (click)="showRegisterForm()"> Register for Docent </button>
 			</div>

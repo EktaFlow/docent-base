@@ -11,7 +11,7 @@ import {FileUploadPopoverComponent} from "../../components/file-upload-popover/f
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 import { RiskPopoverComponent } from '../../components/risk-popover/risk-popover.component';
 import {isElectron} from "../../services/constants";
-import { ElectronService } from 'ngx-electron';
+// import { ElectronService } from 'ngx-electron';
 import { ActivatedRoute } from "@angular/router"
 import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Helpers } from '../../services/helpers/helpers';
@@ -51,12 +51,14 @@ export class QuestionsPage implements OnInit {
 							public popOver: PopoverController,
 						  private assessmentService: AssessmentService,
 							private auth: AuthService,
-              private activatedRoute: ActivatedRoute,
-              private electron: ElectronService
+              private activatedRoute: ActivatedRoute
+              // private electron: ElectronService
             ) {
 
 		// QUESTION - SAVE THIS IN LOCAL MEMORY?
     // this.exec = this.electron.remote.require('child_process').exec;
+    // this.ipcRenderer = this.electron.ipcRenderer;
+    // this.ipcMain = this.electron.ipcMain;
 		this.referringQuestionId = activatedRoute.snapshot.paramMap.get('questionId');
   }
 
@@ -290,11 +292,12 @@ export class QuestionsPage implements OnInit {
   *  changing actual address url.
   */
   openFile(url) {
-    if (!this.isElectron){
-      window.open(url);
-    } else {
-      // this.exec(`"${url}"`)
-    }
+    window.open(url);
+    //
+    // if (!this.isElectron){
+    // } else {
+    //   // this.exec(`"${url}"`)
+    // }
   }
 
 	///////////////////////// next / prev / etc /////////////////////////////

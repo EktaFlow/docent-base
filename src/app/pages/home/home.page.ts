@@ -58,11 +58,49 @@ export class HomePage implements OnInit {
 							private toastCtrl: ToastController,
 							public router: Router,
 							private docentElectron: DocentElectronService
-						) {}
+						) {
+							this.isElectron = isElectron;
+							console.log('are we here at all????')
+						}
 
-							ionViewWillEnter() {
-						    GoogleAnalytics.trackPage("home");
-						  }
+	ionViewWillEnter() {
+    GoogleAnalytics.trackPage("home");
+  }
+
+	// this function sets a couple default values and brings in the threads
+	ngOnInit() {
+		console.log('are we getting called at all????')
+		this.isElectron = isElectron;
+		console.log('is electron???', this.isElectron);
+	// setting defaults, ionic is weird with this.
+  //have to cast to HTMLInputElement which contains value prop
+    var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
+    tmp ? tmp.value = "" : null
+    tmp = <HTMLInputElement>document.getElementById("deskbook-select");
+	  tmp ? tmp.value = "2020" : null;
+
+		if (!this.isElectron){
+			// if (this.auth.currentUser()) {
+	    //   var cool = await this.assessmentService.getDefaultThreads()
+	    //   cool.subscribe( threads => this.threads = threads );
+			// 	this.apollo.watchQuery<any>({
+			// 		query: threadsQuery
+			// 	})
+			// 	 .valueChanges
+			// 	 .subscribe(({data, loading}) => {
+			//
+	    //   // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
+			// 			this.setUpDeskbookArray();
+			// 	 });
+			//
+			// 	}
+		}
+
+				// 	this.setUpDeskbookArray();
+			 // });
+
+
+	}
 
 	validateAssessment() {
 		var fields = [
@@ -222,39 +260,7 @@ export class HomePage implements OnInit {
 		.catch(e => console.error(e));
 	}
 
-	// this function sets a couple default values and brings in the threads
-	async ngOnInit() {
 
-		this.isElectron = isElectron;
-	// setting defaults, ionic is weird with this.
-  //have to cast to HTMLInputElement which contains value prop
-    var tmp = <HTMLInputElement>document.getElementById("level-switching-select");
-    tmp ? tmp.value = "" : null
-    tmp = <HTMLInputElement>document.getElementById("deskbook-select");
-	  tmp ? tmp.value = "2020" : null;
-
-		if (!this.isElectron){
-			if (this.auth.currentUser()) {
-	      var cool = await this.assessmentService.getDefaultThreads()
-	      cool.subscribe( threads => this.threads = threads );
-				this.apollo.watchQuery<any>({
-					query: threadsQuery
-				})
-				 .valueChanges
-				 .subscribe(({data, loading}) => {
-
-	      // this.allThreads = data.allThreadNames.map(a => ({name: a, index: data.allThreadNames.indexOf(a) + 1}))
-						this.setUpDeskbookArray();
-				 });
-
-				 }
-		}
-
-				// 	this.setUpDeskbookArray();
-			 // });
-
-
-	}
 
   async updateThreads() {
     var selectedDeskbookName = this.assForm.deskBookVersion;

@@ -136,7 +136,7 @@ export class UserDashboardPage implements OnInit {
 						  // }
 
   async ngOnInit() {
-
+		console.log('are my changes taking place or am i going crazy')
 		this.isElectron = isElectron;
 		console.log(this.isElectron);
 
@@ -320,7 +320,7 @@ export class UserDashboardPage implements OnInit {
      // this.navCtrl.push(ActionitemsPage, {assessmentId: assessmentId});
 	}
 
-	// redirectToCreate(){	
+	// redirectToCreate(){
 	// 	this.navCtrl.push(HomePage);
 	// }
 

@@ -5,6 +5,11 @@ import { AuthService } from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
 import {ElectronService} from "ngx-electron";
 import {isElectron} from "../../services/constants";
+// import * as file from "file-system"
+// var file = require("file-system")
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+
 
 @Component({
   selector: 'file-upload-popover',
@@ -21,20 +26,27 @@ export class FileUploadPopoverComponent implements OnInit {
   inAssessment: any;
   isElectron: any;
   assessmentName: any;
-  fs: any;
+  fsys: any;
+
 
   constructor(
     public upload: UploadService,
   	public navParams: NavParams,
     private popOver: PopoverController,
-    private electronService: ElectronService
+    private electronService: ElectronService,
+    // private fs: fs
   ) {
     var {navParams} = this;
 
 		this.questionId		= navParams.get("questionId");
 		this.assessmentId = navParams.get("assessmentId");
 		this.emitter			= navParams.data.emitter;
-    this.assessmentName = navParams.get("assessmentName")
+    this.assessmentName = navParams.get("assessmentName");
+    // console.log(fs)
+    // this.fsys = window.require('fs');
+    this.fsys = file;
+    console.log(this.fsys);
+    console.log(this.fsys.fs);
   }
 
   test(e) {
@@ -78,19 +90,23 @@ export class FileUploadPopoverComponent implements OnInit {
       var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
       var filePath = file.path;
       var fileName = file.name;
-      if (!this.fs.existsSync('./file/')) {this.fs.mkdirSync('./file/')}
-      var assessmentFileDir = `./file/${this.assessmentName}-${this.assessmentId.substr(0,5)}/`
-      if (!this.fs.existsSync(assessmentFileDir)){
-        this.fs.mkdirSync(assessmentFileDir);
-      }
-      this.fs.copyFile(filePath, assessmentFileDir + fileName, err => console.log(err));
-      var emitted = {
-        path: assessmentFileDir + fileName,
-        name: file.name
-      }
-      this.emitter.emit(emitted);
-      this.popOver.dismiss()
-    }
+      // if (!this.fsys.fileMatch('./file/')) {this.fsys.mkdirSync('./file/')}
+      console.log(FileSystem);
+      console.log(Directory)
+      if (!FileSystem.stat('./file/')) {FileSystem.mkdir('./file/')}
+    //   var random = Math.floor(Math.random() * 20492039);
+    //   var assessmentFileDir = `./file/${this.assessmentName}-${random}/`
+    //   if (!this.fsys.fileMatch(assessmentFileDir)){
+    //     this.fsys.mkdirSync(assessmentFileDir);
+    //   }
+    //   this.fsys.copyFileSync(filePath, assessmentFileDir + fileName, err => console.log(err));
+    //   var emitted = {
+    //     path: assessmentFileDir + fileName,
+    //     name: file.name
+    //   }
+    //   this.emitter.emit(emitted);
+    //   this.popOver.dismiss()
+    // }
 
 	}
 
