@@ -1,0 +1,92 @@
+<topbar [assessmentId]="assessmentId"
+              [pageName]="pageName"></topbar>
+
+
+<ion-content class="ion-padding">
+
+  <report-info-card [assessmentId]="assessmentId"></report-info-card>
+
+
+  <div class="filter-toolbar">
+    <ion-button (click)="saveXLS()" color="buttonBlue">Export As XLS</ion-button>
+    <div class="extraspace"></div>
+    <div class="filter-list">
+      <div class="extraspace"></div>
+      <p>Filter MR Level: </p>
+      <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
+        <option value="" disabled selected>Select One...</option>
+        <option value = "1">1</option>
+        <option value = "2">2</option>
+        <option value = "3">3</option>
+        <option value = "4">4</option>
+        <option value = "5">5</option>
+        <option value = "6">6</option>
+        <option value = "7">7</option>
+        <option value = "8">8</option>
+        <option value = "9">9</option>
+        <option value = "10">10</option>
+      </select>
+      <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
+      <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
+    </div>
+  </div>
+
+  <div class="survey-info">
+    <ng-container *ngIf = "allQuestions && allQuestions.length == 0">
+      <h3 style="padding: 10px;">No answered questions for this filter. Please clear your filter or try another filter.</h3>
+    </ng-container>
+    <ion-card *ngFor="let question of allQuestions" class="review-card">
+        <ion-card-header>
+          <ion-card-title>{{question.questionText}}</ion-card-title>
+          <ion-card-subtitle *ngIf="question.currentAnswer == 'N/A'" class="box na"><b>N/A</b></ion-card-subtitle>
+          <ion-card-subtitle *ngIf="question.currentAnswer == 'No'" class="box no"><b>No</b></ion-card-subtitle>
+          <ion-card-subtitle *ngIf="question.currentAnswer == 'Yes'" class="box yes"><b>Yes</b></ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content class="review-card-content">
+          <h4>Thread: {{question.threadName}} | SubThread: {{question.subThreadName}}</h4>
+          <h4>MRLevel: {{question.level}}</h4>
+          <ng-container *ngIf="question.currentAnswer == 'Yes'">
+            <h2><b>Objective Evidence:</b> {{question.objectiveEvidence}} </h2>
+            <h2><b>Assumptions:</b> {{question.assumptionsYes}} </h2>
+            <h2><b>Notes:</b> {{question.notesYes}} </h2>
+          </ng-container>
+          <ng-container *ngIf="question.currentAnswer == 'No'">
+            <h2><b>Owner:</b> {{question.who}} </h2>
+            <h2><b>Due Date:</b> {{question.when}} </h2>
+            <h2><b>Action Plan:</b> {{question.what}} </h2>
+            <h2><b>Reason:</b> {{question.reason}} </h2>
+            <h2><b>Assumptions:</b> {{question.assumptionsNo}} </h2>
+            <h2><b>Notes:</b> {{question.notesNo}} </h2>
+          </ng-container>
+          <ng-container *ngIf="question.currentAnswer == 'NA'">
+            <h2><b>Documentation:</b> {{question.documentation}} </h2>
+            <h2><b>Assumptions:</b> {{question.assumptionsNA}} </h2>
+            <h2><b>Notes:</b> {{question.notesNA}} </h2>
+          </ng-container>
+
+          <ng-container>
+            <hr />
+            <h2><i>Risk Assessment</i></h2>
+            <h2 [style.color]="pickRiskColor(question)"><b>Risk Score:</b> {{question.risk}} </h2>
+            <h2><b>Greatest Impact:</b> {{question.greatestImpact}} </h2>
+            <h2><b>Risk Response:</b> {{question.riskResponse}} </h2>
+            <h2><b>MMP Summary:</b> {{question.mmpSummary}} </h2>
+          </ng-container>
+
+          <hr />
+          <h2 *ngIf="question.attachments"><b>Attachments:</b> {{question.attatchements}}</h2>
+          <h2 *ngIf="!question.attachments"><b>Attachments:</b> No file attached to this question</h2>
+					<ul *ngIf="question.attachments">
+  					<ng-container *ngFor="let file of files">
+  						<ng-container *ngIf="file.questionId == question.questionId">
+  							<li><a (click)="openFile(file.url)" >{{file.name}}</a></li>
+  						</ng-container>
+  					</ng-container>
+					</ul>
+          <ion-button size="small" color="buttonBlue" (click)="goToQuestion(question.questionId)">Go To Question</ion-button>
+        </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class='qspacer'></div>
+</ion-content>
