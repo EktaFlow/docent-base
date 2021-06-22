@@ -191,11 +191,55 @@ export class ComprehensivePage implements OnInit {
       "MRL",
       "Question Text",
       "Current Answer",
+      "Yes Fields",
       "Objective Evidence",
+      "Yes Assumptions",
+      "Yes Notes",
+      "No Fields",
+      "Owner",
+      "Due Date",
+      "Action Plan",
+      "Reason",
+      "Assumptions No",
+      "Notes No",
+      "NA Fields",
+      "Documentation",
+      "NA Assumptions",
+      "NA Notes",
+      "Risk Fields",
+      "Risk Score",
+      "Greatest Impact",
+      "Risk Response",
+      "MMP Summary"
     ];
 
     var values = this.unfilteredQuestions.map((q) => {
-      return [q.level, q.questionText, q.currentAnswer, q.objectiveEvidence];
+      return [
+        q.level,
+        q.questionText,
+        q.currentAnswer,
+        '',
+        q.objectiveEvidence,
+        q.assumptionsYes,
+        q.notesYes,
+        '',
+        q.who,
+        q.when,
+        q.what,
+        q.reason,
+        q.assumptionsNo,
+        q.notesNo,
+        '',
+        q.documentation,
+        q.assumptionsNA,
+        q.notesNA,
+        '',
+        q.risk,
+        q.greatestImpact,
+        q.riskResponse,
+        q.mmpSummary
+
+      ];
     });
 
     var worksheet = [headers, ...values];
