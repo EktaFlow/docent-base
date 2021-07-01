@@ -71,6 +71,10 @@ const routes: Routes = [
     loadChildren: "src/app/pages/review/review.module#ReviewPageModule",
   },
   {
+    path: "comprehensive",
+    loadChildren: "src/app/pages/comprehensive/comprehensive.module#ComprehensivePageModule",
+  },
+  {
     path: "risk-report",
     loadChildren:
       "src/app/pages/risk-report/risk-report.module#RiskReportPageModule",

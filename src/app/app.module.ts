@@ -35,6 +35,7 @@ import { AcronymsPageModule } from "./pages/acronyms/acronyms.module";
 import { DefinitionsPageModule } from "./pages/definitions/definitions.module";
 import { FaqsPageModule } from "./pages/faqs/faqs.module";
 import { ReviewPageModule } from "./pages/review/review.module";
+import { ComprehensivePageModule } from "./pages/comprehensive/comprehensive.module";
 import { QuestionsPageModule } from "./pages/questions/questions.module";
 import { LoginPageModule } from "./pages/login/login.module";
 import { DashboardPageModule } from "./pages/dashboard/dashboard.module";
@@ -76,6 +77,7 @@ import { BackUrl } from "./services/constants";
     DefinitionsPageModule,
     FaqsPageModule,
     ReviewPageModule,
+    ComprehensivePageModule,
     SummaryPageModule,
     DashboardPageModule,
     NavigatePageModule,

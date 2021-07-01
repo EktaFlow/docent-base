@@ -130,7 +130,10 @@ export class ViewsComponent implements OnInit {
   }
   handleReview() {
     this.router.navigate(["/review", { assessmentId: this.assessmentId }]);
-
+    this.close();
+  }
+  handleComprehensive() {
+    this.router.navigate(["/comprehensive", { assessmentId: this.assessmentId }]);
     this.close();
   }
   handleNavigate() {
