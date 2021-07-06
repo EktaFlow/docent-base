@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
 // import html2canvas from 'html2canvas';
+import { saveAs } from "file-saver/FileSaver";
+import {Html2canvasService} from "../../services/html2canvasservice.service";
 
 var assessmentQuery = gql`
   query assessment($_id: String) {
@@ -52,7 +54,8 @@ export class DashboardPage implements OnInit {
     public popOver: PopoverController,
     private assessmentService: AssessmentService,
     public router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private html2canvas: Html2canvasService
   ) {
     this.assessmentIdFromParams = activatedRoute.snapshot.paramMap.get(
       "assessmentId"
@@ -94,18 +97,44 @@ export class DashboardPage implements OnInit {
       });
   }
 
-  downloadPNG() {
-    // var image = document.getElementById('desktoper');
-    // this.imageDownloading = true;
-    //
-    // html2canvas(image).then(canvas => {
-    //     canvas.toBlob(blob => {
-    //         saveAs(blob, `mra-${this.assessmentName}-summary.png`);
-    //         this.imageDownloading = false;
-    //     });
-    // })
-    // .catch(e => console.error(e));
+  downloadPNG(){
+    const element = document.getElementById('html2canvas');
+    const targetElement = document.getElementById('desktoper').cloneNode(true);
+    element.appendChild(targetElement);
+    this.html2canvas.html2canvas(element.firstChild).then((img) => {
+        // this.img = img;
+        // element.firstChild.remove();
+        // console.log(img)
+        img.toBlob(blob => {
+            saveAs(blob, `mra-${this.assessmentName}-summary.png`);
+            // this.imageDownloading = false;
+        });
+    }).catch((res) => {
+        console.log(res);
+    });
   }
+
+  // downloadPNG() {
+  //   var image = document.querySelector('#pls-capture');
+  //   this.imageDownloading = true;
+  //   // html2canvas(image).then(canvas => {
+  //   //     document.body.appendChild(canvas)
+  //   // });
+  //   html2canvas(image, {
+  //     width: window.screen.availWidth,
+  //     height: window.screen.availHeight,
+  //     windowWidth: document.body.scrollWidth,
+  //     windowHeight: document.body.scrollHeight,
+  //     x: 0,
+  //     y: window.pageYOffset
+  //   }).then(canvas => {
+  //       canvas.toBlob(blob => {
+  //           saveAs(blob, `mra-${this.assessmentName}-summary.png`);
+  //           this.imageDownloading = false;
+  //       });
+  //   })
+  //   .catch(e => console.error(e));
+  // }
 
   isHeader(response) {
     return typeof response == "number";
