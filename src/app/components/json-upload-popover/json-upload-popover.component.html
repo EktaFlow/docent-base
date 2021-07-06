@@ -3,14 +3,14 @@
 	<form>
 <div style="display: flex; flex-direction: column">
 <ng-container *ngIf="!file">
-<label ion-button color="buttonBlue" for="asdf" class="custom-file-upload">
-    Select File
-</label>
+	<ion-button color="buttonBlue" for="asdf" class="custom-file-upload">
+	    Select File
+	</ion-button>
 </ng-container>
 <ng-container *ngIf="file">
-<label ion-button color="buttonBlue" for="asdf" class="custom-file-upload">
+<ion-button color="buttonBlue" for="asdf" class="custom-file-upload">
     Select Different File
-</label>
+</ion-button>
 </ng-container>
 	<input id="asdf" type="file" (change)="setFile($event)" placeholder="Choose File">
 	<p *ngIf="file">filename:  {{file.name}}</p>
