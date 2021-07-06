@@ -1,7 +1,4 @@
 import {Injectable} from '@angular/core';
-// import {AlertService} from './alert.service';
-
-// declare let html2canvas;
 import html2canvas from 'html2canvas';
 
 
