@@ -5,10 +5,10 @@
 <ion-content class="ion-padding" >
 
     <report-info-card [assessmentId]="assessmentIdFromParams"></report-info-card>
-    <!-- <ng-container class="desktop">
-      <button *ngIf="!imageDownloading" ion-button color="buttonBlue" (click)="downloadPNG()"> Download Image</button>
-      <button *ngIf="imageDownloading" ion-button color="buttonBlue" [disabled]="true"> Download Image</button>
-    </ng-container> -->
+    <ng-container class="desktop">
+      <ion-button *ngIf="!imageDownloading" color="buttonBlue" (click)="downloadPNG()"> Download Image</ion-button>
+      <ion-button *ngIf="imageDownloading" color="buttonBlue" [disabled]="true"> Download Image</ion-button>
+    </ng-container>
 
   <div id="desktoper" class="desktop">
   	<div class="legend" style="display:flex; align-items: center; "> <span>subthread passed: </span>
