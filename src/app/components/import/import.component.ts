@@ -58,13 +58,13 @@ export class ImportComponent implements OnInit {
     var user = await this.auth.currentUser();
     var added = {};
     if ("assessment" in JSON.parse(loadedAssessment)){
-      console.log('in')
       added = loadedAssessment
     } else {
-      console.log('out')
       added = {
-        "assessment": loadedAssessment
+        "assessment": JSON.parse(loadedAssessment)
       }
+      added = JSON.stringify(added)
+
     }
     await this.apollo
       .mutate({
