@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastController } from "@ionic/angular";
+import { ToastController, PopoverController, LoadingController } from "@ionic/angular";
 import { UploadService } from "../../services/upload";
 import { ActivatedRoute } from "@angular/router";
 
@@ -20,7 +20,9 @@ export class JsonUploadPopoverComponent implements OnInit {
   constructor(
     public upload: UploadService,
     private toastCtrl: ToastController,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private popOver: PopoverController,
+    private loadingCtrl: LoadingController,
   ) {
     this.questionId = activatedRoute.snapshot.paramMap.get("questionId");
     this.assessmentId = activatedRoute.snapshot.paramMap.get("assessmentId");
@@ -67,6 +69,26 @@ export class JsonUploadPopoverComponent implements OnInit {
     await toast.present();
   }
 
+  async successToast() {
+    var toast = await this.toastCtrl.create({
+      message: "Deskbook has been uploaded",
+      duration: 4500,
+      position: "top",
+      cssClass: "success-toast",
+    });
+
+    await toast.present();
+  }
+
+  async presentLoadingDefault() {
+    let loading = await this.loadingCtrl.create({
+      spinner: "crescent",
+      message: "Deskbook Loading In, Please Wait",
+    });
+
+    await loading.present();
+  }
+
   async uploadJSON(event) {
     // TODO -- change this to allow user input to name the file.
     // var fileName = this.file.name;
@@ -79,14 +101,19 @@ export class JsonUploadPopoverComponent implements OnInit {
           fileName: this.file.name,
         };
 
+        this.presentLoadingDefault();
         var uploadResponse = this.upload.uploadJSON(finalFile);
         <any>uploadResponse.subscribe((a) => {
+          console.log('in response')
+          this.loadingCtrl.dismiss();
           var user = localStorage.getItem("docent-token");
           user = JSON.parse(user);
           (<any>user).user = a;
           localStorage.setItem("docent-token", JSON.stringify(user));
+          this.popOver.dismiss();
         });
       } catch (error) {
+        this.loadingCtrl.dismiss();
         if (error.message.includes("Unexpected token")) {
           this.invalidJSONToast();
         } else {
