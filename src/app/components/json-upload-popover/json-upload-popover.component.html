@@ -16,7 +16,7 @@
 	<p *ngIf="file">filename:  {{file.name}}</p>
 	<p *ngIf="file">size:  {{file.size}}</p>
 	<p *ngIf="file">last modified:  {{file.lastModified}}</p>
-	<button *ngIf="file" ion-button color="buttonBlue"(click)="uploadJSON($event)" type="submit">Upload</button>
+	<ion-button *ngIf="file" color="buttonBlue"(click)="uploadJSON($event)" type="submit">Upload</ion-button>
 </div>
 	</form>
 </div>

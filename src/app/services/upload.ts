@@ -63,12 +63,13 @@ export class UploadService {
   uploadJSON(file) {
     var user = this.auth.currentUser();
     var jsonRoute = AuthUrl + "uploadJSON";
+    const headers = { 'AcceptEncoding': 'gzip' };
 
     var fileInfo = {
       file: file,
       email: user.email,
     };
-    return this.http.post(jsonRoute, fileInfo);
+    return this.http.post(jsonRoute, fileInfo, {headers});
   }
 
   generateUrl(name) {
