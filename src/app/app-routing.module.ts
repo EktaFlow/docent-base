@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { AuthGuardService } from "./services/can-activate"
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -9,6 +10,7 @@ const routes: Routes = [
       import("src/app/pages/user-dashboard/user-dashboard.module").then(
         (m) => m.UserDashboardPageModule
       ),
+    canActivate: [AuthGuardService]
   },
   {
     path: "acronyms",

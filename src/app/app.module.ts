@@ -29,6 +29,7 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AssessmentService } from "./services/assessment.service";
 import { UploadService } from "./services/upload";
 import {Html2canvasService} from "./services/html2canvasservice.service"
+import {AuthGuardService} from "./services/can-activate"
 
 import { AppComponent } from "../app/app.component";
 
@@ -100,6 +101,7 @@ import { BackUrl } from "./services/constants";
     Helpers,
     UploadService,
     Html2canvasService,
+    AuthGuardService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
