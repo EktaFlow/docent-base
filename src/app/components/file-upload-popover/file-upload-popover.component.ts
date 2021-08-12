@@ -109,5 +109,5 @@ export class FileUploadPopoverComponent implements OnInit {
     // }
 
 	}
-
+}
 }
