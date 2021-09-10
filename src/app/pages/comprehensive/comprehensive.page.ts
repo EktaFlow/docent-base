@@ -12,6 +12,7 @@ var assessmentQuery = gql`
       targetMRL
       targetDate
       location
+      threads
       questions {
         questionId
         mrLevel
@@ -56,6 +57,7 @@ var assessmentQuery = gql`
 })
 export class ComprehensivePage implements OnInit {
   assessmentId: any;
+  assessment: any;
   allQuestions: any;
   targetMRL: any;
   targetDate: any;
@@ -110,16 +112,17 @@ export class ComprehensivePage implements OnInit {
         fetchPolicy: "network-only",
       })
       .valueChanges.subscribe((data) => {
-        var assessment = (<any>data.data).assessment;
-        var questions = assessment.questions;
-
+        this.assessment = (<any>data.data).assessment;
+        var questions = this.assessment.questions;
+        this.allQuestions = this.assessment.questions;
         var answeredQuestions = [];
+        // var questionPosition = this.findAmtOfQs();
         questions.forEach((q) => {
           if (q.answers.length > 0 && q.answers[q.answers.length - 1].answer) {
             var latestA = q.answers[q.answers.length - 1];
-            // console.log(latestA);
             var drilledQuestion = {
               questionId: q.questionId,
+              questionPosition: this.findAmtOfQs(q.questionId),
               questionText: q.questionText,
               currentAnswer: latestA.answer,
               objectiveEvidence: latestA.objectiveEvidence ? latestA.objectiveEvidence : "No Objective Evidence Given",
@@ -149,9 +152,9 @@ export class ComprehensivePage implements OnInit {
         });
 
         if (this.autoFilter) {
-          this.filterList.filterMRL = assessment.targetMRL;
+          this.filterList.filterMRL = this.assessment.targetMRL;
           this.allQuestions = answeredQuestions.filter((question) => {
-            if (question.level == assessment.targetMRL) {
+            if (question.level == this.assessment.targetMRL) {
               return question;
             }
           });
@@ -161,10 +164,10 @@ export class ComprehensivePage implements OnInit {
         // all questions is an array of answered questions.
         // preserving the names to leave markup the same.
         this.unfilteredQuestions = answeredQuestions;
-        this.targetMRL = assessment.targetMRL;
-        this.targetDate = assessment.targetDate;
-        this.location = assessment.location;
-        this.files = assessment.files;
+        this.targetMRL = this.assessment.targetMRL;
+        this.targetDate = this.assessment.targetDate;
+        this.location = this.assessment.location;
+        this.files = this.assessment.files;
       });
   }
 
@@ -186,9 +189,43 @@ export class ComprehensivePage implements OnInit {
     this.filterTheList();
   }
 
+  public findAmtOfQs(id) {
+    var surveyQs = this.setSurveyQuestions();
+    var currentQSetAmt = surveyQs.length;
+    console.log(surveyQs)
+    console.log(id)
+    var currentQPos = surveyQs.indexOf(id) + 1;
+    if (currentQPos == 0){
+      currentQPos = 'Outside of MRL Level for Assessment';
+    }
+    return currentQPos;
+  }
+
+  setSurveyQuestions() {
+    var threadNames = this.assessment.questions;
+    threadNames = threadNames.map((tn) => tn.threadName);
+    var distinctThreadNames = threadNames.filter(
+      (a, i) => threadNames[i + 1] != a && a.length > 0
+    );
+    var selectedThreads = this.assessment.threads.map(
+      (threadNumber) => distinctThreadNames[threadNumber - 1]
+    );
+
+    var level1 = this.allQuestions.filter(
+      (q) => q.mrLevel == this.assessment.targetMRL
+    );
+    var level2 = level1.filter((q) => selectedThreads.includes(q.threadName));
+    var level3 = level2.map((q) => q.questionId);
+
+    return level3;
+  }
+
   saveXLS() {
     var headers = [
+      "Thread Name",
+      "Subthread Name",
       "MRL",
+      "Question Number",
       "Question Text",
       "Current Answer",
       "Yes Fields",
@@ -208,6 +245,8 @@ export class ComprehensivePage implements OnInit {
       "NA Notes",
       "Risk Fields",
       "Risk Score",
+      "Likelihood",
+      "Consequence",
       "Greatest Impact",
       "Risk Response",
       "MMP Summary"
@@ -215,7 +254,10 @@ export class ComprehensivePage implements OnInit {
 
     var values = this.unfilteredQuestions.map((q) => {
       return [
+        q.threadName,
+        q.subThreadName,
         q.level,
+        q.questionPosition,
         q.questionText,
         q.currentAnswer,
         '',
@@ -235,6 +277,8 @@ export class ComprehensivePage implements OnInit {
         q.notesNA,
         '',
         q.risk,
+        q.likelihood,
+        q.consequence,
         q.greatestImpact,
         q.riskResponse,
         q.mmpSummary
