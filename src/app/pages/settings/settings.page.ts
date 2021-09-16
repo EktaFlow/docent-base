@@ -11,7 +11,7 @@ import {AuthService} from "../../services/auth.service";
 
 
 
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'settings',
   templateUrl: './settings.page.html',

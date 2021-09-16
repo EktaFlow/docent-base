@@ -34,6 +34,7 @@ export class FileUploadPopoverComponent implements OnInit {
   	public navParams: NavParams,
     private popOver: PopoverController,
     private electronService: ElectronService,
+    public fs: Filesystem
     // private fs: fs
   ) {
     var {navParams} = this;
@@ -44,9 +45,9 @@ export class FileUploadPopoverComponent implements OnInit {
     this.assessmentName = navParams.get("assessmentName");
     // console.log(fs)
     // this.fsys = window.require('fs');
-    this.fsys = file;
-    console.log(this.fsys);
-    console.log(this.fsys.fs);
+    // this.fsys = this.file;
+    // console.log(this.fsys);
+    // console.log(this.fsys.fs);
   }
 
   test(e) {
@@ -91,9 +92,9 @@ export class FileUploadPopoverComponent implements OnInit {
       var filePath = file.path;
       var fileName = file.name;
       // if (!this.fsys.fileMatch('./file/')) {this.fsys.mkdirSync('./file/')}
-      console.log(FileSystem);
+      console.log(this.fs);
       console.log(Directory)
-      if (!FileSystem.stat('./file/')) {FileSystem.mkdir('./file/')}
+      if (!this.fs.stat('./file/')) {this.fs.mkdir('./file/')}
     //   var random = Math.floor(Math.random() * 20492039);
     //   var assessmentFileDir = `./file/${this.assessmentName}-${random}/`
     //   if (!this.fsys.fileMatch(assessmentFileDir)){

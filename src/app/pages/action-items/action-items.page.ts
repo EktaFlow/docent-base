@@ -57,7 +57,7 @@ query assessment($_id: String) {
 
 
 
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'action-items',
   templateUrl: './action-items.page.html',

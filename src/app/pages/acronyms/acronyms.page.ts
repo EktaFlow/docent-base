@@ -17,8 +17,8 @@ export class AcronymsPage implements OnInit {
   assessmentId: any;
   noSecondBar: boolean = false;
   pageName: any = "Acronyms";
-  private acronyms: any = {};
-  private acronymsKeys: any = [];
+  acronyms: any = {};
+  acronymsKeys: any = [];
   isElectron: any;
   inAssessment: any;
 

@@ -17,7 +17,7 @@ import { GoogleAnalytics } from '../../services/helpers/GoogleAnalytics';
 import { Helpers } from '../../services/helpers/helpers';
 
 
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'questions',
   templateUrl: './questions.page.html',

@@ -22,7 +22,7 @@ query {
 	allThreadNames
 }
 `
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'home',
   templateUrl: './home.page.html',
@@ -51,7 +51,7 @@ export class HomePage implements OnInit {
   constructor(
 							public popOver: PopoverController,
 							private apollo: Apollo,
-							private auth: AuthService,
+							public auth: AuthService,
               private assessmentService: AssessmentService,
               private http: HttpClient,
 							private loadingCtrl: LoadingController,

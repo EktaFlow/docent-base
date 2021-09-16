@@ -9,7 +9,12 @@ import { GoogleAnalytics } from "../../services/helpers/GoogleAnalytics";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
-  public user = {};
+  public user = {
+    name:'',
+    email:'',
+    passwd:'',
+    passwd2:''
+  };
   public errors: any = [];
   public submitted: boolean = false;
   @Output() toggleClicked = new EventEmitter<string>();

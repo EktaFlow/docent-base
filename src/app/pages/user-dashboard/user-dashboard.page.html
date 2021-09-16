@@ -47,7 +47,7 @@
                   <p><b>Name: </b>{{assessment.name}}</p>
                   <p><b>{{assessment.answered}} out of {{assessment.possible}}</b> questions answered</p>
                   <p><b>MRL: </b> {{assessment.targetMRL}}</p>
-                  <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
+                  <p><b>Target Date: </b> {{assessment.targetDate | date: 'MM/dd/yyyy'}}</p>
                   <p><b>Additional Information: </b>{{assessment.scope}}</p>
                   <p><b>Location: </b> {{assessment.location}}</p>
 		  <ng-container *ngIf="assessment.levelSwitching">
@@ -107,7 +107,7 @@
                   <div class="details">
                     <p><b>Name: </b>{{assessment.name}}</p>
                     <p><b>MRL: </b> {{assessment.targetMRL}}</p>
-                    <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
+                    <p><b>Target Date: </b> {{assessment.targetDate | date: 'MM/dd/yyyy'}}</p>
                     <p><b>Additional Information: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
                     <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>

@@ -7,7 +7,7 @@ import { AuthService } from "../../services/auth.service";
 import { FileDeleteComponent } from '../../components/file-delete/file-delete.component';
 import {isElectron} from '../../services/constants';
 
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'edit-assessment',
   templateUrl: './edit-assessment.page.html',

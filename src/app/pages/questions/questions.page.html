@@ -74,9 +74,10 @@
       <h3><b>ACTION PLAN</b></h3>
       <div class="who-when">
         <div class="who">
-          <li *ngFor = "let persons of actionPerson">
-            <pre>{{persons}}</pre>
-          </li>
+          <pre>{{vals.who}}</pre>
+          <!-- <li *ngFor = "let persons of actionPerson">
+
+          </li> -->
           <h6>Owner</h6>
           <input class="question-input" id="no-who-input" [(ngModel)]="vals.who" name="who" #who>
         </div>
@@ -122,7 +123,7 @@
     <!-- files display -->
   <div class="display-files">
         <div class="attach">
-            <ion-button id="no-attach-file-button" (click)="showFileUpload($event)" color="dark">Attach File</ion-button>
+            <ion-button id="no-attach-file-button" (click)="showFileUpload()" color="dark">Attach File</ion-button>
         </div>
   	<h6>Attachments</h6>
     <div class="file">

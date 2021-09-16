@@ -16,7 +16,7 @@ export class AddTeamMembersPopOverComponent implements OnInit {
   public newMember: any = {};
   assessmentId: any;
   emitter: any;
-  private memberAdding: boolean = false;
+  memberAdding: boolean = false;
 
   constructor(
       public assessmentService: AssessmentService,

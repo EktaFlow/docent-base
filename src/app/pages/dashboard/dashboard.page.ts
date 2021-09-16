@@ -38,7 +38,7 @@ query assessment($_id: String) {
 }
 `
 
-@NgModule()
+// @NgModule()
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.page.html',

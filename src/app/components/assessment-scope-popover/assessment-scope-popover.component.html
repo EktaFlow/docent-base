@@ -6,7 +6,7 @@
 
   <div class="assessment-info">
     <p><b>Target MRL: </b>{{targetMRL}}</p>
-    <p><b>Target Date: </b>{{targetDate | date: mediumDate}}</p>
+    <p><b>Target Date: </b>{{targetDate | date: 'MM/dd/yyyy'}}</p>
     <p *ngIf="scope"><b>Additional Information: </b>{{scope}}</p>
     <p *ngIf="!scope"><b>Additional Information: </b>No additional information</p>
   </div>

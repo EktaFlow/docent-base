@@ -27,7 +27,7 @@ export class DefinitionsPage implements OnInit {
       this.assessmentId = activatedRoute.snapshot.paramMap.get('assessmentId');
     }
 
-private definitions: any = [];
+ definitions: any = [];
 
 ngOnInit() {
 this.mainTitle = "Definitions";

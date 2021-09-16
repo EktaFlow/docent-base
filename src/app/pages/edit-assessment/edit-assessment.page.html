@@ -104,21 +104,12 @@
         <h6>Location</h6>
         <ion-input name="location" id="location-input" placeholder = "Enter Location" [(ngModel)]="assessment.location" ></ion-input>
       </div>
-      <div *ngIf="page == 'new'">
-        <h6>Deskbook Version</h6>
-        <select id="deskbook-select" name="version" [(ngModel)]="assessment.deskBookVersion">
-          <option value="" disabled selected>Select One...</option>
-          <ng-container *ngFor="let deskbook of deskbookVersions">
-            <option value="{{deskbook}}">{{deskbook}}</option>
-          </ng-container>
-        </select>
-      </div>
     </div>
     <div class = "thread-start">
       <div class = "choose-threads">
         <div class="choose-threads-header">
           <h6>Choose Threads</h6>
-          <button style="background: white;"(click)="showThreads($event)">
+          <button style="background: white;"(click)="showThreads()">
             <img src="assets/imgs/if_icon-arrow-down.png" width="15" height="15">
           </button>
         </div>
@@ -136,7 +127,7 @@
         </div>
       </div>
       <div>
-        <ion-button *ngIf="page == 'new'" color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment($event)">
+        <ion-button *ngIf="page == 'new'" color ="buttonBlue" id="assessment-start" class="start-button" (click)="createAssessment()">
           Start
         </ion-button>
         <ion-button *ngIf="page == 'edit' && !this.isElectron" color="buttonBlue" id="assessment-edit" (click)="updateAssessment()">
