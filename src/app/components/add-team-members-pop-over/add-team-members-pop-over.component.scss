@@ -8,6 +8,16 @@
   width: 100%;
 }
 
+.title {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #373a3c; 
+  margin-bottom: 1rem;
+  margin-top: 0;
+  text-align: center;
+}
+
 .body {
   display: flex;
   flex-direction: column; 
@@ -16,7 +26,10 @@
 
 div > input {
   margin-bottom: 1rem; 
-  margin-top: 0;
+}
+
+div > label {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 1024px){
