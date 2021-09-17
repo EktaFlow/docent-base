@@ -3,6 +3,17 @@
   background-color: darkslateblue;
 }
 
+.container {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.body {
+  display: flex;
+  flex-direction: column; 
+  
+}
+
 @media screen and (max-width: 1024px){
   .new-button {
     margin: 8px 0 0 1px;
