@@ -21,11 +21,35 @@ $basic-cell-size: 4vw;
     border-color: $input-border;
 }
 
+div.file {
+  display: flex;
+  flex-direction: column;
+}
+
+div.attachments-header {
+  font-weight: 600;
+}
+
+ion-label.delete-label {
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.file-name {
+  display: flex;
+}
+
+div.delete-icon {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 
 div.file:nth-child(even) {
   background: #ccc;
   width: 100%;
-  align-content: center;
+  align-content: space-around;
 }
 
 div.file:nth-child(odd) {

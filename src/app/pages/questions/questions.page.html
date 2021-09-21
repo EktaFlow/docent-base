@@ -227,15 +227,12 @@
 
           <!--Attachments Header-->
           <div class="attachments-header">
-            
-
-           
             <ion-row>
               <ion-col>
-                <ion-label>File Name</ion-label>
+                <ion-label class="file-name-label">File Name</ion-label>
               </ion-col>
               <ion-col>
-                <ion-label>Delete</ion-label>
+                <ion-label class="delete-label">Delete</ion-label>
               </ion-col>
             </ion-row>
           </div>
@@ -247,21 +244,21 @@
                 *ngIf="file.questionId == currentQuestion.questionId"
                 class="file-item"
               >
-              <!--file name column-->
-              <table class="file-table">
-
-              
+              <!--attachments table-->
+              <table class="file-table"> 
                 <ion-row [ngClass]="(i % 2 == 0) ? 'file-odd' : 'even'">
+                  
+                  <!--file name column-->
+                  <div class="file-name">
                   <ion-col data-title=" 'Attachments' ">
                     <td class="file-link" (click)="openFile(file.url)">
                       {{file.name}}
                     </td>
                   </ion-col>
+                </div>
 
                 <!--delete icon column-->
-                <div class="delete-col">
-
-                
+                <div class="delete-icon">
                   <ion-col data-title="'Delete'">
                     <td >
                       <ion-icon
