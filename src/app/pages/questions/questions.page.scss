@@ -35,6 +35,18 @@ ion-label.delete-label {
   justify-content: flex-end;
 }
 
+div.file-item {
+  display: flex;
+}
+
+div.file-item:nth-child(odd) {
+  background: #ccc;
+}
+
+div.file-item:nth-child(even) {
+  background: #fff; 
+}
+
 div.file-name {
   display: flex;
 }
@@ -44,18 +56,15 @@ div.delete-icon {
   justify-content: flex-end;
 }
 
-
-
-div.file:nth-child(even) {
+.odd{
   background: #ccc;
-  width: 100%;
-  align-content: space-around;
+ 
+}
+.even{
+  background: #fff;
+  
 }
 
-div.file:nth-child(odd) {
-  background: #fff;
-  width: 100%; 
-}
 
 
 

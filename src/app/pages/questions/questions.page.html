@@ -239,14 +239,15 @@
 
           <!-- <h6>Attachments</h6> -->
           <div class="file">
-            <ng-container *ngFor="let file of files" class="file">
+            <ng-container *ngFor="let file of files; let i = index;" class="file">
               <div
                 *ngIf="file.questionId == currentQuestion.questionId"
                 class="file-item"
+                
               >
               <!--attachments table-->
               <table class="file-table"> 
-                <ion-row [ngClass]="(i % 2 == 0) ? 'file-odd' : 'even'">
+                <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
                   
                   <!--file name column-->
                   <div class="file-name">
