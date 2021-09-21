@@ -24,19 +24,26 @@ $basic-cell-size: 4vw;
 div.file {
   display: flex;
   flex-direction: column;
+  
 }
 
 div.attachments-header {
   font-weight: 600;
 }
 
+div.file-item {
+  display: flex;
+}
+
 ion-label.delete-label {
   display: flex;
   justify-content: flex-end;
+ 
 }
 
-div.file-item {
-  display: flex;
+ion-row.md.hydrated {
+  align-items: center;
+  
 }
 
 div.file-item:nth-child(odd) {
@@ -49,11 +56,24 @@ div.file-item:nth-child(even) {
 
 div.file-name {
   display: flex;
+
 }
 
 div.delete-icon {
   display: flex;
-  justify-content: flex-end;
+  
+}
+
+ion-icon.md {
+  display: flex;
+  
+}
+
+td.icon {
+  position: relative;
+  float: right;
+  right: 0;
+  left: 200%; 
 }
 
 .odd{
