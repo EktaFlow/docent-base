@@ -35,15 +35,18 @@ div.file-item {
   display: flex;
 }
 
+ion-label.file-name-label {
+  display: flex;
+  justify-content: flex-start;
+}
+
 ion-label.delete-label {
   display: flex;
   justify-content: flex-end;
- 
 }
 
 ion-row.md.hydrated {
-  align-items: center;
-  
+  align-items: center; 
 }
 
 div.file-item:nth-child(odd) {
@@ -54,27 +57,32 @@ div.file-item:nth-child(even) {
   background: #fff; 
 }
 
-div.file-name {
-  display: flex;
+// div.delete-icon > .icon {
+//   // display: flex;
+//   // justify-content: flex-end;
+//   position: relative;
+//   float: right;
+//   right: 0; 
+// }
 
-}
 
 div.delete-icon {
   display: flex;
-  
+  position: relative;
+  float: right;
+  right: 0; 
 }
 
 ion-icon.md {
   display: flex;
-  
+
 }
 
 td.icon {
   position: relative;
-  float: right;
-  right: 0;
-  left: 200%; 
+  align-content: flex-end;
 }
+
 
 .odd{
   background: #ccc;
