@@ -111,6 +111,8 @@ export class RiskReportPage implements OnInit {
   }
 
   createSchemaObject(questionsArray) {
+    console.log(111, questionsArray)
+    console.log(222, 'hello world from risk-report.page.ts')
     var threadNames = questionsArray
       .map((a) => a.threadName)
       .filter(this.unique);

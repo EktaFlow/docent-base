@@ -239,51 +239,50 @@
 
           <!-- <h6>Attachments</h6> -->
           <div class="file">
-            <ng-container *ngFor="let file of files; let i = index;" class="file">
+            <ng-container
+              *ngFor="let file of files; let i = index;"
+              class="file"
+            >
               <div
                 *ngIf="file.questionId == currentQuestion.questionId"
                 class="file-item"
-                
               >
-              <!--attachments table-->
-              <table class="file-table"> 
-                <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
-                  
-                  <!--file name column-->
-                  <div class="file-name">
-                  <ion-col data-title=" 'Attachments' ">
-                    <td class="file-link" (click)="openFile(file.url)">
-                      {{file.name}}
-                    </td>
-                  </ion-col>
-                </div>
+                <!--attachments table-->
+                <table class="file-table">
+                  <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+                    <!--file name column-->
+                    <div class="file-name">
+                      <ion-col data-title=" 'Attachments' ">
+                        <td class="file-link" (click)="openFile(file.url)">
+                          {{file.name}}
+                        </td>
+                      </ion-col>
+                    </div>
 
-                <!--delete icon column-->
-                <div class="delete-icon">
-                  <ion-col data-title="'Delete'">
-                    <td class="icon">
-                      
-                      <ion-icon
-                    (click)="handleRemoveFileClick($event, file.id)"
-                    src="assets/imgs/remove-circle-outline.svg"
-                    color="danger"
-                  ></ion-icon>
-                
-                    </td>
-                  </ion-col>
-                </div>
-
-
-              </ion-row>
-              </table>
-
-
+                    <!--delete icon column-->
+                    <div class="delete-icon">
+                      <ion-col data-title="'Delete'">
+                        <td class="icon">
+                          <ion-icon
+                            *ngIf="!isElectron"
+                            (click)="handleRemoveFileClick($event, file.id)"
+                            src="assets/imgs/remove-circle-outline.svg"
+                            color="danger"
+                          ></ion-icon>
+                          <ion-icon
+                            *ngIf="isElectron"
+                            (click)="handleElectronRemoveFileClick(file.name)"
+                            src="assets/img/remove-circle-outline.svg"
+                            color="danger"
+                          ></ion-icon>
+                        </td>
+                      </ion-col>
+                    </div>
+                  </ion-row>
+                </table>
               </div>
             </ng-container>
           </div>
-
-        
-
         </div>
       </div>
       <!-- /files display -->

@@ -57,32 +57,19 @@ div.file-item:nth-child(even) {
   background: #fff; 
 }
 
-// div.delete-icon > .icon {
-//   // display: flex;
-//   // justify-content: flex-end;
-//   position: relative;
-//   float: right;
-//   right: 0; 
-// }
-
-
 div.delete-icon {
   display: flex;
-  position: relative;
-  float: right;
-  right: 0; 
+}
+
+ion-row.delete-icon > .icon {
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
 }
 
 ion-icon.md {
   display: flex;
-
 }
-
-td.icon {
-  position: relative;
-  align-content: flex-end;
-}
-
 
 .odd{
   background: #ccc;
