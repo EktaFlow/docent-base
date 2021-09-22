@@ -112,7 +112,7 @@ export class RiskReportPage implements OnInit {
 
   createSchemaObject(questionsArray) {
     console.log(111, questionsArray)
-    console.log(222, 'hello world from risk-report.page.ts')
+    
     var threadNames = questionsArray
       .map((a) => a.threadName)
       .filter(this.unique);
@@ -124,6 +124,7 @@ export class RiskReportPage implements OnInit {
         "subThreadName"
       ).map((sName) => {
         var questions = questionsArray.filter((m) => m.subThreadName == sName);
+        console.log(222, questions)
         var mrLevels = this.filterByProperty(questions, "mrLevel");
         var a = mrLevels.map((f) => {
           var questionSet = questions
@@ -132,7 +133,7 @@ export class RiskReportPage implements OnInit {
               text: a.questionText,
               questionId: a.questionId,
               mrl: a.mrLevel,
-              latestAnswer: a.answers[a.answers.length - 1],
+              latestAnswer: a.answers[a.answers.length - 1], //attempt to grab the most recent answer
             }));
           return { mrl: f, questionSet: questionSet };
         });
