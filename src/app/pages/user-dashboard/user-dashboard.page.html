@@ -245,12 +245,25 @@
                     <p>
                       <b>Level Switching?: </b>{{assessment.levelSwitching}}
                     </p>
-                    <p>
+
+                    <ng-container *ngIf="assessment.teamMembers.length > 0">
+                      <p>
+                        <b>Team Members: </b>
+                        <span *ngFor="let teamMember of assessment.teamMembers"
+                          >{{teamMember.email}}
+                        </span>
+                      </p>
+                    </ng-container>
+                    <ng-container *ngIf="!assessment.teamMembers.length > 0">
+                      <p><b>Team Members: </b> <span> No Team Members</span></p>
+                    </ng-container>
+
+                    <!-- <p>
                       <b>Team Members: </b>
                       <span *ngFor="let teamMember of assessment.teamMembers"
                         >{{teamMember.email}}
                       </span>
-                    </p>
+                    </p> -->
                     <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
                   </div>
                   <div class="assNav">
