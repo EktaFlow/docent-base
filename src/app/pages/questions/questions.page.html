@@ -214,13 +214,13 @@
             <ion-button
               id="no-attach-file-button"
               (click)="showFileUpload($event)"
-              color="dark"
+              color="buttonBlue"
               >Attach File</ion-button
             >
           </div>
 
-          <ion-header>
-            <ion-toolbar color="dark">
+          <ion-header class="attachments-toolbar">
+            <ion-toolbar class="toolbar" color="dark">
               <ion-title> Attachments </ion-title>
             </ion-toolbar>
           </ion-header>
@@ -230,6 +230,12 @@
             <ion-row>
               <ion-col>
                 <ion-label class="file-name-label">File Name</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="date-label">Date Added</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-label class="view-label">View</ion-label>
               </ion-col>
               <ion-col>
                 <ion-label class="delete-label">Delete</ion-label>

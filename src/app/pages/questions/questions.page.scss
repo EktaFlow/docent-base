@@ -21,6 +21,11 @@ $basic-cell-size: 4vw;
     border-color: $input-border;
 }
 
+ion-toolbar.toolbar-title-default {
+  margin-top: 30px; 
+  
+}
+
 div.file {
   display: flex;
   flex-direction: column;
@@ -42,7 +47,7 @@ ion-label.file-name-label {
 
 ion-label.delete-label {
   display: flex;
-  justify-content: flex-end;
+  // justify-content: flex-end;
 }
 
 ion-row.md.hydrated {
