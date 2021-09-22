@@ -229,7 +229,7 @@
           <div class="attachments-header">
             <ion-row>
               <ion-col>
-                <ion-label class="file-name-label">File Name</ion-label>
+                <ion-label class="file-name-label">File</ion-label>
               </ion-col>
               <ion-col>
                 <ion-label class="date-label">Date Added</ion-label>
@@ -265,6 +265,27 @@
                         </td>
                       </ion-col>
                     </div>
+
+                    <!--date added column-->
+                    <div class="date-added">
+                      <ion-col data-title=" 'Date Added' ">
+                        <td class="date" $log.log({{file}})>
+                          {{file}}
+                        </td>
+                      </ion-col>
+                    </div>
+
+                    <!--view icon column-->
+                    <div class="view-icon">
+                      <ion-col data-title=" 'View' ">
+                        <td class="icon">
+                          <ion-icon color="gray" src="assets/imgs/add-circle-outline.svg">
+                            
+                          </ion-icon>
+                        </td>
+                      </ion-col>
+                    </div>
+                    <dajlfdkljfadjd></dajlfdkljfadjd>
 
                     <!--delete icon column-->
                     <div class="delete-icon">
