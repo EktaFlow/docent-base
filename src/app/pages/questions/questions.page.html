@@ -225,92 +225,95 @@
             </ion-toolbar>
           </ion-header>
 
-          <!--Attachments Header-->
-          <div class="attachments-header">
-            <ion-row>
-              <ion-col>
-                <ion-label class="file-name-label">File</ion-label>
-              </ion-col>
-              <ion-col>
-                <ion-label class="date-label">Date Added</ion-label>
-              </ion-col>
-              <ion-col>
-                <ion-label class="view-label">View</ion-label>
-              </ion-col>
-              <ion-col>
-                <ion-label class="delete-label">Delete</ion-label>
-              </ion-col>
-            </ion-row>
-          </div>
-
-          <!-- <h6>Attachments</h6> -->
-          <div class="file">
-            <ng-container
-              *ngFor="let file of files; let i = index;"
-              class="file"
-            >
-              <div
-                *ngIf="file.questionId == currentQuestion.questionId"
-                class="file-item"
-              >
-                <!--attachments table-->
-                <table class="file-table">
-                  <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
-
-
-                    <!--file name column-->
-                    <div class="file-name">
-                      <ion-col data-title=" 'Attachments' ">
-                        <td class="file-link" (click)="openFile(file.url)">
-                          {{file.name}}
-                        </td>
-                      </ion-col>
-                    </div>
-
-                    <!-- date added column -->
-                    <div class="date-added">
-                      <ion-col data-title=" 'Date Added' ">
-                        <td class="date">{{addedAt | date:'yyyy-MM-dd'}}</td>
-                      </ion-col>
-                    </div>
-                    
-
-                    <!--view icon column-->
-                    <div class="view-icon">
-                      <ion-col data-title=" 'View' ">
-                        <td class="icon">
-                          <ion-icon
-                            color="gray"
-                            src="assets/imgs/add-circle-outline.svg"
-                          >
-                          </ion-icon>
-                        </td>
-                      </ion-col>
-                    </div>
-
-                    <!--delete icon column-->
-                    <div class="delete-icon">
-                      <ion-col data-title="'Delete'">
-                        <td class="icon">
-                          <ion-icon
-                            *ngIf="!isElectron"
-                            (click)="handleRemoveFileClick($event, file.id)"
-                            src="assets/imgs/remove-circle-outline.svg"
-                            color="danger"
-                          ></ion-icon>
-                          <ion-icon
-                            *ngIf="isElectron"
-                            (click)="handleElectronRemoveFileClick(file.name)"
-                            src="assets/img/remove-circle-outline.svg"
-                            color="danger"
-                          ></ion-icon>
-                        </td>
-                      </ion-col>
-                    </div>
-                  </ion-row>
-                </table>
+          <div class="attachments-content">
+            <table class="attachments-table">
+              <!--Attachments Header-->
+              <div class="attachments-header">
+                <ion-row class="header-row">
+                  <ion-col>
+                    <ion-label class="header-label">File</ion-label>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label class="header-label">Date Added</ion-label>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label class="header-label">View</ion-label>
+                  </ion-col>
+                  <ion-col>
+                    <ion-label class="header-label">Delete</ion-label>
+                  </ion-col>
+                </ion-row>
               </div>
-            </ng-container>
+
+              <!-- <h6>Attachments</h6> -->
+              <div class="file">
+                <ng-container
+                  *ngFor="let file of files; let i = index;"
+                  class="file"
+                >
+                  <div
+                    *ngIf="file.questionId == currentQuestion.questionId"
+                    class="file-item"
+                  >
+                    <!--attachments table-->
+                    <table class="file-table">
+                      <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+                        <!--file name column-->
+                        <div class="file-name">
+                          <ion-col data-title=" 'Attachments' ">
+                            <td class="file-link" (click)="openFile(file.url)">
+                              {{file.name}}
+                            </td>
+                          </ion-col>
+                        </div>
+
+                        <!-- date added column -->
+                        <div class="date-added">
+                          <ion-col data-title=" 'Date Added' ">
+                            <td class="date">
+                              {{addedAt | date:'yyyy-MM-dd'}}
+                            </td>
+                          </ion-col>
+                        </div>
+
+                        <!--view icon column-->
+                        <div class="view-icon">
+                          <ion-col data-title=" 'View' ">
+                            <td class="icon">
+                              <ion-icon
+                                color="gray"
+                                src="assets/imgs/add-circle-outline.svg"
+                              >
+                              </ion-icon>
+                            </td>
+                          </ion-col>
+                        </div>
+
+                        <!--delete icon column-->
+                        <div class="delete-icon">
+                          <ion-col data-title="'Delete'">
+                            <td class="icon">
+                              <ion-icon
+                                *ngIf="!isElectron"
+                                (click)="handleRemoveFileClick($event, file.id)"
+                                src="assets/imgs/remove-circle-outline.svg"
+                                color="danger"
+                              ></ion-icon>
+                              <ion-icon
+                                *ngIf="isElectron"
+                                (click)="handleElectronRemoveFileClick(file.name)"
+                                src="assets/img/remove-circle-outline.svg"
+                                color="danger"
+                              ></ion-icon>
+                            </td>
+                          </ion-col>
+                        </div>
+                      </ion-row>
+                    </table>
+                  </div>
+                </ng-container>
+              </div>
+            </table>
           </div>
         </div>
       </div>

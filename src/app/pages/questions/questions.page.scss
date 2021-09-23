@@ -26,20 +26,46 @@ ion-toolbar.toolbar-title-default {
   
 }
 
+div.attachments-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  
+}
+
+div.attachments-table {
+  display: flex;
+  justify-content: center;
+
+}
+
+div.attachments-header {
+  font-weight: 600;
+  width: 100%; 
+  text-align: center;
+
+}
+
 div.file {
   display: flex;
   flex-direction: column;
   
 }
 
-div.attachments-header {
-  font-weight: 600;
-  width: 100%; 
-
-}
-
 div.file-item {
   display: flex;
+}
+
+
+ion-col.file-name-label {
+  text-align: center; 
+}
+
+
+table {
+  width: 100%;
+  // margin: 20px auto;
+  table-layout: auto;
 }
 
 ion-label.file-name-label {
@@ -59,10 +85,14 @@ ion-row.md.hydrated {
 
 div.file-item:nth-child(odd) {
   background: #ccc;
+  // display: flex;
+  // justify-content: space-around;
 }
 
 div.file-item:nth-child(even) {
   background: #fff; 
+  // display: flex;
+  // justify-content: space-between;
 }
 
 div.delete-icon {
@@ -71,7 +101,7 @@ div.delete-icon {
 
 ion-row.delete-icon > .icon {
   display: flex;
-  justify-content: flex-end;
+  // justify-content: flex-end;
   align-content: flex-end;
 }
 
@@ -81,26 +111,20 @@ ion-icon.md {
 
 .odd{
   background: #ccc;
- 
+  display: flex;
+  justify-content: space-between;
+  padding-left: 1em;
+  padding-right: 1em;
 }
+
 .even{
   background: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 1em;
+  padding-right: 1em;
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .file-link {
   &:hover {
