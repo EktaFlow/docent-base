@@ -257,6 +257,7 @@
                 <table class="file-table">
                   <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
 
+
                     <!--file name column-->
                     <div class="file-name">
                       <ion-col data-title=" 'Attachments' ">
@@ -266,26 +267,26 @@
                       </ion-col>
                     </div>
 
-                    <!--date added column-->
+                    <!-- date added column -->
                     <div class="date-added">
                       <ion-col data-title=" 'Date Added' ">
-                        <td class="date" $log.log({{file}})>
-                          {{file}}
-                        </td>
+                        <td class="date">{{addedAt}}</td>
                       </ion-col>
                     </div>
+                    
 
                     <!--view icon column-->
                     <div class="view-icon">
                       <ion-col data-title=" 'View' ">
                         <td class="icon">
-                          <ion-icon color="gray" src="assets/imgs/add-circle-outline.svg">
-                            
+                          <ion-icon
+                            color="gray"
+                            src="assets/imgs/add-circle-outline.svg"
+                          >
                           </ion-icon>
                         </td>
                       </ion-col>
                     </div>
-                    <dajlfdkljfadjd></dajlfdkljfadjd>
 
                     <!--delete icon column-->
                     <div class="delete-icon">
@@ -308,13 +309,9 @@
                     </div>
                   </ion-row>
                 </table>
-
-
               </div>
             </ng-container>
           </div>
-
-          
         </div>
       </div>
       <!-- /files display -->

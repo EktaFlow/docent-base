@@ -25,6 +25,7 @@ export class QuestionsPage implements OnInit {
   public helpClicked: boolean = false;
   public questionId: any;
   files = [];
+  addedAt = new Date()
   public allQuestions;
   public referringQuestionId: any;
   public targetMRL;
@@ -83,6 +84,7 @@ export class QuestionsPage implements OnInit {
     currentAssessment.subscribe(({ data, loading }) => {
       this.assessment = data.assessment;
       this.files = data.assessment.files;
+      
       var { assessment } = this;
       this.allQuestions = assessment.questions;
       this.targetMRL = assessment.targetMRL;
@@ -100,6 +102,8 @@ export class QuestionsPage implements OnInit {
       this.vals.when = this.formatDate();
     });
   }
+
+  
 
   // @return - an array of ints
   setSurveyQuestions() {
@@ -297,6 +301,7 @@ export class QuestionsPage implements OnInit {
     var currentUser = this.auth.currentUser();
     values.userId = currentUser._id;
     values.updatedAt = new Date();
+    
     // we're setting this earlier.
     //values.answer = values.currentAnswer;
     newerQuestion.currentAnswer = values.answer;
