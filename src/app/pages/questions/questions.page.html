@@ -231,16 +231,16 @@
               <div class="attachments-header">
                 <ion-row class="header-row">
                   <ion-col>
-                    <ion-label class="header-label">File</ion-label>
+                    <ion-label class="file-name-label">File</ion-label>
                   </ion-col>
-                  <ion-col>
+                  <ion-col id="delete">
                     <ion-label class="header-label">Date Added</ion-label>
                   </ion-col>
-                  <ion-col>
-                    <ion-label class="header-label">View</ion-label>
+                  <ion-col id="view">
+                    <ion-label class="view-label">View</ion-label>
                   </ion-col>
                   <ion-col>
-                    <ion-label class="header-label">Delete</ion-label>
+                    <ion-label class="delete-label">Delete</ion-label>
                   </ion-col>
                 </ion-row>
               </div>
@@ -248,7 +248,7 @@
               <!-- <h6>Attachments</h6> -->
               <div class="file">
                 <ng-container
-                  *ngFor="let file of files; let i = index;"
+                  *ngFor="let file of files; let i = index;" 
                   class="file"
                 >
                   <div
@@ -260,16 +260,21 @@
                       <ion-row [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
                         <!--file name column-->
                         <div class="file-name">
-                          <ion-col data-title=" 'Attachments' ">
-                            <td class="file-link" (click)="openFile(file.url)">
-                              {{file.name}}
+                          <ion-col
+                            class="file-col"
+                            data-title=" 'Attachments' "
+                          >
+                            <td class="file-link" (click)="openFile(file.url)"  >
+                              {{ file.name | slice:0:40 }}{{file.name > 40 ?
+                              '...' : ''}}
+                              
                             </td>
                           </ion-col>
                         </div>
 
                         <!-- date added column -->
                         <div class="date-added">
-                          <ion-col data-title=" 'Date Added' ">
+                          <ion-col id="date-col" data-title=" 'Date Added' ">
                             <td class="date">
                               {{addedAt | date:'yyyy-MM-dd'}}
                             </td>

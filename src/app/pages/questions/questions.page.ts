@@ -1,6 +1,7 @@
 import { NgModule, Component, OnInit, EventEmitter } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
+import { TruncateName } from './helper.js'
 
 import { AssessmentService } from "../../services/assessment.service";
 import { AuthService } from "../../services/auth.service";
@@ -18,6 +19,7 @@ import { Helpers } from "../../services/helpers/helpers";
   templateUrl: "./questions.page.html",
   styleUrls: ["./questions.page.scss"],
 })
+
 export class QuestionsPage implements OnInit {
   public vals: any = {};
   assessmentId: any;
@@ -51,6 +53,8 @@ export class QuestionsPage implements OnInit {
       "questionId"
     );
   }
+
+
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("questions");
@@ -103,7 +107,16 @@ export class QuestionsPage implements OnInit {
     });
   }
 
-  
+  modify(fileName) {
+    const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
+
+    let newName = fileName.replace('.' + ext, '');
+    if (fileName.length <=8) {
+      return fileName
+    }
+    newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
+    return newName + '.' + ext
+  }
 
   // @return - an array of ints
   setSurveyQuestions() {
