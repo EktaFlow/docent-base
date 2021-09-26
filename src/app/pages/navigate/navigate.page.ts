@@ -127,7 +127,9 @@ export class NavigatePage implements OnInit {
               text: a.questionText,
               questionId: a.questionId,
               questionStatus: this.findQStatus(a.answers, a.mrLevel, a),
+              latestAnswer: a.answers[a.answers.length - 1]
             }));
+            
           return { mrl: f, questionSet: questionSet };
         });
         return { subheader: sName, questions: a };
@@ -142,7 +144,8 @@ export class NavigatePage implements OnInit {
     var filtered = this.schema.map((thread) => {
       return thread.subheader.map((subthread) => {
         return subthread.questions.filter(
-          (question) => question.mrl == this.filterList.filterMRL
+          (question) => question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer 
+          
         );
       });
       return thread;

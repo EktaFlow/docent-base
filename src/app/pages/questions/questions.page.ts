@@ -1,7 +1,7 @@
 import { NgModule, Component, OnInit, EventEmitter } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
-import { TruncateName } from './helper.js'
+
 
 import { AssessmentService } from "../../services/assessment.service";
 import { AuthService } from "../../services/auth.service";
