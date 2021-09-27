@@ -172,9 +172,11 @@ export class ComprehensivePage implements OnInit {
   }
 
   filterTheList() {
+    
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
       var filteredQuestions = this.unfilteredQuestions.filter((question) => {
-        if (question.level == this.filterList.filterMRL) {
+        
+        if (question.level == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer) {
           return question;
         }
       });
@@ -184,8 +186,11 @@ export class ComprehensivePage implements OnInit {
     }
   }
 
+  
+
   clearFilter() {
     this.filterList.filterMRL = 0;
+    this.filterList.filterAnswer = ''
     this.filterTheList();
   }
 
