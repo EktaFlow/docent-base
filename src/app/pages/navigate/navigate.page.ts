@@ -144,7 +144,11 @@ export class NavigatePage implements OnInit {
     var filtered = this.schema.map((thread) => {
       return thread.subheader.map((subthread) => {
         return subthread.questions.filter(
-          (question) => question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer 
+          (question) => question.questionSet[0].latestAnswer !== undefined ?  question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer : question.mrl == this.filterList.filterMRL
+          
+          
+          
+          // question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer
           
         );
       });
@@ -153,7 +157,7 @@ export class NavigatePage implements OnInit {
 
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
       var filteredQuestions = this.allQuestions.filter(
-        (question) => question.mrLevel == this.filterList.filterMRL
+        (question) => question.mrLevel == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer 
       );
       this.filteredSchema = this.createSchemaObject(filteredQuestions);
     } else {
