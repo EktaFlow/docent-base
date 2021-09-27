@@ -147,6 +147,7 @@ export class ReviewPage implements OnInit {
 
   clearFilter() {
     this.filterList.filterMRL = 0;
+    this.filterList.filterAnswer = ''
     this.filterTheList();
   }
 
