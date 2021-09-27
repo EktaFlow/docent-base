@@ -8,7 +8,7 @@ import {isElectron} from "../../services/constants";
 // import * as file from "file-system"
 // var file = require("file-system")
 import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+// import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class FileUploadPopoverComponent implements OnInit {
   inAssessment: any;
   isElectron: any;
   assessmentName: any;
-  fsys: any;
+  // fsys: any;
 
 
   constructor(
@@ -34,7 +34,7 @@ export class FileUploadPopoverComponent implements OnInit {
   	public navParams: NavParams,
     private popOver: PopoverController,
     private electronService: ElectronService,
-    public fs: Filesystem
+    // public fs: Filesystem
     // private fs: fs
   ) {
     var {navParams} = this;
@@ -92,9 +92,9 @@ export class FileUploadPopoverComponent implements OnInit {
       var filePath = file.path;
       var fileName = file.name;
       // if (!this.fsys.fileMatch('./file/')) {this.fsys.mkdirSync('./file/')}
-      console.log(this.fs);
-      console.log(Directory)
-      if (!this.fs.stat('./file/')) {this.fs.mkdir('./file/')}
+      // console.log(this.fs);
+      // console.log(Directory)
+      // if (!this.fs.stat('./file/')) {this.fs.mkdir('./file/')}
     //   var random = Math.floor(Math.random() * 20492039);
     //   var assessmentFileDir = `./file/${this.assessmentName}-${random}/`
     //   if (!this.fsys.fileMatch(assessmentFileDir)){
