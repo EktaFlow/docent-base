@@ -156,8 +156,13 @@ export class NavigatePage implements OnInit {
     });
 
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+      
       var filteredQuestions = this.allQuestions.filter(
-        (question) => question.mrLevel == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer 
+        
+        (question) => this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer :
+        
+        question.mrLevel == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer 
+       
       );
       this.filteredSchema = this.createSchemaObject(filteredQuestions);
     } else {

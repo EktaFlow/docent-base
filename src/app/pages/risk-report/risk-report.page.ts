@@ -148,7 +148,9 @@ export class RiskReportPage implements OnInit {
   filterTheList() {
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
       var filteredQuestions = this.unfilteredQuestions.filter(
-        (question) => question.mrLevel == this.filterList.filterMRL
+        (question) => this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer :
+        
+        question.mrLevel == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer
       );
       this.filteredSchema = this.createSchemaObject(filteredQuestions);
       this.filterList.filterTitle = this.filterList.filterMRL;
