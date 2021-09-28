@@ -27,15 +27,26 @@ export class FileUploadPopoverComponent implements OnInit {
     this.emitter = navParams.data.emitter;
   }
 
+  modify(fileName) {
+    console.log('modifying')
+    const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
+
+    let newName = fileName.replace('.' + ext, '');
+    if (fileName.length <=8) {
+      return fileName
+    }
+    newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
+    return newName + '.' + ext
+  }
+
   test(e) {
     var file = e.target.files[0];
 
     var fileObject = {
       size: file.size,
-      name: file.name,
+      name: this.modify(file.name),
       lastModified: file.lastModifiedDate,
     };
-
     this.file = fileObject;
   }
 
@@ -52,11 +63,35 @@ export class FileUploadPopoverComponent implements OnInit {
     // newVar.style.cssText = styling
   }
 
+  
   async uploadFile(event) {
+    
     var { assessmentId, questionId } = this;
 
     // boooooooooooooooooooo typescript
     var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
+
+    const newName = this.modify(file.name)
+
+    console.log(newName)
+
+    
+
+    
+
+    // const newName = this.modify(file.name)
+
+    // console.log(newName)
+
+    // this.file.name = newName;
+
+    // file = this.file
+
+   
+
+    
+   
+    
     var uploadedFile = await this.upload.uploadFile(
       file,
       assessmentId,
@@ -67,3 +102,4 @@ export class FileUploadPopoverComponent implements OnInit {
     this.popOver.dismiss();
   }
 }
+

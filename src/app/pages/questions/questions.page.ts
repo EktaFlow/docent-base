@@ -86,8 +86,10 @@ export class QuestionsPage implements OnInit {
     );
 
     currentAssessment.subscribe(({ data, loading }) => {
+      
       this.assessment = data.assessment;
       this.files = data.assessment.files;
+      
       
       var { assessment } = this;
       this.allQuestions = assessment.questions;
@@ -107,16 +109,18 @@ export class QuestionsPage implements OnInit {
     });
   }
 
-  modify(fileName) {
-    const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
+  // modify(fileName) {
+  //   console.log(111, this.files)
+  //   console.log('helloworld')
+  //   const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
 
-    let newName = fileName.replace('.' + ext, '');
-    if (fileName.length <=8) {
-      return fileName
-    }
-    newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
-    return newName + '.' + ext
-  }
+  //   let newName = fileName.replace('.' + ext, '');
+  //   if (fileName.length <=8) {
+  //     return fileName
+  //   }
+  //   newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
+  //   return newName + '.' + ext
+  // }
 
   // @return - an array of ints
   setSurveyQuestions() {
@@ -175,6 +179,7 @@ export class QuestionsPage implements OnInit {
       var files = JSON.parse(JSON.stringify(this.files));
       files.push(v);
       this.files = files;
+      console.log(this.files)
     });
     const fileUpload = await this.popOver.create({
       component: FileUploadPopoverComponent,
