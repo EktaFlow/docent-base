@@ -60,8 +60,11 @@ import { BackUrl } from "./services/constants";
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
+//TruncateName helper function
+import { TruncateName } from './services/helpers/truncate-filename'
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TruncateName],
   entryComponents: [AppComponent],
   imports: [
     BrowserModule,
@@ -108,6 +111,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
     AuthGuardService,
     File, 
     FileOpener,
+    TruncateName,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

@@ -267,6 +267,7 @@
                             <td title="{{file.name}}" class="file-link" (click)="openFile(file.url)"  >
                               {{ file.name | slice:0:40 }}{{file.name > 40 ?
                               '...' : ''}}
+                              <!-- {{file.name | truncate}} -->
                               
                             </td>
                           </ion-col>
