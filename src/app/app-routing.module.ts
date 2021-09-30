@@ -73,6 +73,14 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuardService]
   },
+  { path: "questions/:folder",
+    loadChildren: () => import("src/app/pages/questions/questions.module").then(
+      (m) => m.QuestionsPageModule
+    ),
+    canActivate: [AuthGuardService]
+
+
+  },
   {
     path: "reset-password",
     loadChildren:
