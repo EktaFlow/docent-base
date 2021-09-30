@@ -56,6 +56,10 @@ import { Helpers } from "./services/helpers/helpers";
 import { AppRoutingModule } from "../app/app-routing.module";
 import { BackUrl } from "./services/constants";
 
+//Ionic 4 file explorer plugin imports
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [AppComponent],
@@ -102,6 +106,8 @@ import { BackUrl } from "./services/constants";
     UploadService,
     Html2canvasService,
     AuthGuardService,
+    File, 
+    FileOpener,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
