@@ -15,10 +15,11 @@ export class FileUploadPopoverComponent implements OnInit {
   file: any;
   user: any;
 
+
   constructor(
     public upload: UploadService,
     public navParams: NavParams,
-    private popOver: PopoverController
+    private popOver: PopoverController,
   ) {
     var { navParams } = this;
 
@@ -27,24 +28,24 @@ export class FileUploadPopoverComponent implements OnInit {
     this.emitter = navParams.data.emitter;
   }
 
-  modify(fileName) {
-    console.log('modifying')
-    const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
+  // modify(fileName) {
+  //   console.log('modifying')
+  //   const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
 
-    let newName = fileName.replace('.' + ext, '');
-    if (fileName.length <=8) {
-      return fileName
-    }
-    newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
-    return newName + '.' + ext
-  }
+  //   let newName = fileName.replace('.' + ext, '');
+  //   if (fileName.length <=8) {
+  //     return this.file.name
+  //   }
+  //   newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
+  //   return newName + '.' + ext
+  // }
 
   test(e) {
     var file = e.target.files[0];
 
     var fileObject = {
       size: file.size,
-      name: this.modify(file.name),
+      name: file.name,
       lastModified: file.lastModifiedDate,
     };
     this.file = fileObject;
@@ -70,27 +71,6 @@ export class FileUploadPopoverComponent implements OnInit {
 
     // boooooooooooooooooooo typescript
     var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-
-    const newName = this.modify(file.name)
-
-    console.log(newName)
-
-    
-
-    
-
-    // const newName = this.modify(file.name)
-
-    // console.log(newName)
-
-    // this.file.name = newName;
-
-    // file = this.file
-
-   
-
-    
-   
     
     var uploadedFile = await this.upload.uploadFile(
       file,

@@ -13,7 +13,7 @@
 </label>
 </ng-container>
 	<input id="asdf" type="file" (change)="test($event)" placeholder="Choose File">
-	<p *ngIf="file">filename:  {{file.name}}</p>
+	<p *ngIf="file">filename:  {{file.name}} </p>
 	<p *ngIf="file">size:  {{file.size}}</p>
 	<p *ngIf="file">last modified:  {{file.lastModified}}</p>
 	<ion-button *ngIf="file" color="buttonBlue"(click)="uploadFile($event)" type="submit">Upload</ion-button>
