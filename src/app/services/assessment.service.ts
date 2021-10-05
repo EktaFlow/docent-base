@@ -13,8 +13,12 @@ import { assessmentQuery,
          deleteFileMutation   } from "./gql.service";
 import gql from 'graphql-tag';
 import { AuthUrl } from './constants';
-import 'rxjs/add/operator/catch';
-import { Observable, of } from 'rxjs';
+import { observable, of } from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+// import {observable} from 'rxjs/observable';
+// import {observable} from 'rxjs/of';
+// import {catchError} from 'rxjs/operators/catchError';
+// import {map} from 'rxjs/operators/map';
 
 
 @NgModule()
@@ -91,9 +95,10 @@ export class AssessmentService {
         assessmentId: assessmentId,
         teamMemberEmail: teamMemberEmail
       })
-      }).then(response => response.json())
-        .then(json => console.log(json))
-        .catch(err => console.error(err));
+    }).then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((err) => console.error(err))
+
   }
 
   async queryAssessment(assessmentId, query) {
@@ -185,11 +190,10 @@ export class AssessmentService {
 			mutation: updateQuestionMutation,
 			errorPolicy: 'all',
 			variables: updateInfo
-			})
-			.catch(e => {
-				// return Observable.throw(e.statusText);
-				return of({error: 'network Error!'})
-			});
+    }).pipe(
+      catchError => of({error: 'network Error!'})
+    );
+
 	}
 
 	async updateQuestionSeries(updateArray) {
@@ -198,13 +202,16 @@ export class AssessmentService {
 			await this.apollo.mutate<any>({
 				mutation: updateQuestionMutation,
 				variables: update
-			}).catch(e => {
-				console.log('we in error in series');
-				success = false;
-				return of('error');
-			}).subscribe(a => {
-				console.log('always with the subscribe');
-			})
+			}).pipe(
+        catchError => {
+          console.log('we in error in series');
+          success = false;
+          return of('error');
+        }
+      ).subscribe(
+        () => {console.log('always with the subscribe');
+      });
+
 		}
 		return success;
 	}
@@ -224,8 +231,10 @@ export class AssessmentService {
   *   @output:  Observable
   */
   async getDefaultThreads() {
-    return this.http.get('/assets/json/2016.json')
-    .map(threads => (<any>threads).map(thread => thread.name))
+    return this.http.get('/assets/json/2016.json').pipe(
+      map(threads => (<any>threads).map(thread => thread.name))
+    )
+
   }
 
   /**
@@ -287,9 +296,11 @@ export class AssessmentService {
 				recipients: teamMember,
 				assessmentId
 			})
-		})
-		.then(a => console.log("okok"))
-		.catch(e => console.error(e));
+		}).catch(e => console.error(e))
+    .then(
+      (res) => console.log("okok")
+    );
+
   }
 
   async deleteFile(assessmentId, fileId) {

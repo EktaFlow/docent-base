@@ -3,7 +3,7 @@ import { NavParams, PopoverController } from '@ionic/angular';
 import { UploadService } from "../../services/upload";
 import { AuthService } from "../../services/auth.service";
 import { AuthUrl } from "../../services/constants";
-import {ElectronService} from "ngx-electron";
+// import {ElectronService} from "ngx-electron";
 import {isElectron} from "../../services/constants";
 // import * as file from "file-system"
 // var file = require("file-system")
@@ -33,7 +33,6 @@ export class FileUploadPopoverComponent implements OnInit {
     public upload: UploadService,
   	public navParams: NavParams,
     private popOver: PopoverController,
-    private electronService: ElectronService,
     // public fs: Filesystem
     // private fs: fs
   ) {
@@ -89,8 +88,8 @@ export class FileUploadPopoverComponent implements OnInit {
   		this.popOver.dismiss()
     } else {
       var file = (<HTMLInputElement>document.getElementById("asdf")).files[0];
-      var filePath = file.path;
-      var fileName = file.name;
+      // var filePath = file.path;
+      // var fileName = file.name;
       // if (!this.fsys.fileMatch('./file/')) {this.fsys.mkdirSync('./file/')}
       // console.log(this.fs);
       // console.log(Directory)

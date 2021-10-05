@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 import * as upload from "./azure-storage.blob.min";
 import { Apollo } from "apollo-angular";
 import gql from "graphql-tag";
@@ -24,7 +24,7 @@ var createFileMutation = gql`
 		}
 `
 
-
+@NgModule()
 @Injectable()
 export class UploadService {
 

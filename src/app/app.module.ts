@@ -14,17 +14,19 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // Apollo
 import { ApolloModule, Apollo } from "apollo-angular";
+
 import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 
 
 // solo functions
-import 'rxjs/add/operator/map'
+// import 'rxjs/add/operator/map'
+import 'rxjs'
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+// import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AssessmentService } from './services/assessment.service';
 import { UploadService } from './services/upload';
@@ -54,7 +56,7 @@ import { Helpers } from './services/helpers/helpers';
 import { AppRoutingModule } from '../app/app-routing.module';
 import { BackUrl } from  "./services/constants";
 import {DocentElectronService} from "./services/docent-electron.service";
-import { ElectronService } from 'ngx-electron';
+// import { ElectronService } from 'ngx-electron';
 
 
 
@@ -94,16 +96,19 @@ import { ElectronService } from 'ngx-electron';
 		SettingsPageModule,
     EditAssessmentPageModule,
 		RiskReportPageModule,
-
-	],
-  providers: [
-    StatusBar,
-    SplashScreen,
-		AssessmentService,
+    AssessmentService,
     Helpers,
     UploadService,
-    ElectronService,
-    DocentElectronService,
+    DocentElectronService
+	],
+  providers: [
+    // StatusBar,
+    // SplashScreen,
+		// AssessmentService,
+    // Helpers,
+    // UploadService,
+    // ElectronService,
+    // DocentElectronService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
@@ -113,6 +118,6 @@ export class AppModule {
   	apollo.create({
     	link: httpLink.create({uri: BackUrl}),
     	cache: new InMemoryCache()
-    })
+    });
   }
 }

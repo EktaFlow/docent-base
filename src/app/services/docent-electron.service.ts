@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgModule } from "@angular/core";
 import { Storage } from '@ionic/storage';
 
+@NgModule()
 @Injectable()
 export class DocentElectronService{
   constructor(){}
