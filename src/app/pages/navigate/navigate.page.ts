@@ -127,7 +127,9 @@ export class NavigatePage implements OnInit {
               text: a.questionText,
               questionId: a.questionId,
               questionStatus: this.findQStatus(a.answers, a.mrLevel, a),
+              latestAnswer: a.answers[a.answers.length - 1]
             }));
+            
           return { mrl: f, questionSet: questionSet };
         });
         return { subheader: sName, questions: a };
@@ -142,15 +144,25 @@ export class NavigatePage implements OnInit {
     var filtered = this.schema.map((thread) => {
       return thread.subheader.map((subthread) => {
         return subthread.questions.filter(
-          (question) => question.mrl == this.filterList.filterMRL
+          (question) => question.questionSet[0].latestAnswer !== undefined ?  question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer : question.mrl == this.filterList.filterMRL
+          
+          
+          
+          // question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer
+          
         );
       });
       return thread;
     });
 
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+      
       var filteredQuestions = this.allQuestions.filter(
-        (question) => question.mrLevel == this.filterList.filterMRL
+        
+        (question) => this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer :
+        
+        question.mrLevel == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer 
+       
       );
       this.filteredSchema = this.createSchemaObject(filteredQuestions);
     } else {
@@ -164,6 +176,7 @@ export class NavigatePage implements OnInit {
 
   clearFilter() {
     this.filterList.filterMRL = 0;
+    this.filterList.filterAnswer = ''
     this.filterTheList();
   }
 

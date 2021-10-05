@@ -1,11 +1,19 @@
-<topbar [assessmentId]="assessmentId" [pageName]="pageName" class="mobile"></topbar>
-<topbar [assessmentId]="assessmentId" [noSecondBar]="noSecondBar" [pageName]="pageName" class="desktop"></topbar>
+<topbar
+  [assessmentId]="assessmentId"
+  [pageName]="pageName"
+  class="mobile"
+></topbar>
+<topbar
+  [assessmentId]="assessmentId"
+  [noSecondBar]="noSecondBar"
+  [pageName]="pageName"
+  class="desktop"
+></topbar>
 <ion-content class="ion-padding" data-intercom-target="Tour Start">
-
   <div class="mobile-wrapper">
     <div class="mobile-to-start">
       <div class="box-title">
-        <h3 [routerLink]="'/startNew'" ><b>Start New Assessment</b></h3>
+        <h3 [routerLink]="'/startNew'"><b>Start New Assessment</b></h3>
       </div>
     </div>
 
@@ -19,54 +27,143 @@
         </div>
         <div class="assessment-links">
           <!-- <div class="buttons"> -->
-            <ion-button size="small" class="a-button" color="light" expand="full" [routerLink]="'/startNew'" data-intercom-target="Start Button">Start New</ion-button>
-            <ion-button size="small" class="a-button" color="light" expand="full" (click)="handleImport()">Import</ion-button>
-            <ion-button size="small" class="a-button" color="light" expand="full" [routerLink]="['/settings']">Settings</ion-button>
+          <ion-button
+            size="small"
+            class="a-button"
+            color="light"
+            expand="full"
+            [routerLink]="'/startNew'"
+            data-intercom-target="Start Button"
+            >Start New</ion-button
+          >
+          <ion-button
+            size="small"
+            class="a-button"
+            color="light"
+            expand="full"
+            (click)="handleImport()"
+            >Import</ion-button
+          >
+          <ion-button
+            size="small"
+            class="a-button"
+            color="light"
+            expand="full"
+            [routerLink]="['/settings']"
+            >Settings</ion-button
+          >
           <!-- </div> -->
         </div>
         <div *ngIf="showMine">
           <div *ngIf="this.assessments">
             <div *ngFor="let assessment of assessments">
-              <div class="accordion-tab desktop" (click)="expandAssessment(assessment.id)" id="{{assessment.id}}">
-                <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
-                <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
+              <div
+                class="accordion-tab desktop"
+                (click)="expandAssessment(assessment.id)"
+                id="{{assessment.id}}"
+              >
+                <p *ngIf="assessment.name.length > 30 ">
+                  <b>Assessment:</b> {{truncate(assessment.name, 30, false,
+                  '...')}}
+                </p>
+                <p *ngIf="assessment.name.length <= 30 ">
+                  <b>Assessment:</b> {{assessment.name}}
+                </p>
                 <span>{{assessment.percentage}}% complete</span>
-                <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                <ion-icon
+                  src="assets/imgs/caret-down-outline.svg"
+                  class="dropdown"
+                  *ngIf="currentAssessment != assessment.id"
+                ></ion-icon>
+                <ion-icon
+                  src="assets/imgs/caret-up-outline.svg"
+                  class="dropdown"
+                  *ngIf="currentAssessment == assessment.id && currentAssessment != null"
+                ></ion-icon>
               </div>
 
-              <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)" >
-                <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
-                <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
-                <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+              <div
+                class="accordion-tab mobile"
+                (click)="expandAssessmentMobile(assessment.id)"
+              >
+                <p *ngIf="assessment.name.length > 30 ">
+                  <b>Assessment:</b> {{truncate(assessment.name, 30, false,
+                  '...')}}
+                </p>
+                <p *ngIf="assessment.name.length <= 30 ">
+                  <b>Assessment:</b> {{assessment.name}}
+                </p>
+                <ion-icon
+                  src="assets/imgs/caret-down-outline.svg"
+                  class="dropdown"
+                  *ngIf="currentAssessment != assessment.id"
+                ></ion-icon>
+                <ion-icon
+                  src="assets/imgs/caret-up-outline.svg"
+                  class="dropdown"
+                  *ngIf="currentAssessment == assessment.id && currentAssessment != null"
+                ></ion-icon>
               </div>
-              <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment" >
+              <div
+                *ngIf="currentAssessment == assessment.id && currentAssessment != null"
+                class="an-assessment"
+              >
                 <div class="details">
                   <p><b>Name: </b>{{assessment.name}}</p>
-                  <p><b>{{assessment.answered}} out of {{assessment.possible}}</b> questions answered</p>
+                  <p>
+                    <b
+                      >{{assessment.answered}} out of {{assessment.possible}}</b
+                    >
+                    questions answered
+                  </p>
                   <p><b>MRL: </b> {{assessment.targetMRL}}</p>
-                  <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
+                  <p>
+                    <b>Target Date: </b> {{assessment.targetDate | date:
+                    mediumDate}}
+                  </p>
                   <p><b>Additional Information: </b>{{assessment.scope}}</p>
                   <p><b>Location: </b> {{assessment.location}}</p>
-		  <ng-container *ngIf="assessment.levelSwitching">
-                      <p><b>Level Switching?: </b> Yes </p>
-		  </ng-container>
-		  <ng-container *ngIf="!assessment.levelSwitching">
-                      <p><b>Level Switching?: </b> No </p>
-	          </ng-container>
-                  <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}  </span></p>
+                  <ng-container *ngIf="assessment.levelSwitching">
+                    <p><b>Level Switching?: </b> Yes</p>
+                  </ng-container>
+                  <ng-container *ngIf="!assessment.levelSwitching">
+                    <p><b>Level Switching?: </b> No</p>
+                  </ng-container>
 
-
+                  <ng-container *ngIf="assessment.teamMembers.length > 0">
+                    <p>
+                      <b>Team Members: </b>
+                      <span *ngFor="let teamMember of assessment.teamMembers"
+                        >{{teamMember.email}}
+                      </span>
+                    </p>
+                  </ng-container>
+                  <ng-container *ngIf="!assessment.teamMembers.length > 0">
+                    <p><b>Team Members: </b> <span> No Team Members</span></p>
+                  </ng-container>
                 </div>
                 <div class="assNav">
-                  <button (click)="continueAssessment(assessment.id)">Continue</button>
-                  <button (click)="openDashboard(assessment.id)">MRL Summary</button>
-                  <button (click)="openActionItems(assessment.id)">Action Items</button>
-                  <button (click)="presentAddTeamMembersPopOver(assessment.id)">Invite</button>
-                  <button (click)="handleEditAssessmentClick(assessment.id)">Edit</button>
-                  <button (click)="handleDeleting(assessment.id)">Delete</button>
-                  <button (click)="handleSave(assessment.id)" class="desktop">Export</button>
+                  <button (click)="continueAssessment(assessment.id)">
+                    Continue
+                  </button>
+                  <button (click)="openDashboard(assessment.id)">
+                    MRL Summary
+                  </button>
+                  <button (click)="openActionItems(assessment.id)">
+                    Action Items
+                  </button>
+                  <button (click)="presentAddTeamMembersPopOver(assessment.id)">
+                    Invite
+                  </button>
+                  <button (click)="handleEditAssessmentClick(assessment.id)">
+                    Edit
+                  </button>
+                  <button (click)="handleDeleting(assessment.id)">
+                    Delete
+                  </button>
+                  <button (click)="handleSave(assessment.id)" class="desktop">
+                    Export
+                  </button>
                 </div>
               </div>
             </div>
@@ -74,14 +171,11 @@
         </div>
       </div>
 
-
       <div class="assessments shared-assessments">
         <div class="box-title desktop">
           <h3><b>Assessments Shared With Me</b></h3>
         </div>
-        <div class="assessment-links">
-
-        </div>
+        <div class="assessment-links"></div>
         <div class="box-title mobile">
           <h3 (click)="toggleShared()"><b>Assessments Shared With Me</b></h3>
         </div>
@@ -89,35 +183,102 @@
           <div *ngIf="this.sharedAssessments.length >= 1">
             <div *ngIf="this.sharedAssessments.length > 0">
               <div *ngFor="let assessment of sharedAssessments">
-                <div class="accordion-tab desktop" (click)="expandAssessment(assessment.id)"  id="{{assessment.id}}">
-                  <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
-                  <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
-                  <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                  <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                <div
+                  class="accordion-tab desktop"
+                  (click)="expandAssessment(assessment.id)"
+                  id="{{assessment.id}}"
+                >
+                  <p *ngIf="assessment.name.length > 30 ">
+                    <b>Assessment:</b> {{truncate(assessment.name, 30, false,
+                    '...')}}
+                  </p>
+                  <p *ngIf="assessment.name.length <= 30 ">
+                    <b>Assessment:</b> {{assessment.name}}
+                  </p>
+                  <ion-icon
+                    src="assets/imgs/caret-down-outline.svg"
+                    class="dropdown"
+                    *ngIf="currentAssessment != assessment.id"
+                  ></ion-icon>
+                  <ion-icon
+                    src="assets/imgs/caret-up-outline.svg"
+                    class="dropdown"
+                    *ngIf="currentAssessment == assessment.id && currentAssessment != null"
+                  ></ion-icon>
                 </div>
 
-                <div class="accordion-tab mobile" (click)="expandAssessmentMobile(assessment.id)"  >
-                  <p *ngIf="assessment.name.length > 30 "><b>Assessment:</b> {{truncate(assessment.name, 30, false, '...')}} </p>
-                  <p *ngIf="assessment.name.length <= 30 "><b>Assessment:</b> {{assessment.name}} </p>
-                  <ion-icon src="assets/imgs/caret-down-outline.svg" class="dropdown" *ngIf="currentAssessment != assessment.id"></ion-icon>
-                  <ion-icon src="assets/imgs/caret-up-outline.svg" class="dropdown" *ngIf="currentAssessment == assessment.id && currentAssessment != null"></ion-icon>
+                <div
+                  class="accordion-tab mobile"
+                  (click)="expandAssessmentMobile(assessment.id)"
+                >
+                  <p *ngIf="assessment.name.length > 30 ">
+                    <b>Assessment:</b> {{truncate(assessment.name, 30, false,
+                    '...')}}
+                  </p>
+                  <p *ngIf="assessment.name.length <= 30 ">
+                    <b>Assessment:</b> {{assessment.name}}
+                  </p>
+                  <ion-icon
+                    src="assets/imgs/caret-down-outline.svg"
+                    class="dropdown"
+                    *ngIf="currentAssessment != assessment.id"
+                  ></ion-icon>
+                  <ion-icon
+                    src="assets/imgs/caret-up-outline.svg"
+                    class="dropdown"
+                    *ngIf="currentAssessment == assessment.id && currentAssessment != null"
+                  ></ion-icon>
                 </div>
-                <div *ngIf="currentAssessment == assessment.id && currentAssessment != null" class="an-assessment">
+                <div
+                  *ngIf="currentAssessment == assessment.id && currentAssessment != null"
+                  class="an-assessment"
+                >
                   <div class="details">
                     <p><b>Name: </b>{{assessment.name}}</p>
                     <p><b>MRL: </b> {{assessment.targetMRL}}</p>
-                    <p><b>Target Date: </b> {{assessment.targetDate | date: mediumDate}}</p>
+                    <p>
+                      <b>Target Date: </b> {{assessment.targetDate | date:
+                      mediumDate}}
+                    </p>
                     <p><b>Additional Information: </b>{{assessment.scope}}</p>
                     <p><b>Location: </b> {{assessment.location}}</p>
-                    <p><b>Level Switching?: </b>{{assessment.levelSwitching}}</p>
-                    <p><b>Team Members: </b> <span *ngFor="let teamMember of assessment.teamMembers">{{teamMember.email}}  </span></p>
+                    <p>
+                      <b>Level Switching?: </b>{{assessment.levelSwitching}}
+                    </p>
+
+                    <ng-container *ngIf="assessment.teamMembers.length > 0">
+                      <p>
+                        <b>Team Members: </b>
+                        <span *ngFor="let teamMember of assessment.teamMembers"
+                          >{{teamMember.email}}
+                        </span>
+                      </p>
+                    </ng-container>
+                    <ng-container *ngIf="!assessment.teamMembers.length > 0">
+                      <p><b>Team Members: </b> <span> No Team Members</span></p>
+                    </ng-container>
+
+                    <!-- <p>
+                      <b>Team Members: </b>
+                      <span *ngFor="let teamMember of assessment.teamMembers"
+                        >{{teamMember.email}}
+                      </span>
+                    </p> -->
                     <p><b>Assessment Creator: </b>{{assessment.userEmail}}</p>
                   </div>
                   <div class="assNav">
-                    <button (click)="continueAssessment(assessment.id)">Continue</button>
-                    <button (click)="openDashboard(assessment.id)">MRL Summary</button>
-                    <button (click)="openActionItems(assessment.id)">Action Items</button>
-                    <button (click)="handleSave(assessment.id)" class="desktop">Export</button>
+                    <button (click)="continueAssessment(assessment.id)">
+                      Continue
+                    </button>
+                    <button (click)="openDashboard(assessment.id)">
+                      MRL Summary
+                    </button>
+                    <button (click)="openActionItems(assessment.id)">
+                      Action Items
+                    </button>
+                    <button (click)="handleSave(assessment.id)" class="desktop">
+                      Export
+                    </button>
                     <!-- <button>Add Team Members</button> -->
                   </div>
                 </div>
@@ -128,17 +289,11 @@
       </div>
     </div>
 
-
     <!-- <div class="mobile-to-reports">
       <div class="box-title">
         <h3><b>View Reports</b></h3>
       </div>
     </div> -->
-
-</div>
-<div class="qspacer"></div>
-
-
-
-
+  </div>
+  <div class="qspacer"></div>
 </ion-content>

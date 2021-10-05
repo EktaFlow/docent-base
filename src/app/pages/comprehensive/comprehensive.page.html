@@ -15,6 +15,7 @@
       <p>Filter MR Level: </p>
       <select name="filterMRL" id="filter-mrl-select" [(ngModel)]="filterList.filterMRL">
         <option value="" disabled selected>Select One...</option>
+        <option value = "All Levels">All Levels</option>
         <option value = "1">1</option>
         <option value = "2">2</option>
         <option value = "3">3</option>
@@ -25,6 +26,13 @@
         <option value = "8">8</option>
         <option value = "9">9</option>
         <option value = "10">10</option>
+      </select>
+      <p>Filter Answer Type: </p>
+      <select name="filterAnswer" id="filter-answer-select" [(ngModel)]="filterList.filterAnswer">
+        <option value="" disabled selected>Select One...</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        <option value="N/A">N/A</option>
       </select>
       <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
       <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>

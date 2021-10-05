@@ -2,6 +2,7 @@ import { NgModule, Component, OnInit, EventEmitter } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 
+
 import { AssessmentService } from "../../services/assessment.service";
 import { AuthService } from "../../services/auth.service";
 import { FileUploadPopoverComponent } from "../../components/file-upload-popover/file-upload-popover.component";
@@ -18,6 +19,7 @@ import { Helpers } from "../../services/helpers/helpers";
   templateUrl: "./questions.page.html",
   styleUrls: ["./questions.page.scss"],
 })
+
 export class QuestionsPage implements OnInit {
   public vals: any = {};
   assessmentId: any;
@@ -25,6 +27,7 @@ export class QuestionsPage implements OnInit {
   public helpClicked: boolean = false;
   public questionId: any;
   files = [];
+  addedAt = new Date()
   public allQuestions;
   public referringQuestionId: any;
   public targetMRL;
@@ -50,6 +53,8 @@ export class QuestionsPage implements OnInit {
       "questionId"
     );
   }
+
+
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("questions");
@@ -81,8 +86,11 @@ export class QuestionsPage implements OnInit {
     );
 
     currentAssessment.subscribe(({ data, loading }) => {
+      
       this.assessment = data.assessment;
       this.files = data.assessment.files;
+      
+      
       var { assessment } = this;
       this.allQuestions = assessment.questions;
       this.targetMRL = assessment.targetMRL;
@@ -100,6 +108,19 @@ export class QuestionsPage implements OnInit {
       this.vals.when = this.formatDate();
     });
   }
+
+  // modify(fileName) {
+  //   console.log(111, this.files)
+  //   console.log('helloworld')
+  //   const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
+
+  //   let newName = fileName.replace('.' + ext, '');
+  //   if (fileName.length <=8) {
+  //     return fileName
+  //   }
+  //   newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
+  //   return newName + '.' + ext
+  // }
 
   // @return - an array of ints
   setSurveyQuestions() {
@@ -158,6 +179,7 @@ export class QuestionsPage implements OnInit {
       var files = JSON.parse(JSON.stringify(this.files));
       files.push(v);
       this.files = files;
+      console.log(this.files)
     });
     const fileUpload = await this.popOver.create({
       component: FileUploadPopoverComponent,
@@ -297,6 +319,7 @@ export class QuestionsPage implements OnInit {
     var currentUser = this.auth.currentUser();
     values.userId = currentUser._id;
     values.updatedAt = new Date();
+    
     // we're setting this earlier.
     //values.answer = values.currentAnswer;
     newerQuestion.currentAnswer = values.answer;

@@ -111,6 +111,8 @@ export class RiskReportPage implements OnInit {
   }
 
   createSchemaObject(questionsArray) {
+    console.log(111, questionsArray)
+    
     var threadNames = questionsArray
       .map((a) => a.threadName)
       .filter(this.unique);
@@ -122,6 +124,7 @@ export class RiskReportPage implements OnInit {
         "subThreadName"
       ).map((sName) => {
         var questions = questionsArray.filter((m) => m.subThreadName == sName);
+        console.log(222, questions)
         var mrLevels = this.filterByProperty(questions, "mrLevel");
         var a = mrLevels.map((f) => {
           var questionSet = questions
@@ -130,7 +133,7 @@ export class RiskReportPage implements OnInit {
               text: a.questionText,
               questionId: a.questionId,
               mrl: a.mrLevel,
-              latestAnswer: a.answers[a.answers.length - 1],
+              latestAnswer: a.answers[a.answers.length - 1], //attempt to grab the most recent answer
             }));
           return { mrl: f, questionSet: questionSet };
         });
@@ -145,7 +148,9 @@ export class RiskReportPage implements OnInit {
   filterTheList() {
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
       var filteredQuestions = this.unfilteredQuestions.filter(
-        (question) => question.mrLevel == this.filterList.filterMRL
+        (question) => this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer :
+        
+        question.mrLevel == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer
       );
       this.filteredSchema = this.createSchemaObject(filteredQuestions);
       this.filterList.filterTitle = this.filterList.filterMRL;
