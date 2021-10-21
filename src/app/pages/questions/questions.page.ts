@@ -158,6 +158,7 @@ export class QuestionsPage implements OnInit {
 
   getCurrentQuestion() {
     const { getQuestion }  = this 
+    console.log('get question', getQuestion)
   }
 
   determineCurrentQuestion() {
@@ -194,11 +195,28 @@ export class QuestionsPage implements OnInit {
 
   ////////////////// CLICK HANDLERS //////////////////////////////////
   /////////////////////////// popover creator(s) /////////////////////
+
+  public truncate(
+    value: string,
+    limit = 8,
+    completeWords = true,
+    ext = null,
+    ellipsis = "[...]"
+  ) {
+    let lastIndex = limit;
+    ext = value.substr(value.lastIndexOf('.') + 1, value.length).toLowerCase()
+
+    if (completeWords) {
+      lastIndex = value.substr(0, limit).lastIndexOf(" ")
+    }
+    return `${value.substr(0, limit)}${ellipsis}.${ext}`
+
+  }
   
 
   async showFileUpload() {
 
-    console.log('current question showfileupload', this.currentQuestion)
+   
     
     let myEmitter = new EventEmitter<any>();
     myEmitter.subscribe((v) => {

@@ -264,12 +264,16 @@
                             class="file-col"
                             data-title=" 'Attachments' "
                           >
-                            <td title="{{file.name}}" class="file-link" (click)="openFile(file.url)"  >
-                              {{ file.name | slice:0:40 }}{{file.name > 40 ?
-                              '...' : ''}}
-                              <!-- {{file.name | truncate}} -->
+
+                            <td *ngIf="file.name.length > 8" title="{{file.name}}" class="file-link" (click)="openFile(file.url)"  >
+                              {{truncate(file.name, 8, null, false, '[...]')}}
                               
                             </td>
+                            <td *ngIf="file.name.length <= 8"
+                            title={{file.name}}
+                            class="file-link" (click)="openFile(file.url" >
+                            {{file.name}}
+                          </td>
                           </ion-col>
                         </div>
 
