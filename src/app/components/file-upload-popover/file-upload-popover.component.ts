@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { NavParams, PopoverController } from "@ionic/angular";
+import { NavParams, PopoverController, Platform, AlertController, ToastController } from "@ionic/angular";
 import { UploadService } from "../../services/upload";
+
+import { Router, ActivatedRoute } from "@angular/router";
+
+import { File, Entry } from "@ionic-native/file/ngx";
+import { FileOpener } from "@ionic-native/file-opener/ngx";
 
 @Component({
   selector: "file-upload-popover",
@@ -12,46 +17,51 @@ export class FileUploadPopoverComponent implements OnInit {
   questionId: string;
   assessmentId: string;
   emitter: any;
+  files: any[]; 
   file: any;
   user: any;
+  copyFile: Entry = null;
+  shouldMove = false; 
 
 
   constructor(
     public upload: UploadService,
     public navParams: NavParams,
     private popOver: PopoverController,
+    
+    private plt: Platform,
+    private alertCtrl: AlertController,
+    private fileOpener: FileOpener,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastCtrl: ToastController
+    
   ) {
     var { navParams } = this;
+
+    
 
     this.questionId = navParams.get("questionId");
     this.assessmentId = navParams.get("assessmentId");
     this.emitter = navParams.data.emitter;
   }
 
-  // modify(fileName) {
-  //   console.log('modifying')
-  //   const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
-
-  //   let newName = fileName.replace('.' + ext, '');
-  //   if (fileName.length <=8) {
-  //     return this.file.name
-  //   }
-  //   newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
-  //   return newName + '.' + ext
-  // }
-
   test(e) {
+    
     var file = e.target.files[0];
+    console.log('hey', file)
 
     var fileObject = {
       size: file.size,
       name: file.name,
       lastModified: file.lastModifiedDate,
     };
-    this.file = fileObject;
+    console.log('fileObject', fileObject)
+    this.file = fileObject
   }
 
   ngOnInit() {
+    // console.log(124, this.files)
     // var styling = `
     // padding: 30px;
     // height: 400px;
@@ -64,8 +74,30 @@ export class FileUploadPopoverComponent implements OnInit {
     // newVar.style.cssText = styling
   }
 
+  ngAfterViewInit() {
+    // console.log(421, this.files)
+  }
+
+  async fileSelected($event) {
+    const selected = (<HTMLInputElement>document.getElementById("asdf")).files[0];
+    const {assessmentId, questionId} = this;
+
+    const uploaded = await this.upload.uploadFile(
+      selected,
+      questionId,
+      assessmentId
+
+    )
+
+    this.emitter.emit(uploaded)
+    this.popOver.dismiss(); 
+
+  }
+
   
   async uploadFile(event) {
+
+    
     
     var { assessmentId, questionId } = this;
 
@@ -82,4 +114,5 @@ export class FileUploadPopoverComponent implements OnInit {
     this.popOver.dismiss();
   }
 }
+
 

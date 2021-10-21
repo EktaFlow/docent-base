@@ -58,6 +58,7 @@ export class CriteriaPage implements OnInit {
         fetchPolicy: "network-only",
       })
       .valueChanges.subscribe((data) => {
+        console.log('c-p data', data)
         this.allQuestions = (<any>data.data).assessment.questions;
         // this.schema = this.createSchemaObject(this.allQuestions);
         this.filteredSchema = this.createSchemaObject(this.allQuestions);

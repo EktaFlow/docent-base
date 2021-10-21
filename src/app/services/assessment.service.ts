@@ -5,6 +5,7 @@ import { Storage } from "@ionic/storage";
 import { HttpClient } from "@angular/common/http";
 import {
   assessmentQuery,
+  assessmentsDemo, 
   createAssessmentMutation,
   questionPageAssessmentQuery,
   updateQuestionMutation,
@@ -103,6 +104,8 @@ export class AssessmentService {
   }
 
   async queryAssessment(assessmentId, query) {
+    console.log('a-s query assessmentId', assessmentId)
+    
     var ok = gql`
       query assessment($_id: String) {
         ${query}
@@ -116,7 +119,22 @@ export class AssessmentService {
     }).valueChanges;
   }
 
+  async assessmentsDemo(userId) {
+    
+
+
+    return await this.apollo.watchQuery<any>({
+      query: assessmentsDemo,
+      fetchPolicy: "network-only",
+      variables: userId
+    }).valueChanges;
+
+  }
+
   async getAssessments(userId) {
+    console.log('assessment-service userId', userId)
+
+    
     return await this.apollo.watchQuery<any>({
       query: assessmentQuery,
       fetchPolicy: "network-only",
@@ -159,7 +177,9 @@ export class AssessmentService {
     });
   }
 
+
   async getQuestionPageAssessment(assessmentId) {
+    
     return await this.apollo.watchQuery<any>({
       query: questionPageAssessmentQuery,
       fetchPolicy: "network-only",
@@ -290,11 +310,12 @@ export class AssessmentService {
       .catch((e) => console.error(e));
   }
 
-  async deleteFile(assessmentId, fileId) {
+  async deleteFile(assessmentId, questionId, fileId) {
     return await this.apollo.mutate<any>({
       mutation: deleteFileMutation,
       variables: {
         assessmentId: assessmentId,
+        questionId: questionId,
         fileId: fileId,
       },
     });
