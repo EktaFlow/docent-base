@@ -9,6 +9,9 @@ import { ThreadsListComponent } from "./threads-list/threads-list.component";
 import { HelpmenuComponent } from "./helpmenu/helpmenu.component";
 import { ContactsDropdownComponent } from "./contacts-dropdown/contacts-dropdown.component";
 import { FaqDropdownComponent } from "./faq-dropdown/faq-dropdown.component";
+
+import { DocumentationUploadPopoverComponent } from "./documentation-upload-popover.component.ts/documentation.-upload-popover-component";
+
 import { FileUploadPopoverComponent } from "./file-upload-popover/file-upload-popover.component";
 import { TopbarComponent } from "./topbar/topbar.component";
 import { ImportComponent } from "./import/import.component";
@@ -36,6 +39,7 @@ import { ReportInfoCardComponent } from "./report-info-card/report-info-card.com
     HelpmenuComponent,
     ContactsDropdownComponent,
     FaqDropdownComponent,
+    DocumentationUploadPopoverComponent,
     FileUploadPopoverComponent,
     TopbarComponent,
     ImportComponent,
@@ -63,6 +67,7 @@ import { ReportInfoCardComponent } from "./report-info-card/report-info-card.com
     HelpmenuComponent,
     ContactsDropdownComponent,
     FaqDropdownComponent,
+    DocumentationUploadPopoverComponent,
     FileUploadPopoverComponent,
     TopbarComponent,
     ImportComponent,
@@ -89,6 +94,7 @@ import { ReportInfoCardComponent } from "./report-info-card/report-info-card.com
     HelpmenuComponent,
     ContactsDropdownComponent,
     FaqDropdownComponent,
+    DocumentationUploadPopoverComponent,
     FileUploadPopoverComponent,
     TopbarComponent,
     ImportComponent,

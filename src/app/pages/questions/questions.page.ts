@@ -5,6 +5,8 @@ import { Storage } from "@ionic/storage";
 
 import { AssessmentService } from "../../services/assessment.service";
 import { AuthService } from "../../services/auth.service";
+import { DocumentationUploadPopoverComponent } from "src/app/components/documentation-upload-popover.component.ts/documentation.-upload-popover-component";
+
 import { FileUploadPopoverComponent } from "../../components/file-upload-popover/file-upload-popover.component";
 import { FileDeleteComponent } from "../../components/file-delete/file-delete.component";
 import { RiskPopoverComponent } from "../../components/risk-popover/risk-popover.component";
@@ -26,6 +28,7 @@ export class QuestionsPage implements OnInit {
   public assessment: any;
   public helpClicked: boolean = false;
   public questionId: any;
+  directories: any;
   files = [];
   addedAt = new Date()
   public allQuestions;
@@ -64,6 +67,8 @@ export class QuestionsPage implements OnInit {
   // return a question by its questionId
   getQuestion = (id) => this.allQuestions[id - 1];
 
+  
+
   allSubthreadQuestions(question = this.currentQuestion) {
     return this.allQuestions.filter(
       (q) => q.subThreadName == question.subThreadName
@@ -78,16 +83,32 @@ export class QuestionsPage implements OnInit {
   /////////////////////////////////////////////////////////////////////
   // INIT && related function
   async ngOnInit() {
+
+    console.log('hello from questions-page')
+    
+
+    
+    
     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 
-    // if we don't already have a loaded assessment.
+   
+    
+    
     var currentAssessment = await this.assessmentService.getQuestionPageAssessment(
       this.assessmentId
     );
 
+
+    
+
     currentAssessment.subscribe(({ data, loading }) => {
       
       this.assessment = data.assessment;
+
+      console.log('q-p data', data)
+
+      
+      
       this.files = data.assessment.files;
       
       
@@ -107,20 +128,12 @@ export class QuestionsPage implements OnInit {
       this.findAmtOfQs();
       this.vals.when = this.formatDate();
     });
+
+   
+
+  
+    
   }
-
-  // modify(fileName) {
-  //   console.log(111, this.files)
-  //   console.log('helloworld')
-  //   const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
-
-  //   let newName = fileName.replace('.' + ext, '');
-  //   if (fileName.length <=8) {
-  //     return fileName
-  //   }
-  //   newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
-  //   return newName + '.' + ext
-  // }
 
   // @return - an array of ints
   setSurveyQuestions() {
@@ -143,6 +156,10 @@ export class QuestionsPage implements OnInit {
     return level3;
   }
 
+  getCurrentQuestion() {
+    const { getQuestion }  = this 
+  }
+
   determineCurrentQuestion() {
     var { getQuestion } = this;
 
@@ -155,9 +172,11 @@ export class QuestionsPage implements OnInit {
 
     if (this.referringQuestionId) {
       this.currentQuestion = getQuestion(this.referringQuestionId);
+      console.log('hmm', this.currentQuestion)
     } else {
       // var noNulls = this.surveyQuestions.map(q => q)
       var noAnswer = this.surveyQuestions.find((qId) => {
+        console.log('hmm-getQuestion(qId)', getQuestion(qId))
         return getQuestion(qId).answers.length == 0;
       });
       if (noAnswer) {
@@ -169,18 +188,32 @@ export class QuestionsPage implements OnInit {
         this.currentQuestion = getQuestion(latestQuestion);
       }
     }
+
+    console.log('current question maybe -->', this.currentQuestion)
   }
 
   ////////////////// CLICK HANDLERS //////////////////////////////////
   /////////////////////////// popover creator(s) /////////////////////
+  
+
   async showFileUpload() {
+
+    console.log('current question showfileupload', this.currentQuestion)
+    
     let myEmitter = new EventEmitter<any>();
     myEmitter.subscribe((v) => {
-      var files = JSON.parse(JSON.stringify(this.files));
-      files.push(v);
-      this.files = files;
-      console.log(this.files)
+      console.log('v', v)
+      let files = this.currentQuestion.files
+      files.push(v)
+      this.files = files
+      // var files = JSON.parse(JSON.stringify(this.files));
+      // console.log('q-p files', this.files)
+      // let files = this.files 
+      // files.push(v);
+      // this.files = files;
+      
     });
+    
     const fileUpload = await this.popOver.create({
       component: FileUploadPopoverComponent,
       componentProps: {

@@ -27,11 +27,7 @@ var sharedQuery = gql`
       location
       name
       id
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
       questions {
         mrLevel
         answers {
@@ -50,11 +46,7 @@ var assessmentQuery = gql`
       userEmail
       scope
       targetMRL
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers 
       levelSwitching
       targetDate
       location
@@ -62,17 +54,15 @@ var assessmentQuery = gql`
       name
       threads
       questions {
+        files {
+          id
+          questionId
+          name 
+        }
         mrLevel
         answers {
           answer
         }
-      }
-      files {
-        id
-        caption
-        name
-        questionId
-        url
       }
     }
   }
@@ -89,6 +79,8 @@ export class UserDashboardPage implements OnInit {
     email: "",
     id: "",
   };
+
+
 
   assessments: any;
   sharedAssessments: any = [];
@@ -125,11 +117,15 @@ export class UserDashboardPage implements OnInit {
 
   async ngOnInit() {
     // TODO make this better
+
+    console.log('hello world from user-dash')
+    
     await this.getSharedAssessments();
     this.pullSharedAssessments();
 
     var user = this.auth.currentUser();
     this.user = user;
+    console.log('this.user', this.user)
 
     this.intercom.boot({
       app_id: "olfft7tm",
@@ -141,9 +137,23 @@ export class UserDashboardPage implements OnInit {
       },
     });
 
-    var observe = await this.assessmentService.getAssessments(user);
+   
+
+    const demo = await this.assessmentService.assessmentsDemo(this.user._id)
+
+    
+
+    demo.subscribe(({ data }) => {
+      console.log('take that for data', data)
+    })
+
+    var observe = await this.assessmentService.getAssessments(user._id);
     observe.subscribe(({ data }) => {
+      
       this.assessments = data.assessments;
+
+      console.log('user-dash this.assessments', this.assessments)
+      
       this.assessments = JSON.parse(JSON.stringify(this.assessments));
       for (var assessment of this.assessments) {
         var answeredQuestions = assessment.questions.filter(
@@ -163,6 +173,8 @@ export class UserDashboardPage implements OnInit {
       this.showMine = true;
       this.showShared = true;
     }
+
+    
   }
 
   async getSharedAssessments() {
@@ -240,6 +252,7 @@ export class UserDashboardPage implements OnInit {
   }
 
   expandAssessment(assessmentId) {
+  
     // this.expand = !this.expand;
     if (this.currentAssessment == assessmentId) {
       this.currentAssessment = null;
@@ -274,6 +287,7 @@ export class UserDashboardPage implements OnInit {
   }
 
   async openDashboard(assessmentId) {
+    console.log(assessmentId)
     await this.assessmentService.setCurrentAssessmentId(assessmentId);
     this.router.navigate(["/dashboard", { assessmentId: this.assessmentId }]);
   }
