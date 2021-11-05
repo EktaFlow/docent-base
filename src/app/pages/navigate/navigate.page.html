@@ -35,13 +35,23 @@
         <option value="Yes">Yes</option>
         <option value="No">No</option>
         <option value="N/A">N/A</option>
+        <option value="Unanswered">Unanswered</option>
       </select>
       <ion-button class="filter-buttons" (click)="filterTheList()" size="small" color="buttonBlue">Filter</ion-button>
       <ion-button class="filter-buttons" size="small" (click)="clearFilter()" color="buttonBlue">Clear</ion-button>
     </div>
   </div>
   <div class="desktop">
+    <!---
+    
 
+      - filteredSchema // we want to list ALL ANSWERED QUESTIONS for the CURRENT MRL on landing
+        - segment (header, subheader)
+          - subheader (questions, subheader)
+            - question (mrl, questionSet)
+              - questionSet (latestAnswer, questionId, questionStatus, text)
+                - question
+    ---->
   <ion-card *ngFor="let segment of filteredSchema" class="thread-card">
     <ion-card-header>
       <ion-card-title><img src="assets/imgs/if_icon-arrow-down.png" (click)="changeState(segment)" class= "downArrow" > {{segment.header}}</ion-card-title>
@@ -63,6 +73,7 @@
                   </span>
                   {{title.text}}
               </h5>
+            
             </div>
           </div>
         </div>

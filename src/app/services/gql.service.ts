@@ -21,6 +21,33 @@ export const assessmentsDemo = gql`
   }
 `
 
+export const fileUploadQuestion = gql`
+  query question(
+    $questionId: Int
+    $assessmentId: String
+  ) {
+    question(
+      questionId: $questionId
+      assessmentId: $assessmentId
+    ) {
+      questionId
+      questionText
+      helpText
+      criteriaText
+      threadName
+      subThreadName
+      files {
+        id
+        questionId
+        name
+        url
+      }
+      
+    }
+  }
+
+`
+
 export var assessmentQuery = gql`
   query assessments($userId: String) {
     assessments(userId: $userId) {
@@ -184,9 +211,19 @@ export var updateTeamMembersMutation = gql`
   }
 `;
 
+
+
+export const addFileToQuestionMutation = gql`
+  mutation addFile($assessmentId: String, $questionId: Int, $url: String, $name: String) {
+    addFile(assessmentId: $assessmentId, questionId: $questionId, url: $url, name: $name) {
+      name
+    }
+  }
+`;
+
 export var deleteFileMutation = gql`
-  mutation deleteFile($questionId: Int, $fileId: String) {
-    deleteFile(questionId: $questionId, fileId: $fileId) {
+  mutation deleteFile($questionId: Int!, $assessmentId: String!, $name: String) {
+    deleteFile(questionId: $questionId, assessmentId: $assessmentId, name: $name) {
       name
     }
   }

@@ -40,6 +40,8 @@ var assessmentQuery = gql`
 })
 export class ReviewPage implements OnInit {
   assessmentId: any;
+  answeredQuestions: any[] = [];
+  unansweredQuestions: any[] = [];
   allQuestions: any;
   targetMRL: any;
   targetDate: any;
@@ -94,6 +96,15 @@ export class ReviewPage implements OnInit {
       .valueChanges.subscribe((data) => {
         var assessment = (<any>data.data).assessment;
         var questions = assessment.questions;
+        const gleesh = (<any>data.data).assessment.targetMRL;
+        const demo = questions.filter((q) => q.answers.length > 0);
+        const feech = demo.filter((a) => a.mrLevel === gleesh);
+        const undemo = questions.filter((q) => q.answers.length === 0);
+        const mana = undemo.filter((a) => a.mrLevel === gleesh);
+        this.answeredQuestions = feech;
+        this.unansweredQuestions = mana;
+
+
 
         var answeredQuestions = [];
         questions.forEach((q) => {
@@ -133,6 +144,44 @@ export class ReviewPage implements OnInit {
   }
 
   filterTheList() {
+    // if (
+    //   this.filterList.filterMRL &&
+    //   this.filterList.filterMRL !== 0 &&
+    //   this.filterList.filterMRL === this.targetMRL
+    // ) {
+    //   this.allQuestions = this.answeredQuestions
+    // } else if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
+    //   var filteredQuestions = this.allQuestions.filter((question) =>
+    //     this.filterList.filterMRL === "All Levels"
+    //       ? question.currentAnswer == this.filterList.filterAnswer
+    //       : question.mrLevel == this.filterList.filterMRL &&
+    //         question.currentAnswer == this.filterList.filterAnswer
+    //   );
+    //   this.allQuestions = filteredQuestions 
+    // } else if (
+    //   this.filterList.filterMRL &&
+    //   this.filterList.filterMRL !== 0 &&
+    //   this.filterList.filterMRL === this.targetMRL &&
+    //   this.filterList.filterAnswer === "Unanswered"
+    // ) {
+    //   console.log('inside unanswered')
+    //   this.allQuestions = this.unansweredQuestions
+    // } else {
+    //   this.allQuestions = this.unfilteredQuestions
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
       var filteredQuestions = this.unfilteredQuestions.filter((question) => {
         if (this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer : question.level == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer) {
