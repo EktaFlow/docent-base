@@ -19,16 +19,16 @@ var assessmentQuery = gql`
         threadName
         subThreadName
         currentAnswer
+        files {
+          name
+          questionId
+          url
+        }
         answers {
           answer
           notesNo
           objectiveEvidence
         }
-      }
-      files {
-        name
-        questionId
-        url
       }
     }
   }
@@ -63,9 +63,8 @@ export class ReviewPage implements OnInit {
     public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.assessmentId = this.activatedRoute.snapshot.paramMap.get(
-      "assessmentId"
-    );
+    this.assessmentId =
+      this.activatedRoute.snapshot.paramMap.get("assessmentId");
     // this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
   }
 
@@ -95,6 +94,7 @@ export class ReviewPage implements OnInit {
       })
       .valueChanges.subscribe((data) => {
         var assessment = (<any>data.data).assessment;
+
         var questions = assessment.questions;
         const gleesh = (<any>data.data).assessment.targetMRL;
         const demo = questions.filter((q) => q.answers.length > 0);
@@ -103,8 +103,6 @@ export class ReviewPage implements OnInit {
         const mana = undemo.filter((a) => a.mrLevel === gleesh);
         this.answeredQuestions = feech;
         this.unansweredQuestions = mana;
-
-
 
         var answeredQuestions = [];
         questions.forEach((q) => {
@@ -139,64 +137,69 @@ export class ReviewPage implements OnInit {
         this.targetMRL = assessment.targetMRL;
         this.targetDate = assessment.targetDate;
         this.location = assessment.location;
-        this.files = assessment.files;
+
+        let questionsWithFiles = assessment.questions.filter(
+          (q) => q.files.length > 0
+        );
+
+        let storage = questionsWithFiles.map((q) => {
+          q.files.filter((f) => f.length > 0);
+        });
+
+        this.files = storage;
       });
+    console.log("this", this);
   }
 
   filterTheList() {
-    // if (
-    //   this.filterList.filterMRL &&
-    //   this.filterList.filterMRL !== 0 &&
-    //   this.filterList.filterMRL === this.targetMRL
-    // ) {
-    //   this.allQuestions = this.answeredQuestions
-    // } else if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
-    //   var filteredQuestions = this.allQuestions.filter((question) =>
-    //     this.filterList.filterMRL === "All Levels"
-    //       ? question.currentAnswer == this.filterList.filterAnswer
-    //       : question.mrLevel == this.filterList.filterMRL &&
-    //         question.currentAnswer == this.filterList.filterAnswer
-    //   );
-    //   this.allQuestions = filteredQuestions 
-    // } else if (
-    //   this.filterList.filterMRL &&
-    //   this.filterList.filterMRL !== 0 &&
-    //   this.filterList.filterMRL === this.targetMRL &&
-    //   this.filterList.filterAnswer === "Unanswered"
-    // ) {
-    //   console.log('inside unanswered')
-    //   this.allQuestions = this.unansweredQuestions
-    // } else {
-    //   this.allQuestions = this.unfilteredQuestions
-    // }
+    if (this.filterList.filterAnswer === "Unanswered") {
+      if (this.filterList.filterMRL === "All Levels") {
+        return this.allQuestions = this.unansweredQuestions;
+      } else {
+        let filteredQuestions = this.unfilteredQuestions.filter((question) => {
+          if (
+            question.level === this.filterList.filterMRL &&
+            question.currentAnswer === null
+          ) {
+            return question;
+          }
+        });
+        return this.allQuestions = filteredQuestions;
+      }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
-      var filteredQuestions = this.unfilteredQuestions.filter((question) => {
-        if (this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer : question.level == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer) {
-          return question;
-        }
-      });
-      this.allQuestions = filteredQuestions;
-    } else {
-      this.allQuestions = this.unfilteredQuestions;
+    if (this.filterList.filterMRL && this.filterList.filterMRL !== 0) {
+      if (this.filterList.filterMRL !== "All Levels") {
+        let filteredQuestions = this.unfilteredQuestions.filter((question) => {
+          if (
+            question.level === this.filterList.filterMRL &&
+            question.currentAnswer === this.filterList.filterAnswer
+          ) {
+            return question;
+          }
+        });
+        this.allQuestions = filteredQuestions;
+      }
+      if (this.filterList.filterMRL === "All Levels") {
+        let filteredQuestions = this.unfilteredQuestions.filter((question) => {
+          if (
+            question.currentAnswer !== null &&
+            question.currentAnswer === this.filterList.filterAnswer
+          ) {
+            return question;
+          }
+        });
+        this.allQuestions = filteredQuestions;
+      }
     }
   }
 
   clearFilter() {
+    let storage = [];
+    storage = [...this.unfilteredQuestions, ...this.unansweredQuestions];
     this.filterList.filterMRL = 0;
-    this.filterList.filterAnswer = ''
+    this.filterList.filterAnswer = "";
+    this.allQuestions = storage;
     this.filterTheList();
   }
 
