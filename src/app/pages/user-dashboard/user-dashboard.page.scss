@@ -53,9 +53,9 @@ div.assessment-boxes {
 
   .assessment-boxes {
     width: 99%;
-    // position: absolute;
-    // top: 200px;
-    // left: 40px;
+    position: absolute;
+    top: 200px;
+    left: 40px;
     margin: 0 auto;
     margin-top: 200px;
     vertical-align: top;
@@ -79,10 +79,17 @@ div.assessment-boxes {
 
     }
 
+#start-assessment {
+  margin-bottom: -9.3rem;
+  max-height: 85px;
+  margin-top: 80px;
+}
+
     .box-title {
       width: 100%;
       display: block;
       padding: 2px;
+     
       background-color: darkslateblue;
       h3 {
         text-align: center;
