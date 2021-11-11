@@ -46,7 +46,11 @@ var assessmentQuery = gql`
       userEmail
       scope
       targetMRL
+<<<<<<< HEAD
       teamMembers 
+=======
+      teamMembers
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
       levelSwitching
       targetDate
       location
@@ -57,7 +61,11 @@ var assessmentQuery = gql`
         files {
           id
           questionId
+<<<<<<< HEAD
           name 
+=======
+          name
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
         }
         mrLevel
         answers {
@@ -106,9 +114,8 @@ export class UserDashboardPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public intercom: Intercom
   ) {
-    this.assessmentId = this.activatedRoute.snapshot.paramMap.get(
-      "assessmentId"
-    );
+    this.assessmentId =
+      this.activatedRoute.snapshot.paramMap.get("assessmentId");
   }
 
   ionViewWillEnter() {
@@ -118,8 +125,13 @@ export class UserDashboardPage implements OnInit {
   async ngOnInit() {
     // TODO make this better
 
+<<<<<<< HEAD
     console.log('hello world from user-dash')
     
+=======
+    console.log("hello world from user-dash");
+
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     await this.getSharedAssessments();
     this.pullSharedAssessments();
 
@@ -137,6 +149,7 @@ export class UserDashboardPage implements OnInit {
       },
     });
 
+<<<<<<< HEAD
    
 
     const demo = await this.assessmentService.assessmentsDemo(this.user._id)
@@ -147,13 +160,18 @@ export class UserDashboardPage implements OnInit {
       console.log('take that for data', data)
     })
 
+=======
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     var observe = await this.assessmentService.getAssessments(user._id);
     observe.subscribe(({ data }) => {
       
       this.assessments = data.assessments;
 
+<<<<<<< HEAD
       console.log('user-dash this.assessments', this.assessments)
       
+=======
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
       this.assessments = JSON.parse(JSON.stringify(this.assessments));
       for (var assessment of this.assessments) {
         var answeredQuestions = assessment.questions.filter(
@@ -287,7 +305,11 @@ export class UserDashboardPage implements OnInit {
   }
 
   async openDashboard(assessmentId) {
+<<<<<<< HEAD
     console.log(assessmentId)
+=======
+    console.log(assessmentId);
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     await this.assessmentService.setCurrentAssessmentId(assessmentId);
     this.router.navigate(["/dashboard", { assessmentId: this.assessmentId }]);
   }

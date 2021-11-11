@@ -226,7 +226,7 @@
           </ion-header>
 
           <div class="attachments-content">
-            <table class="attachments-table">
+            <table idclass="attachments-table">
               <!--Attachments Header-->
               <div class="attachments-header">
                 <ion-row class="header-row">
@@ -246,7 +246,7 @@
               </div>
 
               <!-- <h6>Attachments</h6> -->
-              <div class="file">
+              <div id="files-list">
                 <ng-container
                   *ngFor="let file of files; let i = index;" 
                   class="file"
@@ -271,7 +271,11 @@
                             </td>
                             <td *ngIf="file.name.length <= 8"
                             title={{file.name}}
+<<<<<<< HEAD
                             class="file-link" (click)="openFile(file.url" >
+=======
+                            class="file-link" (click)="openFile(file.url)" >
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
                             {{file.name}}
                           </td>
                           </ion-col>
@@ -303,10 +307,10 @@
                         <!--delete icon column-->
                         <div class="delete-icon">
                           <ion-col data-title="'Delete'">
-                            <td class="icon">
+                            <td class="icon" title={{file.name}} id="selector">
                               <ion-icon
                                 *ngIf="!isElectron"
-                                (click)="handleRemoveFileClick($event, file.id)"
+                                (click)="handleRemoveFileClick($event, file.name)"
                                 src="assets/imgs/remove-circle-outline.svg"
                                 color="danger"
                               ></ion-icon>

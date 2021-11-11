@@ -1,3 +1,7 @@
+ion-content.md.content-sizing.hydrated {
+  height: 200px;
+}
+
 input[type="file"] {
   display: none;
 }
@@ -21,4 +25,17 @@ div.popover-content.sc-ion-popover-md {
 
 ion-title {
   text-align: center; 
+<<<<<<< HEAD
 }
+=======
+}
+
+ion-fab.md.fab-horizontal-end.fab-vertical-bottom.hydrated {
+  display: flex; 
+}
+
+#queue {
+  display: flex;
+  flex-direction: column;
+}
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6

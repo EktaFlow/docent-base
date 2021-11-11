@@ -5,13 +5,19 @@ import { Storage } from "@ionic/storage";
 import { HttpClient } from "@angular/common/http";
 import {
   assessmentQuery,
+<<<<<<< HEAD
   assessmentsDemo, 
+=======
+  assessmentsDemo,
+  fileUploadQuestion,
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
   createAssessmentMutation,
   questionPageAssessmentQuery,
   updateQuestionMutation,
   deleteAssessmentMutation,
   getThreadsQuery,
   updateTeamMembersMutation,
+  addFileToQuestionMutation,
   deleteFileMutation,
 } from "./gql.service";
 import gql from "graphql-tag";
@@ -104,8 +110,13 @@ export class AssessmentService {
   }
 
   async queryAssessment(assessmentId, query) {
+<<<<<<< HEAD
     console.log('a-s query assessmentId', assessmentId)
     
+=======
+    console.log("a-s query assessmentId", assessmentId);
+
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     var ok = gql`
       query assessment($_id: String) {
         ${query}
@@ -119,6 +130,7 @@ export class AssessmentService {
     }).valueChanges;
   }
 
+<<<<<<< HEAD
   async assessmentsDemo(userId) {
     
 
@@ -135,6 +147,42 @@ export class AssessmentService {
     console.log('assessment-service userId', userId)
 
     
+=======
+  async getAssessmentFileNav(assessmentId) {
+    console.log("assessment-service getAssessment query", assessmentId);
+
+    return await this.apollo.watchQuery<any>({
+      query: assessmentQuery,
+      fetchPolicy: "network-only",
+      variables: { _id: assessmentId },
+    }).valueChanges;
+  }
+
+  async assessmentsDemo(userId) {
+    return await this.apollo.watchQuery<any>({
+      query: assessmentsDemo,
+      fetchPolicy: "network-only",
+      variables: userId,
+    }).valueChanges;
+  }
+
+  async getFileUploadQuestion(questionId, assessmentId) {
+    
+
+    return await this.apollo.watchQuery<any>({
+      query: fileUploadQuestion,
+      fetchPolicy: "network-only",
+      variables: {
+        questionId: questionId,
+        assessmentId: assessmentId,
+      },
+    }).valueChanges;
+  }
+
+  async getAssessments(userId) {
+    console.log("assessment-service userId", userId);
+
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     return await this.apollo.watchQuery<any>({
       query: assessmentQuery,
       fetchPolicy: "network-only",
@@ -310,13 +358,36 @@ export class AssessmentService {
       .catch((e) => console.error(e));
   }
 
+<<<<<<< HEAD
   async deleteFile(assessmentId, questionId, fileId) {
+=======
+  async addFile(assessmentId, questionId, url, name) {
+    
     return await this.apollo.mutate<any>({
-      mutation: deleteFileMutation,
+      mutation: addFileToQuestionMutation,
       variables: {
         assessmentId: assessmentId,
         questionId: questionId,
+        url: url,
+        name: name,
+   
+      },
+    })
+  }
+
+  async deleteFile(assessmentId, questionId, name) {
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
+    return await this.apollo.mutate<any>({
+      mutation: deleteFileMutation,
+      variables: {
+        questionId: questionId,
+        assessmentId: assessmentId,
+<<<<<<< HEAD
+        questionId: questionId,
         fileId: fileId,
+=======
+        name: name
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
       },
     });
   }
