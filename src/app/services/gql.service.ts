@@ -5,6 +5,52 @@ import gql from "graphql-tag";
 //   providedIn: 'root'
 // })
 
+export const assessmentsDemo = gql`
+  query assessments($userId: String) {
+    assessments(userId: $userId) {
+      id
+      name
+      questions {
+        files {
+          id
+          questionId
+          name
+        }
+      }
+    }
+  }
+`
+
+<<<<<<< HEAD
+=======
+export const fileUploadQuestion = gql`
+  query question(
+    $questionId: Int
+    $assessmentId: String
+  ) {
+    question(
+      questionId: $questionId
+      assessmentId: $assessmentId
+    ) {
+      questionId
+      questionText
+      helpText
+      criteriaText
+      threadName
+      subThreadName
+      files {
+        id
+        questionId
+        name
+        url
+      }
+      
+    }
+  }
+
+`
+
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
 export var assessmentQuery = gql`
   query assessments($userId: String) {
     assessments(userId: $userId) {
@@ -21,12 +67,13 @@ export var assessmentQuery = gql`
         answers {
           answer
         }
+        files {
+          id
+          questionId
+          name
+        }
       }
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
     }
   }
 `;
@@ -43,7 +90,7 @@ export var createAssessmentMutation = gql`
     $levelSwitching: Boolean
     $userId: String
     $userEmail: String
-    $teamMembersUpdates: [TeamMemberInput]
+    $teamMembers: [String]
     $schema: String
   ) {
     createAssessment(
@@ -57,7 +104,7 @@ export var createAssessmentMutation = gql`
       targetDate: $targetDate
       deskbookVersion: $deskbookVersion
       name: $name
-      teamMembersUpdates: $teamMembersUpdates
+      teamMembers: $teamMembers
       levelSwitching: $levelSwitching
       schema: $schema
     ) {
@@ -71,6 +118,12 @@ export var questionPageAssessmentQuery = gql`
   query assessment($_id: String) {
     assessment(_id: $_id) {
       questions {
+        files {
+          id
+          url
+          questionId
+          name
+        }
         currentAnswer
         threadName
         subThreadName
@@ -102,7 +155,7 @@ export var questionPageAssessmentQuery = gql`
           documentation
           assumptionsNA
           notesNA
-          revertedBy
+          # revertedBy
         }
       }
       targetMRL
@@ -110,15 +163,10 @@ export var questionPageAssessmentQuery = gql`
       currentMRL
       levelSwitching
       deskbookVersion
-      files {
-        id
-        url
-        questionId
-        name
-      }
     }
   }
 `;
+
 
 //needs to change to something like 'addAnAnswerToAQuestionMutation'
 //included userId in args for the new Answer
@@ -157,8 +205,8 @@ export var getThreadsQuery = gql`
 `;
 
 export var updateTeamMembersMutation = gql`
-  mutation addTeamMember($assessmentId: String, $teamMember: TeamMemberInput) {
-    addTeamMember(assessmentId: $assessmentId, teamMemberUpdates: $teamMember) {
+  mutation addTeamMember($assessmentId: String, $teamMembers: [String]) {
+    addTeamMember(assessmentId: $assessmentId, teamMembers: $teamMembers) {
       name
       email
       role
@@ -166,9 +214,24 @@ export var updateTeamMembersMutation = gql`
   }
 `;
 
+
+
+export const addFileToQuestionMutation = gql`
+  mutation addFile($assessmentId: String, $questionId: Int, $url: String, $name: String) {
+    addFile(assessmentId: $assessmentId, questionId: $questionId, url: $url, name: $name) {
+      name
+    }
+  }
+`;
+
 export var deleteFileMutation = gql`
-  mutation deleteFile($assessmentId: String, $fileId: String) {
-    deleteFile(assessmentId: $assessmentId, fileId: $fileId) {
+<<<<<<< HEAD
+  mutation deleteFile($questionId: Int, $fileId: String) {
+    deleteFile(questionId: $questionId, fileId: $fileId) {
+=======
+  mutation deleteFile($questionId: Int!, $assessmentId: String!, $name: String) {
+    deleteFile(questionId: $questionId, assessmentId: $assessmentId, name: $name) {
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
       name
     }
   }

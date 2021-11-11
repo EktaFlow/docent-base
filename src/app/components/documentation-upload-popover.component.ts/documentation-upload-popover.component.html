@@ -1,0 +1,20 @@
+<div class="doc-upload-class">
+    	<ion-header>
+		<ion-toolbar [color]="copyFile ? 'secondary' : 'primary'">
+		  <ion-buttons slot="start" *ngIf="folder != ''">
+			<ion-back-button></ion-back-button>
+		  </ion-buttons>
+		  <ion-title>
+			{{ folder || 'File Navigator' }}
+		  </ion-title>
+		</ion-toolbar>
+	  </ion-header>
+	   
+	  <ion-content>
+          <ion-text color="medium" *ngIf="files.length === 0" class="ion-padding ion-text-center">
+              <p>No documents found</p>
+          </ion-text>
+		
+	   
+	  </ion-content>
+</div>

@@ -2,9 +2,10 @@ import { NgModule, Component, OnInit, EventEmitter } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
 import { Storage } from "@ionic/storage";
 
-
 import { AssessmentService } from "../../services/assessment.service";
 import { AuthService } from "../../services/auth.service";
+import { DocumentationUploadPopoverComponent } from "src/app/components/documentation-upload-popover.component.ts/documentation.-upload-popover-component";
+
 import { FileUploadPopoverComponent } from "../../components/file-upload-popover/file-upload-popover.component";
 import { FileDeleteComponent } from "../../components/file-delete/file-delete.component";
 import { RiskPopoverComponent } from "../../components/risk-popover/risk-popover.component";
@@ -19,15 +20,15 @@ import { Helpers } from "../../services/helpers/helpers";
   templateUrl: "./questions.page.html",
   styleUrls: ["./questions.page.scss"],
 })
-
 export class QuestionsPage implements OnInit {
   public vals: any = {};
   assessmentId: any;
   public assessment: any;
   public helpClicked: boolean = false;
   public questionId: any;
+  directories: any;
   files = [];
-  addedAt = new Date()
+  addedAt = new Date();
   public allQuestions;
   public referringQuestionId: any;
   public targetMRL;
@@ -49,12 +50,9 @@ export class QuestionsPage implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     // QUESTION - SAVE THIS IN LOCAL MEMORY?
-    this.referringQuestionId = activatedRoute.snapshot.paramMap.get(
-      "questionId"
-    );
+    this.referringQuestionId =
+      activatedRoute.snapshot.paramMap.get("questionId");
   }
-
-
 
   ionViewWillEnter() {
     GoogleAnalytics.trackPage("questions");
@@ -63,6 +61,8 @@ export class QuestionsPage implements OnInit {
   /////////////////////////// useful functions ///////////////////////
   // return a question by its questionId
   getQuestion = (id) => this.allQuestions[id - 1];
+
+  
 
   allSubthreadQuestions(question = this.currentQuestion) {
     return this.allQuestions.filter(
@@ -78,19 +78,48 @@ export class QuestionsPage implements OnInit {
   /////////////////////////////////////////////////////////////////////
   // INIT && related function
   async ngOnInit() {
+<<<<<<< HEAD
+
+    console.log('hello from questions-page')
+    
+
+    
+    
     this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
 
-    // if we don't already have a loaded assessment.
+   
+    
+    
     var currentAssessment = await this.assessmentService.getQuestionPageAssessment(
       this.assessmentId
     );
 
+
+    
+
+=======
+
+    this.assessmentId = await this.assessmentService.getCurrentAssessmentId();
+    
+    var currentAssessment =
+    await this.assessmentService.getQuestionPageAssessment(this.assessmentId);
+    
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     currentAssessment.subscribe(({ data, loading }) => {
-      
       this.assessment = data.assessment;
+
+<<<<<<< HEAD
+      console.log('q-p data', data)
+
+      
+      
       this.files = data.assessment.files;
       
       
+=======
+      // this.files = data.assessment.files; // grab files from question
+
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
       var { assessment } = this;
       this.allQuestions = assessment.questions;
       this.targetMRL = assessment.targetMRL;
@@ -107,21 +136,22 @@ export class QuestionsPage implements OnInit {
       this.findAmtOfQs();
       this.vals.when = this.formatDate();
     });
+<<<<<<< HEAD
+
+   
+
+  
+    
   }
 
-  // modify(fileName) {
-  //   console.log(111, this.files)
-  //   console.log('helloworld')
-  //   const ext = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length)
-
-  //   let newName = fileName.replace('.' + ext, '');
-  //   if (fileName.length <=8) {
-  //     return fileName
-  //   }
-  //   newName = newName.substring(0, 8) + (fileName.length > 8 ? '[...]' : '')
-  //   return newName + '.' + ext
-  // }
-
+=======
+    
+    //GET current questions files on init
+    const { getQuestion, questionId } = this;
+    console.log('question page', this)
+  }
+  
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
   // @return - an array of ints
   setSurveyQuestions() {
     var threadNames = this.assessment.questions;
@@ -143,6 +173,11 @@ export class QuestionsPage implements OnInit {
     return level3;
   }
 
+  getCurrentQuestion() {
+    const { getQuestion }  = this 
+    console.log('get question', getQuestion)
+  }
+
   determineCurrentQuestion() {
     var { getQuestion } = this;
 
@@ -155,32 +190,90 @@ export class QuestionsPage implements OnInit {
 
     if (this.referringQuestionId) {
       this.currentQuestion = getQuestion(this.referringQuestionId);
+      console.log('hmm', this.currentQuestion)
     } else {
       // var noNulls = this.surveyQuestions.map(q => q)
       var noAnswer = this.surveyQuestions.find((qId) => {
+        console.log('hmm-getQuestion(qId)', getQuestion(qId))
         return getQuestion(qId).answers.length == 0;
       });
       if (noAnswer) {
         this.currentQuestion = getQuestion(noAnswer);
       } else {
-        let latestQuestion = this.surveyQuestions[
-          this.surveyQuestions.length - 1
-        ];
+        let latestQuestion =
+          this.surveyQuestions[this.surveyQuestions.length - 1];
         this.currentQuestion = getQuestion(latestQuestion);
       }
     }
+
+    console.log('current question maybe -->', this.currentQuestion)
   }
 
   ////////////////// CLICK HANDLERS //////////////////////////////////
   /////////////////////////// popover creator(s) /////////////////////
+
+  public truncate(
+    value: string,
+    limit = 8,
+    completeWords = true,
+    ext = null,
+<<<<<<< HEAD
+    ellipsis = "[...]"
+  ) {
+    let lastIndex = limit;
+    ext = value.substr(value.lastIndexOf('.') + 1, value.length).toLowerCase()
+
+    if (completeWords) {
+      lastIndex = value.substr(0, limit).lastIndexOf(" ")
+    }
+    return `${value.substr(0, limit)}${ellipsis}.${ext}`
+
+  }
+  
+=======
+    ellipsis = "[.QuestionPageAssessment"
+  ) {
+    let lastIndex = limit;
+    ext = value.substr(value.lastIndexOf(".") + 1, value.length).toLowerCase();
+
+    if (completeWords) {
+      lastIndex = value.substr(0, limit).lastIndexOf(" ");
+    }
+    return `${value.substr(0, limit)}${ellipsis}.${ext}`;
+  }
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
+
   async showFileUpload() {
+
+   
+    
     let myEmitter = new EventEmitter<any>();
     myEmitter.subscribe((v) => {
-      var files = JSON.parse(JSON.stringify(this.files));
+<<<<<<< HEAD
+      console.log('v', v)
+      let files = this.currentQuestion.files
+      files.push(v)
+      this.files = files
+      // var files = JSON.parse(JSON.stringify(this.files));
+      // console.log('q-p files', this.files)
+      // let files = this.files 
+      // files.push(v);
+      // this.files = files;
+      
+    });
+    
+=======
+      let files = this.currentQuestion.files;
       files.push(v);
       this.files = files;
-      console.log(this.files)
+      // var files = JSON.parse(JSON.stringify(this.files));
+      // console.log('q-p files', this.files)
+      // let files = this.files
+      // files.push(v);
+      // this.files = files;
     });
+
+>>>>>>> f4cebe37c8f18a655fc9cd86b08cec9c5150cbf6
     const fileUpload = await this.popOver.create({
       component: FileUploadPopoverComponent,
       componentProps: {
@@ -211,31 +304,44 @@ export class QuestionsPage implements OnInit {
    * - delete happens on FileDelete / or doesn't
    * - update DOM, assessment Object if file deleted
    */
-  async handleRemoveFileClick(event, fileId) {
-    var removeFileEmitter = new EventEmitter();
-    removeFileEmitter.subscribe((event) => {
-      // remove the file from the view after its been deleted from db
-      var files = JSON.parse(JSON.stringify(this.files));
-      files = files.filter((file) => file.id != fileId);
-      this.files = files;
-    });
+   async handleRemoveFileClick(event, fileName) {
+     // grab selected row element being clicked on --> from there we can grab the file name (title)
+     const selected = document.getElementById('selector')
+     console.log('selected', selected.title)
 
-    var fileDeleteData = {
-      emitter: removeFileEmitter,
-      typeToDelete: "file",
-      assessmentId: this.assessmentId,
-      fileId: fileId,
-    };
-    var pop = await this.popOver.create({
-      component: FileDeleteComponent,
-      componentProps: {
-        emitter: removeFileEmitter,
-        typeToDelete: "file",
-        assessmentId: this.assessmentId,
-        fileId: fileId,
-      },
-    });
-    return await pop.present();
+     var files = JSON.parse(JSON.stringify(this.files));
+      files = files.filter((file) => file.name != selected.title);
+      this.files = files;
+
+      console.log('this.files', this.files)
+  
+    // var removeFileEmitter = new EventEmitter();
+    // removeFileEmitter.subscribe((event) => {
+    //   // remove the file from the view after its been deleted from db
+    //   var files = JSON.parse(JSON.stringify(this.files));
+    //   files = files.filter((file) => file.name != selected.title);
+    //   this.files = files;
+    // });
+
+    // console.log('this.files', this.files)
+
+    // var fileDeleteData = {
+    //   emitter: removeFileEmitter,
+    //   typeToDelete: "file",
+    //   assessmentId: this.assessmentId,
+    //   fileName: selected.title
+    // };
+    // var pop = await this.popOver.create({
+    //   component: FileDeleteComponent,
+    //   componentProps: {
+    //     emitter: removeFileEmitter,
+    //     typeToDelete: "file",
+    //     assessmentId: this.assessmentId,
+    //     questionId: this.questionId,
+    //     fileName: selected.title
+    //   },
+    // });
+    // return await pop.present();
   }
 
   /**
@@ -260,6 +366,8 @@ export class QuestionsPage implements OnInit {
     this.pullLatestAnswer(this.currentQuestion);
     this.vals.when = this.formatDate();
     this.findAmtOfQs();
+
+    console.log("next question", this.vals, this.currentQuestion);
   }
 
   async handlePreviousPageClick() {
@@ -271,6 +379,8 @@ export class QuestionsPage implements OnInit {
     this.pullLatestAnswer(this.currentQuestion);
     this.vals.when = this.formatDate();
     this.findAmtOfQs();
+
+    console.log("previous question", this.vals, this.currentQuestion);
   }
 
   async handleOnFinishedClick() {
@@ -319,7 +429,7 @@ export class QuestionsPage implements OnInit {
     var currentUser = this.auth.currentUser();
     values.userId = currentUser._id;
     values.updatedAt = new Date();
-    
+
     // we're setting this earlier.
     //values.answer = values.currentAnswer;
     newerQuestion.currentAnswer = values.answer;
@@ -398,9 +508,8 @@ export class QuestionsPage implements OnInit {
     var oldAnswer: any = {};
     var changed = false;
     if (this.currentQuestion.answers.length > 0) {
-      oldAnswer = this.currentQuestion.answers[
-        this.currentQuestion.answers.length - 1
-      ];
+      oldAnswer =
+        this.currentQuestion.answers[this.currentQuestion.answers.length - 1];
     }
 
     // we only want to compare based on inputs, neither of these are direct inputs
@@ -599,9 +708,9 @@ export class QuestionsPage implements OnInit {
   public formatDate() {
     var date;
     this.currentQuestion.answers && this.currentQuestion.answers.length > 0
-      ? (date = this.currentQuestion.answers[
-          this.currentQuestion.answers.length - 1
-        ].when)
+      ? (date =
+          this.currentQuestion.answers[this.currentQuestion.answers.length - 1]
+            .when)
       : null;
     if (!date) {
       return null;

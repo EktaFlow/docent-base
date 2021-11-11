@@ -56,8 +56,15 @@ import { Helpers } from "./services/helpers/helpers";
 import { AppRoutingModule } from "../app/app-routing.module";
 import { BackUrl } from "./services/constants";
 
+//Ionic 4 file explorer plugin imports
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+//TruncateName helper function
+import { TruncateName } from './services/helpers/truncate-filename'
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TruncateName],
   entryComponents: [AppComponent],
   imports: [
     BrowserModule,
@@ -102,6 +109,9 @@ import { BackUrl } from "./services/constants";
     UploadService,
     Html2canvasService,
     AuthGuardService,
+    File, 
+    FileOpener,
+    TruncateName,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
