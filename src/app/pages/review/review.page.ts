@@ -186,7 +186,9 @@ export class ReviewPage implements OnInit {
   }
 
   checkAnsweredByType(type, level){
+    console.log(type, level)
     if (level === 'All Levels') {
+      console.log('level', 'All Levels')
       if (type === 'Yes') {
         return this.allQuestions === this.yesQuestions
       }
@@ -197,14 +199,15 @@ export class ReviewPage implements OnInit {
     }
 
     else {
+      console.log('level', level)
       if (type === 'Yes') {
-        return this.allQuestions = this.yesQuestions.filter(question => question.mrLevel === level)
+        return this.allQuestions = this.yesQuestions.filter(question => question.mrLevel == level)
       }
       else if (type === 'No') {
-        return this.allQuestions = this.noQuestions.filter(question => question.mrLevel === level)
+        return this.allQuestions = this.noQuestions.filter(question => question.mrLevel == level)
       }
       else {
-        return this.allQuestions = this.naQuestions.filter(question => question.mrLevel === level)
+        return this.allQuestions = this.naQuestions.filter(question => question.mrLevel == level)
       }
     }
 
