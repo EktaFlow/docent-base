@@ -19,11 +19,7 @@ var assessmentQuery = gql`
         threadName
         subThreadName
         currentAnswer
-        files {
-          name
-          questionId
-          url
-        }
+       
         answers {
           answer
           notesNo
@@ -33,6 +29,17 @@ var assessmentQuery = gql`
     }
   }
 `;
+
+/*
+ files {
+          name
+          questionId
+          url
+        }
+
+*/ 
+
+
 @Component({
   selector: "review",
   templateUrl: "./review.page.html",
@@ -45,6 +52,9 @@ export class ReviewPage implements OnInit {
   allAnswered: any[] = [];
   allUnanswered: any[] = []; 
   allQuestions: any;
+  yesQuestions: any;
+  noQuestions: any;
+  naQuestions: any;
   targetMRL: any;
   targetDate: any;
   location: any;
@@ -98,6 +108,7 @@ export class ReviewPage implements OnInit {
         var assessment = (<any>data.data).assessment;
 
         var questions = assessment.questions;
+        this.allQuestions = questions 
         const gleesh = (<any>data.data).assessment.targetMRL;
         const demo = questions.filter((q) => q.answers.length > 0);
         const feech = demo.filter((a) => a.mrLevel === gleesh);
@@ -105,6 +116,12 @@ export class ReviewPage implements OnInit {
         const mana = undemo.filter((a) => a.mrLevel === gleesh);
         this.answeredQuestions = feech;
         this.unansweredQuestions = mana;
+        this.allAnswered = demo
+        this.allUnanswered = undemo 
+
+        this.yesQuestions = this.allAnswered.filter(question => question.currentAnswer === 'Yes')
+        this.noQuestions = this.allAnswered.filter(question => question.currentAnswer === 'No')
+        this.naQuestions = this.allAnswered.filter(question => question.currentAnswer === 'N/A')
 
 
         var answeredQuestions = [];
@@ -151,50 +168,133 @@ export class ReviewPage implements OnInit {
 
         this.files = storage;
       });
-    console.log("this", this.allQuestions);
+    console.log("this", this);
   }
 
   filterTheList() {
-    if (this.filterList.filterAnswer === "Unanswered") {
-      if (this.filterList.filterMRL === "All Levels") {
-        return this.allQuestions = this.unansweredQuestions;
-      } else {
-        let filteredQuestions = this.unfilteredQuestions.filter((question) => {
-          if (
-            question.level === this.filterList.filterMRL &&
-            question.currentAnswer === null
-          ) {
-            return question;
-          }
-        });
-        return this.allQuestions = filteredQuestions;
+      //  *all* unanswered questions
+      if (
+        this.filterList.filterMRL === 'All Levels' &&
+        this.filterList.filterAnswer === 'Unanswered'
+      ) {
+        return this.allQuestions = this.allUnanswered
       }
-    }
+      // *current mrl* unanswered questions
+      if (
+        this.filterList.filterMRL !== 'All Levels' &&
+        this.filterList.filterAnswer === 'Unanswered'
+      ) {
+        const mrlQuestions = this.allUnanswered.filter(question => question.mrLevel === this.filterList.filterMRL)
+        return this.allQuestions = mrlQuestions
+      }
+  
+      // *all* answered questions
+      if (
+        this.filterList.filterMRL === 'All Levels' &&
+        this.filterList.filterAnswer === 'All Answered'
+      ) {
+        return this.allQuestions = this.allAnswered
+      }
+      // *current mrl* answered questions
+      if (
+        this.filterList.filterMRL !== 'All Levels' &&
+        this.filterList.filterAnswer === 'All Answered'
+      ) {
+        const mrlQuestions = this.allAnswered.filter(question => question.mrLevel === this.filterList.filterMRL)
+        return this.allQuestions = mrlQuestions
+      }
 
-    if (this.filterList.filterMRL && this.filterList.filterMRL !== 0) {
-      if (this.filterList.filterMRL !== "All Levels") {
-        let filteredQuestions = this.unfilteredQuestions.filter((question) => {
-          if (
-            question.level === this.filterList.filterMRL &&
-            question.currentAnswer === this.filterList.filterAnswer
-          ) {
-            return question;
-          }
-        });
-        this.allQuestions = filteredQuestions;
+      // *all specific answer type* questions
+      if (this.filterList.filterMRL === 'All Levels' && this.filterList.filterAnswer !== 'Unanswered' && this.filterList.filterAnswer !== 'All Answered') {
+        if (this.filterList.filterAnswer === 'Yes') {
+         
+          
+          return this.allQuestions = this.yesQuestions
+        }
+        else if (this.filterList.filterAnswer === 'No') {
+          
+          return this.allQuestions = this.noQuestions
+        }
+        else {
+      
+          return this.allQuestions = this.naQuestions 
+        }
       }
-      if (this.filterList.filterMRL === "All Levels") {
-        let filteredQuestions = this.unfilteredQuestions.filter((question) => {
-          if (
-            question.currentAnswer !== null &&
-            question.currentAnswer === this.filterList.filterAnswer
-          ) {
-            return question;
-          }
-        });
-        this.allQuestions = filteredQuestions;
+
+      // *current mrl specifc answer type* questions
+      if (this.filterList.filterMRL !== 'All Levels' && this.filterList.filterAnswer !== 'Unanswered' && this.filterList.filterAnswer !== 'All Answered' && this.filterList.filterMRL > 0) {
+        if (this.filterList.filterAnswer === 'Yes') {
+          let storage = [], unused = []
+          console.log(this.yesQuestions)
+          const filteredQuestions = this.yesQuestions.filter(question => question.mrLevel === this.filterList.filterMRL ? storage.push(question) : unused.push(question))
+          console.log(storage)
+          return this.allQuestions = storage
+        }
+        else if (this.filterList.filterAnswer === 'No') {
+          console.log(this.noQuestions)
+          console.log(this.filterList.filterMRL)
+          const filteredQuestions = this.noQuestions.filter((question) => {
+            if (question.mrLevel === this.filterList.filterMRL) {
+              console.log(question.mrLevel, '===', this.filterList.filterMRL)
+            }
+          })
+          console.log(222, filteredQuestions)
+          return this.allQuestions = filteredQuestions
+        }
+        else if( this.filterList.filterAnswer === 'N/A')  {
+          let storage = [], unused = []
+          console.log(this.naQuestions)
+          console.log(this.filterList.filterMRL)
+          const filteredQuestions = this.naQuestions.filter(question => question.mrLevel === this.filterList.filterMRL ? storage.push(question) : unused.push(question))
+          console.log(storage)
+          return this.allQuestions = storage
+        }
+        else {
+          this.allQuestions = [...this.unfilteredQuestions, ...this.unansweredQuestions];
+        }
       }
-    }
+
+
+    // if (this.filterList.filterAnswer === "Unanswered") {
+    //   if (this.filterList.filterMRL === "All Levels") {
+    //     return this.allQuestions = this.unansweredQuestions;
+    //   } else {
+    //     let filteredQuestions = this.unfilteredQuestions.filter((question) => {
+    //       if (
+    //         question.level === this.filterList.filterMRL &&
+    //         question.currentAnswer === null
+    //       ) {
+    //         return question;
+    //       }
+    //     });
+    //     return this.allQuestions = filteredQuestions;
+    //   }
+    // }
+
+    // if (this.filterList.filterMRL && this.filterList.filterMRL !== 0) {
+    //   if (this.filterList.filterMRL !== "All Levels") {
+    //     let filteredQuestions = this.unfilteredQuestions.filter((question) => {
+    //       if (
+    //         question.level === this.filterList.filterMRL &&
+    //         question.currentAnswer === this.filterList.filterAnswer
+    //       ) {
+    //         return question;
+    //       }
+    //     });
+    //     this.allQuestions = filteredQuestions;
+    //   }
+    //   if (this.filterList.filterMRL === "All Levels") {
+    //     let filteredQuestions = this.unfilteredQuestions.filter((question) => {
+    //       if (
+    //         question.currentAnswer !== null &&
+    //         question.currentAnswer === this.filterList.filterAnswer
+    //       ) {
+    //         return question;
+    //       }
+    //     });
+    //     this.allQuestions = filteredQuestions;
+    //   }
+    // }
   }
 
   clearFilter() {
@@ -203,6 +303,7 @@ export class ReviewPage implements OnInit {
     this.filterList.filterMRL = 0;
     this.filterList.filterAnswer = "";
     this.allQuestions = storage;
+    console.log(this.allQuestions)
     this.filterTheList();
   }
 
