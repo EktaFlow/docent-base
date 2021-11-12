@@ -174,14 +174,14 @@ export class ReviewPage implements OnInit {
   checkUnanswered() {
     this.filterList.filterMRL === 'All Levels'
     ? this.allQuestions = this.allUnanswered
-    : this.allQuestions = this.allUnanswered.filter(question => question.mrLevel === this.filterList.filterMRL)
+    : this.allQuestions = this.allUnanswered.filter(question => question.mrLevel == this.filterList.filterMRL)
     return this.allQuestions 
   }
 
   checkAnswered() {
     this.filterList.filterMRL === 'All Levels'
     ? this.allQuestions = this.allAnswered
-    : this.allQuestions = this.allUnanswered.filter(question => question.mrLevel === this.filterList.filterMRL)
+    : this.allQuestions = this.allUnanswered.filter(question => question.mrLevel == this.filterList.filterMRL)
     return this.allQuestions 
   }
 
@@ -190,12 +190,12 @@ export class ReviewPage implements OnInit {
     if (level === 'All Levels') {
       console.log('level', 'All Levels')
       if (type === 'Yes') {
-        return this.allQuestions === this.yesQuestions
+        return this.allQuestions = this.yesQuestions
       }
       else if (type === 'No') {
-        return this.allQuestions === this.noQuestions
+        return this.allQuestions = this.noQuestions
       }
-      else return this.allQuestions === this.naQuestions 
+      else return this.allQuestions = this.naQuestions 
     }
 
     else {
