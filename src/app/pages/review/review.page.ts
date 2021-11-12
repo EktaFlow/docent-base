@@ -42,6 +42,8 @@ export class ReviewPage implements OnInit {
   assessmentId: any;
   answeredQuestions: any[] = [];
   unansweredQuestions: any[] = [];
+  allAnswered: any[] = [];
+  allUnanswered: any[] = []; 
   allQuestions: any;
   targetMRL: any;
   targetDate: any;
@@ -104,6 +106,7 @@ export class ReviewPage implements OnInit {
         this.answeredQuestions = feech;
         this.unansweredQuestions = mana;
 
+
         var answeredQuestions = [];
         questions.forEach((q) => {
           if (q.answers.length > 0 && q.answers[q.answers.length - 1].answer) {
@@ -148,7 +151,7 @@ export class ReviewPage implements OnInit {
 
         this.files = storage;
       });
-    console.log("this", this);
+    console.log("this", this.allQuestions);
   }
 
   filterTheList() {
