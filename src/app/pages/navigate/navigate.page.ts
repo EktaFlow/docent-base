@@ -33,6 +33,8 @@ var assessmentQuery = gql`
 export class NavigatePage implements OnInit {
   answeredQuestions: any[] = [];
   unansweredQuestions: any[] = [];
+  allAnswered: any[] = [];
+  allUnanswered: any[] = [];
   allQuestions: any;
   assessmentId: any;
   schema: any;
@@ -76,12 +78,15 @@ export class NavigatePage implements OnInit {
         const gleesh = (<any>data.data).assessment.targetMRL;
         this.allQuestions = (<any>data.data).assessment.questions;
         const demo = this.allQuestions.filter((q) => q.answers.length > 0);
-        const feech = demo.filter((a) => a.mrLevel === gleesh);
-        const undemo = this.allQuestions.filter((q) => q.answers.length === 0);
+         // allAnswered = demo, when 'All Answered' is chosen, this.allQuestions = this.allAnswered
+
+        const feech = demo.filter((a) => a.mrLevel === gleesh); // get all answered questions for current mrl
+        const undemo = this.allQuestions.filter((q) => q.answers.length === 0); // get all unanswered questions, when 'Unanswered' is chosen, this.allQuestions = this.undemo
         const mana = undemo.filter((a) => a.mrLevel === gleesh);
         this.answeredQuestions = feech;
         this.unansweredQuestions = mana;
-
+        this.allAnswered = demo;
+        this.allUnanswered = undemo;
         this.targetLevel = (<any>data.data).assessment.targetMRL;
         this.schema = this.createSchemaObject(this.allQuestions); //this.allQuestions
         this.filteredSchema = this.createSchemaObject(this.allQuestions); //this.allQuestions
@@ -147,6 +152,8 @@ export class NavigatePage implements OnInit {
     return subThreadNames;
   }
 
+
+
   filterTheList() {
     var filtered = this.schema.map((thread) => {
       return thread.subheader.map((subthread) => {
@@ -163,16 +170,42 @@ export class NavigatePage implements OnInit {
       });
       return thread;
     });
+    
+    //  *all* unanswered questions
+    if (
+      this.filterList.filterMRL === 'All Levels' &&
+      this.filterList.filterAnswer === 'Unanswered'
+    ) {
+      return this.filteredSchema = this.createSchemaObject(this.allUnanswered)
+    }
+    // *current mrl* unanswered questions
+    if (
+      this.filterList.filterMRL !== 'All Levels' &&
+      this.filterList.filterAnswer === 'Unanswered'
+    ) {
+      const mrlQuestions = this.allQuestions.filter(question => question.mrLevel === this.filterList.filterMRL)
+      const filteredQuestions = mrlQuestions.filter(question => question.answers.length === 0)
+      return this.filteredSchema = this.createSchemaObject(filteredQuestions)
+    }
 
-    // if (
-    //   this.filterList.filterMRL &&
-    //   this.filterList.filterMRL !== 0 &&
-    //   this.filterList.filterMRL === this.targetLevel &&
-    //   this.filterList.filterAnswer === "Unanswered"
-    // ) {
-    //   console.log('inside unanswered')
-    //   this.filteredSchema = this.createSchemaObject(this.unansweredQuestions);
-    // }
+    // *all* answered questions
+    if (
+      this.filterList.filterMRL === 'All Levels' &&
+      this.filterList.filterAnswer === 'All Answered'
+    ) {
+      return this.filteredSchema = this.createSchemaObject(this.allAnswered)
+    }
+    // *current mrl* answered questions
+    if (
+      this.filterList.filterMRL !== 'All Levels' &&
+      this.filterList.filterAnswer === 'All Answered'
+    ) {
+      console.log('filter', this.filterList)
+      const mrlQuestions = this.allQuestions.filter(question => question.mrLevel === this.filterList.filterMRL)
+      const filteredQuestions = mrlQuestions.filter(question => question.answers.length > 0)
+      return this.filteredSchema = this.createSchemaObject(filteredQuestions)
+    }
+
 
     if (
       this.filterList.filterMRL &&
