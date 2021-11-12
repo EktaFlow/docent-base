@@ -36,6 +36,9 @@ export class NavigatePage implements OnInit {
   allAnswered: any[] = [];
   allUnanswered: any[] = [];
   allQuestions: any;
+  yesQuestions: any;
+  noQuestions: any;
+  naQuestions: any;
   assessmentId: any;
   schema: any;
   showAll: any = false;
@@ -67,7 +70,6 @@ export class NavigatePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("this", this);
     this.apollo
       .watchQuery({
         query: assessmentQuery,
@@ -87,6 +89,10 @@ export class NavigatePage implements OnInit {
         this.unansweredQuestions = mana;
         this.allAnswered = demo;
         this.allUnanswered = undemo;
+
+        this.yesQuestions = this.allAnswered.filter(question => question.currentAnswer === 'Yes')
+        this.noQuestions = this.allAnswered.filter(question => question.currentAnswer === 'No')
+        this.naQuestions = this.allAnswered.filter(question => question.currentAnswer === 'N/A')
         this.targetLevel = (<any>data.data).assessment.targetMRL;
         this.schema = this.createSchemaObject(this.allQuestions); //this.allQuestions
         this.filteredSchema = this.createSchemaObject(this.allQuestions); //this.allQuestions
@@ -104,6 +110,7 @@ export class NavigatePage implements OnInit {
     if (this.expandAllFromQs) {
       this.expandAllThreads();
     }
+    console.log('this', this)
   }
 
   filterUnique = (array, property = null) =>
@@ -183,8 +190,8 @@ export class NavigatePage implements OnInit {
       this.filterList.filterMRL !== 'All Levels' &&
       this.filterList.filterAnswer === 'Unanswered'
     ) {
-      const mrlQuestions = this.allQuestions.filter(question => question.mrLevel === this.filterList.filterMRL)
-      const filteredQuestions = mrlQuestions.filter(question => question.answers.length === 0)
+      const mrlQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL)
+      const filteredQuestions = mrlQuestions.filter(question => question.answers.length == 0)
       return this.filteredSchema = this.createSchemaObject(filteredQuestions)
     }
 
@@ -201,7 +208,7 @@ export class NavigatePage implements OnInit {
       this.filterList.filterAnswer === 'All Answered'
     ) {
       console.log('filter', this.filterList)
-      const mrlQuestions = this.allQuestions.filter(question => question.mrLevel === this.filterList.filterMRL)
+      const mrlQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL)
       const filteredQuestions = mrlQuestions.filter(question => question.answers.length > 0)
       return this.filteredSchema = this.createSchemaObject(filteredQuestions)
     }

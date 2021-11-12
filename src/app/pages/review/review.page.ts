@@ -168,7 +168,6 @@ export class ReviewPage implements OnInit {
 
         this.files = storage;
       });
-    console.log("this", this);
   }
 
   checkUnanswered() {
@@ -186,9 +185,7 @@ export class ReviewPage implements OnInit {
   }
 
   checkAnsweredByType(type, level){
-    console.log(type, level)
     if (level === 'All Levels') {
-      console.log('level', 'All Levels')
       if (type === 'Yes') {
         return this.allQuestions = this.yesQuestions
       }
@@ -199,7 +196,6 @@ export class ReviewPage implements OnInit {
     }
 
     else {
-      console.log('level', level)
       if (type === 'Yes') {
         return this.allQuestions = this.yesQuestions.filter(question => question.mrLevel == level)
       }
@@ -221,7 +217,8 @@ export class ReviewPage implements OnInit {
       //  *all* answered question }} *current mrl* answered questions
       else if (this.filterList.filterAnswer === 'Answered') {
         return this.checkAnswered()
-      } // *all specific answer type* questions || *current mrl specifc answer type* questions
+      } 
+      // *all specific answer type* questions || *current mrl specifc answer type* questions
       else if (
         this.filterList.filterAnswer === 'Yes' ||
         this.filterList.filterAnswer === 'No' ||
