@@ -19,20 +19,27 @@ var assessmentQuery = gql`
         threadName
         subThreadName
         currentAnswer
+       
         answers {
           answer
           notesNo
           objectiveEvidence
         }
       }
-      files {
-        name
-        questionId
-        url
-      }
     }
   }
 `;
+
+/*
+ files {
+          name
+          questionId
+          url
+        }
+
+*/ 
+
+
 @Component({
   selector: "review",
   templateUrl: "./review.page.html",
@@ -40,7 +47,14 @@ var assessmentQuery = gql`
 })
 export class ReviewPage implements OnInit {
   assessmentId: any;
+  answeredQuestions: any[] = [];
+  unansweredQuestions: any[] = [];
+  allAnswered: any[] = [];
+  allUnanswered: any[] = []; 
   allQuestions: any;
+  yesQuestions: any;
+  noQuestions: any;
+  naQuestions: any;
   targetMRL: any;
   targetDate: any;
   location: any;
@@ -61,9 +75,8 @@ export class ReviewPage implements OnInit {
     public router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.assessmentId = this.activatedRoute.snapshot.paramMap.get(
-      "assessmentId"
-    );
+    this.assessmentId =
+      this.activatedRoute.snapshot.paramMap.get("assessmentId");
     // this.autoFilter = this.activatedRoute.snapshot.paramMap.get('autoFilter');
   }
 
@@ -93,7 +106,23 @@ export class ReviewPage implements OnInit {
       })
       .valueChanges.subscribe((data) => {
         var assessment = (<any>data.data).assessment;
+
         var questions = assessment.questions;
+        this.allQuestions = questions 
+        const gleesh = (<any>data.data).assessment.targetMRL;
+        const demo = questions.filter((q) => q.answers.length > 0);
+        const feech = demo.filter((a) => a.mrLevel === gleesh);
+        const undemo = questions.filter((q) => q.answers.length === 0);
+        const mana = undemo.filter((a) => a.mrLevel === gleesh);
+        this.answeredQuestions = feech;
+        this.unansweredQuestions = mana;
+        this.allAnswered = [...demo, ...undemo]
+        this.allUnanswered = undemo 
+
+        this.yesQuestions = this.allAnswered.filter(question => question.currentAnswer === 'Yes')
+        this.noQuestions = this.allAnswered.filter(question => question.currentAnswer === 'No')
+        this.naQuestions = this.allAnswered.filter(question => question.currentAnswer === 'N/A')
+
 
         var answeredQuestions = [];
         questions.forEach((q) => {
@@ -128,26 +157,92 @@ export class ReviewPage implements OnInit {
         this.targetMRL = assessment.targetMRL;
         this.targetDate = assessment.targetDate;
         this.location = assessment.location;
-        this.files = assessment.files;
+
+        let questionsWithFiles = assessment.questions.filter(
+          (q) => q.files.length > 0
+        );
+
+        let storage = questionsWithFiles.map((q) => {
+          q.files.filter((f) => f.length > 0);
+        });
+
+        this.files = storage;
       });
+      console.log('review.page this', this)
+  }
+
+  checkUnanswered() {
+    this.filterList.filterMRL === 'All Levels'
+    ? this.allQuestions = this.allUnanswered
+    : this.allQuestions = this.allUnanswered.filter(question => question.mrLevel == this.filterList.filterMRL)
+    return this.allQuestions 
+  }
+
+  checkAnswered() {
+    this.filterList.filterMRL === 'All Levels'
+    ? this.allQuestions = this.allAnswered
+    : this.allQuestions = this.allAnswered.filter((question) => {
+      if (question.mrLevel == this.filterList.filterMRL) {
+        return question
+      }
+    })
+    return this.allQuestions 
+  }
+
+  checkAnsweredByType(type, level){
+    if (level === 'All Levels') {
+      if (type === 'Yes') {
+        return this.allQuestions = this.yesQuestions
+      }
+      else if (type === 'No') {
+        return this.allQuestions = this.noQuestions
+      }
+      else return this.allQuestions = this.naQuestions 
+    }
+
+    else {
+      if (type === 'Yes') {
+        return this.allQuestions = this.yesQuestions.filter(question => question.mrLevel == level)
+      }
+      else if (type === 'No') {
+        return this.allQuestions = this.noQuestions.filter(question => question.mrLevel == level)
+      }
+      else {
+        return this.allQuestions = this.naQuestions.filter(question => question.mrLevel == level)
+      }
+    }
+
   }
 
   filterTheList() {
-    if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
-      var filteredQuestions = this.unfilteredQuestions.filter((question) => {
-        if (this.filterList.filterMRL === 'All Levels' ? question.currentAnswer == this.filterList.filterAnswer : question.level == this.filterList.filterMRL && question.currentAnswer == this.filterList.filterAnswer) {
-          return question;
-        }
-      });
-      this.allQuestions = filteredQuestions;
-    } else {
-      this.allQuestions = this.unfilteredQuestions;
-    }
+      //  *all* unanswered questions || *current mrl* unanswered questions
+      if (this.filterList.filterAnswer === 'Unanswered') {
+        return this.checkUnanswered()
+      }
+      //  *all* answered question }} *current mrl* answered questions
+      else if (this.filterList.filterAnswer === 'All') {
+        return this.checkAnswered()
+      } 
+      // *all specific answer type* questions || *current mrl specifc answer type* questions
+      else if (
+        this.filterList.filterAnswer === 'Yes' ||
+        this.filterList.filterAnswer === 'No' ||
+        this.filterList.filterAnswer === 'N/A'
+      ) {
+        return this.checkAnsweredByType(this.filterList.filterAnswer, this.filterList.filterMRL)
+      }
+      else {
+          this.allQuestions = [...this.unfilteredQuestions, ...this.unansweredQuestions];
+      }
   }
 
   clearFilter() {
+    let storage = [];
+    storage = [...this.unfilteredQuestions, ...this.unansweredQuestions];
     this.filterList.filterMRL = 0;
-    this.filterList.filterAnswer = ''
+    this.filterList.filterAnswer = "";
+    this.allQuestions = storage;
+    console.log(this.allQuestions)
     this.filterTheList();
   }
 
