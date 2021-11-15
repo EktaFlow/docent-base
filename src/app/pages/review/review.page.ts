@@ -116,7 +116,7 @@ export class ReviewPage implements OnInit {
         const mana = undemo.filter((a) => a.mrLevel === gleesh);
         this.answeredQuestions = feech;
         this.unansweredQuestions = mana;
-        this.allAnswered = demo
+        this.allAnswered = [...demo, ...undemo]
         this.allUnanswered = undemo 
 
         this.yesQuestions = this.allAnswered.filter(question => question.currentAnswer === 'Yes')
@@ -168,6 +168,7 @@ export class ReviewPage implements OnInit {
 
         this.files = storage;
       });
+      console.log('review.page this', this)
   }
 
   checkUnanswered() {
@@ -180,7 +181,11 @@ export class ReviewPage implements OnInit {
   checkAnswered() {
     this.filterList.filterMRL === 'All Levels'
     ? this.allQuestions = this.allAnswered
-    : this.allQuestions = this.allUnanswered.filter(question => question.mrLevel == this.filterList.filterMRL)
+    : this.allQuestions = this.allAnswered.filter((question) => {
+      if (question.mrLevel == this.filterList.filterMRL) {
+        return question
+      }
+    })
     return this.allQuestions 
   }
 
@@ -215,7 +220,7 @@ export class ReviewPage implements OnInit {
         return this.checkUnanswered()
       }
       //  *all* answered question }} *current mrl* answered questions
-      else if (this.filterList.filterAnswer === 'Answered') {
+      else if (this.filterList.filterAnswer === 'All') {
         return this.checkAnswered()
       } 
       // *all specific answer type* questions || *current mrl specifc answer type* questions
