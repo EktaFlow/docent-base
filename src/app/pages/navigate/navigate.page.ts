@@ -39,6 +39,7 @@ export class NavigatePage implements OnInit {
   yesQuestions: any;
   noQuestions: any;
   naQuestions: any;
+  currentQuestions: any;
   assessmentId: any;
   schema: any;
   showAll: any = false;
@@ -87,9 +88,9 @@ export class NavigatePage implements OnInit {
         const mana = undemo.filter((a) => a.mrLevel === gleesh);
         this.answeredQuestions = feech;
         this.unansweredQuestions = mana;
-        this.allAnswered = demo;
+        this.allAnswered = [...demo, ...undemo]
         this.allUnanswered = undemo;
-
+        this.currentQuestions = [...feech, ...mana]
         this.yesQuestions = this.allAnswered.filter(question => question.currentAnswer === 'Yes')
         this.noQuestions = this.allAnswered.filter(question => question.currentAnswer === 'No')
         this.naQuestions = this.allAnswered.filter(question => question.currentAnswer === 'N/A')
@@ -168,35 +169,35 @@ export class NavigatePage implements OnInit {
 
   checkAnswered() {
     this.filterList.filterMRL === 'All Levels'
-    ? this.allQuestions = this.allAnswered
-    : this.allQuestions = this.allAnswered.filter((question) => {
+    ? this.filteredSchema = this.createSchemaObject(this.allAnswered)
+    : this.filteredSchema = this.createSchemaObject(this.allAnswered.filter((question) => {
       if (question.mrLevel == this.filterList.filterMRL) {
         return question
       }
-    })
-    return this.allQuestions 
+    }))
+    return this.filteredSchema
   }
 
   checkAnsweredByType(type, level){
     if (level === 'All Levels') {
       if (type === 'Yes') {
-        return this.allQuestions = this.yesQuestions
+        return this.filteredSchema = this.createSchemaObject(this.yesQuestions)
       }
       else if (type === 'No') {
-        return this.allQuestions = this.noQuestions
+        return this.filteredSchema = this.createSchemaObject(this.noQuestions)
       }
-      else return this.allQuestions = this.naQuestions 
+      else return this.filteredSchema = this.createSchemaObject(this.naQuestions) 
     }
 
     else {
       if (type === 'Yes') {
-        return this.allQuestions = this.yesQuestions.filter(question => question.mrLevel == level)
+        return this.filteredSchema = this.createSchemaObject(this.yesQuestions.filter(question => question.mrLevel == level))
       }
       else if (type === 'No') {
-        return this.allQuestions = this.noQuestions.filter(question => question.mrLevel == level)
+        return this.filteredSchema = this.createSchemaObject(this.noQuestions.filter(question => question.mrLevel == level))
       }
       else {
-        return this.allQuestions = this.naQuestions.filter(question => question.mrLevel == level)
+        return this.filteredSchema = this.createSchemaObject(this.naQuestions.filter(question => question.mrLevel == level))
       }
     }
 
@@ -204,6 +205,22 @@ export class NavigatePage implements OnInit {
 
 
   filterTheList() {
+
+    var filtered = this.schema.map((thread) => {
+      return thread.subheader.map((subthread) => {
+        return subthread.questions.filter(
+          (question) =>
+            question.questionSet[0].latestAnswer !== undefined
+              ? question.mrl == this.filterList.filterMRL &&
+                question.questionSet[0].latestAnswer.answer ==
+                  this.filterList.filterAnswer
+              : question.mrl == this.filterList.filterMRL
+
+          // question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer
+        );
+      });
+      return thread;
+    });
          //  *all* unanswered questions || *current mrl* unanswered questions
          if (this.filterList.filterAnswer === 'Unanswered') {
           return this.checkUnanswered()
@@ -221,85 +238,8 @@ export class NavigatePage implements OnInit {
           return this.checkAnsweredByType(this.filterList.filterAnswer, this.filterList.filterMRL)
         }
         else {
-            this.allQuestions = [...this.unansweredQuestions];
+            this.filterList.filterMRL ? this.filteredSchema = this.createSchemaObject(this.currentQuestions) : this.filteredSchema = this.createSchemaObject(this.allQuestions)
         }
-
-
-        // OLD CODE
-        // var filtered = this.schema.map((thread) => {
-        //   return thread.subheader.map((subthread) => {
-        //     return subthread.questions.filter(
-        //       (question) =>
-        //         question.questionSet[0].latestAnswer !== undefined
-        //           ? question.mrl == this.filterList.filterMRL &&
-        //             question.questionSet[0].latestAnswer.answer ==
-        //               this.filterList.filterAnswer
-        //           : question.mrl == this.filterList.filterMRL
-    
-        //       // question.mrl == this.filterList.filterMRL && question.questionSet[0].latestAnswer.answer == this.filterList.filterAnswer
-        //     );
-        //   });
-        //   return thread;
-        // });
-        
-        // //  *all* unanswered questions
-        // if (
-        //   this.filterList.filterMRL === 'All Levels' &&
-        //   this.filterList.filterAnswer === 'Unanswered'
-        // ) {
-        //   return this.filteredSchema = this.createSchemaObject(this.allUnanswered)
-        // }
-        // // *current mrl* unanswered questions
-        // if (
-        //   this.filterList.filterMRL !== 'All Levels' &&
-        //   this.filterList.filterAnswer === 'Unanswered'
-        // ) {
-        //   const mrlQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL)
-        //   const filteredQuestions = mrlQuestions.filter(question => question.answers.length == 0)
-        //   return this.filteredSchema = this.createSchemaObject(filteredQuestions)
-        // }
-    
-        // // *all* answered questions
-        // if (
-        //   this.filterList.filterMRL === 'All Levels' &&
-        //   this.filterList.filterAnswer === 'All'
-        // ) {
-        //   return this.filteredSchema = this.createSchemaObject(this.allAnswered)
-        // }
-        // // *current mrl* answered questions
-        // if (
-        //   this.filterList.filterMRL !== 'All Levels' &&
-        //   this.filterList.filterAnswer === 'All'
-        // ) {
-        //   const mrlQuestions = this.allQuestions.filter(question => question.mrLevel == this.filterList.filterMRL)
-        //   const filteredQuestions = mrlQuestions.filter(question => question.answers.length > 0)
-        //   return this.filteredSchema = this.createSchemaObject(filteredQuestions)
-        // }
-    
-    
-        // if (
-        //   this.filterList.filterMRL &&
-        //   this.filterList.filterMRL !== 0 &&
-        //   this.filterList.filterMRL === this.targetLevel
-        // ) {
-        //   this.filterList.filterAnswer !== "Unanswered"
-        //     ? (this.filteredSchema = this.createSchemaObject(
-        //         this.answeredQuestions
-        //       ))
-        //     : (this.filteredSchema = this.createSchemaObject(
-        //         this.unansweredQuestions
-        //       ));
-        // } else if (this.filterList.filterMRL && this.filterList.filterMRL != 0) {
-        //   var filteredQuestions = this.allQuestions.filter((question) =>
-        //     this.filterList.filterMRL === "All Levels"
-        //       ? question.currentAnswer == this.filterList.filterAnswer
-        //       : question.mrLevel == this.filterList.filterMRL &&
-        //         question.currentAnswer == this.filterList.filterAnswer
-        //   );
-        //   this.filteredSchema = this.createSchemaObject(filteredQuestions);
-        // } else {
-        //   this.filteredSchema = this.createSchemaObject(this.allQuestions);
-        // }
   }
 
   expandAllThreads() {
