@@ -1,22 +1,125 @@
 <div class="upload-popover">
-	<h2>Choose a File to Upload</h2>
-	<form>
-<div style="display: flex; flex-direction: column">
-<ng-container *ngIf="!file">
-<label color="buttonBlue" for="asdf" class="custom-file-upload">
-    Select File
-</label>
-</ng-container>
-<ng-container *ngIf="file">
-<label color="buttonBlue" for="asdf" class="custom-file-upload">
-    Select Different File
-</label>
-</ng-container>
-	<input id="asdf" type="file" (change)="test($event)" placeholder="Choose File">
-	<p *ngIf="file">filename:  {{file.name}}</p>
-	<p *ngIf="file">size:  {{file.size}}</p>
-	<p *ngIf="file">last modified:  {{file.lastModified}}</p>
-	<ion-button *ngIf="file" color="buttonBlue"(click)="uploadFile($event)" type="submit">Upload</ion-button>
-</div>
-	</form>
+  <ion-header>
+    <ion-toolbar [color]="copyFile ? 'secondary' : 'primary'">
+      <ion-buttons id="close-btn" (click)="closePopover()" slot="start">
+        
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-buttons>
+      <!--File Explorer Toolbar Title-->
+      <ion-title>
+        {{ "File Explorer" }}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!--files attached to current question-->
+    <ion-list>
+      <ion-item-divider color="light">
+
+
+        <ion-list-header> Current Files </ion-list-header>
+
+      </ion-item-divider>
+      <!--display text if there are files under current question-->
+      <ion-text
+        color="medium"
+        *ngIf="files?.length == 0"
+        class="ion-padding ion-text-center"
+      >
+        <p>No files found</p>
+      </ion-text>
+      <ion-item-sliding *ngFor="let f of files">
+        <ion-item>
+          <ion-icon name="document" slot="start"></ion-icon>
+          <ion-label text-wrap>
+            {{ f.name }}
+            <h4>{{ f.lastModifedDate }}</h4>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="start" *ngIf="file">
+          <ion-item-option color="success"> Copy </ion-item-option>
+          <ion-item-option color="primary"> Move </ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="end" *ngIf="file">
+          <ion-item-option (click)="deleteFile()" color="danger">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    
+
+    <!--all files under current assessment-->
+    <ion-list>
+      <ion-item-divider color="light">
+
+        <ion-list-header> All Files </ion-list-header>
+
+      </ion-item-divider>
+      <!--display text if there are no files-->
+      <ion-text
+        color="medium"
+        *ngIf="filesList?.length == 0"
+        class="ion-padding ion-text-center"
+      >
+        <p>No files found</p>
+      </ion-text>
+      <ion-item-sliding *ngFor="let f of filesList">
+        <ion-item>
+          <ion-icon name="document" slot="start"></ion-icon>
+          <ion-label text-wrap>
+            {{ f.name }}
+            <h4>{{ f.lastModifed }}</h4>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="start" *ngIf="file">
+          <ion-item-option color="success"> Copy </ion-item-option>
+          <ion-item-option color="primary"> Move </ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="end" *ngIf="file">
+          <ion-item-option (click)="deleteFile()" color="danger">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    
+
+    <div id="popover-btns">
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <label for="asdf" >
+          <ion-fab-button >
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </label>
+       
+      </ion-fab>
+    </div>
+
+    <!--Queue-->
+    <div id="queue">
+      <ion-list>
+        <ion-item-divider color="light">
+          <ion-list-header>Recently Added</ion-list-header>
+
+        </ion-item-divider>
+        <ion-item>
+
+          <input id="asdf" type="file" (change)="test($event)" placeholder="Choose File"> 
+          <ion-label text-wrap *ngIf="file">
+            <b>file name: </b>{{ file.name }}<br>
+            <b>file size: </b>{{ file.size }}<br>
+            <b>file type: </b>{{ file.type }}<br>
+            <b>last modifed: </b>{{ file.lastModified }}<br>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </ion-content>
 </div>

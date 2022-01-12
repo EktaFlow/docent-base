@@ -5,12 +5,15 @@ import { Storage } from "@ionic/storage";
 import { HttpClient } from "@angular/common/http";
 import {
   assessmentQuery,
+  assessmentsDemo,
+  fileUploadQuestion,
   createAssessmentMutation,
   questionPageAssessmentQuery,
   updateQuestionMutation,
   deleteAssessmentMutation,
   getThreadsQuery,
   updateTeamMembersMutation,
+  addFileToQuestionMutation,
   deleteFileMutation,
 } from "./gql.service";
 import gql from "graphql-tag";
@@ -103,6 +106,8 @@ export class AssessmentService {
   }
 
   async queryAssessment(assessmentId, query) {
+    console.log("a-s query assessmentId", assessmentId);
+
     var ok = gql`
       query assessment($_id: String) {
         ${query}
@@ -116,7 +121,40 @@ export class AssessmentService {
     }).valueChanges;
   }
 
+  async getAssessmentFileNav(assessmentId) {
+    console.log("assessment-service getAssessment query", assessmentId);
+
+    return await this.apollo.watchQuery<any>({
+      query: assessmentQuery,
+      fetchPolicy: "network-only",
+      variables: { _id: assessmentId },
+    }).valueChanges;
+  }
+
+  async assessmentsDemo(userId) {
+    return await this.apollo.watchQuery<any>({
+      query: assessmentsDemo,
+      fetchPolicy: "network-only",
+      variables: userId,
+    }).valueChanges;
+  }
+
+  async getFileUploadQuestion(questionId, assessmentId) {
+    
+
+    return await this.apollo.watchQuery<any>({
+      query: fileUploadQuestion,
+      fetchPolicy: "network-only",
+      variables: {
+        questionId: questionId,
+        assessmentId: assessmentId,
+      },
+    }).valueChanges;
+  }
+
   async getAssessments(userId) {
+    console.log("assessment-service userId", userId);
+
     return await this.apollo.watchQuery<any>({
       query: assessmentQuery,
       fetchPolicy: "network-only",
@@ -290,12 +328,27 @@ export class AssessmentService {
       .catch((e) => console.error(e));
   }
 
-  async deleteFile(assessmentId, fileId) {
+  async addFile(assessmentId, questionId, url, name) {
+    
+    return await this.apollo.mutate<any>({
+      mutation: addFileToQuestionMutation,
+      variables: {
+        assessmentId: assessmentId,
+        questionId: questionId,
+        url: url,
+        name: name,
+   
+      },
+    })
+  }
+
+  async deleteFile(assessmentId, questionId, name) {
     return await this.apollo.mutate<any>({
       mutation: deleteFileMutation,
       variables: {
+        questionId: questionId,
         assessmentId: assessmentId,
-        fileId: fileId,
+        name: name
       },
     });
   }

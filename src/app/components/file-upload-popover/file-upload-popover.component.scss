@@ -1,3 +1,7 @@
+ion-content.md.content-sizing.hydrated {
+  height: 200px;
+}
+
 input[type="file"] {
   display: none;
 }
@@ -13,4 +17,21 @@ input[type="file"] {
   text-align: center;
   font-family: "Roboto";
   font-weight: 500;
+}
+
+div.popover-content.sc-ion-popover-md {
+  padding: 0px;
+}
+
+ion-title {
+  text-align: center; 
+}
+
+ion-fab.md.fab-horizontal-end.fab-vertical-bottom.hydrated {
+  display: flex; 
+}
+
+#queue {
+  display: flex;
+  flex-direction: column;
 }

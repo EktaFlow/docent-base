@@ -14,6 +14,7 @@ export class FileDeleteComponent implements OnInit {
   teamMemberEmail: string;
   emitter: any;
   typeToDelete: string;
+  questionId: number;
 
   constructor(
     private popOver: PopoverController,
@@ -46,6 +47,7 @@ export class FileDeleteComponent implements OnInit {
   async deleteFile() {
     var ok = await this.assessmentService.deleteFile(
       this.assessmentId,
+      this.questionId,
       this.fileId
     );
     // what about errors?

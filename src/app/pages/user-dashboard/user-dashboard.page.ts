@@ -27,11 +27,7 @@ var sharedQuery = gql`
       location
       name
       id
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
       questions {
         mrLevel
         answers {
@@ -50,11 +46,7 @@ var assessmentQuery = gql`
       userEmail
       scope
       targetMRL
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
       levelSwitching
       targetDate
       location
@@ -62,17 +54,15 @@ var assessmentQuery = gql`
       name
       threads
       questions {
+        files {
+          id
+          questionId
+          name
+        }
         mrLevel
         answers {
           answer
         }
-      }
-      files {
-        id
-        caption
-        name
-        questionId
-        url
       }
     }
   }
@@ -114,9 +104,8 @@ export class UserDashboardPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public intercom: Intercom
   ) {
-    this.assessmentId = this.activatedRoute.snapshot.paramMap.get(
-      "assessmentId"
-    );
+    this.assessmentId =
+      this.activatedRoute.snapshot.paramMap.get("assessmentId");
   }
 
   ionViewWillEnter() {
@@ -125,6 +114,9 @@ export class UserDashboardPage implements OnInit {
 
   async ngOnInit() {
     // TODO make this better
+
+    console.log("hello world from user-dash");
+
     await this.getSharedAssessments();
     this.pullSharedAssessments();
 
@@ -141,9 +133,10 @@ export class UserDashboardPage implements OnInit {
       },
     });
 
-    var observe = await this.assessmentService.getAssessments(user);
+    var observe = await this.assessmentService.getAssessments(user._id);
     observe.subscribe(({ data }) => {
       this.assessments = data.assessments;
+
       this.assessments = JSON.parse(JSON.stringify(this.assessments));
       for (var assessment of this.assessments) {
         var answeredQuestions = assessment.questions.filter(
@@ -274,6 +267,7 @@ export class UserDashboardPage implements OnInit {
   }
 
   async openDashboard(assessmentId) {
+    console.log(assessmentId);
     await this.assessmentService.setCurrentAssessmentId(assessmentId);
     this.router.navigate(["/dashboard", { assessmentId: this.assessmentId }]);
   }

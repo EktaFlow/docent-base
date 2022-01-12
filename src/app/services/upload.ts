@@ -55,6 +55,7 @@ export class UploadService {
     );
     return {
       name: file.name,
+      assessmentId: assessmentId,
       questionId: questionId,
       url: this.generateUrl(file.name),
     };
@@ -90,7 +91,4 @@ export class UploadService {
       .subscribe((a) => null);
   }
 
-  // createGQLJSON(url, userId, name) {
-  //
-  // }
 }
