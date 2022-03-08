@@ -131,14 +131,10 @@ export class UserDashboardPage implements OnInit {
     var user = this.auth.currentUser();
     this.user = user;
 
-    this.intercom.boot({
-      app_id: "olfft7tm",
+    this.intercom.update({
       email: this.user.email,
       name: this.user.name,
       // Supports all optional configuration.
-      widget: {
-        activator: "#intercom",
-      },
     });
 
     var observe = await this.assessmentService.getAssessments(user);

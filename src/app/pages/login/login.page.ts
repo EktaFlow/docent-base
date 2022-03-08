@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
+import { Intercom } from "ng-intercom";
 
 @Component({
   selector: "login",
@@ -9,13 +10,24 @@ import { AuthService } from "../../services/auth.service";
 export class LoginPage implements OnInit {
   componentShown: string = "login";
 
-  constructor(auth: AuthService) {
+  constructor(
+    auth: AuthService,
+    public intercom: Intercom
+  ) {
     if (auth.reset) {
       this.componentShown = "doreset";
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.intercom.boot({
+      app_id: "olfft7tm",
+      // Supports all optional configuration.
+      widget: {
+        activator: "#intercom",
+      },
+    });
+  }
 
   onToggle(componentToShow) {
     this.componentShown = componentToShow;
