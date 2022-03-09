@@ -22,11 +22,7 @@ export var assessmentQuery = gql`
           answer
         }
       }
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
     }
   }
 `;
