@@ -27,11 +27,7 @@ var sharedQuery = gql`
       location
       name
       id
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
       questions {
         mrLevel
         answers {
