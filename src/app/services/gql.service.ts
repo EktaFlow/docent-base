@@ -98,7 +98,6 @@ export var questionPageAssessmentQuery = gql`
           documentation
           assumptionsNA
           notesNA
-          revertedBy
         }
       }
       targetMRL
