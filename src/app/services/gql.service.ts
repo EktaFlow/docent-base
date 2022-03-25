@@ -39,7 +39,7 @@ export var createAssessmentMutation = gql`
     $levelSwitching: Boolean
     $userId: String
     $userEmail: String
-    $teamMembersUpdates: [TeamMemberInput]
+    $teamMembersUpdates: [String]
     $schema: String
   ) {
     createAssessment(
@@ -152,11 +152,9 @@ export var getThreadsQuery = gql`
 `;
 
 export var updateTeamMembersMutation = gql`
-  mutation addTeamMember($assessmentId: String, $teamMember: TeamMemberInput) {
+  mutation addTeamMember($assessmentId: String, $teamMember: String) {
     addTeamMember(assessmentId: $assessmentId, teamMemberUpdates: $teamMember) {
-      name
       email
-      role
     }
   }
 `;
