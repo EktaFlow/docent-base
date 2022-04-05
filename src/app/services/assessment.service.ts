@@ -260,12 +260,12 @@ export class AssessmentService {
   }
 
   async updateTeamMembers(assessmentId, memberInfo) {
-    this.emailSharedAssessment(assessmentId, memberInfo.email);
+    // this.emailSharedAssessment(assessmentId, memberInfo.email);
     return await this.apollo.mutate<any>({
       mutation: updateTeamMembersMutation,
       variables: {
         assessmentId: assessmentId,
-        teamMember: memberInfo,
+        teamMembers: memberInfo,
       },
     });
   }

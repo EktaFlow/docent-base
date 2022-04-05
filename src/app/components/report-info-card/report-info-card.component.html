@@ -9,14 +9,15 @@
     <p><b>Target Date:</b> {{targetDate | date: 'mediumDate'}}</p>
     <p><b>Location:</b> {{location}}</p>
     <p><b>Team Members:</b>
-      <span *ngFor="let member of teamMembers">
+      <!-- <span *ngFor="let member of teamMembers">
         <ng-container *ngIf="member.role">
           {{member.name}} at {{member.email}} as {{member.role}}
         </ng-container>
         <ng-container *ngIf="!member.role">
           {{member.name}} at {{member.email}}
         </ng-container>
-      </span>
+      </span> -->
+      {{member}}
     </p>
     <!-- <p><b>Additional Information:</b> {{scope}}</p> -->
     <ul>

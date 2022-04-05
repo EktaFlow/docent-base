@@ -46,11 +46,7 @@ var assessmentQuery = gql`
       userEmail
       scope
       targetMRL
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
       levelSwitching
       targetDate
       location
@@ -332,8 +328,10 @@ export class UserDashboardPage implements OnInit {
   presentAddTeamMembersPopOver(assessmentId) {
     let myEmitter = new EventEmitter<any>();
     myEmitter.subscribe((data) => {
+      console.log(data)
+      console.log('when is this being called?')
       var assIndex = this.assessments.findIndex((a) => a.id == assessmentId);
-      this.assessments[assIndex].teamMembers.push(data.data.addTeamMember);
+      // this.assessments[assIndex].teamMembers = data.data.addTeamMember;
     });
 
     this.popOver
@@ -341,6 +339,7 @@ export class UserDashboardPage implements OnInit {
         component: AddTeamMembersPopOverComponent,
         componentProps: {
           assessmentId: assessmentId,
+          teamMembers: this.assessments[this.assessments.findIndex((a) => a.id == assessmentId)].teamMembers,
           emitter: myEmitter,
         },
         cssClass: "team-popover",

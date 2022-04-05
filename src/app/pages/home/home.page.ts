@@ -144,6 +144,10 @@ export class HomePage implements OnInit {
 
   formatAssessmentVariables() {
     var formValues = this.assForm;
+    // var teamMembers = []
+    // formValues.teamMembers.forEach(tm => {
+    //   //only grab emails
+    // })
     return {
       threads: formValues.threads,
       location: formValues.location,
@@ -151,7 +155,7 @@ export class HomePage implements OnInit {
       name: formValues.name,
       levelSwitching: formValues.levelSwitching,
       deskbookVersion: formValues.deskBookVersion,
-      teamMembersUpdates: formValues.teamMembers,
+      teamMembers: formValues.teamMembers,
       userId: this.auth.currentUser()._id,
       userEmail: this.auth.currentUser().email,
       scope: formValues.scope,

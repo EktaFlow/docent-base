@@ -39,7 +39,7 @@ export var createAssessmentMutation = gql`
     $levelSwitching: Boolean
     $userId: String
     $userEmail: String
-    $teamMembersUpdates: [String]
+    $teamMembers: [String]
     $schema: String
   ) {
     createAssessment(
@@ -53,7 +53,7 @@ export var createAssessmentMutation = gql`
       targetDate: $targetDate
       deskbookVersion: $deskbookVersion
       name: $name
-      teamMembersUpdates: $teamMembersUpdates
+      teamMembers: $teamMembers
       levelSwitching: $levelSwitching
       schema: $schema
     ) {
@@ -151,10 +151,24 @@ export var getThreadsQuery = gql`
   }
 `;
 
+// export var updateTeamMembersMutation = gql`
+//   mutation addTeamMember($assessmentId: String, $teamMember: String) {
+//     addTeamMember(assessmentId: $assessmentId, teamMemberUpdates: $teamMember) {
+//       teamMembers
+//     }
+//   }
+// `;
+
 export var updateTeamMembersMutation = gql`
-  mutation addTeamMember($assessmentId: String, $teamMember: String) {
-    addTeamMember(assessmentId: $assessmentId, teamMemberUpdates: $teamMember) {
-      email
+  mutation updateTMAssessment(
+    $_id: String!
+    $teamMembers: [String]
+  ) {
+    updateTMAssessment(
+      _id: $_id
+      teamMembers: $teamMembers
+    ) {
+      teamMembers
     }
   }
 `;
