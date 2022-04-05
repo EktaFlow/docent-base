@@ -8,11 +8,7 @@ var assessmentQuery = gql`
       deskbookVersion
       name
       # id
-      teamMembers {
-        name
-        email
-        role
-      }
+      teamMembers
       targetMRL
       targetDate
       location

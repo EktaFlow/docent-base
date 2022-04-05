@@ -15,6 +15,7 @@ export class AddTeamMembersPopOverComponent implements OnInit {
   public newMember: any = {};
   assessmentId: any;
   emitter: any;
+  teamMembers: any;
   private memberAdding: boolean = false;
 
   constructor(
@@ -24,6 +25,7 @@ export class AddTeamMembersPopOverComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.assessmentId = activatedRoute.snapshot.paramMap.get("assessmentId");
+    this.teamMembers = activatedRoute.snapshot.paramMap.get("teamMembers")
     this.emitter = activatedRoute.snapshot.paramMap.get("emitter");
   }
 
@@ -33,19 +35,21 @@ export class AddTeamMembersPopOverComponent implements OnInit {
     //access assessment
     //add team member to assessment
     this.memberAdding = true;
-    var updateTM = {
-      name: this.newMember.name,
-      email: this.newMember.email,
-      role: this.newMember.role,
-    };
-
+    // var updateTM = {
+    //   name: this.newMember.name,
+    //   email: this.newMember.email,
+    //   role: this.newMember.role,
+    // };
+    var tms = [...this.teamMembers, this.newMember.email]
+    console.log(this.assessmentId)
     var obser = await this.assessmentService.updateTeamMembers(
       this.assessmentId,
-      updateTM
+      tms
     );
     obser.subscribe((member) => {
       // TODO: ERORR HANDLING HERE.
       // this.sendEmailsToTeamMember(this.assessmentId);
+      this.assessmentService.emailSharedAssessment(this.assessmentId, this.newMember.email)
       this.emitter.emit(member);
       this.viewCtrl.dismiss();
     });

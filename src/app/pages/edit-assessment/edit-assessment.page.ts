@@ -14,11 +14,7 @@ import { FileDeleteComponent } from "../../components/file-delete/file-delete.co
 export class EditAssessmentPage implements OnInit {
   private editQuery: any = `
   assessment(_id: $_id) {
-  teamMembers {
-    name
-    email
-    role
-    }
+    teamMembers
     scope
     targetMRL
     targetDate
